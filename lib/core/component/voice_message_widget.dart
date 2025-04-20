@@ -48,7 +48,7 @@ class VoiceMessageWidget extends StatelessWidget {
           4.pw,
           !justWave!
               ? SvgPicture.asset(
-                  MyImages.playIcon,
+                  MyImages.iconsProfile,
                 )
               : 0.pw,
           !justWave! ? 10.pw : 0.pw,

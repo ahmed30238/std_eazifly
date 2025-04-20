@@ -22,5 +22,12 @@
     "couponsAndRewards": "Coupons and Rewards",
     "notifications": "Notifications",
     "reportsAndComplaints": "Reports and Complaints",
-    "privacyPolicyAndUsage": "Privacy Policy and Usage"
+    "privacyPolicyAndUsage": "Privacy Policy and Usage",
+    "renewNow": "Renew Now",
+    "coursePrice": "Course Price",
+    "studentNumberInCourse": "Number of Students in Course",
+    "code": "Code",
+    "redeemPoints": "Redeem Points",
+    "pointsBalance": "Points Balance",
+    "inviteFriends": "Invite Friends"
 }

@@ -8,4 +8,6 @@ class RoutePaths {
   static const studentManagement = "studentManagement";
   static const settingsPath = "settingsPath";
   static const aboutAppPath = "aboutAppPath";
+  static const subscriptionManagmentPath = "subscriptionManagmentPath";
+  static const copounsAndDiscountsViewPath = "CopounsAndDiscountsView";
 }

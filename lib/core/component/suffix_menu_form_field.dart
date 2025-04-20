@@ -14,7 +14,7 @@ class SuffixMenuFormField extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 17.w),
       child: SvgPicture.asset(
         fit: BoxFit.scaleDown,
-        MyImages.formFieldMenu,
+        MyImages.iconsFrame
       ),
     );
   }

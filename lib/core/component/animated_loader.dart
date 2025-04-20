@@ -46,7 +46,7 @@ class _AnimatedLoaderState extends State<AnimatedLoader>
     return RotationTransition(
       turns: _animation,
       child: SvgPicture.asset(
-        MyImages.circularLoader,
+        MyImages.iconsBox,
       ),
     );
   }

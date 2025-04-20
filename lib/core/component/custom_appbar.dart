@@ -58,7 +58,7 @@ class CustomAppBar extends AppBar {
                             ),
                           ),
                           SvgPicture.asset(
-                            MyImages.arrowDown,
+                            MyImages.iconsProfile,
                             fit: BoxFit.scaleDown,
                           ),
                         ]

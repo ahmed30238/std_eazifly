@@ -1,8 +1,10 @@
+
+
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:eazifly_student/presentation/controller/layout/layout_state.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
-import 'package:eazifly_student/presentation/controller/layout/layout_state.dart';
 import 'package:eazifly_student/presentation/view/layout/library/library.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/my_programs.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/programs_view.dart';
@@ -36,23 +38,23 @@ class LayoutCubit extends Cubit<LayoutState> {
     var lang = context.loc!;
     List<BottomNavBarItemModel> bottomNavigationBarItem = [
       BottomNavBarItemModel(
-        icon: MyImages.unFilledHome,
+        icon: MyImages.iconsUnfilledHome,
         label: lang.main,
       ),
       BottomNavBarItemModel(
-        icon: MyImages.briefcase,
+        icon: MyImages.iconsBriefcase,
         label: lang.thePrograms,
       ),
       BottomNavBarItemModel(
-        icon: MyImages.box,
+        icon: MyImages.iconsBox,
         label: lang.myPrograms,
       ),
       BottomNavBarItemModel(
-        icon: MyImages.voiceCircle,
+        icon: MyImages.iconsVoiceCricle,
         label: lang.library,
       ),
       BottomNavBarItemModel(
-        icon: MyImages.profile,
+        icon: MyImages.iconsProfile,
         label: lang.myAccount,
       ),
     ];

@@ -28,14 +28,14 @@ class AboutAppView extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: SvgPicture.asset(
-              MyImages.aboutApp,
+              MyImages.iconsAboutAppIcon,
             ),
           ),
           24.ph,
           ListView.separated(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
             itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0.r),
               child: Bullet(
                   style: MainTextStyle.mediumTextStyle(fontSize: 12),
                   "مثال :هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد "),

@@ -1,7 +1,9 @@
 import 'dart:io';
+
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
-import 'package:eazifly_student/presentation/controller/account_data/accountdata_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'accountdata_state.dart';
 
 class AccountdataCubit extends Cubit<AccountdataState> {
   AccountdataCubit() : super(AccountdataInitial());

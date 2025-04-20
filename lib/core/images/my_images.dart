@@ -1,78 +1,81 @@
+// ignore_for_file: prefer_single_quotes
 class MyImages {
   MyImages._();
-  static const grad = "assets/images/gradstud.png";
-  static const appIcon = "assets/icons/app_icon.svg";
-  static const search = "assets/icons/search-normal.svg";
-  static const eyeOff = "assets/icons/eye-off.svg";
-  static const directInbox = "assets/icons/direct-inbox.svg";
-  static const broadcasting = "assets/icons/broadcast.svg";
-  static const arrowDown = "assets/icons/arrow-square-right.svg";
-  static const bag = "assets/icons/briefcase.svg";
-  static const personal = "assets/icons/profile-2user.svg";
-  static const statusUp = "assets/icons/status-up.svg";
-  static const menu = "assets/icons/menu.svg";
-  static const notification = "assets/icons/notification.svg";
-  static const playIcon = "assets/icons/play-icon.svg";
-  static const home = "assets/icons/home.svg";
-  static const bankLogo = "assets/icons/Bank Logo.svg";
-  static const eye = "assets/icons/eye.svg";
-  static const connectionIcon = "assets/icons/conection-icon.svg";
-  static const chip = "assets/icons/chip.svg";
-  static const box = "assets/icons/box.svg";
-  static const briefcase = "assets/icons/briefcase.svg";
-  static const voiceCircle = "assets/icons/voice-cricle.svg";
-  static const instaPay = "assets/icons/instapay.png";
-  static const moneyUncolored = "assets/icons/money-uncolored.svg";
-  static const transactionRequest = "assets/icons/transaction-request.svg";
-  static const withdrawMoney = "assets/icons/withdraw-money.svg";
-  static const arrowRightItalic = "assets/icons/arrow-right-italic.svg";
-  static const fallingArrow = "assets/icons/falling-arrow.svg";
-  static const risingArrow = "assets/icons/rising-arrow.svg";
-  static const moneyReceive = "assets/icons/money-recive.svg";
-  static const taskSquare = "assets/icons/task-square.svg";
-  static const unFilledHome = "assets/icons/unfilled-home.svg";
-  static const flipCamera = "assets/icons/flip-camera.svg";
-  static const recordOn = "assets/icons/record-on.svg";
-  static const bookTest = "assets/icons/book.svg";
-  static const community = "assets/icons/people.svg";
-  static const calender = "assets/icons/calendar.svg";
-  static const walletMinus = "assets/icons/wallet-minus.svg";
-  static const drawerCalender = "assets/drawer_icons/calendar.svg";
-  static const drawerBook = "assets/drawer_icons/book.svg";
-  static const drawerBag = "assets/drawer_icons/briefcase.svg";
-  static const drawerImprove = "assets/drawer_icons/folder-2.svg";
-  static const drawerSett = "assets/drawer_icons/Framedsett.svg";
-  static const drawerComm = "assets/drawer_icons/people.svg";
-  static const persona = "assets/images/persona.jpg";
-  static const drawerProfile = "assets/drawer_icons/profile.svg";
-  static const profile = "assets/icons/profile.svg";
-  static const peopleColored = "assets/icons/people_2.svg";
-  static const cash = "assets/icons/moneys.svg";
-  static const edit = "assets/icons/edit.svg";
-  static const filledArrowRight = "assets/icons/arrow-right.svg";
-  static const filledArrowLeft = "assets/icons/arrow-left.svg";
-  static const copyDocument = "assets/icons/document-copy.svg";
-  static const zoomIcon = "assets/icons/zoom.svg";
-  static const clock = "assets/icons/clock.svg";
-  static const graduationHatFilled = "assets/icons/graduation-hat-filled.svg";
-  static const sandGlass = "assets/icons/sandglass.svg";
-  static const formFieldMenu = "assets/icons/Frame.svg";
-  static const messages = "assets/icons/messages.svg";
-  static const verticalDots = "assets/icons/vertical_dots.svg";
-  static const folderAdd = "assets/icons/folder-add.svg";
-  static const addingSquare = "assets/icons/add-square.svg";
-  static const gallery = "assets/icons/gallery.svg";
-  static const microphone = "assets/icons/microphone.svg";
-  static const manyPapers = "assets/icons/many_papers.svg";
-  static const onePaper = "assets/icons/one_paper.svg";
-  static const play = "assets/icons/play.svg";
-  static const deleteBin = "assets/icons/delete_bin.svg";
-  static const heart = "assets/icons/heart.svg";
-  static const people = "assets/icons/people.svg";
-  static const aboutApp = "assets/images/about_app.svg";
-  static const note = "assets/icons/note-2.svg";
-  static const circularLoader = "assets/icons/circular_loader.svg";
-  static const randomPaperBag = "assets/icons/random_paper_bag.svg";
-  static const drawerProfile2User = "assets/drawer_icons/profile-2user.svg";
-  static const drawerStatusUp = "assets/drawer_icons/status-up.svg";
+  
+  /// Assets for iconsAboutAppIcon
+  /// assets/icons/about-app-icon.svg
+  static const String iconsAboutAppIcon = "assets/icons/about-app-icon.svg";
+
+  /// Assets for iconsBox
+  /// assets/icons/box.svg
+  static const String iconsBox = "assets/icons/box.svg";
+
+  /// Assets for iconsBriefcase
+  /// assets/icons/briefcase.svg
+  static const String iconsBriefcase = "assets/icons/briefcase.svg";
+
+  /// Assets for iconsDeleteBin
+  /// assets/icons/delete_bin.svg
+  static const String iconsDeleteBin = "assets/icons/delete_bin.svg";
+
+  /// Assets for iconsFrame
+  /// assets/icons/Frame.svg
+  static const String iconsFrame = "assets/icons/Frame.svg";
+
+  /// Assets for iconsHeart
+  /// assets/icons/heart.svg
+  static const String iconsHeart = "assets/icons/heart.svg";
+
+  /// Assets for iconsPeople
+  /// assets/icons/people.svg
+  static const String iconsPeople = "assets/icons/people.svg";
+
+  /// Assets for iconsPlay
+  /// assets/icons/play.svg
+  static const String iconsPlay = "assets/icons/play.svg";
+
+  /// Assets for iconsPointsIn
+  /// assets/icons/points-in.svg
+  static const String iconsPointsIn = "assets/icons/points-in.svg";
+
+  /// Assets for iconsPointsOut
+  /// assets/icons/points-out.svg
+  static const String iconsPointsOut = "assets/icons/points-out.svg";
+
+  /// Assets for iconsProfile
+  /// assets/icons/profile.svg
+  static const String iconsProfile = "assets/icons/profile.svg";
+
+  /// Assets for iconsSearchNormal
+  /// assets/icons/search-normal.svg
+  static const String iconsSearchNormal = "assets/icons/search-normal.svg";
+
+  /// Assets for iconsSend2
+  /// assets/icons/send-2.svg
+  static const String iconsSend2 = "assets/icons/send-2.svg";
+
+  /// Assets for iconsShare
+  /// assets/icons/share.svg
+  static const String iconsShare = "assets/icons/share.svg";
+
+  /// Assets for iconsTicketExpired
+  /// assets/icons/ticket-expired.svg
+  static const String iconsTicketExpired = "assets/icons/ticket-expired.svg";
+
+  /// Assets for iconsUnfilledHome
+  /// assets/icons/unfilled-home.svg
+  static const String iconsUnfilledHome = "assets/icons/unfilled-home.svg";
+
+  /// Assets for iconsVoiceCricle
+  /// assets/icons/voice-cricle.svg
+  static const String iconsVoiceCricle = "assets/icons/voice-cricle.svg";
+
+  /// Assets for imagesAboutApp
+  /// assets/images/about_app.svg
+  static const String imagesAboutApp = "assets/images/about_app.svg";
+
+  /// Assets for imagesPersona
+  /// assets/images/persona.jpg
+  static const String imagesPersona = "assets/images/persona.jpg";
 }
+

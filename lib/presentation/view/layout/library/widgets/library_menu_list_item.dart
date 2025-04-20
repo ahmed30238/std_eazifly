@@ -46,7 +46,7 @@ class LibraryMenuListItem extends StatelessWidget {
                       Row(
                         children: [
                           SvgPicture.asset(
-                            MyImages.play,
+                            MyImages.iconsPlay,
                           ),
                           4.pw,
                           Text(
@@ -62,7 +62,7 @@ class LibraryMenuListItem extends StatelessWidget {
                       Row(
                         children: [
                           SvgPicture.asset(
-                            MyImages.heart,
+                            MyImages.iconsHeart,
                           ),
                           4.pw,
                           Text(

@@ -33,7 +33,7 @@ class LibraryProgramItem extends StatelessWidget {
               image: const DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage(
-                  MyImages.persona,
+                  MyImages.imagesPersona,
                 ),
               ),
             ),
@@ -59,7 +59,7 @@ class LibraryProgramItem extends StatelessWidget {
                       child: Row(
                         children: [
                           SvgPicture.asset(
-                            MyImages.play,
+                            MyImages.iconsPlay,
                           ),
                           4.pw,
                           Text(
@@ -76,7 +76,7 @@ class LibraryProgramItem extends StatelessWidget {
                       child: Row(
                         children: [
                           SvgPicture.asset(
-                            MyImages.heart,
+                            MyImages.iconsHeart,
                           ),
                           4.pw,
                           Text(
@@ -93,7 +93,7 @@ class LibraryProgramItem extends StatelessWidget {
                       child: Row(
                         children: [
                           SvgPicture.asset(
-                            MyImages.people,
+                            MyImages.iconsPeople,
                           ),
                           4.pw,
                           Text(

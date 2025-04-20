@@ -7,7 +7,7 @@ class ApplanuageCubit extends Cubit<ApplanuageState> {
   ApplanuageCubit() : super(ApplanuageInitial());
   ApplanuageCubit get(context) => BlocProvider.of(context);
 
-  bool isArabic(BuildContext context) =>
+  static bool isArabic(BuildContext context) =>
       Localizations.localeOf(context).languageCode == "ar";
   String langKey = "lang";
   void getAppLang() async {

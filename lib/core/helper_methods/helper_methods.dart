@@ -1,17 +1,37 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
+import 'package:share_plus/share_plus.dart';
 
 String? customValidation(String? value) {
   if (value!.isEmpty) {
     return 'required';
   }
   return null;
+}
+
+void shareApp({required BuildContext context}) async {
+  final box = context.findRenderObject() as RenderBox?;
+  if (Platform.isAndroid) {
+    await Share.share(
+      AppsStoreLinkEnum.androidId,
+    );
+  } else if (Platform.isIOS) {
+    await Share.share(
+      AppsStoreLinkEnum.iosId,
+      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    );
+  }
+}
+
+class AppsStoreLinkEnum {
+  static const String androidId = 'android';
+  static const String iosId = 'ios';
 }
 
 String formatDate(DateTime value) {
@@ -98,4 +118,3 @@ void showFlashBar({required BuildContext context, required String message}) {
     },
   );
 }
-

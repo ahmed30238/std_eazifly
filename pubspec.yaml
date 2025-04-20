@@ -70,6 +70,7 @@ dependencies:
   shimmer: ^3.0.0
   lottie: ^3.2.0
   cached_network_image: ^3.4.1
+  share_plus: ^10.1.4
 
 dev_dependencies:
   flutter_test:
@@ -97,7 +98,6 @@ flutter:
   generate: true # This will generate the localization files for you.
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/voices/
     - assets/icons/
     - assets/images/
   #   - images/a_dot_ham.jpeg
@@ -127,3 +127,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_assets:
+  assets_path: assets/
+  output_path: lib/core/images
+  filename: my_images.dart
+  field_prefix: 

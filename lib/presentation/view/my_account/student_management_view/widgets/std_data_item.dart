@@ -105,7 +105,7 @@ class StudentDataItem extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SvgPicture.asset(MyImages.profile),
+                            SvgPicture.asset(MyImages.iconsProfile),
                             8.pw,
                             Text(
                               "تعديل",
@@ -118,7 +118,7 @@ class StudentDataItem extends StatelessWidget {
                   ),
                 );
               },
-              child: SvgPicture.asset(MyImages.profile))
+              child: SvgPicture.asset(MyImages.iconsProfile))
         ],
       ),
     );

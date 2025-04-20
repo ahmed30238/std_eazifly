@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 List<String> settingsScreensPaths = [
   RoutePaths.accountDataPath,
   RoutePaths.workingSchedule,
-  RoutePaths.financialTransactionPath,
+  RoutePaths.subscriptionManagmentPath,
   RoutePaths.studentManagement,
-  RoutePaths.settingsPath,
-  RoutePaths.settingsPath,
+  RoutePaths.copounsAndDiscountsViewPath,
+  RoutePaths.notificationPath,
   RoutePaths.settingsPath,
   RoutePaths.settingsPath,
   RoutePaths.aboutAppPath,
@@ -25,17 +25,16 @@ List<SettingItemModel>  settingsItemsList(BuildContext context) {
   var lang = context.loc!;
 
   List<SettingItemModel> settingItemList = [
-    SettingItemModel(icon: MyImages.profile, label: lang.accountData),
-    SettingItemModel(icon: MyImages.profile, label: lang.settings),
-    SettingItemModel(icon: MyImages.profile, label: lang.subscriptionManagement),
-    SettingItemModel(icon: MyImages.profile, label: lang.studentManagement),
-    SettingItemModel(icon: MyImages.profile, label: lang.couponsAndRewards),
-    SettingItemModel(icon: MyImages.profile, label: lang.notifications),
-    SettingItemModel(icon: MyImages.profile, label: lang.reportsAndComplaints),
-    SettingItemModel(icon: MyImages.profile, label: lang.privacyPolicyAndUsage),
-    SettingItemModel(icon: MyImages.profile, label: lang.aboutApp),
+    SettingItemModel(icon: MyImages.iconsProfile, label: lang.accountData),
+    SettingItemModel(icon: MyImages.iconsProfile, label: lang.settings),
+    SettingItemModel(icon: MyImages.iconsProfile, label: lang.subscriptionManagement),
+    SettingItemModel(icon: MyImages.iconsProfile, label: lang.studentManagement),
+    SettingItemModel(icon: MyImages.iconsProfile, label: lang.couponsAndRewards),
+    SettingItemModel(icon: MyImages.iconsProfile, label: lang.notifications),
+    SettingItemModel(icon: MyImages.iconsProfile, label: lang.reportsAndComplaints),
+    SettingItemModel(icon: MyImages.iconsProfile, label: lang.privacyPolicyAndUsage),
+    SettingItemModel(icon: MyImages.iconsProfile, label: lang.aboutApp),
 
   ];
   return settingItemList;
-  
 }
