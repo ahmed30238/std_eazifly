@@ -1,4 +1,9 @@
+import 'package:eazifly_student/core/component/custom_appbar.dart';
+import 'package:eazifly_student/core/component/home_appbar.dart';
+import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -6,8 +11,29 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
+      appBar: CustomAppBar(
+        mainTitle: "mainTitle",
+        leadingText: "leadingText",
+        customAction: [
+          InkWell(
+            onTap: () => Navigator.pushNamed(
+              context,
+              RoutePaths.chatsViewPath,
+            ),
+            child: AppbarIconWidget(
+              iconWidget: SvgPicture.asset(
+                MyImages.iconsChatsIcon,
+                fit: BoxFit.scaleDown,
+              ),
+            ),
+          ),
+          AppbarIconWidget(
+            iconWidget: SvgPicture.asset(
+              MyImages.iconsBox,
+              fit: BoxFit.scaleDown,
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: const Text('Welcome to the Home Page!'),

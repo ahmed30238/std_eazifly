@@ -29,5 +29,9 @@
     "code": "Code",
     "redeemPoints": "Redeem Points",
     "pointsBalance": "Points Balance",
-    "inviteFriends": "Invite Friends"
+    "inviteFriends": "Invite Friends",
+    "home": "Home",
+    "messages": "Messages",
+    "professors": "المعلمين",
+    "appManagement": "ادارة التطبيق"
 }

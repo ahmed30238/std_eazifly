@@ -28,6 +28,10 @@
     "studentNumberInCourse": "عدد الطلاب في الدورة",
     "code": "الكود",
     "redeemPoints": "استبدال النقاط",
-    "pointsBalance" : "رصيد النقاط",
-    "inviteFriends": "دعوة صديق"
+    "pointsBalance": "رصيد النقاط",
+    "inviteFriends": "دعوة صديق",
+    "home": "الرئيسية",
+    "messages": "الرسائل",
+    "professors": "المعلمين",
+    "appManagement": "ادارة التطبيق"
 }

@@ -6,6 +6,10 @@ class MyImages {
   /// assets/icons/about-app-icon.svg
   static const String iconsAboutAppIcon = "assets/icons/about-app-icon.svg";
 
+  /// Assets for iconsAddSquare
+  /// assets/icons/add-square.svg
+  static const String iconsAddSquare = "assets/icons/add-square.svg";
+
   /// Assets for iconsBox
   /// assets/icons/box.svg
   static const String iconsBox = "assets/icons/box.svg";
@@ -13,6 +17,10 @@ class MyImages {
   /// Assets for iconsBriefcase
   /// assets/icons/briefcase.svg
   static const String iconsBriefcase = "assets/icons/briefcase.svg";
+
+  /// Assets for iconsChatsIcon
+  /// assets/icons/chats-icon.svg
+  static const String iconsChatsIcon = "assets/icons/chats-icon.svg";
 
   /// Assets for iconsDeleteBin
   /// assets/icons/delete_bin.svg
@@ -22,9 +30,17 @@ class MyImages {
   /// assets/icons/Frame.svg
   static const String iconsFrame = "assets/icons/Frame.svg";
 
+  /// Assets for iconsGallery
+  /// assets/icons/gallery.svg
+  static const String iconsGallery = "assets/icons/gallery.svg";
+
   /// Assets for iconsHeart
   /// assets/icons/heart.svg
   static const String iconsHeart = "assets/icons/heart.svg";
+
+  /// Assets for iconsMicrophone
+  /// assets/icons/microphone.svg
+  static const String iconsMicrophone = "assets/icons/microphone.svg";
 
   /// Assets for iconsMyProgramAppbar
   /// assets/icons/my-program-appbar.svg
@@ -77,6 +93,10 @@ class MyImages {
   /// Assets for iconsUnfilledHome
   /// assets/icons/unfilled-home.svg
   static const String iconsUnfilledHome = "assets/icons/unfilled-home.svg";
+
+  /// Assets for iconsVerticalDots
+  /// assets/icons/vertical-dots.svg
+  static const String iconsVerticalDots = "assets/icons/vertical-dots.svg";
 
   /// Assets for iconsVoiceCricle
   /// assets/icons/voice-cricle.svg

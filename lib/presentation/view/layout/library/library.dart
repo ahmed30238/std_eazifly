@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/component/custom_form_field.dart';
 import 'package:eazifly_student/core/component/custom_tapbar.dart';
 import 'package:eazifly_student/core/component/prefix_search_form_field.dart';
@@ -31,8 +32,10 @@ class _LibraryViewState extends State<LibraryView>
     LibraryCubit cubit = LibraryCubit.get(context);
     var lang = context.loc!;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Library'),
+      appBar: CustomAppBar(
+        mainTitle: lang.library,
+        leadingText: "",
+        leadingCustomWidth: 10.w,
       ),
       body: Column(
         // padding:

@@ -12,4 +12,6 @@ class RoutePaths {
   static const copounsAndDiscountsViewPath = "CopounsAndDiscountsView";
   static const reportsAndComplaintsViewPath = "reportsAndComplaintsViewPath";
   static const privacyPolicyAndUsage = "privacyPolicyAndUsage";
+  static const dmViewPath = "dmViewPath";
+  static const chatsViewPath = "chatsViewPath";
 }

@@ -1,8 +1,11 @@
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/presentation/controller/account_data/accountdata_cubit.dart';
+import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/notifications_controller/notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
+import 'package:eazifly_student/presentation/view/chat/chats_view.dart';
+import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
 import 'package:eazifly_student/presentation/view/my_account/about_app_view/about_app_view.dart';
 import 'package:eazifly_student/presentation/view/my_account/copouns_and_discounts_view/copouns_and_discounts_view.dart';
@@ -57,6 +60,21 @@ class AppRouter {
       case RoutePaths.privacyPolicyAndUsage:
         return createRoute(
           const PrivacyPolicyAndUsageView(),
+        );
+      case RoutePaths.chatsViewPath:
+        return createRoute(
+          BlocProvider(
+            create: (context) => ChatsCubit(),
+            child: const ChatsView(),
+          ),
+        );
+      case RoutePaths.dmViewPath:
+        var cubit = settings.arguments as ChatsCubit;
+        return createRoute(
+          BlocProvider.value(
+            value: cubit,
+            child: const DmView(),
+          ),
         );
       case RoutePaths.notificationPath:
         return createRoute(
