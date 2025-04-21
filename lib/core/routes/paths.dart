@@ -10,4 +10,6 @@ class RoutePaths {
   static const aboutAppPath = "aboutAppPath";
   static const subscriptionManagmentPath = "subscriptionManagmentPath";
   static const copounsAndDiscountsViewPath = "CopounsAndDiscountsView";
+  static const reportsAndComplaintsViewPath = "reportsAndComplaintsViewPath";
+  static const privacyPolicyAndUsage = "privacyPolicyAndUsage";
 }

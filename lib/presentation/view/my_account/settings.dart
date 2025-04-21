@@ -3,7 +3,6 @@ import 'package:eazifly_student/core/component/persona_list_tile.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
 import 'package:eazifly_student/presentation/view/my_account/widgets/dummy_data.dart';
 import 'package:eazifly_student/presentation/view/my_account/widgets/setting_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -66,15 +65,14 @@ class _MyAccountViewState extends State<MyAccountView> {
           ...List.generate(
             9,
             (index) => InkWell(
-              onTap: () {
-                if (index == 1) {
-                  LayoutCubit.get(context).changeIndex(3);
-                }
-                Navigator.pushNamed(
-                  context,
-                  settingsScreensPaths[index],
-                );
-              },
+              onTap: index == 1
+                  ? () {}
+                  : () {
+                      Navigator.pushNamed(
+                        context,
+                        settingsScreensPaths[index],
+                      );
+                    },
               child: Padding(
                 padding: EdgeInsets.only(bottom: 4.h),
                 child: SettingItemWidget(

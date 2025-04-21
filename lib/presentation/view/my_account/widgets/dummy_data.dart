@@ -10,8 +10,8 @@ List<String> settingsScreensPaths = [
   RoutePaths.studentManagement,
   RoutePaths.copounsAndDiscountsViewPath,
   RoutePaths.notificationPath,
-  RoutePaths.settingsPath,
-  RoutePaths.settingsPath,
+  RoutePaths.reportsAndComplaintsViewPath,
+  RoutePaths.privacyPolicyAndUsage,
   RoutePaths.aboutAppPath,
 ];
 

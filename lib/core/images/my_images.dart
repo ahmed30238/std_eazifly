@@ -26,6 +26,10 @@ class MyImages {
   /// assets/icons/heart.svg
   static const String iconsHeart = "assets/icons/heart.svg";
 
+  /// Assets for iconsMyProgramAppbar
+  /// assets/icons/my-program-appbar.svg
+  static const String iconsMyProgramAppbar = "assets/icons/my-program-appbar.svg";
+
   /// Assets for iconsPeople
   /// assets/icons/people.svg
   static const String iconsPeople = "assets/icons/people.svg";
@@ -42,6 +46,10 @@ class MyImages {
   /// assets/icons/points-out.svg
   static const String iconsPointsOut = "assets/icons/points-out.svg";
 
+  /// Assets for iconsPolicy
+  /// assets/icons/policy.svg
+  static const String iconsPolicy = "assets/icons/policy.svg";
+
   /// Assets for iconsProfile
   /// assets/icons/profile.svg
   static const String iconsProfile = "assets/icons/profile.svg";
@@ -53,6 +61,10 @@ class MyImages {
   /// Assets for iconsSend2
   /// assets/icons/send-2.svg
   static const String iconsSend2 = "assets/icons/send-2.svg";
+
+  /// Assets for iconsSetting
+  /// assets/icons/setting.svg
+  static const String iconsSetting = "assets/icons/setting.svg";
 
   /// Assets for iconsShare
   /// assets/icons/share.svg
