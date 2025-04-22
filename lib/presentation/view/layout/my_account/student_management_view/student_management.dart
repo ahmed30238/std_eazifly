@@ -2,7 +2,7 @@ import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
-import 'package:eazifly_student/presentation/view/my_account/student_management_view/widgets/std_data_item.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/std_data_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

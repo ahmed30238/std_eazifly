@@ -1,7 +1,7 @@
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:eazifly_student/presentation/view/my_account/widgets/dummy_data.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/widgets/dummy_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';

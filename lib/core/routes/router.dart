@@ -1,24 +1,27 @@
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/presentation/controller/account_data/accountdata_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
+import 'package:eazifly_student/presentation/controller/meetings_controller/meeting_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/notifications_controller/notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
 import 'package:eazifly_student/presentation/view/chat/chats_view.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
+import 'package:eazifly_student/presentation/view/home_meetings_view/home_meetings_view.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_notification_view.dart/home_notofication_view.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/session_details_view/session_details_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/joined_lecture_screen/joined_lecture_screen.dart';
 import 'package:eazifly_student/presentation/view/lecture/lecture_details_view/lecture_details_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/lecture_view.dart';
-import 'package:eazifly_student/presentation/view/my_account/about_app_view/about_app_view.dart';
-import 'package:eazifly_student/presentation/view/my_account/copouns_and_discounts_view/copouns_and_discounts_view.dart';
-import 'package:eazifly_student/presentation/view/my_account/notifications_view/notification_view.dart';
-import 'package:eazifly_student/presentation/view/my_account/privacy_policy_and_usage_view/privacy_policy_and_usage_view.dart';
-import 'package:eazifly_student/presentation/view/my_account/reports_and_complaints_view/reports_and_complaints_view.dart';
-import 'package:eazifly_student/presentation/view/my_account/student_management_view/student_management.dart';
-import 'package:eazifly_student/presentation/view/my_account/subscriptions_management_view/subscription_management_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/about_app_view/about_app_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/copouns_and_discounts_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/notifications_view/notification_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/privacy_policy_and_usage_view/privacy_policy_and_usage_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/reports_and_complaints_view/reports_and_complaints_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/student_management.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_management_view.dart';
+import 'package:eazifly_student/presentation/view/meeting_data_view/meeting_data_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -84,6 +87,17 @@ class AppRouter {
       case RoutePaths.lectureDetailsView:
         return createRoute(
           const LectureDetailsView(),
+        );
+      case RoutePaths.meetingDataPath:
+        return createRoute(
+          const MeetingDataView(),
+        );
+      case RoutePaths.meetings:
+        return createRoute(
+          BlocProvider(
+            create: (context) => MeetingCubit(),
+            child: const HomeMeetingsView(),
+          ),
         );
       case RoutePaths.joinedLectureScreen:
         return createRoute(

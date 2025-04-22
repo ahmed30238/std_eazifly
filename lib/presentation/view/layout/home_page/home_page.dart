@@ -53,15 +53,10 @@ class HomePage extends StatelessWidget {
               4,
               (index) => InkWell(
                 onTap: () => Navigator.pushNamed(
-                    arguments: false,
-                    context,
-                    index == 0 ? RoutePaths.lectureView : ""
-                    // : index == 1
-                    //     ? RoutePaths.studentPath
-                    //     : index == 2
-                    //         ? RoutePaths.programsViewPath
-                    //         : RoutePaths.statisticsPath,
-                    ),
+                  arguments: false,
+                  context,
+                  paths[index],
+                ),
                 child: Column(
                   children: [
                     IconsContainer(
@@ -74,7 +69,7 @@ class HomePage extends StatelessWidget {
                     ),
                     8.ph,
                     Text(
-                      textList[index],
+                      textList(context)[index],
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
                       ),
@@ -92,3 +87,10 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+List<String> paths = [
+  RoutePaths.lectureView,
+  RoutePaths.assignments,
+  RoutePaths.quizzes,
+  RoutePaths.meetings,
+];

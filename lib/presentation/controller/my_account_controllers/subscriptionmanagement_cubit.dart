@@ -1,7 +1,7 @@
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_state.dart';
-import 'package:eazifly_student/presentation/view/my_account/subscriptions_management_view/widgets/all_sub_body.dart';
-import 'package:eazifly_student/presentation/view/my_account/subscriptions_management_view/widgets/sub_programs_body.dart';
-import 'package:eazifly_student/presentation/view/my_account/subscriptions_management_view/widgets/subscriptions_body.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/all_sub_body.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/sub_programs_body.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/subscriptions_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

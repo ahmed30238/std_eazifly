@@ -1,5 +1,4 @@
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
-import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/extensions/widgets_extensions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -8,14 +7,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SessionDatesDetails extends StatelessWidget {
+  final String firstTitle;
+  final String firstSubTitle;
+  final String secondTitle;
+  final String secondSubTitle;
+  final String thirdTitle;
+  final String thirdSubTitle;
+  final SizedBox? fixedSpace;
+  final double? fixedFontSize;
+  final bool isBtn;
   const SessionDatesDetails({
     super.key,
+    required this.firstTitle,
+    required this.firstSubTitle,
+    required this.secondTitle,
+    required this.secondSubTitle,
+    required this.thirdTitle,
+    required this.thirdSubTitle,
+    this.fixedSpace,
+    this.isBtn = true,
+    this.fixedFontSize,
   });
 
   @override
   Widget build(BuildContext context) {
-    var lang = context.loc!;
-
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       margin: EdgeInsets.symmetric(horizontal: 16.w),
@@ -27,17 +42,17 @@ class SessionDatesDetails extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  "المحاضرة القادمة",
+                  firstTitle,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 11,
                     color: MainColors.grayTextColors,
                   ),
                 ),
-                12.ph,
+                fixedSpace ?? 12.ph,
                 Text(
-                  "12:45 PM",
+                  firstSubTitle,
                   style: MainTextStyle.boldTextStyle(
-                    fontSize: 14,
+                    fontSize: fixedFontSize ?? 14,
                     color: MainColors.black,
                   ),
                 ),
@@ -48,17 +63,17 @@ class SessionDatesDetails extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  lang.sessionDuration,
+                  secondTitle,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 11,
                     color: MainColors.grayTextColors,
                   ),
                 ),
-                12.ph,
+                fixedSpace ?? 12.ph,
                 Text(
-                  "30 دقيقة",
+                  secondSubTitle,
                   style: MainTextStyle.boldTextStyle(
-                    fontSize: 14,
+                    fontSize: fixedFontSize ?? 14,
                     color: MainColors.black,
                   ),
                 ),
@@ -69,17 +84,27 @@ class SessionDatesDetails extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  lang.sessionState,
+                  thirdTitle,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 11,
                     color: MainColors.grayTextColors,
                   ),
                 ),
-                10.ph,
-                CustomLowSizeButton(
-                  onTap: () {},
-                  text: "اعادة دخول",
-                ),
+                fixedSpace ?? 10.ph,
+                if (isBtn) ...{
+                  CustomLowSizeButton(
+                    onTap: () {},
+                    text: "اعادة دخول",
+                  ),
+                } else ...{
+                  Text(
+                    secondSubTitle,
+                    style: MainTextStyle.boldTextStyle(
+                      fontSize: fixedFontSize ?? 14,
+                      color: MainColors.black,
+                    ),
+                  ),
+                }
               ],
             ),
           ),

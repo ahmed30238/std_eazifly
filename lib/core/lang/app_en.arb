@@ -32,7 +32,13 @@
     "inviteFriends": "Invite Friends",
     "home": "Home",
     "messages": "Messages",
-    "professors": "المعلمين",
-    "appManagement": "ادارة التطبيق",
-    "dates": "Dates"
+    "professors": "Professors",
+    "appManagement": "App Management",
+    "dates": "Dates",
+    "currentLecture": "Current Lecture",
+    "assignments": "Assignments",
+    "quizzes": "Quizzes",
+    "meetings": "Meetings",
+    "nextLecture" :"المحاضرة القادمة"
+
 }

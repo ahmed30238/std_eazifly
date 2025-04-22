@@ -34,5 +34,10 @@
     "messages": "الرسائل",
     "professors": "المعلمين",
     "appManagement": "ادارة التطبيق",
-    "dates" :"الموعيد" 
+    "dates" :"الموعيد",
+    "currentLecture": "المحاضرة الحالية",
+    "assignments" : "التسليمات",
+    "quizzes" : "الامتحانات",
+    "meetings" : "اللقاءات",
+    "nextLecture" :"المحاضرة القادمة"
 }

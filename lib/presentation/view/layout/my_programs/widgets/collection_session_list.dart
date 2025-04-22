@@ -1,10 +1,12 @@
 import 'package:eazifly_student/core/component/separated_widget.dart';
+import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/session_collection_item.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/session_dates_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class CollectionSessionList extends StatelessWidget {
   const CollectionSessionList({
     super.key,
@@ -12,6 +14,7 @@ class CollectionSessionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lang = context.loc!;
     return Container(
       constraints: BoxConstraints(
         minHeight: 300.h,
@@ -25,8 +28,7 @@ class CollectionSessionList extends StatelessWidget {
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) =>
-                const SessionCollectionItem(),
+            itemBuilder: (context, index) => const SessionCollectionItem(),
             separatorBuilder: (context, index) => const SeparatedWidget(
               dividerColor: MainColors.lightGray,
               verticalPadding: 0,
@@ -34,7 +36,14 @@ class CollectionSessionList extends StatelessWidget {
             itemCount: 4,
           ),
           12.ph,
-          const SessionDatesDetails()
+          SessionDatesDetails(
+            firstTitle: lang.nextLecture,
+            firstSubTitle: "12:45 PM",
+            secondTitle: lang.sessionDuration,
+            secondSubTitle: "30 دقيقة",
+            thirdSubTitle: "",
+            thirdTitle: lang.sessionState,
+          )
         ],
       ),
     );

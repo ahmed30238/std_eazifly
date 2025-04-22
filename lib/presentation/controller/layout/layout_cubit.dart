@@ -8,7 +8,7 @@ import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dar
 import 'package:eazifly_student/presentation/view/layout/library/library.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/my_programs.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/programs_view.dart';
-import 'package:eazifly_student/presentation/view/my_account/settings.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

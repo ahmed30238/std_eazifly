@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -16,6 +17,7 @@ class ProgramItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lang = context.loc!;
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -62,7 +64,14 @@ class ProgramItem extends StatelessWidget {
             4.ph,
             const WavyDivider(),
             4.ph,
-            const SessionDatesDetails(),
+             SessionDatesDetails(
+              firstTitle: lang.nextLecture,
+              firstSubTitle: "12:45 PM",
+              secondTitle: lang.sessionDuration,
+              secondSubTitle: "30 دقيقة",
+              thirdSubTitle: "",
+              thirdTitle: lang.sessionState,
+             ),
             8.ph,
           ],
         ),

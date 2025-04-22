@@ -15,6 +15,10 @@ class RoutePaths {
   static const dmViewPath = "dmViewPath";
   static const chatsViewPath = "chatsViewPath";
   static const lectureView = "lectureView";
+  static const assignments = "assignments";
+  static const meetingDataPath = "meetingDataPath";
+  static const meetings = "meetings";
+  static const quizzes = "quizzes";
   static const homeNotification = "homeNotification";
   static const joinedLectureScreen = "joinedLectureScreen";
   static const lectureDetailsView = "lectureDetailsView";
