@@ -10,6 +10,14 @@ class MyImages {
   /// assets/icons/add-square.svg
   static const String iconsAddSquare = "assets/icons/add-square.svg";
 
+  /// Assets for iconsArrowLeft
+  /// assets/icons/arrow-left.svg
+  static const String iconsArrowLeft = "assets/icons/arrow-left.svg";
+
+  /// Assets for iconsArrowRight
+  /// assets/icons/arrow-right.svg
+  static const String iconsArrowRight = "assets/icons/arrow-right.svg";
+
   /// Assets for iconsBox
   /// assets/icons/box.svg
   static const String iconsBox = "assets/icons/box.svg";
@@ -25,6 +33,10 @@ class MyImages {
   /// Assets for iconsDeleteBin
   /// assets/icons/delete_bin.svg
   static const String iconsDeleteBin = "assets/icons/delete_bin.svg";
+
+  /// Assets for iconsFlipCamera
+  /// assets/icons/flip-camera.svg
+  static const String iconsFlipCamera = "assets/icons/flip-camera.svg";
 
   /// Assets for iconsFrame
   /// assets/icons/Frame.svg
@@ -74,6 +86,10 @@ class MyImages {
   /// assets/icons/profile.svg
   static const String iconsProfile = "assets/icons/profile.svg";
 
+  /// Assets for iconsRecordOn
+  /// assets/icons/record-on.svg
+  static const String iconsRecordOn = "assets/icons/record-on.svg";
+
   /// Assets for iconsSearchNormal
   /// assets/icons/search-normal.svg
   static const String iconsSearchNormal = "assets/icons/search-normal.svg";
@@ -105,6 +121,10 @@ class MyImages {
   /// Assets for iconsVoiceCricle
   /// assets/icons/voice-cricle.svg
   static const String iconsVoiceCricle = "assets/icons/voice-cricle.svg";
+
+  /// Assets for iconsZoom
+  /// assets/icons/zoom.svg
+  static const String iconsZoom = "assets/icons/zoom.svg";
 
   /// Assets for imagesAboutApp
   /// assets/images/about_app.svg

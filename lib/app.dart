@@ -5,6 +5,7 @@ import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_cubit.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_state.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,13 +17,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // HomePageCubit.get(context).postQuestion();
-
-    // var lang = context.loc!;
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ApplanuageCubit()..getAppLang()),
         BlocProvider(create: (context) => LayoutCubit()),
+        BlocProvider(create: (context) => LectureCubit()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),

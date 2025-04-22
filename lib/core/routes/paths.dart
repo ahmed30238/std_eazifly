@@ -14,6 +14,9 @@ class RoutePaths {
   static const privacyPolicyAndUsage = "privacyPolicyAndUsage";
   static const dmViewPath = "dmViewPath";
   static const chatsViewPath = "chatsViewPath";
+  static const lectureView = "lectureView";
   static const homeNotification = "homeNotification";
+  static const joinedLectureScreen = "joinedLectureScreen";
+  static const lectureDetailsView = "lectureDetailsView";
   static const sessionDetailsView = "sessionDetailsView";
 }

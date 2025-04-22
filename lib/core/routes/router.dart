@@ -9,6 +9,9 @@ import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.d
 import 'package:eazifly_student/presentation/view/layout/home_page/home_notification_view.dart/home_notofication_view.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/session_details_view/session_details_view.dart';
+import 'package:eazifly_student/presentation/view/lecture/joined_lecture_screen/joined_lecture_screen.dart';
+import 'package:eazifly_student/presentation/view/lecture/lecture_details_view/lecture_details_view.dart';
+import 'package:eazifly_student/presentation/view/lecture/lecture_view.dart';
 import 'package:eazifly_student/presentation/view/my_account/about_app_view/about_app_view.dart';
 import 'package:eazifly_student/presentation/view/my_account/copouns_and_discounts_view/copouns_and_discounts_view.dart';
 import 'package:eazifly_student/presentation/view/my_account/notifications_view/notification_view.dart';
@@ -70,6 +73,21 @@ class AppRouter {
             create: (context) => ChatsCubit(),
             child: const ChatsView(),
           ),
+        );
+      case RoutePaths.lectureView:
+        bool isFinishedLecture = settings.arguments as bool;
+        return createRoute(
+          LectureView(
+            isFinishedLecture: isFinishedLecture,
+          ),
+        );
+      case RoutePaths.lectureDetailsView:
+        return createRoute(
+          const LectureDetailsView(),
+        );
+      case RoutePaths.joinedLectureScreen:
+        return createRoute(
+          const JoinedLectureScreen(),
         );
       case RoutePaths.sessionDetailsView:
         return createRoute(

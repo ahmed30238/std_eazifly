@@ -1,8 +1,13 @@
 import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/component/home_appbar.dart';
+import 'package:eazifly_student/core/component/icons_container.dart';
+import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
+import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/widgets/dummy_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatelessWidget {
@@ -29,7 +34,8 @@ class HomePage extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () => Navigator.pushNamed(context, RoutePaths.homeNotification),
+            onTap: () =>
+                Navigator.pushNamed(context, RoutePaths.homeNotification),
             child: AppbarIconWidget(
               iconWidget: SvgPicture.asset(
                 MyImages.iconsBox,
@@ -39,8 +45,49 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: const Text('Welcome to the Home Page!'),
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(
+              4,
+              (index) => InkWell(
+                onTap: () => Navigator.pushNamed(
+                    arguments: false,
+                    context,
+                    index == 0 ? RoutePaths.lectureView : ""
+                    // : index == 1
+                    //     ? RoutePaths.studentPath
+                    //     : index == 2
+                    //         ? RoutePaths.programsViewPath
+                    //         : RoutePaths.statisticsPath,
+                    ),
+                child: Column(
+                  children: [
+                    IconsContainer(
+                      width: 48.w,
+                      height: 48.h,
+                      iconWidget: SvgPicture.asset(
+                        iconsList[index],
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                    8.ph,
+                    Text(
+                      textList[index],
+                      style: MainTextStyle.boldTextStyle(
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Center(
+            child: const Text('Welcome to the Home Page!'),
+          ),
+        ],
       ),
     );
   }
