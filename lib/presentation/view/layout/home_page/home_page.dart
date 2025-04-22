@@ -12,8 +12,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        mainTitle: "mainTitle",
-        leadingText: "leadingText",
+        mainTitle: "Title",
+        leadingText: "Text",
+        isCenterTitle: true,
         customAction: [
           InkWell(
             onTap: () => Navigator.pushNamed(
@@ -27,10 +28,13 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          AppbarIconWidget(
-            iconWidget: SvgPicture.asset(
-              MyImages.iconsBox,
-              fit: BoxFit.scaleDown,
+          InkWell(
+            onTap: () => Navigator.pushNamed(context, RoutePaths.homeNotification),
+            child: AppbarIconWidget(
+              iconWidget: SvgPicture.asset(
+                MyImages.iconsBox,
+                fit: BoxFit.scaleDown,
+              ),
             ),
           ),
         ],

@@ -5,6 +5,7 @@ import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/collection_session_list.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/program_item.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,9 @@ class MyProgramsView extends StatelessWidget {
             suffixIconWidget: const SuffixMenuFormField(),
           ),
           16.ph,
-          const ProgramItem(),
+           ProgramItem(
+            onTap: () => Navigator.pushNamed(context,RoutePaths.sessionDetailsView),
+          ),
           20.ph,
           const CollectionSessionList(),
         ],

@@ -38,6 +38,10 @@ class MyImages {
   /// assets/icons/heart.svg
   static const String iconsHeart = "assets/icons/heart.svg";
 
+  /// Assets for iconsLiveBroadcasting
+  /// assets/icons/live-broadcasting.svg
+  static const String iconsLiveBroadcasting = "assets/icons/live-broadcasting.svg";
+
   /// Assets for iconsMicrophone
   /// assets/icons/microphone.svg
   static const String iconsMicrophone = "assets/icons/microphone.svg";

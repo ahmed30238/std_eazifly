@@ -8,57 +8,64 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProgramItem extends StatelessWidget {
-  const ProgramItem({super.key});
+  final VoidCallback onTap;
+  const ProgramItem({
+    super.key,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        borderRadius: 16.cr,
-        color: MainColors.veryLightGrayFormField,
-      ),
-      constraints: BoxConstraints(
-        minHeight: 300.h,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 343.w,
-            height: 163.h,
-            decoration: BoxDecoration(
-              borderRadius: 16.cr,
-              image: const DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage(
-                  MyImages.imagesPersona,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          borderRadius: 16.cr,
+          color: MainColors.veryLightGrayFormField,
+        ),
+        constraints: BoxConstraints(
+          minHeight: 300.h,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 343.w,
+              height: 163.h,
+              decoration: BoxDecoration(
+                borderRadius: 16.cr,
+                image: const DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(
+                    MyImages.imagesPersona,
+                  ),
                 ),
               ),
             ),
-          ),
-          8.ph,
-          Text(
-            "الرياضيات للصف السادس الإبتدائي",
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 14,
-              color: MainColors.black,
+            8.ph,
+            Text(
+              "الرياضيات للصف السادس الإبتدائي",
+              style: MainTextStyle.boldTextStyle(
+                fontSize: 14,
+                color: MainColors.black,
+              ),
             ),
-          ),
-          4.ph,
-          Text(
-            "إكتشفوا جمال تعلم القرآن من خلال دروسنا المصممة خصيصًا لقادة المستقبل",
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 12,
-              color: MainColors.grayTextColors,
+            4.ph,
+            Text(
+              "إكتشفوا جمال تعلم القرآن من خلال دروسنا المصممة خصيصًا لقادة المستقبل",
+              style: MainTextStyle.boldTextStyle(
+                fontSize: 12,
+                color: MainColors.grayTextColors,
+              ),
             ),
-          ),
-          4.ph,
-          const WavyDivider(),
-          4.ph,
-          const SessionDatesDetails(),
-          8.ph,
-        ],
+            4.ph,
+            const WavyDivider(),
+            4.ph,
+            const SessionDatesDetails(),
+            8.ph,
+          ],
+        ),
       ),
     );
   }

@@ -33,5 +33,6 @@
     "home": "الرئيسية",
     "messages": "الرسائل",
     "professors": "المعلمين",
-    "appManagement": "ادارة التطبيق"
+    "appManagement": "ادارة التطبيق",
+    "dates" :"الموعيد" 
 }
