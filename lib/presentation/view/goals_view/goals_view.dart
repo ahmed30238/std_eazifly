@@ -1,14 +1,17 @@
 import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
-import 'package:eazifly_student/core/component/home_appbar.dart';
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
+import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
+import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/view/goals_view/widgets/goals_item.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/notifications_view/notification_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 // import 'package:timelines_plus/timelines_plus.dart';
 // import 'package:timelines_plus/timelines_plus.dart' hide TimelineTile;
@@ -26,12 +29,51 @@ class GoalsView extends StatelessWidget {
         mainTitle: lang.goals,
         leadingText: lang.back,
         // onLeadinTap: () => back(context),
-        customAction: const [AppbarIconWidget()],
+        customAction: [
+          InkWell(
+            onTap: () => showModalSheet(
+              context,
+              widget: CustomBottomSheetDesign(
+                height: 101.h,
+                radius: 16.r,
+                widget: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
+                  child: InkWell(
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      RoutePaths.leaderBoardView,
+                    ),
+                    child: SizedBox(
+                      height: 45.h,
+                      child: Text(
+                        lang.leaderboardMenu,
+                        style: MainTextStyle.boldTextStyle(fontSize: 14),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              isFixedSize: true,
+              safeArea: true,
+              minHeight: 101.h,
+              maxHeight: 102.h,
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: SvgPicture.asset(
+                MyImages.iconsVerticalDots,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
+          20.ph,
           Expanded(
             child: ListView.separated(
+              physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => 10.ph,
               padding: EdgeInsets.only(right: 8.w),
               itemBuilder: (context, index) => TimelineTile(
@@ -47,8 +89,13 @@ class GoalsView extends StatelessWidget {
                   value: false,
                   onChanged: (value) {},
                 )),
-                endChild: const GoalsItem(),
-                beforeLineStyle: LineStyle(thickness: 1),
+                endChild: GoalsItem(
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    RoutePaths.goalDetailsView,
+                  ),
+                ),
+                beforeLineStyle: const LineStyle(thickness: 1),
               ),
               itemCount: 7,
             ),
@@ -66,7 +113,10 @@ class GoalsView extends StatelessWidget {
             height: 40.h,
             radius: 12.r,
             onPressed: () {
-              Navigator.pushNamed(context, RoutePaths.leaderBoardView,);
+              Navigator.pushNamed(
+                context,
+                RoutePaths.leaderBoardView,
+              );
             },
           ),
           32.ph,

@@ -1,0 +1,40 @@
+import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:eazifly_student/presentation/view/leaderboard_view/widgets/places_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class FirstPlacesRow extends StatelessWidget {
+  const FirstPlacesRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        PlacesWidget(
+          height: 75.h,
+          width: 75.w,
+          avatar: MyImages.imagesPngImage,
+          board: MyImages.iconsSilverBoard,
+          medal: MyImages.iconsSilverMedal2,
+        ),
+        PlacesWidget(
+          height: 100.h,
+          width: 100.w,
+          avatar: MyImages.imagesPngImage,
+          board: MyImages.iconsGoldBoard,
+          medal: MyImages.iconsGoldMedal,
+        ),
+        PlacesWidget(
+          height: 75.h,
+          width: 75.w,
+          avatar: MyImages.imagesPngImage,
+          board: MyImages.iconsBronzeBoard,
+          medal: MyImages.iconsBronzeMedal,
+        ),
+      ],
+    );
+  }
+}

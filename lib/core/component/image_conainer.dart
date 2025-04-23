@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ImageContainer extends StatelessWidget {
   final double? containerWidth;
+  final BoxFit? fit;
   final double? containerHeight;
   final String? image;
   final Color? borderColor;
@@ -14,6 +15,7 @@ class ImageContainer extends StatelessWidget {
   final double? radius;
   const ImageContainer({
     super.key,
+    this.fit,
     this.containerHeight,
     this.borderColor,
     this.child,
@@ -37,9 +39,9 @@ class ImageContainer extends StatelessWidget {
           width: borderWidth ?? 0,
           color: borderColor ?? MainColors.transparentColor,
         ),
-        image: const DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage(
+        image: DecorationImage(
+          fit: fit ?? BoxFit.cover,
+          image: const AssetImage(
             MyImages.imagesPersona,
           ),
         ),

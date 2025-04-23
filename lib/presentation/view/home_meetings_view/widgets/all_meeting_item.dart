@@ -37,6 +37,7 @@ class AllMeetingItem extends StatelessWidget {
           children: [
             //! image
             ImageContainer(
+              fit: BoxFit.fill,
               radius: 8.r,
               containerHeight: 143.h,
               containerWidth: 327.w,

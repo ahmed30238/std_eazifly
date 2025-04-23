@@ -7,22 +7,27 @@ import 'package:percent_indicator/flutter_percent_indicator.dart';
 class CustomLinearPercentIndicator extends StatelessWidget {
   final MainAxisAlignment? alignment;
   final double? width;
+  final double? lineHeight;
   final double percent;
 
   const CustomLinearPercentIndicator({
     super.key,
     required this.percent,
     this.width,
+    this.lineHeight,
     this.alignment,
   });
 
   @override
   Widget build(BuildContext context) {
     return LinearPercentIndicator(
-      alignment:alignment?? MainAxisAlignment.end,
+      padding: EdgeInsets.zero,
+      animation: true,
+      progressBorderColor: Colors.red,
+      alignment: alignment ?? MainAxisAlignment.end,
       isRTL: ApplanuageCubit.isArabic(context),
       width: width ?? 343.w,
-      lineHeight: 8.h,
+      lineHeight:lineHeight?? 8.h,
       barRadius: Radius.circular(12.r),
       percent: percent,
       backgroundColor: MainColors.lightGray,

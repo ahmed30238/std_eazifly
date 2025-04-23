@@ -1,12 +1,14 @@
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/presentation/controller/account_data/accountdata_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
+import 'package:eazifly_student/presentation/controller/goal_details_controller/goal_details_cubit.dart';
 import 'package:eazifly_student/presentation/controller/meetings_controller/meeting_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/notifications_controller/notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
 import 'package:eazifly_student/presentation/view/chat/chats_view.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
+import 'package:eazifly_student/presentation/view/goals_view/goal_details_view/goal_details_view.dart';
 import 'package:eazifly_student/presentation/view/goals_view/goals_view.dart';
 import 'package:eazifly_student/presentation/view/home_meetings_view/home_meetings_view.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_notification_view.dart/home_notofication_view.dart';
@@ -97,6 +99,13 @@ class AppRouter {
       case RoutePaths.leaderBoardView:
         return createRoute(
           const LeaderBoardView(),
+        );
+      case RoutePaths.goalDetailsView:
+        return createRoute(
+          BlocProvider(
+            create: (context) => GoalDetailsCubit(),
+            child: const GoalDetailsView(),
+          ),
         );
       case RoutePaths.meetingDataPath:
         return createRoute(

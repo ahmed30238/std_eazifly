@@ -1,0 +1,120 @@
+import 'package:eazifly_student/core/extensions/num_extentions.dart';
+import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
+import 'package:eazifly_student/core/theme/colors/main_colors.dart';
+import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
+import 'package:eazifly_student/presentation/controller/goal_details_controller/goal_details_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class SubGoalsWidget extends StatelessWidget {
+  final int index;
+  const SubGoalsWidget({
+    super.key,
+    required this.index,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var cubit = GoalDetailsCubit.get(context);
+    return Row(
+      children: [
+        Text(
+          "${index + 1}",
+          style: MainTextStyle.boldTextStyle(fontSize: 14),
+        ),
+        16.pw,
+        InkWell(
+          onTap: () => showDialog(
+            barrierDismissible: true,
+            builder: (context) => Dialog(
+              insetPadding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                height: 178.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: MainColors.white,
+                  borderRadius: 20.cr,
+                ),
+                child: Column(
+                  children: [
+                    24.ph,
+                    SizedBox(
+                      height: 28.h,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "تطبيق حكم الغنة",
+                            style: MainTextStyle.boldTextStyle(fontSize: 14),
+                          ),
+                          InkWell(
+                            onTap: () => back(context),
+                            child: Container(
+                              height: 28.h,
+                              width: 28.w,
+                              decoration: BoxDecoration(
+                                borderRadius: 13.4.cr,
+                                color: MainColors.grayBorderColor,
+                              ),
+                              child: Icon(
+                                size: 20.r,
+                                Icons.close,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    16.ph,
+                    ...List.generate(
+                      3,
+                      (index) => Padding(
+                        padding:  EdgeInsets.only(bottom: 16.h),
+                        child: Text(
+                          "هذا النص هو جزء من عملية تحسين تجربة المستخدم من خلال النص.",
+                          overflow: TextOverflow.ellipsis,
+                          style: MainTextStyle.mediumTextStyle(
+                            fontSize: 12,
+                            color: MainColors.grayTextColors,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            context: context,
+          ),
+          child: Container(
+            height: 53.h,
+            width: 312.w,
+            decoration: BoxDecoration(
+              color: MainColors.formFieldgrayfillColor,
+              borderRadius: 8.cr,
+            ),
+            child: Row(
+              children: [
+                Checkbox(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: 5.cr,
+                  ),
+                  value: cubit.isSelected[index],
+                  activeColor: MainColors.blueTextColor,
+                  onChanged: (value) {
+                    cubit.changeSelected(index);
+                  },
+                ),
+                Text(
+                  "تطبيق حكم الغنة",
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                )
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
