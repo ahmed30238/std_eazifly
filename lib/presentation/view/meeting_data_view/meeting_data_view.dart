@@ -1,8 +1,11 @@
 import 'package:eazifly_student/core/component/custom_appbar.dart';
+import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
+import 'package:eazifly_student/core/component/custom_rich_text.dart';
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/view/meeting_data_view/widgets/student_stats.dart';
@@ -18,6 +21,7 @@ class MeetingDataView extends StatelessWidget {
     var lang = context.loc!;
     return Scaffold(
       appBar: CustomAppBar(
+        context,
         mainTitle: "بينات اللقاء",
         leadingText: lang.back,
         onLeadinTap: () => back(context),
@@ -37,7 +41,88 @@ class MeetingDataView extends StatelessWidget {
             child: Row(
               children: [
                 InkWell(
-                  onTap: () {print("tapped");}, // todo show dialog
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      useSafeArea: true,
+                      builder: (context) => Dialog(
+                        insetPadding: EdgeInsets.symmetric(horizontal: 16.w),
+                        backgroundColor: MainColors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: 8.cr,
+                        ),
+                        child: Container(
+                          // margin: EdgeInsets.symmetric(horizontal: 16.w),
+                          padding: EdgeInsets.symmetric(horizontal: 8.w),
+                          height: 168.h,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              24.ph,
+                              SizedBox(
+                                height: 21.h,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "موعد التجديد القادم",
+                                      style: MainTextStyle.boldTextStyle(
+                                          fontSize: 14),
+                                    ),
+                                    InkWell(
+                                      onTap: () => back(context),
+                                      child: Icon(
+                                        Icons.close,
+                                        size: 20.r,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              12.ph,
+                              SizedBox(
+                                height: 34.h,
+                                child: CustomRichText(
+                                  text1: "بعد 2 يوم",
+                                  text1Style: MainTextStyle.boldTextStyle(
+                                    fontSize: 14,
+                                    color: MainColors.red,
+                                  ),
+                                  spaceText: "  :  ",
+                                  spaceStyle:
+                                      MainTextStyle.boldTextStyle(fontSize: 12),
+                                  text2: "14 ساعة",
+                                  text2Style: MainTextStyle.boldTextStyle(
+                                    fontSize: 14,
+                                    color: MainColors.red,
+                                  ),
+                                ),
+                              ),
+                              16.ph,
+                              CustomElevatedButton(
+                                width: 123.w,
+                                height: 37.h,
+                                text: lang.renewNow,
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                    arguments: false,
+                                    context,
+                                    RoutePaths.lectureView,
+                                  );
+                                },
+                                textColor: MainColors.white,
+                                radius: 12.r,
+                                color: MainColors.blueTextColor,
+                              ),
+                              const Spacer(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }, // todo show dialog
                   child: Container(
                     height: 72.h,
                     width: 109.w,

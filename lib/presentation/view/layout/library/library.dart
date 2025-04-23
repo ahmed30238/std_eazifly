@@ -33,6 +33,7 @@ class _LibraryViewState extends State<LibraryView>
     var lang = context.loc!;
     return Scaffold(
       appBar: CustomAppBar(
+        context,
         mainTitle: lang.library,
         leadingText: "",
         leadingCustomWidth: 10.w,

@@ -7,10 +7,12 @@ import 'package:eazifly_student/presentation/controller/my_account_controllers/s
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
 import 'package:eazifly_student/presentation/view/chat/chats_view.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
+import 'package:eazifly_student/presentation/view/goals_view/goals_view.dart';
 import 'package:eazifly_student/presentation/view/home_meetings_view/home_meetings_view.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_notification_view.dart/home_notofication_view.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/session_details_view/session_details_view.dart';
+import 'package:eazifly_student/presentation/view/leaderboard_view/leaderboard_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/joined_lecture_screen/joined_lecture_screen.dart';
 import 'package:eazifly_student/presentation/view/lecture/lecture_details_view/lecture_details_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/lecture_view.dart';
@@ -87,6 +89,14 @@ class AppRouter {
       case RoutePaths.lectureDetailsView:
         return createRoute(
           const LectureDetailsView(),
+        );
+      case RoutePaths.goalsScreen:
+        return createRoute(
+          const GoalsView(),
+        );
+      case RoutePaths.leaderBoardView:
+        return createRoute(
+          const LeaderBoardView(),
         );
       case RoutePaths.meetingDataPath:
         return createRoute(

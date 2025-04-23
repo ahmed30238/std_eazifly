@@ -63,9 +63,9 @@ class LeaveLectureAlertBottomSheetDesign extends StatelessWidget {
             23.ph,
             CustomElevatedButton(
               text: "إنهاء المحاضرة",
-              elevatedButtonWidth: double.infinity,
+              width: double.infinity,
               radius: 16.r,
-              elevatedButtonheight: 48.h,
+              height: 48.h,
               textColor: MainColors.white,
               color: MainColors.red,
               onPressed: () {

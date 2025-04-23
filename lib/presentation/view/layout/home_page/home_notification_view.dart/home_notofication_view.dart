@@ -12,7 +12,7 @@ class HomeNotificationView extends StatelessWidget {
   Widget build(BuildContext context) {
     var lang = context.loc!;
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: CustomAppBar(     context,
         isCenterTitle: true,
         mainTitle: lang.notifications,
         leadingText: lang.back,

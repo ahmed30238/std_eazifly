@@ -39,6 +39,9 @@
     "assignments": "Assignments",
     "quizzes": "Quizzes",
     "meetings": "Meetings",
-    "nextLecture" :"المحاضرة القادمة"
-
+    "nextLecture": "المحاضرة القادمة",
+    "goals": "الاهداف",
+    "competitorsMenu": "قائمة المنافسين",
+    "myStudent": "طلابي",
+    "programLeader": "المتصدرين بالبرنامج"
 }

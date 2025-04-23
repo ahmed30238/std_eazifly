@@ -17,7 +17,7 @@ class RowButtons extends StatelessWidget {
         16.pw,
         Expanded(
           child: CustomElevatedButton(
-            elevatedButtonheight: 48.h,
+            height: 48.h,
             text: "أعادة دخول المحاضرة",
             textSize: 15,
             onPressed: () => Navigator.pushNamed(

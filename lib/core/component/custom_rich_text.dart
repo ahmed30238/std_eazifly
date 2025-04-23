@@ -6,6 +6,8 @@ class CustomRichText extends StatelessWidget {
   final String? text1;
   final String? text2;
   final TextStyle? text1Style;
+  final String? spaceText;
+  final TextStyle? spaceStyle;
   final TextStyle? text2Style;
   const CustomRichText({
     super.key,
@@ -13,6 +15,8 @@ class CustomRichText extends StatelessWidget {
     this.text2,
     this.text1Style,
     this.text2Style,
+    this.spaceStyle,
+    this.spaceText,
   });
 
   @override
@@ -27,6 +31,10 @@ class CustomRichText extends StatelessWidget {
                   fontSize: 12,
                   color: MainColors.grayTextColors,
                 ),
+          ),
+          TextSpan(
+            text: spaceText,
+            style: spaceStyle,
           ),
           TextSpan(
             text: text2 ?? " اجابات جيدة ولكن هناك بعض الاخطاء في السؤال 3",

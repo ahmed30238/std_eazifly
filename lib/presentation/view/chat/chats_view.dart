@@ -40,11 +40,11 @@ class _ChatsViewState extends State<ChatsView>
     var lang = context.loc!;
     ChatsCubit cubit = ChatsCubit.get(context);
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: CustomAppBar(     context,
         mainTitle: lang.messages,
         leadingText: lang.home,
         leadingIcon: Icons.arrow_back_ios,
-        onLeadinTap: () => Navigator.pop(context),
+        // onLeadinTap: () => Navigator.pop(context),
         isCenterTitle: true,
         customAction: [
           Padding(

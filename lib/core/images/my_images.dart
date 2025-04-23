@@ -26,13 +26,29 @@ class MyImages {
   /// assets/icons/briefcase.svg
   static const String iconsBriefcase = "assets/icons/briefcase.svg";
 
+  /// Assets for iconsBronzeBoard
+  /// assets/icons/bronze-board.svg
+  static const String iconsBronzeBoard = "assets/icons/bronze-board.svg";
+
+  /// Assets for iconsBronzeMedal
+  /// assets/icons/bronze-medal.svg
+  static const String iconsBronzeMedal = "assets/icons/bronze-medal.svg";
+
   /// Assets for iconsChatsIcon
   /// assets/icons/chats-icon.svg
   static const String iconsChatsIcon = "assets/icons/chats-icon.svg";
 
+  /// Assets for iconsCoin
+  /// assets/icons/coin.svg
+  static const String iconsCoin = "assets/icons/coin.svg";
+
   /// Assets for iconsDeleteBin
   /// assets/icons/delete_bin.svg
   static const String iconsDeleteBin = "assets/icons/delete_bin.svg";
+
+  /// Assets for iconsFirstMedal
+  /// assets/icons/first-medal.svg
+  static const String iconsFirstMedal = "assets/icons/first-medal.svg";
 
   /// Assets for iconsFlipCamera
   /// assets/icons/flip-camera.svg
@@ -45,6 +61,14 @@ class MyImages {
   /// Assets for iconsGallery
   /// assets/icons/gallery.svg
   static const String iconsGallery = "assets/icons/gallery.svg";
+
+  /// Assets for iconsGoldBoard
+  /// assets/icons/gold-board.svg
+  static const String iconsGoldBoard = "assets/icons/gold-board.svg";
+
+  /// Assets for iconsGoldMedal
+  /// assets/icons/gold-medal.svg
+  static const String iconsGoldMedal = "assets/icons/gold-medal.svg";
 
   /// Assets for iconsHeart
   /// assets/icons/heart.svg
@@ -106,6 +130,18 @@ class MyImages {
   /// assets/icons/share.svg
   static const String iconsShare = "assets/icons/share.svg";
 
+  /// Assets for iconsSilverBoard
+  /// assets/icons/silver-board.svg
+  static const String iconsSilverBoard = "assets/icons/silver-board.svg";
+
+  /// Assets for iconsSilverMedal2
+  /// assets/icons/silver-medal2.svg
+  static const String iconsSilverMedal2 = "assets/icons/silver-medal2.svg";
+
+  /// Assets for iconsStarImage
+  /// assets/icons/star-image.svg
+  static const String iconsStarImage = "assets/icons/star-image.svg";
+
   /// Assets for iconsTicketExpired
   /// assets/icons/ticket-expired.svg
   static const String iconsTicketExpired = "assets/icons/ticket-expired.svg";
@@ -130,8 +166,20 @@ class MyImages {
   /// assets/images/about_app.svg
   static const String imagesAboutApp = "assets/images/about_app.svg";
 
+  /// Assets for imagesEditedPersona
+  /// assets/images/edited_persona.png
+  static const String imagesEditedPersona = "assets/images/edited_persona.png";
+
   /// Assets for imagesPersona
   /// assets/images/persona.jpg
   static const String imagesPersona = "assets/images/persona.jpg";
+
+  /// Assets for imagesPngImage
+  /// assets/images/png-image.png
+  static const String imagesPngImage = "assets/images/png-image.png";
+
+  /// Assets for imagesPngPersona
+  /// assets/images/png-persona.png
+  static const String imagesPngPersona = "assets/images/png-persona.png";
 }
 

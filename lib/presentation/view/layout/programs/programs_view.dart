@@ -9,8 +9,8 @@ class ProgramsView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Programs'),
       ),
-      body: Center(
-        child: const Text('Welcome to Programs!'),
+      body: const Center(
+        child: Text('Welcome to Programs!'),
       ),
     );
   }

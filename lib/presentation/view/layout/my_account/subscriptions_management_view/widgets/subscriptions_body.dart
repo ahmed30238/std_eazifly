@@ -5,6 +5,6 @@ class SubscriptionsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("asdsadsadas");
+    return const Text("asdsadsadas");
   }
 }

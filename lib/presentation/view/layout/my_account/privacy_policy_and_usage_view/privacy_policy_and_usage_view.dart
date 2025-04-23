@@ -1,7 +1,6 @@
 import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
@@ -16,11 +15,11 @@ class PrivacyPolicyAndUsageView extends StatelessWidget {
   Widget build(BuildContext context) {
     var lang = context.loc!;
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: CustomAppBar(     context,
         mainTitle: lang.aboutApp,
         leadingText: lang.myAccount,
         isCenterTitle: true,
-        onLeadinTap: () => back(context),
+        // onLeadinTap: () => back(context),
       ),
       body: Column(
         children: [

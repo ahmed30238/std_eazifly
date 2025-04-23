@@ -1,5 +1,6 @@
 import 'package:eazifly_student/core/component/image_conainer.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
+import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends AppBar {
+  final BuildContext context;
   final String mainTitle;
   final String leadingText;
   final VoidCallback? onLeadinTap;
@@ -22,7 +24,8 @@ class CustomAppBar extends AppBar {
   final double? customTitleWidth;
   final bool? isDmView;
 
-  CustomAppBar({
+  CustomAppBar(
+    this.context, {
     required this.mainTitle,
     required this.leadingText,
     this.onLeadinTap,
@@ -63,11 +66,11 @@ class CustomAppBar extends AppBar {
                           ),
                         ]
                       : [
-                          ImageContainer(
-                            // shape: BoxShape.circle,
-                            // containerHeight: 28.h,
-                            // containerWidth: 28.w,
-                          ),
+                          const ImageContainer(
+                              // shape: BoxShape.circle,
+                              // containerHeight: 28.h,
+                              // containerWidth: 28.w,
+                              ),
                           8.pw,
                           Text(
                             "ياسر  محمود",
@@ -89,7 +92,7 @@ class CustomAppBar extends AppBar {
                 ),
           actions: customAction,
           leading: InkWell(
-            onTap: onLeadinTap,
+            onTap: onLeadinTap ?? () => back(context),
             child: customLeading ??
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),

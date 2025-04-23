@@ -20,6 +20,7 @@ class MyProgramsView extends StatelessWidget {
     var lang = context.loc!;
     return Scaffold(
       appBar: CustomAppBar(
+        context,
         mainTitle: lang.myPrograms,
         leadingText: "",
         leadingCustomWidth: 10.w,
@@ -44,8 +45,9 @@ class MyProgramsView extends StatelessWidget {
             suffixIconWidget: const SuffixMenuFormField(),
           ),
           16.ph,
-           ProgramItem(
-            onTap: () => Navigator.pushNamed(context,RoutePaths.sessionDetailsView),
+          ProgramItem(
+            onTap: () =>
+                Navigator.pushNamed(context, RoutePaths.sessionDetailsView),
           ),
           20.ph,
           const CollectionSessionList(),

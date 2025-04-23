@@ -15,10 +15,10 @@ class AboutAppView extends StatelessWidget {
   Widget build(BuildContext context) {
     var lang = context.loc!;
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: CustomAppBar(     context,
         mainTitle: lang.aboutApp,
         leadingText: lang.myAccount,
-        onLeadinTap: () => Navigator.pop(context),
+        // onLeadinTap: () => Navigator.pop(context),
         isCenterTitle: true,
       ),
       body: Column(

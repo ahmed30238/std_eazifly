@@ -5,7 +5,6 @@ import 'package:eazifly_student/core/component/prefix_search_form_field.dart';
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/controller/meetings_controller/meeting_cubit.dart';
@@ -33,10 +32,10 @@ class _HomeMeetingsViewState extends State<HomeMeetingsView>
     var cubit = MeetingCubit.get(context);
     var lang = context.loc!;
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: CustomAppBar(     context,
         mainTitle: lang.meetings,
         leadingText: lang.back,
-        onLeadinTap: () => back(context),
+        // onLeadinTap: () => back(context),
         isCenterTitle: true,
       ),
       body: ListView(

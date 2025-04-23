@@ -1,4 +1,5 @@
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
+import 'package:eazifly_student/core/component/custom_linear_percent_indicator.dart';
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -6,7 +7,6 @@ import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:percent_indicator/flutter_percent_indicator.dart';
 
 class AllSubBody extends StatelessWidget {
   const AllSubBody({super.key});
@@ -134,8 +134,8 @@ class AllBodyListItemWidget extends StatelessWidget {
                   ),
                   CustomElevatedButton(
                     textSize: 11,
-                    elevatedButtonWidth: 90.w,
-                    elevatedButtonheight: 29.h,
+                    width: 90.w,
+                    height: 29.h,
                     radius: 8.r,
                     text: lang.renewNow,
                     onPressed: () {},
@@ -165,15 +165,8 @@ class AllBodyListItemWidget extends StatelessWidget {
             ),
           ),
           8.ph,
-          LinearPercentIndicator(
-            alignment: MainAxisAlignment.end,
-            isRTL: true,
-            width: 343.w,
-            lineHeight: 8.h,
-            barRadius: Radius.circular(12.r),
-            percent: 0.9,
-            backgroundColor: MainColors.lightGray,
-            progressColor: MainColors.blueTextColor,
+          const CustomLinearPercentIndicator(
+            percent: 0.45,
           ),
         ],
       ),

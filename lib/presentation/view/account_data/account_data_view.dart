@@ -44,7 +44,8 @@ class _AccountDataState extends State<AccountData> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
-        onLeadinTap: () => Navigator.pop(context),
+        context,
+        // onLeadinTap: () => Navigator.pop(context),
         mainTitle: "معلومات الحساب",
         leadingText: "الاعدادات",
         isCenterTitle: true,
@@ -124,7 +125,9 @@ class _AccountDataState extends State<AccountData> {
           ),
           32.ph,
           GestureDetector(
-            onTap: () {log("message");},
+            onTap: () {
+              log("message");
+            },
             child: SizedBox(
               width: 180.w,
               child: Row(
@@ -159,7 +162,7 @@ class _AccountDataState extends State<AccountData> {
                         CustomElevatedButton(
                           text: "نعم",
                           color: MainColors.red,
-                          elevatedButtonWidth: 110.w,
+                          width: 110.w,
                           radius: 16.r,
                           onPressed: () async {
                             await TokenUtil.clearToken().then(
@@ -176,7 +179,7 @@ class _AccountDataState extends State<AccountData> {
                         CustomElevatedButton(
                           radius: 16.r,
                           text: "لا",
-                          elevatedButtonWidth: 110.w,
+                          width: 110.w,
                           color: MainColors.greenTeal,
                           onPressed: () {
                             back(context);
@@ -194,8 +197,8 @@ class _AccountDataState extends State<AccountData> {
             },
             color: MainColors.blueTextColor,
             radius: 16.r,
-            elevatedButtonheight: 48.h,
-            elevatedButtonWidth: 343.w,
+            height: 48.h,
+            width: 343.w,
           ),
           48.ph,
         ],

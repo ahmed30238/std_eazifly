@@ -1,10 +1,9 @@
 import 'package:eazifly_student/core/component/custom_appbar.dart';
-import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
-import 'package:eazifly_student/core/component/teacher_report_bottom_sheet_design.dart';
+import 'package:eazifly_student/core/component/custom_linear_percent_indicator.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
+import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_data_item.dart';
@@ -41,6 +40,7 @@ class _LectureViewState extends State<LectureView>
     var cubit = LectureCubit.get(context);
     return Scaffold(
       appBar: CustomAppBar(
+        context,
         mainTitle: "محاضرة رياضيات للصف السادس",
         leadingText: "المواعيد",
         isCenterTitle: true,
@@ -68,26 +68,82 @@ class _LectureViewState extends State<LectureView>
             ],
           ),
           16.ph,
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: CustomElevatedButton(
-              text: widget.isFinishedLecture!
-                  ? "كتابة التقرير"
-                  : "التوجهة الي المحاضرة",
-              onPressed: widget.isFinishedLecture!
-                  ? () => showModalSheet(
-                        isFixedSize: true,
-                        minHeight: 552.h,
-                        context,
-                        widget: const TeacherReportBottomSheetDesign(),
-                      )
-                  : () => Navigator.pushNamed(
-                      context, RoutePaths.lectureDetailsView),
-              elevatedButtonheight: 42.h,
-              color: MainColors.blueTextColor,
-              radius: 16.r,
+          InkWell(
+            onTap: () {
+              print("tapped");
+              Navigator.pushNamed(
+                context,
+                RoutePaths.goalsScreen,
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              margin: EdgeInsets.symmetric(horizontal: 16.w),
+              height: 82.h,
+              decoration: const BoxDecoration(
+                color: MainColors.veryLightGrayFormField,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  12.ph,
+                  SizedBox(
+                    height: 20.h,
+                    child: Text(
+                      "أهداف البرنامج",
+                      style: MainTextStyle.boldTextStyle(
+                        fontSize: 12,
+                        color: MainColors.grayTextColors,
+                      ),
+                    ),
+                  ),
+                  8.ph,
+                  SizedBox(
+                    height: 20.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "نسبة الإنجاز",
+                          style: MainTextStyle.boldTextStyle(fontSize: 11),
+                        ),
+                        Text(
+                          "45 %",
+                          style: MainTextStyle.boldTextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                  4.ph,
+                  CustomLinearPercentIndicator(
+                    percent: .45,
+                    width: 310.w,
+                  ),
+                  4.ph,
+                ],
+              ),
             ),
           ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+          //   child: CustomElevatedButton(
+          //     text: widget.isFinishedLecture!
+          //         ? "كتابة التقرير"
+          //         : "التوجهة الي المحاضرة",
+          //     onPressed: widget.isFinishedLecture!
+          //         ? () => showModalSheet(
+          //               isFixedSize: true,
+          //               minHeight: 552.h,
+          //               context,
+          //               widget: const TeacherReportBottomSheetDesign(),
+          //             )
+          //         : () => Navigator.pushNamed(
+          //             context, RoutePaths.lectureDetailsView),
+          //     elevatedButtonheight: 42.h,
+          //     color: MainColors.blueTextColor,
+          //     radius: 16.r,
+          //   ),
+          // ),
           20.ph,
           const StudentsChangeItem(),
           1.ph,

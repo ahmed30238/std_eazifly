@@ -20,7 +20,7 @@ class CopounsAndDiscountsView extends StatelessWidget {
   Widget build(BuildContext context) {
     var lang = context.loc!;
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: CustomAppBar(     context,
         mainTitle: lang.couponsAndRewards,
         leadingText: lang.back,
         isCenterTitle: true,
@@ -38,9 +38,9 @@ class CopounsAndDiscountsView extends StatelessWidget {
             ),
           ),
         ],
-        onLeadinTap: () {
-          Navigator.pop(context);
-        },
+        // onLeadinTap: () {
+        //   Navigator.pop(context);
+        // },
       ),
       body: Column(
         children: [

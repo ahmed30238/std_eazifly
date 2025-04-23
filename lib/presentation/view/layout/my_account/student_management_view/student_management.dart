@@ -13,7 +13,7 @@ class StudentManagementView extends StatelessWidget {
   Widget build(BuildContext context) {
     var lang = context.loc!;
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: CustomAppBar(     context,
         mainTitle: "ادارة الطلاب",
         isCenterTitle: true,
         leadingText: lang.back,

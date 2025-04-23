@@ -58,8 +58,8 @@ class TeacherReportBottomSheetDesign extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 24.h),
             child: CustomElevatedButton(
-              elevatedButtonWidth: 311.w,
-              elevatedButtonheight: 48.h,
+              width: 311.w,
+              height: 48.h,
               color: MainColors.blueTextColor,
               textSize: 16,
               radius: 16.r,

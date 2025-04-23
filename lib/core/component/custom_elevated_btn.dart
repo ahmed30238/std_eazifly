@@ -109,8 +109,8 @@ class CustomMaterialButton extends StatelessWidget {
 
 class CustomElevatedButton extends StatelessWidget {
   final String text;
-  final double? elevatedButtonWidth;
-  final double? elevatedButtonheight;
+  final double? width;
+  final double? height;
   final double? borderWidth;
   final double? radius;
   final Widget? child;
@@ -131,8 +131,8 @@ class CustomElevatedButton extends StatelessWidget {
     required this.onPressed,
     this.child,
     this.borderColor,
-    this.elevatedButtonWidth,
-    this.elevatedButtonheight,
+    this.width,
+    this.height,
     this.radius,
     this.color,
   });
@@ -153,8 +153,8 @@ class CustomElevatedButton extends StatelessWidget {
         ),
         backgroundColor: color ?? MainColors.veryLightGrayFormField,
         elevation: 0,
-        fixedSize: Size(elevatedButtonWidth ?? double.infinity,
-            elevatedButtonheight ?? 47.h),
+        fixedSize: Size(width ?? double.infinity,
+            height ?? 47.h),
       ),
       child: child ??
           Center(

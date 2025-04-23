@@ -30,14 +30,14 @@ class _DmViewState extends State<DmView> {
   Widget build(BuildContext context) {
     var cubit = ChatsCubit.get(context);
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: CustomAppBar(     context,
         onTitleTapped: () {},
         isDmView: true,
         isCenterTitle: true,
         mainTitle: "ياسر  محمود",
         leadingText: "الرسائل",
         leadingIcon: Icons.arrow_back_ios,
-        onLeadinTap: () => Navigator.pop(context),
+        // onLeadinTap: () => Navigator.pop(context),
         customAction: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),

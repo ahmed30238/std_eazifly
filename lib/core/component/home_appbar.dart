@@ -82,7 +82,7 @@ class MainAppBar extends AppBar {
                       color: const Color(0xff07070D)),
                 ),
                 9.pw,
-                Icon(Icons.add),
+                const Icon(Icons.add),
                 //todo  appIcon
                 // SvgPicture.asset(
                 //   MyImages.appIcon,

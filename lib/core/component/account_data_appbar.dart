@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AccountDataAppbar extends CustomAppBar {
-  final VoidCallback? onTap;
+  final BuildContext customContext;
   AccountDataAppbar({
     super.key,
-    this.onTap,
+    required this.customContext,
   }) : super(
-          onLeadinTap: onTap,
+          customContext,
           mainTitle: "معلومات الحساب",
           leadingText: "الاعدادات",
           isCenterTitle: true,

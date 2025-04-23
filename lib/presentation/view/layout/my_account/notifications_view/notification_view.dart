@@ -31,7 +31,7 @@ class _NotificationViewState extends State<NotificationView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AccountDataAppbar(
-        onTap: () => Navigator.pop(context),
+        customContext: context,
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -76,7 +76,7 @@ class _NotificationViewState extends State<NotificationView> {
                               size: 15.r,
                             )
                           : null,
-                      icon: MyImages.iconsProfile, // todo 
+                      icon: MyImages.iconsProfile, // todo
                       title: index == 2 ? "إختيار نوع المراسلة" : "الاشعارات",
                       isWhats: index == 2,
                       subTitle: "بيانات",

@@ -29,8 +29,8 @@ class _MyAccountViewState extends State<MyAccountView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar(
-        onLeadinTap: () => Navigator.pop(context),
+      appBar: CustomAppBar(     context,
+        // onLeadinTap: () => Navigator.pop(context),
         mainTitle: "الإعدادات",
         mainTitleFontSize: 18,
         leadingText: "",

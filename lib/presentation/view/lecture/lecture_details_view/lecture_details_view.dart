@@ -13,6 +13,7 @@ class LectureDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
+        context,
         mainTitle: "محاضرة رياضيات للصف السادس",
         leadingText: "المواعيد",
         leadingCustomWidth: 80.w,
