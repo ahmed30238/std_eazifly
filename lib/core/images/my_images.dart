@@ -10,6 +10,10 @@ class MyImages {
   /// assets/icons/add-square.svg
   static const String iconsAddSquare = "assets/icons/add-square.svg";
 
+  /// Assets for iconsArrowDown
+  /// assets/icons/arrow_down.svg
+  static const String iconsArrowDown = "assets/icons/arrow_down.svg";
+
   /// Assets for iconsArrowLeft
   /// assets/icons/arrow-left.svg
   static const String iconsArrowLeft = "assets/icons/arrow-left.svg";

@@ -44,5 +44,14 @@
     "competitorsMenu": "قائمة المنافسين",
     "myStudent": "طلابي",
     "programLeader": "المتصدرين بالبرنامج",
-    "leaderboardMenu": "قائمة المتصدرين"
+    "leaderboardMenu": "قائمة المتصدرين",
+    "setAppointmenta": "تعيين المواعيد",
+    "frommHour": "من الساعة",
+    "toHour": "إلى الساعة",
+    "students": "الطلاب",
+    "days": "الأيام",
+    "chooseAppropriateLecturer": "اختر المعلم المناسب",
+    "choose": "اختر",
+    "studentSchedules": "مواعيد الطلاب",
+    "next": "التالي"
 }

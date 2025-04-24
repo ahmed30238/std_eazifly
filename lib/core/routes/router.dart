@@ -5,6 +5,7 @@ import 'package:eazifly_student/presentation/controller/goal_details_controller/
 import 'package:eazifly_student/presentation/controller/meetings_controller/meeting_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/notifications_controller/notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
+import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
 import 'package:eazifly_student/presentation/view/chat/chats_view.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
@@ -26,6 +27,8 @@ import 'package:eazifly_student/presentation/view/layout/my_account/reports_and_
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/student_management.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_management_view.dart';
 import 'package:eazifly_student/presentation/view/meeting_data_view/meeting_data_view.dart';
+import 'package:eazifly_student/presentation/view/set_appointments_view/set_appointments_view.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/subscription_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -125,6 +128,17 @@ class AppRouter {
       case RoutePaths.sessionDetailsView:
         return createRoute(
           const SessionDetailsView(),
+        );
+      case RoutePaths.setAppointmentsView:
+        return createRoute(
+          BlocProvider(
+            create: (context) => SetappointmentsCubit(),
+            child: const SetAppointmentsView(),
+          ),
+        );
+      case RoutePaths.subscriptionDetailsView:
+        return createRoute(
+          const SubscriptionDetailsView(),
         );
       case RoutePaths.homeNotification:
         return createRoute(

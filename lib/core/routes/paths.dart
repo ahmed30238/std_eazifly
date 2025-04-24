@@ -1,3 +1,5 @@
+
+
 class RoutePaths {
   static const layoutPath = "layout";
   static const loginPath = "loginPath";
@@ -26,4 +28,6 @@ class RoutePaths {
   static const joinedLectureScreen = "joinedLectureScreen";
   static const lectureDetailsView = "lectureDetailsView";
   static const sessionDetailsView = "sessionDetailsView";
+  static const subscriptionDetailsView = "subscriptionDetailsView";
+  static const setAppointmentsView = "setAppointmentsView";
 }

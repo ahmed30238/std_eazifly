@@ -58,7 +58,6 @@ Future<dynamic> showModalSheet(
 }) {
   return showModalBottomSheet(
     isScrollControlled: isFixedSize ?? true,
-    // clipBehavior: Clip.antiAliasWithSaveLayer,
     constraints: BoxConstraints(
       minHeight: minHeight ?? 700.h,
       maxHeight: maxHeight ?? 800.h,
@@ -66,7 +65,6 @@ Future<dynamic> showModalSheet(
 
     isDismissible: isDismissed ?? true,
     useSafeArea: safeArea ?? true,
-    // shape: ShapeBorderClipper(shape: shape),
     context: context,
     useRootNavigator: true,
     builder: (context) => widget,

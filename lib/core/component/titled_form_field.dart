@@ -19,13 +19,17 @@ class TitledFormFieldItem extends StatelessWidget {
   final String formfieldHintText;
   final String? formfieldEnText;
   final double? formFieldheight;
+  final SizedBox ?verticalSpace;
+  final TextInputType? keyboardType;
 
   final Widget? suffIcon;
   const TitledFormFieldItem({
     this.controller,
     super.key,
     this.enabled,
+    this.verticalSpace,
     this.validator,
+    this.keyboardType,
     this.border,
     this.enabledBorder,
     this.focusedBorder,
@@ -75,10 +79,11 @@ class TitledFormFieldItem extends StatelessWidget {
                 )
           ],
         ),
-        8.ph,
+        verticalSpace ?? 8.ph,
         SizedBox(
           // height: formFieldheight ?? 44.h,
           child: CustomTextFormField(
+            keyboardType: keyboardType,
             enabledBorder: enabledBorder,
             focusedBorder: focusedBorder,
             border: border,

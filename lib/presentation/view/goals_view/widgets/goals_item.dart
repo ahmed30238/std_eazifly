@@ -8,20 +8,32 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class GoalsItem extends StatelessWidget {
+  final String title;
+  final String points;
+  final String description1;
+  final String description2;
   final VoidCallback onTap;
-  const GoalsItem({super.key,required this.onTap});
+
+  const GoalsItem({
+    super.key,
+    required this.onTap,
+    required this.title,
+    required this.points,
+    required this.description1,
+    required this.description2,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16.w),
+        margin: EdgeInsets.only(right: 16.w, bottom: 16.h), // Adjusted margin
         height: 96.h,
         width: 319.w,
         decoration: BoxDecoration(
           color: MainColors.veryLightGrayFormField,
-          borderRadius: 20.cr,
+          borderRadius: BorderRadius.circular(20.r),
           border: Border.all(color: MainColors.grayBorderColor, width: 2.w),
         ),
         child: Row(
@@ -40,15 +52,13 @@ class GoalsItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "أصناف الناس في العبادة",
+                        title,
                         style: MainTextStyle.boldTextStyle(fontSize: 14),
                       ),
                       const Spacer(),
-                      SvgPicture.asset(
-                        MyImages.iconsCoin,
-                      ),
+                      SvgPicture.asset(MyImages.iconsCoin),
                       Text(
-                        "20",
+                        points,
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 11,
                           color: MainColors.grayTextColors,
@@ -59,7 +69,7 @@ class GoalsItem extends StatelessWidget {
                 ),
                 8.ph,
                 Text(
-                  "تقييم على ماتم حفظه من 1 الى 20",
+                  description1,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 11,
                     color: MainColors.grayTextColors,
@@ -67,7 +77,7 @@ class GoalsItem extends StatelessWidget {
                 ),
                 4.ph,
                 Text(
-                  "إختبار تطبيقي على الغنة والقلقلة",
+                  description2,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 11,
                     color: MainColors.grayTextColors,

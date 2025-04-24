@@ -22,12 +22,14 @@ class CustomTextFormField extends StatelessWidget {
   final InputBorder? border;
   final InputBorder? enabledBorder;
   final InputBorder? focusedBorder;
+  final TextInputType? keyboardType;
   final InputBorder? disabledBorder;
 
   const CustomTextFormField({
     required this.hintText,
     this.suffixText,
     this.prefixText,
+    this.keyboardType,
     this.validator,
     this.onSuffixPressed,
     this.suffixIcon,
@@ -54,6 +56,7 @@ class CustomTextFormField extends StatelessWidget {
       validator: validator,
       obscureText: isSecured ?? false,
       controller: controller,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: MainTextStyle.boldTextStyle(
