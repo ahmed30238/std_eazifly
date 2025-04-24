@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
                     scaffoldBackgroundColor: MainColors.scaffoldWhite,
                   ),
                   onGenerateRoute: AppRouter.onGenerateRoutes,
-                  initialRoute: RoutePaths.packageDetailsView,
+                  initialRoute: RoutePaths.groupPackageManagement,
                   //  GetStorage().hasData(TokenEnum.token.name)
                   //     ? RoutePaths.layoutPath
                   //     : RoutePaths.loginPath,

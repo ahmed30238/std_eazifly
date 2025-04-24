@@ -1,4 +1,3 @@
-
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class PackageContentsItem extends StatelessWidget {
@@ -44,13 +43,11 @@ class PackageContentsItem extends StatelessWidget {
                 Container(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(4.r),
-                      bottomLeft: Radius.circular(4.r),
-                    )
-                  ),
+                      borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(4.r),
+                    bottomLeft: Radius.circular(4.r),
+                  )),
                   child: Image.asset(
-                    
                     fit: BoxFit.cover,
                     MyImages.imagesPersona,
                     height: 127.h,

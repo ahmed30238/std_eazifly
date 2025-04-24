@@ -11,12 +11,14 @@ class StudentStats extends StatelessWidget {
   final Widget? downSideWidget;
   final VoidCallback? onFirstItemTap;
   final VoidCallback? onSecondItemTap;
+  final int? length;
   final VoidCallback? onThirdItemTap;
   const StudentStats({
     super.key,
     this.horizontalPadding,
     this.titleText,
     this.descText,
+    this.length,
     this.downSideWidget,
     this.onFirstItemTap,
     this.onSecondItemTap,
@@ -30,7 +32,7 @@ class StudentStats extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
-          3,
+          length ?? 3,
           (index) => Padding(
             padding: EdgeInsets.symmetric(horizontal: index == 1 ? 8.w : 0),
             child: InkWell(
@@ -50,7 +52,8 @@ class StudentStats extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      titleText?[index] ?? dataList(context)[index].evaluationTitle,
+                      titleText?[index] ??
+                          dataList(context)[index].evaluationTitle,
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
                         color: MainColors.grayTextColors,
@@ -58,7 +61,8 @@ class StudentStats extends StatelessWidget {
                     ),
                     downSideWidget ??
                         Text(
-                         descText?[index]?? dataList(context)[index].percentage,
+                          descText?[index] ??
+                              dataList(context)[index].percentage,
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: MainColors.blackText,

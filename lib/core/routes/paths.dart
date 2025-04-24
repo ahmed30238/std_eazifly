@@ -29,4 +29,5 @@ class RoutePaths {
   static const subscriptionDetailsView = "subscriptionDetailsView";
   static const setAppointmentsView = "setAppointmentsView";
   static const packageDetailsView = "packageDetailsView";
+  static const groupPackageManagement = "groupPackageManagement";
 }

@@ -7,11 +7,16 @@ import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+
 class StudentDataItem extends StatelessWidget {
+  final bool hasIcon;
   final int index;
+  final double? width;
   const StudentDataItem({
     super.key,
     required this.index,
+    this.width,
+    this.hasIcon = true,
   });
 
   @override
@@ -24,12 +29,13 @@ class StudentDataItem extends StatelessWidget {
         bottom: index == 12 ? 12 : 0,
       ),
       height: 65.h,
-      width: 343.w,
+      width: width ?? 343.w,
       decoration: BoxDecoration(
         borderRadius: 12.cr,
         color: MainColors.veryLightGrayFormField,
       ),
       child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           //! image
@@ -59,7 +65,11 @@ class StudentDataItem extends StatelessWidget {
               ),
             ],
           ),
-          20.pw,
+          if (hasIcon) ...{
+            20.pw,
+          } else ...{
+            const Spacer(),
+          },
           //! phone
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,46 +89,48 @@ class StudentDataItem extends StatelessWidget {
               ),
             ],
           ),
-          const Spacer(),
-          InkWell(
-              onTap: () {
-                showModalSheet(
-                  minHeight: 350.h,
-                  maxHeight: 351.h,
-                  isFixedSize: true,
-                  context,
-                  widget: Container(
-                    height: 200.h,
-                    width: 375.w,
-                    decoration: BoxDecoration(
-                      borderRadius: 12.cr,
-                      color: MainColors.white,
+          if (hasIcon) const Spacer(),
+          if (hasIcon)
+            InkWell(
+                onTap: () {
+                  showModalSheet(
+                    minHeight: 350.h,
+                    maxHeight: 351.h,
+                    isFixedSize: true,
+                    context,
+                    widget: Container(
+                      height: 200.h,
+                      width: 375.w,
+                      decoration: BoxDecoration(
+                        borderRadius: 12.cr,
+                        color: MainColors.white,
+                      ),
+                      child: Column(
+                        children: [
+                          16.ph,
+                          Text(
+                            "تعديل بيانات الطالب",
+                            style: MainTextStyle.boldTextStyle(fontSize: 14),
+                          ),
+                          16.ph,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(MyImages.iconsProfile),
+                              8.pw,
+                              Text(
+                                "تعديل",
+                                style:
+                                    MainTextStyle.boldTextStyle(fontSize: 14),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      children: [
-                        16.ph,
-                        Text(
-                          "تعديل بيانات الطالب",
-                          style: MainTextStyle.boldTextStyle(fontSize: 14),
-                        ),
-                        16.ph,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(MyImages.iconsProfile),
-                            8.pw,
-                            Text(
-                              "تعديل",
-                              style: MainTextStyle.boldTextStyle(fontSize: 14),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-              child: SvgPicture.asset(MyImages.iconsProfile))
+                  );
+                },
+                child: SvgPicture.asset(MyImages.iconsProfile))
         ],
       ),
     );
