@@ -41,11 +41,21 @@ class PackageContentsItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.asset(
-                  fit: BoxFit.cover,
-                  MyImages.imagesPersona,
-                  height: 127.h,
-                  width: 322.w,
+                Container(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(4.r),
+                      bottomLeft: Radius.circular(4.r),
+                    )
+                  ),
+                  child: Image.asset(
+                    
+                    fit: BoxFit.cover,
+                    MyImages.imagesPersona,
+                    height: 127.h,
+                    width: 322.w,
+                  ),
                 ),
                 8.ph,
                 Padding(
