@@ -6,9 +6,11 @@ class MainColors {
   static const redWaveColor = Color(0xFFC75266);
   static const blueMoreTextColor = Color(0xFF0E49CA);
   static const checkBoxBorderGray = Color(0xFF3D5066);
-  static const transparentColor = Colors.transparent;
+  static const offersColor = Color(0xFFE8757E);
 
+  static const transparentColor = Colors.transparent;
   static const lightblue = Color(0xFFEAF0FD);
+  static const whiteCyan = Color(0xFF6792F1);
   static const lightGray = Color(0xffE5E7EB);
   static const veryLightGrayFormField = Color(0xffF8F9FA);
   static const grayBorderColor = Color(0xffF0F0F0);

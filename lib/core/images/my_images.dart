@@ -38,9 +38,17 @@ class MyImages {
   /// assets/icons/bronze-medal.svg
   static const String iconsBronzeMedal = "assets/icons/bronze-medal.svg";
 
+  /// Assets for iconsBulb
+  /// assets/icons/bulb.svg
+  static const String iconsBulb = "assets/icons/bulb.svg";
+
   /// Assets for iconsChatsIcon
   /// assets/icons/chats-icon.svg
   static const String iconsChatsIcon = "assets/icons/chats-icon.svg";
+
+  /// Assets for iconsCheckMark
+  /// assets/icons/check-mark.svg
+  static const String iconsCheckMark = "assets/icons/check-mark.svg";
 
   /// Assets for iconsCoin
   /// assets/icons/coin.svg

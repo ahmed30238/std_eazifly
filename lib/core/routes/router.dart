@@ -6,6 +6,7 @@ import 'package:eazifly_student/presentation/controller/meetings_controller/meet
 import 'package:eazifly_student/presentation/controller/my_account_controllers/notifications_controller/notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
 import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
+import 'package:eazifly_student/presentation/controller/subscription_details_controller/subscriptiondetails_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
 import 'package:eazifly_student/presentation/view/chat/chats_view.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
@@ -138,7 +139,10 @@ class AppRouter {
         );
       case RoutePaths.subscriptionDetailsView:
         return createRoute(
-          const SubscriptionDetailsView(),
+          BlocProvider(
+            create: (context) => SubscriptiondetailsCubit(),
+            child: const SubscriptionDetailsView(),
+          ),
         );
       case RoutePaths.homeNotification:
         return createRoute(

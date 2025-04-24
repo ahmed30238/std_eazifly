@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StudentsList extends StatelessWidget {
   const StudentsList({
-    super.key,
+    super.key
   });
 
   @override
