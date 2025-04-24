@@ -54,5 +54,6 @@
   "choose": "اختر",
   "studentSchedules": "مواعيد الطلاب",
   "next": "التالي",
-  "subscriptionDetails": "تفاصيل الاشتراك"
+  "subscriptionDetails": "تفاصيل الاشتراك",
+  "packageDetails" : "تفاصيل المجموعة"
 }

@@ -1,5 +1,3 @@
-
-
 class RoutePaths {
   static const layoutPath = "layout";
   static const loginPath = "loginPath";
@@ -30,4 +28,5 @@ class RoutePaths {
   static const sessionDetailsView = "sessionDetailsView";
   static const subscriptionDetailsView = "subscriptionDetailsView";
   static const setAppointmentsView = "setAppointmentsView";
+  static const packageDetailsView = "packageDetailsView";
 }

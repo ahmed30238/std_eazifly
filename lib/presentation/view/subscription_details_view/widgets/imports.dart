@@ -23,3 +23,5 @@ export 'package:eazifly_student/presentation/view/subscription_details_view/widg
 export 'package:eazifly_student/core/component/custom_elevated_btn.dart';
 export '../../layout/my_account/subscriptions_management_view/widgets/custom_tab_bar.dart';
 export 'package:eazifly_student/presentation/view/subscription_details_view/widgets/offer_container.dart';
+export 'package:eazifly_student/presentation/view/meeting_data_view/widgets/student_stats.dart';
+export 'package:eazifly_student/presentation/view/package_details_view/widgets/package_details_item.dart';

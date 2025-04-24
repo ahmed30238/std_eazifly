@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StudentStats extends StatelessWidget {
   final double? horizontalPadding;
-  final String? titleText;
+  final List<String>? titleText;
+  final List<String>? descText;
   final Widget? downSideWidget;
   final VoidCallback? onFirstItemTap;
   final VoidCallback? onSecondItemTap;
@@ -15,6 +16,7 @@ class StudentStats extends StatelessWidget {
     super.key,
     this.horizontalPadding,
     this.titleText,
+    this.descText,
     this.downSideWidget,
     this.onFirstItemTap,
     this.onSecondItemTap,
@@ -48,7 +50,7 @@ class StudentStats extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      titleText ?? dataList(context)[index].evaluationTitle,
+                      titleText?[index] ?? dataList(context)[index].evaluationTitle,
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
                         color: MainColors.grayTextColors,
@@ -56,7 +58,7 @@ class StudentStats extends StatelessWidget {
                     ),
                     downSideWidget ??
                         Text(
-                          dataList(context)[index].percentage,
+                         descText?[index]?? dataList(context)[index].percentage,
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: MainColors.blackText,

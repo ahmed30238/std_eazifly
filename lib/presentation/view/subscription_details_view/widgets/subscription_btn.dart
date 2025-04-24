@@ -1,7 +1,7 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class SubscriptionButton extends StatelessWidget {
-  const SubscriptionButton({
+class ButtonWithPrice extends StatelessWidget {
+  const ButtonWithPrice({
     super.key,
   });
 
