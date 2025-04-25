@@ -1,7 +1,6 @@
-
-
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_state.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
@@ -23,7 +22,10 @@ class LayoutCubit extends Cubit<LayoutState> {
   }
 
   List<Widget> screens = [
-    const HomePage(),
+    BlocProvider(
+      create: (context) => HomeCubit(),
+      child: const HomePage(),
+    ),
     const ProgramsView(),
     const MyProgramsView(),
     BlocProvider(
@@ -34,27 +36,38 @@ class LayoutCubit extends Cubit<LayoutState> {
   ];
 
   List<BottomNavBarItemModel> bottomNavigationBarItemMethod(
-      BuildContext context) {
+      BuildContext context,
+      {required bool isActive}) {
     var lang = context.loc!;
     List<BottomNavBarItemModel> bottomNavigationBarItem = [
       BottomNavBarItemModel(
-        icon: MyImages.iconsUnfilledHome,
+        icon: isActive
+            ? MyImages.bottom_nav_bar_iconsActiveMain
+            : MyImages.bottom_nav_bar_iconsInactiveMain,
         label: lang.main,
       ),
       BottomNavBarItemModel(
-        icon: MyImages.iconsBriefcase,
+        icon: isActive
+            ? MyImages.bottom_nav_bar_iconsActivePrograms
+            : MyImages.bottom_nav_bar_iconsInactivePrograms,
         label: lang.thePrograms,
       ),
       BottomNavBarItemModel(
-        icon: MyImages.iconsBox,
+        icon: isActive
+            ? MyImages.bottom_nav_bar_iconsActiveMyPrograms
+            : MyImages.bottom_nav_bar_iconsInactiveMyPrograms,
         label: lang.myPrograms,
       ),
       BottomNavBarItemModel(
-        icon: MyImages.iconsVoiceCricle,
+        icon: isActive
+            ? MyImages.bottom_nav_bar_iconsActiveLibrary
+            : MyImages.bottom_nav_bar_iconsInactiveLibrary,
         label: lang.library,
       ),
       BottomNavBarItemModel(
-        icon: MyImages.iconsProfile,
+        icon: isActive
+            ? MyImages.bottom_nav_bar_iconsActiveProfile
+            : MyImages.bottom_nav_bar_iconsInactiveProfile,
         label: lang.myAccount,
       ),
     ];

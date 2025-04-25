@@ -4,10 +4,11 @@ import 'package:eazifly_student/core/extensions/widgets_extensions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SessionDatesDetails extends StatelessWidget {
   final String firstTitle;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
   final String firstSubTitle;
   final String secondTitle;
   final String secondSubTitle;
@@ -18,6 +19,8 @@ class SessionDatesDetails extends StatelessWidget {
   final bool isBtn;
   const SessionDatesDetails({
     super.key,
+    this.margin,
+    this.padding,
     required this.firstTitle,
     required this.firstSubTitle,
     required this.secondTitle,
@@ -32,8 +35,8 @@ class SessionDatesDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      margin: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: padding,
+      margin: margin,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,6 +64,7 @@ class SessionDatesDetails extends StatelessWidget {
           ),
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   secondTitle,
@@ -82,6 +86,7 @@ class SessionDatesDetails extends StatelessWidget {
           ),
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   thirdTitle,

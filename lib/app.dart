@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/network/handle_token.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/routes/router.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_storage/get_storage.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -37,10 +39,11 @@ class MyApp extends StatelessWidget {
                     scaffoldBackgroundColor: MainColors.scaffoldWhite,
                   ),
                   onGenerateRoute: AppRouter.onGenerateRoutes,
-                  initialRoute: RoutePaths.groupPackageManagement,
-                  //  GetStorage().hasData(TokenEnum.token.name)
-                  //     ? RoutePaths.layoutPath
-                  //     : RoutePaths.loginPath,
+                  initialRoute: 
+                  // RoutePaths.layoutPath,
+                   GetStorage().hasData(TokenEnum.token.name)
+                      ? RoutePaths.layoutPath
+                      : RoutePaths.loginPath,
                   supportedLocales: AppLocalizations.supportedLocales,
                   localizationsDelegates:
                       AppLocalizations.localizationsDelegates,

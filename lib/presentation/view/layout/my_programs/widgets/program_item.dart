@@ -65,6 +65,8 @@ class ProgramItem extends StatelessWidget {
             const WavyDivider(),
             4.ph,
              SessionDatesDetails(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              margin: EdgeInsets.symmetric(horizontal: 16.w),
               firstTitle: lang.nextLecture,
               firstSubTitle: "12:45 PM",
               secondTitle: lang.sessionDuration,

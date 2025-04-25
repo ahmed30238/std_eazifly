@@ -25,3 +25,17 @@ export '../../layout/my_account/subscriptions_management_view/widgets/custom_tab
 export 'package:eazifly_student/presentation/view/subscription_details_view/widgets/offer_container.dart';
 export 'package:eazifly_student/presentation/view/meeting_data_view/widgets/student_stats.dart';
 export 'package:eazifly_student/presentation/view/package_details_view/widgets/package_details_item.dart';
+export 'package:eazifly_student/core/component/custom_form_field.dart';
+export 'package:eazifly_student/core/component/prefix_search_form_field.dart';
+export 'package:eazifly_student/core/routes/paths.dart';
+export 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
+export 'package:eazifly_student/presentation/view/layout/home_page/widgets/carousel_slider.dart';
+export 'package:eazifly_student/presentation/view/layout/home_page/widgets/category_row_widget.dart';
+export 'package:eazifly_student/presentation/view/layout/home_page/widgets/home_appbar.dart';
+export 'package:eazifly_student/presentation/view/layout/home_page/widgets/home_best_sellers_list.dart';
+export 'package:eazifly_student/presentation/view/layout/home_page/widgets/new_coming_list.dart';
+export 'package:eazifly_student/presentation/view/layout/home_page/widgets/next_lecture_list.dart';
+export 'package:eazifly_student/presentation/view/layout/home_page/widgets/screens_bar.dart';
+export 'package:eazifly_student/presentation/view/layout/library/widgets/program_with_stats_container.dart';
+export 'package:eazifly_student/presentation/view/layout/my_programs/widgets/session_dates_details.dart';
+export 'package:eazifly_student/core/component/image_conainer.dart';

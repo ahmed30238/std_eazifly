@@ -2,6 +2,46 @@
 class MyImages {
   MyImages._();
   
+  /// Assets for bottom_nav_bar_iconsActiveLibrary
+  /// assets/bottom_nav_bar_icons/active-library.svg
+  static const String bottom_nav_bar_iconsActiveLibrary = "assets/bottom_nav_bar_icons/active-library.svg";
+
+  /// Assets for bottom_nav_bar_iconsActiveMain
+  /// assets/bottom_nav_bar_icons/active-main.svg
+  static const String bottom_nav_bar_iconsActiveMain = "assets/bottom_nav_bar_icons/active-main.svg";
+
+  /// Assets for bottom_nav_bar_iconsActiveMyPrograms
+  /// assets/bottom_nav_bar_icons/active-my-programs.svg
+  static const String bottom_nav_bar_iconsActiveMyPrograms = "assets/bottom_nav_bar_icons/active-my-programs.svg";
+
+  /// Assets for bottom_nav_bar_iconsActiveProfile
+  /// assets/bottom_nav_bar_icons/active-profile.svg
+  static const String bottom_nav_bar_iconsActiveProfile = "assets/bottom_nav_bar_icons/active-profile.svg";
+
+  /// Assets for bottom_nav_bar_iconsActivePrograms
+  /// assets/bottom_nav_bar_icons/active-programs.svg
+  static const String bottom_nav_bar_iconsActivePrograms = "assets/bottom_nav_bar_icons/active-programs.svg";
+
+  /// Assets for bottom_nav_bar_iconsInactiveLibrary
+  /// assets/bottom_nav_bar_icons/inactive-library.svg
+  static const String bottom_nav_bar_iconsInactiveLibrary = "assets/bottom_nav_bar_icons/inactive-library.svg";
+
+  /// Assets for bottom_nav_bar_iconsInactiveMain
+  /// assets/bottom_nav_bar_icons/inactive-main.svg
+  static const String bottom_nav_bar_iconsInactiveMain = "assets/bottom_nav_bar_icons/inactive-main.svg";
+
+  /// Assets for bottom_nav_bar_iconsInactiveMyPrograms
+  /// assets/bottom_nav_bar_icons/inactive-my-programs.svg
+  static const String bottom_nav_bar_iconsInactiveMyPrograms = "assets/bottom_nav_bar_icons/inactive-my-programs.svg";
+
+  /// Assets for bottom_nav_bar_iconsInactiveProfile
+  /// assets/bottom_nav_bar_icons/inactive-profile.svg
+  static const String bottom_nav_bar_iconsInactiveProfile = "assets/bottom_nav_bar_icons/inactive-profile.svg";
+
+  /// Assets for bottom_nav_bar_iconsInactivePrograms
+  /// assets/bottom_nav_bar_icons/inactive-programs.svg
+  static const String bottom_nav_bar_iconsInactivePrograms = "assets/bottom_nav_bar_icons/inactive-programs.svg";
+
   /// Assets for iconsAboutAppIcon
   /// assets/icons/about-app-icon.svg
   static const String iconsAboutAppIcon = "assets/icons/about-app-icon.svg";
@@ -21,6 +61,10 @@ class MyImages {
   /// Assets for iconsArrowRight
   /// assets/icons/arrow-right.svg
   static const String iconsArrowRight = "assets/icons/arrow-right.svg";
+
+  /// Assets for iconsAssignments
+  /// assets/icons/assignments.svg
+  static const String iconsAssignments = "assets/icons/assignments.svg";
 
   /// Assets for iconsBox
   /// assets/icons/box.svg
@@ -90,6 +134,10 @@ class MyImages {
   /// assets/icons/live-broadcasting.svg
   static const String iconsLiveBroadcasting = "assets/icons/live-broadcasting.svg";
 
+  /// Assets for iconsMeetings
+  /// assets/icons/meetings.svg
+  static const String iconsMeetings = "assets/icons/meetings.svg";
+
   /// Assets for iconsMicrophone
   /// assets/icons/microphone.svg
   static const String iconsMicrophone = "assets/icons/microphone.svg";
@@ -97,6 +145,14 @@ class MyImages {
   /// Assets for iconsMyProgramAppbar
   /// assets/icons/my-program-appbar.svg
   static const String iconsMyProgramAppbar = "assets/icons/my-program-appbar.svg";
+
+  /// Assets for iconsNotificationIcon
+  /// assets/icons/notification_icon.svg
+  static const String iconsNotificationIcon = "assets/icons/notification_icon.svg";
+
+  /// Assets for iconsPause
+  /// assets/icons/pause.svg
+  static const String iconsPause = "assets/icons/pause.svg";
 
   /// Assets for iconsPeople
   /// assets/icons/people.svg
@@ -121,6 +177,10 @@ class MyImages {
   /// Assets for iconsProfile
   /// assets/icons/profile.svg
   static const String iconsProfile = "assets/icons/profile.svg";
+
+  /// Assets for iconsQuizzes
+  /// assets/icons/quizzes.svg
+  static const String iconsQuizzes = "assets/icons/quizzes.svg";
 
   /// Assets for iconsRecordOn
   /// assets/icons/record-on.svg
@@ -165,6 +225,10 @@ class MyImages {
   /// Assets for iconsVerticalDots
   /// assets/icons/vertical-dots.svg
   static const String iconsVerticalDots = "assets/icons/vertical-dots.svg";
+
+  /// Assets for iconsViewAllArrow
+  /// assets/icons/view_all_arrow.svg
+  static const String iconsViewAllArrow = "assets/icons/view_all_arrow.svg";
 
   /// Assets for iconsVoiceCricle
   /// assets/icons/voice-cricle.svg

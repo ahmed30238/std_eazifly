@@ -4,7 +4,6 @@ import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart
 import 'package:eazifly_student/presentation/controller/layout/layout_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Layout extends StatelessWidget {
@@ -32,30 +31,24 @@ class Layout extends StatelessWidget {
               fontSize: 12,
             ),
             items: List.generate(
-              cubit.bottomNavigationBarItemMethod(context).length,
+              5,
               (index) {
                 bool isSelected = cubit.index == index;
                 return BottomNavigationBarItem(
-                  icon: Container(
-                    width: 50.h,
-                    height: 28.h,
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? MainColors.lightblue
-                          : MainColors.transparentColor,
-                      borderRadius: BorderRadius.circular(
-                        20.r,
-                      ),
-                    ),
-                    child: SvgPicture.asset(
-                      cubit.bottomNavigationBarItemMethod(context)[index].icon,
-                      colorFilter: ColorFilter.mode(
-                        isSelected ? MainColors.blueTextColor : Colors.black,
-                        BlendMode.srcIn,
-                      ),
+                  icon: SvgPicture.asset(
+                    cubit
+                        .bottomNavigationBarItemMethod(context,
+                            isActive: isSelected)[index]
+                        .icon,
+                    colorFilter: ColorFilter.mode(
+                      isSelected ? MainColors.blueTextColor : Colors.black,
+                      BlendMode.srcIn,
                     ),
                   ),
-                  label: cubit.bottomNavigationBarItemMethod(context)[index].label,
+                  label: cubit
+                      .bottomNavigationBarItemMethod(context,
+                          isActive: isSelected)[index]
+                      .label,
                 );
               },
             ),

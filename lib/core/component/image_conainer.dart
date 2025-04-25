@@ -41,8 +41,8 @@ class ImageContainer extends StatelessWidget {
         ),
         image: DecorationImage(
           fit: fit ?? BoxFit.cover,
-          image: const AssetImage(
-            MyImages.imagesPersona,
+          image: AssetImage(
+            image ?? MyImages.imagesPersona,
           ),
         ),
         borderRadius: shape == null

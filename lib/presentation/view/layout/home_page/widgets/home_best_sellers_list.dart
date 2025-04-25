@@ -1,10 +1,9 @@
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/program_with_stats_container.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class MostPopularList extends StatelessWidget {
-  const MostPopularList({
+
+class HomeBestSellersList extends StatelessWidget {
+  const HomeBestSellersList({
     super.key,
   });
 
@@ -15,7 +14,8 @@ class MostPopularList extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) => const ProgramWithStatsContainer(),
+        itemBuilder: (context, index) =>
+            const ProgramWithStatsContainer(),
         separatorBuilder: (context, index) => 12.pw,
         itemCount: 4,
       ),

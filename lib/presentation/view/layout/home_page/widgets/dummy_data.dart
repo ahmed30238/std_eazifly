@@ -1,5 +1,6 @@
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:flutter/material.dart';
 
 List<String> textList(BuildContext context) {
@@ -12,12 +13,24 @@ List<String> textList(BuildContext context) {
   ];
   return textList;
 }
+List<String> paths = [
+  RoutePaths.lectureView,
+  RoutePaths.assignments,
+  RoutePaths.quizzes,
+  RoutePaths.meetings,
+];
+List<String> images = [
+  // MyImages.imagesEditedPersona,
+  MyImages.imagesPersona,
+  // MyImages.imagesPngImage,
+  // MyImages.imagesPngPersona,
+];
 
 List<String> iconsList = [
   MyImages.iconsLiveBroadcasting,
-  MyImages.iconsProfile,
-  MyImages.iconsBriefcase,
-  MyImages.iconsProfile,
+  MyImages.iconsAssignments,
+  MyImages.iconsQuizzes,
+  MyImages.iconsMeetings,
 ];
 List<String> lecturetextList = [
   "موعد المحاضرة",

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LibraryProgramItem extends StatelessWidget {
-  const LibraryProgramItem({
+class ProgramWithStatsContainer extends StatelessWidget {
+  const ProgramWithStatsContainer({
     super.key,
   });
 

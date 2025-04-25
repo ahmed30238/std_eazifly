@@ -42,7 +42,7 @@ class CustomAppBar extends AppBar {
     super.key,
   }) : super(
           elevation: customElevation,
-          toolbarHeight: 40.h,
+          toolbarHeight: kToolbarHeight,
           leadingWidth: leadingCustomWidth ?? 100.w,
           backgroundColor: MainColors.white,
           centerTitle: isCenterTitle,
