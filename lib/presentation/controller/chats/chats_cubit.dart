@@ -14,15 +14,14 @@ class ChatsCubit extends Cubit<ChatsState> {
   static ChatsCubit get(context) => BlocProvider.of(context);
   late TabController controller;
   void initController(TickerProvider vsync) {
-    controller =
-        TabController(length: 2, vsync: vsync)
-          ..addListener(
-            () {
-              if (controller.indexIsChanging) {
-                emit(ChangeTapbarState());
-              }
-            },
-          );
+    controller = TabController(length: 2, vsync: vsync)
+      ..addListener(
+        () {
+          if (controller.indexIsChanging) {
+            emit(ChangeTapbarState());
+          }
+        },
+      );
   }
 
   List<File> images = [];

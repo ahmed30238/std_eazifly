@@ -142,6 +142,10 @@ class MyImages {
   /// assets/icons/microphone.svg
   static const String iconsMicrophone = "assets/icons/microphone.svg";
 
+  /// Assets for iconsMusicFilter
+  /// assets/icons/music-filter.svg
+  static const String iconsMusicFilter = "assets/icons/music-filter.svg";
+
   /// Assets for iconsMyProgramAppbar
   /// assets/icons/my-program-appbar.svg
   static const String iconsMyProgramAppbar = "assets/icons/my-program-appbar.svg";
@@ -149,6 +153,10 @@ class MyImages {
   /// Assets for iconsNotificationIcon
   /// assets/icons/notification_icon.svg
   static const String iconsNotificationIcon = "assets/icons/notification_icon.svg";
+
+  /// Assets for iconsOutlineHeart
+  /// assets/icons/outline-heart.svg
+  static const String iconsOutlineHeart = "assets/icons/outline-heart.svg";
 
   /// Assets for iconsPause
   /// assets/icons/pause.svg
@@ -161,6 +169,14 @@ class MyImages {
   /// Assets for iconsPlay
   /// assets/icons/play.svg
   static const String iconsPlay = "assets/icons/play.svg";
+
+  /// Assets for iconsPlayNext
+  /// assets/icons/play-next.svg
+  static const String iconsPlayNext = "assets/icons/play-next.svg";
+
+  /// Assets for iconsPlayPrevious
+  /// assets/icons/play-previous.svg
+  static const String iconsPlayPrevious = "assets/icons/play-previous.svg";
 
   /// Assets for iconsPointsIn
   /// assets/icons/points-in.svg

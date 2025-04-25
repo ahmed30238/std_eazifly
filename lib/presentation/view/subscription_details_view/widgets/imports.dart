@@ -39,3 +39,5 @@ export 'package:eazifly_student/presentation/view/layout/home_page/widgets/scree
 export 'package:eazifly_student/presentation/view/layout/library/widgets/program_with_stats_container.dart';
 export 'package:eazifly_student/presentation/view/layout/my_programs/widgets/session_dates_details.dart';
 export 'package:eazifly_student/core/component/image_conainer.dart';
+export 'package:eazifly_student/presentation/view/layout/my_account/notifications_view/notification_view.dart';
+
