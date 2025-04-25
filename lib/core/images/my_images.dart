@@ -86,6 +86,10 @@ class MyImages {
   /// assets/icons/bulb.svg
   static const String iconsBulb = "assets/icons/bulb.svg";
 
+  /// Assets for iconsCash
+  /// assets/icons/cash.svg
+  static const String iconsCash = "assets/icons/cash.svg";
+
   /// Assets for iconsChatsIcon
   /// assets/icons/chats-icon.svg
   static const String iconsChatsIcon = "assets/icons/chats-icon.svg";

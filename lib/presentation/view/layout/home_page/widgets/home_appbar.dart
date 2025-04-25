@@ -1,11 +1,5 @@
-
-
-
 import 'package:eazifly_student/core/component/home_appbar.dart';
-import 'package:eazifly_student/core/component/image_conainer.dart';
-import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppbar({
     super.key,
@@ -57,7 +51,6 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       leadingText: '',
-      // isCenterTitle: true,
       customAction: [
         InkWell(
           onTap: () => Navigator.pushNamed(
