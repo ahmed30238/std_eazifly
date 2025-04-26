@@ -102,9 +102,17 @@ class MyImages {
   /// assets/icons/coin.svg
   static const String iconsCoin = "assets/icons/coin.svg";
 
+  /// Assets for iconsCompletePaymentProcess
+  /// assets/icons/complete-payment-process.svg
+  static const String iconsCompletePaymentProcess = "assets/icons/complete-payment-process.svg";
+
   /// Assets for iconsDeleteBin
   /// assets/icons/delete_bin.svg
   static const String iconsDeleteBin = "assets/icons/delete_bin.svg";
+
+  /// Assets for iconsElectronicWallet
+  /// assets/icons/electronic-wallet.svg
+  static const String iconsElectronicWallet = "assets/icons/electronic-wallet.svg";
 
   /// Assets for iconsFirstMedal
   /// assets/icons/first-medal.svg
@@ -133,6 +141,14 @@ class MyImages {
   /// Assets for iconsHeart
   /// assets/icons/heart.svg
   static const String iconsHeart = "assets/icons/heart.svg";
+
+  /// Assets for iconsInstantPayment
+  /// assets/icons/instant-payment.svg
+  static const String iconsInstantPayment = "assets/icons/instant-payment.svg";
+
+  /// Assets for iconsInstapay
+  /// assets/icons/instapay.png
+  static const String iconsInstapay = "assets/icons/instapay.png";
 
   /// Assets for iconsLiveBroadcasting
   /// assets/icons/live-broadcasting.svg
@@ -165,6 +181,10 @@ class MyImages {
   /// Assets for iconsPause
   /// assets/icons/pause.svg
   static const String iconsPause = "assets/icons/pause.svg";
+
+  /// Assets for iconsPaymentProcess
+  /// assets/icons/payment-process.svg
+  static const String iconsPaymentProcess = "assets/icons/payment-process.svg";
 
   /// Assets for iconsPeople
   /// assets/icons/people.svg
@@ -241,6 +261,10 @@ class MyImages {
   /// Assets for iconsUnfilledHome
   /// assets/icons/unfilled-home.svg
   static const String iconsUnfilledHome = "assets/icons/unfilled-home.svg";
+
+  /// Assets for iconsUploadImage
+  /// assets/icons/upload-image.svg
+  static const String iconsUploadImage = "assets/icons/upload-image.svg";
 
   /// Assets for iconsVerticalDots
   /// assets/icons/vertical-dots.svg

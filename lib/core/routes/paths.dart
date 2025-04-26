@@ -8,6 +8,7 @@ class RoutePaths {
   static const studentManagement = "studentManagement";
   static const settingsPath = "settingsPath";
   static const aboutAppPath = "aboutAppPath";
+  static const confirmPaymentView = "aboconfirmPaymentViewutAppPath";
   static const subscriptionManagmentPath = "subscriptionManagmentPath";
   static const copounsAndDiscountsViewPath = "CopounsAndDiscountsView";
   static const reportsAndComplaintsViewPath = "reportsAndComplaintsViewPath";
@@ -29,5 +30,8 @@ class RoutePaths {
   static const subscriptionDetailsView = "subscriptionDetailsView";
   static const setAppointmentsView = "setAppointmentsView";
   static const packageDetailsView = "packageDetailsView";
+  static const subscriptionPackageDetails = "subscriptiopnPackageDetails";
   static const groupPackageManagement = "groupPackageManagement";
+  static const completePaymentProcessScreen = "completePaymentProcessScreen";
+  static const programsUnderReviewView = "programsUnderReviewView";
 }

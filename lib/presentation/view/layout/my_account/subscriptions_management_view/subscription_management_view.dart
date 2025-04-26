@@ -30,48 +30,47 @@ class _SubscriptionManagmentViewState extends State<SubscriptionManagmentView>
     var lang = context.loc!;
     final cubit = SubscriptionmanagementCubit.get(context);
     return Scaffold(
-        appBar: CustomAppBar(
-          context,
-          mainTitle: lang.subscriptionManagement,
-          leadingText: lang.settings,
-          isCenterTitle: true,
-        ),
-        body: ListView(
-          children: [
-            16.ph,
-            BlocBuilder<SubscriptionmanagementCubit,
-                SubscriptionmanagementState>(
-              builder: (context, state) {
-                return CustomFilledTabBar(
-                    controller: cubit.controller,
-                    onTap: (value) {
-                      cubit.controller.animateTo(value);
-                      cubit.changeTapbarIndex(value);
+      appBar: CustomAppBar(
+        context,
+        mainTitle: lang.subscriptionManagement,
+        leadingText: lang.settings,
+        isCenterTitle: true,
+      ),
+      body: ListView(
+        children: [
+          16.ph,
+          BlocBuilder<SubscriptionmanagementCubit, SubscriptionmanagementState>(
+            builder: (context, state) {
+              return CustomFilledTabBar(
+                  controller: cubit.controller,
+                  onTap: (value) {
+                    cubit.controller.animateTo(value);
+                    cubit.changeTapbarIndex(value);
+                  },
+                  tabs: List.generate(
+                    cubit.tabs.length,
+                    (index) {
+                      return Text(
+                        cubit.tabs[index],
+                        style: MainTextStyle.boldTextStyle(
+                          fontSize: 15,
+                          color: cubit.controller.index == index
+                              ? MainColors.white
+                              : MainColors.blackText,
+                        ),
+                      );
                     },
-                    tabs: List.generate(
-                      cubit.tabs.length,
-                      (index) {
-                        return Text(
-                          cubit.tabs[index],
-                          style: MainTextStyle.boldTextStyle(
-                            fontSize: 15,
-                            color: cubit.controller.index == index
-                                ? MainColors.white
-                                : MainColors.blackText,
-                          ),
-                        );
-                      },
-                    ));
-              },
-            ),
-            16.ph,
-            BlocBuilder<SubscriptionmanagementCubit,
-                SubscriptionmanagementState>(
-              builder: (context, state) {
-                return cubit.body[cubit.tapbarIndex];
-              },
-            ),
-          ],
-        ));
+                  ));
+            },
+          ),
+          16.ph,
+          BlocBuilder<SubscriptionmanagementCubit, SubscriptionmanagementState>(
+            builder: (context, state) {
+              return cubit.body[cubit.tapbarIndex];
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

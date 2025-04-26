@@ -17,6 +17,9 @@ import 'package:eazifly_student/presentation/view/group_package_management_view/
 import 'package:eazifly_student/presentation/view/home_meetings_view/home_meetings_view.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_notification_view.dart/home_notofication_view.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/complete_payment_process_view/complete_payment_process_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/confirm_payment_view/confirm_payment_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_package_details/subscription_package_details.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/session_details_view/session_details_view.dart';
 import 'package:eazifly_student/presentation/view/leaderboard_view/leaderboard_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/joined_lecture_screen/joined_lecture_screen.dart';
@@ -31,6 +34,7 @@ import 'package:eazifly_student/presentation/view/layout/my_account/student_mana
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_management_view.dart';
 import 'package:eazifly_student/presentation/view/meeting_data_view/meeting_data_view.dart';
 import 'package:eazifly_student/presentation/view/package_details_view/package_details_view.dart';
+import 'package:eazifly_student/presentation/view/programs_underreview/programs_under_review_view.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/set_appointments_view.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/subscription_details_view.dart';
 import 'package:flutter/material.dart';
@@ -161,6 +165,22 @@ class AppRouter {
       case RoutePaths.homeNotification:
         return createRoute(
           const HomeNotificationView(),
+        );
+      case RoutePaths.confirmPaymentView:
+        return createRoute(
+          const ConfirmPaymentView(),
+        );
+      case RoutePaths.subscriptionPackageDetails:
+        return createRoute(
+          const SubscriptiopnPackageDetails(),
+        );
+      case RoutePaths.programsUnderReviewView:
+        return createRoute(
+          const ProgramsUnderReviewView(),
+        );
+      case RoutePaths.completePaymentProcessScreen:
+        return createRoute(
+          const CompletePaymentProcessView(),
         );
       case RoutePaths.dmViewPath:
         var cubit = settings.arguments as ChatsCubit;

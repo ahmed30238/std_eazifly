@@ -1,6 +1,5 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-
 class PackageContainer extends StatelessWidget {
   final bool isSelected;
   const PackageContainer({
@@ -37,7 +36,7 @@ class PackageContainer extends StatelessWidget {
             child: ListView.builder(
               // padding: ,
               physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) => const PackageFeature(),
+              itemBuilder: (context, index) => const PackageFeatureItem(text: "خر تطورات الإدارة والعلوادر موثوقة وحديثة",),
               itemCount: 3,
             ),
           )
@@ -47,15 +46,19 @@ class PackageContainer extends StatelessWidget {
   }
 }
 
-class PackageFeature extends StatelessWidget {
-  const PackageFeature({
+class PackageFeatureItem extends StatelessWidget {
+  final String text;
+  final double? areaHeight;
+  const PackageFeatureItem({
     super.key,
+    this.areaHeight,
+    required this.text,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40.h,
+      height: areaHeight ?? 40.h,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -63,10 +66,10 @@ class PackageFeature extends StatelessWidget {
           8.pw,
           Expanded(
             child: Text(
-              "خر تطورات الإدارة والعلوادر موثوقة وحديثة",
+              text,
               style: MainTextStyle.mediumTextStyle(fontSize: 14),
             ),
-          )
+          ),
         ],
       ),
     );

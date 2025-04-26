@@ -55,5 +55,7 @@
   "studentSchedules": "مواعيد الطلاب",
   "next": "التالي",
   "subscriptionDetails": "تفاصيل الاشتراك",
-  "packageDetails" : "تفاصيل المجموعة"
+  "packageDetails": "تفاصيل المجموعة",
+  "completePaymentProcess": "اتمام عملية الدفع",
+  "confirmPaymentProcess": "تأكيد عملية الدفع"
 }
