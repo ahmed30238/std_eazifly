@@ -5,3 +5,5 @@ abstract class GrouppackagemanagementState {}
 class GrouppackagemanagementInitial extends GrouppackagemanagementState {}
 
 class ChangeChosenState extends GrouppackagemanagementState {}
+
+class ChangeStepperIndexState extends GrouppackagemanagementState {}

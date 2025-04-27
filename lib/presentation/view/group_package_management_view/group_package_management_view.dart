@@ -1,5 +1,5 @@
+import 'package:eazifly_student/core/component/icon_stepper.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/std_data_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class GroupPackageManagementView extends StatelessWidget {
@@ -7,6 +7,11 @@ class GroupPackageManagementView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const stepIcons = [MyImages.iconsPeople, MyImages.iconsLecturerIcon];
+    final List<String> titles = [
+      "إختيار الطلاب",
+      "إختيار المعلمين",
+    ];
     var cubit = GrouppackagemanagementCubit.get(context);
     var lang = context.loc!;
     return Scaffold(
@@ -14,6 +19,7 @@ class GroupPackageManagementView extends StatelessWidget {
         context,
         mainTitle: "إدارة مجموعة برامج",
         leadingText: lang.back,
+        onLeadinTap: () => cubit.decrementStepperIndex(context),
         isCenterTitle: true,
       ),
       body: Column(
@@ -21,106 +27,52 @@ class GroupPackageManagementView extends StatelessWidget {
           Expanded(
             child: Column(
               children: [
-                SizedBox(
-                  height: 56.h,
-                  child: const Text("Stepper").center(),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  height: 60.h,
+                  child: BlocBuilder(
+                    bloc: cubit,
+                    builder: (context, state) => StepProgressView(
+                      titles: titles,
+                      key: const Key("value"),
+                      icons: stepIcons,
+                      width: MediaQuery.of(context).size.width,
+                      curStep: cubit.stepperIndex,
+                      color: MainColors.blueTextColor,
+                    ),
+                  ),
                 ),
                 24.ph,
-                const StudentStats(
+                StudentStats(
+                  horizontalPadding: 0,
+                  itemWidth: 167.5.w,
+                  alignment: MainAxisAlignment.center,
                   length: 2,
                 ),
                 24.ph,
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "الطلاب المسجلين",
-                        style: MainTextStyle.boldTextStyle(
-                          fontSize: 12,
-                        ),
-                      ),
-                      const Spacer(),
-                      const Icon(
-                        Icons.add,
-                        size: 20,
-                        color: MainColors.blueTextColor,
-                      ),
-                      4.pw,
-                      Text(
-                        "أضافة طالب جديد",
-                        style: MainTextStyle.boldTextStyle(
-                          fontSize: 12,
-                          color: MainColors.blueTextColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                4.ph,
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        MyImages.iconsBulb,
-                      ),
-                      Text(
-                        "أختر الطلاب الذي تود إشراكهم في البرنامج",
-                        style: MainTextStyle.mediumTextStyle(
-                          fontSize: 11,
-                          color: MainColors.checkBoxBorderGray,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                16.ph,
                 Expanded(
-                  child: ListView.separated(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    itemBuilder: (context, index) {
-                      for (int i = 0; i < 13; i++) {
-                        cubit.chosen.add(false);
-                      }
-                      return Row(
-                        children: [
-                          BlocBuilder(
-                            bloc: cubit,
-                            builder: (context, state) => Checkbox.adaptive(
-                              activeColor: MainColors.blueTextColor,
-                              visualDensity: const VisualDensity(
-                                  horizontal: -4, vertical: -4),
-                              value: cubit.chosen[index],
-                              onChanged: (value) {
-                                cubit.changeChosen(index);
-                              },
-                            ),
-                          ),
-                          StudentDataItem(
-                            width: 311.w,
-                            index: index,
-                            hasIcon: false,
-                          ),
-                        ],
-                      );
-                    },
-                    itemCount: 13,
-                    separatorBuilder: (context, index) => 10.ph,
+                  child: BlocBuilder(
+                    bloc: cubit,
+                    builder: (context, state) =>
+                        cubit.bodies[cubit.stepperIndex],
                   ),
                 ),
               ],
             ),
           ),
           8.ph,
-          CustomElevatedButton(
-            text: lang.next,
-            color: MainColors.blueTextColor,
-            height: 48.h,
-            width: 343.w,
-            radius: 16.r,
-            onPressed: () {},
+          BlocBuilder(
+            bloc: cubit,
+            builder: (context, state) => CustomElevatedButton(
+              text: cubit.stepperIndex == 1 ? lang.next : "بدء البرامج",
+              color: MainColors.blueTextColor,
+              height: 48.h,
+              width: 343.w,
+              radius: 16.r,
+              onPressed: () {
+                cubit.incrementStepperIndex(context);
+              },
+            ),
           ),
           32.ph,
         ],

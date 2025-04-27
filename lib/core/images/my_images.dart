@@ -114,6 +114,10 @@ class MyImages {
   /// assets/icons/electronic-wallet.svg
   static const String iconsElectronicWallet = "assets/icons/electronic-wallet.svg";
 
+  /// Assets for iconsEnsureRequest
+  /// assets/icons/ensure-request.svg
+  static const String iconsEnsureRequest = "assets/icons/ensure-request.svg";
+
   /// Assets for iconsFirstMedal
   /// assets/icons/first-medal.svg
   static const String iconsFirstMedal = "assets/icons/first-medal.svg";
@@ -149,6 +153,10 @@ class MyImages {
   /// Assets for iconsInstapay
   /// assets/icons/instapay.png
   static const String iconsInstapay = "assets/icons/instapay.png";
+
+  /// Assets for iconsLecturerIcon
+  /// assets/icons/lecturer-icon.svg
+  static const String iconsLecturerIcon = "assets/icons/lecturer-icon.svg";
 
   /// Assets for iconsLiveBroadcasting
   /// assets/icons/live-broadcasting.svg
@@ -226,6 +234,10 @@ class MyImages {
   /// assets/icons/record-on.svg
   static const String iconsRecordOn = "assets/icons/record-on.svg";
 
+  /// Assets for iconsRejectRequest
+  /// assets/icons/reject-request.svg
+  static const String iconsRejectRequest = "assets/icons/reject-request.svg";
+
   /// Assets for iconsSearchNormal
   /// assets/icons/search-normal.svg
   static const String iconsSearchNormal = "assets/icons/search-normal.svg";
@@ -257,6 +269,10 @@ class MyImages {
   /// Assets for iconsTicketExpired
   /// assets/icons/ticket-expired.svg
   static const String iconsTicketExpired = "assets/icons/ticket-expired.svg";
+
+  /// Assets for iconsUnderReviewing
+  /// assets/icons/under-reviewing.svg
+  static const String iconsUnderReviewing = "assets/icons/under-reviewing.svg";
 
   /// Assets for iconsUnfilledHome
   /// assets/icons/unfilled-home.svg

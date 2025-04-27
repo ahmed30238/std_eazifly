@@ -1,6 +1,5 @@
 import 'package:eazifly_student/core/component/image_conainer.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
@@ -9,14 +8,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class StudentDataItem extends StatelessWidget {
-  final bool hasIcon;
+  final bool hasTrailingIcon;
   final int index;
   final double? width;
+  final VoidCallback? onTrailingIconTap;
   const StudentDataItem({
     super.key,
     required this.index,
     this.width,
-    this.hasIcon = true,
+    this.onTrailingIconTap,
+    this.hasTrailingIcon = true,
   });
 
   @override
@@ -35,13 +36,12 @@ class StudentDataItem extends StatelessWidget {
         color: MainColors.veryLightGrayFormField,
       ),
       child: Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           //! image
           ImageContainer(
             shape: BoxShape.circle,
-            image: "assets/images/ahmed.png",
+            image: MyImages.imagesPersona,
             containerHeight: 45.h,
             containerWidth: 45.w,
           ),
@@ -65,7 +65,7 @@ class StudentDataItem extends StatelessWidget {
               ),
             ],
           ),
-          if (hasIcon) ...{
+          if (hasTrailingIcon) ...{
             20.pw,
           } else ...{
             const Spacer(),
@@ -89,48 +89,14 @@ class StudentDataItem extends StatelessWidget {
               ),
             ],
           ),
-          if (hasIcon) const Spacer(),
-          if (hasIcon)
+          if (hasTrailingIcon) const Spacer(),
+          if (hasTrailingIcon)
             InkWell(
-                onTap: () {
-                  showModalSheet(
-                    minHeight: 350.h,
-                    maxHeight: 351.h,
-                    isFixedSize: true,
-                    context,
-                    widget: Container(
-                      height: 200.h,
-                      width: 375.w,
-                      decoration: BoxDecoration(
-                        borderRadius: 12.cr,
-                        color: MainColors.white,
-                      ),
-                      child: Column(
-                        children: [
-                          16.ph,
-                          Text(
-                            "تعديل بيانات الطالب",
-                            style: MainTextStyle.boldTextStyle(fontSize: 14),
-                          ),
-                          16.ph,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(MyImages.iconsProfile),
-                              8.pw,
-                              Text(
-                                "تعديل",
-                                style:
-                                    MainTextStyle.boldTextStyle(fontSize: 14),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                },
-                child: SvgPicture.asset(MyImages.iconsProfile))
+              onTap: onTrailingIconTap,
+              child: SvgPicture.asset(
+                MyImages.iconsProfile,
+              ),
+            ),
         ],
       ),
     );

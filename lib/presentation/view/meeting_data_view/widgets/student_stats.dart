@@ -10,14 +10,18 @@ class StudentStats extends StatelessWidget {
   final List<String>? descText;
   final Widget? downSideWidget;
   final VoidCallback? onFirstItemTap;
+  final MainAxisAlignment? alignment;
   final VoidCallback? onSecondItemTap;
   final int? length;
+  final double? itemWidth;
   final VoidCallback? onThirdItemTap;
   const StudentStats({
     super.key,
+    this.alignment,
     this.horizontalPadding,
     this.titleText,
     this.descText,
+    this.itemWidth,
     this.length,
     this.downSideWidget,
     this.onFirstItemTap,
@@ -30,7 +34,7 @@ class StudentStats extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding ?? 16.w),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: alignment ?? MainAxisAlignment.center,
         children: List.generate(
           length ?? 3,
           (index) => Padding(
@@ -43,7 +47,7 @@ class StudentStats extends StatelessWidget {
                       : onThirdItemTap,
               child: Container(
                 height: 78.h,
-                width: 109.w,
+                width: itemWidth ?? 109.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
                   color: MainColors.veryLightGrayFormField,

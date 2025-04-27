@@ -42,3 +42,5 @@ export 'package:eazifly_student/core/component/image_conainer.dart';
 export 'package:eazifly_student/presentation/view/layout/my_account/notifications_view/notification_view.dart';
 export 'package:eazifly_student/core/component/home_appbar.dart';
 export 'package:eazifly_student/presentation/controller/language/applanuage_cubit.dart';
+export 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_package_details/widgets/item_details_card.dart';
+export 'package:eazifly_student/presentation/view/programs_underreview/programs_under_review_view.dart';

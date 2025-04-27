@@ -30,7 +30,9 @@ class SubscriptiopnPackageDetails extends StatelessWidget {
                   ),
                 ),
                 8.ph,
-                const ItemDetailsCard(),
+                 ItemDetailsCard(
+                 titles:  subscriptionDetails,
+                ),
                 24.ph,
                 Text(
                   "مميزات الباقة",

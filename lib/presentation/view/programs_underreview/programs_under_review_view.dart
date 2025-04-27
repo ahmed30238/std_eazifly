@@ -1,6 +1,5 @@
-import 'package:eazifly_student/core/component/custom_appbar.dart';
-import 'package:eazifly_student/core/extensions/context.dart';
-import 'package:flutter/material.dart';
+import 'package:eazifly_student/presentation/view/programs_underreview/widgets/under_review_item.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ProgramsUnderReviewView extends StatelessWidget {
   const ProgramsUnderReviewView({super.key});
@@ -15,6 +14,24 @@ class ProgramsUnderReviewView extends StatelessWidget {
         leadingText: lang.myPrograms,
         isCenterTitle: true,
       ),
+      body: ListView.separated(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        itemBuilder: (context, index) => UnderReviewItem(
+          state: index == 0
+              ? "accepted"
+              : index == 1
+                  ? "rejected"
+                  : "pending",
+        ),
+        itemCount: 8,
+        separatorBuilder: (context, index) => 24.ph,
+      ),
     );
   }
 }
+
+var programTitles = [
+  "عدد البرامج",
+  "سعر المجموعة ",
+  "تاريخ البدء",
+];
