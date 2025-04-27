@@ -24,7 +24,7 @@ import 'package:eazifly_student/presentation/view/layout/my_account/subscription
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_package_details/subscription_package_details.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/session_details_view/session_details_view.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/program_details_view/program_details_view.dart';
-import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/program_subscription_plan.dart';
+import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/program_subscription_plan_view.dart';
 import 'package:eazifly_student/presentation/view/leaderboard_view/leaderboard_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/joined_lecture_screen/joined_lecture_screen.dart';
 import 'package:eazifly_student/presentation/view/lecture/lecture_details_view/lecture_details_view.dart';
