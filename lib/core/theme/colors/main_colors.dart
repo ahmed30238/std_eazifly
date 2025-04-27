@@ -7,6 +7,7 @@ class MainColors {
   static const blueMoreTextColor = Color(0xFF0E49CA);
   static const checkBoxBorderGray = Color(0xFF3D5066);
   static const offersColor = Color(0xFFE8757E);
+  static const starColor = Color(0xFFFFD130);
 
   static const transparentColor = Colors.transparent;
   static const lightblue = Color(0xFFEAF0FD);

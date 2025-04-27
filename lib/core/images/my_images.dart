@@ -86,6 +86,10 @@ class MyImages {
   /// assets/icons/bulb.svg
   static const String iconsBulb = "assets/icons/bulb.svg";
 
+  /// Assets for iconsCalender
+  /// assets/icons/calender.svg
+  static const String iconsCalender = "assets/icons/calender.svg";
+
   /// Assets for iconsCash
   /// assets/icons/cash.svg
   static const String iconsCash = "assets/icons/cash.svg";
@@ -117,6 +121,10 @@ class MyImages {
   /// Assets for iconsEnsureRequest
   /// assets/icons/ensure-request.svg
   static const String iconsEnsureRequest = "assets/icons/ensure-request.svg";
+
+  /// Assets for iconsFile
+  /// assets/icons/file.svg
+  static const String iconsFile = "assets/icons/file.svg";
 
   /// Assets for iconsFirstMedal
   /// assets/icons/first-medal.svg
@@ -161,6 +169,10 @@ class MyImages {
   /// Assets for iconsLiveBroadcasting
   /// assets/icons/live-broadcasting.svg
   static const String iconsLiveBroadcasting = "assets/icons/live-broadcasting.svg";
+
+  /// Assets for iconsLoadingSand
+  /// assets/icons/loading-sand.svg
+  static const String iconsLoadingSand = "assets/icons/loading-sand.svg";
 
   /// Assets for iconsMeetings
   /// assets/icons/meetings.svg
@@ -241,6 +253,10 @@ class MyImages {
   /// Assets for iconsSearchNormal
   /// assets/icons/search-normal.svg
   static const String iconsSearchNormal = "assets/icons/search-normal.svg";
+
+  /// Assets for iconsSecurityTime
+  /// assets/icons/security-time.svg
+  static const String iconsSecurityTime = "assets/icons/security-time.svg";
 
   /// Assets for iconsSend2
   /// assets/icons/send-2.svg

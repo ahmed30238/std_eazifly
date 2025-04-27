@@ -59,7 +59,10 @@ class ProgramsView extends StatelessWidget {
             child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               padding: EdgeInsets.only(bottom: 16.h),
-              itemBuilder: (context, index) => const Item(),
+              itemBuilder: (context, index) => Item(
+                onTap: () =>
+                    Navigator.pushNamed(context, RoutePaths.programDetailsView),
+              ),
               separatorBuilder: (context, index) => 16.ph,
               itemCount: 8,
             ),

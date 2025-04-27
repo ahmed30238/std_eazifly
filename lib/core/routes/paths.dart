@@ -34,4 +34,6 @@ class RoutePaths {
   static const groupPackageManagement = "groupPackageManagement";
   static const completePaymentProcessScreen = "completePaymentProcessScreen";
   static const programsUnderReviewView = "programsUnderReviewView";
+  static const programDetailsView = "programDetailsView";
+  static const programSubscriptionPlan = "programSubscriptionPlan";
 }

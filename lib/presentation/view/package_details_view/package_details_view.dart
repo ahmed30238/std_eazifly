@@ -55,7 +55,11 @@ class PackageDetailsView extends StatelessWidget {
               ),
             ),
             8.ph,
-            const ButtonWithPrice(),
+             ButtonWithPrice(
+              onPressed: () {
+                
+              },
+             ),
             32.ph,
           ],
         ),

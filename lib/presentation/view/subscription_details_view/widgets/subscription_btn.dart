@@ -1,8 +1,11 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ButtonWithPrice extends StatelessWidget {
+  final VoidCallback onPressed;
   const ButtonWithPrice({
     super.key,
+    required this.onPressed,
+    
   });
 
   @override
@@ -12,7 +15,7 @@ class ButtonWithPrice extends StatelessWidget {
       height: 48.h,
       width: 343.w,
       color: MainColors.blueTextColor,
-      onPressed: () {},
+      onPressed: onPressed,
       radius: 16.r,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
