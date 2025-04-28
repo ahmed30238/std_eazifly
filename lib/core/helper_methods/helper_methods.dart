@@ -1,12 +1,16 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:eazifly_student/core/enums/task_deliver_status.dart';
+import 'package:eazifly_student/presentation/view/lecture/widgets/dummy_data.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../presentation/view/subscription_details_view/widgets/imports.dart';
 
 String? customValidation(String? value) {
   if (value!.isEmpty) {
@@ -62,7 +66,6 @@ Future<dynamic> showModalSheet(
       minHeight: minHeight ?? 700.h,
       maxHeight: maxHeight ?? 800.h,
     ),
-
     isDismissible: isDismissed ?? true,
     useSafeArea: safeArea ?? true,
     context: context,
@@ -76,6 +79,36 @@ Future<XFile?> pickImageFromGallery() async {
   final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
   return image;
+}
+
+DeliverStatusModel deliveryState(DeliverStatus state) {
+  switch (state) {
+    case DeliverStatus.deliverDone:
+      return DeliverStatusModel(
+        text: "تم التسليم",
+        color: MainColors.lightgreenTeal,
+        textColor: MainColors.greenTeal,
+      );
+    case DeliverStatus.notDelivered:
+      return DeliverStatusModel(
+        text: "لم يتم التسليم",
+        color: MainColors.lightRed,
+        textColor: MainColors.red,
+      );
+    case DeliverStatus.deliverUnderReview:
+      return DeliverStatusModel(
+        text: "قيد المراجعة",
+        color: MainColors.lightblue,
+        textColor: MainColors.blueTextColor,
+      );
+
+    default:
+      return DeliverStatusModel(
+        text: "error",
+        color: Colors.red,
+        textColor: Colors.white,
+      );
+  }
 }
 
 void back(context) => Navigator.pop(context);

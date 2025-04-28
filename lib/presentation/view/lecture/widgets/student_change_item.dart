@@ -1,9 +1,4 @@
-import 'package:eazifly_student/core/images/my_images.dart';
-import 'package:eazifly_student/core/theme/colors/main_colors.dart';
-import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:flutter/material.dart' hide Badge;
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class StudentsChangeItem extends StatelessWidget {
   final Color? containerColor;
@@ -28,23 +23,28 @@ class StudentsChangeItem extends StatelessWidget {
           color: containerColor ?? MainColors.veryLightGrayFormField,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(MyImages.iconsProfile),
+            SvgPicture.asset(MyImages.iconsArrowRight),
+            20.pw,
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
+                  "اسم الطالب",
+                  style: MainTextStyle.boldTextStyle(
+                    fontSize: 11,
+                    color: MainColors.grayTextColors,
+                  ),
+                ),
+                Text(
                   "أحمد ياسر",
                   style: MainTextStyle.boldTextStyle(fontSize: 12),
                 ),
-                Text(
-                  "5/2",
-                  style: MainTextStyle.boldTextStyle(fontSize: 14),
-                ),
               ],
             ),
-            SvgPicture.asset(MyImages.iconsProfile),
+            20.pw,
+            SvgPicture.asset(MyImages.iconsArrowLeft),
           ],
         ),
       ),

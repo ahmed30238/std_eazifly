@@ -46,6 +46,14 @@ class MyImages {
   /// assets/icons/about-app-icon.svg
   static const String iconsAboutAppIcon = "assets/icons/about-app-icon.svg";
 
+  /// Assets for iconsAddAnotherStudent
+  /// assets/icons/add-another-student.svg
+  static const String iconsAddAnotherStudent = "assets/icons/add-another-student.svg";
+
+  /// Assets for iconsAddMyself
+  /// assets/icons/add-myself.svg
+  static const String iconsAddMyself = "assets/icons/add-myself.svg";
+
   /// Assets for iconsAddSquare
   /// assets/icons/add-square.svg
   static const String iconsAddSquare = "assets/icons/add-square.svg";
@@ -122,6 +130,10 @@ class MyImages {
   /// assets/icons/ensure-request.svg
   static const String iconsEnsureRequest = "assets/icons/ensure-request.svg";
 
+  /// Assets for iconsFemal
+  /// assets/icons/femal.svg
+  static const String iconsFemal = "assets/icons/femal.svg";
+
   /// Assets for iconsFile
   /// assets/icons/file.svg
   static const String iconsFile = "assets/icons/file.svg";
@@ -154,6 +166,10 @@ class MyImages {
   /// assets/icons/heart.svg
   static const String iconsHeart = "assets/icons/heart.svg";
 
+  /// Assets for iconsHorizontalDots
+  /// assets/icons/horizontal-dots.svg
+  static const String iconsHorizontalDots = "assets/icons/horizontal-dots.svg";
+
   /// Assets for iconsInstantPayment
   /// assets/icons/instant-payment.svg
   static const String iconsInstantPayment = "assets/icons/instant-payment.svg";
@@ -173,6 +189,10 @@ class MyImages {
   /// Assets for iconsLoadingSand
   /// assets/icons/loading-sand.svg
   static const String iconsLoadingSand = "assets/icons/loading-sand.svg";
+
+  /// Assets for iconsMale
+  /// assets/icons/male.svg
+  static const String iconsMale = "assets/icons/male.svg";
 
   /// Assets for iconsMeetings
   /// assets/icons/meetings.svg
@@ -297,6 +317,10 @@ class MyImages {
   /// Assets for iconsUploadImage
   /// assets/icons/upload-image.svg
   static const String iconsUploadImage = "assets/icons/upload-image.svg";
+
+  /// Assets for iconsUserProfile
+  /// assets/icons/user-profile.svg
+  static const String iconsUserProfile = "assets/icons/user-profile.svg";
 
   /// Assets for iconsVerticalDots
   /// assets/icons/vertical-dots.svg

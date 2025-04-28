@@ -1,10 +1,35 @@
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+
 var lectureStatsTitle = [
-  "الطلاب المشتركين",
-  "موعد المحاضرة",
+ "المحاضرة القادمة",
   "مدة المحاضرة",
+  "حالة المحاضرة",
 ];
 var lectureStatsSubTitles = [
-  "الطلاب المشتركين",
-  "12: 30",
+  "12:45 PM",
   "30 دقيقة",
+  "",
 ];
+
+class DeliverStatusModel {
+  final String text;
+  final Color color;
+  final Color textColor;
+
+  DeliverStatusModel({
+    required this.text,
+    required this.color,
+    required this.textColor,
+  });
+}
+class BtnColors {
+  final Color textColor;
+  final Color containerColor;
+  final String text;
+
+  BtnColors({
+    required this.textColor,
+    required this.containerColor,
+    required this.text,
+  });
+}

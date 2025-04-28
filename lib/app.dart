@@ -2,6 +2,7 @@ import 'package:eazifly_student/core/network/handle_token.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/routes/router.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
+import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_cubit.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_state.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ApplanuageCubit()..getAppLang()),
         BlocProvider(create: (context) => LayoutCubit()),
+        // BlocProvider(create: (context) => AddNewStudentDataToProgramCubit()),
         BlocProvider(create: (context) => LectureCubit()),
       ],
       child: ScreenUtilInit(

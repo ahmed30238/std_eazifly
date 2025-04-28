@@ -94,7 +94,7 @@ class StudentDataItem extends StatelessWidget {
             InkWell(
               onTap: onTrailingIconTap,
               child: SvgPicture.asset(
-                MyImages.iconsProfile,
+                MyImages.iconsHorizontalDots,
               ),
             ),
         ],

@@ -1,5 +1,6 @@
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/presentation/controller/account_data/accountdata_cubit.dart';
+import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/goal_details_controller/goal_details_cubit.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
@@ -19,6 +20,8 @@ import 'package:eazifly_student/presentation/view/group_package_management_view/
 import 'package:eazifly_student/presentation/view/home_meetings_view/home_meetings_view.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_notification_view.dart/home_notofication_view.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/add_new_student_data_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/lecture_history_view/lectureHistoryView.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/complete_payment_process_view/complete_payment_process_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/confirm_payment_view/confirm_payment_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_package_details/subscription_package_details.dart';
@@ -106,6 +109,10 @@ class AppRouter {
       case RoutePaths.lectureDetailsView:
         return createRoute(
           const LectureDetailsView(),
+        );
+      case RoutePaths.lectureHistoryView:
+        return createRoute(
+          const Lecturehistoryview(),
         );
       case RoutePaths.goalsScreen:
         return createRoute(
@@ -199,6 +206,13 @@ class AppRouter {
       case RoutePaths.completePaymentProcessScreen:
         return createRoute(
           const CompletePaymentProcessView(),
+        );
+      case RoutePaths.addNewStudentData:
+        return createRoute(
+          BlocProvider(
+            create: (context) => AddNewStudentDataToProgramCubit(),
+            child: const AddNewStudentDataView(),
+          ),
         );
       case RoutePaths.dmViewPath:
         var cubit = settings.arguments as ChatsCubit;

@@ -61,13 +61,14 @@ class _LectureViewState extends State<LectureView>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const LectureData(),
-              16.pw,
+              8.pw,
               LectureLink(
+                width: 226.w,
                 isFinishedLecture: widget.isFinishedLecture,
               ),
             ],
           ),
-          16.ph,
+          8.ph,
           InkWell(
             onTap: () {
               print("tapped");
@@ -156,7 +157,18 @@ class _LectureViewState extends State<LectureView>
           BlocBuilder<LectureCubit, LectureState>(
             bloc: cubit,
             builder: (context, state) {
-              return cubit.screens[cubit.controller.index];
+              var index = cubit.controller.index;
+              return SizedBox(
+                height: index == 0
+                    ? 74 * 9
+                    : index == 1
+                        ? 500.h
+                        : 400.h,
+                child: TabBarView(
+                  controller: cubit.controller,
+                  children: cubit.screens,
+                ),
+              );
             },
           ),
           8.ph,

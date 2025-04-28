@@ -1,4 +1,3 @@
-import 'package:eazifly_student/core/component/nested_avatar_container.dart';
 import 'package:eazifly_student/core/component/texted_container.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
@@ -46,26 +45,15 @@ class LectureStats extends StatelessWidget {
                       color: MainColors.grayTextColors,
                     ),
                   ),
-                  index == 0
-                      ? NestedAvatarContainer(
-                        number: "3",
-                          areaWidth: 60.w,
-                          areaHeigt: 30.h,
-                          alignment: MainAxisAlignment.center,
-                          textColors: MainColors.blackText,
-                          avatarHeigt: 24.h,
-                          avatarWidth: 24.w,
-                          textPadding: 3.w,
-                        )
-                      : index == 1
-                          ? lectureStates(state)
-                          : Text(
-                              lectureStatsSubTitles[index],
-                              style: MainTextStyle.boldTextStyle(
-                                fontSize: 14,
-                                color: MainColors.blackText,
-                              ),
-                            ),
+                  index == 2
+                      ? lectureStates(state)
+                      : Text(
+                          lectureStatsSubTitles[index],
+                          style: MainTextStyle.boldTextStyle(
+                            fontSize: 14,
+                            color: MainColors.blackText,
+                          ),
+                        ),
                 ],
               ),
             ),
@@ -95,12 +83,14 @@ Widget lectureStates(LectureStatesEnum state) {
         textColor: MainColors.red,
       );
     case LectureStatesEnum.dated:
-      return Text(
-        lectureStatsSubTitles[1],
-        style: MainTextStyle.boldTextStyle(
-          fontSize: 14,
-          color: MainColors.blackText,
-        ),
+      return TextedContainer(
+        text: "بعد 2 يوم",
+        height: 28.h,
+        width: 83.w,
+        fontSize: 12,
+        radius: 16.r,
+        containerColor: MainColors.lightRed,
+        textColor: MainColors.red,
       );
     case LectureStatesEnum.finished:
       return TextedContainer(

@@ -21,6 +21,7 @@ class CustomLinearPercentIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LinearPercentIndicator(
+      
       padding: EdgeInsets.zero,
       animation: true,
       progressBorderColor: Colors.red,

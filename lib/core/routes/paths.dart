@@ -36,4 +36,6 @@ class RoutePaths {
   static const programsUnderReviewView = "programsUnderReviewView";
   static const programDetailsView = "programDetailsView";
   static const programSubscriptionPlan = "programSubscriptionPlan";
+  static const addNewStudentData = "addNewStudentData";
+  static const lectureHistoryView = "lectureHistoryView";
 }
