@@ -22,6 +22,7 @@ import 'package:eazifly_student/presentation/view/layout/home_page/home_notifica
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/add_new_student_data_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/lecture_history_view/lectureHistoryView.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/lecture_history_view/lecture_report_view/lecture_report_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/complete_payment_process_view/complete_payment_process_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/confirm_payment_view/confirm_payment_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_package_details/subscription_package_details.dart';
@@ -117,6 +118,10 @@ class AppRouter {
       case RoutePaths.goalsScreen:
         return createRoute(
           const GoalsView(),
+        );
+      case RoutePaths.lectureReportView:
+        return createRoute(
+          const LectureReportView(),
         );
       case RoutePaths.leaderBoardView:
         return createRoute(

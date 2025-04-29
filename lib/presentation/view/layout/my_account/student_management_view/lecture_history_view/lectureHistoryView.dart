@@ -1,5 +1,6 @@
 import 'package:eazifly_student/core/component/texted_container.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
+import 'package:eazifly_student/presentation/view/lecture/widgets/student_change_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class Lecturehistoryview extends StatelessWidget {
@@ -15,110 +16,120 @@ class Lecturehistoryview extends StatelessWidget {
         leadingText: lang.back,
         isCenterTitle: true,
       ),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
+      body: Column(
         children: [
-          16.ph,
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            height: 74.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: 12.cr,
-              color: MainColors.veryLightGrayFormField,
-            ),
-            child: Row(
+          Expanded(
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12.h),
-                  child: SizedBox(
-                    width: 216.w,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "إسم البرنامج",
-                          style: MainTextStyle.boldTextStyle(
-                              fontSize: 11, color: MainColors.grayTextColors),
-                        ),
-                        10.5.ph,
-                        Text(
-                          "محاضرة رياضيات للصف السادس",
-                          style: MainTextStyle.boldTextStyle(
-                              fontSize: 12, color: MainColors.blackText),
-                        ),
-                      ],
-                    ),
+                16.ph,
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  height: 74.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: 12.cr,
+                    color: MainColors.veryLightGrayFormField,
                   ),
-                ),
-                20.pw,
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 13.5.h,
-                  ),
-                  child: SizedBox(
-                    height: 50.h,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "موعد تجديد الإشتراك",
-                          style: MainTextStyle.boldTextStyle(
-                            fontSize: 11,
-                            color: MainColors.grayTextColors,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12.h),
+                        child: SizedBox(
+                          width: 216.w,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "إسم البرنامج",
+                                style: MainTextStyle.boldTextStyle(
+                                    fontSize: 11,
+                                    color: MainColors.grayTextColors),
+                              ),
+                              10.5.ph,
+                              Text(
+                                "محاضرة رياضيات للصف السادس",
+                                style: MainTextStyle.boldTextStyle(
+                                    fontSize: 12, color: MainColors.blackText),
+                              ),
+                            ],
                           ),
                         ),
-                        4.ph,
-                        TextedContainer(
-                          width: 80.w,
-                          height: 26.h,
-                          text: "بعد 3 أيام",
-                          containerColor: MainColors.lightRed,
-                          textColor: MainColors.red,
+                      ),
+                      20.pw,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 13.5.h,
                         ),
-                      ],
-                    ),
+                        child: SizedBox(
+                          height: 50.h,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "موعد تجديد الإشتراك",
+                                style: MainTextStyle.boldTextStyle(
+                                  fontSize: 11,
+                                  color: MainColors.grayTextColors,
+                                ),
+                              ),
+                              4.ph,
+                              TextedContainer(
+                                width: 80.w,
+                                height: 26.h,
+                                text: "بعد 3 أيام",
+                                containerColor: MainColors.lightRed,
+                                textColor: MainColors.red,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+                16.ph,
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  width: double.infinity,
+                  constraints: BoxConstraints(
+                    minHeight: 198.h,
+                  ),
+                  decoration: const BoxDecoration(
+                    color: MainColors.veryLightGrayFormField,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      16.ph,
+                      Text(
+                        "تاريخ المحاضرات",
+                        style: MainTextStyle.boldTextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                      12.ph,
+                      SizedBox(
+                        height: 8 * 155,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) =>
+                              const LectureHistoryDetails(),
+                          separatorBuilder: (context, index) => 8.ph,
+                          itemCount: 8,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
-          16.ph,
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            width: double.infinity,
-            constraints: BoxConstraints(
-              minHeight: 198.h,
-            ),
-            decoration: const BoxDecoration(
-              color: MainColors.veryLightGrayFormField,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                16.ph,
-                Text(
-                  "تاريخ المحاضرات",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-                12.ph,
-                SizedBox(
-                  height: 8 * 155,
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) =>
-                        const LectureHistoryDetails(),
-                    separatorBuilder: (context, index) => 8.ph,
-                    itemCount: 8,
-                  ),
-                ),
-              ],
-            ),
-          )
+          StudentsChangeItem(
+            alignment: MainAxisAlignment.spaceEvenly,
+          ),
         ],
       ),
     );
@@ -187,8 +198,33 @@ class LectureHistoryDetails extends StatelessWidget {
               ),
               const Spacer(),
               InkWell(
-                onTap: () => showModalSheet(context,
-                    widget: const CustomBottomSheetDesign()),
+                onTap: () => showModalSheet(
+                  isFixedSize: true,
+                  minHeight: 101.h,
+                  maxHeight: 102.h,
+                  context,
+                  widget: CustomBottomSheetDesign(
+                    widget: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.h,
+                        vertical: 24.h,
+                      ),
+                      child: InkWell(
+                        onTap: () => Navigator.pushNamed(
+                            context, RoutePaths.lectureReportView),
+                        child: SizedBox(
+                          height: 45.h,
+                          child: Text(
+                            "تقرير المحاضرة",
+                            style: MainTextStyle.boldTextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 child: SvgPicture.asset(
                   MyImages.iconsHorizontalDots,
                 ),

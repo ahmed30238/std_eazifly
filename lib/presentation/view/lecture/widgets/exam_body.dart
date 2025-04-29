@@ -19,7 +19,8 @@ class ExamBodyWidget extends StatelessWidget {
         title: "title",
         subTitle: "subTitle",
         trailing: ExamBodyCustomTrailing(
-          status: StudentStatus.acceptable,
+          status:
+              index == 0 ? StudentStatus.newStudent : StudentStatus.acceptable,
           // status: cubit?.getUserQuizzesEntities?.data?[index]?.status??"",
           isNewStudent: index == 0 ? true : false,
         ),

@@ -52,7 +52,7 @@ class StudentDataItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Ahmed Salama",
+                "أحمد سلامة",
                 style: MainTextStyle.boldTextStyle(fontSize: 14),
               ),
               8.ph,

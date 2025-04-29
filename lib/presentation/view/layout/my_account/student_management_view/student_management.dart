@@ -83,7 +83,10 @@ class StudentManagementView extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, RoutePaths.lectureHistoryView);
+                              Navigator.pushNamed(
+                                context,
+                                RoutePaths.lectureHistoryView,
+                              );
                             },
                             child: SizedBox(
                               height: 45.h,

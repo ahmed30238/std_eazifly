@@ -1,13 +1,14 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class StudentsChangeItem extends StatelessWidget {
+  final MainAxisAlignment? alignment;
   final Color? containerColor;
-
   final double? height;
 
   const StudentsChangeItem({
     super.key,
     this.containerColor,
+    this.alignment,
     this.height,
   });
 
@@ -23,9 +24,14 @@ class StudentsChangeItem extends StatelessWidget {
           color: containerColor ?? MainColors.veryLightGrayFormField,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: alignment ?? MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(MyImages.iconsArrowRight),
+            InkWell(
+              onTap: () {},
+              child: SvgPicture.asset(
+                MyImages.iconsArrowRight,
+              ),
+            ),
             20.pw,
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -44,7 +50,12 @@ class StudentsChangeItem extends StatelessWidget {
               ],
             ),
             20.pw,
-            SvgPicture.asset(MyImages.iconsArrowLeft),
+            InkWell(
+              onTap: () {},
+              child: SvgPicture.asset(
+                MyImages.iconsArrowLeft,
+              ),
+            ),
           ],
         ),
       ),

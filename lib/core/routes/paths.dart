@@ -15,6 +15,7 @@ class RoutePaths {
   static const privacyPolicyAndUsage = "privacyPolicyAndUsage";
   static const dmViewPath = "dmViewPath";
   static const chatsViewPath = "chatsViewPath";
+  static const lectureReportView = "lectureReportView";
   static const lectureView = "lectureView";
   static const goalDetailsView = "goalDetailsView";
   static const leaderBoardView = "leaderBoardView";

@@ -7,11 +7,15 @@ import 'package:get_storage/get_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await ServiceLocator().init();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
+  await Future.wait<void>([
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]),
+    Future(
+      () => ServiceLocator().init(),
+    ),
+    GetStorage.init(),
+    TokenUtil.loadTokenToMemory(),
   ]);
-  await GetStorage.init();
-  await TokenUtil.loadTokenToMemory();
   runApp(const MyApp());
 }
