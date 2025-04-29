@@ -9,8 +9,14 @@ class PointsDialogDesign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: MainColors.white,
+        borderRadius: 16.cr,
+      ),
       padding: EdgeInsets.symmetric(
-          horizontal: 24.r, vertical: 24.h),
+        horizontal: 24.r,
+        vertical: 24.h,
+      ),
       height: 172.h,
       child: Column(
         children: [
@@ -21,8 +27,7 @@ class PointsDialogDesign extends StatelessWidget {
               8.pw,
               Text(
                 "لديك 120 نقطة",
-                style:
-                    MainTextStyle.boldTextStyle(fontSize: 16),
+                style: MainTextStyle.boldTextStyle(fontSize: 16),
               ),
               8.pw,
               SvgPicture.asset(Assets.iconsCelebrate),

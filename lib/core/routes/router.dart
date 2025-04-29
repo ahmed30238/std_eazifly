@@ -87,7 +87,10 @@ class AppRouter {
         );
       case RoutePaths.reportsAndComplaintsViewPath:
         return createRoute(
-          const ReportsAndComplaintsView(),
+          BlocProvider(
+            create: (context) => ChatsCubit(),
+            child: const ReportsAndComplaintsView(),
+          ),
         );
       case RoutePaths.privacyPolicyAndUsage:
         return createRoute(
@@ -225,11 +228,18 @@ class AppRouter {
           ),
         );
       case RoutePaths.dmViewPath:
-        var cubit = settings.arguments as ChatsCubit;
+        var argument = settings.arguments as Map<String, dynamic>?;
+        var cubit = argument?["cubit"] as ChatsCubit;
+        var isReport = argument?["isReport"] as bool;
+        String? problemState = argument?["problemState"] as String;
+        // var cubit = settings.arguments as ChatsCubit;
         return createRoute(
           BlocProvider.value(
             value: cubit,
-            child: const DmView(),
+            child: DmView(
+              isReport: isReport,
+              problemState: problemState,
+            ),
           ),
         );
       case RoutePaths.notificationPath:

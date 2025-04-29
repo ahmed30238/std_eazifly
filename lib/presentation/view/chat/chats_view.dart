@@ -40,7 +40,8 @@ class _ChatsViewState extends State<ChatsView>
     var lang = context.loc!;
     ChatsCubit cubit = ChatsCubit.get(context);
     return Scaffold(
-      appBar: CustomAppBar(     context,
+      appBar: CustomAppBar(
+        context,
         mainTitle: lang.messages,
         leadingText: lang.home,
         leadingIcon: Icons.arrow_back_ios,
@@ -108,7 +109,11 @@ class _ChatsViewState extends State<ChatsView>
                     ),
                     itemBuilder: (context, index) => ChatItem(
                       onTap: () => Navigator.pushNamed(
-                        arguments: cubit,
+                        arguments: {
+                          "cubit": cubit,
+                          "isReport": false,
+                          "problemState": "",
+                        },
                         context,
                         RoutePaths.dmViewPath,
                       ),

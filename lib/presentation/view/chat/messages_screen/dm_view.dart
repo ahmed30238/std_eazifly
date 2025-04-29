@@ -1,6 +1,7 @@
 import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/component/custom_form_field.dart';
 import 'package:eazifly_student/core/component/icons_container.dart';
+import 'package:eazifly_student/core/component/texted_container.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -13,7 +14,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DmView extends StatefulWidget {
-  const DmView({super.key});
+  final bool isReport;
+  final String? problemState;
+  const DmView({
+    super.key,
+    this.isReport = false,
+    this.problemState,
+  });
 
   @override
   State<DmView> createState() => _DmViewState();
@@ -29,28 +36,61 @@ class _DmViewState extends State<DmView> {
   @override
   Widget build(BuildContext context) {
     var cubit = ChatsCubit.get(context);
+    // bool isReport = false;
     return Scaffold(
-      appBar: CustomAppBar(     context,
-        onTitleTapped: () {},
-        isDmView: true,
-        isCenterTitle: true,
-        mainTitle: "ياسر  محمود",
-        leadingText: "الرسائل",
-        leadingIcon: Icons.arrow_back_ios,
-        // onLeadinTap: () => Navigator.pop(context),
-        customAction: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: IconsContainer(
-                width: 48.w,
-                containerColor: MainColors.white,
-                iconWidget: SvgPicture.asset(
-                  Assets.iconsVerticalDots,
-                  fit: BoxFit.scaleDown,
-                )),
-          )
-        ],
-      ),
+      appBar: widget.isReport
+          ? CustomAppBar(
+              context,
+              mainTitle: "اسم المشكلة",
+              leadingText: "البلاغات",
+              isCenterTitle: true,
+              customAction: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: widget.problemState == "جاري"
+                      ? TextedContainer(
+                          text: "جاري",
+                          radius: 12.r,
+                          containerColor: MainColors.lightgreenTeal,
+                          textColor: MainColors.greenTeal,
+                          width: 65.w,
+                          height: 26.h,
+                        )
+                      : widget.problemState == "انتهت"
+                          ? TextedContainer(
+                              text: "انتهت",
+                              radius: 12.r,
+                              containerColor: MainColors.lightRed,
+                              textColor: MainColors.red,
+                              width: 65.w,
+                              height: 26.h,
+                            )
+                          : SizedBox(),
+                ),
+              ],
+            )
+          : CustomAppBar(
+              context,
+              onTitleTapped: () {},
+              isDmView: true,
+              isCenterTitle: true,
+              mainTitle: "ياسر  محمود",
+              leadingText: "الرسائل",
+              leadingIcon: Icons.arrow_back_ios,
+              // onLeadinTap: () => Navigator.pop(context),
+              customAction: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: IconsContainer(
+                      width: 48.w,
+                      containerColor: MainColors.white,
+                      iconWidget: SvgPicture.asset(
+                        Assets.iconsVerticalDots,
+                        fit: BoxFit.scaleDown,
+                      )),
+                )
+              ],
+            ),
       body: Column(
         children: [
           Expanded(

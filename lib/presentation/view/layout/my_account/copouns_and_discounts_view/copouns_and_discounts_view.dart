@@ -100,6 +100,7 @@ class CopounsAndDiscountsView extends StatelessWidget {
                 Expanded(
                   child: InkWell(
                     onTap: () => customAdaptiveDialog(
+                      
                       context,
                       child: const PointsDialogDesign(),
                     ),

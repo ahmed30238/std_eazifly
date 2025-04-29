@@ -18,7 +18,7 @@ class ReportsAndComplaintsWidget extends StatelessWidget {
         if (state == "انتهت") ...{
           Container(
             height: 90.h,
-            color: MainColors.grayTextColors.withOpacity(.5),
+            color: MainColors.lightGray,
           ),
         },
         Container(
