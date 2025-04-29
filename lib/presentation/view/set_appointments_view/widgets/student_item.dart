@@ -37,7 +37,7 @@ class StudentItem extends StatelessWidget {
               ImageContainer(
                 containerHeight: 40.h,
                 containerWidth: 40.w,
-                image: MyImages.imagesPersona,
+                image: Assets.imagesPersona,
                 shape: BoxShape.circle,
               ),
               8.ph,

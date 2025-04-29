@@ -29,7 +29,7 @@ class MyProgramsView extends StatelessWidget {
             padding: EdgeInsets.symmetric(
               horizontal: 16.w,
             ),
-            child: SvgPicture.asset(MyImages.iconsMyProgramAppbar),
+            child: SvgPicture.asset(Assets.iconsMyProgramAppbar),
           ),
         ],
       ),

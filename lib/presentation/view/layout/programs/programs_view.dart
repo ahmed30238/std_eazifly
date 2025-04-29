@@ -22,7 +22,7 @@ class ProgramsView extends StatelessWidget {
             ),
             child: AppbarIconWidget(
               iconWidget: SvgPicture.asset(
-                MyImages.iconsChatsIcon,
+                Assets.iconsChatsIcon,
                 fit: BoxFit.scaleDown,
               ),
             ),
@@ -35,7 +35,7 @@ class ProgramsView extends StatelessWidget {
             ),
             child: AppbarIconWidget(
               iconWidget: SvgPicture.asset(
-                MyImages.iconsNotificationIcon,
+                Assets.iconsNotificationIcon,
                 fit: BoxFit.scaleDown,
               ),
             ),

@@ -52,7 +52,7 @@ class _ChatsViewState extends State<ChatsView>
             child: IconsContainer(
               iconWidget: SvgPicture.asset(
                 fit: BoxFit.scaleDown,
-                MyImages.iconsAddSquare,
+                Assets.iconsAddSquare,
               ),
             ),
           ),

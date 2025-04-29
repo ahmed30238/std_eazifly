@@ -55,7 +55,7 @@ class GoalsViewAppbar extends StatelessWidget implements PreferredSizeWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: SvgPicture.asset(
-              MyImages.iconsVerticalDots,
+              Assets.iconsVerticalDots,
             ),
           ),
         ),

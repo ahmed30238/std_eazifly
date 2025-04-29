@@ -64,7 +64,7 @@ class CodeDetails extends StatelessWidget {
                   ),
                 ],
               ),
-              SvgPicture.asset(MyImages.iconsSend2)
+              SvgPicture.asset(Assets.iconsSend2)
             ],
           ),
         ),

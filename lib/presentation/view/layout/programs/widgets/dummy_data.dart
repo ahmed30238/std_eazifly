@@ -16,16 +16,16 @@ var teacherProgramDetailsList = [
   TeacherProgramDetailsModel(
     title: "عدد الطلاب",
     subTitle: "50 طالب",
-    icon: MyImages.iconsPeople,
+    icon: Assets.iconsPeople,
   ),
   TeacherProgramDetailsModel(
     title: "سعر الساعة ",
     subTitle: "1200 ج.م",
-    icon: MyImages.iconsCash,
+    icon: Assets.iconsCash,
   ),
   TeacherProgramDetailsModel(
     title: "تاريخ البدء",
     subTitle: "subTitle",
-    icon: MyImages.iconsCoin,
+    icon: Assets.iconsCoin,
   ),
 ];

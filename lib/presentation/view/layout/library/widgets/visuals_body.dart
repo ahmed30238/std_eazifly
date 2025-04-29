@@ -69,7 +69,7 @@ class VisualsBodyItem extends StatelessWidget {
                     Row(
                       children: [
                         SvgPicture.asset(
-                          MyImages.iconsPlay,
+                          Assets.iconsPlay,
                         ),
                         4.pw,
                         Text(
@@ -85,7 +85,7 @@ class VisualsBodyItem extends StatelessWidget {
                     Row(
                       children: [
                         SvgPicture.asset(
-                          MyImages.iconsHeart,
+                          Assets.iconsHeart,
                         ),
                         4.pw,
                         Text(
@@ -101,7 +101,7 @@ class VisualsBodyItem extends StatelessWidget {
                     Row(
                       children: [
                         SvgPicture.asset(
-                          MyImages.iconsPeople,
+                          Assets.iconsPeople,
                         ),
                         4.pw,
                         Text(

@@ -26,7 +26,7 @@ class ImagePart extends StatelessWidget {
             borderRadius: 12.cr,
           ),
           child: SvgPicture.asset(
-            MyImages.iconsSetting,
+            Assets.iconsSetting,
             fit: BoxFit.scaleDown,
           ),
         ),

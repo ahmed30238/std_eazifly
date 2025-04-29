@@ -34,7 +34,7 @@ class HomeNotificationItem extends StatelessWidget {
                     width: 40.w,
                     height: 40.h,
                     iconWidget: SvgPicture.asset(
-                      MyImages.iconsLiveBroadcasting,
+                      Assets.iconsLiveBroadcasting,
                     ),
                   ),
                   8.pw,

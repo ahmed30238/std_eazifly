@@ -5,10 +5,12 @@ import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/widgets/code_details.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/widgets/point_balance_container.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/widgets/points_dialog_design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,7 +22,8 @@ class CopounsAndDiscountsView extends StatelessWidget {
   Widget build(BuildContext context) {
     var lang = context.loc!;
     return Scaffold(
-      appBar: CustomAppBar(     context,
+      appBar: CustomAppBar(
+        context,
         mainTitle: lang.couponsAndRewards,
         leadingText: lang.back,
         isCenterTitle: true,
@@ -28,7 +31,9 @@ class CopounsAndDiscountsView extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0.w),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, RoutePaths.explainPointsSystemView);
+              },
               child: TextedContainer(
                 text: "شرح",
                 height: 29.h,
@@ -38,9 +43,6 @@ class CopounsAndDiscountsView extends StatelessWidget {
             ),
           ),
         ],
-        // onLeadinTap: () {
-        //   Navigator.pop(context);
-        // },
       ),
       body: Column(
         children: [
@@ -83,7 +85,7 @@ class CopounsAndDiscountsView extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset(MyImages.iconsShare),
+                          SvgPicture.asset(Assets.iconsShare),
                           8.ph,
                           Text(
                             lang.inviteFriends,
@@ -96,22 +98,28 @@ class CopounsAndDiscountsView extends StatelessWidget {
                 ),
                 16.pw,
                 Expanded(
-                  child: Container(
-                    height: 98.h,
-                    decoration: BoxDecoration(
-                      color: MainColors.veryLightGrayFormField,
-                      borderRadius: BorderRadius.circular(10.r),
+                  child: InkWell(
+                    onTap: () => customAdaptiveDialog(
+                      context,
+                      child: const PointsDialogDesign(),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(MyImages.iconsTicketExpired),
-                        8.ph,
-                        Text(
-                          lang.redeemPoints,
-                          style: MainTextStyle.boldTextStyle(fontSize: 14),
-                        ),
-                      ],
+                    child: Container(
+                      height: 98.h,
+                      decoration: BoxDecoration(
+                        color: MainColors.veryLightGrayFormField,
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(Assets.iconsTicketExpired),
+                          8.ph,
+                          Text(
+                            lang.redeemPoints,
+                            style: MainTextStyle.boldTextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -125,3 +133,5 @@ class CopounsAndDiscountsView extends StatelessWidget {
     );
   }
 }
+
+

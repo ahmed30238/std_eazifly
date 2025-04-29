@@ -62,7 +62,7 @@ class PackageFeatureItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SvgPicture.asset(MyImages.iconsCheckMark),
+          SvgPicture.asset(Assets.iconsCheckMark),
           8.pw,
           Expanded(
             child: Text(

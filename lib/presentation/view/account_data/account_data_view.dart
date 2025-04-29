@@ -134,7 +134,7 @@ class _AccountDataState extends State<AccountData> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   SvgPicture.asset(
-                    MyImages.iconsDeleteBin,
+                    Assets.iconsDeleteBin,
                   ),
                   4.pw,
                   Text(

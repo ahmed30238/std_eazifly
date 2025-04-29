@@ -74,7 +74,7 @@ class CompetitorListContainer extends StatelessWidget {
                     );
                   },
                   child: SvgPicture.asset(
-                    MyImages.iconsFrame,
+                    Assets.iconsFrame,
                   ),
                 ),
               ],

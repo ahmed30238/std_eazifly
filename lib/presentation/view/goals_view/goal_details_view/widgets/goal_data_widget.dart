@@ -43,7 +43,7 @@ class GoalDataWidget extends StatelessWidget {
             ),
             const Spacer(),
             SvgPicture.asset(
-              MyImages.iconsCoin,
+              Assets.iconsCoin,
             ),
             Text(
               "20",

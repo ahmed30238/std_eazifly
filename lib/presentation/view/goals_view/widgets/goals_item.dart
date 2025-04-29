@@ -56,7 +56,7 @@ class GoalsItem extends StatelessWidget {
                         style: MainTextStyle.boldTextStyle(fontSize: 14),
                       ),
                       const Spacer(),
-                      SvgPicture.asset(MyImages.iconsCoin),
+                      SvgPicture.asset(Assets.iconsCoin),
                       Text(
                         points,
                         style: MainTextStyle.boldTextStyle(

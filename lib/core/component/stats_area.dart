@@ -32,7 +32,7 @@ class StatsArea extends StatelessWidget {
        SplineAreaChart(splineAreaChartData: splineAreaChartData),
         36.ph,
         const CustomListTile(
-          icon: MyImages.iconsProfile,
+          icon: Assets.iconsProfile,
           subTitle: "52 % من الإجمالي",
           title: "الإختبار 6",
           trailingText: "16 إختبار",

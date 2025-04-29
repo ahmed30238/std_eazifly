@@ -49,7 +49,7 @@ class PackageContentsItem extends StatelessWidget {
                   )),
                   child: Image.asset(
                     fit: BoxFit.cover,
-                    MyImages.imagesPersona,
+                    Assets.imagesPersona,
                     height: 127.h,
                     width: 322.w,
                   ),

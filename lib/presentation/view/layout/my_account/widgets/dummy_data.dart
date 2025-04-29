@@ -25,15 +25,15 @@ List<SettingItemModel>  settingsItemsList(BuildContext context) {
   var lang = context.loc!;
 
   List<SettingItemModel> settingItemList = [
-    SettingItemModel(icon: MyImages.iconsProfile, label: lang.accountData),
-    SettingItemModel(icon: MyImages.iconsProfile, label: lang.settings),
-    SettingItemModel(icon: MyImages.iconsProfile, label: lang.subscriptionManagement),
-    SettingItemModel(icon: MyImages.iconsProfile, label: lang.studentManagement),
-    SettingItemModel(icon: MyImages.iconsProfile, label: lang.couponsAndRewards),
-    SettingItemModel(icon: MyImages.iconsProfile, label: lang.notifications),
-    SettingItemModel(icon: MyImages.iconsProfile, label: lang.reportsAndComplaints),
-    SettingItemModel(icon: MyImages.iconsProfile, label: lang.privacyPolicyAndUsage),
-    SettingItemModel(icon: MyImages.iconsProfile, label: lang.aboutApp),
+    SettingItemModel(icon: Assets.iconsProfile, label: lang.accountData),
+    SettingItemModel(icon: Assets.iconsProfile, label: lang.settings),
+    SettingItemModel(icon: Assets.iconsProfile, label: lang.subscriptionManagement),
+    SettingItemModel(icon: Assets.iconsProfile, label: lang.studentManagement),
+    SettingItemModel(icon: Assets.iconsProfile, label: lang.couponsAndRewards),
+    SettingItemModel(icon: Assets.iconsProfile, label: lang.notifications),
+    SettingItemModel(icon: Assets.iconsProfile, label: lang.reportsAndComplaints),
+    SettingItemModel(icon: Assets.iconsProfile, label: lang.privacyPolicyAndUsage),
+    SettingItemModel(icon: Assets.iconsProfile, label: lang.aboutApp),
 
   ];
   return settingItemList;

@@ -80,6 +80,28 @@ Future<XFile?> pickImageFromGallery() async {
 
   return image;
 }
+  Future<dynamic> customAdaptiveDialog(
+    BuildContext context, {
+    EdgeInsets? insetPadding,
+    bool? barrierDismissible,
+    AlignmentGeometry? alignmen,
+    required Widget child,
+  }) {
+    return showAdaptiveDialog(
+      useSafeArea: true,
+      barrierDismissible: barrierDismissible ?? true,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: 16.cr,
+        ),
+        insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: 16.w),
+        alignment: alignmen ?? Alignment.center,
+        child: child,
+      ),
+      context: context,
+    );
+  }
+
 
 DeliverStatusModel deliveryState(DeliverStatus state) {
   switch (state) {

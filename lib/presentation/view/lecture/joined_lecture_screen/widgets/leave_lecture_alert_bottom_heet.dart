@@ -35,7 +35,7 @@ class LeaveLectureAlertBottomSheetDesign extends StatelessWidget {
             Row(
               children: [
                 SvgPicture.asset(
-                  MyImages.iconsProfile,
+                  Assets.iconsProfile,
                 ),
                 Text(
                   "إنهاء المحاضرة",

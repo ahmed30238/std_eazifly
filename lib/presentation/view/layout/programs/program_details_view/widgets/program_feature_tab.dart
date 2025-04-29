@@ -31,7 +31,7 @@ class ProgramFeatureTab extends StatelessWidget {
                 child: Column(
                   children: [
                     SvgPicture.asset(
-                      MyImages.iconsFile,
+                      Assets.iconsFile,
                     ),
                     Text(
                       "تحميل",

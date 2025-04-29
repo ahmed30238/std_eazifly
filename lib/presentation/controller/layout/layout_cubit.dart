@@ -42,32 +42,32 @@ class LayoutCubit extends Cubit<LayoutState> {
     List<BottomNavBarItemModel> bottomNavigationBarItem = [
       BottomNavBarItemModel(
         icon: isActive
-            ? MyImages.bottom_nav_bar_iconsActiveMain
-            : MyImages.bottom_nav_bar_iconsInactiveMain,
+            ? Assets.bottom_nav_bar_iconsActiveMain
+            : Assets.bottom_nav_bar_iconsInactiveMain,
         label: lang.main,
       ),
       BottomNavBarItemModel(
         icon: isActive
-            ? MyImages.bottom_nav_bar_iconsActivePrograms
-            : MyImages.bottom_nav_bar_iconsInactivePrograms,
+            ? Assets.bottom_nav_bar_iconsActivePrograms
+            : Assets.bottom_nav_bar_iconsInactivePrograms,
         label: lang.thePrograms,
       ),
       BottomNavBarItemModel(
         icon: isActive
-            ? MyImages.bottom_nav_bar_iconsActiveMyPrograms
-            : MyImages.bottom_nav_bar_iconsInactiveMyPrograms,
+            ? Assets.bottom_nav_bar_iconsActiveMyPrograms
+            : Assets.bottom_nav_bar_iconsInactiveMyPrograms,
         label: lang.myPrograms,
       ),
       BottomNavBarItemModel(
         icon: isActive
-            ? MyImages.bottom_nav_bar_iconsActiveLibrary
-            : MyImages.bottom_nav_bar_iconsInactiveLibrary,
+            ? Assets.bottom_nav_bar_iconsActiveLibrary
+            : Assets.bottom_nav_bar_iconsInactiveLibrary,
         label: lang.library,
       ),
       BottomNavBarItemModel(
         icon: isActive
-            ? MyImages.bottom_nav_bar_iconsActiveProfile
-            : MyImages.bottom_nav_bar_iconsInactiveProfile,
+            ? Assets.bottom_nav_bar_iconsActiveProfile
+            : Assets.bottom_nav_bar_iconsInactiveProfile,
         label: lang.myAccount,
       ),
     ];

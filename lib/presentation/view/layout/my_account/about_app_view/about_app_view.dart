@@ -28,7 +28,7 @@ class AboutAppView extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: SvgPicture.asset(
-              MyImages.iconsAboutAppIcon,
+              Assets.iconsAboutAppIcon,
             ),
           ),
           24.ph,

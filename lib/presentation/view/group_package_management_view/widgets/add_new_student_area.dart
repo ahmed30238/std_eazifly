@@ -46,7 +46,7 @@ class AddNewStudentArea extends StatelessWidget {
           child: Row(
             children: [
               SvgPicture.asset(
-                MyImages.iconsBulb,
+                Assets.iconsBulb,
               ),
               Text(
                 "أختر الطلاب الذي تود إشراكهم في البرنامج",

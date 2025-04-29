@@ -7,7 +7,7 @@ class GroupPackageManagementView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const stepIcons = [MyImages.iconsPeople, MyImages.iconsLecturerIcon];
+    const stepIcons = [Assets.iconsPeople, Assets.iconsLecturerIcon];
     final List<String> titles = [
       "إختيار الطلاب",
       "إختيار المعلمين",

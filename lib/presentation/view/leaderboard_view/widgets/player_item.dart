@@ -33,10 +33,10 @@ class PlayerItem extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               SvgPicture.asset(
-                MyImages.iconsStarImage,
+                Assets.iconsStarImage,
               ),
               Image.asset(
-                MyImages.imagesPngImage,
+                Assets.imagesPngImage,
                 height: 30.h,
                 width: 30.w,
               ),
@@ -49,7 +49,7 @@ class PlayerItem extends StatelessWidget {
           ),
           const Spacer(),
           SvgPicture.asset(
-            MyImages.iconsCoin,
+            Assets.iconsCoin,
           ),
           Text(
             "211",

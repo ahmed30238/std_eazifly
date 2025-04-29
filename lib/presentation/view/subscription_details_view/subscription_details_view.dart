@@ -47,7 +47,7 @@ class _SubscriptionDetailsViewState extends State<SubscriptionDetailsView>
           Row(
             children: [
               SvgPicture.asset(
-                MyImages.iconsBulb,
+                Assets.iconsBulb,
               ),
               4.pw,
               Expanded(

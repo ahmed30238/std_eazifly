@@ -30,7 +30,7 @@ class CategoryRowWidget extends StatelessWidget {
         ),
         4.pw,
         SvgPicture.asset(
-          MyImages.iconsViewAllArrow,
+          Assets.iconsViewAllArrow,
         )
       ],
     );

@@ -128,7 +128,7 @@ class _ProperScheduleBodyState extends State<ProperScheduleBody>
                                         horizontal: 16.w,
                                       ),
                                       child: SvgPicture.asset(
-                                        MyImages.iconsCalender,
+                                        Assets.iconsCalender,
                                       ),
                                     ),
                                   ),
@@ -303,7 +303,7 @@ class ClassSpecifyingTimeWidget extends StatelessWidget {
                         horizontal: 16.w,
                       ),
                       child: SvgPicture.asset(
-                        MyImages.iconsCalender,
+                        Assets.iconsCalender,
                       ),
                     ),
                   ),

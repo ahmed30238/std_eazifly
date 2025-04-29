@@ -50,7 +50,7 @@ class StackDesignState extends StatelessWidget {
       children: [
         Image.asset(
           fit: BoxFit.cover,
-          MyImages.imagesPersona,
+          Assets.imagesPersona,
           height: 160.h,
           width: double.infinity,
         ),
@@ -64,10 +64,10 @@ class StackDesignState extends StatelessWidget {
           children: [
             SvgPicture.asset(
               state == "accepted"
-                  ? MyImages.iconsEnsureRequest
+                  ? Assets.iconsEnsureRequest
                   : state == "rejected"
-                      ? MyImages.iconsRejectRequest
-                      : MyImages.iconsUnderReviewing,
+                      ? Assets.iconsRejectRequest
+                      : Assets.iconsUnderReviewing,
             ),
          
             8.ph,

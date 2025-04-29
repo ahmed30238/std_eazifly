@@ -66,7 +66,7 @@ class AudioPlayerScreen extends StatelessWidget {
                   suffixIconWidget: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: SvgPicture.asset(
-                      MyImages.iconsSend2,
+                      Assets.iconsSend2,
                     ),
                   ),
                 ),
@@ -77,26 +77,26 @@ class AudioPlayerScreen extends StatelessWidget {
                     InkWell(
                       onTap: () {},
                       child: SvgPicture.asset(
-                        MyImages.iconsOutlineHeart,
+                        Assets.iconsOutlineHeart,
                       ),
                     ),
                     InkWell(
                         onTap: () {},
-                        child: SvgPicture.asset(MyImages.iconsPlayNext)),
+                        child: SvgPicture.asset(Assets.iconsPlayNext)),
                     FloatingActionButton(
                       backgroundColor: MainColors.white,
                       shape: const CircleBorder(),
                       onPressed: () {},
                       child: SvgPicture.asset(
-                        MyImages.iconsPause,
+                        Assets.iconsPause,
                       ),
                     ),
                     InkWell(
                         onTap: () {},
-                        child: SvgPicture.asset(MyImages.iconsPlayPrevious)),
+                        child: SvgPicture.asset(Assets.iconsPlayPrevious)),
                     InkWell(
                         onTap: () {},
-                        child: SvgPicture.asset(MyImages.iconsMusicFilter)),
+                        child: SvgPicture.asset(Assets.iconsMusicFilter)),
                   ],
                 )
               ],

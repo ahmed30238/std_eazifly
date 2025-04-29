@@ -47,7 +47,7 @@ class LibraryFavouriteListItem extends StatelessWidget {
                       Row(
                         children: [
                           SvgPicture.asset(
-                            MyImages.iconsPlay,
+                            Assets.iconsPlay,
                           ),
                           4.pw,
                           Text(
@@ -63,7 +63,7 @@ class LibraryFavouriteListItem extends StatelessWidget {
                       Row(
                         children: [
                           SvgPicture.asset(
-                            MyImages.iconsHeart,
+                            Assets.iconsHeart,
                           ),
                           4.pw,
                           Text(
@@ -79,7 +79,7 @@ class LibraryFavouriteListItem extends StatelessWidget {
                       Row(
                         children: [
                           SvgPicture.asset(
-                            MyImages.iconsPeople,
+                            Assets.iconsPeople,
                           ),
                           4.pw,
                           Text(
@@ -98,7 +98,7 @@ class LibraryFavouriteListItem extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          SvgPicture.asset(MyImages.iconsHeart), // todo horizontal triple dots
+          SvgPicture.asset(Assets.iconsHeart), // todo horizontal triple dots
         ],
       ),
     );

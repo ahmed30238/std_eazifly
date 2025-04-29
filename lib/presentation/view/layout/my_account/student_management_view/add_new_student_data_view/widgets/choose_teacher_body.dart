@@ -40,7 +40,7 @@ class ChooseTeacherBody extends StatelessWidget {
                         horizontal: 16.w,
                       ),
                       child: SvgPicture.asset(
-                        MyImages.iconsCalender,
+                        Assets.iconsCalender,
                       ),
                     ),
                   ),
@@ -75,7 +75,7 @@ class ChooseTeacherBody extends StatelessWidget {
                         horizontal: 16.w,
                       ),
                       child: SvgPicture.asset(
-                        MyImages.iconsCalender,
+                        Assets.iconsCalender,
                       ),
                     ),
                   ),

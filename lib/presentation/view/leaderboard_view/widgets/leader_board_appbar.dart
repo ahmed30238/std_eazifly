@@ -24,7 +24,7 @@ class LeaderBoardAppbar extends StatelessWidget implements PreferredSizeWidget {
           onTap: () {},
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: SvgPicture.asset(MyImages.iconsVerticalDots),
+            child: SvgPicture.asset(Assets.iconsVerticalDots),
           ),
         ),
       ],

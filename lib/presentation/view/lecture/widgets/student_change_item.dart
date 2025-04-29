@@ -29,7 +29,7 @@ class StudentsChangeItem extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: SvgPicture.asset(
-                MyImages.iconsArrowRight,
+                Assets.iconsArrowRight,
               ),
             ),
             20.pw,
@@ -53,7 +53,7 @@ class StudentsChangeItem extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: SvgPicture.asset(
-                MyImages.iconsArrowLeft,
+                Assets.iconsArrowLeft,
               ),
             ),
           ],

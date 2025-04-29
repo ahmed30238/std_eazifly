@@ -21,16 +21,16 @@ List<String> paths = [
 ];
 List<String> images = [
   // MyImages.imagesEditedPersona,
-  MyImages.imagesPersona,
+  Assets.imagesPersona,
   // MyImages.imagesPngImage,
   // MyImages.imagesPngPersona,
 ];
 
 List<String> iconsList = [
-  MyImages.iconsLiveBroadcasting,
-  MyImages.iconsAssignments,
-  MyImages.iconsQuizzes,
-  MyImages.iconsMeetings,
+  Assets.iconsLiveBroadcasting,
+  Assets.iconsAssignments,
+  Assets.iconsQuizzes,
+  Assets.iconsMeetings,
 ];
 List<String> lecturetextList = [
   "موعد المحاضرة",

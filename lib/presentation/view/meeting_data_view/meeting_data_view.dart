@@ -31,7 +31,7 @@ class MeetingDataView extends StatelessWidget {
         children: [
           45.ph,
           SvgPicture.asset(
-            MyImages.iconsAboutAppIcon, // todo replace with its icon
+            Assets.iconsAboutAppIcon, // todo replace with its icon
           ),
           45.ph,
           const StudentStats(),

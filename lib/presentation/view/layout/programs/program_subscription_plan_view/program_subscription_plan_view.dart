@@ -217,7 +217,11 @@ class ProgramSubscriptionPlanView extends StatelessWidget {
             ),
           ),
           8.ph,
-          ButtonWithPrice(onPressed: () {}),
+          ButtonWithPrice(
+            onPressed: () {
+              Navigator.pushNamed(context, RoutePaths.completePaymentProcessScreen);
+            },
+          ),
           32.ph,
         ],
       ),
@@ -320,7 +324,7 @@ class LessonDurationCardItem extends StatelessWidget {
 }
 
 var planIcons = [
-  MyImages.iconsLoadingSand,
-  MyImages.iconsSecurityTime,
-  MyImages.iconsCalender
+  Assets.iconsLoadingSand,
+  Assets.iconsSecurityTime,
+  Assets.iconsCalender
 ];

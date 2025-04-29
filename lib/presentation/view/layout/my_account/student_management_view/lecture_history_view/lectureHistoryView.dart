@@ -226,7 +226,7 @@ class LectureHistoryDetails extends StatelessWidget {
                   ),
                 ),
                 child: SvgPicture.asset(
-                  MyImages.iconsHorizontalDots,
+                  Assets.iconsHorizontalDots,
                 ),
               ),
             ],

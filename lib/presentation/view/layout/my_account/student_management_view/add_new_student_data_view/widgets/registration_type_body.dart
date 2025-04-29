@@ -24,7 +24,7 @@ class RegistrationTypeBody extends StatelessWidget {
             ),
             child: Column(
               children: [
-                SvgPicture.asset(MyImages.iconsAddMyself),
+                SvgPicture.asset(Assets.iconsAddMyself),
                 Text(
                   "تسجيل نفسي في البرنامج",
                   style: MainTextStyle.boldTextStyle(fontSize: 15),
@@ -44,7 +44,7 @@ class RegistrationTypeBody extends StatelessWidget {
           ),
           child: Column(
             children: [
-              SvgPicture.asset(MyImages.iconsAddAnotherStudent),
+              SvgPicture.asset(Assets.iconsAddAnotherStudent),
               Text(
                 "أضافة طالب أخر",
                 style: MainTextStyle.boldTextStyle(fontSize: 15),

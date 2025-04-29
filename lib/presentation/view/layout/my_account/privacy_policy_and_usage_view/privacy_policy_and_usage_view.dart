@@ -25,7 +25,7 @@ class PrivacyPolicyAndUsageView extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(vertical: 24.h),
-            child: SvgPicture.asset(MyImages.iconsPolicy),
+            child: SvgPicture.asset(Assets.iconsPolicy),
           ),
           Expanded(
             

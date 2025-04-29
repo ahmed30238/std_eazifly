@@ -45,7 +45,7 @@ class _DmViewState extends State<DmView> {
                 width: 48.w,
                 containerColor: MainColors.white,
                 iconWidget: SvgPicture.asset(
-                  MyImages.iconsVerticalDots,
+                  Assets.iconsVerticalDots,
                   fit: BoxFit.scaleDown,
                 )),
           )
@@ -122,7 +122,7 @@ class _DmViewState extends State<DmView> {
                           height: 40.h,
                           width: 40.w,
                           child: SvgPicture.asset(
-                            MyImages.iconsMicrophone,
+                            Assets.iconsMicrophone,
                             fit: BoxFit.scaleDown,
                           ),
                         ),
@@ -139,7 +139,7 @@ class _DmViewState extends State<DmView> {
                           height: 40.h,
                           width: 40.w,
                           child: SvgPicture.asset(
-                            MyImages.iconsGallery,
+                            Assets.iconsGallery,
                             fit: BoxFit.scaleDown,
                           ),
                         ),

@@ -39,4 +39,5 @@ class RoutePaths {
   static const programSubscriptionPlan = "programSubscriptionPlan";
   static const addNewStudentData = "addNewStudentData";
   static const lectureHistoryView = "lectureHistoryView";
+  static const explainPointsSystemView = "explainPointsSystemView";
 }

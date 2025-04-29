@@ -154,7 +154,7 @@ class ConfirmPaymentView extends StatelessWidget {
                         borderRadius: 16.cr,
                       ),
                       child: SvgPicture.asset(
-                        MyImages.iconsUploadImage,
+                        Assets.iconsUploadImage,
                         fit: BoxFit.scaleDown,
                       ).center(),
                     )
@@ -196,7 +196,7 @@ class ConfirmPaymentView extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: SvgPicture.asset(
-                    MyImages.iconsAboutAppIcon,
+                    Assets.iconsAboutAppIcon,
                     height: 60.h,
                     width: 60.w,
                   ),
@@ -209,6 +209,18 @@ class ConfirmPaymentView extends StatelessWidget {
             text: "إتمام الدفع",
             width: 343.w,
             onPressed: () {
+              // Timer.periodic(
+              //   const Duration(milliseconds: 100),
+              //   (timer) => showAdaptiveDialog(
+              //     context: context,
+              //     builder: (context) => const CustomDialog(
+              //       title: "جاري مراجعة طلب التحويل",
+              //       subTitle: "سيتم ارسال اشعار التاكيد في اقرب وقت ",
+              //       loader: true,
+              //     ),
+              //   ),
+              // );
+
               Navigator.pushNamed(context, RoutePaths.programsUnderReviewView);
             },
             color: MainColors.blueTextColor,

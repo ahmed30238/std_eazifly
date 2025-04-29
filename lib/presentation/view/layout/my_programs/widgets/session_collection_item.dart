@@ -25,7 +25,7 @@ class SessionCollectionItem extends StatelessWidget {
               image: const DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage(
-                  MyImages.imagesPersona,
+                  Assets.imagesPersona,
                 ),
               ),
             ),

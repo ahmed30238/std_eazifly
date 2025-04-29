@@ -27,7 +27,7 @@ class DeliveriesBodyWidget extends StatelessWidget {
                   : DeliverStatus.notDelivered,
           isDelivered: index == 0 ? true : false,
         ),
-        icon: MyImages.iconsProfile,
+        icon: Assets.iconsProfile,
       ),
       separatorBuilder: (context, index) => const SeparatedWidget(
         isThereNotes: true,

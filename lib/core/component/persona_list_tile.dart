@@ -56,7 +56,7 @@ class PersonaListTile extends StatelessWidget {
             fit: BoxFit.cover,
             image: image == null
                 ? const AssetImage(
-                    MyImages.iconsSearchNormal,
+                    Assets.iconsSearchNormal,
                   )
                 : NetworkImage(image ?? ""),
           ),

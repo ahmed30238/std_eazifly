@@ -24,7 +24,7 @@ class ExamBodyWidget extends StatelessWidget {
           // status: cubit?.getUserQuizzesEntities?.data?[index]?.status??"",
           isNewStudent: index == 0 ? true : false,
         ),
-        icon: MyImages.iconsProfile,
+        icon: Assets.iconsProfile,
       ),
       separatorBuilder: (context, index) => Column(
         children: [

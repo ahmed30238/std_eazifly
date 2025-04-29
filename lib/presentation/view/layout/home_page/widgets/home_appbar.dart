@@ -21,7 +21,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                 ImageContainer(
                   containerHeight: 20.h,
                   containerWidth: 20.w,
-                  image: MyImages.imagesPersona,
+                  image: Assets.imagesPersona,
                   shape: BoxShape.circle,
                 ),
                 4.pw,
@@ -39,7 +39,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                 SvgPicture.asset(
                   height: 20.h,
                   width: 20.w,
-                  MyImages.iconsCoin,
+                  Assets.iconsCoin,
                 ),
                 Text(
                   "211",
@@ -59,7 +59,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
           ),
           child: AppbarIconWidget(
             iconWidget: SvgPicture.asset(
-              MyImages.iconsChatsIcon,
+              Assets.iconsChatsIcon,
               fit: BoxFit.scaleDown,
             ),
           ),
@@ -72,7 +72,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
           ),
           child: AppbarIconWidget(
             iconWidget: SvgPicture.asset(
-              MyImages.iconsNotificationIcon,
+              Assets.iconsNotificationIcon,
               fit: BoxFit.scaleDown,
             ),
           ),

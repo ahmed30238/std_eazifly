@@ -41,7 +41,7 @@ class AllMeetingItem extends StatelessWidget {
               radius: 8.r,
               containerHeight: 143.h,
               containerWidth: 327.w,
-              image: MyImages.imagesPersona,
+              image: Assets.imagesPersona,
             ),
             12.ph,
             SizedBox(

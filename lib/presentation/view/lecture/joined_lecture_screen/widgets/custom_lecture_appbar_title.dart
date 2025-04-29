@@ -17,7 +17,7 @@ class CustomLectureAppbarTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SvgPicture.asset(
-          MyImages.iconsRecordOn,
+          Assets.iconsRecordOn,
         ),
         4.pw,
         TextedContainer(

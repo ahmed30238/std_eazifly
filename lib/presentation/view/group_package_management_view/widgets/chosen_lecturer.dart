@@ -31,7 +31,7 @@ class ChosenLecturer extends StatelessWidget {
               child: Row(
                 children: [
                   SvgPicture.asset(
-                    MyImages.iconsBulb,
+                    Assets.iconsBulb,
                   ),
                   Text(
                     "أضغط علي اسم البرنامج لإختيار الموعد المناسب لكل طالب علي حدا",

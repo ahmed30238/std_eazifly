@@ -15,7 +15,7 @@ class HomeCarousel extends StatelessWidget {
         4,
         (index) => ImageContainer(
           radius: 16.r,
-          image: MyImages.imagesPersona,
+          image: Assets.imagesPersona,
         ),
       ),
       options: CarouselOptions(

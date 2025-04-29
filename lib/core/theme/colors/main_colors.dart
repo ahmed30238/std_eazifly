@@ -8,6 +8,7 @@ class MainColors {
   static const checkBoxBorderGray = Color(0xFF3D5066);
   static const offersColor = Color(0xFFE8757E);
   static const starColor = Color(0xFFFFD130);
+  static const timeLineColor = Color(0xFF87878C);
 
   static const transparentColor = Colors.transparent;
   static const lightblue = Color(0xFFEAF0FD);

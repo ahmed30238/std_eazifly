@@ -21,7 +21,7 @@ class CustomAppbarLeading extends StatelessWidget {
             border: Border.all(color: MainColors.black, width: 1.w),
           ),
           child: SvgPicture.asset(
-            MyImages.iconsFlipCamera,
+            Assets.iconsFlipCamera,
             height: 24.h,
             width: 24.w,
             fit: BoxFit.scaleDown,

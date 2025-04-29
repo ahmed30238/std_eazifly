@@ -18,7 +18,7 @@ class CompletePaymentProcessView extends StatelessWidget {
         children: [
           16.ph,
           SvgPicture.asset(
-            MyImages.iconsCompletePaymentProcess,
+            Assets.iconsCompletePaymentProcess,
           ),
           24.ph,
           Text(
@@ -59,15 +59,15 @@ class PaymentMethodContainerModel {
 
 var paymentMethodContainerModel = [
   const PaymentMethodContainerModel(
-    icon: MyImages.iconsInstantPayment,
+    icon: Assets.iconsInstantPayment,
     title: "دفع لحظي"
   ),
   const PaymentMethodContainerModel(
-    icon: MyImages.iconsElectronicWallet,
+    icon: Assets.iconsElectronicWallet,
     title: "محفظة الكترونية",
   ),
   const PaymentMethodContainerModel(
-    icon: MyImages.iconsInstapay,
+    icon: Assets.iconsInstapay,
     title: "تطبيق انستا باي",
   ),
 ];

@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_single_quotes
-class MyImages {
-  MyImages._();
+class Assets {
+  Assets._();
   
   /// Assets for bottom_nav_bar_iconsActiveLibrary
   /// assets/bottom_nav_bar_icons/active-library.svg
@@ -102,6 +102,10 @@ class MyImages {
   /// assets/icons/cash.svg
   static const String iconsCash = "assets/icons/cash.svg";
 
+  /// Assets for iconsCelebrate
+  /// assets/icons/celebrate.svg
+  static const String iconsCelebrate = "assets/icons/celebrate.svg";
+
   /// Assets for iconsChatsIcon
   /// assets/icons/chats-icon.svg
   static const String iconsChatsIcon = "assets/icons/chats-icon.svg";
@@ -129,6 +133,10 @@ class MyImages {
   /// Assets for iconsEnsureRequest
   /// assets/icons/ensure-request.svg
   static const String iconsEnsureRequest = "assets/icons/ensure-request.svg";
+
+  /// Assets for iconsExplainPointsSystem
+  /// assets/icons/explain-points-system.svg
+  static const String iconsExplainPointsSystem = "assets/icons/explain-points-system.svg";
 
   /// Assets for iconsFemal
   /// assets/icons/femal.svg

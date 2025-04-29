@@ -33,7 +33,7 @@ class LecturerItem extends StatelessWidget {
         children: [
           const ImageContainer(
             shape: BoxShape.circle,
-            image: MyImages.imagesEditedPersona,
+            image: Assets.imagesEditedPersona,
           ),
           Text(
             "احمد سلامة",

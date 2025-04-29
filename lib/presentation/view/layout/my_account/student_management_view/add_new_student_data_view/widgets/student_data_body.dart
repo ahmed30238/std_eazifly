@@ -26,7 +26,7 @@ class StudentDataBody extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: SvgPicture.asset(
-                    MyImages.iconsUserProfile,
+                    Assets.iconsUserProfile,
                     width: 80.w,
                     height: 80.h,
                     fit: BoxFit.scaleDown,
@@ -75,7 +75,7 @@ class StudentDataBody extends StatelessWidget {
                 children: List.generate(
                   2,
                   (index) => StudentGenderBox(
-                    icon: index == 0 ? MyImages.iconsMale : MyImages.iconsFemal,
+                    icon: index == 0 ? Assets.iconsMale : Assets.iconsFemal,
                     type: index == 0 ? "ذكر" : "أنثى",
                     padding: 8,
                   ),

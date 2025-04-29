@@ -41,7 +41,7 @@ class StudentDataItem extends StatelessWidget {
           //! image
           ImageContainer(
             shape: BoxShape.circle,
-            image: MyImages.imagesPersona,
+            image: Assets.imagesPersona,
             containerHeight: 45.h,
             containerWidth: 45.w,
           ),
@@ -94,7 +94,7 @@ class StudentDataItem extends StatelessWidget {
             InkWell(
               onTap: onTrailingIconTap,
               child: SvgPicture.asset(
-                MyImages.iconsHorizontalDots,
+                Assets.iconsHorizontalDots,
               ),
             ),
         ],

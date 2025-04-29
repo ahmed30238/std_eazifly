@@ -42,7 +42,7 @@ class ImageContainer extends StatelessWidget {
         image: DecorationImage(
           fit: fit ?? BoxFit.cover,
           image: AssetImage(
-            image ?? MyImages.imagesPersona,
+            image ?? Assets.imagesPersona,
           ),
         ),
         borderRadius: shape == null

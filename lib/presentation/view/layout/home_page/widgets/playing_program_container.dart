@@ -43,7 +43,7 @@ class PlayingProgramContainer extends StatelessWidget {
                 ),
                 const Spacer(),
                 SvgPicture.asset(
-                  MyImages.iconsPause,
+                  Assets.iconsPause,
                 ),
                 8.pw,
               ],

@@ -43,7 +43,7 @@ class FlexibleHourBody extends StatelessWidget {
             enabled: false,
             suffIcon: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: SvgPicture.asset(MyImages.iconsArrowDown),
+              child: SvgPicture.asset(Assets.iconsArrowDown),
             ),
             iconWidget: 0.ph,
             titleText: lang.days,
