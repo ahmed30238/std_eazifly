@@ -41,4 +41,5 @@ class RoutePaths {
   static const lectureHistoryView = "lectureHistoryView";
   static const explainPointsSystemView = "explainPointsSystemView";
   static const navigateToLectureView = "navigateToLectureView";
+  static const addToLibraryPackageDetailsView = "addToLibraryPackageDetailsView";
 }

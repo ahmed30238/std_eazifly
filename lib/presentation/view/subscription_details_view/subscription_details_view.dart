@@ -70,10 +70,8 @@ class _SubscriptionDetailsViewState extends State<SubscriptionDetailsView>
           8.ph,
           const PackageList(),
           13.ph,
-           ButtonWithPrice(
-            onPressed: () {
-              
-            },
+          ButtonWithPrice(
+            onPressed: () {},
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/presentation/controller/account_data/accountdata_cubit.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
+import 'package:eazifly_student/presentation/controller/add_to_library_package_details_controller/addtolibrarypackagedetails_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/goal_details_controller/goal_details_cubit.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
@@ -21,6 +22,7 @@ import 'package:eazifly_student/presentation/view/home_meetings_view/home_meetin
 import 'package:eazifly_student/presentation/view/layout/home_page/home_notification_view.dart/home_notofication_view.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/navigate_to_lecture_view/navigate_to_lecture_view.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
+import 'package:eazifly_student/presentation/view/layout/library/add_to_library_package_details/add_to_library_package_details.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/explain_point_view/explain_point_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/add_new_student_data_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/lecture_history_view/lectureHistoryView.dart';
@@ -212,6 +214,13 @@ class AppRouter {
       case RoutePaths.subscriptionPackageDetails:
         return createRoute(
           const SubscriptiopnPackageDetails(),
+        );
+      case RoutePaths.addToLibraryPackageDetailsView:
+        return createRoute(
+          BlocProvider(
+            create: (context) => AddtolibrarypackagedetailsCubit(),
+            child: const AddToLibraryPackageDetailsView(),
+          ),
         );
       case RoutePaths.programsUnderReviewView:
         return createRoute(

@@ -1,6 +1,7 @@
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,7 @@ class VisualsBodyItem extends StatelessWidget {
                     Row(
                       children: [
                         SvgPicture.asset(
-                          Assets.iconsPlay,
+                          Assets.iconsLibraryBook,
                         ),
                         4.pw,
                         Text(
@@ -125,7 +126,10 @@ class VisualsBodyItem extends StatelessWidget {
                 // color:
                 textColor: MainColors.blueTextColor,
                 text: "أضف إلى مكتبتك",
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, RoutePaths.addToLibraryPackageDetailsView);
+                },
               ),
             ],
           ),

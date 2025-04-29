@@ -73,10 +73,11 @@ class _LibraryViewState extends State<LibraryView>
             ),
           ),
           BlocBuilder(
-              bloc: cubit,
-              builder: (context, state) => Expanded(
-                    child: cubit.libraryBodies[cubit.tabController.index],
-                  )),
+            bloc: cubit,
+            builder: (context, state) => Expanded(
+              child: cubit.libraryBodies[cubit.tabController.index],
+            ),
+          ),
         ],
       ),
     );
