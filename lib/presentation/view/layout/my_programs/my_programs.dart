@@ -25,11 +25,17 @@ class MyProgramsView extends StatelessWidget {
         leadingText: "",
         leadingCustomWidth: 10.w,
         customAction: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 16.w,
+          InkWell(
+            onTap: () => Navigator.pushNamed(
+              context,
+              RoutePaths.programsUnderReviewView,
             ),
-            child: SvgPicture.asset(Assets.iconsMyProgramAppbar),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+              ),
+              child: SvgPicture.asset(Assets.iconsMyProgramAppbar),
+            ),
           ),
         ],
       ),

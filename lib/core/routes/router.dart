@@ -215,7 +215,10 @@ class AppRouter {
         );
       case RoutePaths.programsUnderReviewView:
         return createRoute(
-          const ProgramsUnderReviewView(),
+          BlocProvider(
+            create: (context) => ChatsCubit(),
+            child: const ProgramsUnderReviewView(),
+          ),
         );
       case RoutePaths.completePaymentProcessScreen:
         return createRoute(

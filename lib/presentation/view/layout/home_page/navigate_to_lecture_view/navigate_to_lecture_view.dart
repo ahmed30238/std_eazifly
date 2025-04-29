@@ -19,6 +19,7 @@ class NavigateToLectureView extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
           children: [
+            16.ph,
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               height: 78.h,
