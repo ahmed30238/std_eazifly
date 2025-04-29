@@ -40,4 +40,5 @@ class RoutePaths {
   static const addNewStudentData = "addNewStudentData";
   static const lectureHistoryView = "lectureHistoryView";
   static const explainPointsSystemView = "explainPointsSystemView";
+  static const navigateToLectureView = "navigateToLectureView";
 }

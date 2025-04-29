@@ -19,6 +19,7 @@ import 'package:eazifly_student/presentation/view/goals_view/goals_view.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/group_package_management_view.dart';
 import 'package:eazifly_student/presentation/view/home_meetings_view/home_meetings_view.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_notification_view.dart/home_notofication_view.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/navigate_to_lecture_view/navigate_to_lecture_view.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/explain_point_view/explain_point_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/add_new_student_data_view.dart';
@@ -219,6 +220,10 @@ class AppRouter {
       case RoutePaths.completePaymentProcessScreen:
         return createRoute(
           const CompletePaymentProcessView(),
+        );
+      case RoutePaths.navigateToLectureView:
+        return createRoute(
+          const NavigateToLectureView(),
         );
       case RoutePaths.addNewStudentData:
         return createRoute(

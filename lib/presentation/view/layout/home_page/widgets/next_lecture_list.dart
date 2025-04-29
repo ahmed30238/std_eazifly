@@ -15,7 +15,9 @@ class NextLectureList extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) => const NextLectureItem(),
+        itemBuilder: (context, index) => NextLectureItem(
+          onTap:() =>  Navigator.pushNamed(context,RoutePaths.navigateToLectureView),
+        ),
         separatorBuilder: (context, index) => 12.pw,
         itemCount: 4,
       ),

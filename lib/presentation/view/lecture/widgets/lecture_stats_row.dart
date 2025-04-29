@@ -7,15 +7,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LectureStats extends StatelessWidget {
   final double? horizontalPadding;
-  final String? titleText;
+  final List<String>? titleText;
   final LectureStatesEnum state;
-  final Widget? downSideWidget;
+  final bool? reJoin;
+  final VoidCallback? onRejoinTap;
+  // final Widget? downSideWidget;
   const LectureStats({
     super.key,
     this.horizontalPadding,
+    this.onRejoinTap,
     required this.state,
     this.titleText,
-    this.downSideWidget,
+    this.reJoin = false,
+    // this.downSideWidget,
   });
 
   @override
@@ -39,21 +43,34 @@ class LectureStats extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    titleText ?? lectureStatsTitle[index],
+                    titleText?[index] ?? lectureStatsTitle[index],
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
                       color: MainColors.grayTextColors,
                     ),
                   ),
-                  index == 2
-                      ? lectureStates(state)
-                      : Text(
-                          lectureStatsSubTitles[index],
-                          style: MainTextStyle.boldTextStyle(
-                            fontSize: 14,
-                            color: MainColors.blackText,
-                          ),
-                        ),
+                  if (index == 2) ...{
+                    if (reJoin == true) ...{
+                      InkWell(onTap: onRejoinTap,child: TextedContainer(
+                        
+                        text: "اعادة دخول",
+                        containerColor: MainColors.lightblue,
+                        width: 88.w,
+                        height: 26.h,
+                        textColor: MainColors.blueTextColor,
+                      ),)
+                    } else ...{
+                      LectureStates(state: state)
+                    },
+                  } else ...{
+                    Text(
+                      lectureStatsSubTitles[index],
+                      style: MainTextStyle.boldTextStyle(
+                        fontSize: 14,
+                        color: MainColors.blackText,
+                      ),
+                    ),
+                  }
                 ],
               ),
             ),
@@ -70,39 +87,51 @@ enum LectureStatesEnum {
   dated,
 }
 
-Widget lectureStates(LectureStatesEnum state) {
-  switch (state) {
-    case LectureStatesEnum.ongoing:
-      return TextedContainer(
-        text: "منذ 3 دقائق",
-        height: 28.h,
-        width: 83.w,
-        fontSize: 12,
-        radius: 16.r,
-        containerColor: MainColors.lightRed,
-        textColor: MainColors.red,
-      );
-    case LectureStatesEnum.dated:
-      return TextedContainer(
-        text: "بعد 2 يوم",
-        height: 28.h,
-        width: 83.w,
-        fontSize: 12,
-        radius: 16.r,
-        containerColor: MainColors.lightRed,
-        textColor: MainColors.red,
-      );
-    case LectureStatesEnum.finished:
-      return TextedContainer(
-        text: "انتهت",
-        height: 28.h,
-        width: 83.w,
-        fontSize: 12,
-        radius: 16.r,
-        containerColor: MainColors.lightRed,
-        textColor: MainColors.red,
-      );
-    default:
-      return const Text("Error");
+class LectureStates extends StatelessWidget {
+  final LectureStatesEnum state;
+  const LectureStates({
+    super.key,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    switch (state) {
+      case LectureStatesEnum.ongoing:
+        return TextedContainer(
+          text: "منذ 3 دقائق",
+          height: 28.h,
+          width: 83.w,
+          fontSize: 12,
+          radius: 16.r,
+          containerColor: MainColors.lightRed,
+          textColor: MainColors.red,
+        );
+      case LectureStatesEnum.dated:
+        return TextedContainer(
+          text: "بعد 2 يوم",
+          height: 28.h,
+          width: 83.w,
+          fontSize: 12,
+          radius: 16.r,
+          containerColor: MainColors.lightRed,
+          textColor: MainColors.red,
+        );
+      case LectureStatesEnum.finished:
+        return TextedContainer(
+          text: "انتهت",
+          height: 28.h,
+          width: 83.w,
+          fontSize: 12,
+          radius: 16.r,
+          containerColor: MainColors.lightRed,
+          textColor: MainColors.red,
+        );
+      default:
+        return const Text("Error");
+    }
   }
 }
+// Widget lectureStates() {
+  
+// }

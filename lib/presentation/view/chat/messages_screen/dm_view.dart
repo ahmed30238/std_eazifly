@@ -65,7 +65,7 @@ class _DmViewState extends State<DmView> {
                               width: 65.w,
                               height: 26.h,
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                 ),
               ],
             )
