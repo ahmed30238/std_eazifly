@@ -53,10 +53,16 @@ class MyProgramsView extends StatelessWidget {
           16.ph,
           ProgramItem(
             onTap: () =>
-                Navigator.pushNamed(context, RoutePaths.sessionDetailsView),
+                Navigator.pushNamed(context, RoutePaths.navigateToLectureView),
           ),
           20.ph,
-          const CollectionSessionList(),
+          InkWell(
+              onTap: () => Navigator.pushNamed(
+                    context,
+                    RoutePaths.selectionOfEducationalCoursesView,
+                  ),
+              child: const CollectionSessionList()),
+          20.ph,
         ],
       ),
     );

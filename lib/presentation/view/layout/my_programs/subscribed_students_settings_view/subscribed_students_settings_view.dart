@@ -1,0 +1,314 @@
+import 'package:eazifly_student/core/component/nested_avatar_container.dart';
+import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+
+class SubscribedStudentsSettingsView extends StatelessWidget {
+  const SubscribedStudentsSettingsView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var lang = context.loc!;
+    return Scaffold(
+      appBar: CustomAppBar(
+        context,
+        mainTitle: "إعداد بيانات برنامج",
+        leadingText: lang.back,
+        isCenterTitle: true,
+      ),
+      body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        children: [
+          16.ph,
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            height: 78.h,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: 12.cr,
+              color: MainColors.veryLightGrayFormField,
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 12.h),
+              child: SizedBox(
+                width: 216.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "إسم البرنامج",
+                      style: MainTextStyle.boldTextStyle(
+                          fontSize: 11, color: MainColors.grayTextColors),
+                    ),
+                    10.5.ph,
+                    Text(
+                      "محاضرة رياضيات للصف السادس",
+                      style: MainTextStyle.boldTextStyle(
+                          fontSize: 12, color: MainColors.blackText),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          8.ph,
+          SizedBox(
+            height: 78.h,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+                  decoration: BoxDecoration(
+                    borderRadius: 16.cr,
+                    color: MainColors.veryLightGrayFormField,
+                  ),
+                  height: 78.h,
+                  width: 176.w,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "عدد الطلاب المضافين",
+                        style: MainTextStyle.boldTextStyle(
+                          fontSize: 12,
+                          color: MainColors.grayTextColors,
+                        ),
+                      ),
+                      NestedAvatarContainer(
+                        number: "3 - 4 طلاب",
+                        avatarWidth: 24.w,
+                        noOfItems: 4,
+                        areaWidth: 68.w,
+                        areaHeigt: 26.h,
+                        avatarHeigt: 24.h,
+                        textColors: MainColors.blackText,
+                      ),
+                    ],
+                  ),
+                ),
+                21.pw,
+                CustomLowSizeButton(
+                  height: 29.h,
+                  width: 133.w,
+                  text: "إضافة طالب",
+                  textColor: MainColors.white,
+                  btnColor: MainColors.blueTextColor,
+                  borderRadius: 16.cr,
+                  onTap: () {
+                    Navigator.pushNamed(context, RoutePaths.addNewStudentData);
+                  },
+                ),
+              ],
+            ),
+          ),
+          28.ph,
+          SizedBox(
+            height: 145.h * 5 + 16.h * 6,
+            child: ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) => Container(
+                padding: EdgeInsets.only(
+                  right: 8.w,
+                  left: 8.w,
+                  top: 0 == 0 ? 12 : 0,
+                  bottom: 0 == 12 ? 12 : 0,
+                ),
+                height: 145.h,
+                width: 343.w,
+                decoration: BoxDecoration(
+                  borderRadius: 12.cr,
+                  color: MainColors.veryLightGrayFormField,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        //! image
+                        ImageContainer(
+                          shape: BoxShape.circle,
+                          image: Assets.imagesPersona,
+                          containerHeight: 45.h,
+                          containerWidth: 45.w,
+                        ),
+                        8.pw,
+                        //! name and age
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "أحمد سلامة",
+                              style: MainTextStyle.boldTextStyle(fontSize: 14),
+                            ),
+                            8.ph,
+                            Text(
+                              "15 عام",
+                              style: MainTextStyle.boldTextStyle(
+                                fontSize: 12,
+                                color: MainColors.grayTextColors,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        InkWell(
+                          onTap: () {
+                            studentMoreBottomSheet(context);
+                          },
+                          child: SvgPicture.asset(
+                            Assets.iconsHorizontalDots,
+                          ),
+                        ),
+                      ],
+                    ),
+                    8.ph,
+                    const CustomHorizontalDivider(),
+                    8.ph,
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 127.5.h,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "رقم التواصل",
+                                style: MainTextStyle.boldTextStyle(
+                                  fontSize: 12,
+                                  color: MainColors.grayTextColors,
+                                ),
+                              ),
+                              8.ph,
+                              Text(
+                                "01030837974",
+                                style: MainTextStyle.boldTextStyle(fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        ),
+                        32.pw,
+                        SizedBox(
+                          width: 127.5.h,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "المعلم",
+                                style: MainTextStyle.boldTextStyle(
+                                  fontSize: 12,
+                                  color: MainColors.grayTextColors,
+                                ),
+                              ),
+                              8.ph,
+                              Text(
+                                "احمد سلامة",
+                                style: MainTextStyle.boldTextStyle(fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              separatorBuilder: (context, index) => 16.ph,
+              itemCount: 5,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  Future<dynamic> studentMoreBottomSheet(BuildContext context) {
+    return showModalSheet(
+      minHeight: 260.h,
+      maxHeight: 261.h,
+      isFixedSize: true,
+      context,
+      widget: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        height: 260.h,
+        width: 375.w,
+        decoration: BoxDecoration(
+          borderRadius: 12.cr,
+          color: MainColors.white,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            24.ph,
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RoutePaths.lectureView,
+                  arguments: false,
+                );
+              },
+              child: SizedBox(
+                height: 45.h,
+                child: Text(
+                  "عرض باقي البيانات",
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {},
+              child: SizedBox(
+                height: 45.h,
+                child: Text(
+                  "تعديل بيانات الطالب",
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {},
+              child: SizedBox(
+                height: 45.h,
+                child: Text(
+                  "حذف الطالب",
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RoutePaths.lectureHistoryView,
+                );
+              },
+              child: SizedBox(
+                height: 45.h,
+                child: Text(
+                  "تاريخ المحاضرات ",
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                ),
+              ),
+            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     SvgPicture.asset(MyImages.iconsProfile),
+            //     8.pw,
+            //     Text(
+            //       "تعديل",
+            //       style:
+            //           MainTextStyle.boldTextStyle(fontSize: 14),
+            //     ),
+            //   ],
+            // )
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -1,4 +1,3 @@
-
 import 'package:eazifly_student/core/component/nested_avatar_item.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -16,6 +15,7 @@ class NestedAvatarContainer extends StatelessWidget {
   final double? avatar2Padding;
   final double? textPadding;
   final Color? textColors;
+  final int? noOfItems;
   final MainAxisAlignment? alignment;
   const NestedAvatarContainer({
     this.areaHeigt,
@@ -27,6 +27,7 @@ class NestedAvatarContainer extends StatelessWidget {
     this.avatar2Padding,
     this.textPadding,
     this.alignment,
+    this.noOfItems,
     required this.number,
     super.key,
   });
@@ -41,7 +42,7 @@ class NestedAvatarContainer extends StatelessWidget {
           height: areaHeigt ?? 24.h,
           child: Stack(
             children: List.generate(
-              3,
+              noOfItems ?? 3,
               (index) => PositionedItem(
                 width: avatarWidth ?? 32.w,
                 height: avatarHeigt ?? 32.w,
@@ -56,7 +57,7 @@ class NestedAvatarContainer extends StatelessWidget {
               )
             : 3.pw,
         Text(
-          "$number+",
+          number,
           style: MainTextStyle.boldTextStyle(
             fontSize: 16,
             color: textColors ?? MainColors.blueTextColor,

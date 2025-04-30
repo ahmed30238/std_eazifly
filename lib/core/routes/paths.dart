@@ -42,4 +42,9 @@ class RoutePaths {
   static const explainPointsSystemView = "explainPointsSystemView";
   static const navigateToLectureView = "navigateToLectureView";
   static const addToLibraryPackageDetailsView = "addToLibraryPackageDetailsView";
+  static const selectionOfEducationalCoursesView = "selectionOfEducationalCoursesView";
+  static const selectionProgramItemDetailsView = "selectionProgramItemDetailsView";
+  static const programGoalsView = "programGoalsView";
+  static const changeLecturerView = "changeLecturerView";
+  static const subscribedStudentsSettingsView = "subscribedStudentsSettingsView";
 }

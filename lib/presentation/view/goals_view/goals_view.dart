@@ -6,6 +6,7 @@ import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/view/goals_view/widgets/app_bar.dart';
 import 'package:eazifly_student/presentation/view/goals_view/widgets/goals_item.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -86,6 +87,11 @@ class CustomBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: MainColors.red,
         borderRadius: 48.cr,
+      ),
+      child: SvgPicture.asset(
+        Assets.iconsYellowStarBadge,
+        colorFilter: const ColorFilter.mode(MainColors.yellow, BlendMode.srcIn),
+        fit: BoxFit.scaleDown,
       ),
     );
   }

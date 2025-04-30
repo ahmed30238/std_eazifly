@@ -127,7 +127,7 @@ class Lecturehistoryview extends StatelessWidget {
               ],
             ),
           ),
-          StudentsChangeItem(
+          const StudentsChangeItem(
             alignment: MainAxisAlignment.spaceEvenly,
           ),
         ],
@@ -212,7 +212,8 @@ class LectureHistoryDetails extends StatelessWidget {
                       child: InkWell(
                         onTap: () => Navigator.pushNamed(
                             context, RoutePaths.lectureReportView),
-                        child: SizedBox(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 12.h),
                           height: 45.h,
                           child: Text(
                             "تقرير المحاضرة",

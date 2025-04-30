@@ -8,7 +8,7 @@ class StudentStats extends StatelessWidget {
   final double? horizontalPadding;
   final List<String>? titleText;
   final List<String>? descText;
-  final Widget? downSideWidget;
+  final List<Widget>? downSideWidgets;
   final VoidCallback? onFirstItemTap;
   final MainAxisAlignment? alignment;
   final VoidCallback? onSecondItemTap;
@@ -23,7 +23,7 @@ class StudentStats extends StatelessWidget {
     this.descText,
     this.itemWidth,
     this.length,
-    this.downSideWidget,
+    this.downSideWidgets,
     this.onFirstItemTap,
     this.onSecondItemTap,
     this.onThirdItemTap,
@@ -63,7 +63,7 @@ class StudentStats extends StatelessWidget {
                         color: MainColors.grayTextColors,
                       ),
                     ),
-                    downSideWidget ??
+                    downSideWidgets?[index] ??
                         Text(
                           descText?[index] ??
                               dataList(context)[index].percentage,

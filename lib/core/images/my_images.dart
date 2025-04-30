@@ -114,6 +114,10 @@ class Assets {
   /// assets/icons/check-mark.svg
   static const String iconsCheckMark = "assets/icons/check-mark.svg";
 
+  /// Assets for iconsClock
+  /// assets/icons/clock.svg
+  static const String iconsClock = "assets/icons/clock.svg";
+
   /// Assets for iconsCoin
   /// assets/icons/coin.svg
   static const String iconsCoin = "assets/icons/coin.svg";
@@ -149,6 +153,10 @@ class Assets {
   /// Assets for iconsFirstMedal
   /// assets/icons/first-medal.svg
   static const String iconsFirstMedal = "assets/icons/first-medal.svg";
+
+  /// Assets for iconsFlexibleClock
+  /// assets/icons/flexible-clock.svg
+  static const String iconsFlexibleClock = "assets/icons/flexible-clock.svg";
 
   /// Assets for iconsFlipCamera
   /// assets/icons/flip-camera.svg
@@ -282,6 +290,10 @@ class Assets {
   /// assets/icons/reject-request.svg
   static const String iconsRejectRequest = "assets/icons/reject-request.svg";
 
+  /// Assets for iconsRepeatCircle
+  /// assets/icons/repeat-circle.svg
+  static const String iconsRepeatCircle = "assets/icons/repeat-circle.svg";
+
   /// Assets for iconsSearchNormal
   /// assets/icons/search-normal.svg
   static const String iconsSearchNormal = "assets/icons/search-normal.svg";
@@ -345,6 +357,10 @@ class Assets {
   /// Assets for iconsVoiceCricle
   /// assets/icons/voice-cricle.svg
   static const String iconsVoiceCricle = "assets/icons/voice-cricle.svg";
+
+  /// Assets for iconsYellowStarBadge
+  /// assets/icons/yellow-star-badge.svg
+  static const String iconsYellowStarBadge = "assets/icons/yellow-star-badge.svg";
 
   /// Assets for iconsZoom
   /// assets/icons/zoom.svg

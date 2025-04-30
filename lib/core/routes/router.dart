@@ -30,7 +30,12 @@ import 'package:eazifly_student/presentation/view/layout/my_account/student_mana
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/complete_payment_process_view/complete_payment_process_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/confirm_payment_view/confirm_payment_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_package_details/subscription_package_details.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/change_lecturer_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/program_goals_view/program_goals_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/selection_of_educational_courses_view/selection_of_educational_courses_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/selection_program_item_details_view/selection_program_item_details_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/session_details_view/session_details_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/subscribed_students_settings_view/subscribed_students_settings_view.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/program_details_view/program_details_view.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/program_subscription_plan_view.dart';
 import 'package:eazifly_student/presentation/view/leaderboard_view/leaderboard_view.dart';
@@ -163,6 +168,26 @@ class AppRouter {
       case RoutePaths.sessionDetailsView:
         return createRoute(
           const SessionDetailsView(),
+        );
+      case RoutePaths.selectionOfEducationalCoursesView:
+        return createRoute(
+          const SelectionOfEducationalCoursesView(),
+        );
+      case RoutePaths.selectionProgramItemDetailsView:
+        return createRoute(
+          const SelectionProgramItemDetailsView(),
+        );
+      case RoutePaths.programGoalsView:
+        return createRoute(
+          const ProgramGoalsView(),
+        );
+      case RoutePaths.changeLecturerView:
+        return createRoute(
+          const ChangeLecturerView(),
+        );
+      case RoutePaths.subscribedStudentsSettingsView:
+        return createRoute(
+          const SubscribedStudentsSettingsView(),
         );
       case RoutePaths.setAppointmentsView:
         return createRoute(

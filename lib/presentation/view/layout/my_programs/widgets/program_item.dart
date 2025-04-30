@@ -64,7 +64,7 @@ class ProgramItem extends StatelessWidget {
             4.ph,
             const WavyDivider(),
             4.ph,
-             SessionDatesDetails(
+            SessionDatesDetails(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               margin: EdgeInsets.symmetric(horizontal: 16.w),
               firstTitle: lang.nextLecture,
@@ -73,7 +73,7 @@ class ProgramItem extends StatelessWidget {
               secondSubTitle: "30 دقيقة",
               thirdSubTitle: "",
               thirdTitle: lang.sessionState,
-             ),
+            ),
             8.ph,
           ],
         ),
