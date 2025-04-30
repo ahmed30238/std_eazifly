@@ -1,5 +1,5 @@
-import 'package:eazifly_student/core/component/home_appbar.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppbar({
     super.key,
@@ -11,6 +11,8 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       context,
       mainTitle: "",
       leadingCustomWidth: 120.w,
+      onLeadinTap: () =>
+          Navigator.pushNamed(context, RoutePaths.copounsAndDiscountsViewPath),
       customLeading: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(

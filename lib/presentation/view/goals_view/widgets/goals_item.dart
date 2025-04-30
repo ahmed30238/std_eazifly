@@ -28,7 +28,7 @@ class GoalsItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(right: 16.w, bottom: 16.h), // Adjusted margin
+        margin: EdgeInsets.only(left: 16.w,bottom: 16.h), // Adjusted margin
         height: 96.h,
         width: 319.w,
         decoration: BoxDecoration(
