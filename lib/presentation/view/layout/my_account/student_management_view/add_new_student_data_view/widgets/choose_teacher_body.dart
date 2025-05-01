@@ -141,14 +141,16 @@ class ChooseTeacherBody extends StatelessWidget {
 }
 
 class SuggestedTeachersItem extends StatelessWidget {
+  final bool blured;
   const SuggestedTeachersItem({
     super.key,
+    this.blured = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+      filter: ImageFilter.blur(sigmaX: blured ? 3 : 0, sigmaY: blured ? 3 : 0),
       child: Container(
         height: 157.h,
         width: 243.w,

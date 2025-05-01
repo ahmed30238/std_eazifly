@@ -1,7 +1,4 @@
-import 'package:eazifly_student/core/extensions/context.dart';
-import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:flutter/material.dart';
 
 List<String> textList(BuildContext context) {
   var lang = context.loc!;

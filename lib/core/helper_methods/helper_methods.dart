@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:eazifly_student/core/enums/task_deliver_status.dart';
+import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/bottom_sheet_day_controller.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/dummy_data.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
@@ -80,28 +82,59 @@ Future<XFile?> pickImageFromGallery() async {
 
   return image;
 }
-  Future<dynamic> customAdaptiveDialog(
-    BuildContext context, {
-    EdgeInsets? insetPadding,
-    bool? barrierDismissible,
-    AlignmentGeometry? alignmen,
-    required Widget child,
-  }) {
-    return showAdaptiveDialog(
-      useSafeArea: true,
-      barrierDismissible: barrierDismissible ?? true,
-      builder: (context) => Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: 16.cr,
-        ),
-        insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: 16.w),
-        alignment: alignmen ?? Alignment.center,
-        child: child,
-      ),
-      context: context,
-    );
-  }
 
+Future<dynamic> customAdaptiveDialog(
+  BuildContext context, {
+  EdgeInsets? insetPadding,
+  bool? barrierDismissible,
+  AlignmentGeometry? alignmen,
+  required Widget child,
+}) {
+  return showAdaptiveDialog(
+    useSafeArea: true,
+    barrierDismissible: barrierDismissible ?? true,
+    builder: (context) => Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: 16.cr,
+      ),
+      insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: 16.w),
+      alignment: alignmen ?? Alignment.center,
+      child: child,
+    ),
+    context: context,
+  );
+}
+
+Future<dynamic> weekDaysModalSheet(
+    BuildContext context, ChangelecturerCubit cubit) {
+  return showModalSheet(
+    isFixedSize: true,
+    minHeight: 400.h,
+    maxHeight: 401.h,
+    context,
+    widget: BlocProvider.value(
+      value: cubit,
+      child: CustomBottomSheetDesign(
+        radius: 16.r,
+        widget: Column(
+          children: [
+            24.ph,
+            ...List.generate(
+              7,
+              (index) => BottomSheetDayContainer(
+                onTap: () {
+                  cubit.changeSpecifiedDay(weekDaysAr[index]);
+                  back(context);
+                },
+                day: weekDaysAr[index],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 
 DeliverStatusModel deliveryState(DeliverStatus state) {
   switch (state) {

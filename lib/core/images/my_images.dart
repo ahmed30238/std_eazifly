@@ -194,6 +194,10 @@ class Assets {
   /// assets/icons/instapay.png
   static const String iconsInstapay = "assets/icons/instapay.png";
 
+  /// Assets for iconsLeaderBoardBadge
+  /// assets/icons/leader-board-badge.svg
+  static const String iconsLeaderBoardBadge = "assets/icons/leader-board-badge.svg";
+
   /// Assets for iconsLecturerIcon
   /// assets/icons/lecturer-icon.svg
   static const String iconsLecturerIcon = "assets/icons/lecturer-icon.svg";

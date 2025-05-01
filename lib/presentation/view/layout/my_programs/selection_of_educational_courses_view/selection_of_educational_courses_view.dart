@@ -1,6 +1,9 @@
+import 'package:eazifly_student/core/component/bounded_time_slot_form_fields.dart';
+import 'package:eazifly_student/core/component/date_type_row.dart';
 import 'package:eazifly_student/core/component/nested_avatar_container.dart';
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/selection_of_educational_courses_view/widgets/dummy_data.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/selection_of_educational_courses_view/widgets/next_lecture_data_container.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/selection_of_educational_courses_view/widgets/program_state_btn.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class SelectionOfEducationalCoursesView extends StatelessWidget {
@@ -26,8 +29,6 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
               widget: CustomBottomSheetDesign(
                 widget: ListView(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
-
-                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     24.ph,
                     ...List.generate(
@@ -55,7 +56,10 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                                           ),
                                         ),
                                         8.ph,
-                                        const SchdeuleTypeRow(),
+                                        SchdeuleTypeRow(
+                                          changeDateTypeIndex: (g) {},
+                                          cubitIndex: 0,
+                                        ),
                                         44.ph,
                                         Row(
                                           mainAxisAlignment:
@@ -118,6 +122,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                                 );
                               }
                             : () {
+                                back(context);
                                 Navigator.pushNamed(
                                   context,
                                   paths[index],
@@ -267,139 +272,5 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class BoundedTimeSlotFormFields extends StatelessWidget {
-  final MainAxisAlignment? alignment;
-  const BoundedTimeSlotFormFields({super.key, this.alignment});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: alignment ?? MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: Text(
-            "من",
-            style: MainTextStyle.boldTextStyle(fontSize: 12),
-          ),
-        ),
-        16.pw,
-        const Expanded(
-          flex: 8,
-          child: CustomTextFormField(
-            keyboardType: TextInputType.datetime,
-            hintText: "        aa / mm / hh",
-          ),
-        ),
-        15.5.pw,
-        Expanded(
-          child: Text(
-            "الي",
-            style: MainTextStyle.boldTextStyle(fontSize: 12),
-          ),
-        ),
-        16.pw,
-        const Expanded(
-          flex: 8,
-          child: CustomTextFormField(
-            keyboardType: TextInputType.datetime,
-            hintText: "        aa / mm / hh",
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class SchdeuleTypeRow extends StatelessWidget {
-  const SchdeuleTypeRow({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-        2,
-        (index) {
-          bool isSelected = index == 1;
-          return Container(
-            margin: EdgeInsets.only(
-              left: index == 0 ? 16.w : 0,
-            ),
-            height: 127.h,
-            width: 130.w,
-            decoration: BoxDecoration(
-              color: isSelected ? MainColors.lightblue : MainColors.white,
-              borderRadius: 16.cr,
-              border: Border.all(
-                color: isSelected ? MainColors.blueTextColor : MainColors.black,
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(Assets.iconsClock),
-                16.ph,
-                Text(
-                  "مواعيد مرنة",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-var titles = [
-  "أهداف البرنامج",
-  "تغيير مواعيد البرنامج",
-  "تغيير المحاضر",
-  "إعدادات الطلاب المشتركين",
-  "تاريخ المحاضرات ",
-];
-var paths = [
-  RoutePaths.programGoalsView,
-  "",
-  RoutePaths.changeLecturerView,
-  RoutePaths.subscribedStudentsSettingsView,
-  RoutePaths.lectureHistoryView,
-];
-
-class ProgramStateButton extends StatelessWidget {
-  final String state;
-  const ProgramStateButton({super.key, required this.state});
-
-  @override
-  Widget build(BuildContext context) {
-    switch (state) {
-      case "ongoing":
-        return CustomLowSizeButton(
-          height: 28.h,
-          width: 96.w,
-          text: "اعادة دخول",
-          onTap: () {},
-        );
-      case "dated":
-        return CustomLowSizeButton(
-          btnColor: MainColors.lightgreenTeal,
-          textColor: MainColors.greenTeal,
-          height: 28.h,
-          width: 96.w,
-          text: "بعد  2 يوم",
-          onTap: () {},
-        );
-
-      default:
-        return const Text("Unknown");
-    }
   }
 }

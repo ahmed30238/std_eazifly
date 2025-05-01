@@ -85,11 +85,11 @@ class CustomBadge extends StatelessWidget {
       width: 80.w,
       height: 80.h,
       decoration: BoxDecoration(
-        color: MainColors.red,
+        // color: MainColors.red,
         borderRadius: 48.cr,
       ),
       child: SvgPicture.asset(
-        Assets.iconsYellowStarBadge,
+        Assets.iconsLeaderBoardBadge,
         colorFilter: const ColorFilter.mode(MainColors.yellow, BlendMode.srcIn),
         fit: BoxFit.scaleDown,
       ),

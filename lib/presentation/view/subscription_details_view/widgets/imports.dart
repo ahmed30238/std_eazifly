@@ -47,3 +47,8 @@ export 'package:eazifly_student/presentation/view/programs_underreview/programs_
 export 'package:timeline_tile/timeline_tile.dart';
 export 'package:eazifly_student/core/component/custom_rich_text.dart';
 export 'package:eazifly_student/core/component/timeline_item.dart';
+export 'package:eazifly_student/core/component/texted_container.dart';
+export 'package:eazifly_student/core/component/texted_checkbox_row.dart';
+export 'package:eazifly_student/core/helper_methods/helper_methods.dart';
+export 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/change_lecturer_view.dart';
+export 'package:eazifly_student/presentation/view/layout/my_programs/selection_of_educational_courses_view/selection_of_educational_courses_view.dart';

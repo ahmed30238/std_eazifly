@@ -46,5 +46,6 @@ class RoutePaths {
   static const selectionProgramItemDetailsView = "selectionProgramItemDetailsView";
   static const programGoalsView = "programGoalsView";
   static const changeLecturerView = "changeLecturerView";
+  static const assignmentDetailsView = "assignmentDetailsView";
   static const subscribedStudentsSettingsView = "subscribedStudentsSettingsView";
 }

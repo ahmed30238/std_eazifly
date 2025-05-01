@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,9 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffixIconWidget;
   final Color? filledColor;
   final Color? borderColor;
+  final bool? isDense;
+  final BorderRadius? borderRadius;
+  final double? vPadding;
   final bool? enabled;
   final VoidCallback? onSuffixPressed;
   final String? Function(String? val)? validator;
@@ -28,6 +32,9 @@ class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     required this.hintText,
     this.suffixText,
+    this.isDense,
+    this.borderRadius,
+    this.vPadding,
     this.prefixText,
     this.keyboardType,
     this.validator,
@@ -58,6 +65,7 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       decoration: InputDecoration(
+        isDense: isDense,
         hintText: hintText,
         hintStyle: MainTextStyle.boldTextStyle(
           fontSize: 12,
@@ -87,9 +95,7 @@ class CustomTextFormField extends StatelessWidget {
                 width: 1.5.w,
                 color: MainColors.grayBorderColor,
               ),
-              borderRadius: BorderRadius.circular(
-                12.r,
-              ),
+              borderRadius: 12.cr,
             ),
         prefixIcon: prefixIconWidget,
         suffixIcon: suffixIconWidget ??
@@ -99,16 +105,17 @@ class CustomTextFormField extends StatelessWidget {
                     onPressed: onSuffixPressed,
                   )
                 : null),
-        contentPadding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 9.w),
+        contentPadding: EdgeInsets.symmetric(
+          vertical: vPadding ?? 16.h,
+          horizontal: 9.w,
+        ),
         enabledBorder: enabledBorder ??
             OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1.5.w,
                 color: MainColors.grayBorderColor,
               ),
-              borderRadius: BorderRadius.circular(
-                12.r,
-              ),
+              borderRadius: borderRadius ?? 12.cr,
             ),
         enabled: enabled ?? true,
         filled: filled ?? true,
@@ -118,9 +125,7 @@ class CustomTextFormField extends StatelessWidget {
               borderSide: BorderSide(
                 width: 1.5.w,
               ),
-              borderRadius: BorderRadius.circular(
-                12.r,
-              ),
+              borderRadius: borderRadius ?? 12.cr,
             ),
         focusedBorder: focusedBorder ??
             OutlineInputBorder(
@@ -128,9 +133,7 @@ class CustomTextFormField extends StatelessWidget {
                 width: 1.5.w,
                 color: borderColor ?? MainColors.lightGray,
               ),
-              borderRadius: BorderRadius.circular(
-                12.r,
-              ),
+              borderRadius: borderRadius ?? 12.cr,
             ),
       ),
     );

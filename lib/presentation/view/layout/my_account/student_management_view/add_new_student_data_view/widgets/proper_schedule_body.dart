@@ -2,20 +2,8 @@ import 'package:eazifly_student/presentation/controller/add_new_student_data_to_
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_state.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class ProperScheduleBody extends StatefulWidget {
+class ProperScheduleBody extends StatelessWidget {
   const ProperScheduleBody({super.key});
-
-  @override
-  State<ProperScheduleBody> createState() => _ProperScheduleBodyState();
-}
-
-class _ProperScheduleBodyState extends State<ProperScheduleBody>
-    with SingleTickerProviderStateMixin {
-  @override
-  void initState() {
-    AddNewStudentDataToProgramCubit.get(context).initTabBarController(this);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

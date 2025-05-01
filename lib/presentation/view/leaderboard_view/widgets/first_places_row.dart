@@ -30,7 +30,7 @@ class FirstPlacesRow extends StatelessWidget {
         PlacesWidget(
           height: 75.h,
           width: 75.w,
-          avatar: Assets.imagesPngImage,
+          avatar: Assets.imagesEditedPersona,
           board: Assets.iconsBronzeBoard,
           medal: Assets.iconsBronzeMedal,
         ),

@@ -125,26 +125,6 @@ class _LectureViewState extends State<LectureView>
               ),
             ),
           ),
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 16.w),
-          //   child: CustomElevatedButton(
-          //     text: widget.isFinishedLecture!
-          //         ? "كتابة التقرير"
-          //         : "التوجهة الي المحاضرة",
-          //     onPressed: widget.isFinishedLecture!
-          //         ? () => showModalSheet(
-          //               isFixedSize: true,
-          //               minHeight: 552.h,
-          //               context,
-          //               widget: const TeacherReportBottomSheetDesign(),
-          //             )
-          //         : () => Navigator.pushNamed(
-          //             context, RoutePaths.lectureDetailsView),
-          //     elevatedButtonheight: 42.h,
-          //     color: MainColors.blueTextColor,
-          //     radius: 16.r,
-          //   ),
-          // ),
           20.ph,
           const StudentsChangeItem(),
           1.ph,

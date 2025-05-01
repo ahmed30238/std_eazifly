@@ -15,19 +15,22 @@ class DeliveriesBodyWidget extends StatelessWidget {
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemBuilder: (context, index) => CustomListTile(
-        title: "TITLE",
-        subTitle: "SUBTITLE",
-        iconContainerColor: MainColors.white,
-        trailing: DeliveriesBodyWidgetTrailing(
-          state: index == 0
-              ? DeliverStatus.deliverDone
-              : index == 1
-                  ? DeliverStatus.deliverUnderReview
-                  : DeliverStatus.notDelivered,
-          isDelivered: index == 0 ? true : false,
+      itemBuilder: (context, index) => InkWell(
+        onTap: () => Navigator.pushNamed(context,RoutePaths.assignmentDetailsView),
+        child: CustomListTile(
+          title: "TITLE",
+          subTitle: "SUBTITLE",
+          iconContainerColor: MainColors.white,
+          trailing: DeliveriesBodyWidgetTrailing(
+            state: index == 0
+                ? DeliverStatus.deliverDone
+                : index == 1
+                    ? DeliverStatus.deliverUnderReview
+                    : DeliverStatus.notDelivered,
+            isDelivered: index == 0 ? true : false,
+          ),
+          icon: Assets.iconsProfile,
         ),
-        icon: Assets.iconsProfile,
       ),
       separatorBuilder: (context, index) => const SeparatedWidget(
         isThereNotes: true,
