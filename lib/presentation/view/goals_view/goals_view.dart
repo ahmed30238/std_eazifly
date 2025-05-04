@@ -1,4 +1,5 @@
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
+import 'package:eazifly_student/core/component/hexagon.dart';
 import 'package:eazifly_student/core/component/timeline_item.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
@@ -81,17 +82,22 @@ class CustomBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 80.w,
-      height: 80.h,
-      decoration: BoxDecoration(
-        // color: MainColors.red,
-        borderRadius: 48.cr,
-      ),
-      child: SvgPicture.asset(
-        Assets.iconsLeaderBoardBadge,
-        colorFilter: const ColorFilter.mode(MainColors.yellow, BlendMode.srcIn),
-        fit: BoxFit.scaleDown,
+    return ClipPath(
+      clipper: HexaGon(),
+      child: Container(
+        width: 80.w,
+        height: 80.h,
+        decoration: BoxDecoration(
+          // color: MainColors.white
+          color: MainColors.red,
+          // borderRadius: 48.cr,
+          image: const DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(
+              Assets.imagesPersona,
+            ),
+          ),
+        ),
       ),
     );
   }

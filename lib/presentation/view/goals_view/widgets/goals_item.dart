@@ -39,7 +39,7 @@ class GoalsItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CustomBadge(),
+            const CustomBadge(),
             12.pw,
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
