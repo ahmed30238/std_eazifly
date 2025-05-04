@@ -48,7 +48,11 @@ class VoiceMessageWidget extends StatelessWidget {
           4.pw,
           !justWave!
               ? SvgPicture.asset(
-                  Assets.iconsProfile,
+                  Assets.iconsPlay,
+                  colorFilter: const ColorFilter.mode(
+                    MainColors.blueTextColor,
+                    BlendMode.srcIn,
+                  ),
                 )
               : 0.pw,
           !justWave! ? 10.pw : 0.pw,

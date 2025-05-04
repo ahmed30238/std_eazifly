@@ -50,4 +50,5 @@ class RoutePaths {
   static const subscribedStudentsSettingsView = "subscribedStudentsSettingsView";
   static const lectureQuizzDetailsView = "lectureQuizzDetailsView";
   static const correctedQuizDetailsView = "correctedQuizDetailsView";
+  static const corrcectedAssignmentDetailsView = "corrcectedAssignmentDetailsView";
 }

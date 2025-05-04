@@ -43,6 +43,7 @@ import 'package:eazifly_student/presentation/view/layout/programs/program_detail
 import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/program_subscription_plan_view.dart';
 import 'package:eazifly_student/presentation/view/leaderboard_view/leaderboard_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/assignments_details_view/assignment_details_view.dart';
+import 'package:eazifly_student/presentation/view/lecture/corrcected_assignment_details_view/corrcected_assignment_details_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/corrected_quiz_details_view/corrected_quiz_details_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/joined_lecture_screen/joined_lecture_screen.dart';
 import 'package:eazifly_student/presentation/view/lecture/lecture_details_view/lecture_details_view.dart';
@@ -190,6 +191,10 @@ class AppRouter {
       case RoutePaths.assignmentDetailsView:
         return createRoute(
           const AssignmentDetailsView(),
+        );
+      case RoutePaths.corrcectedAssignmentDetailsView:
+        return createRoute(
+          const CorrcectedAssignmentDetailsView(),
         );
       case RoutePaths.lectureQuizzDetailsView:
         return createRoute(

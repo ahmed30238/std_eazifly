@@ -57,11 +57,12 @@ class MyProgramsView extends StatelessWidget {
           ),
           20.ph,
           InkWell(
-              onTap: () => Navigator.pushNamed(
-                    context,
-                    RoutePaths.selectionOfEducationalCoursesView,
-                  ),
-              child: const CollectionSessionList()),
+            onTap: () => Navigator.pushNamed(
+              context,
+              RoutePaths.selectionOfEducationalCoursesView,
+            ),
+            child: const CollectionSessionList(),
+          ),
           20.ph,
         ],
       ),

@@ -16,7 +16,10 @@ class DeliveriesBodyWidget extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) => InkWell(
-        onTap: () => Navigator.pushNamed(context,RoutePaths.assignmentDetailsView),
+        onTap: () => Navigator.pushNamed(
+          context,
+          RoutePaths.corrcectedAssignmentDetailsView,
+        ),
         child: CustomListTile(
           title: "واجب الراضيات - المعادلات الرقمية",
           subTitle: "12-2-2025   8:10 PM ",
