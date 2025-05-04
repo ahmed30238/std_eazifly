@@ -14,17 +14,23 @@ class ExamBodyWidget extends StatelessWidget {
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemBuilder: (context, index) => CustomListTile(
-        iconContainerColor: MainColors.white,
-        title: "title",
-        subTitle: "subTitle",
-        trailing: ExamBodyCustomTrailing(
-          status:
-              index == 0 ? StudentStatus.newStudent : StudentStatus.acceptable,
-          // status: cubit?.getUserQuizzesEntities?.data?[index]?.status??"",
-          isNewStudent: index == 0 ? true : false,
+      itemBuilder: (context, index) => InkWell(
+        onTap: () =>
+            Navigator.pushNamed(context, RoutePaths.lectureQuizzDetailsView),
+        child: CustomListTile(
+          iconHeight: 24.h,
+          iconWidth: 24.w,
+          iconContainerColor: MainColors.white,
+          title: "إسم الإمتحان 1",
+          subTitle: "12-2-2025   8:10 PM ",
+          trailing: ExamBodyCustomTrailing(
+            status: index == 0
+                ? StudentStatus.newStudent
+                : StudentStatus.acceptable,
+            isNewStudent: index == 0 ? true : false,
+          ),
+          icon: Assets.iconsLectQuizzesIcon,
         ),
-        icon: Assets.iconsProfile,
       ),
       separatorBuilder: (context, index) => Column(
         children: [

@@ -198,6 +198,14 @@ class Assets {
   /// assets/icons/leader-board-badge.svg
   static const String iconsLeaderBoardBadge = "assets/icons/leader-board-badge.svg";
 
+  /// Assets for iconsLectAssignmentIcon
+  /// assets/icons/lect-assignment-icon.svg
+  static const String iconsLectAssignmentIcon = "assets/icons/lect-assignment-icon.svg";
+
+  /// Assets for iconsLectQuizzesIcon
+  /// assets/icons/lect-quizzes-icon.svg
+  static const String iconsLectQuizzesIcon = "assets/icons/lect-quizzes-icon.svg";
+
   /// Assets for iconsLecturerIcon
   /// assets/icons/lecturer-icon.svg
   static const String iconsLecturerIcon = "assets/icons/lecturer-icon.svg";

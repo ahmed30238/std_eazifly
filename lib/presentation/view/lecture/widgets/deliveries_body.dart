@@ -18,8 +18,8 @@ class DeliveriesBodyWidget extends StatelessWidget {
       itemBuilder: (context, index) => InkWell(
         onTap: () => Navigator.pushNamed(context,RoutePaths.assignmentDetailsView),
         child: CustomListTile(
-          title: "TITLE",
-          subTitle: "SUBTITLE",
+          title: "واجب الراضيات - المعادلات الرقمية",
+          subTitle: "12-2-2025   8:10 PM ",
           iconContainerColor: MainColors.white,
           trailing: DeliveriesBodyWidgetTrailing(
             state: index == 0
@@ -29,7 +29,7 @@ class DeliveriesBodyWidget extends StatelessWidget {
                     : DeliverStatus.notDelivered,
             isDelivered: index == 0 ? true : false,
           ),
-          icon: Assets.iconsProfile,
+          icon: Assets.iconsLectAssignmentIcon,
         ),
       ),
       separatorBuilder: (context, index) => const SeparatedWidget(

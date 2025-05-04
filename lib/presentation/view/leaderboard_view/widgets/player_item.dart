@@ -48,7 +48,7 @@ class PlayerItem extends StatelessWidget {
           ),
           4.pw,
           Text(
-            "Name",
+            "احمد سلامة",
             style: MainTextStyle.boldTextStyle(fontSize: 14),
           ),
           const Spacer(),

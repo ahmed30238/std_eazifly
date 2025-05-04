@@ -4,9 +4,11 @@ import 'package:eazifly_student/presentation/controller/add_new_student_data_to_
 import 'package:eazifly_student/presentation/controller/add_to_library_package_details_controller/addtolibrarypackagedetails_cubit.dart';
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
+import 'package:eazifly_student/presentation/controller/corrected_quiz_controller/correctedquiz_cubit.dart';
 import 'package:eazifly_student/presentation/controller/goal_details_controller/goal_details_cubit.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_program_details_controller/programdetails_cubit.dart';
+import 'package:eazifly_student/presentation/controller/lecture_quiz_details_controller/lecturequiz_cubit.dart';
 import 'package:eazifly_student/presentation/controller/meetings_controller/meeting_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/notifications_controller/notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
@@ -41,6 +43,7 @@ import 'package:eazifly_student/presentation/view/layout/programs/program_detail
 import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/program_subscription_plan_view.dart';
 import 'package:eazifly_student/presentation/view/leaderboard_view/leaderboard_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/assignments_details_view/assignment_details_view.dart';
+import 'package:eazifly_student/presentation/view/lecture/corrected_quiz_details_view/corrected_quiz_details_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/joined_lecture_screen/joined_lecture_screen.dart';
 import 'package:eazifly_student/presentation/view/lecture/lecture_details_view/lecture_details_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/lecture_view.dart';
@@ -51,6 +54,7 @@ import 'package:eazifly_student/presentation/view/layout/my_account/privacy_poli
 import 'package:eazifly_student/presentation/view/layout/my_account/reports_and_complaints_view/reports_and_complaints_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/student_management.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_management_view.dart';
+import 'package:eazifly_student/presentation/view/lecture/quiz_details_view/quiz_details_view.dart';
 import 'package:eazifly_student/presentation/view/meeting_data_view/meeting_data_view.dart';
 import 'package:eazifly_student/presentation/view/package_details_view/package_details_view.dart';
 import 'package:eazifly_student/presentation/view/programs_underreview/programs_under_review_view.dart';
@@ -186,6 +190,20 @@ class AppRouter {
       case RoutePaths.assignmentDetailsView:
         return createRoute(
           const AssignmentDetailsView(),
+        );
+      case RoutePaths.lectureQuizzDetailsView:
+        return createRoute(
+          BlocProvider(
+            create: (context) => LecturequizCubit(),
+            child: const LectureQuizDetailsView(),
+          ),
+        );
+      case RoutePaths.correctedQuizDetailsView:
+        return createRoute(
+          BlocProvider(
+            create: (context) => CorrectedquizCubit(),
+            child: const CorrectedQuizDetailsView(),
+          ),
         );
       case RoutePaths.changeLecturerView:
         return createRoute(

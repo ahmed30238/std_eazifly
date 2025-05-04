@@ -1,5 +1,4 @@
 import 'package:eazifly_student/core/component/icons_container.dart';
-import 'package:eazifly_student/core/component/texted_container.dart';
 
 import '../../subscription_details_view/widgets/imports.dart';
 
@@ -15,6 +14,8 @@ class CustomListTile extends StatelessWidget {
   final bool isDoubleText;
   final bool isDoubleSubTitle;
   final bool isFavourite;
+  final double? iconHeight;
+  final double? iconWidth;
 
   const CustomListTile({
     super.key,
@@ -29,6 +30,8 @@ class CustomListTile extends StatelessWidget {
     this.isFavourite = false,
     this.isDoubleText = false,
     this.isDoubleSubTitle = false,
+    this.iconHeight = 40,
+    this.iconWidth = 40,
   });
 
   @override
@@ -38,60 +41,69 @@ class CustomListTile extends StatelessWidget {
       child: Row(
         children: [
           IconsContainer(
-            height: 40.h,
-            width: 40.w,
+            height: iconHeight ?? 40.h,
+            width: iconWidth ?? 40.w,
             iconWidget: SvgPicture.asset(
+              height: iconHeight ?? 40.h,
+              fit: BoxFit.scaleDown,
+              width: iconWidth ?? 40.w,
               icon ?? "",
             ),
             containerColor: iconContainerColor ?? MainColors.lightblue,
           ),
           16.pw,
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    title ?? "",
-                    style: MainTextStyle.boldTextStyle(fontSize: 14),
-                  ),
-                  8.pw,
-                  if (isDoubleText)
-                    Text(
-                      secondTitle ?? "",
-                      style: MainTextStyle.boldTextStyle(fontSize: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 161.w,
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        title ?? "",
+                        style: MainTextStyle.boldTextStyle(fontSize: 14),
+                      ),
                     ),
-                  if (isFavourite)
-                    TextedContainer(
-                      text: "مفضل",
-                      width: 46.w,
-                    )
-                ],
-              ),
-              4.ph,
-              Row(
-                children: [
-                  Text(
-                    subTitle ?? "",
-                    style: MainTextStyle.mediumTextStyle(
-                      fontSize: 12,
-                      color: MainColors.grayTextColors,
-                    ),
-                  ),
-                  8.pw,
-                  if (isDoubleSubTitle)
+                    8.pw,
+                    if (isDoubleText)
+                      Text(
+                        secondTitle ?? "",
+                        style: MainTextStyle.boldTextStyle(fontSize: 14),
+                      ),
+                    if (isFavourite)
+                      TextedContainer(
+                        text: "مفضل",
+                        width: 46.w,
+                      )
+                  ],
+                ),
+                4.ph,
+                Row(
+                  children: [
                     Text(
-                      secondSubTitle ?? "",
+                      subTitle ?? "",
                       style: MainTextStyle.mediumTextStyle(
                         fontSize: 12,
                         color: MainColors.grayTextColors,
                       ),
                     ),
-                ],
-              ),
-            ],
+                    8.pw,
+                    if (isDoubleSubTitle)
+                      Text(
+                        secondSubTitle ?? "",
+                        style: MainTextStyle.mediumTextStyle(
+                          fontSize: 12,
+                          color: MainColors.grayTextColors,
+                        ),
+                      ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          const Spacer(),
+          // const Spacer(),
           trailing ??
               Text(
                 trailingText ?? "",

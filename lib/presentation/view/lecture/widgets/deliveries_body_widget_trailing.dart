@@ -1,9 +1,6 @@
 
-import 'package:eazifly_student/core/component/texted_container.dart';
 import 'package:eazifly_student/core/enums/task_deliver_status.dart';
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DeliveriesBodyWidgetTrailing extends StatelessWidget {
   final DeliverStatus state;
@@ -27,7 +24,7 @@ class DeliveriesBodyWidgetTrailing extends StatelessWidget {
                   ),
                   4.pw,
                   Text(
-                    " 10 / 9 ",
+                    "10 / 9 ",
                     style: MainTextStyle.boldTextStyle(fontSize: 14),
                   ),
                 ],
