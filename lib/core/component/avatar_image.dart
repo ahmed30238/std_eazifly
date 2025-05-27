@@ -1,0 +1,66 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eazifly_student/core/extensions/num_extentions.dart';
+import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class AvatarImage extends StatelessWidget {
+  final String? imageUrl;
+  final double? width;
+  final double? height;
+  final double? radius;
+  final BoxShape shape;
+  final double borderWidth;
+  final Color borderColor;
+  final Widget? child;
+  final String fallbackAssetPath;
+
+  const AvatarImage({
+    super.key,
+    this.imageUrl,
+    this.width,
+    this.height,
+    this.radius,
+    this.shape = BoxShape.rectangle,
+    this.borderWidth = 0,
+    this.borderColor = Colors.transparent,
+    this.child,
+    this.fallbackAssetPath =
+        Assets.imagesPersona, // تأكد من وجودها
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.zero,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      width: width ?? 48.w,
+      height: height ?? 48.w,
+      decoration: BoxDecoration(
+        shape: shape,
+        border: Border.all(
+          width: borderWidth,
+          color: borderColor,
+        ),
+        borderRadius: shape == BoxShape.rectangle ? 8.cr : null,
+      ),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          CachedNetworkImage(
+            imageUrl: imageUrl ??
+                "https://hossam.mallahsoft.com/storage/client/instructor/1742280038.png",
+            fit: BoxFit.cover,
+            placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+            errorWidget: (context, url, error) => Image.asset(
+              fallbackAssetPath,
+              fit: BoxFit.cover,
+            ),
+          ),
+          if (child != null) child!,
+        ],
+      ),
+    );
+  }
+}

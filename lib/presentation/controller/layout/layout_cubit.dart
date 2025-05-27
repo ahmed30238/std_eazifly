@@ -1,8 +1,10 @@
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:eazifly_student/core/service_locator/service_locator.dart';
 import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_state.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
+import 'package:eazifly_student/presentation/controller/programs_controller/programs_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/layout/library/library.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/my_programs.dart';
@@ -26,7 +28,12 @@ class LayoutCubit extends Cubit<LayoutState> {
       create: (context) => HomeCubit(),
       child: const HomePage(),
     ),
-    const ProgramsView(),
+    BlocProvider(
+      create: (context) => ProgramsCubit(
+        getProgramsUsecase: sl(),
+      ),
+      child: const ProgramsView(),
+    ),
     const MyProgramsView(),
     BlocProvider(
       create: (context) => LibraryCubit(),

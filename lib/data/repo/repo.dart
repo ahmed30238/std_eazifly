@@ -4,6 +4,8 @@ import 'package:eazifly_student/core/general_failure/failure.dart';
 import 'package:eazifly_student/data/data_source/remote_data_source.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
+import 'package:eazifly_student/domain/entities/get_program_details_entities.dart';
+import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 
 class Repository extends BaseRepository {
   BaseRemoteDataSource baseRemoteDataSource;
@@ -18,6 +20,26 @@ class Repository extends BaseRepository {
   }) async {
     try {
       final result = await baseRemoteDataSource.login(email, password);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetProgramsEntity>> getPrograms() async {
+    try {
+      final result = await baseRemoteDataSource.getPrograms();
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetProgramDetailsEntity>> getProgramDetails({required int programId}) async {
+    try {
+      final result = await baseRemoteDataSource.getProgramDetails(programId: programId);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

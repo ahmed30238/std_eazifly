@@ -1,8 +1,34 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/stars_widget.dart';
+import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class LecturerDataTab extends StatelessWidget {
-  const LecturerDataTab({super.key});
+  final GetProgramsProgramEntity programEntity;
+
+  const LecturerDataTab({super.key, required this.programEntity});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      itemBuilder: (context, index) {
+        var instructor = programEntity.instructors?[index];
+        return LecturerContainerWidget(
+          instructorEntity: instructor!,
+        );
+      },
+      itemCount: programEntity.instructors?.length ?? 0,
+      separatorBuilder: (context, index) => 12.ph,
+    );
+  }
+}
+
+class LecturerContainerWidget extends StatelessWidget {
+  final InstructorEntity instructorEntity;
+  const LecturerContainerWidget({
+    super.key,
+    required this.instructorEntity,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,28 +43,30 @@ class LecturerDataTab extends StatelessWidget {
             height: 72.h,
             child: Row(
               children: [
-                ImageContainer(
-                  containerHeight: 40.h,
-                  containerWidth: 40.w,
+                AvatarImage(
+                  height: 40.h,
+                  width: 40.w,
+                  imageUrl: instructorEntity.image ?? "",
                   shape: BoxShape.circle,
                 ),
                 12.pw,
                 Text(
-                  "احمد عبد الحميد سلامة",
+                  instructorEntity.nameAr ?? "",
                   style: MainTextStyle.boldTextStyle(fontSize: 12),
                 ),
               ],
             ),
           ),
+          // const CustomHorizontalDivider(),
+          // const ItemDetailsCard(
+          //   titles: [
+          //     "عدد الطلاب",
+          //     "البرامج السابقة",
+          //     "بيانات",
+          //   ],
+          // ),
           const CustomHorizontalDivider(),
-          const ItemDetailsCard(
-            titles: [
-              "عدد الطلاب",
-              "البرامج السابقة",
-              "بيانات",
-            ],
-          ),
-          const CustomHorizontalDivider(),
+          // TODO get instructor reviewer; API not implemented yet
           12.ph,
           Text(
             "تقييمات المعلم",
@@ -92,7 +120,7 @@ class LecturerDataTab extends StatelessWidget {
                   ],
                 ),
               ),
-              itemCount: 4,
+              itemCount: 1,
             ),
           ),
         ],

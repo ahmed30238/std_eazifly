@@ -6,6 +6,8 @@ import 'package:eazifly_student/core/network/end_points.dart';
 import 'package:eazifly_student/core/network/error_message_model.dart';
 import 'package:eazifly_student/core/network/networkcall.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/programs/get_program_details_model.dart';
+import 'package:eazifly_student/data/models/programs/get_programs_model.dart';
 
 abstract class BaseRemoteDataSource {
   // Define methods that will be implemented by the RemoteDataSource class
@@ -13,6 +15,8 @@ abstract class BaseRemoteDataSource {
   // Future<LoginModel> login(String email, String password);
 
   Future<LoginModel> login(String email, String password);
+  Future<GetProgramsModel> getPrograms();
+  Future<GetProgramDetailsModel> getProgramDetails({required int programId});
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -27,6 +31,38 @@ class RemoteDataSource extends BaseRemoteDataSource {
     log("$response $email $password");
     if (response?.statusCode == 200) {
       return LoginModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetProgramsModel> getPrograms() async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getPrograms,
+    );
+    if (response?.statusCode == 200) {
+      return GetProgramsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetProgramDetailsModel> getProgramDetails({required int programId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getProgramDetails(programId: programId),
+    );
+    if (response?.statusCode == 200) {
+      return GetProgramDetailsModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

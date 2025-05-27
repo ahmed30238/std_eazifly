@@ -264,10 +264,16 @@ class AppRouter {
           ),
         );
       case RoutePaths.programDetailsView:
+        var argument = settings.arguments as Map<String, dynamic>?;
+        int programId = argument?["programId"] as int;
         return createRoute(
           BlocProvider(
-            create: (context) => ProgramDetailsCubit(),
-            child: const ProgramDetailsView(),
+            create: (context) => ProgramDetailsCubit(
+              getProgramDetailsUsecase: sl(),
+            ),
+            child: ProgramDetailsView(
+              programId: programId,
+            ),
           ),
         );
       case RoutePaths.groupPackageManagement:

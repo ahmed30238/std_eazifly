@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class Bullet extends Text {
   const Bullet(
@@ -25,5 +26,17 @@ class Bullet extends Text {
           textScaleFactor: textScaleFactor,
           maxLines: maxLines,
           semanticsLabel: semanticsLabel,
+        );
+}
+
+class HtmlBullet extends Html {
+  // ignore: use_super_parameters
+  HtmlBullet(
+    String data, {
+    super.key,
+  }) : super(
+          // data: data,
+          // key: key,
+          data: '• $data',
         );
 }
