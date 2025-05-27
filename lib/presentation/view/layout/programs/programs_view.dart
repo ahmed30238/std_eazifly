@@ -3,6 +3,7 @@ import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/presentation/controller/programs_controller/programs_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_controller/programs_state.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/widgets/p_item.dart';
+import 'package:eazifly_student/presentation/view/layout/programs/widgets/program_item_shimmer.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ProgramsView extends StatefulWidget {
@@ -76,9 +77,7 @@ class _ProgramsViewState extends State<ProgramsView> {
             builder: (context, state) {
               // Show loader if state is loading
               if (cubit.getProgramsLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(), // TODO replace with shimmer 
-                );
+                return const ProgramsShimmerLoader();
               }
 
               // Show error message if state is error

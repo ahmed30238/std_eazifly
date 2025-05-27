@@ -2,6 +2,7 @@ import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/custom_tapbar.dart';
 import 'package:eazifly_student/presentation/controller/home_program_details_controller/programdetails_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_program_details_controller/programdetails_state.dart';
+import 'package:eazifly_student/presentation/view/layout/programs/program_details_view/widgets/program_details_view_loader.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -41,10 +42,7 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
               var program = cubit.getProgramDetailsEntity?.data;
 
               if (cubit.getProgramDetailsLoading) {
-                return const Center(
-                  child:
-                      CircularProgressIndicator(), //TODO replace with all screen shimmer
-                );
+                return const ProgramDetailsViewLoader();
               }
 
               return Expanded(

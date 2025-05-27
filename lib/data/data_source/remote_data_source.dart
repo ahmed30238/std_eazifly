@@ -6,6 +6,8 @@ import 'package:eazifly_student/core/network/end_points.dart';
 import 'package:eazifly_student/core/network/error_message_model.dart';
 import 'package:eazifly_student/core/network/networkcall.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/programs/assign_program_review_model.dart';
+import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
 import 'package:eazifly_student/data/models/programs/get_program_details_model.dart';
 import 'package:eazifly_student/data/models/programs/get_programs_model.dart';
 
@@ -17,6 +19,8 @@ abstract class BaseRemoteDataSource {
   Future<LoginModel> login(String email, String password);
   Future<GetProgramsModel> getPrograms();
   Future<GetProgramDetailsModel> getProgramDetails({required int programId});
+  Future<AssignProgramReviewModel> assignProgramReview(
+      {required AssignProgramReviewTojson data});
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -57,12 +61,30 @@ class RemoteDataSource extends BaseRemoteDataSource {
   }
 
   @override
-  Future<GetProgramDetailsModel> getProgramDetails({required int programId}) async {
+  Future<GetProgramDetailsModel> getProgramDetails(
+      {required int programId}) async {
     var response = await NetworkCall().get(
       path: EndPoints.getProgramDetails(programId: programId),
     );
     if (response?.statusCode == 200) {
       return GetProgramDetailsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<AssignProgramReviewModel> assignProgramReview(
+      {required AssignProgramReviewTojson data}) async {
+    var response = await NetworkCall().post(
+        path: EndPoints.assignProgramReview,
+        data: FormData.fromMap(data.toJson()));
+    if (response?.statusCode == 200) {
+      return AssignProgramReviewModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(
