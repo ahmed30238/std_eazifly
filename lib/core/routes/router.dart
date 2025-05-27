@@ -1,7 +1,9 @@
 import 'package:eazifly_student/core/routes/paths.dart';
+import 'package:eazifly_student/core/service_locator/service_locator.dart';
 import 'package:eazifly_student/presentation/controller/account_data/accountdata_cubit.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/add_to_library_package_details_controller/addtolibrarypackagedetails_cubit.dart';
+import 'package:eazifly_student/presentation/controller/auth/login/login_cubit.dart';
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/corrected_quiz_controller/correctedquiz_cubit.dart';
@@ -16,6 +18,7 @@ import 'package:eazifly_student/presentation/controller/program_subscription_pla
 import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
 import 'package:eazifly_student/presentation/controller/subscription_details_controller/subscriptiondetails_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
+import 'package:eazifly_student/presentation/view/auth/login/login.dart';
 import 'package:eazifly_student/presentation/view/chat/chats_view.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
 import 'package:eazifly_student/presentation/view/goals_view/goal_details_view/goal_details_view.dart';
@@ -60,6 +63,7 @@ import 'package:eazifly_student/presentation/view/meeting_data_view/meeting_data
 import 'package:eazifly_student/presentation/view/package_details_view/package_details_view.dart';
 import 'package:eazifly_student/presentation/view/programs_underreview/programs_under_review_view.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/set_appointments_view.dart';
+import 'package:eazifly_student/presentation/view/splash_screen/splash_view.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/subscription_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,6 +77,19 @@ class AppRouter {
       case RoutePaths.layoutPath:
         return createRoute(
           const Layout(),
+        );
+      case RoutePaths.splashScreen:
+        return createRoute(
+          const SplashScreen(),
+        );
+      case RoutePaths.loginPath:
+        return createRoute(
+          BlocProvider(
+            create: (context) => LoginCubit(
+              loginUsecase: sl(),
+            ),
+            child: const Login(),
+          ),
         );
       case RoutePaths.accountDataPath:
         return createRoute(

@@ -1,4 +1,4 @@
 class EndPoints {
   EndPoints._();
-  static const getMySesionsEndPoints = "my-sessions";
+  static const login = "login";
 }

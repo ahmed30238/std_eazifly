@@ -1,6 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:delightful_toast/delight_toast.dart';
+import 'package:delightful_toast/toast/components/toast_card.dart';
+import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:eazifly_student/core/enums/task_deliver_status.dart';
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/bottom_sheet_day_controller.dart';
@@ -103,6 +106,32 @@ Future<dynamic> customAdaptiveDialog(
     ),
     context: context,
   );
+}
+
+delightfulToast({
+  required String message,
+  required BuildContext context,
+  Color? toastColor,
+}) {
+  DelightToastBar(
+    autoDismiss: true,
+    position: DelightSnackbarPosition.top,
+    // snackbarDuration: Duration(microseconds: 400),
+    builder: (context) => ToastCard(
+      color: toastColor,
+      leading: const Icon(
+        Icons.flutter_dash,
+        size: 28,
+      ),
+      title: Text(
+        message,
+        style: const TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 14,
+        ),
+      ),
+    ),
+  ).show(context);
 }
 
 Future<dynamic> weekDaysModalSheet(

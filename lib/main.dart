@@ -12,10 +12,12 @@ void main() async {
       DeviceOrientation.portraitUp,
     ]),
     Future(
-      () => ServiceLocator().init(),
+      () async {
+        await ServiceLocator().init();
+        await GetStorage.init();
+        await TokenUtil.loadTokenToMemory();
+      },
     ),
-    GetStorage.init(),
-    TokenUtil.loadTokenToMemory(),
   ]);
   runApp(const MyApp());
 }

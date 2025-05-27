@@ -28,6 +28,8 @@ class CustomTextFormField extends StatelessWidget {
   final InputBorder? focusedBorder;
   final TextInputType? keyboardType;
   final InputBorder? disabledBorder;
+  final FocusNode? focusNode;
+  final Function(String)? onFieldSubmitted;
 
   const CustomTextFormField({
     required this.hintText,
@@ -36,6 +38,8 @@ class CustomTextFormField extends StatelessWidget {
     this.borderRadius,
     this.vPadding,
     this.prefixText,
+    this.focusNode,
+    this.onFieldSubmitted,
     this.keyboardType,
     this.validator,
     this.onSuffixPressed,
@@ -59,6 +63,8 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: focusNode,
+      onFieldSubmitted: onFieldSubmitted,
       maxLines: maxLines,
       validator: validator,
       obscureText: isSecured ?? false,
