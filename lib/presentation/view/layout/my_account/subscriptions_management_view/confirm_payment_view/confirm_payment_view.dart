@@ -1,11 +1,27 @@
+import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class ConfirmPaymentView extends StatelessWidget {
+class ConfirmPaymentView extends StatefulWidget {
   const ConfirmPaymentView({super.key});
+
+  @override
+  State<ConfirmPaymentView> createState() => _ConfirmPaymentViewState();
+}
+
+class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
+  late ProgramsubscriptionplanCubit programsubscriptionplanCubit;
+  @override
+  void initState() {
+    programsubscriptionplanCubit = ProgramsubscriptionplanCubit.get(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     var lang = context.loc!;
+    // var orderDetail =
+    //     programsubscriptionplanCubit.createOrderEntity?.data?.orderDetails?[0];
+    var orderData = programsubscriptionplanCubit.filterPlansEntity?.data;
     return Scaffold(
       appBar: CustomAppBar(
         context,
@@ -30,18 +46,38 @@ class ConfirmPaymentView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "برنامج جيل القرآن",
+                  orderData?.program ?? "",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 14,
                   ),
                 ),
                 12.ph,
-                ...List.generate(
-                  5,
-                  (index) => ProgramDetailsItem(
-                    title: programDetailsTitles[index],
-                  ),
+                ProgramDetailsItem(
+                  title: programDetailsTitles[0],
+                  value: orderData?.subscripeDays ?? "",
                 ),
+                ProgramDetailsItem(
+                  title: programDetailsTitles[1],
+                  value: orderData?.duration ?? "",
+                ),
+                ProgramDetailsItem(
+                  title: programDetailsTitles[2],
+                  value: "عدد الطلاب",
+                ),
+                ProgramDetailsItem(
+                  title: programDetailsTitles[3],
+                  value: orderData?.numberOfSessionPerWeek ?? "",
+                ),
+                ProgramDetailsItem(
+                  title: programDetailsTitles[4],
+                  value: "",
+                ),
+                // ...List.generate(
+                //   5,
+                //   (index) => ProgramDetailsItem(
+                //     title: programDetailsTitles[index],
+                //   ),
+                // ),
                 3.ph,
                 const CustomHorizontalDivider(
                   color: MainColors.lightGray,
@@ -50,6 +86,15 @@ class ConfirmPaymentView extends StatelessWidget {
                   3,
                   (index) => ProgramDetailsItem(
                     title: cashDetailsTitles[index],
+                    value: index == 0
+                        ? orderData?.price ?? ""
+                        : index == 1
+                            ? orderData?.discountPrice ?? ""
+                            : ((int.tryParse(orderData?.price ?? "0") ?? 0) -
+                                    (int.tryParse(
+                                            orderData?.discountPrice ?? "0") ??
+                                        0))
+                                .toString(),
                     textStyle: index == 2
                         ? MainTextStyle.boldTextStyle(
                             fontSize: 15,
@@ -114,53 +159,74 @@ class ConfirmPaymentView extends StatelessWidget {
             ),
           ),
           16.ph,
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
-            // margin: EdgeInsets.symmetric(horizontal: 16.w),
-            height: 98.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: 12.cr,
-              color: MainColors.veryLightGrayFormField,
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "2",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 12,
-                    color: MainColors.blackText,
-                  ),
-                ),
-                20.pw,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "قم برفع صورة  التحويل هنا",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                        color: MainColors.blackText,
+          GestureDetector(
+            onTap: () => programsubscriptionplanCubit.pickImages(),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+              // margin: EdgeInsets.symmetric(horizontal: 16.w),
+              height: 98.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: 12.cr,
+                color: MainColors.veryLightGrayFormField,
+              ),
+              child: BlocBuilder(
+                bloc: programsubscriptionplanCubit,
+                builder: (context, state) {
+                  final images = programsubscriptionplanCubit.images;
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "2",
+                        style: MainTextStyle.boldTextStyle(
+                          fontSize: 12,
+                          color: MainColors.blackText,
+                        ),
                       ),
-                    ),
-                    8.ph,
-                    Container(
-                      width: 68.w,
-                      height: 34.h,
-                      decoration: BoxDecoration(
-                        color: MainColors.lightblue,
-                        borderRadius: 16.cr,
+                      20.pw,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "قم برفع صورة  التحويل هنا",
+                            style: MainTextStyle.boldTextStyle(
+                              fontSize: 12,
+                              color: MainColors.blackText,
+                            ),
+                          ),
+                          8.ph,
+                          Container(
+                            width: 68.w,
+                            height: 34.h,
+                            decoration: BoxDecoration(
+                              color: MainColors.lightblue,
+                              borderRadius: 16.cr,
+                            ),
+                            child: SvgPicture.asset(
+                              Assets.iconsUploadImage,
+                              fit: BoxFit.scaleDown,
+                            ).center(),
+                          ),
+                        ],
                       ),
-                      child: SvgPicture.asset(
-                        Assets.iconsUploadImage,
-                        fit: BoxFit.scaleDown,
-                      ).center(),
-                    )
-                  ],
-                ),
-              ],
+                      if (images.isNotEmpty) ...[
+                        const Spacer(),
+                        ClipRRect(
+                          borderRadius: 16.cr,
+                          child: Image.file(
+                            images.first,
+                            height: 84.h,
+                            width: 104.w,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      ]
+                    ],
+                  );
+                },
+              ),
             ),
           ),
           16.ph,
@@ -208,7 +274,11 @@ class ConfirmPaymentView extends StatelessWidget {
           CustomElevatedButton(
             text: "إتمام الدفع",
             width: 343.w,
-            onPressed: () {
+            onPressed: () async {
+              await programsubscriptionplanCubit.createOrder(
+                programId: programsubscriptionplanCubit.programId,
+              );
+
               // Timer.periodic(
               //   const Duration(milliseconds: 100),
               //   (timer) => showAdaptiveDialog(
@@ -249,8 +319,10 @@ var cashDetailsTitles = [
 class ProgramDetailsItem extends StatelessWidget {
   final TextStyle? textStyle;
   final String title;
+  final String value;
   const ProgramDetailsItem({
     required this.title,
+    required this.value,
     this.textStyle,
     super.key,
   });
@@ -274,7 +346,7 @@ class ProgramDetailsItem extends StatelessWidget {
                   ),
             ),
             Text(
-              "خطة اللإشتراك",
+              value,
               style: textStyle ??
                   MainTextStyle.boldTextStyle(
                     fontSize: 12,

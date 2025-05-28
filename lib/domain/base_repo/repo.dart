@@ -1,7 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:eazifly_student/core/general_failure/failure.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
 import 'package:eazifly_student/domain/entities/assign_program_review_entities.dart';
+import 'package:eazifly_student/domain/entities/check_copoun_entities.dart';
+import 'package:eazifly_student/domain/entities/create_order_entities.dart';
+import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
+import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.dart';
+import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
 import 'package:eazifly_student/domain/entities/get_program_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/domain/entities/login_entities.dart';
@@ -16,4 +24,13 @@ abstract class BaseRepository {
       {required int programId});
   Future<Either<Failure, AssignProgramReviewEntity>> assignProgramReview(
       {required AssignProgramReviewTojson data});
+  Future<Either<Failure, GetPlansWithDetailsEntity>> getPlansWithDetails(
+      {required int planId});
+  Future<Either<Failure, GetPlansEntity>> getPlans({required int programId});
+  Future<Either<Failure, FilterPlansEntity>> filterPlans(
+      {required FilterPlansTojson data});
+  Future<Either<Failure, CreateOrderEntity>> createOrder(
+      {required CreateOrderTojson data});
+  Future<Either<Failure, CheckCopounEntity>> checkCopoun(
+      {required CheckCopounTojson data});
 }

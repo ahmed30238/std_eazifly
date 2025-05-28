@@ -1,3 +1,4 @@
+import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class CompletePaymentProcessView extends StatelessWidget {
@@ -5,6 +6,7 @@ class CompletePaymentProcessView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = ProgramsubscriptionplanCubit.get(context);
     var lang = context.loc!;
     return Scaffold(
       appBar: CustomAppBar(
@@ -35,19 +37,23 @@ class CompletePaymentProcessView extends StatelessWidget {
                 icon: paymentMethodContainerModel[index].icon,
                 title: paymentMethodContainerModel[index].title,
                 onTap: () {
-                  Navigator.pushNamed(context, RoutePaths.confirmPaymentView);
+                  Navigator.pushNamed(
+                    arguments: cubit,
+                    context,
+                    RoutePaths.confirmPaymentView,
+                  );
                 },
               ),
               separatorBuilder: (context, index) => 20.ph,
               itemCount: 3,
             ),
           ),
-         
         ],
       ),
     );
   }
 }
+
 class PaymentMethodContainerModel {
   final String icon;
   final String title;
@@ -55,13 +61,11 @@ class PaymentMethodContainerModel {
     required this.icon,
     required this.title,
   });
-} 
+}
 
 var paymentMethodContainerModel = [
   const PaymentMethodContainerModel(
-    icon: Assets.iconsInstantPayment,
-    title: "دفع لحظي"
-  ),
+      icon: Assets.iconsInstantPayment, title: "دفع لحظي"),
   const PaymentMethodContainerModel(
     icon: Assets.iconsElectronicWallet,
     title: "محفظة الكترونية",
@@ -89,7 +93,7 @@ class PaymentMethodContainer extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 16.w),
-        padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         height: 119.h,
         width: double.infinity,
         decoration: BoxDecoration(
@@ -99,7 +103,7 @@ class PaymentMethodContainer extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           icon.endsWith("png")? Image.asset(icon): SvgPicture.asset(icon),
+            icon.endsWith("png") ? Image.asset(icon) : SvgPicture.asset(icon),
             12.pw,
             Expanded(
               child: Column(
@@ -115,9 +119,7 @@ class PaymentMethodContainer extends StatelessWidget {
                   Text(
                     "مثال :هذا النص هو جزء من عملية تحسين تجربة المستخدم من خلال النص. مثال :هذا النص هو جزء من عملية تحسين ",
                     style: MainTextStyle.boldTextStyle(
-                      fontSize: 12,
-                      color: MainColors.grayTextColors
-                    ),
+                        fontSize: 12, color: MainColors.grayTextColors),
                   ),
                 ],
               ),

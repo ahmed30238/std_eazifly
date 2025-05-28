@@ -143,7 +143,7 @@ class NetworkCall {
 
   Future<Response?> post({
     required String path,
-    FormData? data,
+    dynamic data,
     Map<String, dynamic>? headers,
     String? customizedToken,
     bool withHeaders = true,

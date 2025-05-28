@@ -9,7 +9,7 @@ class RoutePaths {
   static const settingsPath = "settingsPath";
   static const aboutAppPath = "aboutAppPath";
   static const splashScreen = "splashScreen";
-  static const confirmPaymentView = "aboconfirmPaymentViewutAppPath";
+  static const confirmPaymentView = "confirmPaymentView";
   static const subscriptionManagmentPath = "subscriptionManagmentPath";
   static const copounsAndDiscountsViewPath = "CopounsAndDiscountsView";
   static const reportsAndComplaintsViewPath = "reportsAndComplaintsViewPath";

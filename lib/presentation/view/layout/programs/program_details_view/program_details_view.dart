@@ -76,7 +76,7 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                         8.ph,
                         Html(
                           data: program?.description ?? "",
-                          style: htmlStyle,
+                          // style: htmlStyle,
                         ),
                         16.ph,
                         CustomTabBar(
@@ -121,6 +121,14 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
             radius: 16.r,
             width: 343.w,
             onPressed: () => Navigator.pushNamed(
+              arguments: {
+                "programId": widget.programId,
+                "programTitle":
+                    cubit.getProgramDetailsEntity?.data?.title ?? "",
+                "programDescription":
+                    cubit.getProgramDetailsEntity?.data?.description ?? "",
+                "programImage": cubit.getProgramDetailsEntity?.data?.image ?? ""
+              },
               context,
               RoutePaths.programSubscriptionPlan,
             ),

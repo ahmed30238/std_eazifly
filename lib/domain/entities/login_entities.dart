@@ -41,6 +41,8 @@ class DataEntity {
   String? age;
   @JsonKey(name: "token")
   String? token;
+  @JsonKey(name: "is_guest")
+  bool? isGuest;
   @JsonKey(name: "fcm_token")
   dynamic fcmToken;
   @JsonKey(name: "created_at")
@@ -71,6 +73,7 @@ class DataEntity {
     this.bonus,
     this.age,
     this.token,
+    this.isGuest,
     this.fcmToken,
     this.createdAt,
     this.lastActiveAt,

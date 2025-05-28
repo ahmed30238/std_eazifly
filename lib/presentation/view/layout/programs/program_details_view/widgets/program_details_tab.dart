@@ -9,6 +9,6 @@ class ProgramDetailsTap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Html(data: programEntity.content ?? "",style: htmlStyle,);
+    return Html(data: programEntity.content ?? "");
   }
 }

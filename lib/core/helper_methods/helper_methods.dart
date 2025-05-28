@@ -9,7 +9,6 @@ import 'package:eazifly_student/presentation/controller/change_lecturer_controll
 import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/bottom_sheet_day_controller.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/dummy_data.dart';
 import 'package:flash/flash.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
@@ -23,13 +22,13 @@ String? customValidation(String? value) {
   return null;
 }
 
-Map<String, Style> htmlStyle = {
-  "h2": Style(
-    fontSize: FontSize(12.sp),
-    color: MainColors.grayTextColors,
-    // height: Height(1.5.h),
-  ),
-};
+// Map<String, Style> htmlStyle = {
+//   "h2": Style(
+//     fontSize: FontSize(12.sp),
+//     color: MainColors.grayTextColors,
+//     // height: Height(1.5.h),
+//   ),
+// };
 void shareApp({required BuildContext context}) async {
   final box = context.findRenderObject() as RenderBox?;
   if (Platform.isAndroid) {

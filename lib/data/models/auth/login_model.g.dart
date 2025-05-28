@@ -35,6 +35,7 @@ DataModel _$DataModelFromJson(Map<String, dynamic> json) => DataModel()
   ..bonus = json['bonus'] as String?
   ..age = json['age'] as String?
   ..token = json['token'] as String?
+  ..isGuest = json['is_guest'] as bool?
   ..fcmToken = json['fcm_token']
   ..createdAt = json['created_at'] == null
       ? null
@@ -64,6 +65,7 @@ Map<String, dynamic> _$DataModelToJson(DataModel instance) => <String, dynamic>{
       'bonus': instance.bonus,
       'age': instance.age,
       'token': instance.token,
+      'is_guest': instance.isGuest,
       'fcm_token': instance.fcmToken,
       'created_at': instance.createdAt?.toIso8601String(),
       'last_active_at': instance.lastActiveAt,

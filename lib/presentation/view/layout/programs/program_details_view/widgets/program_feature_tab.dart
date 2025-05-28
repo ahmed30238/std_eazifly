@@ -10,7 +10,7 @@ class ProgramFeatureTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Html(
       data: programEntity.advantages ?? "",
-      style: htmlStyle,
+      // style: htmlStyle,
     );
     // ListView.builder(
     //   padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h),

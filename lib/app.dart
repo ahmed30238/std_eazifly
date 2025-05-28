@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ApplanuageCubit()..getAppLang()),
         BlocProvider(create: (context) => LayoutCubit()),
-        // BlocProvider(create: (context) => AddNewStudentDataToProgramCubit()),
         BlocProvider(create: (context) => LectureCubit()),
       ],
       child: ScreenUtilInit(

@@ -257,10 +257,24 @@ class AppRouter {
           const PackageDetailsView(),
         );
       case RoutePaths.programSubscriptionPlan:
+        var arguments = settings.arguments as Map<String, dynamic>?;
+        int programId = arguments?["programId"] ?? "";
+        String programTitle = arguments?["programTitle"] ?? "";
+        String programDescription = arguments?["programDescription"] ?? "";
+        String programImage = arguments?["programImage"] ?? "";
         return createRoute(
           BlocProvider(
-            create: (context) => ProgramsubscriptionplanCubit(),
-            child: const ProgramSubscriptionPlanView(),
+            create: (context) => ProgramsubscriptionplanCubit(
+              filterPlansUsecase: sl(),
+              getPlansUsecase: sl(),
+              createOrderUsecase: sl(),
+              checkCopounUsecase: sl(),
+            ),
+            child: ProgramSubscriptionPlanView(
+                programId: programId,
+                programTitle: programTitle,
+                programDescription: programDescription,
+                programImage: programImage),
           ),
         );
       case RoutePaths.programDetailsView:
@@ -288,8 +302,11 @@ class AppRouter {
           const HomeNotificationView(),
         );
       case RoutePaths.confirmPaymentView:
+        var cubit = settings.arguments as ProgramsubscriptionplanCubit;
         return createRoute(
-          const ConfirmPaymentView(),
+          MultiBlocProvider(providers: [
+            BlocProvider.value(value: cubit),
+          ], child: const ConfirmPaymentView()),
         );
       case RoutePaths.subscriptionPackageDetails:
         return createRoute(
@@ -310,8 +327,12 @@ class AppRouter {
           ),
         );
       case RoutePaths.completePaymentProcessScreen:
+        var cubit = settings.arguments as ProgramsubscriptionplanCubit;
         return createRoute(
-          const CompletePaymentProcessView(),
+          BlocProvider.value(
+            value: cubit,
+            child: const CompletePaymentProcessView(),
+          ),
         );
       case RoutePaths.navigateToLectureView:
         return createRoute(
