@@ -271,30 +271,27 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
             ),
           ),
           28.37.ph,
-          CustomElevatedButton(
-            text: "إتمام الدفع",
-            width: 343.w,
-            onPressed: () async {
-              await programsubscriptionplanCubit.createOrder(
-                programId: programsubscriptionplanCubit.programId,
-              );
+          BlocBuilder(
+            bloc: programsubscriptionplanCubit,
+            builder: (context, state) => CustomElevatedButton(
+              text: "إتمام الدفع",
+              width: 343.w,
+              onPressed: programsubscriptionplanCubit.createOrderLoader
+                  ? () {}
+                  : () async {
+                      await programsubscriptionplanCubit.createOrder(
+                        programId: programsubscriptionplanCubit.programId,
+                        context: context,
+                      );
 
-              // Timer.periodic(
-              //   const Duration(milliseconds: 100),
-              //   (timer) => showAdaptiveDialog(
-              //     context: context,
-              //     builder: (context) => const CustomDialog(
-              //       title: "جاري مراجعة طلب التحويل",
-              //       subTitle: "سيتم ارسال اشعار التاكيد في اقرب وقت ",
-              //       loader: true,
-              //     ),
-              //   ),
-              // );
-
-              Navigator.pushNamed(context, RoutePaths.programsUnderReviewView);
-            },
-            color: MainColors.blueTextColor,
-            radius: 16.r,
+                    
+                    },
+              color: MainColors.blueTextColor,
+              radius: 16.r,
+              child: programsubscriptionplanCubit.createOrderLoader
+                  ? const CircularProgressIndicator.adaptive()
+                  : null,
+            ),
           ),
           32.ph,
         ],

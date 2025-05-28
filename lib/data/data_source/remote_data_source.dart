@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/exceptions/exceptions.dart';
@@ -155,16 +156,69 @@ class RemoteDataSource extends BaseRemoteDataSource {
   @override
   Future<CreateOrderModel> createOrder(
       {required CreateOrderTojson data}) async {
-    var response = await NetworkCall()
-        .post(path: EndPoints.createOrder, data: data.toJson());
-    if (response?.statusCode == 200) {
-      return CreateOrderModel.fromJson(response?.data);
-    } else {
-      throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+    try {
+      FormData formData = FormData();
+
+      if (data.code != null && data.code!.isNotEmpty) {
+        formData.fields.add(MapEntry("code", data.code!));
+      }
+
+      if (data.planId != null) {
+        for (var id in data.planId!) {
+          formData.fields.add(MapEntry("plan_id[]", id.toString()));
+        }
+      }
+
+      if (data.programId != null) {
+        for (var id in data.programId!) {
+          formData.fields.add(MapEntry("program_id[]", id.toString()));
+        }
+      }
+
+      if (data.studentNumber != null) {
+        for (var number in data.studentNumber!) {
+          formData.fields.add(MapEntry("student_number[]", number.toString()));
+        }
+      }
+
+      if (data.image != null && data.image!.isNotEmpty) {
+        final File imageFile = File(data.image ?? "");
+        if (await imageFile.exists()) {
+          formData.files.add(
+            MapEntry(
+              "image",
+              await MultipartFile.fromFile(
+                data.image ?? "",
+                filename: data.image?.split('/').last,
+              ),
+            ),
+          );
+          log('Image added to FormData: ${data.image?.split('/').last}');
+        } else {
+          throw Exception('Image file does not exist at path: ${data.image}');
+        }
+      }
+
+      log('FormData fields: ${formData.fields.length}');
+      log('FormData files: ${formData.files.length}');
+
+      var response = await NetworkCall().post(
+        path: EndPoints.createOrder,
+        data: formData, // استخدم formData بدلاً من data.toJson()
+        isMultipart: true,
       );
+
+      if (response?.statusCode == 200) {
+        return CreateOrderModel.fromJson(response?.data);
+      } else {
+        log('Error response: ${response?.data}');
+        throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromjson(response?.data),
+        );
+      }
+    } catch (e) {
+      log('Error in createOrder remote: $e');
+      rethrow;
     }
   }
 

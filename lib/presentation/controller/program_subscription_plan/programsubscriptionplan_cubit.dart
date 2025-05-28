@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
+import 'package:eazifly_student/core/component/custom_dialog.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
@@ -140,39 +142,70 @@ class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
     }
     emit(GetGalleryImagesState());
   }
-  Future<void> createOrder({required int programId}) async {
+
+  Future<void> createOrder(
+      {required int programId, required BuildContext context}) async {
     createOrderLoader = true;
     emit(CreateOrderLoadingState());
 
-    // Convert image to base64 string
-    // final File file = images.first;
-    log("{message: ${images[0].path.split('/').last}");
-    // final bytes = await file.readAsBytes();
-    // final String base64Image = base64Encode(bytes);
-    // log("this is image $base64Image");
+    try {
+      final File file = images.first;
 
-    final result = await createOrderUsecase.call(
-      parameter: CreateOrderParameters(
-        data: CreateOrderTojson(
-          code: copounController.text,
-          image: images[0].path.split('/').last,
-          planId: [filterPlansEntity?.data?.id ?? 0],
-          programId: [programId],
-          studentNumber: [int.tryParse(studentNumberController.text) ?? 0],
+      if (!await file.exists()) {
+        return;
+        // throw Exception('Image file does not exist');
+      }
+
+      // إنشاء MultipartFile مباشرة
+      final multipartFile = await MultipartFile.fromFile(
+        file.path,
+        filename: file.path.split('/').last,
+      );
+
+      final result = await createOrderUsecase.call(
+        parameter: CreateOrderParameters(
+          data: CreateOrderTojson(
+            code: copounController.text,
+            imageFile: multipartFile, // استخدم property جديد
+            planId: [filterPlansEntity?.data?.id ?? 0],
+            programId: [programId],
+            studentNumber: [int.tryParse(studentNumberController.text) ?? 0],
+          ),
         ),
-      ),
-    );
+      );
 
-    result.fold(
-      (l) {
-        createOrderLoader = false;
-        emit(CreateOrderErrorState(errorMessage: l.message));
-      },
-      (r) {
-        createOrderLoader = false;
-        createOrderEntity = r;
-        emit(CreateOrderSuccessState());
-      },
-    );
+      result.fold(
+        (l) {
+          createOrderLoader = false;
+          emit(CreateOrderErrorState(errorMessage: l.message));
+        },
+        (r) {
+          createOrderLoader = false;
+          createOrderEntity = r;
+          Future.delayed(
+            const Duration(milliseconds: 500),
+            () async {
+              await showAdaptiveDialog(
+                context: context,
+                builder: (context) => const CustomDialog(
+                  title: "جاري مراجعة طلب التحويل",
+                  subTitle: "سيتم ارسال اشعار التاكيد في اقرب وقت ",
+                  loader: true,
+                ),
+              );
+            },
+          );
+          emit(CreateOrderSuccessState());
+          Navigator.pushReplacementNamed(
+            context,
+            RoutePaths.programsUnderReviewView,
+          );
+        },
+      );
+    } catch (e) {
+      createOrderLoader = false;
+      log("Error in createOrder: $e");
+      emit(CreateOrderErrorState(errorMessage: e.toString()));
+    }
   }
 }

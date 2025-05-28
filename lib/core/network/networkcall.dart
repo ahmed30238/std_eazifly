@@ -6,11 +6,14 @@ import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/routes/router.dart';
 
 import 'package:quick_log/quick_log.dart';
+import 'package:requests_inspector/requests_inspector.dart';
 
 class NetworkCall {
   final Dio _dio = Dio();
 
-  NetworkCall._();
+  NetworkCall._() {
+    _dio.interceptors.add(RequestsInspectorInterceptor());
+  }
 
   static final _instance = NetworkCall._();
 
@@ -148,6 +151,7 @@ class NetworkCall {
     String? customizedToken,
     bool withHeaders = true,
     ResponseType? responseType,
+    bool isMultipart = false,
   }) async {
     Response? response;
     _dio.options.baseUrl = ApiConstance.apiUrl;
@@ -163,8 +167,9 @@ class NetworkCall {
                   HttpHeaders.authorizationHeader: 'Bearer $tokenFromMemory',
                 },
                 HttpHeaders.acceptHeader: 'application/json',
-                HttpHeaders.contentTypeHeader: 'application/json',
                 HttpHeaders.acceptLanguageHeader: "ar",
+                if (!isMultipart)
+                  HttpHeaders.contentTypeHeader: 'application/json',
               }
             : headers,
         responseType: responseType,
