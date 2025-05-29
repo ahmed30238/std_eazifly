@@ -1,4 +1,4 @@
-import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
@@ -47,21 +47,26 @@ class PersonaListTile extends StatelessWidget {
             trailingIcon,
             size: trailingIconSize,
           ),
-      leading: Container(
+      leading: AvatarImage(
         width: imageContainerWidth ?? 40.w,
         height: imageContainerHeight ?? 40.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius ?? 15.r),
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: image == null
-                ? const AssetImage(
-                    Assets.iconsSearchNormal,
-                  )
-                : NetworkImage(image ?? ""),
-          ),
-        ),
+        imageUrl: image,
       ),
+      // Container(
+      //   width: i
+      //   height: imageContainerHeight ?? 40.h,
+      //   decoration: BoxDecoration(
+      //     borderRadius: BorderRadius.circular(radius ?? 15.r),
+      //     image: DecorationImage(
+      //       fit: BoxFit.cover,
+      //       image: image == null
+      //           ? const AssetImage(
+      //               Assets.iconsSearchNormal,
+      //             )
+      //           : NetworkImage(image ?? ""),
+      //     ),
+      //   ),
+      // ),
       title: Padding(
         padding: EdgeInsets.only(bottom: 4.h),
         child: Text(

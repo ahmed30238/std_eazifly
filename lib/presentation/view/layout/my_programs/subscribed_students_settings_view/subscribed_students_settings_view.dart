@@ -1,5 +1,4 @@
 import 'package:eazifly_student/core/component/nested_avatar_container.dart';
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class SubscribedStudentsSettingsView extends StatelessWidget {

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "960255976764",
+    "project_id": "eazifly-instructor",
+    "storage_bucket": "eazifly-instructor.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960255976764:android:74faf7f7f8fe062b152a39",
+        "android_client_info": {
+          "package_name": "com.example.eazifly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvMoDWLtIq7fVZ4L_nDVsD_9rYhYwykZk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960255976764:android:71997a992b1201bf152a39",
+        "android_client_info": {
+          "package_name": "com.example.eazifly_student"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvMoDWLtIq7fVZ4L_nDVsD_9rYhYwykZk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

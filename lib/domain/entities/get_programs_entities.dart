@@ -47,6 +47,8 @@ class GetProgramsProgramEntity {
   List<InstructorModel>? instructors;
   @JsonKey(name: "reviews")
   List<ReviewModel>? reviews;
+  @JsonKey(name: "plan_page")
+  String? planPage;
 
   GetProgramsProgramEntity({
     this.id,
@@ -58,6 +60,7 @@ class GetProgramsProgramEntity {
     this.content,
     this.whyUs,
     this.limitUsers,
+    this.planPage,
     this.learningTrack,
     this.category,
     this.image,

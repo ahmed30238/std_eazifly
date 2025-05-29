@@ -1,3 +1,4 @@
 enum StorageEnum {
   loginModel,
+  fcmToken,
 }

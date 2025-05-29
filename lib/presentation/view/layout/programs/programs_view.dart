@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
+import 'package:eazifly_student/core/enums/plan_page_enum.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/presentation/controller/programs_controller/programs_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_controller/programs_state.dart';
@@ -93,16 +96,22 @@ class _ProgramsViewState extends State<ProgramsView> {
               return Expanded(
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.only(bottom: 16.h),
+                  padding: EdgeInsets.only(bottom: 16.h,right: 16.w, left: 16.w),
                   itemBuilder: (context, index) => ProgramItem(
-                    programEntity: programsList?[index] ?? GetProgramsProgramEntity(),
-                    onTap: () => Navigator.pushNamed(
-                      arguments: {
-                        "programId": programsList?[index].id,
-                      },
-                      context,
-                      RoutePaths.programDetailsView,
-                    ),
+                    programEntity:
+                        programsList?[index] ?? GetProgramsProgramEntity(),
+                    onTap: () {
+                      var planPage = programsList?[index].planPage;
+                      log("this is planPage $planPage");
+
+                      Navigator.pushNamed(
+                        arguments: {
+                          "programId": programsList?[index].id,
+                        },
+                        context,
+                        getRouteForPlanPage(planPage ?? "") ?? "",
+                      );
+                    },
                   ),
                   separatorBuilder: (context, index) => 16.ph,
                   itemCount: programsList?.length ?? 0,
@@ -114,4 +123,9 @@ class _ProgramsViewState extends State<ProgramsView> {
       ),
     );
   }
+}
+
+String? getRouteForPlanPage(String planPageName) {
+  log("${PlanPageExtension.fromString(planPageName)?.route}");
+  return PlanPageExtension.fromString(planPageName)?.route;
 }

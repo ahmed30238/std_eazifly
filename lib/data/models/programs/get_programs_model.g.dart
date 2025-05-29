@@ -42,7 +42,8 @@ ProgramModel _$ProgramModelFromJson(Map<String, dynamic> json) => ProgramModel()
       .toList()
   ..reviews = (json['reviews'] as List<dynamic>?)
       ?.map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
-      .toList();
+      .toList()
+  ..planPage = json['plan_page'] as String?;
 
 Map<String, dynamic> _$ProgramModelToJson(ProgramModel instance) =>
     <String, dynamic>{
@@ -63,6 +64,7 @@ Map<String, dynamic> _$ProgramModelToJson(ProgramModel instance) =>
       'advantages': instance.advantages,
       'instructors': instance.instructors?.map((e) => e.toJson()).toList(),
       'reviews': instance.reviews?.map((e) => e.toJson()).toList(),
+      'plan_page': instance.planPage,
     };
 
 InstructorModel _$InstructorModelFromJson(Map<String, dynamic> json) =>

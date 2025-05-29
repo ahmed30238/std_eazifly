@@ -1,12 +1,17 @@
+import 'dart:convert';
+
 import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/component/persona_list_tile.dart';
+import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
+import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/widgets/dummy_data.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/widgets/setting_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_storage/get_storage.dart';
 
 class MyAccountView extends StatefulWidget {
   const MyAccountView({super.key});
@@ -16,20 +21,21 @@ class MyAccountView extends StatefulWidget {
 }
 
 class _MyAccountViewState extends State<MyAccountView> {
-  // late final LoginDataModel loginDataModel;
-  // @override
-  // initState() {
-  //   loginDataModel = LoginDataModel.fromJson(
-  //     jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
-  //   );
-  //   super.initState();
-  // }
+  late final DataModel dataModel;
+  @override
+  initState() {
+    dataModel = DataModel.fromJson(
+      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar(     context,
+      appBar: CustomAppBar(
+        context,
         // onLeadinTap: () => Navigator.pop(context),
         mainTitle: "الإعدادات",
         mainTitleFontSize: 18,
@@ -56,10 +62,9 @@ class _MyAccountViewState extends State<MyAccountView> {
             imageContainerHeight: 48.h,
             imageContainerWidth: 48.w,
             titleFontSize: 16,
-            title: "Ahmed Salama",
-            image:
-                "https://hossam.mallahsoft.com/storage/client/instructor/1742280038.png",
-            subTitleText: "01030837974",
+            title: "${dataModel.firstName} ${dataModel.lastName}",
+            image: "${dataModel.image}",
+            subTitleText: "${dataModel.phone}",
           ),
           24.ph,
           ...List.generate(

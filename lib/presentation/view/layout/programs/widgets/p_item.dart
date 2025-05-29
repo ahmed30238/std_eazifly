@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -22,11 +23,11 @@ class ProgramItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImageContainer(
-              containerHeight: 163.h,
-              containerWidth: double.infinity,
-              image: programEntity.image,
-              radius: 0,
+            AvatarImage(
+              height: 163.h,
+              width: double.infinity,
+              imageUrl: programEntity.image,
+              radius: 16.r,
             ),
             12.ph,
             Padding(
