@@ -158,6 +158,12 @@ class RemoteDataSource extends BaseRemoteDataSource {
       {required CreateOrderTojson data}) async {
     try {
       FormData formData = FormData();
+      // formData.fields.addAll([
+      //   MapEntry("code", data.code ?? ""),
+      //   MapEntry("plan_id[]", data.planId.toString()),
+      //   MapEntry("program_id[]", data.programId.toString()),
+      //   // etc...
+      // ]);
 
       if (data.code != null && data.code!.isNotEmpty) {
         formData.fields.add(MapEntry("code", data.code!));
