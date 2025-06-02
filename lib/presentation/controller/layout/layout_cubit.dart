@@ -36,7 +36,10 @@ class LayoutCubit extends Cubit<LayoutState> {
     ),
     const MyProgramsView(),
     BlocProvider(
-      create: (context) => LibraryCubit(),
+      create: (context) => LibraryCubit(
+        libraryCategoriesUsecase: sl(),
+        allLibraryListsUsecase: sl(),
+      ),
       child: const LibraryView(),
     ),
     const MyAccountView()

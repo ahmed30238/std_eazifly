@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,16 +9,18 @@ class ProfileImageWidget extends StatelessWidget {
   final double? height;
   final double? borderWidth;
   final Color? borderColor;
-  final DecorationImage decorationImage;
+  final String image;
+  // final DecorationImage decorationImage;
   final VoidCallback onEditTap;
   const ProfileImageWidget({
     super.key,
     this.isEditable = true,
     this.height,
+    required this.image,
     this.borderColor,
     this.borderWidth,
     this.width,
-    required this.decorationImage,
+    // required this.decorationImage,
     required this.onEditTap,
   });
 
@@ -29,18 +32,20 @@ class ProfileImageWidget extends StatelessWidget {
       children: [
         Align(
           alignment: Alignment.bottomCenter,
-          child: Container(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: AvatarImage(
+            imageUrl: image,
+            shape: BoxShape.circle,
+            // clipBehavior: Clip.antiAliasWithSaveLayer,
             height: height ?? 100.h,
             width: width ?? 100.w,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: borderColor ?? MainColors.blueTextColor,
-                width: borderWidth ?? 3.w,
-              ),
-              image: decorationImage,
-            ),
+            // decoration: BoxDecoration(
+            //   shape: BoxShape.circle,
+            //   border: Border.all(
+            //     color: borderColor ?? MainColors.blueTextColor,
+            //     width: borderWidth ?? 3.w,
+            //   ),
+            //   image: decorationImage,
+            // ),
           ),
         ),
         if (isEditable!) ...{

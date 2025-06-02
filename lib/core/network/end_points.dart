@@ -7,8 +7,12 @@ class EndPoints {
   static const createOrder = "create/order";
   static const checkCopoun = "check-coupon";
   static const getUserOrders = "orders";
+  static String getLibraryCategories({String? type}) => type != null
+      ? "get/library/categories?type=voice"
+      : "get/library/categories";
   static String getProgramDetails({required int programId}) =>
       "program/details/$programId";
+  static const getAllLibraryLists = "all/list";
   static String getPlansWithDetails({required int planId}) =>
       "program/plans/details/$planId";
   static String getPlans({required int programId}) => "plans/$programId";

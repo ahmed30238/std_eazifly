@@ -7,6 +7,8 @@ import 'package:eazifly_student/core/network/end_points.dart';
 import 'package:eazifly_student/core/network/error_message_model.dart';
 import 'package:eazifly_student/core/network/networkcall.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/library/get_all_library_lists_model.dart';
+import 'package:eazifly_student/data/models/library/get_library_categories_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_model.dart';
@@ -39,6 +41,8 @@ abstract class BaseRemoteDataSource {
   Future<GetPaymentMethodDetailsModel> getPaymentMethodDetails(
       {required int programId, required int methodId});
   Future<GetUserOrdersModel> getUserOrders();
+  Future<GetLibraryCategoriesModel> getLibraryCategories({String? type});
+  Future<GetAllLibraryListsModel> getAllLibraryLists();
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -295,8 +299,36 @@ class RemoteDataSource extends BaseRemoteDataSource {
   Future<GetUserOrdersModel> getUserOrders() async {
     var response = await NetworkCall().get(path: EndPoints.getUserOrders);
     if (response?.statusCode == 200) {
-      log("from remote data source: ${response?.data}");
       return GetUserOrdersModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetLibraryCategoriesModel> getLibraryCategories({String? type}) async {
+    var response = await NetworkCall()
+        .get(path: EndPoints.getLibraryCategories(type: type));
+    if (response?.statusCode == 200) {
+      return GetLibraryCategoriesModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetAllLibraryListsModel> getAllLibraryLists() async {
+    var response = await NetworkCall().get(path: EndPoints.getAllLibraryLists);
+    if (response?.statusCode == 200) {
+      return GetAllLibraryListsModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

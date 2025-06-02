@@ -8,6 +8,8 @@ import 'package:eazifly_student/domain/entities/assign_program_review_entities.d
 import 'package:eazifly_student/domain/entities/check_copoun_entities.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
+import 'package:eazifly_student/domain/entities/get_all_library_lists_entity.dart';
+import 'package:eazifly_student/domain/entities/get_library_category_entity.dart';
 import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
@@ -41,4 +43,7 @@ abstract class BaseRepository {
   Future<Either<Failure, GetPaymentMethodDetailsEntity>>
       getPaymentMethodDetails({required int programId, required int methodId});
   Future<Either<Failure, GetUserOrdersEntity>> getUserOrders();
+  Future<Either<Failure, GetLibraryCategoriesEntity>> getLibraryCategories(
+      {String? type});
+  Future<Either<Failure, GetAllLibraryListsEntity>> getAllLibraryLists();
 }

@@ -4,6 +4,8 @@ import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_order_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/filter_plans_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_all_library_lists_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_library_categories_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_payment_method_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_plans_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_details_usecase.dart';
@@ -33,5 +35,9 @@ class ServiceLocator {
     sl.registerLazySingleton(
         () => GetProgramPaymentMethodsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetUserOrdersUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetLibraryCategoriesUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetAllLibraryListsUsecase(baseRepository: sl()));
   }
 }
