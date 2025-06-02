@@ -19,16 +19,20 @@ class CreateOrderEntity {
 }
 
 class CreateOrderDataEntity {
+  static int? customInt(val) {
+    return int.tryParse(val?.toString() ?? "");
+  }
+
   @JsonKey(name: "id")
   int? id;
 
   @JsonKey(name: "user")
   CreateOrderUser? user;
 
-  @JsonKey(name: "total_order_price")
+  @JsonKey(name: "total_order_price", fromJson: customInt)
   int? totalOrderPrice;
 
-  @JsonKey(name: "total_after_discount")
+  @JsonKey(name: "total_after_discount", fromJson: customInt)
   int? totalAfterDiscount;
 
   @JsonKey(name: "currency")
@@ -130,7 +134,11 @@ class CreateOrderStatusEntity {
 }
 
 class CreateOrderUserEntity {
-  @JsonKey(name: "id")
+    static int? customInt(val) {
+    return int.tryParse(val?.toString() ?? "");
+  }
+
+  @JsonKey(name: "id", fromJson: customInt)
   int? id;
 
   @JsonKey(name: "name")

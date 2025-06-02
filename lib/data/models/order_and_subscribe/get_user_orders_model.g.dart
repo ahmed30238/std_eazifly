@@ -1,29 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'create_order_model.dart';
+part of 'get_user_orders_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CreateOrderModel _$CreateOrderModelFromJson(Map<String, dynamic> json) =>
-    CreateOrderModel()
-      ..data = json['data'] == null
-          ? null
-          : CreateOrderDataModel.fromJson(json['data'] as Map<String, dynamic>)
-      ..status = (json['status'] as num?)?.toInt()
-      ..message = json['message'] as String?;
+GetUserOrdersModel _$GetUserOrdersModelFromJson(Map<String, dynamic> json) =>
+    GetUserOrdersModel(
+      data: (json['data'] as List<dynamic>?)
+          ?.map((e) => CreateOrderDataModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      status: (json['status'] as num?)?.toInt(),
+      message: json['message'] as String?,
+    );
 
-Map<String, dynamic> _$CreateOrderModelToJson(CreateOrderModel instance) =>
+Map<String, dynamic> _$GetUserOrdersModelToJson(GetUserOrdersModel instance) =>
     <String, dynamic>{
-      'data': instance.data?.toJson(),
+      'data': instance.data?.map((e) => e.toJson()).toList(),
       'status': instance.status,
       'message': instance.message,
     };
 
-CreateOrderDataModel _$CreateOrderDataModelFromJson(
-        Map<String, dynamic> json) =>
-    CreateOrderDataModel()
+UserOrderModel _$UserOrderModelFromJson(Map<String, dynamic> json) =>
+    UserOrderModel()
       ..id = (json['id'] as num?)?.toInt()
       ..user = json['user'] == null
           ? null
@@ -49,8 +49,7 @@ CreateOrderDataModel _$CreateOrderDataModelFromJson(
               (e) => CreateOrderOrderDetail.fromJson(e as Map<String, dynamic>))
           .toList();
 
-Map<String, dynamic> _$CreateOrderDataModelToJson(
-        CreateOrderDataModel instance) =>
+Map<String, dynamic> _$UserOrderModelToJson(UserOrderModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'user': instance.user?.toJson(),
@@ -65,9 +64,8 @@ Map<String, dynamic> _$CreateOrderDataModelToJson(
       'order_details': instance.orderDetails?.map((e) => e.toJson()).toList(),
     };
 
-CreateOrderOrderDetail _$CreateOrderOrderDetailFromJson(
-        Map<String, dynamic> json) =>
-    CreateOrderOrderDetail()
+OrderDetailModel _$OrderDetailModelFromJson(Map<String, dynamic> json) =>
+    OrderDetailModel()
       ..id = (json['id'] as num?)?.toInt()
       ..title = json['title'] as String?
       ..program = json['program'] as String?
@@ -80,8 +78,7 @@ CreateOrderOrderDetail _$CreateOrderOrderDetailFromJson(
       ..duration = json['duration'] as String?
       ..numberOfSessionPerWeek = json['number_of_session_per_week'] as String?;
 
-Map<String, dynamic> _$CreateOrderOrderDetailToJson(
-        CreateOrderOrderDetail instance) =>
+Map<String, dynamic> _$OrderDetailModelToJson(OrderDetailModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
@@ -96,24 +93,23 @@ Map<String, dynamic> _$CreateOrderOrderDetailToJson(
       'number_of_session_per_week': instance.numberOfSessionPerWeek,
     };
 
-CreateOrderStatus _$CreateOrderStatusFromJson(Map<String, dynamic> json) =>
-    CreateOrderStatus()
-      ..label = json['label'] as String?
-      ..color = json['color'] as String?;
+StatusModel _$StatusModelFromJson(Map<String, dynamic> json) => StatusModel()
+  ..label = json['label'] as String?
+  ..color = json['color'] as String?;
 
-Map<String, dynamic> _$CreateOrderStatusToJson(CreateOrderStatus instance) =>
+Map<String, dynamic> _$StatusModelToJson(StatusModel instance) =>
     <String, dynamic>{
       'label': instance.label,
       'color': instance.color,
     };
 
-CreateOrderUser _$CreateOrderUserFromJson(Map<String, dynamic> json) =>
-    CreateOrderUser()
+OrderUserModel _$OrderUserModelFromJson(Map<String, dynamic> json) =>
+    OrderUserModel()
       ..id = CreateOrderUserEntity.customInt(json['id'])
       ..name = json['name'] as String?
       ..image = json['image'] as String?;
 
-Map<String, dynamic> _$CreateOrderUserToJson(CreateOrderUser instance) =>
+Map<String, dynamic> _$OrderUserModelToJson(OrderUserModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

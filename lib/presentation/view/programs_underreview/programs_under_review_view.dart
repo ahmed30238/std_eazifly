@@ -1,8 +1,27 @@
+import 'dart:developer';
+
+import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
+import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_state.dart';
 import 'package:eazifly_student/presentation/view/programs_underreview/widgets/under_review_item.dart';
+import 'package:eazifly_student/presentation/view/programs_underreview/widgets/under_review_loader.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class ProgramsUnderReviewView extends StatelessWidget {
+class ProgramsUnderReviewView extends StatefulWidget {
   const ProgramsUnderReviewView({super.key});
+
+  @override
+  State<ProgramsUnderReviewView> createState() =>
+      _ProgramsUnderReviewViewState();
+}
+
+class _ProgramsUnderReviewViewState extends State<ProgramsUnderReviewView> {
+  late ProgramsUnderReviewCubit cubit;
+  @override
+  void initState() {
+    cubit = ProgramsUnderReviewCubit.get(context);
+    cubit.getUserOrders();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,18 +33,36 @@ class ProgramsUnderReviewView extends StatelessWidget {
         leadingText: lang.myPrograms,
         isCenterTitle: true,
       ),
-      body: ListView.separated(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        itemBuilder: (context, index) => UnderReviewItem(
-          
-          state: index == 0
-              ? "accepted"
-              : index == 1
-                  ? "rejected"
-                  : "pending",
-        ),
-        itemCount: 8,
-        separatorBuilder: (context, index) => 24.ph,
+      body: BlocBuilder(
+        bloc: cubit,
+        builder: (context, state) {
+          if (cubit.getUserOrdersLoader) {
+            return const UnderReviewLoader();
+          }
+
+          if (state is GetUserOrdersErrorState) {
+            return Center(child: Text(state.errorMessage));
+          }
+
+          var orders = cubit.getUserOrdersEntity?.data;
+
+          if (orders == null || orders.isEmpty) {
+            return const Center(child: Text('No orders found'));
+          }
+
+          return ListView.separated(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            itemBuilder: (context, index) {
+              var order = orders[index];
+              log("${order.orderDetails?[0].label}");
+              return UnderReviewItem(
+                state: order.status?.color ?? "",
+              );
+            },
+            itemCount: orders.length,
+            separatorBuilder: (context, index) => 24.ph,
+          );
+        },
       ),
     );
   }

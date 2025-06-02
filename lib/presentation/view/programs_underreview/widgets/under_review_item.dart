@@ -1,27 +1,24 @@
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class UnderReviewItem extends StatelessWidget {
-  // final VoidCallback onTap;
   final String state;
   const UnderReviewItem({
     super.key,
     required this.state,
-    // required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: state == "accepted"
+      onTap: state == "success"
           ? () {
               Navigator.pushNamed(
                 context,
                 RoutePaths.groupPackageManagement,
               );
             }
-          : state == "rejected"
+          : state == "danger"
               ? () {
                   customAdaptiveDialog(
                     context,
@@ -141,7 +138,7 @@ class StackDesignState extends StatelessWidget {
           height: 160.h,
           width: double.infinity,
         ),
-        if (state != "accepted")
+        if (state != "success")
           Container(
             height: 160.h,
             color: MainColors.white.withOpacity(.2),
@@ -150,39 +147,38 @@ class StackDesignState extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              state == "accepted"
+              state == "success"
                   ? Assets.iconsEnsureRequest
-                  : state == "rejected"
+                  : state == "danger"
                       ? Assets.iconsRejectRequest
                       : Assets.iconsUnderReviewing,
             ),
             8.ph,
             Text(
-              state == "accepted"
+              state == "success"
                   ? "تم تأكيد طلبك بنجاج"
-                  : state == "pending"
+                  : state == "primary"
                       ? "في مرحلة المراجعة "
                       : "تم رفض الطلب",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 15,
-                color: state != "rejected" ? MainColors.white : MainColors.red,
+                color: state != "danger" ? MainColors.white : MainColors.red,
               ),
             ),
             4.ph,
             Text(
-              state == "accepted"
+              state == "success"
                   ? "أضغط للتوجهة الي إعداد البرنامج"
-                  : state == "pending"
+                  : state == "primary"
                       ? "سيتم إخطارك بإشعار عند تاكيد الطلب"
                       : "برجاء التواصل مع الإدارة لاعادة الاشتراك في البرنامج",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 15,
-                color:
-                    state == "rejected" ? MainColors.black : MainColors.white,
+                color: state == "success" ? MainColors.black : MainColors.white,
               ),
             ),
             8.ph,
-            if (state == "accepted")
+            if (state == "success")
               CustomLowSizeButton(
                 text: "توجهه",
                 onTap: () {

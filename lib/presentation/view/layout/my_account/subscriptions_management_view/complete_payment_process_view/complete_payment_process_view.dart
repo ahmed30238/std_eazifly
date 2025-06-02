@@ -1,12 +1,29 @@
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
+import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_state.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/complete_payment_process_view/widgets/payment_methods_loader.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class CompletePaymentProcessView extends StatelessWidget {
+class CompletePaymentProcessView extends StatefulWidget {
   const CompletePaymentProcessView({super.key});
 
   @override
+  State<CompletePaymentProcessView> createState() =>
+      _CompletePaymentProcessViewState();
+}
+
+class _CompletePaymentProcessViewState
+    extends State<CompletePaymentProcessView> {
+  late ProgramsubscriptionplanCubit cubit;
+
+  @override
+  void initState() {
+    cubit = ProgramsubscriptionplanCubit.get(context);
+    cubit.getProgramPaymentMethod();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var cubit = ProgramsubscriptionplanCubit.get(context);
     var lang = context.loc!;
     return Scaffold(
       appBar: CustomAppBar(
@@ -31,64 +48,82 @@ class CompletePaymentProcessView extends StatelessWidget {
             ),
           ),
           24.ph,
-          Expanded(
-            child: ListView.separated(
-              itemBuilder: (context, index) => PaymentMethodContainer(
-                icon: paymentMethodContainerModel[index].icon,
-                title: paymentMethodContainerModel[index].title,
-                onTap: () {
-                  Navigator.pushNamed(
-                    arguments: cubit,
-                    context,
-                    RoutePaths.confirmPaymentView,
-                  );
-                },
-              ),
-              separatorBuilder: (context, index) => 20.ph,
-              itemCount: 3,
-            ),
-          ),
+          BlocBuilder(
+            bloc: cubit,
+            builder: (context, state) {
+              // Handle different states
+              if (cubit.getProgramPaymentMethodLoader) {
+                return const PaymentMethodsLoader();
+              }
+
+              if (state is GetProgramPaymentMethodErrorState) {
+                return Center(child: Text('Error: ${state.errorMessage}'));
+              }
+
+              // Success state
+              var paymentMethodsList =
+                  cubit.getProgramPaymentMethodsEntity?.data;
+
+              if (paymentMethodsList == null || paymentMethodsList.isEmpty) {
+                return const Center(
+                    child: Text('No payment methods available'));
+              }
+
+              return Expanded(
+                child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    var method = paymentMethodsList[index];
+                    return PaymentMethodContainer(
+                      icon: method.image ?? "",
+                      title: method.title ?? "",
+                      description: method.description ?? "",
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          RoutePaths.confirmPaymentView,
+                          arguments: {
+                            "cubit": cubit,
+                            "methodId": method.id ?? 0
+                          },
+                        );
+                      },
+                    );
+                  },
+                  separatorBuilder: (context, index) => 20.ph,
+                  itemCount: paymentMethodsList.length,
+                ),
+              );
+            },
+          )
         ],
       ),
     );
   }
 }
 
-class PaymentMethodContainerModel {
-  final String icon;
-  final String title;
-  const PaymentMethodContainerModel({
-    required this.icon,
-    required this.title,
-  });
-}
-
-var paymentMethodContainerModel = [
-  const PaymentMethodContainerModel(
-      icon: Assets.iconsInstantPayment, title: "دفع لحظي"),
-  const PaymentMethodContainerModel(
-    icon: Assets.iconsElectronicWallet,
-    title: "محفظة الكترونية",
-  ),
-  const PaymentMethodContainerModel(
-    icon: Assets.iconsInstapay,
-    title: "تطبيق انستا باي",
-  ),
-];
-
 class PaymentMethodContainer extends StatelessWidget {
-  final String icon;
+  final String? icon;
   final String title;
+  final String description;
   final VoidCallback onTap;
+
   const PaymentMethodContainer({
     super.key,
     required this.icon,
     required this.onTap,
     required this.title,
+    required this.description,
   });
 
   @override
   Widget build(BuildContext context) {
+    Widget? iconWidget;
+    if (icon != null && icon!.isNotEmpty) {
+      iconWidget = icon!.endsWith("png")
+          ? Image.asset(icon!, height: 32.h, width: 32.w)
+          : SvgPicture.asset(icon!, height: 32.h, width: 32.w);
+    }
+
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -103,23 +138,23 @@ class PaymentMethodContainer extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            icon.endsWith("png") ? Image.asset(icon) : SvgPicture.asset(icon),
-            12.pw,
+            if (iconWidget != null) iconWidget,
+            if (iconWidget != null) 12.pw,
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 15,
-                    ),
+                    style: MainTextStyle.boldTextStyle(fontSize: 15),
                   ),
                   4.ph,
                   Text(
-                    "مثال :هذا النص هو جزء من عملية تحسين تجربة المستخدم من خلال النص. مثال :هذا النص هو جزء من عملية تحسين ",
+                    description,
                     style: MainTextStyle.boldTextStyle(
-                        fontSize: 12, color: MainColors.grayTextColors),
+                      fontSize: 12,
+                      color: MainColors.grayTextColors,
+                    ),
                   ),
                 ],
               ),

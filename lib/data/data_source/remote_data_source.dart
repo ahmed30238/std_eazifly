@@ -17,8 +17,11 @@ import 'package:eazifly_student/data/models/order_and_subscribe/get_plan_with_de
 import 'package:eazifly_student/data/models/order_and_subscribe/get_plans_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/get_payment_method_details_model.dart';
 import 'package:eazifly_student/data/models/programs/get_program_details_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/get_program_payment_methods_model.dart';
 import 'package:eazifly_student/data/models/programs/get_programs_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/get_user_orders_model.dart';
 
 abstract class BaseRemoteDataSource {
   Future<LoginModel> login(String email, String password);
@@ -31,6 +34,11 @@ abstract class BaseRemoteDataSource {
   Future<FilterPlansModel> filterPlans({required FilterPlansTojson data});
   Future<CreateOrderModel> createOrder({required CreateOrderTojson data});
   Future<CheckCopounModel> checkCopoun({required CheckCopounTojson data});
+  Future<GetProgramPaymentMethodsModel> getProgramPaymentMethods(
+      {required int programId});
+  Future<GetPaymentMethodDetailsModel> getPaymentMethodDetails(
+      {required int programId, required int methodId});
+  Future<GetUserOrdersModel> getUserOrders();
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -237,6 +245,58 @@ class RemoteDataSource extends BaseRemoteDataSource {
     );
     if (response?.statusCode == 200) {
       return CheckCopounModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetProgramPaymentMethodsModel> getProgramPaymentMethods(
+      {required int programId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getProgramPaymentMethods(programId: programId),
+    );
+    if (response?.statusCode == 200) {
+      return GetProgramPaymentMethodsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetPaymentMethodDetailsModel> getPaymentMethodDetails(
+      {required int programId, required int methodId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getPaymentMethodDetails(
+        methodId: methodId,
+        programId: programId,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      return GetPaymentMethodDetailsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetUserOrdersModel> getUserOrders() async {
+    var response = await NetworkCall().get(path: EndPoints.getUserOrders);
+    if (response?.statusCode == 200) {
+      log("from remote data source: ${response?.data}");
+      return GetUserOrdersModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

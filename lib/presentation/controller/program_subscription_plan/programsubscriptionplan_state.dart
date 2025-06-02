@@ -47,3 +47,16 @@ class CheckCopounErrorState extends ProgramsubscriptionplanState {
 }
 
 class CheckCopounSuccessState extends ProgramsubscriptionplanState {}
+
+class GetProgramPaymentMethodLoadingState
+    extends ProgramsubscriptionplanState {}
+
+class GetProgramPaymentMethodErrorState extends ProgramsubscriptionplanState {
+  final String errorMessage;
+
+  GetProgramPaymentMethodErrorState({required this.errorMessage});
+}
+
+class GetProgramPaymentMethodSuccessState
+    extends ProgramsubscriptionplanState {}
+

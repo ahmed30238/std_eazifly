@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -9,11 +10,15 @@ import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojs
 import 'package:eazifly_student/domain/entities/check_copoun_entities.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
+import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
+import 'package:eazifly_student/domain/entities/get_program_payment_methods_entities.dart';
 import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_order_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/filter_plans_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_payment_method_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_plans_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_program_payment_methods_usecase.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_state.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -23,6 +28,8 @@ class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
     required this.filterPlansUsecase,
     required this.createOrderUsecase,
     required this.checkCopounUsecase,
+    required this.getProgramPaymentMethodsUsecase,
+    required this.getPaymentMethodDetailsUsecase,
   }) : super(ProgramsubscriptionplanInitial());
 
   static ProgramsubscriptionplanCubit get(context) => BlocProvider.of(context);
@@ -43,7 +50,7 @@ class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
   }
 
   int programId = -1;
-  fillProgramId(int value) {
+  void fillProgramId(int value) {
     programId = value;
   }
 
@@ -182,23 +189,22 @@ class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
         (r) {
           createOrderLoader = false;
           createOrderEntity = r;
-          Future.delayed(
-            const Duration(milliseconds: 500),
-            () async {
-              await showAdaptiveDialog(
-                context: context,
-                builder: (context) => const CustomDialog(
-                  title: "جاري مراجعة طلب التحويل",
-                  subTitle: "سيتم ارسال اشعار التاكيد في اقرب وقت ",
-                  loader: true,
-                ),
-              );
-            },
-          );
           emit(CreateOrderSuccessState());
-          Navigator.pushReplacementNamed(
-            context,
-            RoutePaths.programsUnderReviewView,
+
+          showAdaptiveDialog(
+            context: context,
+            builder: (context) => const CustomDialog(
+              title: "جاري مراجعة طلب التحويل",
+              subTitle: "سيتم ارسال اشعار التاكيد في اقرب وقت ",
+              loader: true,
+            ),
+          );
+          Timer(
+            const Duration(seconds: 2),
+            () => Navigator.pushReplacementNamed(
+              context,
+              RoutePaths.programsUnderReviewView,
+            ),
           );
         },
       );
@@ -208,4 +214,53 @@ class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
       emit(CreateOrderErrorState(errorMessage: e.toString()));
     }
   }
+
+  bool getProgramPaymentMethodLoader = false;
+  GetProgramPaymentMethodsEntity? getProgramPaymentMethodsEntity;
+  GetProgramPaymentMethodsUsecase getProgramPaymentMethodsUsecase;
+  Future<void> getProgramPaymentMethod() async {
+    getProgramPaymentMethodLoader = true;
+    emit(GetProgramPaymentMethodLoadingState());
+    final result = await getProgramPaymentMethodsUsecase.call(
+      parameter: GetProgramPaymentMethodsParameters(
+        programId: programId,
+      ),
+    );
+    result.fold(
+      (l) {
+        getProgramPaymentMethodLoader = false;
+        emit(GetProgramPaymentMethodErrorState(errorMessage: l.message));
+      },
+      (r) {
+        getProgramPaymentMethodLoader = false;
+        getProgramPaymentMethodsEntity = r;
+        emit(GetProgramPaymentMethodSuccessState());
+      },
+    );
+  }
+
+  bool getPaymentMethodDetailsLoader = false;
+  GetPaymentMethodDetailsEntity? getPaymentMethodDetailsEntity;
+  GetPaymentMethodDetailsUsecase getPaymentMethodDetailsUsecase;
+  Future<void> getPamyentMethodDetails({required int methodId}) async {
+    getPaymentMethodDetailsLoader = true;
+    emit(GetProgramPaymentMethodLoadingState());
+    final result = await getPaymentMethodDetailsUsecase.call(
+      parameter: GetPaymentMethodDetailsParameters(
+          methodId: methodId, programId: programId),
+    );
+    result.fold(
+      (l) {
+        getPaymentMethodDetailsLoader = false;
+        emit(GetProgramPaymentMethodErrorState(errorMessage: l.message));
+      },
+      (r) {
+        getPaymentMethodDetailsLoader = false;
+        getPaymentMethodDetailsEntity = r;
+        emit(GetProgramPaymentMethodSuccessState());
+      },
+    );
+  }
+
+
 }

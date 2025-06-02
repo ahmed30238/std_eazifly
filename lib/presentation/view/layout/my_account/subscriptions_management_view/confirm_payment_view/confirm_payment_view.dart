@@ -2,7 +2,11 @@ import 'package:eazifly_student/presentation/controller/program_subscription_pla
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ConfirmPaymentView extends StatefulWidget {
-  const ConfirmPaymentView({super.key});
+  final int methodId;
+  const ConfirmPaymentView({
+    super.key,
+    required this.methodId,
+  });
 
   @override
   State<ConfirmPaymentView> createState() => _ConfirmPaymentViewState();
@@ -13,6 +17,8 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
   @override
   void initState() {
     programsubscriptionplanCubit = ProgramsubscriptionplanCubit.get(context);
+    programsubscriptionplanCubit.getPamyentMethodDetails(
+        methodId: widget.methodId);
     super.initState();
   }
 
@@ -90,11 +96,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                         ? orderData?.price ?? ""
                         : index == 1
                             ? orderData?.discountPrice ?? ""
-                            : ((int.tryParse(orderData?.price ?? "0") ?? 0) -
-                                    (int.tryParse(
-                                            orderData?.discountPrice ?? "0") ??
-                                        0))
-                                .toString(),
+                            : orderData?.discountPrice ?? "",
                     textStyle: index == 2
                         ? MainTextStyle.boldTextStyle(
                             fontSize: 15,
@@ -139,7 +141,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "قم بتحويل مبلغ 2000 ج.م الي رقم عبر فودافون كاش ",
+                      "قم بتحويل مبلغ ${orderData?.discountPrice ?? 0} ج.م الي رقم عبر فودافون كاش ",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
                         color: MainColors.blackText,
@@ -283,8 +285,6 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                         programId: programsubscriptionplanCubit.programId,
                         context: context,
                       );
-
-                    
                     },
               color: MainColors.blueTextColor,
               radius: 16.r,

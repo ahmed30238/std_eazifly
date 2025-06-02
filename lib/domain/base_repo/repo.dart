@@ -8,10 +8,13 @@ import 'package:eazifly_student/domain/entities/assign_program_review_entities.d
 import 'package:eazifly_student/domain/entities/check_copoun_entities.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
+import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
 import 'package:eazifly_student/domain/entities/get_program_details_entities.dart';
+import 'package:eazifly_student/domain/entities/get_program_payment_methods_entities.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
+import 'package:eazifly_student/domain/entities/get_user_orders_entities.dart';
 import 'package:eazifly_student/domain/entities/login_entities.dart';
 
 abstract class BaseRepository {
@@ -33,4 +36,9 @@ abstract class BaseRepository {
       {required CreateOrderTojson data});
   Future<Either<Failure, CheckCopounEntity>> checkCopoun(
       {required CheckCopounTojson data});
+  Future<Either<Failure, GetProgramPaymentMethodsEntity>>
+      getProgramPaymentMethods({required int programId});
+  Future<Either<Failure, GetPaymentMethodDetailsEntity>>
+      getPaymentMethodDetails({required int programId, required int methodId});
+  Future<Either<Failure, GetUserOrdersEntity>> getUserOrders();
 }

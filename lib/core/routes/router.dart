@@ -15,6 +15,7 @@ import 'package:eazifly_student/presentation/controller/meetings_controller/meet
 import 'package:eazifly_student/presentation/controller/my_account_controllers/notifications_controller/notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
+import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
 import 'package:eazifly_student/presentation/controller/subscription_details_controller/subscriptiondetails_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
@@ -29,12 +30,19 @@ import 'package:eazifly_student/presentation/view/layout/home_page/home_notifica
 import 'package:eazifly_student/presentation/view/layout/home_page/navigate_to_lecture_view/navigate_to_lecture_view.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
 import 'package:eazifly_student/presentation/view/layout/library/add_to_library_package_details/add_to_library_package_details.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/about_app_view/about_app_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/copouns_and_discounts_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/explain_point_view/explain_point_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/notifications_view/notification_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/privacy_policy_and_usage_view/privacy_policy_and_usage_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/reports_and_complaints_view/reports_and_complaints_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/add_new_student_data_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/lecture_history_view/lecture_history_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/lecture_history_view/lecture_report_view/lecture_report_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/student_management.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/complete_payment_process_view/complete_payment_process_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/confirm_payment_view/confirm_payment_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_management_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_package_details/subscription_package_details.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/change_lecturer_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/program_goals_view/program_goals_view.dart';
@@ -51,13 +59,6 @@ import 'package:eazifly_student/presentation/view/lecture/corrected_quiz_details
 import 'package:eazifly_student/presentation/view/lecture/joined_lecture_screen/joined_lecture_screen.dart';
 import 'package:eazifly_student/presentation/view/lecture/lecture_details_view/lecture_details_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/lecture_view.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/about_app_view/about_app_view.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/copouns_and_discounts_view.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/notifications_view/notification_view.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/privacy_policy_and_usage_view/privacy_policy_and_usage_view.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/reports_and_complaints_view/reports_and_complaints_view.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/student_management.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_management_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/quiz_details_view/quiz_details_view.dart';
 import 'package:eazifly_student/presentation/view/meeting_data_view/meeting_data_view.dart';
 import 'package:eazifly_student/presentation/view/package_details_view/package_details_view.dart';
@@ -269,6 +270,8 @@ class AppRouter {
               getPlansUsecase: sl(),
               createOrderUsecase: sl(),
               checkCopounUsecase: sl(),
+              getProgramPaymentMethodsUsecase: sl(),
+              getPaymentMethodDetailsUsecase: sl(),
             ),
             child: ProgramSubscriptionPlanView(
                 programId: programId,
@@ -302,11 +305,18 @@ class AppRouter {
           const HomeNotificationView(),
         );
       case RoutePaths.confirmPaymentView:
-        var cubit = settings.arguments as ProgramsubscriptionplanCubit;
+        var arguments = settings.arguments as Map<String, dynamic>?;
+        // int programId = arguments?["programId"] as int? ?? 0;
+        int methodId = arguments?["methodId"] as int? ?? 0;
+        var cubit = arguments?["cubit"] as ProgramsubscriptionplanCubit;
         return createRoute(
-          MultiBlocProvider(providers: [
-            BlocProvider.value(value: cubit),
-          ], child: const ConfirmPaymentView()),
+          MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: cubit),
+              ],
+              child: ConfirmPaymentView(
+                methodId: methodId,
+              )),
         );
       case RoutePaths.subscriptionPackageDetails:
         return createRoute(
@@ -322,7 +332,9 @@ class AppRouter {
       case RoutePaths.programsUnderReviewView:
         return createRoute(
           BlocProvider(
-            create: (context) => ChatsCubit(),
+            create: (context) => ProgramsUnderReviewCubit(
+              getUserOrdersUsecase: sl(),
+            ),
             child: const ProgramsUnderReviewView(),
           ),
         );

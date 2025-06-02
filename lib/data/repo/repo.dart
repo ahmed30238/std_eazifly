@@ -9,9 +9,12 @@ import 'package:eazifly_student/data/models/order_and_subscribe/create_order_toj
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/get_program_payment_methods_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/get_user_orders_model.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
+import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
 import 'package:eazifly_student/domain/entities/get_program_details_entities.dart';
@@ -119,6 +122,41 @@ class Repository extends BaseRepository {
       {required CheckCopounTojson data}) async {
     try {
       final result = await baseRemoteDataSource.checkCopoun(data: data);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetProgramPaymentMethodsModel>>
+      getProgramPaymentMethods({required int programId}) async {
+    try {
+      final result = await baseRemoteDataSource.getProgramPaymentMethods(
+          programId: programId);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetPaymentMethodDetailsEntity>>
+      getPaymentMethodDetails(
+          {required int programId, required int methodId}) async {
+    try {
+      final result = await baseRemoteDataSource.getPaymentMethodDetails(
+          programId: programId, methodId: methodId);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetUserOrdersModel>> getUserOrders() async {
+    try {
+      final result = await baseRemoteDataSource.getUserOrders();
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
