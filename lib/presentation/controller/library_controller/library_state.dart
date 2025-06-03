@@ -4,6 +4,8 @@ class LibraryInitial extends LibraryState {}
 
 class InitTabControllerState extends LibraryState {}
 
+class GetGalleryImagesState extends LibraryState {}
+
 class LibraryCategoriesSuccessState extends LibraryState {}
 
 class LibraryCategoriesLoadingState extends LibraryState {}
@@ -22,4 +24,33 @@ class AllLibraryListsErrorState extends LibraryState {
   final String errorMessage;
 
   AllLibraryListsErrorState({required this.errorMessage});
+}
+
+class StoreFavouriteListLoadingState extends LibraryState {}
+
+class StoreFavouriteListSuccessState extends LibraryState {}
+
+class StoreFavouriteListErrorState extends LibraryState {
+  final String errorMessage;
+
+  StoreFavouriteListErrorState({required this.errorMessage});
+}
+
+class FavouriteListLoadingState extends LibraryState {}
+
+class FavouriteListSuccessState extends LibraryState {}
+
+class FavouriteListErrorState extends LibraryState {
+  final String errorMessage;
+
+  FavouriteListErrorState({required this.errorMessage});
+}
+class FavouriteListItemsUsingListIdLoadingState extends LibraryState {}
+
+class FavouriteListItemsUsingListIdSuccessState extends LibraryState {}
+
+class FavouriteListItemsUsingListIdErrorState extends LibraryState {
+  final String errorMessage;
+
+  FavouriteListItemsUsingListIdErrorState({required this.errorMessage});
 }

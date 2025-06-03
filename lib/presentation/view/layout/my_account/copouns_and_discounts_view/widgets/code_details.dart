@@ -9,8 +9,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CodeDetails extends StatelessWidget {
+  final String code;
   const CodeDetails({
     super.key,
+    required this.code,
   });
 
   @override
@@ -45,7 +47,7 @@ class CodeDetails extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       Clipboard.setData(
-                        const ClipboardData(text: "AMS 123D"),
+                         ClipboardData(text: code),
                       ).then(
                         (value) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -57,7 +59,7 @@ class CodeDetails extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      "AMS 123D",
+                     code,
                       style: MainTextStyle.mediumTextStyle(
                           fontSize: 14, color: MainColors.blueTextColor),
                     ),

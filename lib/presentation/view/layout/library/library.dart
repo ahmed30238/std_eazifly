@@ -1,16 +1,7 @@
-import 'package:eazifly_student/core/component/custom_appbar.dart';
-import 'package:eazifly_student/core/component/custom_form_field.dart';
 import 'package:eazifly_student/core/component/custom_tapbar.dart';
-import 'package:eazifly_student/core/component/prefix_search_form_field.dart';
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
-import 'package:eazifly_student/core/extensions/context.dart';
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/theme/colors/main_colors.dart';
-import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class LibraryView extends StatefulWidget {
   const LibraryView({super.key});
@@ -25,6 +16,7 @@ class _LibraryViewState extends State<LibraryView>
   void initState() {
     LibraryCubit.get(context).initTabController(this);
     LibraryCubit.get(context).getLibraryCategories();
+    LibraryCubit.get(context).storeFavouriteList();
     super.initState();
   }
 
@@ -38,6 +30,56 @@ class _LibraryViewState extends State<LibraryView>
         mainTitle: lang.library,
         leadingText: "",
         leadingCustomWidth: 10.w,
+        customAction: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: AppbarIconWidget(
+              iconColor: MainColors.blueTextColor,
+              onTap: () => showModalSheet(
+                maxHeight: 609.h,
+                minHeight: 608.h,
+                isFixedSize: true,
+                isDismissed: true,
+                context,
+                widget: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: MainColors.white,
+                    borderRadius: 16.cr,
+                  ),
+                  child: Column(
+                    children: [
+                      36.ph,
+                      Text(
+                        "اكتب اسم القائمة هنا",
+                        style: MainTextStyle.boldTextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                      32.ph,
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: CustomTextFormField(
+                          hintText: "اكتب هنا",
+                          controller: cubit.favouriteListController,
+                        ),
+                      ),
+                      32.ph,
+                      CustomElevatedButton(
+                        text: "انشاء",
+                        color: MainColors.blueTextColor,
+                        height: 48.h,
+                        width: 241.w,
+                        radius: 16.r,
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       body: Column(
         // padding:

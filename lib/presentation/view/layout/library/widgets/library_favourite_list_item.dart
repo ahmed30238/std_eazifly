@@ -1,4 +1,4 @@
-import 'package:eazifly_student/core/component/image_conainer.dart';
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -9,7 +9,18 @@ import 'package:flutter_svg/svg.dart';
 
 class LibraryFavouriteListItem extends StatelessWidget {
   final int index;
-  const LibraryFavouriteListItem({super.key, required this.index});
+  final String image;
+  final String views;
+  final String likes;
+  final String title;
+  const LibraryFavouriteListItem({
+    super.key,
+    required this.index,
+    required this.title,
+    required this.views,
+    required this.likes,
+    required this.image,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +29,7 @@ class LibraryFavouriteListItem extends StatelessWidget {
         right: 16.w,
         left: 16.w,
         top: index == 0 ? 16.h : 0,
-        bottom: index == 5 ? 16.h : 0, // todo last item list.length -1
+        // bottom: index == 5 ? 16.h : 0, // todo last item list.length -1
       ),
       padding: EdgeInsets.all(8.r),
       height: 96.h,
@@ -29,7 +40,9 @@ class LibraryFavouriteListItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const ImageContainer(),
+          AvatarImage(
+            imageUrl: image,
+          ),
           8.pw,
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -38,7 +51,7 @@ class LibraryFavouriteListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "إسم القائمة",
+                  title,
                   style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 SizedBox(
@@ -51,7 +64,7 @@ class LibraryFavouriteListItem extends StatelessWidget {
                           ),
                           4.pw,
                           Text(
-                            "3566",
+                            views,
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 14,
                               color: MainColors.blackText,
@@ -67,7 +80,7 @@ class LibraryFavouriteListItem extends StatelessWidget {
                           ),
                           4.pw,
                           Text(
-                            "153",
+                            likes,
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 14,
                               color: MainColors.blackText,
@@ -98,7 +111,9 @@ class LibraryFavouriteListItem extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          SvgPicture.asset(Assets.iconsHeart), // todo horizontal triple dots
+          SvgPicture.asset(
+            Assets.iconsHorizontalDots,
+          ),
         ],
       ),
     );

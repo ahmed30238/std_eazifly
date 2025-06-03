@@ -39,6 +39,9 @@ class LayoutCubit extends Cubit<LayoutState> {
       create: (context) => LibraryCubit(
         libraryCategoriesUsecase: sl(),
         allLibraryListsUsecase: sl(),
+        storeFavouriteListUsecase: sl(),
+        getFavouriteListUsecase: sl(),
+        getFavouriteListItemUsingListIdUsecase: sl(),
       ),
       child: const LibraryView(),
     ),

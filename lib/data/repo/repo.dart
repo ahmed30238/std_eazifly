@@ -3,6 +3,9 @@ import 'package:eazifly_student/core/exceptions/exceptions.dart';
 import 'package:eazifly_student/core/general_failure/failure.dart';
 import 'package:eazifly_student/data/data_source/remote_data_source.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_items_using_list_id_model.dart';
+import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_model.dart';
+import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_tojson.dart';
 import 'package:eazifly_student/data/models/library/get_all_library_lists_model.dart';
 import 'package:eazifly_student/data/models/library/get_library_categories_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
@@ -16,6 +19,7 @@ import 'package:eazifly_student/data/models/programs/assign_program_review_tojso
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
+import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
@@ -181,6 +185,39 @@ class Repository extends BaseRepository {
   Future<Either<Failure, GetAllLibraryListsModel>> getAllLibraryLists() async {
     try {
       final result = await baseRemoteDataSource.getAllLibraryLists();
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, StoreFavouriteListModel>> storeFavouriteList(
+      {required StoreFavouriteListTojson data}) async {
+    try {
+      final result = await baseRemoteDataSource.storeFavouriteList(data: data);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetFavouriteListEntity>> getFavouriteList() async {
+    try {
+      final result = await baseRemoteDataSource.getFavouriteList();
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetFavouriteListItemsUsingListIdModel>>
+      getFavouriteListItemsUsinListId({required int listId}) async {
+    try {
+      final result = await baseRemoteDataSource.getFavouriteListItemsUsinListId(
+          listId: listId);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

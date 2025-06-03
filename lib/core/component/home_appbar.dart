@@ -97,22 +97,33 @@ class MainAppBar extends AppBar {
 
 class AppbarIconWidget extends StatelessWidget {
   final Widget? iconWidget;
+  final Color? iconColor;
+  final Function()? onTap;
+
   const AppbarIconWidget({
     super.key,
     this.iconWidget,
+    this.onTap,
+    this.iconColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 40.w,
-      height: 40.h,
-      decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
-        borderRadius: BorderRadius.circular(15.r),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 40.w,
+        height: 40.h,
+        decoration: BoxDecoration(
+          color: MainColors.veryLightGrayFormField,
+          borderRadius: BorderRadius.circular(15.r),
+        ),
+        child: iconWidget ??
+            Icon(
+              Icons.add,
+              color: iconColor,
+            ),
       ),
-      child: iconWidget ??
-          const Icon(Icons.add),
     );
   }
 }

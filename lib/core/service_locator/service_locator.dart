@@ -5,6 +5,8 @@ import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_order_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/filter_plans_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_library_lists_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_favourite_list_item_using_list_id_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_categories_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_payment_method_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_plans_usecase.dart';
@@ -13,6 +15,7 @@ import 'package:eazifly_student/domain/use_cases/get_program_payment_methods_use
 import 'package:eazifly_student/domain/use_cases/get_programs_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_orders_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/login_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/store_favourite_list_usecase.dart';
 import 'package:get_it/get_it.dart';
 
 GetIt sl = GetIt.instance;
@@ -39,5 +42,11 @@ class ServiceLocator {
         () => GetLibraryCategoriesUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => GetAllLibraryListsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => StoreFavouriteListUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetFavouriteListUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetFavouriteListItemUsingListIdUsecase(baseRepository: sl()));
   }
 }

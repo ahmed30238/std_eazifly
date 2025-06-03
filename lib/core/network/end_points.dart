@@ -7,6 +7,10 @@ class EndPoints {
   static const createOrder = "create/order";
   static const checkCopoun = "check-coupon";
   static const getUserOrders = "orders";
+  static const storeFavouriteList = "store/favorite/list";
+  static const getFavouriteList = "favorite/list";
+  static String getFavouriteListItemsUsingListId({required int listId}) =>
+      "favorite/list/items/$listId";
   static String getLibraryCategories({String? type}) => type != null
       ? "get/library/categories?type=$type"
       : "get/library/categories";

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:eazifly_student/core/general_failure/failure.dart';
+import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
@@ -9,6 +10,8 @@ import 'package:eazifly_student/domain/entities/check_copoun_entities.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
 import 'package:eazifly_student/domain/entities/get_all_library_lists_entity.dart';
+import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
+import 'package:eazifly_student/domain/entities/get_favourite_list_items_using_list_id_entity.dart';
 import 'package:eazifly_student/domain/entities/get_library_category_entity.dart';
 import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.dart';
@@ -18,6 +21,7 @@ import 'package:eazifly_student/domain/entities/get_program_payment_methods_enti
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/domain/entities/get_user_orders_entities.dart';
 import 'package:eazifly_student/domain/entities/login_entities.dart';
+import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
 
 abstract class BaseRepository {
   Future<Either<Failure, LoginEntity>> login({
@@ -46,4 +50,8 @@ abstract class BaseRepository {
   Future<Either<Failure, GetLibraryCategoriesEntity>> getLibraryCategories(
       {String? type});
   Future<Either<Failure, GetAllLibraryListsEntity>> getAllLibraryLists();
+  Future<Either<Failure, StoreFavouriteListEntity>> storeFavouriteList(
+      {required StoreFavouriteListTojson data});
+  Future<Either<Failure, GetFavouriteListEntity>> getFavouriteList();
+  Future<Either<Failure, GetFavouriteListItemsUsingListIdEntity>> getFavouriteListItemsUsinListId({required int listId});
 }
