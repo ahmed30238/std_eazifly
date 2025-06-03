@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -7,8 +8,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProgramWithStatsContainer extends StatelessWidget {
+  final String image;
+  final String likes;
+  final String noOfSubscription;
+  final String title;
+  final String views;
+
   const ProgramWithStatsContainer({
     super.key,
+    required this.image,
+    required this.likes,
+    required this.noOfSubscription,
+    required this.title,
+    required this.views,
   });
 
   @override
@@ -24,20 +36,26 @@ class ProgramWithStatsContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           16.ph,
-          Container(
-            clipBehavior: Clip.antiAlias,
+          AvatarImage(
             height: 131.h,
             width: 165.w,
-            decoration: BoxDecoration(
-              borderRadius: 8.cr,
-              image: const DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage(
-                  Assets.imagesPersona,
-                ),
-              ),
-            ),
+            radius: 8.r,
+            imageUrl: image,
           ),
+          // Container(
+          //   clipBehavior: Clip.antiAlias,
+          //   height: 131.h,
+          //   width: 165.w,
+          //   decoration: BoxDecoration(
+          //     borderRadius: 8.cr,
+          //     image: const DecorationImage(
+          //       fit: BoxFit.cover,
+          //       image: AssetImage(
+          //         Assets.imagesPersona,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           8.ph,
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -45,7 +63,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "مجموعة قصص مختارة ",
+                  title,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 14,
                     color: MainColors.blackText,
@@ -63,7 +81,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
                           ),
                           4.pw,
                           Text(
-                            "3566",
+                            views,
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 14,
                               color: MainColors.blackText,
@@ -80,7 +98,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
                           ),
                           4.pw,
                           Text(
-                            "153",
+                            likes,
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 14,
                               color: MainColors.blackText,
@@ -97,7 +115,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
                           ),
                           4.pw,
                           Text(
-                            "344",
+                            noOfSubscription,
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 14,
                               color: MainColors.blackText,

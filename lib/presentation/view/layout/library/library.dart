@@ -24,6 +24,7 @@ class _LibraryViewState extends State<LibraryView>
   @override
   void initState() {
     LibraryCubit.get(context).initTabController(this);
+    LibraryCubit.get(context).getLibraryCategories();
     super.initState();
   }
 

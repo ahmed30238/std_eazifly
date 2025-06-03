@@ -1,25 +1,60 @@
-import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/images/my_images.dart';
-import 'package:eazifly_student/core/routes/paths.dart';
-import 'package:eazifly_student/core/theme/colors/main_colors.dart';
-import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'dart:developer';
+
+import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
+import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
+import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
+import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_loader.dart';
+import 'package:eazifly_student/presentation/view/layout/library/widgets/most_popular_list.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class VisualsBody extends StatelessWidget {
   const VisualsBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) => VisualsBodyItem(
-        index: index,
-      ),
-      separatorBuilder: (context, index) => 10.ph,
-      itemCount: 4,
+    var cubit = context.read<LibraryCubit>();
+
+    // var lang = context.loc!;
+    return BlocBuilder<LibraryCubit, LibraryState>(
+      builder: (context, state) {
+        if (state is LibraryCategoriesErrorState) {
+          return Text(state.errorMessage);
+        }
+        if (cubit.getLibraryCategoriesLoader) {
+          return const AudioShimmerList();
+        }
+        var visualListCategories = cubit.libraryCategoriesEntity?.data
+            ?.where(
+              (element) => element.type == "visuals",
+            )
+            .toList();
+        log("$visualListCategories ${visualListCategories?.length}");
+        return visualListCategories != null && visualListCategories.isNotEmpty
+            ? ListView.separated(
+                padding: EdgeInsets.symmetric(vertical: 24.h),
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Text(
+                        visualListCategories[index].title ?? "",
+                        style: MainTextStyle.boldTextStyle(fontSize: 16),
+                      ),
+                    ),
+                    8.ph,
+                    MostPopularList(
+                      voiceListCategories: visualListCategories[index],
+                    ),
+                  ],
+                ),
+                separatorBuilder: (context, index) => 24.ph,
+                itemCount: visualListCategories.length,
+              )
+            : const NoDataAnimatedImageWidget(message: "لا مرئيات متاحة");
+      },
     );
   }
 }

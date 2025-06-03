@@ -1,4 +1,4 @@
-import 'package:eazifly_student/core/component/image_conainer.dart';
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -6,9 +6,17 @@ import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+
 class LibraryMenuListItem extends StatelessWidget {
+  final String image;
+  final String title;
   final int index;
-  const LibraryMenuListItem({super.key, required this.index});
+  const LibraryMenuListItem({
+    super.key,
+    required this.index,
+    required this.title,
+    required this.image,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +36,9 @@ class LibraryMenuListItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const ImageContainer(),
+          AvatarImage(
+            imageUrl: image,
+          ),
           8.pw,
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -37,7 +47,7 @@ class LibraryMenuListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "إسم القائمة",
+                  title,
                   style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 SizedBox(

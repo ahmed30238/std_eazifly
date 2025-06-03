@@ -15,10 +15,7 @@ class LibraryCubit extends Cubit<LibraryState> {
   LibraryCubit({
     required this.libraryCategoriesUsecase,
     required this.allLibraryListsUsecase,
-  }) : super(LibraryInitial()) {
-    getLibraryCategories(type: "voice");
-    getAllLibraryLists();
-  }
+  }) : super(LibraryInitial());
   static LibraryCubit get(context) => BlocProvider.of(context);
   initTabController(TickerProvider vsync) {
     tabController = TabController(length: 4, vsync: vsync)
@@ -27,6 +24,18 @@ class LibraryCubit extends Cubit<LibraryState> {
           tabController.animateTo(tabController.index,
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeIn);
+          switch (tabController.index) {
+            case 0:
+              getLibraryCategories(type: "voice");
+              break;
+            case 1:
+              getLibraryCategories(type: "visuals");
+            case 2:
+              getAllLibraryLists();
+
+              break;
+            default:
+          }
         }
         emit(InitTabControllerState());
       });

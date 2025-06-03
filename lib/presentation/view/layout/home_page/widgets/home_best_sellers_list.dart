@@ -15,7 +15,13 @@ class HomeBestSellersList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) =>
-            const ProgramWithStatsContainer(),
+            const ProgramWithStatsContainer(
+                        image: Assets.imagesPersona,
+          likes: "2",
+          noOfSubscription: "1",
+          title: "dsfdsfsd",
+          views: "3",
+            ),
         separatorBuilder: (context, index) => 12.pw,
         itemCount: 4,
       ),

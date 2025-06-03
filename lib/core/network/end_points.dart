@@ -8,7 +8,7 @@ class EndPoints {
   static const checkCopoun = "check-coupon";
   static const getUserOrders = "orders";
   static String getLibraryCategories({String? type}) => type != null
-      ? "get/library/categories?type=voice"
+      ? "get/library/categories?type=$type"
       : "get/library/categories";
   static String getProgramDetails({required int programId}) =>
       "program/details/$programId";
