@@ -26,19 +26,15 @@ class FavouriteBody extends StatelessWidget {
         // Default/loaded state
         var favouriteList = cubit.getFavouriteListEntity?.data;
         return ListView.separated(
+          padding: EdgeInsets.symmetric(vertical: 16.h),
           itemBuilder: (context, index) {
             var item = favouriteList![index];
-            return InkWell(
-              onTap: () {
-                LibraryCubit.get(context).pickImages();
-              },
-              child: LibraryFavouriteListItem(
-                index: index,
-                image: item.image ?? "",
-                likes: "2",
-                title: item.title ?? "",
-                views: "45",
-              ),
+            return LibraryFavouriteListItem(
+              index: index,
+              image: item.image ?? "",
+              likes: "2",
+              title: item.title ?? "",
+              views: "45",
             );
           },
           separatorBuilder: (context, index) => 12.ph,

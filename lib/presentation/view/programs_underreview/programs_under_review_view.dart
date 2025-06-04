@@ -56,6 +56,7 @@ class _ProgramsUnderReviewViewState extends State<ProgramsUnderReviewView> {
               var order = orders[index];
               log("${order.orderDetails?[0].label}");
               return UnderReviewItem(
+                image: "",
                 state: order.status?.color ?? "",
               );
             },

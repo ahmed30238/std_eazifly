@@ -1,11 +1,14 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class UnderReviewItem extends StatelessWidget {
   final String state;
+  final String image;
   const UnderReviewItem({
     super.key,
     required this.state,
+    required this.image,
   });
 
   @override
@@ -105,6 +108,7 @@ class UnderReviewItem extends StatelessWidget {
         child: Column(
           children: [
             StackDesignState(
+              image: image,
               state: state,
             ),
             SizedBox(
@@ -122,9 +126,11 @@ class UnderReviewItem extends StatelessWidget {
 
 class StackDesignState extends StatelessWidget {
   final String state;
+  final String image;
   const StackDesignState({
     super.key,
     required this.state,
+    required this.image,
   });
 
   @override
@@ -132,9 +138,8 @@ class StackDesignState extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Image.asset(
-          fit: BoxFit.cover,
-          Assets.imagesPersona,
+        AvatarImage(
+          imageUrl: image,
           height: 160.h,
           width: double.infinity,
         ),

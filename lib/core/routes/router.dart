@@ -304,6 +304,10 @@ class AppRouter {
         return createRoute(
           const HomeNotificationView(),
         );
+      case RoutePaths.allPossibleFavItems:
+        return createRoute(
+          const HomeNotificationView(),
+        );
       case RoutePaths.confirmPaymentView:
         var arguments = settings.arguments as Map<String, dynamic>?;
         // int programId = arguments?["programId"] as int? ?? 0;

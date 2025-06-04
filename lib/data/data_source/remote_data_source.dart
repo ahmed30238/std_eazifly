@@ -11,6 +11,7 @@ import 'package:eazifly_student/data/models/library/favourite_list/get_favourite
 import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_tojson.dart';
+import 'package:eazifly_student/data/models/library/get_all_items_model.dart';
 import 'package:eazifly_student/data/models/library/get_all_library_lists_model.dart';
 import 'package:eazifly_student/data/models/library/get_library_categories_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
@@ -52,6 +53,7 @@ abstract class BaseRemoteDataSource {
   Future<GetFavouriteListModel> getFavouriteList();
   Future<GetFavouriteListItemsUsingListIdModel> getFavouriteListItemsUsinListId(
       {required int listId});
+  Future<GetAllItemsModel> getAllItems();
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -225,7 +227,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
           throw Exception('Image file does not exist at path: ${data.image}');
         }
       }
-
+//
       log('FormData fields: ${formData.fields.length}');
       log('FormData files: ${formData.files.length}');
 
@@ -350,46 +352,58 @@ class RemoteDataSource extends BaseRemoteDataSource {
   @override
   Future<StoreFavouriteListModel> storeFavouriteList(
       {required StoreFavouriteListTojson data}) async {
-    FormData formData = FormData();
-    formData.fields.add(
-      MapEntry(
-        "items[]",
-        data.items.toString(),
-      ),
-    );
-    formData.fields.add(
-      MapEntry(
-        "title",
-        data.title,
-      ),
-    );
-    if (data.image != null && data.image!.isNotEmpty) {
-      final File imageFile = File(data.image ?? "");
-      if (await imageFile.exists()) {
-        formData.files.add(
-          MapEntry(
-            "image",
-            await MultipartFile.fromFile(
-              data.image ?? "",
-              filename: data.image?.split('/').last,
-            ),
-          ),
-        );
-        log('Image added to FormData: ${data.image?.split('/').last}');
-      } else {
-        throw Exception('Image file does not exist at path: ${data.image}');
+    try {
+      FormData formData = FormData();
+      for (var item in data.items) {
+        formData.fields.add(MapEntry("items[]", item.toString()));
       }
-    }
-    var response = await NetworkCall()
-        .post(path: EndPoints.storeFavouriteList, data: formData);
-    if (response?.statusCode == 200) {
-      return StoreFavouriteListModel.fromJson(response?.data);
-    } else {
-      throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
+      formData.fields.add(
+        MapEntry(
+          "title",
+          data.title,
         ),
       );
+
+      // إضافة الصورة إذا كانت موجودة
+      if (data.image != null && data.image!.isNotEmpty) {
+        final File imageFile = File(data.image!);
+        if (await imageFile.exists()) {
+          formData.files.add(
+            MapEntry(
+              "image",
+              await MultipartFile.fromFile(
+                data.image!,
+                filename: data.image!.split('/').last,
+              ),
+            ),
+          );
+          log('Store image added to FormData: ${data.image!.split('/').last}');
+        } else {
+          throw Exception(
+              'Store image file does not exist at path: ${data.image}');
+        }
+      }
+
+      log('StreFavImage FormData fields: ${formData.fields.length}');
+      log('StreFavImage FormData files: ${formData.files.length}');
+
+      var response = await NetworkCall().post(
+        path: EndPoints.storeFavouriteList,
+        data: formData,
+        isMultipart: true,
+      );
+
+      if (response?.statusCode == 200) {
+        return StoreFavouriteListModel.fromJson(response?.data);
+      } else {
+        log('Store Fav Error response: ${response?.data}');
+        throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromjson(response?.data),
+        );
+      }
+    } catch (e) {
+      log('Error in Store Fav remote: $e');
+      rethrow;
     }
   }
 
@@ -414,6 +428,20 @@ class RemoteDataSource extends BaseRemoteDataSource {
         .get(path: EndPoints.getFavouriteListItemsUsingListId(listId: listId));
     if (response?.statusCode == 200) {
       return GetFavouriteListItemsUsingListIdModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetAllItemsModel> getAllItems() async {
+    var response = await NetworkCall().get(path: EndPoints.getAllItems);
+    if (response?.statusCode == 200) {
+      return GetAllItemsModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

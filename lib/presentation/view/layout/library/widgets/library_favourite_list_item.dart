@@ -29,7 +29,6 @@ class LibraryFavouriteListItem extends StatelessWidget {
         right: 16.w,
         left: 16.w,
         top: index == 0 ? 16.h : 0,
-        // bottom: index == 5 ? 16.h : 0, // todo last item list.length -1
       ),
       padding: EdgeInsets.all(8.r),
       height: 96.h,

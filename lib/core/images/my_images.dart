@@ -234,6 +234,10 @@ class Assets {
   /// assets/icons/microphone.svg
   static const String iconsMicrophone = "assets/icons/microphone.svg";
 
+  /// Assets for iconsMusic
+  /// assets/icons/music.svg
+  static const String iconsMusic = "assets/icons/music.svg";
+
   /// Assets for iconsMusicFilter
   /// assets/icons/music-filter.svg
   static const String iconsMusicFilter = "assets/icons/music-filter.svg";
@@ -322,6 +326,10 @@ class Assets {
   /// assets/icons/setting.svg
   static const String iconsSetting = "assets/icons/setting.svg";
 
+  /// Assets for iconsSettingNotification
+  /// assets/icons/setting_notification.svg
+  static const String iconsSettingNotification = "assets/icons/setting_notification.svg";
+
   /// Assets for iconsShare
   /// assets/icons/share.svg
   static const String iconsShare = "assets/icons/share.svg";
@@ -397,5 +405,9 @@ class Assets {
   /// Assets for imagesPngPersona
   /// assets/images/png-persona.png
   static const String imagesPngPersona = "assets/images/png-persona.png";
+
+  /// Assets for jsonNoData
+  /// assets/json/no_data.json
+  static const String jsonNoData = "assets/json/no_data.json";
 }
 

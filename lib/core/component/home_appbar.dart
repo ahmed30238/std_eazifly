@@ -99,12 +99,14 @@ class AppbarIconWidget extends StatelessWidget {
   final Widget? iconWidget;
   final Color? iconColor;
   final Function()? onTap;
+  final Color? backgroundColor;
 
   const AppbarIconWidget({
     super.key,
     this.iconWidget,
     this.onTap,
     this.iconColor,
+    this.backgroundColor,
   });
 
   @override
@@ -115,7 +117,7 @@ class AppbarIconWidget extends StatelessWidget {
         width: 40.w,
         height: 40.h,
         decoration: BoxDecoration(
-          color: MainColors.veryLightGrayFormField,
+          color:backgroundColor?? MainColors.veryLightGrayFormField,
           borderRadius: BorderRadius.circular(15.r),
         ),
         child: iconWidget ??

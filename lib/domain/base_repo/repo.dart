@@ -9,6 +9,7 @@ import 'package:eazifly_student/domain/entities/assign_program_review_entities.d
 import 'package:eazifly_student/domain/entities/check_copoun_entities.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
+import 'package:eazifly_student/domain/entities/get_all_items_entity.dart';
 import 'package:eazifly_student/domain/entities/get_all_library_lists_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_items_using_list_id_entity.dart';
@@ -54,4 +55,5 @@ abstract class BaseRepository {
       {required StoreFavouriteListTojson data});
   Future<Either<Failure, GetFavouriteListEntity>> getFavouriteList();
   Future<Either<Failure, GetFavouriteListItemsUsingListIdEntity>> getFavouriteListItemsUsinListId({required int listId});
+  Future<Either<Failure, GetAllItemsEntity>> getAllItems();
 }

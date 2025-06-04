@@ -4,6 +4,7 @@ import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_order_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/filter_plans_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_all_items_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_library_lists_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_item_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart';
@@ -48,5 +49,6 @@ class ServiceLocator {
         () => GetFavouriteListUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => GetFavouriteListItemUsingListIdUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => GetAllItemsUsecase(baseRepository: sl()));
   }
 }

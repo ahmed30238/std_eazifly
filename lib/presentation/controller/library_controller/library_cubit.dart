@@ -1,15 +1,16 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_tojson.dart';
+import 'package:eazifly_student/domain/entities/get_all_items_entity.dart';
 import 'package:eazifly_student/domain/entities/get_all_library_lists_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_items_using_list_id_entity.dart';
 import 'package:eazifly_student/domain/entities/get_library_category_entity.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
+import 'package:eazifly_student/domain/use_cases/get_all_items_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_library_lists_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_item_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart';
@@ -30,6 +31,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     required this.storeFavouriteListUsecase,
     required this.getFavouriteListUsecase,
     required this.getFavouriteListItemUsingListIdUsecase,
+    required this.getAllItemsUsecase,
   }) : super(LibraryInitial());
   static LibraryCubit get(context) => BlocProvider.of(context);
   initTabController(TickerProvider vsync) {
@@ -100,15 +102,16 @@ class LibraryCubit extends Cubit<LibraryState> {
     );
   }
 
-  List<File> images = [];
-  Future<void> pickImages() async {
-    final response = await pickMultiImageFromGallery();
+  File? favListImage;
+  Future<void> pickFavImageImageFroGallery() async {
+    final response = await pickImageFromGallery();
     if (response != null) {
-      images = List.from(response.map((e) => File(e.path)));
+      favListImage = File(response.path);
     }
-    emit(GetGalleryImagesState());
+    emit(PickImageFromGallerySuccessState());
   }
 
+  List<int> itemsToAddToFvouriteWhenCreatingPlayList = [];
   bool storeFavouriteListLoader = false;
   StoreFavouriteListEntity? storeFavouriteListEntity;
   StoreFavouriteListUsecase storeFavouriteListUsecase;
@@ -117,22 +120,25 @@ class LibraryCubit extends Cubit<LibraryState> {
     emit(StoreFavouriteListLoadingState());
 
     try {
-      final File file = images.first;
-      if (!await file.exists()) {
-        return;
-      }
+      String? imagePath;
 
-      final multipartFile = await MultipartFile.fromFile(
-        file.path,
-        filename: file.path.split('/').last,
-      );
+      // إذا كان في صورة جديدة
+      if (favListImage != null) {
+        final File file = favListImage!;
+
+        if (!await file.exists()) {
+          throw Exception('Profile image file does not exist');
+        }
+
+        imagePath = file.path;
+      }
 
       final result = await storeFavouriteListUsecase.call(
         parameter: StoreFavouriteDataParameters(
           data: StoreFavouriteListTojson(
-            items: [1],
+            items: itemsToAddToFvouriteWhenCreatingPlayList,
             title: favouriteListController.text,
-            imageFile: multipartFile,
+            image: imagePath, // أرسل المسار كـ String
           ),
         ),
       );
@@ -150,7 +156,7 @@ class LibraryCubit extends Cubit<LibraryState> {
       );
     } catch (e) {
       storeFavouriteListLoader = false;
-      log("Error in store FavouriteList: $e");
+      log("Error in updateProfile: $e");
       emit(StoreFavouriteListErrorState(errorMessage: e.toString()));
     }
   }
@@ -200,13 +206,14 @@ class LibraryCubit extends Cubit<LibraryState> {
       },
     );
   }
-// TODO
+
+  TextEditingController favouriteListController = TextEditingController();
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool getFavouriteListItemsLoader = false;
   GetFavouriteListItemsUsingListIdEntity?
       getFavouriteListItemsUsingListIdEntity;
   GetFavouriteListItemUsingListIdUsecase getFavouriteListItemUsingListIdUsecase;
-
-  TextEditingController favouriteListController = TextEditingController();
 
   Future<void> getFavouriteListItemsUsingListId({required int listId}) async {
     getFavouriteListItemsLoader = true;
@@ -229,5 +236,52 @@ class LibraryCubit extends Cubit<LibraryState> {
         emit(FavouriteListItemsUsingListIdSuccessState());
       },
     );
+  }
+
+  bool getAllItemsLoader = false;
+  GetAllItemsEntity? getAllItemsEntity;
+  GetAllItemsUsecase getAllItemsUsecase;
+
+  Future<void> getAllItems() async {
+    getAllItemsLoader = true;
+    emit(GetAllItemsLoadingState());
+
+    final result = await getAllItemsUsecase.call(parameter: NoParameter());
+
+    result.fold(
+      (failure) {
+        getAllItemsLoader = false;
+        emit(GetAllItemsErrorState(errorMessage: failure.message));
+      },
+      (success) {
+        getAllItemsEntity = success;
+        getAllItemsLoader = false;
+        emit(GetAllItemsSuccessState());
+      },
+    );
+  }
+
+  void clearImages() {
+    favListImage = null;
+    emit(ClearImagesState());
+  }
+
+  clearAfterPost() {
+    clearImages();
+    favouriteListController.clear();
+  }
+
+  @override
+  Future<void> close() {
+    favouriteListController.dispose();
+    return super.close();
+  }
+
+  void toggleAddingRemoving(int id) {
+    !itemsToAddToFvouriteWhenCreatingPlayList.contains(id)
+        ? itemsToAddToFvouriteWhenCreatingPlayList.add(id)
+        : itemsToAddToFvouriteWhenCreatingPlayList.remove(id);
+    emit(ToggleAddingRemovingState());
+    log("$id");
   }
 }

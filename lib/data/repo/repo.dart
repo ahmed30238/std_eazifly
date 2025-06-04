@@ -19,6 +19,7 @@ import 'package:eazifly_student/data/models/programs/assign_program_review_tojso
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
+import 'package:eazifly_student/domain/entities/get_all_items_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.dart';
@@ -218,6 +219,16 @@ class Repository extends BaseRepository {
     try {
       final result = await baseRemoteDataSource.getFavouriteListItemsUsinListId(
           listId: listId);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetAllItemsEntity>> getAllItems() async {
+    try {
+      final result = await baseRemoteDataSource.getAllItems();
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
