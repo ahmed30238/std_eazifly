@@ -11,6 +11,7 @@ import 'package:eazifly_student/presentation/controller/goal_details_controller/
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_program_details_controller/programdetails_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture_quiz_details_controller/lecturequiz_cubit.dart';
+import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/meetings_controller/meeting_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/notifications_controller/notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
@@ -30,6 +31,7 @@ import 'package:eazifly_student/presentation/view/layout/home_page/home_notifica
 import 'package:eazifly_student/presentation/view/layout/home_page/navigate_to_lecture_view/navigate_to_lecture_view.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
 import 'package:eazifly_student/presentation/view/layout/library/add_to_library_package_details/add_to_library_package_details.dart';
+import 'package:eazifly_student/presentation/view/layout/library/fav_playlist_details/fav_playlist_details.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/about_app_view/about_app_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/copouns_and_discounts_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/explain_point_view/explain_point_view.dart';
@@ -304,9 +306,21 @@ class AppRouter {
         return createRoute(
           const HomeNotificationView(),
         );
-      case RoutePaths.allPossibleFavItems:
+      case RoutePaths.favPlaylistDetails:
+        var arguments = settings.arguments as Map<String, dynamic>?;
+        int playlistId = arguments?["playlistId"] as int? ?? 0;
+        String playlistName = arguments?["playlistName"] as String? ?? "";
+        String playlistImage = arguments?["playlistImage"] as String? ?? "";
+        LibraryCubit cubit = arguments?["cubit"] as LibraryCubit;
         return createRoute(
-          const HomeNotificationView(),
+          BlocProvider.value(
+            value: cubit,
+            child: FavouritePlaylistDetails(
+              playlistId: playlistId,
+              playlistName: playlistName,
+              playlistImage: playlistImage,
+            ),
+          ),
         );
       case RoutePaths.confirmPaymentView:
         var arguments = settings.arguments as Map<String, dynamic>?;

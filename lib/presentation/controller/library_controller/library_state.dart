@@ -71,3 +71,13 @@ class GetAllItemsErrorState extends LibraryState {
 
   GetAllItemsErrorState({required this.errorMessage});
 }
+
+class AddSingleItemToFavListLoadingState extends LibraryState {}
+
+class AddSingleItemToFavListSuccessState extends LibraryState {}
+
+class AddSingleItemToFavListErrorState extends LibraryState {
+  final String errorMessage;
+
+  AddSingleItemToFavListErrorState({required this.errorMessage});
+}

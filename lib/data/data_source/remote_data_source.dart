@@ -7,6 +7,8 @@ import 'package:eazifly_student/core/network/end_points.dart';
 import 'package:eazifly_student/core/network/error_message_model.dart';
 import 'package:eazifly_student/core/network/networkcall.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_list_model.dart';
+import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_items_using_list_id_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_model.dart';
@@ -54,6 +56,9 @@ abstract class BaseRemoteDataSource {
   Future<GetFavouriteListItemsUsingListIdModel> getFavouriteListItemsUsinListId(
       {required int listId});
   Future<GetAllItemsModel> getAllItems();
+  Future<AddSingleItemToFavListModel> addSingleItemToFavList({
+    required AddSingleItemToFavListTojson data,
+  });
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -442,6 +447,24 @@ class RemoteDataSource extends BaseRemoteDataSource {
     var response = await NetworkCall().get(path: EndPoints.getAllItems);
     if (response?.statusCode == 200) {
       return GetAllItemsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<AddSingleItemToFavListModel> addSingleItemToFavList(
+      {required AddSingleItemToFavListTojson data}) async {
+    var response = await NetworkCall().post(
+      path: EndPoints.addSingleToFavList,
+      data: FormData.fromMap(data.toJson())
+    );
+    if (response?.statusCode == 200) {
+      return AddSingleItemToFavListModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

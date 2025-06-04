@@ -3,13 +3,16 @@ import 'dart:io';
 
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
+import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_tojson.dart';
+import 'package:eazifly_student/domain/entities/add_single_item_to_fav_list_entity.dart';
 import 'package:eazifly_student/domain/entities/get_all_items_entity.dart';
 import 'package:eazifly_student/domain/entities/get_all_library_lists_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_items_using_list_id_entity.dart';
 import 'package:eazifly_student/domain/entities/get_library_category_entity.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
+import 'package:eazifly_student/domain/use_cases/add_single_item_to_fav_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_items_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_library_lists_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_item_using_list_id_usecase.dart';
@@ -32,6 +35,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     required this.getFavouriteListUsecase,
     required this.getFavouriteListItemUsingListIdUsecase,
     required this.getAllItemsUsecase,
+    required this.addSingleItemToFavListUsecase,
   }) : super(LibraryInitial());
   static LibraryCubit get(context) => BlocProvider.of(context);
   initTabController(TickerProvider vsync) {
@@ -217,14 +221,13 @@ class LibraryCubit extends Cubit<LibraryState> {
 
   Future<void> getFavouriteListItemsUsingListId({required int listId}) async {
     getFavouriteListItemsLoader = true;
-    emit(FavouriteListItemsUsingListIdSuccessState());
+    emit(FavouriteListItemsUsingListIdLoadingState());
 
     final result = await getFavouriteListItemUsingListIdUsecase.call(
       parameter: GetFavouriteListItemUsingListIdParameters(
         listId: listId,
       ),
     );
-
     result.fold(
       (l) {
         getFavouriteListItemsLoader = false;
@@ -234,6 +237,39 @@ class LibraryCubit extends Cubit<LibraryState> {
         getFavouriteListItemsUsingListIdEntity = r;
         getFavouriteListItemsLoader = false;
         emit(FavouriteListItemsUsingListIdSuccessState());
+      },
+    );
+  }
+
+  bool addSingleItemToFavListLoader = false;
+  AddSingleItemToFavListEntity? addSingleItemToFavListEntity;
+  AddSingleItemToFavUsecase addSingleItemToFavListUsecase;
+
+  Future<void> addSingleItemToFavList({
+    required int favouriteListId,
+    required int libraryItemId,
+  }) async {
+    addSingleItemToFavListLoader = true;
+    emit(AddSingleItemToFavListLoadingState());
+
+    final result = await addSingleItemToFavListUsecase.call(
+      parameter: AddSingleItemToFavListParameters(
+        data: AddSingleItemToFavListTojson(
+          favouriteListId: favouriteListId,
+          libraryItemId: libraryItemId,
+        ),
+      ),
+    );
+
+    result.fold(
+      (l) {
+        addSingleItemToFavListLoader = false;
+        emit(AddSingleItemToFavListErrorState(errorMessage: l.message));
+      },
+      (r) {
+        addSingleItemToFavListEntity = r;
+        addSingleItemToFavListLoader = false;
+        emit(AddSingleItemToFavListSuccessState());
       },
     );
   }

@@ -1,9 +1,7 @@
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/library_favourite_list_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:flutter/material.dart';
 
 class FavouriteBody extends StatelessWidget {
   const FavouriteBody({super.key});
@@ -26,10 +24,20 @@ class FavouriteBody extends StatelessWidget {
         // Default/loaded state
         var favouriteList = cubit.getFavouriteListEntity?.data;
         return ListView.separated(
-          padding: EdgeInsets.symmetric(vertical: 16.h),
+          padding: EdgeInsets.symmetric(vertical: 16.h,horizontal: 16.w),
           itemBuilder: (context, index) {
             var item = favouriteList![index];
             return LibraryFavouriteListItem(
+              onTap: () => Navigator.pushNamed(
+                context,
+                arguments: {
+                  "playlistName": item.title ?? "",
+                  "playlistImage": item.image ?? "",
+                  "playlistId": item.id,
+                  "cubit": cubit,
+                },
+                RoutePaths.favPlaylistDetails,
+              ),
               index: index,
               image: item.image ?? "",
               likes: "2",

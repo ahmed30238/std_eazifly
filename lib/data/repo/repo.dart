@@ -3,6 +3,8 @@ import 'package:eazifly_student/core/exceptions/exceptions.dart';
 import 'package:eazifly_student/core/general_failure/failure.dart';
 import 'package:eazifly_student/data/data_source/remote_data_source.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_list_model.dart';
+import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_items_using_list_id_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_tojson.dart';
@@ -229,6 +231,18 @@ class Repository extends BaseRepository {
   Future<Either<Failure, GetAllItemsEntity>> getAllItems() async {
     try {
       final result = await baseRemoteDataSource.getAllItems();
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AddSingleItemToFavListModel>> addSingleItemToFavList(
+      {required AddSingleItemToFavListTojson data}) async {
+    try {
+      final result =
+          await baseRemoteDataSource.addSingleItemToFavList(data: data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

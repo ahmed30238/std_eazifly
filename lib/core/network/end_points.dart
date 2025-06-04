@@ -10,6 +10,7 @@ class EndPoints {
   static const storeFavouriteList = "store/favorite/list";
   static const getFavouriteList = "favorite/list";
   static const getAllItems = "get/all/items";
+  static const addSingleToFavList = "add/item/to/favorite/list";
   static String getFavouriteListItemsUsingListId({required int listId}) =>
       "favorite/list/items/$listId";
   static String getLibraryCategories({String? type}) => type != null

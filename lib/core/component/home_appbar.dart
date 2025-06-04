@@ -100,6 +100,7 @@ class AppbarIconWidget extends StatelessWidget {
   final Color? iconColor;
   final Function()? onTap;
   final Color? backgroundColor;
+  final double? width;
 
   const AppbarIconWidget({
     super.key,
@@ -107,6 +108,7 @@ class AppbarIconWidget extends StatelessWidget {
     this.onTap,
     this.iconColor,
     this.backgroundColor,
+    this.width,
   });
 
   @override
@@ -114,10 +116,10 @@ class AppbarIconWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 40.w,
+        width: width ?? 40.w,
         height: 40.h,
         decoration: BoxDecoration(
-          color:backgroundColor?? MainColors.veryLightGrayFormField,
+          color: backgroundColor ?? MainColors.veryLightGrayFormField,
           borderRadius: BorderRadius.circular(15.r),
         ),
         child: iconWidget ??

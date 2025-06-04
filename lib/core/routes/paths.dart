@@ -9,7 +9,8 @@ class RoutePaths {
   static const settingsPath = "settingsPath";
   static const aboutAppPath = "aboutAppPath";
   static const splashScreen = "splashScreen";
-  static const allPossibleFavItems = "allPossibleFavItems";
+  static const favPlaylistDetails = "favPlaylistDetails";
+  // static const allPossibleFavItems = "allPossibleFavItems";
   static const confirmPaymentView = "confirmPaymentView";
   static const subscriptionManagmentPath = "subscriptionManagmentPath";
   static const copounsAndDiscountsViewPath = "CopounsAndDiscountsView";
@@ -43,14 +44,19 @@ class RoutePaths {
   static const lectureHistoryView = "lectureHistoryView";
   static const explainPointsSystemView = "explainPointsSystemView";
   static const navigateToLectureView = "navigateToLectureView";
-  static const addToLibraryPackageDetailsView = "addToLibraryPackageDetailsView";
-  static const selectionOfEducationalCoursesView = "selectionOfEducationalCoursesView";
-  static const selectionProgramItemDetailsView = "selectionProgramItemDetailsView";
+  static const addToLibraryPackageDetailsView =
+      "addToLibraryPackageDetailsView";
+  static const selectionOfEducationalCoursesView =
+      "selectionOfEducationalCoursesView";
+  static const selectionProgramItemDetailsView =
+      "selectionProgramItemDetailsView";
   static const programGoalsView = "programGoalsView";
   static const changeLecturerView = "changeLecturerView";
   static const assignmentDetailsView = "assignmentDetailsView";
-  static const subscribedStudentsSettingsView = "subscribedStudentsSettingsView";
+  static const subscribedStudentsSettingsView =
+      "subscribedStudentsSettingsView";
   static const lectureQuizzDetailsView = "lectureQuizzDetailsView";
   static const correctedQuizDetailsView = "correctedQuizDetailsView";
-  static const corrcectedAssignmentDetailsView = "corrcectedAssignmentDetailsView";
+  static const corrcectedAssignmentDetailsView =
+      "corrcectedAssignmentDetailsView";
 }

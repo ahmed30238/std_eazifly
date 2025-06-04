@@ -46,6 +46,10 @@ class Assets {
   /// assets/icons/about-app-icon.svg
   static const String iconsAboutAppIcon = "assets/icons/about-app-icon.svg";
 
+  /// Assets for iconsAdd
+  /// assets/icons/add.svg
+  static const String iconsAdd = "assets/icons/add.svg";
+
   /// Assets for iconsAddAnotherStudent
   /// assets/icons/add-another-student.svg
   static const String iconsAddAnotherStudent = "assets/icons/add-another-student.svg";
@@ -129,6 +133,10 @@ class Assets {
   /// Assets for iconsDeleteBin
   /// assets/icons/delete_bin.svg
   static const String iconsDeleteBin = "assets/icons/delete_bin.svg";
+
+  /// Assets for iconsEdit
+  /// assets/icons/edit.svg
+  static const String iconsEdit = "assets/icons/edit.svg";
 
   /// Assets for iconsElectronicWallet
   /// assets/icons/electronic-wallet.svg
@@ -333,6 +341,10 @@ class Assets {
   /// Assets for iconsShare
   /// assets/icons/share.svg
   static const String iconsShare = "assets/icons/share.svg";
+
+  /// Assets for iconsShare2
+  /// assets/icons/share_2.svg
+  static const String iconsShare2 = "assets/icons/share_2.svg";
 
   /// Assets for iconsSilverBoard
   /// assets/icons/silver-board.svg

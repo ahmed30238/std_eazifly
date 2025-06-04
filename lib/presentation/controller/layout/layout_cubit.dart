@@ -43,6 +43,7 @@ class LayoutCubit extends Cubit<LayoutState> {
         getFavouriteListUsecase: sl(),
         getFavouriteListItemUsingListIdUsecase: sl(),
         getAllItemsUsecase: sl(),
+        addSingleItemToFavListUsecase: sl(),
       ),
       child: const LibraryView(),
     ),
