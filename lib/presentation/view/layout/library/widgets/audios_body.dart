@@ -1,14 +1,10 @@
 import 'dart:developer';
 
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_loader.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/most_popular_list.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class AudiosBody extends StatelessWidget {
   const AudiosBody({super.key});
@@ -49,6 +45,10 @@ class AudiosBody extends StatelessWidget {
               8.ph,
               MostPopularList(
                 voiceListCategories: voiceListCategories?[index],
+                onTap: () {
+                  // log("${voiceListCategories?[0]}");
+                  // Navigator.pushNamed(context, RoutePaths.completePaymentProcessScreen);
+                },
               ),
             ],
           ),

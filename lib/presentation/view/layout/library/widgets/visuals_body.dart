@@ -47,6 +47,7 @@ class VisualsBody extends StatelessWidget {
                     8.ph,
                     MostPopularList(
                       voiceListCategories: visualListCategories[index],
+                      onTap: () {},
                     ),
                   ],
                 ),

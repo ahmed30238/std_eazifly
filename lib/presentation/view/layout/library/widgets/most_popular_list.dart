@@ -6,30 +6,35 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MostPopularList extends StatelessWidget {
   final LibraryCategoryDatumModel? voiceListCategories;
+  final VoidCallback onTap;
   const MostPopularList({
     super.key,
     required this.voiceListCategories,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 220.h,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          var listItem = voiceListCategories?.lists?[index];
-          return ProgramWithStatsContainer(
-            image: listItem?.image ?? "",
-            likes: "2",
-            noOfSubscription: "1",
-            title: listItem?.title ?? "",
-            views: "3",
-          );
-        },
-        separatorBuilder: (context, index) => 12.pw,
-        itemCount: voiceListCategories?.lists?.length ?? 0,
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        height: 220.h,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          itemBuilder: (context, index) {
+            var listItem = voiceListCategories?.lists?[index];
+            return ProgramWithStatsContainer(
+              image: listItem?.image ?? "",
+              likes: "2",
+              noOfSubscription: "1",
+              title: listItem?.title ?? "",
+              views: "3",
+            );
+          },
+          separatorBuilder: (context, index) => 12.pw,
+          itemCount: voiceListCategories?.lists?.length ?? 0,
+        ),
       ),
     );
   }
