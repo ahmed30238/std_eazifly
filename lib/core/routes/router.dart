@@ -31,6 +31,7 @@ import 'package:eazifly_student/presentation/view/layout/home_page/home_notifica
 import 'package:eazifly_student/presentation/view/layout/home_page/navigate_to_lecture_view/navigate_to_lecture_view.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
 import 'package:eazifly_student/presentation/view/layout/library/add_to_library_package_details/add_to_library_package_details.dart';
+import 'package:eazifly_student/presentation/view/layout/library/audio_playlist_view/audio_playlist_view.dart';
 import 'package:eazifly_student/presentation/view/layout/library/fav_playlist_details/fav_playlist_details.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/about_app_view/about_app_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/copouns_and_discounts_view.dart';
@@ -339,6 +340,18 @@ class AppRouter {
       case RoutePaths.subscriptionPackageDetails:
         return createRoute(
           const SubscriptiopnPackageDetails(),
+        );
+      case RoutePaths.audioPlayListView:
+        var arguments = settings.arguments as Map<String, dynamic>;
+        LibraryCubit cubit = arguments["cubit"] as LibraryCubit;
+        int listId = arguments["listId"] as int? ?? -1;
+        return createRoute(
+          BlocProvider.value(
+            value: cubit,
+            child: AudioPlayListView(
+              listId: listId,
+            ),
+          ),
         );
       case RoutePaths.addToLibraryPackageDetailsView:
         return createRoute(

@@ -16,7 +16,8 @@ class BestSellersList extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) => const ProgramWithStatsContainer(
+        itemBuilder: (context, index) =>  ProgramWithStatsContainer(
+          onTap: () {},
           image: Assets.imagesPersona,
           likes: "2",
           noOfSubscription: "1",

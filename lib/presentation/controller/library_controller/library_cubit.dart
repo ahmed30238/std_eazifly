@@ -11,6 +11,7 @@ import 'package:eazifly_student/domain/entities/get_all_library_lists_entity.dar
 import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_items_using_list_id_entity.dart';
 import 'package:eazifly_student/domain/entities/get_library_category_entity.dart';
+import 'package:eazifly_student/domain/entities/get_list_items_using_list_id_entity.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/use_cases/add_single_item_to_fav_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_items_usecase.dart';
@@ -18,6 +19,7 @@ import 'package:eazifly_student/domain/use_cases/get_all_library_lists_usecase.d
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_item_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_categories_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_list_items_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/store_favourite_list_usecase.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_body.dart';
@@ -36,6 +38,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     required this.getFavouriteListItemUsingListIdUsecase,
     required this.getAllItemsUsecase,
     required this.addSingleItemToFavListUsecase,
+    required this.getListItemsUsingListIdUsecase,
   }) : super(LibraryInitial());
   static LibraryCubit get(context) => BlocProvider.of(context);
   initTabController(TickerProvider vsync) {
@@ -207,6 +210,33 @@ class LibraryCubit extends Cubit<LibraryState> {
         getFavouriteListEntity = r;
         getFavouriteListLoader = false;
         emit(FavouriteListSuccessState());
+      },
+    );
+  }
+
+  bool getListItemsLoader = false;
+  GetListItemsUsingListIdEntity? getListItemsUsingListIdEntity;
+  GetListItemsUsingListIdUsecase getListItemsUsingListIdUsecase;
+
+  Future<void> getListItemsUsingListId({required int listId}) async {
+    getListItemsLoader = true;
+    emit(GetListItemsLoadingState());
+
+    final result = await getListItemsUsingListIdUsecase.call(
+      parameter: GetListItemsUsingListIdParameters(
+        listId: listId,
+      ),
+    );
+
+    result.fold(
+      (l) {
+        getListItemsLoader = false;
+        emit(GetListItemsErrorState(errorMessage: l.message));
+      },
+      (r) {
+        getListItemsUsingListIdEntity = r;
+        getListItemsLoader = false;
+        emit(ListItemsSuccessState());
       },
     );
   }

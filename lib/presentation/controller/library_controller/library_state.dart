@@ -81,3 +81,12 @@ class AddSingleItemToFavListErrorState extends LibraryState {
 
   AddSingleItemToFavListErrorState({required this.errorMessage});
 }
+class GetListItemsLoadingState extends LibraryState {}
+
+class ListItemsSuccessState extends LibraryState {}
+
+class GetListItemsErrorState extends LibraryState {
+  final String errorMessage;
+
+  GetListItemsErrorState({required this.errorMessage});
+}

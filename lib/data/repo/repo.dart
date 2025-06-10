@@ -10,6 +10,7 @@ import 'package:eazifly_student/data/models/library/favourite_list/store_favouri
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_tojson.dart';
 import 'package:eazifly_student/data/models/library/get_all_library_lists_model.dart';
 import 'package:eazifly_student/data/models/library/get_library_categories_model.dart';
+import 'package:eazifly_student/data/models/library/get_list_items_using_list_id_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
@@ -243,6 +244,18 @@ class Repository extends BaseRepository {
     try {
       final result =
           await baseRemoteDataSource.addSingleItemToFavList(data: data);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetListItemsUsingListIdModel>> getListItemsUsingListId(
+      {required int listId}) async {
+    try {
+      final result =
+          await baseRemoteDataSource.getListItemsUsingListId(listId: listId);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

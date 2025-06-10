@@ -1,13 +1,11 @@
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/data/models/library/get_library_categories_model.dart';
-import 'package:eazifly_student/presentation/view/layout/library/widgets/program_with_stats_container.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class MostPopularList extends StatelessWidget {
+class CategoryCard extends StatelessWidget {
   final LibraryCategoryDatumModel? voiceListCategories;
   final VoidCallback onTap;
-  const MostPopularList({
+  const CategoryCard({
     super.key,
     required this.voiceListCategories,
     required this.onTap,
@@ -15,6 +13,7 @@ class MostPopularList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = context.read<LibraryCubit>();
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
@@ -25,6 +24,16 @@ class MostPopularList extends StatelessWidget {
           itemBuilder: (context, index) {
             var listItem = voiceListCategories?.lists?[index];
             return ProgramWithStatsContainer(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RoutePaths.audioPlayListView,
+                  arguments: {
+                    "cubit": cubit,
+                    "listId": listItem?.id,
+                  },
+                );
+              },
               image: listItem?.image ?? "",
               likes: "2",
               noOfSubscription: "1",

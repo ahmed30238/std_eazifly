@@ -1,5 +1,6 @@
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
+import 'package:eazifly_student/presentation/view/layout/library/widgets/library_fav_list_item_shimmer.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/library_favourite_list_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -12,7 +13,7 @@ class FavouriteBody extends StatelessWidget {
     return BlocBuilder<LibraryCubit, LibraryState>(
       builder: (context, state) {
         if (cubit.getFavouriteListLoader) {
-          return const Center(child: CircularProgressIndicator());
+          return const FavItemShimmerList();
         }
 
         if (state is FavouriteListErrorState) {

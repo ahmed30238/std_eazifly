@@ -12,6 +12,7 @@ class RoutePaths {
   static const favPlaylistDetails = "favPlaylistDetails";
   // static const allPossibleFavItems = "allPossibleFavItems";
   static const confirmPaymentView = "confirmPaymentView";
+  static const audioPlayListView = "audioPlayListView";
   static const subscriptionManagmentPath = "subscriptionManagmentPath";
   static const copounsAndDiscountsViewPath = "CopounsAndDiscountsView";
   static const reportsAndComplaintsViewPath = "reportsAndComplaintsViewPath";

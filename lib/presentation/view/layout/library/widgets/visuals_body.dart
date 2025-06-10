@@ -4,7 +4,7 @@ import 'package:eazifly_student/core/component/no_data_animated_image_widget.dar
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_loader.dart';
-import 'package:eazifly_student/presentation/view/layout/library/widgets/most_popular_list.dart';
+import 'package:eazifly_student/presentation/view/layout/library/widgets/category_card.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class VisualsBody extends StatelessWidget {
@@ -45,7 +45,7 @@ class VisualsBody extends StatelessWidget {
                       ),
                     ),
                     8.ph,
-                    MostPopularList(
+                    CategoryCard(
                       voiceListCategories: visualListCategories[index],
                       onTap: () {},
                     ),

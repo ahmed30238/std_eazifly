@@ -16,6 +16,7 @@ import 'package:eazifly_student/domain/entities/get_all_library_lists_entity.dar
 import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_items_using_list_id_entity.dart';
 import 'package:eazifly_student/domain/entities/get_library_category_entity.dart';
+import 'package:eazifly_student/domain/entities/get_list_items_using_list_id_entity.dart';
 import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
@@ -61,4 +62,6 @@ abstract class BaseRepository {
   Future<Either<Failure, GetAllItemsEntity>> getAllItems();
   Future<Either<Failure, AddSingleItemToFavListEntity>> addSingleItemToFavList(
       {required AddSingleItemToFavListTojson data});
+  Future<Either<Failure, GetListItemsUsingListIdEntity>>
+      getListItemsUsingListId({required int listId});
 }

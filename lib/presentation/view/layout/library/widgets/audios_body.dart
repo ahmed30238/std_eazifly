@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_loader.dart';
-import 'package:eazifly_student/presentation/view/layout/library/widgets/most_popular_list.dart';
+import 'package:eazifly_student/presentation/view/layout/library/widgets/category_card.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class AudiosBody extends StatelessWidget {
@@ -43,12 +43,9 @@ class AudiosBody extends StatelessWidget {
                 ),
               ),
               8.ph,
-              MostPopularList(
+              CategoryCard(
                 voiceListCategories: voiceListCategories?[index],
-                onTap: () {
-                  // log("${voiceListCategories?[0]}");
-                  // Navigator.pushNamed(context, RoutePaths.completePaymentProcessScreen);
-                },
+                onTap: () {},
               ),
             ],
           ),
