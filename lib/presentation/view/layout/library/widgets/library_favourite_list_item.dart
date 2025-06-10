@@ -14,106 +14,116 @@ class LibraryFavouriteListItem extends StatelessWidget {
   final String likes;
   final String title;
   final VoidCallback onTap;
-  const LibraryFavouriteListItem(
-      {super.key,
-      required this.index,
-      required this.title,
-      required this.views,
-      required this.likes,
-      required this.image,
-      required this.onTap});
+  final bool isPaid;
+  const LibraryFavouriteListItem({
+    super.key,
+    required this.index,
+    required this.title,
+    required this.views,
+    required this.likes,
+    required this.image,
+    required this.onTap,
+    required this.isPaid,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(8.r),
-        height: 96.h,
-        width: 343.w,
-        decoration: BoxDecoration(
-          borderRadius: 16.cr,
-          color: MainColors.veryLightGrayFormField,
-        ),
-        child: Row(
-          children: [
-            AvatarImage(
-              imageUrl: image,
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            padding: EdgeInsets.all(8.r),
+            height: 96.h,
+            width: 343.w,
+            decoration: BoxDecoration(
+              borderRadius: 16.cr,
+              color: MainColors.veryLightGrayFormField,
             ),
-            8.pw,
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    title,
-                    style: MainTextStyle.boldTextStyle(fontSize: 14),
+            child: Row(
+              children: [
+                AvatarImage(
+                  imageUrl: image,
+                ),
+                8.pw,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        title,
+                        style: MainTextStyle.boldTextStyle(fontSize: 14),
+                      ),
+                      SizedBox(
+                        child: Row(
+                          children: [
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  Assets.iconsPlay,
+                                ),
+                                4.pw,
+                                Text(
+                                  views,
+                                  style: MainTextStyle.boldTextStyle(
+                                    fontSize: 14,
+                                    color: MainColors.blackText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            16.pw,
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  Assets.iconsHeart,
+                                ),
+                                4.pw,
+                                Text(
+                                  likes,
+                                  style: MainTextStyle.boldTextStyle(
+                                    fontSize: 14,
+                                    color: MainColors.blackText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            16.pw,
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  Assets.iconsPeople,
+                                ),
+                                4.pw,
+                                Text(
+                                  "344",
+                                  style: MainTextStyle.boldTextStyle(
+                                    fontSize: 14,
+                                    color: MainColors.blackText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    child: Row(
-                      children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              Assets.iconsPlay,
-                            ),
-                            4.pw,
-                            Text(
-                              views,
-                              style: MainTextStyle.boldTextStyle(
-                                fontSize: 14,
-                                color: MainColors.blackText,
-                              ),
-                            ),
-                          ],
-                        ),
-                        16.pw,
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              Assets.iconsHeart,
-                            ),
-                            4.pw,
-                            Text(
-                              likes,
-                              style: MainTextStyle.boldTextStyle(
-                                fontSize: 14,
-                                color: MainColors.blackText,
-                              ),
-                            ),
-                          ],
-                        ),
-                        16.pw,
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              Assets.iconsPeople,
-                            ),
-                            4.pw,
-                            Text(
-                              "344",
-                              style: MainTextStyle.boldTextStyle(
-                                fontSize: 14,
-                                color: MainColors.blackText,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                const Spacer(),
+                SvgPicture.asset(
+                  Assets.iconsHorizontalDots,
+                ),
+              ],
             ),
-            const Spacer(),
-            SvgPicture.asset(
-              Assets.iconsHorizontalDots,
-            ),
-          ],
+          ),
         ),
-      ),
+        if(isPaid) ... {
+          SvgPicture.asset(Assets.iconsLock)
+        }
+      ],
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
 import 'package:eazifly_student/presentation/view/layout/library/fav_playlist_details/widgets/add_single_item_bottom_sheet.dart';
+import 'package:eazifly_student/presentation/view/layout/library/widgets/library_fav_list_item_shimmer.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/library_favourite_list_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -168,9 +169,7 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
           BlocBuilder<LibraryCubit, LibraryState>(
             builder: (context, state) {
               if (cubit.getFavouriteListItemsLoader) {
-                return const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                );
+                return const Expanded(child: FavItemShimmerList());
               }
 
               if (state is FavouriteListItemsUsingListIdErrorState) {
@@ -208,6 +207,7 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
                     final playlistItem = cubit
                         .getFavouriteListItemsUsingListIdEntity!.data![index];
                     return LibraryFavouriteListItem(
+                      isPaid: playlistItem.paymentType == "paid",
                       image: playlistItem.image ?? "",
                       index: index,
                       likes: "21",

@@ -44,6 +44,7 @@ class FavouriteBody extends StatelessWidget {
               likes: "2",
               title: item.title ?? "",
               views: "45",
+              isPaid: false,
             );
           },
           separatorBuilder: (context, index) => 12.ph,

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
+import 'package:eazifly_student/presentation/view/layout/library/audio_playlist_view/widgets/telegram_style_file_item.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/library_fav_list_item_shimmer.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:open_file/open_file.dart';
@@ -36,7 +37,8 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
   }
 
   // دالة لفتح الملفات حسب النوع (زي تيليجرام)
-  Future<void> _openFile(String fileUrl, String fileType, String title, int index) async {
+  Future<void> _openFile(
+      String fileUrl, String fileType, String title, int index) async {
     try {
       // تحقق إذا كان الملف متحمل بالفعل
       if (_downloadedFiles.containsKey(fileUrl)) {
@@ -57,7 +59,8 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
   }
 
   // تحميل وفتح ملف PDF (زي تيليجرام)
-  Future<void> _downloadAndOpenPdf(String fileUrl, String title, int index) async {
+  Future<void> _downloadAndOpenPdf(
+      String fileUrl, String title, int index) async {
     try {
       setState(() {
         _isDownloading[fileUrl] = true;
@@ -93,7 +96,6 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
 
       // فتح الملف
       await _openDownloadedFile(filePath);
-
     } catch (e) {
       setState(() {
         _isDownloading[fileUrl] = false;
@@ -104,7 +106,8 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
   }
 
   // تحميل وفتح ملف نصي
-  Future<void> _downloadAndOpenTextFile(String fileUrl, String title, int index) async {
+  Future<void> _downloadAndOpenTextFile(
+      String fileUrl, String title, int index) async {
     try {
       setState(() {
         _isDownloading[fileUrl] = true;
@@ -144,7 +147,7 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
   Future<void> _openDownloadedFile(String filePath) async {
     try {
       final result = await OpenFile.open(filePath);
-      
+
       if (result.type != ResultType.done) {
         _showErrorSnackBar('لا يوجد تطبيق مناسب لفتح هذا الملف');
       }
@@ -188,11 +191,10 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
       body: Column(
         children: [
           24.ph,
-          const Text(
+          Text(
             "قائمة الملفات",
-            style: TextStyle(
+            style: MainTextStyle.boldTextStyle(
               fontSize: 18,
-              fontWeight: FontWeight.bold,
             ),
           ),
           16.ph,
@@ -216,46 +218,48 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
 
               return Expanded(
                 child: ListView.separated(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                   itemBuilder: (context, index) {
                     var audioPlayListItem = audioPlaylist[index];
                     var fileType = audioPlayListItem.fileType ?? "";
                     var fileUrl = audioPlayListItem.file ?? "";
                     var title = audioPlayListItem.title ?? "ملف بدون عنوان";
-                    
-                    // تحديد أيقونة الملف
-                    IconData fileIcon;
+                    var image = audioPlayListItem.image ?? "ملف بدون صورة";
+                    var isPaid = audioPlayListItem.paymentType == "paid";
                     Color fileColor;
-                    
+
                     switch (fileType.toLowerCase()) {
                       case 'pdf':
-                        fileIcon = Icons.picture_as_pdf;
                         fileColor = Colors.red;
                         break;
                       case 'txt':
-                        fileIcon = Icons.text_snippet;
                         fileColor = Colors.blue;
                         break;
                       default:
-                        fileIcon = Icons.insert_drive_file;
                         fileColor = Colors.grey;
                     }
 
                     return TelegramStyleFileItem(
+                      isPaid: isPaid,
                       title: title,
                       fileType: fileType.toUpperCase(),
-                      fileIcon: fileIcon,
+                      image: image,
                       fileColor: fileColor,
                       isDownloading: _isDownloading[fileUrl] ?? false,
                       downloadProgress: _downloadProgress[fileUrl] ?? 0.0,
                       isDownloaded: _downloadedFiles.containsKey(fileUrl),
-                      onTap: () {
-                        if (fileUrl.isNotEmpty) {
-                          _openFile(fileUrl, fileType, title, index);
-                        } else {
-                          _showErrorSnackBar('رابط الملف غير متوفر');
-                        }
-                      },
+                      onTap: isPaid
+                          ? () {
+                            delightfulToast(message: "ليس لديك اشتراك", context: context);
+                          }
+                          : () {
+                              if (fileUrl.isNotEmpty) {
+                                _openFile(fileUrl, fileType, title, index);
+                              } else {
+                                _showErrorSnackBar('رابط الملف غير متوفر');
+                              }
+                            },
                     );
                   },
                   separatorBuilder: (context, index) => 12.ph,
@@ -265,154 +269,6 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
             },
           ),
         ],
-      ),
-    );
-  }
-}
-
-// Widget مخصص يشبه تيليجرام لعرض الملفات
-class TelegramStyleFileItem extends StatelessWidget {
-  final String title;
-  final String fileType;
-  final IconData fileIcon;
-  final Color fileColor;
-  final bool isDownloading;
-  final double downloadProgress;
-  final bool isDownloaded;
-  final VoidCallback onTap;
-
-  const TelegramStyleFileItem({
-    super.key,
-    required this.title,
-    required this.fileType,
-    required this.fileIcon,
-    required this.fileColor,
-    required this.isDownloading,
-    required this.downloadProgress,
-    required this.isDownloaded,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            // أيقونة الملف
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: fileColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Icon(
-                    fileIcon,
-                    color: fileColor,
-                    size: 24,
-                  ),
-                ),
-                // Progress indicator أثناء التحميل
-                if (isDownloading)
-                  SizedBox(
-                    width: 48.w,
-                    height: 48.h,
-                    child: CircularProgressIndicator(
-                      value: downloadProgress,
-                      backgroundColor: Colors.grey.withOpacity(0.3),
-                      valueColor: AlwaysStoppedAnimation<Color>(fileColor),
-                      strokeWidth: 3.w,
-                    ),
-                  ),
-              ],
-            ),
-            
-            16.pw,
-            
-            // معلومات الملف
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  4.ph,
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: fileColor.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          fileType,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: fileColor,
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      if (isDownloading)
-                        Text(
-                          '${(downloadProgress * 100).toInt()}%',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: fileColor,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )
-                      else if (isDownloaded)
-                        const Icon(
-                          Icons.check_circle,
-                          color: Colors.green,
-                          size: 16,
-                        )
-                      else
-                        const Icon(
-                          Icons.download,
-                          color: Colors.grey,
-                          size: 16,
-                        ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

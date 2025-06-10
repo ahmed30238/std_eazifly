@@ -90,15 +90,13 @@ class FavItemShimmerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-        padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 16.w),
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) => const LibraryFavouriteListItemShimmer(),
-        separatorBuilder: (context, index) => 24.ph,
-        itemCount: 6,
-      ),
+    return ListView.separated(
+      padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 16.w),
+      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
+      itemBuilder: (context, index) => const LibraryFavouriteListItemShimmer(),
+      separatorBuilder: (context, index) => 24.ph,
+      itemCount: 4,
     );
   }
 }

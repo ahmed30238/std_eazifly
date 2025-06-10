@@ -230,6 +230,10 @@ class Assets {
   /// assets/icons/loading-sand.svg
   static const String iconsLoadingSand = "assets/icons/loading-sand.svg";
 
+  /// Assets for iconsLock
+  /// assets/icons/lock.svg
+  static const String iconsLock = "assets/icons/lock.svg";
+
   /// Assets for iconsMale
   /// assets/icons/male.svg
   static const String iconsMale = "assets/icons/male.svg";
