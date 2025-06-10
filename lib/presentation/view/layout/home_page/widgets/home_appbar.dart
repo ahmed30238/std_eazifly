@@ -1,8 +1,13 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
+import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
+  final DataModel loginData;
+
   const HomeAppbar({
     super.key,
+    required this.loginData,
   });
 
   @override
@@ -10,7 +15,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
     return CustomAppBar(
       context,
       mainTitle: "",
-      leadingCustomWidth: 120.w,
+      leadingCustomWidth: 200.w,
       onLeadinTap: () =>
           Navigator.pushNamed(context, RoutePaths.copounsAndDiscountsViewPath),
       customLeading: Padding(
@@ -20,16 +25,16 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             Row(
               children: [
-                ImageContainer(
-                  containerHeight: 20.h,
-                  containerWidth: 20.w,
-                  image: Assets.imagesPersona,
+                AvatarImage(
+                  height: 20.h,
+                  width: 20.w,
+                  imageUrl: loginData.image,
                   shape: BoxShape.circle,
                 ),
                 4.pw,
                 Expanded(
                   child: Text(
-                    "أحمد سلامة",
+                    "${loginData.firstName} ${loginData.lastName}",
                     style: MainTextStyle.boldTextStyle(fontSize: 12),
                   ),
                 ),
@@ -44,7 +49,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
                   Assets.iconsCoin,
                 ),
                 Text(
-                  "211",
+                  loginData.bonus ?? "",
                   style: MainTextStyle.boldTextStyle(fontSize: 12),
                 ),
               ],

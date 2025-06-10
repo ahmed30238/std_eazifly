@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
@@ -22,9 +21,6 @@ class _HomePageState extends State<HomePage> {
     loginData = DataModel.fromJson(
         jsonDecode(GetStorage().read(StorageEnum.loginModel.name)));
     isGuest = loginData.isGuest ?? true;
-    log("${loginData.firstName}");
-    log("login ${loginData.isGuest}");
-    log("$isGuest");
     super.initState();
   }
 
@@ -34,7 +30,9 @@ class _HomePageState extends State<HomePage> {
 
     // var cubit = HomeCubit.get(context);
     return Scaffold(
-      appBar: const HomeAppbar(),
+      appBar: HomeAppbar(
+        loginData: loginData,
+      ),
       body: Column(
         children: [
           Expanded(
