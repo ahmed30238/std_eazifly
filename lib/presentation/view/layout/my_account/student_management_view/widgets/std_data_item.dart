@@ -1,4 +1,4 @@
-import 'package:eazifly_student/core/component/image_conainer.dart';
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -12,12 +12,20 @@ class StudentDataItem extends StatelessWidget {
   final int index;
   final double? width;
   final VoidCallback? onTrailingIconTap;
+  final String name;
+  final String age;
+  final String phoneNumber;
+  final String image;
   const StudentDataItem({
     super.key,
     required this.index,
     this.width,
     this.onTrailingIconTap,
     this.hasTrailingIcon = true,
+    required this.age,
+    required this.name,
+    required this.image,
+    required this.phoneNumber,
   });
 
   @override
@@ -39,11 +47,11 @@ class StudentDataItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           //! image
-          ImageContainer(
+          AvatarImage(
             shape: BoxShape.circle,
-            image: Assets.imagesPersona,
-            containerHeight: 45.h,
-            containerWidth: 45.w,
+            imageUrl: image,
+            height: 45.h,
+            width: 45.w,
           ),
           8.pw,
           //! name and age
@@ -52,12 +60,12 @@ class StudentDataItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "أحمد سلامة",
+                name,
                 style: MainTextStyle.boldTextStyle(fontSize: 14),
               ),
               8.ph,
               Text(
-                "15 عام",
+                "$age عام",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 12,
                   color: MainColors.grayTextColors,
@@ -84,7 +92,7 @@ class StudentDataItem extends StatelessWidget {
               ),
               8.ph,
               Text(
-                "01030837974",
+                phoneNumber,
                 style: MainTextStyle.boldTextStyle(fontSize: 14),
               ),
             ],

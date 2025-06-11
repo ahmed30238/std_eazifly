@@ -39,6 +39,10 @@ class ChosenStudentBody extends StatelessWidget {
                     ),
                   ),
                   StudentDataItem(
+                    age: "15",
+                    image: "sdf",
+                    name: "name",
+                    phoneNumber: "0104255725",
                     width: 311.w,
                     index: index,
                     hasTrailingIcon: false,

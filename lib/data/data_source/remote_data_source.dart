@@ -7,6 +7,9 @@ import 'package:eazifly_student/core/network/end_points.dart';
 import 'package:eazifly_student/core/network/error_message_model.dart';
 import 'package:eazifly_student/core/network/networkcall.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/children/create_new_child_model.dart';
+import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
+import 'package:eazifly_student/data/models/children/get_my_children_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_list_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_items_using_list_id_model.dart';
@@ -68,6 +71,9 @@ abstract class BaseRemoteDataSource {
     required int itemId,
     required bool status,
   });
+  Future<GetMyChildrenModel> getMyChildren({required bool childresStatus});
+  Future<CreateNewChildModel> createNewChild(
+      {required CreateNewChildTojson data});
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -516,6 +522,88 @@ class RemoteDataSource extends BaseRemoteDataSource {
           response?.data,
         ),
       );
+    }
+  }
+
+  @override
+  Future<GetMyChildrenModel> getMyChildren(
+      {required bool childresStatus}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getMyChildren(
+        childrensStatus: childresStatus,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      return GetMyChildrenModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<CreateNewChildModel> createNewChild(
+      {required CreateNewChildTojson data}) async {
+    try {
+      FormData formData = FormData();
+
+      // إضافة جميع الحقول النصية
+      formData.fields.addAll([
+        MapEntry("password_confirmation", data.passwordConfirmation),
+        MapEntry("user_name", data.userName),
+        MapEntry("first_name", data.firstName),
+        MapEntry("last_name", data.lastName),
+        MapEntry("email", data.email),
+        MapEntry("phone", data.phone),
+        MapEntry("whats_app", data.whatsApp),
+        MapEntry("gender", data.gender),
+        MapEntry("password", data.password),
+        MapEntry("age", data.age),
+      ]);
+
+      // إضافة الصورة إذا كانت موجودة
+      if (data.image != null && data.image!.isNotEmpty) {
+        final File imageFile = File(data.image!);
+        if (await imageFile.exists()) {
+          formData.files.add(
+            MapEntry(
+              "image",
+              await MultipartFile.fromFile(
+                data.image!,
+                filename: data.image!.split('/').last,
+              ),
+            ),
+          );
+          log('Profile image added to FormData: ${data.image!.split('/').last}');
+        } else {
+          throw Exception(
+              'Profile image file does not exist at path: ${data.image}');
+        }
+      }
+
+      log('UpdateProfile FormData fields: ${formData.fields.length}');
+      log('UpdateProfile FormData files: ${formData.files.length}');
+
+      var response = await NetworkCall().post(
+        path: EndPoints.createNewChild,
+        data: formData,
+        isMultipart: true,
+      );
+
+      if (response?.statusCode == 200) {
+        return CreateNewChildModel.fromJson(response?.data);
+      } else {
+        log('UpdateProfile Error response: ${response?.data}');
+        throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromjson(response?.data),
+        );
+      }
+    } catch (e) {
+      log('Error in updateProfile remote: $e');
+      rethrow;
     }
   }
 }

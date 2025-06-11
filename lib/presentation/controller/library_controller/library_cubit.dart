@@ -442,27 +442,6 @@ class LibraryCubit extends Cubit<LibraryState> {
     }
   }
 
-  // void _handleDownloadAndOpen({
-  //   required String fileUrl,
-  //   required String title,
-  //   required BuildContext context,
-  // }) {
-  //   _downloadAndOpenTextFile(
-  //     fileUrl: fileUrl,
-  //     title: title,
-  //     onError: (errorMessage) {
-  //       if (context.mounted) {
-  //         showErrorSnackBar(errorMessage, context);
-  //       }
-  //     },
-  //     onSuccess: (filePath) async {
-  //       if (context.mounted) {
-  //         await _openDownloadedFile(filePath: filePath, context: context);
-  //       }
-  //     },
-  //   );
-  // }
-
   Future<void> _openDownloadedFile(
       {required String filePath, required BuildContext context}) async {
     try {

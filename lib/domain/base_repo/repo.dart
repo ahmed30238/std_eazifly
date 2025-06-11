@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:eazifly_student/core/general_failure/failure.dart';
+import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
@@ -9,6 +10,8 @@ import 'package:eazifly_student/data/models/programs/assign_program_review_tojso
 import 'package:eazifly_student/domain/entities/add_single_item_to_fav_list_entity.dart';
 import 'package:eazifly_student/domain/entities/assign_program_review_entities.dart';
 import 'package:eazifly_student/domain/entities/check_copoun_entities.dart';
+import 'package:eazifly_student/domain/entities/children_entities/create_new_child_entity.dart';
+import 'package:eazifly_student/domain/entities/children_entities/get_my_children_entity.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
 import 'package:eazifly_student/domain/entities/get_all_items_entity.dart';
@@ -69,4 +72,8 @@ abstract class BaseRepository {
     required int itemId,
     required bool status,
   });
+  Future<Either<Failure, GetMyChildrenEntity>> getMyChildren(
+      {required bool childrensStatus});
+  Future<Either<Failure, CreateNewChildEntity>> createNewChild(
+      {required CreateNewChildTojson data});
 }

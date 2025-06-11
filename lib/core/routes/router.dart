@@ -6,6 +6,7 @@ import 'package:eazifly_student/presentation/controller/add_to_library_package_d
 import 'package:eazifly_student/presentation/controller/auth/login/login_cubit.dart';
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
+import 'package:eazifly_student/presentation/controller/children_controller/children_cubit.dart';
 import 'package:eazifly_student/presentation/controller/corrected_quiz_controller/correctedquiz_cubit.dart';
 import 'package:eazifly_student/presentation/controller/goal_details_controller/goal_details_cubit.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
@@ -104,7 +105,13 @@ class AppRouter {
         );
       case RoutePaths.studentManagement:
         return createRoute(
-          const StudentManagementView(),
+          BlocProvider(
+            create: (context) => ChildrenCubit(
+              getChildrenUsecase: sl(),
+              createNewChildUsecase: sl(),
+            ),
+            child: const StudentManagementView(),
+          ),
         );
       case RoutePaths.aboutAppPath:
         return createRoute(

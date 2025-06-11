@@ -3,10 +3,12 @@ import 'package:eazifly_student/data/repo/repo.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/use_cases/add_single_item_to_fav_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/create_new_child_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_order_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/filter_plans_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_items_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_library_lists_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_children_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_item_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_categories_usecase.dart';
@@ -58,5 +60,7 @@ class ServiceLocator {
     sl.registerLazySingleton(
         () => GetListItemsUsingListIdUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => LikeItemUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => GetChildrenUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => CreateNewChildUsecase(baseRepository: sl()));
   }
 }

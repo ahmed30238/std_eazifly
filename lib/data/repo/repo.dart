@@ -3,6 +3,8 @@ import 'package:eazifly_student/core/exceptions/exceptions.dart';
 import 'package:eazifly_student/core/general_failure/failure.dart';
 import 'package:eazifly_student/data/data_source/remote_data_source.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
+import 'package:eazifly_student/data/models/children/get_my_children_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_list_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_items_using_list_id_model.dart';
@@ -20,6 +22,7 @@ import 'package:eazifly_student/data/models/order_and_subscribe/get_user_orders_
 import 'package:eazifly_student/data/models/programs/assign_program_review_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
+import 'package:eazifly_student/domain/entities/children_entities/create_new_child_entity.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
 import 'package:eazifly_student/domain/entities/get_all_items_entity.dart';
@@ -269,6 +272,32 @@ class Repository extends BaseRepository {
     try {
       final result =
           await baseRemoteDataSource.likeItem(itemId: itemId, status: status);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetMyChildrenModel>> getMyChildren(
+      {required bool childrensStatus}) async {
+    try {
+      final result = await baseRemoteDataSource.getMyChildren(
+        childresStatus: childrensStatus,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CreateNewChildEntity>> createNewChild(
+      {required CreateNewChildTojson data}) async {
+    try {
+      final result = await baseRemoteDataSource.createNewChild(
+        data: data,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

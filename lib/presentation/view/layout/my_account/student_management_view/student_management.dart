@@ -1,9 +1,27 @@
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
+import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
+import 'package:eazifly_student/presentation/controller/children_controller/children_cubit.dart';
+import 'package:eazifly_student/presentation/controller/children_controller/children_state.dart';
+import 'package:eazifly_student/presentation/view/account_data/widgets/profile_image_widget.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/modal_sheet.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/std_data_item.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/std_data_item_shimmer.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class StudentManagementView extends StatelessWidget {
+class StudentManagementView extends StatefulWidget {
   const StudentManagementView({super.key});
+
+  @override
+  State<StudentManagementView> createState() => _StudentManagementViewState();
+}
+
+class _StudentManagementViewState extends State<StudentManagementView> {
+  late ChildrenCubit cubit;
+  @override
+  void initState() {
+    cubit = context.read<ChildrenCubit>();
+    cubit.getMyChildren();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,106 +37,64 @@ class StudentManagementView extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-              itemBuilder: (context, index) => StudentDataItem(
-                index: index,
-                onTrailingIconTap: () {
-                  showModalSheet(
-                    minHeight: 260.h,
-                    maxHeight: 261.h,
-                    isFixedSize: true,
-                    context,
-                    widget: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      height: 260.h,
-                      width: 375.w,
-                      decoration: BoxDecoration(
-                        borderRadius: 12.cr,
-                        color: MainColors.white,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          24.ph,
-                          InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                RoutePaths.lectureView,
-                                arguments: false,
-                              );
-                            },
-                            child: SizedBox(
-                              height: 45.h,
-                              child: Text(
-                                "عرض باقي البيانات",
-                                style:
-                                    MainTextStyle.boldTextStyle(fontSize: 14),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {},
-                            child: SizedBox(
-                              height: 45.h,
-                              child: Text(
-                                "تعديل بيانات الطالب",
-                                style:
-                                    MainTextStyle.boldTextStyle(fontSize: 14),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {},
-                            child: SizedBox(
-                              height: 45.h,
-                              child: Text(
-                                "حذف الطالب",
-                                style:
-                                    MainTextStyle.boldTextStyle(fontSize: 14),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                RoutePaths.lectureHistoryView,
-                              );
-                            },
-                            child: SizedBox(
-                              height: 45.h,
-                              child: Text(
-                                "تاريخ المحاضرات ",
-                                style:
-                                    MainTextStyle.boldTextStyle(fontSize: 14),
-                              ),
-                            ),
-                          ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     SvgPicture.asset(MyImages.iconsProfile),
-                          //     8.pw,
-                          //     Text(
-                          //       "تعديل",
-                          //       style:
-                          //           MainTextStyle.boldTextStyle(fontSize: 14),
-                          //     ),
-                          //   ],
-                          // )
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              itemCount: 13,
-              separatorBuilder: (context, index) => 16.ph,
+          BlocBuilder(
+            bloc: cubit,
+            builder: (context, state) {
+              // Handle different states
+              if (cubit.getMyChildrenLoader) {
+                return const StdDataItemShimmerList();
+              }
+
+              if (state is GetMyChildernErrorState) {
+                return Center(child: Text(state.errorMessage));
+              }
+
+              // Success state - show the list
+              var children = cubit.getMyChildrenEntity?.data;
+
+              if (children == null || children.isEmpty) {
+                return const NoDataAnimatedImageWidget(
+                  message: "No children found",
+                );
+              }
+
+              return Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () async => cubit.getMyChildren(),
+                  child: ListView.separated(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                    itemBuilder: (context, index) {
+                      var child = children[index];
+                      return StudentDataItem(
+                        age: child.age ?? "",
+                        image: child.image ?? "",
+                        name: child.firstName ?? "",
+                        phoneNumber: child.phone ?? "",
+                        index: index,
+                        onTrailingIconTap: () {
+                          childrenModalSheet(context);
+                        },
+                      );
+                    },
+                    itemCount: children.length,
+                    separatorBuilder: (context, index) => 16.ph,
+                  ),
+                ),
+              );
+            },
+          ),
+          BlocBuilder(
+            bloc: cubit,
+            builder: (context, state) => ProfileImageWidget(
+              isEditable: true,
+              image: cubit.profileImage?.path ?? "",
+              onEditTap: () {
+                cubit.pickProfileImageFroGallery();
+              },
             ),
           ),
+          // const Spacer(),
           8.ph,
           CustomElevatedButton(
             text: "إضافة طالب جديد",
@@ -127,7 +103,8 @@ class StudentManagementView extends StatelessWidget {
             width: 181.w,
             height: 40.h,
             onPressed: () {
-              Navigator.pushNamed(context, RoutePaths.addNewStudentData);
+              cubit.updateProfile();
+              // Navigator.pushNamed(context, RoutePaths.addNewStudentData);
             },
           ),
           32.ph,
