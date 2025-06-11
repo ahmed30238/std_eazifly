@@ -17,6 +17,7 @@ import 'package:eazifly_student/data/models/library/get_all_items_model.dart';
 import 'package:eazifly_student/data/models/library/get_all_library_lists_model.dart';
 import 'package:eazifly_student/data/models/library/get_library_categories_model.dart';
 import 'package:eazifly_student/data/models/library/get_list_items_using_list_id_model.dart';
+import 'package:eazifly_student/data/models/library/like_item_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_model.dart';
@@ -62,6 +63,10 @@ abstract class BaseRemoteDataSource {
   });
   Future<GetListItemsUsingListIdModel> getListItemsUsingListId({
     required int listId,
+  });
+  Future<LikeItemModel> likeItem({
+    required int itemId,
+    required bool status,
   });
 }
 
@@ -485,6 +490,26 @@ class RemoteDataSource extends BaseRemoteDataSource {
     );
     if (response?.statusCode == 200) {
       return GetListItemsUsingListIdModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<LikeItemModel> likeItem(
+      {required int itemId, required bool status}) async {
+    var response = await NetworkCall().post(
+      path: EndPoints.likeItem(
+        itemId: itemId,
+        status: status,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      return LikeItemModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

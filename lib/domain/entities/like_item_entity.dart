@@ -1,9 +1,9 @@
-import 'package:eazifly_student/data/models/library/get_all_items_model.dart';
+import 'package:eazifly_student/data/models/library/like_item_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-class GetAllItemsEntity {
+class LikeItemEntity {
   @JsonKey(name: "data")
-  List<ItemModel>? data;
+  LikeItemDataModel? data;
 
   @JsonKey(name: "status")
   int? status;
@@ -11,14 +11,14 @@ class GetAllItemsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetAllItemsEntity({
+  LikeItemEntity({
     this.data,
     this.status,
     this.message,
   });
 }
 
-class ItemEntity {
+class LikeItemDataEntity {
   @JsonKey(name: "id")
   int? id;
 
@@ -52,7 +52,7 @@ class ItemEntity {
   @JsonKey(name: "liked")
   bool? liked;
 
-  ItemEntity({
+  LikeItemDataEntity({
     this.id,
     this.title,
     this.description,

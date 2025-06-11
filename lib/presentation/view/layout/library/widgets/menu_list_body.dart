@@ -18,9 +18,21 @@ class MenuListBody extends StatelessWidget {
         if (!cubit.getAllLibraryListsLoader) {
           var menuList = cubit.allLibraryListsEntity?.data;
           return ListView.separated(
+            padding: EdgeInsets.all(16.r),
             itemBuilder: (context, index) {
               var menuItem = menuList?[index];
+
               return LibraryMenuListItem(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    RoutePaths.audioPlayListView,
+                    arguments: {
+                      "cubit": cubit,
+                      "listId": menuItem?.id,
+                    },
+                  );
+                },
                 index: index,
                 image: menuItem?.image ?? "",
                 title: menuItem?.title ?? "",

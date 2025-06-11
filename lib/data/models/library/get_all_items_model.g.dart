@@ -34,7 +34,7 @@ ItemModel _$ItemModelFromJson(Map<String, dynamic> json) => ItemModel()
   ..createdAt = json['created_at'] == null
       ? null
       : DateTime.parse(json['created_at'] as String)
-  ..liked = json['liked'] as String?;
+  ..liked = json['liked'] as bool?;
 
 Map<String, dynamic> _$ItemModelToJson(ItemModel instance) => <String, dynamic>{
       'id': instance.id,

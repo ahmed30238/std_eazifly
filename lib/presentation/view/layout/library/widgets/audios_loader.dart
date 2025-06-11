@@ -11,7 +11,7 @@ class AudiosLoaderShimmer extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
-        itemCount: 2, 
+        itemCount: 2,
         separatorBuilder: (context, index) => 12.pw,
         itemBuilder: (context, index) {
           return Container(
@@ -31,7 +31,6 @@ class AudiosLoaderShimmer extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.grey[300],
                     borderRadius: 8.cr,
-                    
                   ),
                   child: const ShimmerWidget(),
                 ),
@@ -98,7 +97,11 @@ class AudioShimmerList extends StatelessWidget {
       itemBuilder: (context, index) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            decoration: BoxDecoration(
+              borderRadius: 4.cr,
+            ),
             height: 10.h,
             width: 300.w,
             child: const ShimmerWidget(),
@@ -108,7 +111,7 @@ class AudioShimmerList extends StatelessWidget {
         ],
       ),
       separatorBuilder: (context, index) => 24.ph,
-      itemCount: 2,
+      itemCount: 3,
     );
   }
 }

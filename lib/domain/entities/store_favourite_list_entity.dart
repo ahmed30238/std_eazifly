@@ -18,23 +18,23 @@ class StoreFavouriteListEntity {
   });
 }
 
-class StoreFavouriteDataEntity {
-  @JsonKey(name: "id")
-  int? id;
+// class StoreFavouriteDataEntity {
+//   @JsonKey(name: "id")
+//   int? id;
 
-  @JsonKey(name: "title")
-  String? title;
+//   @JsonKey(name: "title")
+//   String? title;
 
-  @JsonKey(name: "image")
-  dynamic image;
+//   @JsonKey(name: "image")
+//   dynamic image;
 
-  @JsonKey(name: "number_of_items")
-  int? numberOfItems;
+//   @JsonKey(name: "number_of_items")
+//   int? numberOfItems;
 
-  StoreFavouriteDataEntity({
-    this.id,
-    this.title,
-    this.image,
-    this.numberOfItems,
-  });
-}
+//   StoreFavouriteDataEntity({
+//     this.id,
+//     this.title,
+//     this.image,
+//     this.numberOfItems,
+//   });
+// }

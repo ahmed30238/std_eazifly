@@ -99,11 +99,10 @@ class _AllItemsBottomSheetState extends State<AllItemsBottomSheet> {
               );
             },
           ),
-          if (cubit.getAllItemsLoader) const Spacer(),
           BlocBuilder(
             bloc: cubit,
             builder: (context, state) => CustomElevatedButton(
-              text:  "إنشاء",
+              text: "إنشاء",
               radius: 16.r,
               color: MainColors.blueTextColor,
               width: 127.w,

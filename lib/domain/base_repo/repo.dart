@@ -24,6 +24,7 @@ import 'package:eazifly_student/domain/entities/get_program_details_entities.dar
 import 'package:eazifly_student/domain/entities/get_program_payment_methods_entities.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/domain/entities/get_user_orders_entities.dart';
+import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/login_entities.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
 
@@ -64,4 +65,8 @@ abstract class BaseRepository {
       {required AddSingleItemToFavListTojson data});
   Future<Either<Failure, GetListItemsUsingListIdEntity>>
       getListItemsUsingListId({required int listId});
+  Future<Either<Failure, LikeItemEntity>> likeItem({
+    required int itemId,
+    required bool status,
+  });
 }

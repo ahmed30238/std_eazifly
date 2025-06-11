@@ -23,11 +23,11 @@ class FavouriteBody extends StatelessWidget {
         }
 
         // Default/loaded state
-        var favouriteList = cubit.getFavouriteListEntity?.data;
+        var favouriteList = cubit.allFavourites;
         return ListView.separated(
-          padding: EdgeInsets.symmetric(vertical: 16.h,horizontal: 16.w),
+          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
           itemBuilder: (context, index) {
-            var item = favouriteList![index];
+            var item = favouriteList[index];
             return LibraryFavouriteListItem(
               onTap: () => Navigator.pushNamed(
                 context,
@@ -48,7 +48,7 @@ class FavouriteBody extends StatelessWidget {
             );
           },
           separatorBuilder: (context, index) => 12.ph,
-          itemCount: favouriteList?.length ?? 0,
+          itemCount: favouriteList.length,
           physics: const BouncingScrollPhysics(),
         );
       },

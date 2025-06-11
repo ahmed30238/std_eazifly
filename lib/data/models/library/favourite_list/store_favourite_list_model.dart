@@ -1,3 +1,4 @@
+import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'store_favourite_list_model.g.dart';
@@ -13,7 +14,7 @@ class StoreFavouriteListModel extends StoreFavouriteListEntity {
 }
 
 @JsonSerializable(explicitToJson: true)
-class StoreFavouriteDataModel extends StoreFavouriteDataEntity {
+class StoreFavouriteDataModel extends FavouriteDatumEntity {
   StoreFavouriteDataModel();
 
   factory StoreFavouriteDataModel.fromJson(Map<String, dynamic> json) =>

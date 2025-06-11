@@ -29,7 +29,7 @@ StoreFavouriteDataModel _$StoreFavouriteDataModelFromJson(
     StoreFavouriteDataModel()
       ..id = (json['id'] as num?)?.toInt()
       ..title = json['title'] as String?
-      ..image = json['image']
+      ..image = json['image'] as String?
       ..numberOfItems = (json['number_of_items'] as num?)?.toInt();
 
 Map<String, dynamic> _$StoreFavouriteDataModelToJson(

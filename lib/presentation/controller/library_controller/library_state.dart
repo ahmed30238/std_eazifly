@@ -81,6 +81,7 @@ class AddSingleItemToFavListErrorState extends LibraryState {
 
   AddSingleItemToFavListErrorState({required this.errorMessage});
 }
+
 class GetListItemsLoadingState extends LibraryState {}
 
 class ListItemsSuccessState extends LibraryState {}
@@ -90,3 +91,25 @@ class GetListItemsErrorState extends LibraryState {
 
   GetListItemsErrorState({required this.errorMessage});
 }
+
+class DownLoadPdfLoadingState extends LibraryState {}
+
+class DownLoadPdfSuccessState extends LibraryState {}
+
+class DownLoadPdfErrorState extends LibraryState {}
+
+class DownloadTextFileLoadingState extends LibraryState {}
+
+class DownloadTextFileErrorState extends LibraryState {}
+
+class DownloadTextFileSuccessState extends LibraryState {}
+
+class LikeItemSuccessState extends LibraryState {}
+
+class LikeItemErrorState extends LibraryState {
+  final String errorMessage;
+
+  LikeItemErrorState({required this.errorMessage});
+}
+
+class LikeItemLoadingState extends LibraryState {}
