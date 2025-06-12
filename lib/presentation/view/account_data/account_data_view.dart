@@ -58,8 +58,15 @@ class _AccountDataState extends State<AccountData> {
         customAction: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: const AppbarIconWidget(
-              iconWidget: Icon(
+            child: AppbarIconWidget(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RoutePaths.editProfile,
+                  arguments: cubit,
+                );
+              },
+              iconWidget: const Icon(
                 Icons.edit,
               ),
             ),

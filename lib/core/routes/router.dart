@@ -21,6 +21,7 @@ import 'package:eazifly_student/presentation/controller/programs_under_review/pr
 import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
 import 'package:eazifly_student/presentation/controller/subscription_details_controller/subscriptiondetails_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
+import 'package:eazifly_student/presentation/view/account_data/edit_profile_view/edit_profile_view.dart';
 import 'package:eazifly_student/presentation/view/auth/login/login.dart';
 import 'package:eazifly_student/presentation/view/chat/chats_view.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
@@ -101,6 +102,14 @@ class AppRouter {
           BlocProvider(
             create: (context) => AccountdataCubit(),
             child: const AccountData(),
+          ),
+        );
+      case RoutePaths.editProfile:
+        var cubit = settings.arguments as AccountdataCubit;
+        return createRoute(
+          BlocProvider.value(
+            value: cubit,
+            child: const EditProfile(),
           ),
         );
       case RoutePaths.studentManagement:

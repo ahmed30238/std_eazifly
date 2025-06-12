@@ -10,6 +10,7 @@ class RoutePaths {
   static const aboutAppPath = "aboutAppPath";
   static const splashScreen = "splashScreen";
   static const favPlaylistDetails = "favPlaylistDetails";
+  static const editProfile = "editProfile";
   // static const allPossibleFavItems = "allPossibleFavItems";
   static const confirmPaymentView = "confirmPaymentView";
   static const audioPlayListView = "audioPlayListView";
