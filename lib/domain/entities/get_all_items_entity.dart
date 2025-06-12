@@ -19,6 +19,10 @@ class GetAllItemsEntity {
 }
 
 class ItemEntity {
+  static int? customInt(val) {
+    return int.tryParse(val?.toString() ?? "");
+  }
+
   @JsonKey(name: "id")
   int? id;
 
@@ -37,8 +41,8 @@ class ItemEntity {
   @JsonKey(name: "file_type")
   String? fileType;
 
-  @JsonKey(name: "library_list_id")
-  String? libraryListId;
+  @JsonKey(name: "library_list_id", fromJson: customInt)
+  int? libraryListId;
 
   @JsonKey(name: "payment_type")
   String? paymentType;

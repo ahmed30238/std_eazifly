@@ -1,5 +1,6 @@
 import 'package:eazifly_student/presentation/controller/add_to_library_package_details_controller/addtolibrarypackagedetails_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class AddToLibraryPackageDetailsView extends StatefulWidget {
   const AddToLibraryPackageDetailsView({super.key});
@@ -12,9 +13,13 @@ class AddToLibraryPackageDetailsView extends StatefulWidget {
 class _AddToLibraryPackageDetailsViewState
     extends State<AddToLibraryPackageDetailsView>
     with SingleTickerProviderStateMixin {
+  late AddtolibrarypackagedetailsCubit cubit;
+
   @override
   void initState() {
-    AddtolibrarypackagedetailsCubit.get(context).initTabBarControllers(this);
+    cubit = context.read<AddtolibrarypackagedetailsCubit>();
+    cubit.initTabBarControllers(this);
+    cubit.getPlanSubsriptionPeriod(); // This will also load library plans
     super.initState();
   }
 
@@ -46,123 +51,153 @@ class _AddToLibraryPackageDetailsViewState
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
-                    CustomFilledTabBar(
-                      margin: EdgeInsets.zero,
-                      innerRadius: 12.r,
-                      outerRadius: 12.cr,
-                      controller: cubit.controller,
-                      onTap: (v) {},
-                      tabs: List.generate(
-                        cubit.subscriptionTypeTabs.length,
-                        (index) {
-                          bool isSelected = cubit.controller.index == index;
-                          return Text(
-                            cubit.subscriptionTypeTabs[index],
-                            style: MainTextStyle.boldTextStyle(
-                              fontSize: 12,
-                              color: isSelected
-                                  ? MainColors.white
-                                  : MainColors.black,
+                    cubit.getPlanSubscriptionLoader || cubit.controller == null
+                        ? const Center(
+                            child: CircularProgressIndicator.adaptive())
+                        : CustomFilledTabBar(
+                            margin: EdgeInsets.zero,
+                            innerRadius: 12.r,
+                            outerRadius: 12.cr,
+                            controller: cubit.controller!,
+                            onTap: (v) {
+                              // Tab change is handled in controller listener
+                            },
+                            tabs: List.generate(
+                              cubit.subscriptionTypeTabs.length,
+                              (index) {
+                                bool isSelected =
+                                    cubit.controller!.index == index;
+                                return Text(
+                                  cubit.subscriptionTypeTabs[index],
+                                  style: MainTextStyle.boldTextStyle(
+                                    fontSize: 12,
+                                    color: isSelected
+                                        ? MainColors.white
+                                        : MainColors.black,
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
+                          ),
+                    if (!cubit.getPlanSubscriptionLoader &&
+                        cubit.controller != null)
+                      Positioned(
+                        left: 15.w,
+                        top: 0.h,
+                        child: OfferContainer(
+                          height: 25.h,
+                          width: 73.w,
+                          offerText: "وفر 20%",
+                        ),
                       ),
-                    ),
-                    Positioned(
-                      left: 15.w,
-                      top: 0.h,
-                      child: OfferContainer(
-                        height: 25.h,
-                        width: 73.w,
-                        offerText: "وفر 20%",
-                      ),
-                    ),
                   ],
                 ),
               ),
             ),
             18.ph,
-            SizedBox(
-              height: 423.h,
+            Expanded(
               child: BlocBuilder(
                 bloc: cubit,
-                builder: (context, state) => ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 3,
-                  separatorBuilder: (context, index) => 16.pw,
-                  itemBuilder: (context, index) {
-                    bool isSelected = index == cubit.packageIndex;
-                    return InkWell(
-                      onTap: () => cubit.changePackageIndex(index),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        height: 423.h,
-                        width: 295.w,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: isSelected
-                                ? MainColors.blueTextColor
-                                : MainColors.black,
-                          ),
-                          color: isSelected
-                              ? MainColors.lightblue
-                              : MainColors.white,
-                          borderRadius: 12.cr,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            16.ph,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                builder: (context, state) {
+                  if (cubit.getLibraryPlansLoader) {
+                    return const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+                  }
+
+                  if (cubit.getLibraryPlansEntity?.data?.isEmpty ?? true) {
+                    return const Center(
+                      child: Text("لا توجد باقات متاحة"),
+                    );
+                  }
+
+                  return SizedBox(
+                    height: 423.h,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: cubit.getLibraryPlansEntity?.data?.length ?? 0,
+                      separatorBuilder: (context, index) => 16.pw,
+                      itemBuilder: (context, index) {
+                        final plan = cubit.getLibraryPlansEntity!.data![index];
+                        bool isSelected = index == cubit.packageIndex;
+
+                        return InkWell(
+                          onTap: () => cubit.changePackageIndex(index),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            height: 423.h,
+                            width: 295.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: isSelected
+                                    ? MainColors.blueTextColor
+                                    : MainColors.black,
+                              ),
+                              color: isSelected
+                                  ? MainColors.lightblue
+                                  : MainColors.white,
+                              borderRadius: 12.cr,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "إسم الباقة",
-                                  style: MainTextStyle.boldTextStyle(
-                                    fontSize: 14,
-                                  ),
+                                16.ph,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      plan.title ?? "إسم الباقة",
+                                      style: MainTextStyle.boldTextStyle(
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${plan.price ?? 0} / شهريا",
+                                      style: MainTextStyle.boldTextStyle(
+                                          fontSize: 14,
+                                          color: MainColors.grayTextColors),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  "السعر / شهريا",
-                                  style: MainTextStyle.boldTextStyle(
-                                      fontSize: 14,
-                                      color: MainColors.grayTextColors),
-                                ),
+                                8.ph,
+                                const CustomHorizontalDivider(),
+                                8.ph,
+                                Html(data: plan.description),
+                                // Expanded(
+                                //   child: ListView.separated(
+                                //     separatorBuilder: (context, index) => 20.ph,
+                                //     physics: const BouncingScrollPhysics(),
+                                //     itemBuilder: (context, featureIndex) =>
+                                //         PackageFeatureItem(
+                                //       areaHeight: 48.h,
+                                //       text:  ??
+                                //           "خر تطورات الإدارة والعلوادر موثوقة وحديثة",
+                                //     ),
+                                //     itemCount: 4,
+                                //   ),
+                                // )
                               ],
                             ),
-                            8.ph,
-                            const CustomHorizontalDivider(),
-                            8.ph,
-                            Expanded(
-                              child: ListView.separated(
-                                separatorBuilder: (context, index) => 20.ph,
-                                // padding: ,
-                                physics: const BouncingScrollPhysics(),
-                                itemBuilder: (context, index) =>
-                                    PackageFeatureItem(
-                                  areaHeight: 48.h,
-                                  text:
-                                      "خر تطورات الإدارة والعلوادر موثوقة وحديثة",
-                                ),
-                                itemCount: 5,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
               ),
             ),
-            const Spacer(),
+            32.ph,
             CustomElevatedButton(
               text: "إشتراك",
               color: MainColors.blueTextColor,
               radius: 16.r,
               onPressed: () {
                 // TODO add programId as arguments
-                Navigator.pushNamed(context, RoutePaths.programSubscriptionPlan);
+                Navigator.pushNamed(
+                  context,
+                  RoutePaths.confirmPaymentView,
+                );
               },
             ),
             32.ph,

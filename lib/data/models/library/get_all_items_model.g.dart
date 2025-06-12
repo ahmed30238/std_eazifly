@@ -28,7 +28,7 @@ ItemModel _$ItemModelFromJson(Map<String, dynamic> json) => ItemModel()
   ..image = json['image'] as String?
   ..file = json['file'] as String?
   ..fileType = json['file_type'] as String?
-  ..libraryListId = json['library_list_id'] as String?
+  ..libraryListId = ItemEntity.customInt(json['library_list_id'])
   ..paymentType = json['payment_type'] as String?
   ..itemType = json['item_type'] as String?
   ..createdAt = json['created_at'] == null

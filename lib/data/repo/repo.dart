@@ -13,6 +13,11 @@ import 'package:eazifly_student/data/models/library/favourite_list/store_favouri
 import 'package:eazifly_student/data/models/library/get_all_library_lists_model.dart';
 import 'package:eazifly_student/data/models/library/get_library_categories_model.dart';
 import 'package:eazifly_student/data/models/library/get_list_items_using_list_id_model.dart';
+import 'package:eazifly_student/data/models/library/library_order_and_subscribe_tojson.dart';
+import 'package:eazifly_student/data/models/library/library_order_and_subscription_model.dart';
+import 'package:eazifly_student/data/models/library/plans/get_library_plans_model.dart';
+import 'package:eazifly_student/data/models/library/plans/get_plan_subscription_period_model.dart';
+import 'package:eazifly_student/data/models/library/show_library_item_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
@@ -298,6 +303,54 @@ class Repository extends BaseRepository {
       final result = await baseRemoteDataSource.createNewChild(
         data: data,
       );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ShowLibraryItemModel>> showLibraryItem(
+      {required int itemId}) async {
+    try {
+      final result = await baseRemoteDataSource.showLibraryItem(
+        itemId: itemId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetPlanSubscriptionPeriodModel>>
+      getPlanSubscriptionPeriod() async {
+    try {
+      final result = await baseRemoteDataSource.getPlanSubscriptionPeriod();
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetLibraryPlansModel>> getLibraryPlans(
+      {required int days}) async {
+    try {
+      final result = await baseRemoteDataSource.getLibraryPlans(days: days);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, LibraryOrderAndSubscriptionModel>>
+      libraryOrderAndSubscribe(
+          {required LibraryOrderAndSubscribeTojson data}) async {
+    try {
+      final result =
+          await baseRemoteDataSource.libraryOrderAndSubscription(data: data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

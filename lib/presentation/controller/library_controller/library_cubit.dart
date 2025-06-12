@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
+import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_model.dart';
@@ -16,6 +17,7 @@ import 'package:eazifly_student/domain/entities/get_favourite_list_items_using_l
 import 'package:eazifly_student/domain/entities/get_library_category_entity.dart';
 import 'package:eazifly_student/domain/entities/get_list_items_using_list_id_entity.dart';
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
+import 'package:eazifly_student/domain/entities/show_library_item_entity.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/use_cases/add_single_item_to_fav_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_items_usecase.dart';
@@ -25,29 +27,32 @@ import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart
 import 'package:eazifly_student/domain/use_cases/get_library_categories_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_list_items_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/like_item_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/show_library_item_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/store_favourite_list_usecase.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_body.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/favourite_body.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/menu_list_body.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/visuals_body.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
 class LibraryCubit extends Cubit<LibraryState> {
-  LibraryCubit({
-    required this.libraryCategoriesUsecase,
-    required this.allLibraryListsUsecase,
-    required this.storeFavouriteListUsecase,
-    required this.getFavouriteListUsecase,
-    required this.getFavouriteListItemUsingListIdUsecase,
-    required this.getAllItemsUsecase,
-    required this.addSingleItemToFavListUsecase,
-    required this.getListItemsUsingListIdUsecase,
-    required this.likeItemUsecase,
-  }) : super(LibraryInitial());
+  LibraryCubit(
+      {required this.libraryCategoriesUsecase,
+      required this.allLibraryListsUsecase,
+      required this.storeFavouriteListUsecase,
+      required this.getFavouriteListUsecase,
+      required this.getFavouriteListItemUsingListIdUsecase,
+      required this.getAllItemsUsecase,
+      required this.addSingleItemToFavListUsecase,
+      required this.getListItemsUsingListIdUsecase,
+      required this.likeItemUsecase,
+      required this.getLibraryItemsUsecase})
+      : super(LibraryInitial());
   static LibraryCubit get(context) => BlocProvider.of(context);
   initTabController(TickerProvider vsync) {
     tabController = TabController(length: 4, vsync: vsync)
@@ -139,7 +144,7 @@ class LibraryCubit extends Cubit<LibraryState> {
         final File file = favListImage!;
 
         if (!await file.exists()) {
-          throw Exception('Profile image file does not exist');
+          throw Exception('Fav image file does not exist');
         }
 
         imagePath = file.path;
@@ -177,7 +182,7 @@ class LibraryCubit extends Cubit<LibraryState> {
       );
     } catch (e) {
       storeFavouriteListLoader = false;
-      log("Error in updateProfile: $e");
+      log("Error in StoreFav: $e");
       emit(StoreFavouriteListErrorState(errorMessage: e.toString()));
     }
   }
@@ -339,6 +344,77 @@ class LibraryCubit extends Cubit<LibraryState> {
         getAllItemsEntity = success;
         getAllItemsLoader = false;
         emit(GetAllItemsSuccessState());
+      },
+    );
+  }
+
+  bool getLibraryItemsLoader = false;
+  ShowLibraryItemEntity? libraryItemsEntity;
+  ShowLibraryItemUsecase getLibraryItemsUsecase;
+
+  Future<void> showLibraryItem(
+      {required int itemId, required BuildContext context}) async {
+    getLibraryItemsLoader = true;
+    emit(GetLibraryItemsLoadingState());
+
+    final result = await getLibraryItemsUsecase.call(
+        parameter: ShowLibraryItemParameters(itemId: itemId));
+
+    result.fold(
+      (failure) {
+        getLibraryItemsLoader = false;
+        emit(GetLibraryItemsErrorState(errorMessage: failure.message));
+      },
+      (success) async {
+        libraryItemsEntity = success;
+        getLibraryItemsLoader = false;
+        emit(GetLibraryItemsSuccessState());
+        if (success.status != 201) {
+          delightfulToast(message: "${success.message}", context: context);
+          showModalSheet(
+              isFixedSize: true,
+              maxHeight: 230.h,
+              minHeight: 229.h,
+              context,
+              widget: Column(
+                children: [
+                  Text(
+                    "هل تود الاشتراك",
+                    style: MainTextStyle.boldTextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      CustomElevatedButton(
+                        text: "نعم",
+                        color: MainColors.greenTeal,
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            RoutePaths.addToLibraryPackageDetailsView,
+                          );
+                        },
+                      ),
+                      CustomElevatedButton(
+                        color: MainColors.red,
+                        text: "لا",
+                        onPressed: () {
+                          back(context);
+                        },
+                      ),
+                    ],
+                  )
+                ],
+              ));
+        } else {
+          await openFile(
+            fileUrl: success.data?.file ?? "",
+            fileType: success.data?.fileType ?? "",
+            context: context,
+            title: success.data?.title ?? "",
+          );
+        }
       },
     );
   }

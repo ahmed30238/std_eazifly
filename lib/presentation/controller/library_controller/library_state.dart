@@ -113,3 +113,12 @@ class LikeItemErrorState extends LibraryState {
 }
 
 class LikeItemLoadingState extends LibraryState {}
+class GetLibraryItemsSuccessState extends LibraryState {}
+
+class GetLibraryItemsErrorState extends LibraryState {
+  final String errorMessage;
+
+  GetLibraryItemsErrorState({required this.errorMessage});
+}
+
+class GetLibraryItemsLoadingState extends LibraryState {}

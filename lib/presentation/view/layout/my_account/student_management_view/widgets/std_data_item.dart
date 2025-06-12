@@ -59,9 +59,14 @@ class StudentDataItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                name,
-                style: MainTextStyle.boldTextStyle(fontSize: 14),
+              SizedBox(
+                width: 100.w,
+                child: Text(
+                  name,
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                  textWidthBasis: TextWidthBasis.longestLine,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               8.ph,
               Text(

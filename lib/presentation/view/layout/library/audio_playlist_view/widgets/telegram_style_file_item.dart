@@ -136,9 +136,9 @@ class TelegramStyleFileItem extends StatelessWidget {
             ),
           ),
         ),
-        if (isPaid) ...{
-          SvgPicture.asset(Assets.iconsLock),
-        }
+        // if (isPaid) ...{
+        //   SvgPicture.asset(Assets.iconsLock),
+        // }
       ],
     );
   }

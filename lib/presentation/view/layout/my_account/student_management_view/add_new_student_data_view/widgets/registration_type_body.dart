@@ -34,22 +34,25 @@ class RegistrationTypeBody extends StatelessWidget {
           ),
         ),
         32.ph,
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 49.w, vertical: 24.h),
-          height: 235.h,
-          width: 248.w,
-          decoration: BoxDecoration(
-            borderRadius: 24.cr,
-            color: MainColors.formFieldgrayfillColor,
-          ),
-          child: Column(
-            children: [
-              SvgPicture.asset(Assets.iconsAddAnotherStudent),
-              Text(
-                "أضافة طالب أخر",
-                style: MainTextStyle.boldTextStyle(fontSize: 15),
-              ),
-            ],
+        InkWell(
+          onTap: () => cubit.incrementScreenIndex(),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 49.w, vertical: 24.h),
+            height: 235.h,
+            width: 248.w,
+            decoration: BoxDecoration(
+              borderRadius: 24.cr,
+              color: MainColors.formFieldgrayfillColor,
+            ),
+            child: Column(
+              children: [
+                SvgPicture.asset(Assets.iconsAddAnotherStudent),
+                Text(
+                  "أضافة طالب أخر",
+                  style: MainTextStyle.boldTextStyle(fontSize: 15),
+                ),
+              ],
+            ),
           ),
         ),
       ],

@@ -12,14 +12,4 @@ class GetMyChildernErrorState extends ChildrenState {
 
 class GetMyChildernSuccessState extends ChildrenState {}
 
-class PickImageFromGallerySuccessState extends ChildrenState {}
 
-class CreateNewChildErrorState extends ChildrenState {
-  final String errorMessage;
-
-  CreateNewChildErrorState({required this.errorMessage});
-}
-
-class CreateNewChildLoadingState extends ChildrenState {}
-
-class CreateNewChildSuccessState extends ChildrenState {}

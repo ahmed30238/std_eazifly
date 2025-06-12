@@ -3,6 +3,7 @@ import 'package:eazifly_student/core/general_failure/failure.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_tojson.dart';
+import 'package:eazifly_student/data/models/library/library_order_and_subscribe_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
@@ -19,16 +20,20 @@ import 'package:eazifly_student/domain/entities/get_all_library_lists_entity.dar
 import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_items_using_list_id_entity.dart';
 import 'package:eazifly_student/domain/entities/get_library_category_entity.dart';
+import 'package:eazifly_student/domain/entities/get_library_plans_entity.dart';
 import 'package:eazifly_student/domain/entities/get_list_items_using_list_id_entity.dart';
 import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
+import 'package:eazifly_student/domain/entities/get_plan_subscription_period_entity.dart';
 import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
 import 'package:eazifly_student/domain/entities/get_program_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_program_payment_methods_entities.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/domain/entities/get_user_orders_entities.dart';
+import 'package:eazifly_student/domain/entities/library_order_and_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/login_entities.dart';
+import 'package:eazifly_student/domain/entities/show_library_item_entity.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
 
 abstract class BaseRepository {
@@ -76,4 +81,12 @@ abstract class BaseRepository {
       {required bool childrensStatus});
   Future<Either<Failure, CreateNewChildEntity>> createNewChild(
       {required CreateNewChildTojson data});
+  Future<Either<Failure, ShowLibraryItemEntity>> showLibraryItem(
+      {required int itemId});
+  Future<Either<Failure, GetPlanSubscriptionPeriodEntity>>
+      getPlanSubscriptionPeriod();
+  Future<Either<Failure, GetLibraryPlansEntity>> getLibraryPlans(
+      {required int days});
+  Future<Either<Failure, LibraryOrderAndSubscriptionEntity>>
+      libraryOrderAndSubscribe({required LibraryOrderAndSubscribeTojson data});
 }

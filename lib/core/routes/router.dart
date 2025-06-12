@@ -117,7 +117,7 @@ class AppRouter {
           BlocProvider(
             create: (context) => ChildrenCubit(
               getChildrenUsecase: sl(),
-              createNewChildUsecase: sl(),
+              // createNewChildUsecase: sl(),
             ),
             child: const StudentManagementView(),
           ),
@@ -372,7 +372,10 @@ class AppRouter {
       case RoutePaths.addToLibraryPackageDetailsView:
         return createRoute(
           BlocProvider(
-            create: (context) => AddtolibrarypackagedetailsCubit(),
+            create: (context) => AddtolibrarypackagedetailsCubit(
+              getPlanSubscriptionUsecase: sl(),
+              getLibraryPlansUsecase: sl(),
+            ),
             child: const AddToLibraryPackageDetailsView(),
           ),
         );
@@ -400,7 +403,9 @@ class AppRouter {
       case RoutePaths.addNewStudentData:
         return createRoute(
           BlocProvider(
-            create: (context) => AddNewStudentDataToProgramCubit(),
+            create: (context) => AddNewStudentDataToProgramCubit(
+              createNewChildUsecase: sl(),
+            ),
             child: const AddNewStudentDataView(),
           ),
         );

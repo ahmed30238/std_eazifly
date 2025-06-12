@@ -10,6 +10,7 @@ class ProfileImageWidget extends StatelessWidget {
   final double? borderWidth;
   final Color? borderColor;
   final String image;
+  final VoidCallback? onTap;
   // final DecorationImage decorationImage;
   final VoidCallback onEditTap;
   const ProfileImageWidget({
@@ -22,6 +23,7 @@ class ProfileImageWidget extends StatelessWidget {
     this.width,
     // required this.decorationImage,
     required this.onEditTap,
+    this.onTap,
   });
 
   @override
@@ -32,20 +34,23 @@ class ProfileImageWidget extends StatelessWidget {
       children: [
         Align(
           alignment: Alignment.bottomCenter,
-          child: AvatarImage(
-            imageUrl: image,
-            shape: BoxShape.circle,
-            // clipBehavior: Clip.antiAliasWithSaveLayer,
-            height: height ?? 100.h,
-            width: width ?? 100.w,
-            // decoration: BoxDecoration(
-            //   shape: BoxShape.circle,
-            //   border: Border.all(
-            //     color: borderColor ?? MainColors.blueTextColor,
-            //     width: borderWidth ?? 3.w,
-            //   ),
-            //   image: decorationImage,
-            // ),
+          child: GestureDetector(
+            onTap: onTap,
+            child: AvatarImage(
+              imageUrl: image,
+              shape: BoxShape.circle,
+              // clipBehavior: Clip.antiAliasWithSaveLayer,
+              height: height ?? 100.h,
+              width: width ?? 100.w,
+              // decoration: BoxDecoration(
+              //   shape: BoxShape.circle,
+              //   border: Border.all(
+              //     color: borderColor ?? MainColors.blueTextColor,
+              //     width: borderWidth ?? 3.w,
+              //   ),
+              //   image: decorationImage,
+              // ),
+            ),
           ),
         ),
         if (isEditable!) ...{

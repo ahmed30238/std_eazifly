@@ -91,33 +91,41 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
                     }
 
                     return TelegramStyleFileItem(
-                      isPaid: isPaid,
-                      title: title,
-                      fileType: fileType.toUpperCase(),
-                      image: image,
-                      fileColor: fileColor,
-                      isDownloading: cubit.isDownloading[fileUrl] ?? false,
-                      downloadProgress:
-                          cubit.downloadingProgress[fileUrl] ?? 0.0,
-                      isDownloaded: cubit.downloadedFiles.containsKey(fileUrl),
-                      onTap: isPaid
-                          ? () {
-                              delightfulToast(
-                                  message: "ليس لديك اشتراك", context: context);
-                            }
-                          : () {
-                              if (fileUrl.isNotEmpty) {
-                                cubit.openFile(
-                                    fileUrl: fileUrl,
-                                    fileType: fileType,
-                                    title: title,
+                        isPaid: isPaid,
+                        title: title,
+                        fileType: fileType.toUpperCase(),
+                        image: image,
+                        fileColor: fileColor,
+                        isDownloading: cubit.isDownloading[fileUrl] ?? false,
+                        downloadProgress:
+                            cubit.downloadingProgress[fileUrl] ?? 0.0,
+                        isDownloaded:
+                            cubit.downloadedFiles.containsKey(fileUrl),
+                        onTap: cubit.getLibraryItemsLoader
+                            ? () {}
+                            : () {
+                                cubit.showLibraryItem(
+                                    itemId: audioPlayListItem.id ?? 0,
                                     context: context);
-                              } else {
-                                cubit.showErrorSnackBar(
-                                    'رابط الملف غير متوفر', context);
                               }
-                            },
-                    );
+                        // isPaid
+                        //     ? () {
+                        //         delightfulToast(
+                        //             message: "ليس لديك اشتراك", context: context);
+                        //       }
+                        //     : () {
+                        //         if (fileUrl.isNotEmpty) {
+                        //           cubit.openFile(
+                        //               fileUrl: fileUrl,
+                        //               fileType: fileType,
+                        //               title: title,
+                        //               context: context);
+                        //         } else {
+                        //           cubit.showErrorSnackBar(
+                        //               'رابط الملف غير متوفر', context);
+                        //         }
+                        //       },
+                        );
                   },
                   separatorBuilder: (context, index) => 12.ph,
                   itemCount: audioPlaylist.length,

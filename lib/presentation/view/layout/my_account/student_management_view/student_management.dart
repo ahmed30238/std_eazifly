@@ -1,7 +1,6 @@
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/presentation/controller/children_controller/children_cubit.dart';
 import 'package:eazifly_student/presentation/controller/children_controller/children_state.dart';
-import 'package:eazifly_student/presentation/view/account_data/widgets/profile_image_widget.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/modal_sheet.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/std_data_item.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/std_data_item_shimmer.dart';
@@ -69,7 +68,7 @@ class _StudentManagementViewState extends State<StudentManagementView> {
                       return StudentDataItem(
                         age: child.age ?? "",
                         image: child.image ?? "",
-                        name: child.firstName ?? "",
+                        name: "${child.firstName} ${child.lastName}",
                         phoneNumber: child.phone ?? "",
                         index: index,
                         onTrailingIconTap: () {
@@ -84,16 +83,7 @@ class _StudentManagementViewState extends State<StudentManagementView> {
               );
             },
           ),
-          BlocBuilder(
-            bloc: cubit,
-            builder: (context, state) => ProfileImageWidget(
-              isEditable: true,
-              image: cubit.profileImage?.path ?? "",
-              onEditTap: () {
-                cubit.pickProfileImageFroGallery();
-              },
-            ),
-          ),
+
           // const Spacer(),
           8.ph,
           CustomElevatedButton(
@@ -103,8 +93,7 @@ class _StudentManagementViewState extends State<StudentManagementView> {
             width: 181.w,
             height: 40.h,
             onPressed: () {
-              cubit.updateProfile();
-              // Navigator.pushNamed(context, RoutePaths.addNewStudentData);
+              Navigator.pushNamed(context, RoutePaths.addNewStudentData);
             },
           ),
           32.ph,

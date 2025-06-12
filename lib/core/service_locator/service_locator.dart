@@ -12,8 +12,10 @@ import 'package:eazifly_student/domain/use_cases/get_children_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_item_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_categories_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_library_plans_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_list_items_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_payment_method_details_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_plan_subscription_period_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_plans_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_payment_methods_usecase.dart';
@@ -21,6 +23,7 @@ import 'package:eazifly_student/domain/use_cases/get_programs_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_orders_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/like_item_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/login_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/show_library_item_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/store_favourite_list_usecase.dart';
 import 'package:get_it/get_it.dart';
 
@@ -62,5 +65,11 @@ class ServiceLocator {
     sl.registerLazySingleton(() => LikeItemUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetChildrenUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => CreateNewChildUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => ShowLibraryItemUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetPlanSubscriptionPeriodUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetLibraryPlansUsecase(baseRepository: sl()));
   }
 }

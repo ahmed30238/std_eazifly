@@ -12,6 +12,12 @@ class EndPoints {
   static const getAllItems = "get/all/items";
   static const addSingleToFavList = "add/item/to/favorite/list";
   static const createNewChild = "store";
+  static const getPlanSubscriptionPeriod = "plan/subscription/period";
+  static const libraryOrderAndSubscription = "library/order";
+  static String getLibraryPlans({required int days}) =>
+      "library/plan?days=$days";
+  static String showLibraryItem({required int itemId}) =>
+      "show/library/item/$itemId";
   static String getMyChildren({required bool childrensStatus}) =>
       "children/users?childrens=$childrensStatus";
   static String likeItem({required int itemId, required bool status}) =>
