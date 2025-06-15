@@ -291,7 +291,15 @@ class _ConfirmPaymentViewState extends State<ConfirmLibraryPaymentView> {
               onPressed: libraryCubit.libraryOrderAndSubscriptionLoader
                   ? () {}
                   : () async {
+                      if (libraryCubit.libraryOrderImage == null) {
+                        delightfulToast(
+                          context: context,
+                          message: "الرجاء رفع صورة التحويل",
+                        );
+                        return;
+                      }
                       await libraryCubit.libraryOrderAndSubscription(
+                        context: context,
                         // programId: libraryCubit.programId,
                         // context: context,
                       );

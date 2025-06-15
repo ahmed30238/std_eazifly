@@ -105,8 +105,9 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
                             ? () {}
                             : () {
                                 cubit.showLibraryItem(
-                                    itemId: audioPlayListItem.id ?? 0,
-                                    context: context);
+                                  itemId: audioPlayListItem.id ?? 0,
+                                  context: context,
+                                );
                               }
                         // isPaid
                         //     ? () {

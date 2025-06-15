@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
+import 'package:eazifly_student/core/component/custom_dialog.dart';
 import 'package:eazifly_student/data/models/library/library_order_and_subscribe_tojson.dart';
 import 'package:eazifly_student/domain/entities/get_library_plans_entity.dart';
 import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
@@ -157,7 +159,7 @@ class AddtolibrarypackagedetailsCubit
       (success) {
         getLibraryPlansEntity = success;
         getLibraryPlansLoader = false;
-        
+
         // Debug API response
         log("DEBUG: API Response - Number of plans: ${success.data?.length ?? 0}");
         if (success.data?.isNotEmpty == true) {
@@ -165,7 +167,7 @@ class AddtolibrarypackagedetailsCubit
             final plan = success.data![i];
             log("DEBUG: Plan $i - ID: ${plan.id}, Title: ${plan.title}, Price: ${plan.price}");
           }
-          
+
           // Auto-select first plan if planId is still -1 and we have valid data
           if (planId == -1) {
             final firstPlan = success.data!.first;
@@ -179,7 +181,7 @@ class AddtolibrarypackagedetailsCubit
         } else {
           log("WARNING: No plans returned from API");
         }
-        
+
         emit(GetLibraryPlansSuccessState());
       },
     );
@@ -198,11 +200,13 @@ class AddtolibrarypackagedetailsCubit
   LibraryOrderAndSubscriptionEntity? libraryOrderAndSubscriptionEntity;
   bool libraryOrderAndSubscriptionLoader = false;
   LibraryOrderAndSubscriptionUsecase libraryOrderAndSubscriptionUsecase;
-  
-  Future<void> libraryOrderAndSubscription() async {
+
+  Future<void> libraryOrderAndSubscription({required BuildContext context}) async {
+    libraryOrderAndSubscriptionLoader = true;
+
     log("DEBUG: Starting subscription with planId: $planId");
     emit(LibraryOrderAndSubscriptionLoadingState());
-    
+
     String? imagePath;
     if (libraryOrderImage != null) {
       final File file = libraryOrderImage!;
@@ -222,17 +226,33 @@ class AddtolibrarypackagedetailsCubit
         ),
       ),
     );
-    
+
     result.fold(
       (failure) {
         libraryOrderAndSubscriptionLoader = false;
         log("ERROR: Library order subscription failed: ${failure.message}");
-        emit(LibraryOrderAndSubscriptionErrorState(errorMessage: failure.message));
+        emit(LibraryOrderAndSubscriptionErrorState(
+            errorMessage: failure.message));
       },
       (success) {
         libraryOrderAndSubscriptionEntity = success;
         libraryOrderAndSubscriptionLoader = false;
         log("SUCCESS: Library order subscription completed");
+        showAdaptiveDialog(
+          context: context,
+          builder: (context) => const CustomDialog(
+            title: "جاري مراجعة طلب التحويل",
+            subTitle: "سيتم ارسال اشعار التاكيد في اقرب وقت ",
+            loader: true,
+          ),
+        );
+        Timer(
+          const Duration(seconds: 2),
+          () => Navigator.pushReplacementNamed(
+            context,
+            RoutePaths.programsUnderReviewView,
+          ),
+        );
         emit(LibraryOrderAndSubscriptionSuccessState());
       },
     );
@@ -241,23 +261,24 @@ class AddtolibrarypackagedetailsCubit
   bool getPaymentMethodDetailsLoader = false;
   GetPaymentMethodDetailsEntity? getPaymentMethodDetailsEntity;
   GetPaymentMethodDetailsUsecase getPaymentMethodDetailsUsecase;
-  
+
   Future<void> getPaymentMethodDetails({required int methodId}) async {
     getPaymentMethodDetailsLoader = true;
     emit(GetProgramPaymentMethodDetailsLoadingState());
-    
+
     final result = await getPaymentMethodDetailsUsecase.call(
       parameter: GetPaymentMethodDetailsParameters(
         methodId: methodId,
         programId: 1,
       ),
     );
-    
+
     result.fold(
       (failure) {
         getPaymentMethodDetailsLoader = false;
         log("ERROR: Getting payment method details failed: ${failure.message}");
-        emit(GetProgramPaymentMethodDetailsErrorState(errorMessage: failure.message));
+        emit(GetProgramPaymentMethodDetailsErrorState(
+            errorMessage: failure.message));
       },
       (success) {
         getPaymentMethodDetailsLoader = false;

@@ -370,37 +370,51 @@ class LibraryCubit extends Cubit<LibraryState> {
           delightfulToast(message: "${success.message}", context: context);
           showModalSheet(
               isFixedSize: true,
-              maxHeight: 230.h,
-              minHeight: 229.h,
+              maxHeight: 120.h,
+              minHeight: 120.h,
               context,
               widget: Column(
                 children: [
+                  24.ph,
                   Text(
                     "هل تود الاشتراك",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
                     ),
                   ),
-                  Row(
-                    children: [
-                      CustomElevatedButton(
-                        text: "نعم",
-                        color: MainColors.greenTeal,
-                        onPressed: () {
-                          Navigator.pushNamed(
-                            context,
-                            RoutePaths.addToLibraryPackageDetailsView,
-                          );
-                        },
-                      ),
-                      CustomElevatedButton(
-                        color: MainColors.red,
-                        text: "لا",
-                        onPressed: () {
-                          back(context);
-                        },
-                      ),
-                    ],
+                  16.ph,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: CustomElevatedButton(
+                            radius: 16.r,
+                            height: 40.h,
+                            text: "نعم",
+                            color: MainColors.greenTeal,
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                RoutePaths.addToLibraryPackageDetailsView,
+                              );
+                            },
+                          ),
+                        ),
+                        10.pw,
+                        Expanded(
+                          child: CustomElevatedButton(
+                            radius: 16.r,
+                            height: 40.h,
+                            color: MainColors.red,
+                            text: "لا",
+                            onPressed: () {
+                              back(context);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ));

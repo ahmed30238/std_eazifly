@@ -254,7 +254,7 @@ class _ProgramSubscriptionPlanViewState
                   ),
                   16.ph,
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Expanded(
                         child: TitledFormFieldItem(
@@ -265,7 +265,13 @@ class _ProgramSubscriptionPlanViewState
                           controller: cubit.copounController,
                         ),
                       ),
-                      OutlinedButton(
+                      8.pw,
+                      CustomElevatedButton(
+                        radius: 16.r,
+                        height: 58.h,
+                        borderColor: MainColors.blueTextColor,
+                        textColor: MainColors.blueTextColor,
+                        text: "تأكيد",
                         onPressed: () {
                           if (cubit.copounController.text.isNotEmpty) {
                             cubit.checkCopouns(context: context);
@@ -276,12 +282,12 @@ class _ProgramSubscriptionPlanViewState
                             );
                           }
                         },
-                        child: Text(
-                          "تأكيد",
-                          style: MainTextStyle.boldTextStyle(
-                            fontSize: 12,
-                          ),
-                        ),
+                        // child: Text(
+                        //   ,
+                        //   style: MainTextStyle.boldTextStyle(
+                        //     fontSize: 12,
+                        //   ),
+                        // ),
                       ),
                     ],
                   ),
