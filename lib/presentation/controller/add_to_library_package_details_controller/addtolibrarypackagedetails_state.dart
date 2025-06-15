@@ -31,12 +31,30 @@ class GetLibraryPlansErrorState extends AddtolibrarypackagedetailsState {
   final String errorMessage;
   GetLibraryPlansErrorState({required this.errorMessage});
 }
-class LibraryOrderAndSubscriptionLoadingState extends AddtolibrarypackagedetailsState {}
 
-class LibraryOrderAndSubscriptionSuccessState extends AddtolibrarypackagedetailsState {
-}
+class LibraryOrderAndSubscriptionLoadingState
+    extends AddtolibrarypackagedetailsState {}
 
-class LibraryOrderAndSubscriptionErrorState extends AddtolibrarypackagedetailsState {
+class LibraryOrderAndSubscriptionSuccessState
+    extends AddtolibrarypackagedetailsState {}
+
+class LibraryOrderAndSubscriptionErrorState
+    extends AddtolibrarypackagedetailsState {
   final String errorMessage;
   LibraryOrderAndSubscriptionErrorState({required this.errorMessage});
 }
+
+class GetProgramPaymentMethodDetailsSuccessState
+    extends AddtolibrarypackagedetailsState {}
+
+class GetProgramPaymentMethodDetailsErrorState
+    extends AddtolibrarypackagedetailsState {
+  final String errorMessage;
+
+  GetProgramPaymentMethodDetailsErrorState({required this.errorMessage});
+}
+
+class GetProgramPaymentMethodDetailsLoadingState
+    extends AddtolibrarypackagedetailsState {}
+
+class ChangePlanIdState extends AddtolibrarypackagedetailsState {}

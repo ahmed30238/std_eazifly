@@ -13,6 +13,9 @@ class RoutePaths {
   static const editProfile = "editProfile";
   // static const allPossibleFavItems = "allPossibleFavItems";
   static const confirmPaymentView = "confirmPaymentView";
+  static const libraryconfirmPaymentView = "libraryconfirmPaymentView";
+  static const completeLibraryPaymentProcessScreen =
+      "completeLibraryPaymentProcessScreen";
   static const audioPlayListView = "audioPlayListView";
   static const subscriptionManagmentPath = "subscriptionManagmentPath";
   static const copounsAndDiscountsViewPath = "CopounsAndDiscountsView";
@@ -59,6 +62,7 @@ class RoutePaths {
       "subscribedStudentsSettingsView";
   static const lectureQuizzDetailsView = "lectureQuizzDetailsView";
   static const correctedQuizDetailsView = "correctedQuizDetailsView";
+  static const programPlanFilter = "programPlanFilter";
   static const corrcectedAssignmentDetailsView =
       "corrcectedAssignmentDetailsView";
 }

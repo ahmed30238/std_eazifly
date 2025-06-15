@@ -1,23 +1,23 @@
-import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
+import 'package:eazifly_student/presentation/controller/add_to_library_package_details_controller/addtolibrarypackagedetails_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class ConfirmPaymentView extends StatefulWidget {
+class ConfirmLibraryPaymentView extends StatefulWidget {
   final int methodId;
-  const ConfirmPaymentView({
+  const ConfirmLibraryPaymentView({
     super.key,
     required this.methodId,
   });
 
   @override
-  State<ConfirmPaymentView> createState() => _ConfirmPaymentViewState();
+  State<ConfirmLibraryPaymentView> createState() => _ConfirmPaymentViewState();
 }
 
-class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
-  late ProgramsubscriptionplanCubit programsubscriptionplanCubit;
+class _ConfirmPaymentViewState extends State<ConfirmLibraryPaymentView> {
+  late AddtolibrarypackagedetailsCubit libraryCubit;
   @override
   void initState() {
-    programsubscriptionplanCubit = ProgramsubscriptionplanCubit.get(context);
-    programsubscriptionplanCubit.getPamyentMethodDetails(
+    libraryCubit = context.read<AddtolibrarypackagedetailsCubit>();
+    libraryCubit.getPaymentMethodDetails(
       methodId: widget.methodId,
     );
     super.initState();
@@ -27,8 +27,8 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
   Widget build(BuildContext context) {
     var lang = context.loc!;
     // var orderDetail =
-    //     programsubscriptionplanCubit.createOrderEntity?.data?.orderDetails?[0];
-    var orderData = programsubscriptionplanCubit.filterPlansEntity?.data;
+    //     libraryCubit.createOrderEntity?.data?.orderDetails?[0];
+    // var orderData = libraryCubit.filterPlansEntity?.data;
     return Scaffold(
       appBar: CustomAppBar(
         context,
@@ -53,7 +53,8 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  orderData?.program ?? "",
+                  "تفاصيل البرنامج",
+                  // orderData?.program ?? "",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 14,
                   ),
@@ -61,19 +62,23 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                 12.ph,
                 ProgramDetailsItem(
                   title: programDetailsTitles[0],
-                  value: orderData?.subscripeDays ?? "",
+                  value: "4",
+                  // value: orderData?.subscripeDays ?? "",
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[1],
-                  value: orderData?.duration ?? "",
+                  // value: orderData?.duration ?? "",
+                  value: "4",
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[2],
-                  value: "عدد الطلاب",
+                  // value: "عدد الطلاب",
+                  value: "4",
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[3],
-                  value: orderData?.numberOfSessionPerWeek ?? "",
+                  // value: orderData?.numberOfSessionPerWeek ?? "",
+                  value: "4",
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[4],
@@ -93,11 +98,14 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                   3,
                   (index) => ProgramDetailsItem(
                     title: cashDetailsTitles[index],
-                    value: index == 0
-                        ? orderData?.price ?? ""
-                        : index == 1
-                            ? orderData?.discountPrice ?? ""
-                            : orderData?.discountPrice ?? "",
+                    value: "4",
+
+                    // value:
+                    // index == 0
+                    //     ? orderData?.price ?? ""
+                    //     : index == 1
+                    //         ? orderData?.discountPrice ?? ""
+                    //         : orderData?.discountPrice ?? "",
                     textStyle: index == 2
                         ? MainTextStyle.boldTextStyle(
                             fontSize: 15,
@@ -142,7 +150,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "قم بتحويل مبلغ ${orderData?.discountPrice ?? 0} ج.م الي رقم عبر فودافون كاش ",
+                      "قم بتحويل مبلغ 2000 ج.م الي رقم عبر فودافون كاش ",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
                         color: MainColors.blackText,
@@ -163,10 +171,10 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
           ),
           16.ph,
           GestureDetector(
-            onTap: () => programsubscriptionplanCubit.pickImages(),
+            onTap: () => libraryCubit.pickOrderImageFromGallery(),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
-              // margin: EdgeInsets.symmetric(horizontal: 16.w),
+              margin: EdgeInsets.symmetric(horizontal: 16.w),
               height: 98.h,
               width: double.infinity,
               decoration: BoxDecoration(
@@ -174,9 +182,9 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                 color: MainColors.veryLightGrayFormField,
               ),
               child: BlocBuilder(
-                bloc: programsubscriptionplanCubit,
+                bloc: libraryCubit,
                 builder: (context, state) {
-                  final images = programsubscriptionplanCubit.images;
+                  final image = libraryCubit.libraryOrderImage;
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -214,12 +222,12 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                           ),
                         ],
                       ),
-                      if (images.isNotEmpty) ...[
+                      if (image != null) ...[
                         const Spacer(),
                         ClipRRect(
                           borderRadius: 16.cr,
                           child: Image.file(
-                            images.first,
+                            image,
                             height: 84.h,
                             width: 104.w,
                             fit: BoxFit.cover,
@@ -275,21 +283,22 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
           ),
           28.37.ph,
           BlocBuilder(
-            bloc: programsubscriptionplanCubit,
+            bloc: libraryCubit,
             builder: (context, state) => CustomElevatedButton(
+              // onPressed: () {},
               text: "إتمام الدفع",
               width: 343.w,
-              onPressed: programsubscriptionplanCubit.createOrderLoader
+              onPressed: libraryCubit.libraryOrderAndSubscriptionLoader
                   ? () {}
                   : () async {
-                      await programsubscriptionplanCubit.createOrder(
-                        programId: programsubscriptionplanCubit.programId,
-                        context: context,
+                      await libraryCubit.libraryOrderAndSubscription(
+                        // programId: libraryCubit.programId,
+                        // context: context,
                       );
                     },
               color: MainColors.blueTextColor,
               radius: 16.r,
-              child: programsubscriptionplanCubit.createOrderLoader
+              child: libraryCubit.libraryOrderAndSubscriptionLoader
                   ? const CircularProgressIndicator.adaptive()
                   : null,
             ),

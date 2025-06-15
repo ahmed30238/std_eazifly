@@ -93,10 +93,12 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, GetPlansWithDetailsEntity>> getPlansWithDetails(
-      {required int planId}) async {
+      {required int programId, required int days}) async {
     try {
-      final result =
-          await baseRemoteDataSource.getPlansWithDetails(planId: planId);
+      final result = await baseRemoteDataSource.getPlansWithDetails(
+        programId: programId,
+        days: days,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

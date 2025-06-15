@@ -350,7 +350,10 @@ class _ProgramSubscriptionPlanViewState
             onPressed: () async {
               if (cubit.formKey.currentState!.validate()) {
                 Navigator.pushNamed(
-                  arguments: cubit,
+                  arguments: {
+                    "cubit": cubit,
+                    "itemId": widget.programId,
+                  },
                   context,
                   RoutePaths.completePaymentProcessScreen,
                 );

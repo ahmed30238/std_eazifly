@@ -47,7 +47,7 @@ abstract class BaseRepository {
   Future<Either<Failure, AssignProgramReviewEntity>> assignProgramReview(
       {required AssignProgramReviewTojson data});
   Future<Either<Failure, GetPlansWithDetailsEntity>> getPlansWithDetails(
-      {required int planId});
+      {required int programId, required int days});
   Future<Either<Failure, GetPlansEntity>> getPlans({required int programId});
   Future<Either<Failure, FilterPlansEntity>> filterPlans(
       {required FilterPlansTojson data});

@@ -32,8 +32,8 @@ class EndPoints {
   static String getProgramDetails({required int programId}) =>
       "program/details/$programId";
   static const getAllLibraryLists = "all/list";
-  static String getPlansWithDetails({required int planId}) =>
-      "program/plans/details/$planId";
+  static String getPlansWithDetails({required int programId, required int days}) =>
+      "program/plans/details/$programId?day=$days";
   static String getPlans({required int programId}) => "plans/$programId";
   static String getProgramPaymentMethods({required int programId}) =>
       "get/program/payment/method/$programId";

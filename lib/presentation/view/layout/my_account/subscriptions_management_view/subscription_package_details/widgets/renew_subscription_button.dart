@@ -71,9 +71,10 @@ class RenewSubscriptionButton extends StatelessWidget {
                                         text: "التالي",
                                         onPressed: () {
                                           Navigator.pushNamed(
-                                              context,
-                                              RoutePaths
-                                                  .completePaymentProcessScreen);
+                                            context,
+                                            RoutePaths
+                                                .completePaymentProcessScreen,
+                                          );
                                         },
                                         height: 40.h,
                                         width: 120.w,

@@ -96,18 +96,18 @@ class _ProgramsViewState extends State<ProgramsView> {
               return Expanded(
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.only(bottom: 16.h,right: 16.w, left: 16.w),
+                  padding:
+                      EdgeInsets.only(bottom: 16.h, right: 16.w, left: 16.w),
                   itemBuilder: (context, index) => ProgramItem(
                     programEntity:
                         programsList?[index] ?? GetProgramsProgramEntity(),
                     onTap: () {
                       var planPage = programsList?[index].planPage;
                       log("this is planPage $planPage");
+                      log("this is prog id ${programsList?[index].id}");
 
                       Navigator.pushNamed(
-                        arguments: {
-                          "programId": programsList?[index].id,
-                        },
+                        arguments: programsList?[index].id,
                         context,
                         getRouteForPlanPage(planPage ?? "") ?? "",
                       );

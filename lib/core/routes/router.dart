@@ -16,6 +16,7 @@ import 'package:eazifly_student/presentation/controller/library_controller/libra
 import 'package:eazifly_student/presentation/controller/meetings_controller/meeting_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/notifications_controller/notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
+import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
@@ -35,6 +36,8 @@ import 'package:eazifly_student/presentation/view/layout/layout.dart';
 import 'package:eazifly_student/presentation/view/layout/library/add_to_library_package_details/add_to_library_package_details.dart';
 import 'package:eazifly_student/presentation/view/layout/library/audio_playlist_view/audio_playlist_view.dart';
 import 'package:eazifly_student/presentation/view/layout/library/fav_playlist_details/fav_playlist_details.dart';
+import 'package:eazifly_student/presentation/view/layout/library/payment/complete_payment_process_view/complete_payment_process_view.dart';
+import 'package:eazifly_student/presentation/view/layout/library/payment/library_confirm_payment_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/about_app_view/about_app_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/copouns_and_discounts_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/explain_point_view/explain_point_view.dart';
@@ -56,6 +59,7 @@ import 'package:eazifly_student/presentation/view/layout/my_programs/selection_p
 import 'package:eazifly_student/presentation/view/layout/my_programs/session_details_view/session_details_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/subscribed_students_settings_view/subscribed_students_settings_view.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/program_details_view/program_details_view.dart';
+import 'package:eazifly_student/presentation/view/layout/programs/program_plan_filter/program_plan_filter.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/program_subscription_plan_view.dart';
 import 'package:eazifly_student/presentation/view/leaderboard_view/leaderboard_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/assignments_details_view/assignment_details_view.dart';
@@ -289,7 +293,9 @@ class AppRouter {
               getPlansUsecase: sl(),
               createOrderUsecase: sl(),
               checkCopounUsecase: sl(),
-              getProgramPaymentMethodsUsecase: sl(),
+              getPlanSubscriptionUsecase: sl(),
+              getPlansWithDetailsUsecase: sl(),
+              // getProgramPaymentMethodsUsecase: sl(),
               getPaymentMethodDetailsUsecase: sl(),
             ),
             child: ProgramSubscriptionPlanView(
@@ -300,8 +306,8 @@ class AppRouter {
           ),
         );
       case RoutePaths.programDetailsView:
-        var argument = settings.arguments as Map<String, dynamic>?;
-        int programId = argument?["programId"] as int;
+        // var argument = settings.arguments as Map<String, dynamic>?;
+        int programId = settings.arguments as int;
         return createRoute(
           BlocProvider(
             create: (context) => ProgramDetailsCubit(
@@ -373,10 +379,30 @@ class AppRouter {
         return createRoute(
           BlocProvider(
             create: (context) => AddtolibrarypackagedetailsCubit(
+              getPaymentMethodDetailsUsecase: sl(),
               getPlanSubscriptionUsecase: sl(),
               getLibraryPlansUsecase: sl(),
+              libraryOrderAndSubscriptionUsecase: sl(),
             ),
             child: const AddToLibraryPackageDetailsView(),
+          ),
+        );
+      case RoutePaths.programPlanFilter:
+        var programId = settings.arguments as int?;
+        return createRoute(
+          BlocProvider(
+            create: (context) => ProgramsubscriptionplanCubit(
+              filterPlansUsecase: sl(),
+              getPlansUsecase: sl(),
+              createOrderUsecase: sl(),
+              checkCopounUsecase: sl(),
+              getPlanSubscriptionUsecase: sl(),
+              getPlansWithDetailsUsecase: sl(),
+              getPaymentMethodDetailsUsecase: sl(),
+            ),
+            child: ProgramPlanFilter(
+              programId: programId ?? -1,
+            ),
           ),
         );
       case RoutePaths.programsUnderReviewView:
@@ -388,12 +414,58 @@ class AppRouter {
             child: const ProgramsUnderReviewView(),
           ),
         );
-      case RoutePaths.completePaymentProcessScreen:
-        var cubit = settings.arguments as ProgramsubscriptionplanCubit;
+      case RoutePaths.libraryconfirmPaymentView:
+        var arguments = settings.arguments as Map<String, dynamic>?;
+        int methodId = arguments?["methodId"] as int? ?? 0;
+        var cubit = arguments?["cubit"] as AddtolibrarypackagedetailsCubit;
         return createRoute(
           BlocProvider.value(
             value: cubit,
-            child: const CompletePaymentProcessView(),
+            // create: (context) => AddtolibrarypackagedetailsCubit(
+            //   getLibraryPlansUsecase: sl(),
+            //   getPlanSubscriptionUsecase: sl(),
+            //   libraryOrderAndSubscriptionUsecase: sl(),
+            //   getPaymentMethodDetailsUsecase: sl(),
+            //   // methodId: methodId,
+            //   // getUserOrdersUsecase: sl(),
+            // ),
+            child: ConfirmLibraryPaymentView(
+              methodId: methodId,
+            ),
+          ),
+        );
+      case RoutePaths.completePaymentProcessScreen:
+        var arguments = settings.arguments as Map<String, dynamic>?;
+        var cubit = arguments?["cubit"] as ProgramsubscriptionplanCubit;
+        int itemId = arguments?["itemId"] as int;
+        return createRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: sl<PaymentCubit>()),
+              BlocProvider.value(value: cubit),
+            ],
+            child: CompletePaymentProcessView(
+              itemId: itemId,
+            ),
+          ),
+        );
+      case RoutePaths.completeLibraryPaymentProcessScreen:
+        var arguments = settings.arguments as Map<String, dynamic>;
+        int itemId = arguments["itemId"] as int;
+        var cubit = arguments["cubit"] as AddtolibrarypackagedetailsCubit;
+        return createRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: sl<PaymentCubit>(),
+              ),
+              BlocProvider.value(
+                value: cubit,
+              ),
+            ],
+            child: CompleteLibraryPaymentProcessView(
+              itemId: itemId,
+            ),
           ),
         );
       case RoutePaths.navigateToLectureView:

@@ -1,34 +1,34 @@
 import 'dart:developer';
 
-import 'package:eazifly_student/presentation/controller/add_to_library_package_details_controller/addtolibrarypackagedetails_cubit.dart';
+import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-class AddToLibraryPackageDetailsView extends StatefulWidget {
-  const AddToLibraryPackageDetailsView({super.key});
+class ProgramPlanFilter extends StatefulWidget {
+  final int programId;
+  const ProgramPlanFilter({super.key, required this.programId});
 
   @override
-  State<AddToLibraryPackageDetailsView> createState() =>
+  State<ProgramPlanFilter> createState() =>
       _AddToLibraryPackageDetailsViewState();
 }
 
-class _AddToLibraryPackageDetailsViewState
-    extends State<AddToLibraryPackageDetailsView>
+class _AddToLibraryPackageDetailsViewState extends State<ProgramPlanFilter>
     with SingleTickerProviderStateMixin {
-  late AddtolibrarypackagedetailsCubit cubit;
-
+  late ProgramsubscriptionplanCubit cubit;
   @override
   void initState() {
-    cubit = context.read<AddtolibrarypackagedetailsCubit>();
+    cubit = context.read<ProgramsubscriptionplanCubit>();
     cubit.initTabBarControllers(this);
     cubit.getPlanSubsriptionPeriod(); // This will also load library plans
+    cubit.fillProgramId(widget.programId);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var lang = context.loc!;
-    var cubit = context.read<AddtolibrarypackagedetailsCubit>();
+    var cubit = context.read<ProgramsubscriptionplanCubit>();
     return Scaffold(
       appBar: CustomAppBar(
         context,
@@ -101,13 +101,13 @@ class _AddToLibraryPackageDetailsViewState
               child: BlocBuilder(
                 bloc: cubit,
                 builder: (context, state) {
-                  if (cubit.getLibraryPlansLoader) {
+                  if (cubit.getPlansWithDetailsLoader) {
                     return const Center(
                       child: CircularProgressIndicator.adaptive(),
                     );
                   }
 
-                  if (cubit.getLibraryPlansEntity?.data?.isEmpty ?? true) {
+                  if (cubit.getPlansWithDetailsEntity?.data?.isEmpty ?? true) {
                     return const Center(
                       child: Text("لا توجد باقات متاحة"),
                     );
@@ -117,19 +117,21 @@ class _AddToLibraryPackageDetailsViewState
                     height: 423.h,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
-                      itemCount: cubit.getLibraryPlansEntity?.data?.length ?? 0,
+                      itemCount:
+                          cubit.getPlansWithDetailsEntity?.data?.length ?? 0,
                       separatorBuilder: (context, index) => 16.pw,
                       itemBuilder: (context, index) {
-                        final plan = cubit.getLibraryPlansEntity!.data![index];
+                        final plan =
+                            cubit.getPlansWithDetailsEntity!.data![index];
                         bool isSelected = index == cubit.packageIndex;
 
                         return InkWell(
                           onTap: () {
                             log("DEBUG: User tapped plan at index $index");
                             log("DEBUG: Plan ID: ${plan.id}, Title: ${plan.title}");
-                            
+
                             cubit.changePackageIndex(index);
-                            
+
                             if (plan.id != null && plan.id! > 0) {
                               cubit.fillPlanId(plan.id!);
                             } else {
@@ -199,14 +201,17 @@ class _AddToLibraryPackageDetailsViewState
               color: MainColors.blueTextColor,
               radius: 16.r,
               onPressed: () {
-                // TODO add programId as arguments
+                // // TODO add programId as arguments
+                // var arguments = settings.arguments as Map<String, dynamic>?;
+                // var cubit = arguments?["cubit"] as ProgramsubscriptionplanCubit;
+                // int itemId = arguments?["itemId"] as int;
                 Navigator.pushNamed(
                   arguments: {
-                    "itemId" : 1,
-                    "cubit" :cubit
+                    "itemId": cubit.programId,
+                    "cubit": cubit,
                   },
                   context,
-                  RoutePaths.completeLibraryPaymentProcessScreen,
+                  RoutePaths.completePaymentProcessScreen,
                 );
               },
             ),

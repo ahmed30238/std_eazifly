@@ -47,6 +47,7 @@ class LayoutCubit extends Cubit<LayoutState> {
         getListItemsUsingListIdUsecase: sl(),
         likeItemUsecase: sl(),
         getLibraryItemsUsecase: sl(),
+        // getPaymentMethodDetailsUsecase: sl(),
       ),
       child: const LibraryView(),
     ),

@@ -48,7 +48,10 @@ abstract class BaseRemoteDataSource {
   Future<GetProgramDetailsModel> getProgramDetails({required int programId});
   Future<AssignProgramReviewModel> assignProgramReview(
       {required AssignProgramReviewTojson data});
-  Future<GetPlansWithDetailsModel> getPlansWithDetails({required int planId});
+  Future<GetPlansWithDetailsModel> getPlansWithDetails({
+    required int programId,
+    required int days,
+  });
   Future<GetPlansModel> getPlans({required int programId});
   Future<FilterPlansModel> filterPlans({required FilterPlansTojson data});
   Future<CreateOrderModel> createOrder({required CreateOrderTojson data});
@@ -159,9 +162,12 @@ class RemoteDataSource extends BaseRemoteDataSource {
 
   @override
   Future<GetPlansWithDetailsModel> getPlansWithDetails(
-      {required int planId}) async {
+      {required int programId, required int days}) async {
     var response = await NetworkCall().get(
-      path: EndPoints.getPlansWithDetails(planId: planId),
+      path: EndPoints.getPlansWithDetails(
+        programId: programId,
+        days: days,
+      ),
     );
     if (response?.statusCode == 200) {
       return GetPlansWithDetailsModel.fromJson(response?.data);

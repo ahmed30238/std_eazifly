@@ -1,31 +1,29 @@
+import 'package:eazifly_student/presentation/controller/add_to_library_package_details_controller/addtolibrarypackagedetails_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
-import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/complete_payment_process_view/widgets/payment_methods_loader.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class CompletePaymentProcessView extends StatefulWidget {
+class CompleteLibraryPaymentProcessView extends StatefulWidget {
   final int itemId;
-  // final bool isFromLibrary;
-  const CompletePaymentProcessView({
+  const CompleteLibraryPaymentProcessView({
     super.key,
     required this.itemId,
-    // this.isFromLibrary = false,
   });
 
   @override
-  State<CompletePaymentProcessView> createState() =>
-      _CompletePaymentProcessViewState();
+  State<CompleteLibraryPaymentProcessView> createState() =>
+      _CompleteLibraryPaymentProcessViewState();
 }
 
-class _CompletePaymentProcessViewState
-    extends State<CompletePaymentProcessView> {
+class _CompleteLibraryPaymentProcessViewState
+    extends State<CompleteLibraryPaymentProcessView> {
   late PaymentCubit cubit;
-  late ProgramsubscriptionplanCubit programsubscriptionplanCubit;
+  late AddtolibrarypackagedetailsCubit addtolibrarypackagedetailsCubit;
 
   @override
   void initState() {
     cubit = context.read<PaymentCubit>();
-    programsubscriptionplanCubit = context.read<ProgramsubscriptionplanCubit>();
+    addtolibrarypackagedetailsCubit = context.read<AddtolibrarypackagedetailsCubit>();
     cubit.getProgramPaymentMethod(
       programId: widget.itemId,
     );
@@ -89,12 +87,12 @@ class _CompletePaymentProcessViewState
                       description: method.description ?? "",
                       onTap: () {
                         Navigator.pushNamed(
-                          context,
-                          RoutePaths.confirmPaymentView,
                           arguments: {
-                            "cubit": programsubscriptionplanCubit,
+                            "cubit": addtolibrarypackagedetailsCubit,
                             "methodId": method.id ?? 0
                           },
+                          context,
+                          RoutePaths.libraryconfirmPaymentView,
                         );
                       },
                     );

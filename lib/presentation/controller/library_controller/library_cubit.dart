@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
-import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_model.dart';
@@ -35,24 +33,23 @@ import 'package:eazifly_student/presentation/view/layout/library/widgets/favouri
 import 'package:eazifly_student/presentation/view/layout/library/widgets/menu_list_body.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/visuals_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
 class LibraryCubit extends Cubit<LibraryState> {
-  LibraryCubit(
-      {required this.libraryCategoriesUsecase,
-      required this.allLibraryListsUsecase,
-      required this.storeFavouriteListUsecase,
-      required this.getFavouriteListUsecase,
-      required this.getFavouriteListItemUsingListIdUsecase,
-      required this.getAllItemsUsecase,
-      required this.addSingleItemToFavListUsecase,
-      required this.getListItemsUsingListIdUsecase,
-      required this.likeItemUsecase,
-      required this.getLibraryItemsUsecase})
-      : super(LibraryInitial());
+  LibraryCubit({
+    required this.libraryCategoriesUsecase,
+    required this.allLibraryListsUsecase,
+    required this.storeFavouriteListUsecase,
+    required this.getFavouriteListUsecase,
+    required this.getFavouriteListItemUsingListIdUsecase,
+    required this.getAllItemsUsecase,
+    required this.addSingleItemToFavListUsecase,
+    required this.getListItemsUsingListIdUsecase,
+    required this.likeItemUsecase,
+    required this.getLibraryItemsUsecase,
+    // required this.getPaymentMethodDetailsUsecase,
+  }) : super(LibraryInitial());
   static LibraryCubit get(context) => BlocProvider.of(context);
   initTabController(TickerProvider vsync) {
     tabController = TabController(length: 4, vsync: vsync)

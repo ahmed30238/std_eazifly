@@ -48,15 +48,43 @@ class CheckCopounErrorState extends ProgramsubscriptionplanState {
 
 class CheckCopounSuccessState extends ProgramsubscriptionplanState {}
 
-class GetProgramPaymentMethodLoadingState
+class GetProgramPaymentMethodDetailsSuccessState
     extends ProgramsubscriptionplanState {}
 
-class GetProgramPaymentMethodErrorState extends ProgramsubscriptionplanState {
+class GetProgramPaymentMethodDetailsErrorState
+    extends ProgramsubscriptionplanState {
   final String errorMessage;
 
-  GetProgramPaymentMethodErrorState({required this.errorMessage});
+  GetProgramPaymentMethodDetailsErrorState({required this.errorMessage});
 }
 
-class GetProgramPaymentMethodSuccessState
+class GetProgramPaymentMethodDetailsLoadingState
     extends ProgramsubscriptionplanState {}
 
+class GetPlanSubscriptionSuccessState extends ProgramsubscriptionplanState {}
+
+class GetPlanSubscriptionErrorState extends ProgramsubscriptionplanState {
+  final String errorMessage;
+
+  GetPlanSubscriptionErrorState({required this.errorMessage});
+}
+
+class GetPlansWithDetailsLoadingState extends ProgramsubscriptionplanState {}
+
+class GetPlansWithDetailsSuccessState extends ProgramsubscriptionplanState {}
+
+class GetPlansWithDetailsErrorState extends ProgramsubscriptionplanState {
+  final String errorMessage;
+
+  GetPlansWithDetailsErrorState({required this.errorMessage});
+}
+
+class GetPlanSubscriptionLoadingState extends ProgramsubscriptionplanState {}
+
+class InitTabBarControllerState extends ProgramsubscriptionplanState {}
+
+class ChangePackageIndexState extends ProgramsubscriptionplanState {}
+
+class TypeControllerIndexState extends ProgramsubscriptionplanState {}
+
+class ChangePlanIdState extends ProgramsubscriptionplanState {}

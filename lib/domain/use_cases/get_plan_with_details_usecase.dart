@@ -13,12 +13,16 @@ class GetPlanWithDetailsUsecase extends BaseUsecase<GetPlansWithDetailsEntity,
   @override
   Future<Either<Failure, GetPlansWithDetailsEntity>> call(
       {required GetPlansWithDetailsParameters parameter}) async {
-    return await baseRepository.getPlansWithDetails(planId: parameter.planId);
+    return await baseRepository.getPlansWithDetails(
+      programId: parameter.programId,
+      days: parameter.days,
+    );
   }
 }
 
 class GetPlansWithDetailsParameters {
-  final int planId;
+  final int programId;
+  final int days;
 
-  GetPlansWithDetailsParameters({required this.planId});
+  GetPlansWithDetailsParameters({required this.programId, required this.days});
 }

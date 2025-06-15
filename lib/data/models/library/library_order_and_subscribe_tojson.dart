@@ -6,8 +6,8 @@ class LibraryOrderAndSubscribeTojson {
   final String libraryPlanId;
 
   LibraryOrderAndSubscribeTojson({
-    required this.image,
-    required this.imageFile,
+    this.image,
+    this.imageFile,
     required this.libraryPlanId,
   });
   Map<String, dynamic> toJson() => {

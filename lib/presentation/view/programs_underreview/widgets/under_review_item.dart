@@ -62,8 +62,11 @@ class UnderReviewItem extends StatelessWidget {
                                 width: 128.5.w,
                                 fontSize: 12,
                                 onTap: () {
-                                  Navigator.pushNamed(context,
-                                      RoutePaths.completePaymentProcessScreen);
+                                  Navigator.pushNamed(
+                                    arguments: 0, //TODO itemId,
+                                    context,
+                                    RoutePaths.completePaymentProcessScreen,
+                                  );
                                 },
                               ),
                               16.pw,
