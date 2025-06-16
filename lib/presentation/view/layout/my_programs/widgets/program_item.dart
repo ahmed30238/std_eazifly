@@ -1,23 +1,30 @@
 import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/divider.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class ProgramItem extends StatelessWidget {
   final VoidCallback onTap;
+  final VoidCallback onRejoinTap;
   final String image;
   final String title;
   final String desc;
   final String nextLec;
   final String duration;
+  final String status;
+  final bool isRejoin;
 
   const ProgramItem({
     super.key,
     required this.onTap,
+    required this.onRejoinTap,
     required this.image,
     required this.title,
     required this.desc,
     required this.nextLec,
     required this.duration,
+    required this.status,
+    required this.isRejoin,
   });
 
   @override
@@ -52,15 +59,18 @@ class ProgramItem extends StatelessWidget {
               ),
             ),
             4.ph,
-            Text(
-              desc,
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 12,
-                color: MainColors.grayTextColors,
-              ),
-            ),
-            4.ph,
-            const WavyDivider(),
+            Html(data: desc),
+            // Text(
+            //   desc,
+            //   style: MainTextStyle.boldTextStyle(
+            //     fontSize: 12,
+            //     color: MainColors.grayTextColors,
+            //   ),
+            // ),
+            if (status == "started") ...{
+              4.ph,
+              const WavyDivider(),
+            },
             4.ph,
             SessionDatesDetails(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -69,7 +79,10 @@ class ProgramItem extends StatelessWidget {
               firstSubTitle: nextLec,
               secondTitle: lang.sessionDuration,
               secondSubTitle: duration,
-              thirdSubTitle: "",
+              isBtn: isRejoin,
+              thirdSubTitle: "reree",
+
+              onRejoinTap: onRejoinTap,
               thirdTitle: lang.sessionState,
             ),
             8.ph,

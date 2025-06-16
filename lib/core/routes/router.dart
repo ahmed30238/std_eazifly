@@ -16,6 +16,7 @@ import 'package:eazifly_student/presentation/controller/library_controller/libra
 import 'package:eazifly_student/presentation/controller/meetings_controller/meeting_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/notifications_controller/notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
@@ -469,8 +470,16 @@ class AppRouter {
           ),
         );
       case RoutePaths.navigateToLectureView:
+        var arguments = settings.arguments as Map<String, dynamic>;
+        int sessionId = arguments["sessionId"] as int;
+        MyProgramsCubit cubit = arguments["cubit"] as MyProgramsCubit;
         return createRoute(
-          const NavigateToLectureView(),
+          BlocProvider.value(
+            value: cubit,
+            child: NavigateToLectureView(
+              sessionId: sessionId,
+            ),
+          ),
         );
       case RoutePaths.addNewStudentData:
         return createRoute(

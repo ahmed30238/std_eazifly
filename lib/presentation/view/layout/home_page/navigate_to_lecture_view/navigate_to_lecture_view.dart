@@ -1,10 +1,28 @@
 import 'package:eazifly_student/core/component/nested_avatar_container.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_stats_row.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NavigateToLectureView extends StatelessWidget {
-  const NavigateToLectureView({super.key});
+class NavigateToLectureView extends StatefulWidget {
+  final int sessionId;
+  const NavigateToLectureView({
+    super.key,
+    required this.sessionId,
+  });
+
+  @override
+  State<NavigateToLectureView> createState() => _NavigateToLectureViewState();
+}
+
+class _NavigateToLectureViewState extends State<NavigateToLectureView> {
+  late MyProgramsCubit cubit;
+  @override
+  void initState() {
+    cubit = context.read<MyProgramsCubit>();
+    super.initState();
+    cubit.getSessionDetails(sessionId: widget.sessionId);
+  }
 
   @override
   Widget build(BuildContext context) {

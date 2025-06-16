@@ -12,6 +12,7 @@ import 'package:flash/flash.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -22,13 +23,7 @@ String? customValidation(String? value) {
   return null;
 }
 
-// Map<String, Style> htmlStyle = {
-//   "h2": Style(
-//     fontSize: FontSize(12.sp),
-//     color: MainColors.grayTextColors,
-//     // height: Height(1.5.h),
-//   ),
-// };
+
 void shareApp({required BuildContext context}) async {
   final box = context.findRenderObject() as RenderBox?;
   if (Platform.isAndroid) {
@@ -237,4 +232,13 @@ void showFlashBar({required BuildContext context, required String message}) {
       );
     },
   );
+}
+Future<void> openUrl(String url) async {
+  final Uri uri = Uri.parse(url);
+
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  } else {
+    throw 'لا يمكن فتح الرابط: $url';
+  }
 }

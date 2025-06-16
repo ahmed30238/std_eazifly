@@ -39,6 +39,7 @@ class NextLectureItem extends StatelessWidget {
             SessionDatesDetails(
               fixedSpace: 8.ph,
               firstTitle: "وقت المحاضرة",
+              onRejoinTap: () {},
               firstSubTitle: "12:45 PM",
               secondTitle: lang.sessionDuration,
               secondSubTitle: "30 دقيقة",

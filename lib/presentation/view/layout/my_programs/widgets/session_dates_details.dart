@@ -17,12 +17,14 @@ class SessionDatesDetails extends StatelessWidget {
   final SizedBox? fixedSpace;
   final double? fixedFontSize;
   final bool isBtn;
+  final VoidCallback onRejoinTap;
   const SessionDatesDetails({
     super.key,
     this.margin,
     this.padding,
     required this.firstTitle,
     required this.firstSubTitle,
+    required this.onRejoinTap,
     required this.secondTitle,
     required this.secondSubTitle,
     required this.thirdTitle,
@@ -98,7 +100,7 @@ class SessionDatesDetails extends StatelessWidget {
                 fixedSpace ?? 10.ph,
                 if (isBtn) ...{
                   CustomLowSizeButton(
-                    onTap: () {},
+                    onTap: onRejoinTap,
                     text: "اعادة دخول",
                   ),
                 } else ...{

@@ -42,6 +42,7 @@ class CollectionSessionList extends StatelessWidget {
             firstTitle: lang.nextLecture,
             firstSubTitle: "12:45 PM",
             secondTitle: lang.sessionDuration,
+            onRejoinTap: () {},
             secondSubTitle: "30 دقيقة",
             thirdSubTitle: "",
             thirdTitle: lang.sessionState,

@@ -101,6 +101,7 @@ class AllMeetingItem extends StatelessWidget {
             SizedBox(
               child: SessionDatesDetails(
                 fixedFontSize: 12,
+                onRejoinTap: () {},
                 fixedSpace: 8.ph,
                 firstTitle: "تاريخ اللقاء",
                 firstSubTitle: "2025-4-12",
