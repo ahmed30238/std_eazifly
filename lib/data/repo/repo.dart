@@ -20,6 +20,7 @@ import 'package:eazifly_student/data/models/library/plans/get_plan_subscription_
 import 'package:eazifly_student/data/models/library/show_library_item_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_session_details_model.dart';
+import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
@@ -40,6 +41,7 @@ import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
 import 'package:eazifly_student/domain/entities/get_program_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
 
 class Repository extends BaseRepository {
   BaseRemoteDataSource baseRemoteDataSource;
@@ -377,6 +379,19 @@ class Repository extends BaseRepository {
     try {
       final result =
           await baseRemoteDataSource.getSessionDetails(sessionId: sessionId);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, JoinSessionEntity>> joinSession(
+      {required JoinSessionTojson data}) async {
+    try {
+      final result = await baseRemoteDataSource.joinSession(
+        data: data,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

@@ -15,6 +15,7 @@ class EndPoints {
   static const getPlanSubscriptionPeriod = "plan/subscription/period";
   static const libraryOrderAndSubscription = "library/order";
   static const getMyPrograms = "my/programs";
+  static const joinSession = "update/session/status";
   static String getSessionDetails({required int sessionId}) =>
       "get/session/details/$sessionId";
   static String getLibraryPlans({required int days}) =>
