@@ -4,6 +4,7 @@ import 'package:eazifly_student/core/service_locator/service_locator.dart';
 import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_state.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_controller/programs_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/layout/library/library.dart';
@@ -34,7 +35,10 @@ class LayoutCubit extends Cubit<LayoutState> {
       ),
       child: const ProgramsView(),
     ),
-    const MyProgramsView(),
+    BlocProvider(
+      create: (context) => sl<MyProgramsCubit>(),
+      child: const MyProgramsView(),
+    ),
     BlocProvider(
       create: (context) => LibraryCubit(
         libraryCategoriesUsecase: sl(),
@@ -47,7 +51,6 @@ class LayoutCubit extends Cubit<LayoutState> {
         getListItemsUsingListIdUsecase: sl(),
         likeItemUsecase: sl(),
         getLibraryItemsUsecase: sl(),
-        // getPaymentMethodDetailsUsecase: sl(),
       ),
       child: const LibraryView(),
     ),

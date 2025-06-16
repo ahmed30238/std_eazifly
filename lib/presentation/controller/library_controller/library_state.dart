@@ -123,3 +123,18 @@ class GetLibraryItemsErrorState extends LibraryState {
 }
 
 class GetLibraryItemsLoadingState extends LibraryState {}
+// أضف هذه الـ States لملف library_state.dart
+
+// Audio States
+class AudioPlayingState extends LibraryState {}
+
+class AudioStateChangedState extends LibraryState {}
+
+class AudioPositionChangedState extends LibraryState {}
+
+class AudioDurationChangedState extends LibraryState {}
+
+class AudioErrorState extends LibraryState {
+  final String errorMessage;
+  AudioErrorState({required this.errorMessage});
+}

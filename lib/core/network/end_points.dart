@@ -14,6 +14,9 @@ class EndPoints {
   static const createNewChild = "store";
   static const getPlanSubscriptionPeriod = "plan/subscription/period";
   static const libraryOrderAndSubscription = "library/order";
+  static const getMyPrograms = "my/programs";
+  static String getSessionDetails({required int sessionId}) =>
+      "get/session/details/$sessionId";
   static String getLibraryPlans({required int days}) =>
       "library/plan?days=$days";
   static String showLibraryItem({required int itemId}) =>
@@ -32,7 +35,8 @@ class EndPoints {
   static String getProgramDetails({required int programId}) =>
       "program/details/$programId";
   static const getAllLibraryLists = "all/list";
-  static String getPlansWithDetails({required int programId, required int days}) =>
+  static String getPlansWithDetails(
+          {required int programId, required int days}) =>
       "program/plans/details/$programId?day=$days";
   static String getPlans({required int programId}) => "plans/$programId";
   static String getProgramPaymentMethods({required int programId}) =>

@@ -1,7 +1,9 @@
-import 'package:eazifly_student/core/component/avatar_image.dart';
-import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:eazifly_student/core/extensions/num_extentions.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TelegramStyleFileItem extends StatelessWidget {
+  final bool isPaid;
   final String title;
   final String fileType;
   final String image;
@@ -9,11 +11,13 @@ class TelegramStyleFileItem extends StatelessWidget {
   final bool isDownloading;
   final double downloadProgress;
   final bool isDownloaded;
+  final bool isAudioFile; // جديد
+  final bool isCurrentlyPlaying; // جديد
   final VoidCallback onTap;
-  final bool isPaid;
 
   const TelegramStyleFileItem({
     super.key,
+    required this.isPaid,
     required this.title,
     required this.fileType,
     required this.image,
@@ -21,125 +25,183 @@ class TelegramStyleFileItem extends StatelessWidget {
     required this.isDownloading,
     required this.downloadProgress,
     required this.isDownloaded,
+    this.isAudioFile = false, // افتراضي false
+    this.isCurrentlyPlaying = false, // افتراضي false
     required this.onTap,
-    required this.isPaid,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        InkWell(
-          onTap: onTap,
-          borderRadius: 12.cr,
-          child: Container(
-            padding: EdgeInsets.all(16.r),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: 12.cr,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.1),
-                  spreadRadius: 1.r,
-                  blurRadius: 4.r,
-                  offset: const Offset(0, 2),
-                ),
-              ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(12.w),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
             ),
-            child: Row(
-              children: [
-                // أيقونة الملف
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    AvatarImage(
-                      height: 48.h,
-                      width: 48.w,
-                      shape: BoxShape.rectangle,
-                      radius: 12.r,
-                      imageUrl: image,
+          ],
+          // إضافة border للملف الصوتي الذي يتم تشغيله
+          border: isCurrentlyPlaying
+              ? Border.all(color: Colors.green, width: 2)
+              : null,
+        ),
+        child: Row(
+          children: [
+            // أيقونة الملف
+            Container(
+              width: 50.w,
+              height: 50.h,
+              decoration: BoxDecoration(
+                color: fileColor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Icon(
+                _getFileIcon(),
+                color: fileColor,
+                size: 24.w,
+              ),
+            ),
+            
+            12.pw,
+            
+            // معلومات الملف
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
                     ),
-                    if (isDownloading)
-                      SizedBox(
-                        width: 48.w,
-                        height: 48.h,
-                        child: CircularProgressIndicator(
-                          value: downloadProgress,
-                          backgroundColor: Colors.grey.withOpacity(0.3),
-                          valueColor: AlwaysStoppedAnimation<Color>(fileColor),
-                          strokeWidth: 3.w,
-                        ),
-                      ),
-                  ],
-                ),
-                16.pw,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  4.ph,
+                  Row(
                     children: [
                       Text(
-                        title,
-                        style: MainTextStyle.boldTextStyle(
-                          fontSize: 16,
-                          color: Colors.black87,
+                        fileType,
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: fileColor,
+                          fontWeight: FontWeight.w500,
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
                       ),
-                      4.ph,
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 2.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: fileColor.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              fileType,
-                              style: MainTextStyle.mediumTextStyle(
-                                fontSize: 12,
-                                color: fileColor,
-                              ),
-                            ),
+                      8.pw,
+                      // إضافة مؤشر للملف الصوتي
+                      if (isAudioFile) ...[
+                        Icon(
+                          Icons.volume_up,
+                          size: 14.w,
+                          color: Colors.grey[600],
+                        ),
+                        4.pw,
+                        Text(
+                          "صوتي",
+                          style: TextStyle(
+                            fontSize: 10.sp,
+                            color: Colors.grey[600],
                           ),
-                          const Spacer(),
-                          if (isDownloading)
-                            Text(
-                              '${(downloadProgress * 100).toInt()}%',
-                              style: MainTextStyle.mediumTextStyle(
-                                fontSize: 12,
-                                color: fileColor,
-                              ),
-                            )
-                          else if (isDownloaded)
-                            Icon(
-                              Icons.check_circle,
-                              color: Colors.green,
-                              size: 16.r,
-                            )
-                          else
-                            Icon(
-                              Icons.download,
-                              color: Colors.grey,
-                              size: 16.r,
-                            ),
-                        ],
-                      ),
+                        ),
+                      ],
+                      // مؤشر الملف المدفوع
+                      if (isPaid) ...[
+                        8.pw,
+                        Icon(
+                          Icons.lock,
+                          size: 12.w,
+                          color: Colors.orange,
+                        ),
+                      ],
                     ],
                   ),
-                ),
-              ],
+                  // شريط التحميل
+                  if (isDownloading) ...[
+                    4.ph,
+                    LinearProgressIndicator(
+                      value: downloadProgress,
+                      backgroundColor: Colors.grey[300],
+                      valueColor: AlwaysStoppedAnimation(fileColor),
+                    ),
+                  ],
+                ],
+              ),
             ),
-          ),
+            
+            8.pw,
+            
+            // أيقونة الحالة
+            _buildStatusIcon(),
+          ],
         ),
-        // if (isPaid) ...{
-        //   SvgPicture.asset(Assets.iconsLock),
-        // }
-      ],
+      ),
+    );
+  }
+
+  IconData _getFileIcon() {
+    if (isAudioFile) {
+      return isCurrentlyPlaying ? Icons.music_note : Icons.audio_file;
+    }
+    
+    switch (fileType.toLowerCase()) {
+      case 'pdf':
+        return Icons.picture_as_pdf;
+      case 'txt':
+        return Icons.text_snippet;
+      default:
+        return Icons.insert_drive_file;
+    }
+  }
+
+  Widget _buildStatusIcon() {
+    if (isDownloading) {
+      return SizedBox(
+        width: 20.w,
+        height: 20.h,
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+          valueColor: AlwaysStoppedAnimation(fileColor),
+        ),
+      );
+    }
+
+    if (isCurrentlyPlaying) {
+      return Icon(
+        Icons.pause_circle_filled,
+        color: Colors.green,
+        size: 24.w,
+      );
+    }
+
+    if (isAudioFile) {
+      return Icon(
+        Icons.play_circle_filled,
+        color: fileColor,
+        size: 24.w,
+      );
+    }
+
+    if (isDownloaded) {
+      return Icon(
+        Icons.check_circle,
+        color: Colors.green,
+        size: 20.w,
+      );
+    }
+
+    return Icon(
+      Icons.download,
+      color: Colors.grey[600],
+      size: 20.w,
     );
   }
 }

@@ -1,19 +1,23 @@
-import 'package:eazifly_student/core/component/custom_appbar.dart';
-import 'package:eazifly_student/core/component/custom_form_field.dart';
-import 'package:eazifly_student/core/component/prefix_search_form_field.dart';
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
-import 'package:eazifly_student/core/extensions/context.dart';
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/images/my_images.dart';
-import 'package:eazifly_student/core/routes/paths.dart';
-import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/collection_session_list.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/program_item.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class MyProgramsView extends StatelessWidget {
+class MyProgramsView extends StatefulWidget {
   const MyProgramsView({super.key});
+
+  @override
+  State<MyProgramsView> createState() => _MyProgramsViewState();
+}
+
+class _MyProgramsViewState extends State<MyProgramsView> {
+  late MyProgramsCubit cubit;
+  @override
+  void initState() {
+    cubit = context.read<MyProgramsCubit>();
+    cubit.getMyPrograms();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,18 +55,43 @@ class MyProgramsView extends StatelessWidget {
             suffixIconWidget: const SuffixMenuFormField(),
           ),
           16.ph,
-          ProgramItem(
-            onTap: () =>
-                Navigator.pushNamed(context, RoutePaths.navigateToLectureView),
+          BlocBuilder(
+            bloc: cubit,
+            builder: (context, state) {
+              var myPrograms = cubit.getMyProgramsEntity?.data;
+              return ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  var item = myPrograms?[index];
+                  return ProgramItem(
+                    desc: item?.description ?? "no desc",
+                    duration: item?.duration ?? "0",
+                    image: item?.image ?? "",
+                    nextLec: item?.nextSession?.toIso8601String()??"",
+                    title: item?.title ?? "",
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, RoutePaths.navigateToLectureView);
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) => 20.ph,
+                itemCount: myPrograms?.length ?? 0,
+              );
+            },
           ),
+          // ProgramItem(
+          //   onTap: () =>
+          // ),
           20.ph,
-          InkWell(
-            onTap: () => Navigator.pushNamed(
-              context,
-              RoutePaths.selectionOfEducationalCoursesView,
-            ),
-            child: const CollectionSessionList(),
-          ),
+          // InkWell(
+          //   onTap: () => Navigator.pushNamed(
+          //     context,
+          //     RoutePaths.selectionOfEducationalCoursesView,
+          //   ),
+          //   child: const CollectionSessionList(),
+          // ),
           20.ph,
         ],
       ),

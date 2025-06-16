@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
@@ -33,6 +34,7 @@ import 'package:eazifly_student/presentation/view/layout/library/widgets/favouri
 import 'package:eazifly_student/presentation/view/layout/library/widgets/menu_list_body.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/visuals_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+// import 'package:just_audio/just_audio.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -466,6 +468,7 @@ class LibraryCubit extends Cubit<LibraryState> {
 
   @override
   Future<void> close() {
+    _audioPlayer.dispose();
     favouriteListController.dispose();
     return super.close();
   }
@@ -490,6 +493,14 @@ class LibraryCubit extends Cubit<LibraryState> {
   Map<String, String> get downloadedFiles => Map.unmodifiable(_downloadedFiles);
 
   // دالة لفتح الملفات حسب النوع (زي تيليجرام)
+  // إضافة AudioPlayer للتحكم في الصوت
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  bool isPlaying = false;
+  Duration currentPosition = Duration.zero;
+  Duration totalDuration = Duration.zero;
+  String? currentPlayingUrl;
+
+  // دالة محدثة لفتح الملفات مع دعم الصوت
   Future<void> openFile({
     required String fileUrl,
     required String fileType,
@@ -502,32 +513,222 @@ class LibraryCubit extends Cubit<LibraryState> {
             filePath: _downloadedFiles[fileUrl]!, context: context);
         return;
       }
-      if (fileType.toLowerCase() == "pdf") {
-        await _downloadAndOpenPdf(
-            fileUrl: fileUrl, title: title, context: context);
-      } else if (fileType.toLowerCase() == "txt") {
-        await _downloadAndOpenTextFile(
-          fileUrl: fileUrl,
-          title: title,
-          onError: (errorMessage) {
-            if (context.mounted) {
-              showErrorSnackBar(errorMessage, context);
-            }
-          },
-          onSuccess: (filePath) async {
-            if (context.mounted) {
-              await _openDownloadedFile(filePath: filePath, context: context);
-            }
-          },
-        );
-        return;
-      } else {
-        showErrorSnackBar("نوع الملف غير مدعوم", context);
+
+      switch (fileType.toLowerCase()) {
+        case "pdf":
+          await _downloadAndOpenPdf(
+              fileUrl: fileUrl, title: title, context: context);
+          break;
+        case "txt":
+          await _downloadAndOpenTextFile(
+            fileUrl: fileUrl,
+            title: title,
+            onError: (errorMessage) {
+              if (context.mounted) {
+                showErrorSnackBar(errorMessage, context);
+              }
+            },
+            onSuccess: (filePath) async {
+              if (context.mounted) {
+                await _openDownloadedFile(filePath: filePath, context: context);
+              }
+            },
+          );
+          break;
+        case "mp3":
+          // case "audio":
+          await _playAudioFile(
+            fileUrl: fileUrl,
+            title: title,
+            context: context,
+          );
+          break;
+        default:
+          showErrorSnackBar("نوع الملف غير مدعوم", context);
       }
     } catch (e) {
       showErrorSnackBar('حدث خطأ في فتح الملف: $e', context);
     }
   }
+
+  // دالة تشغيل الملفات الصوتية
+  Future<void> _playAudioFile({
+    required String fileUrl,
+    required String title,
+    required BuildContext context,
+  }) async {
+    try {
+      // إيقاف أي صوت يتم تشغيله حالياً
+      if (isPlaying && currentPlayingUrl != fileUrl) {
+        await _audioPlayer.stop();
+      }
+
+      currentPlayingUrl = fileUrl;
+
+      // تشغيل الملف الصوتي من الرابط مباشرة
+      await _audioPlayer.play(UrlSource(fileUrl));
+      isPlaying = true;
+      emit(AudioPlayingState());
+
+      // الاستماع لتغييرات حالة التشغيل
+      _audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
+        isPlaying = state == PlayerState.playing;
+        emit(AudioStateChangedState());
+      });
+
+      // الاستماع لموضع التشغيل
+      _audioPlayer.onPositionChanged.listen((Duration position) {
+        currentPosition = position;
+        emit(AudioPositionChangedState());
+      });
+
+      // الاستماع لمدة الملف الكاملة
+      _audioPlayer.onDurationChanged.listen((Duration duration) {
+        totalDuration = duration;
+        emit(AudioDurationChangedState());
+      });
+
+      // عرض مشغل الصوت في Bottom Sheet
+      _showAudioPlayerBottomSheet(context, title);
+    } catch (e) {
+      showErrorSnackBar('فشل في تشغيل الملف الصوتي: $e', context);
+    }
+  }
+
+  // عرض مشغل الصوت في Bottom Sheet
+  void _showAudioPlayerBottomSheet(BuildContext context, String title) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+      builder: (context) => BlocProvider.value(
+        value: this,
+        // create: (context) => SubjectCubit(),
+        child: Container(
+          padding: EdgeInsets.all(20.w),
+          height: 200.h,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // عنوان الملف
+              Text(
+                title,
+                style: MainTextStyle.boldTextStyle(fontSize: 16),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              20.ph,
+
+              // شريط التقدم
+              BlocBuilder<LibraryCubit, LibraryState>(
+                builder: (context, state) {
+                  return Column(
+                    children: [
+                      Slider(
+                        value: totalDuration.inSeconds > 0
+                            ? currentPosition.inSeconds.toDouble()
+                            : 0.0,
+                        max: totalDuration.inSeconds.toDouble(),
+                        onChanged: (value) {
+                          _audioPlayer.seek(Duration(seconds: value.toInt()));
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(_formatDuration(currentPosition)),
+                          Text(_formatDuration(totalDuration)),
+                        ],
+                      ),
+                    ],
+                  );
+                },
+              ),
+
+              20.ph,
+
+              // أزرار التحكم
+              BlocBuilder<LibraryCubit, LibraryState>(
+                builder: (context, state) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      // زر الترجيع 10 ثواني
+                      IconButton(
+                        onPressed: () => _seekBackward(),
+                        icon: Icon(Icons.replay_10, size: 30.w),
+                      ),
+
+                      // زر التشغيل/الإيقاف
+                      Container(
+                        decoration: BoxDecoration(
+                          color: MainColors.greenTeal,
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          onPressed: () => _togglePlayPause(),
+                          icon: Icon(
+                            isPlaying ? Icons.pause : Icons.play_arrow,
+                            color: Colors.white,
+                            size: 35.w,
+                          ),
+                        ),
+                      ),
+
+                      // زر التقديم 10 ثواني
+                      IconButton(
+                        onPressed: () => _seekForward(),
+                        icon: Icon(Icons.forward_10, size: 30.w),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // دوال التحكم في الصوت
+  Future<void> _togglePlayPause() async {
+    if (isPlaying) {
+      await _audioPlayer.pause();
+    } else {
+      await _audioPlayer.resume();
+    }
+    emit(AudioStateChangedState());
+  }
+
+  Future<void> _seekForward() async {
+    final newPosition = currentPosition + Duration(seconds: 10);
+    if (newPosition < totalDuration) {
+      await _audioPlayer.seek(newPosition);
+    }
+  }
+
+  Future<void> _seekBackward() async {
+    final newPosition = currentPosition - Duration(seconds: 10);
+    if (newPosition > Duration.zero) {
+      await _audioPlayer.seek(newPosition);
+    } else {
+      await _audioPlayer.seek(Duration.zero);
+    }
+  }
+
+  // تنسيق الوقت
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+  }
+
+  // إيقاف الصوت عند إغلاق الـ Cubit
 
   Future<void> _openDownloadedFile(
       {required String filePath, required BuildContext context}) async {

@@ -79,6 +79,7 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
                     var isPaid = audioPlayListItem.paymentType == "paid";
                     Color fileColor;
 
+                    // تحديد لون الملف حسب النوع
                     switch (fileType.toLowerCase()) {
                       case 'pdf':
                         fileColor = Colors.red;
@@ -86,47 +87,39 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
                       case 'txt':
                         fileColor = Colors.blue;
                         break;
+                      case 'mp3':
+                      case 'audio':
+                        fileColor = Colors.green; // لون أخضر للملفات الصوتية
+                        break;
                       default:
                         fileColor = Colors.grey;
                     }
 
+                    // إضافة أيقونة خاصة للملفات الصوتية
+                    bool isAudioFile = fileType.toLowerCase() == 'mp3' || 
+                                      fileType.toLowerCase() == 'audio';
+
                     return TelegramStyleFileItem(
-                        isPaid: isPaid,
-                        title: title,
-                        fileType: fileType.toUpperCase(),
-                        image: image,
-                        fileColor: fileColor,
-                        isDownloading: cubit.isDownloading[fileUrl] ?? false,
-                        downloadProgress:
-                            cubit.downloadingProgress[fileUrl] ?? 0.0,
-                        isDownloaded:
-                            cubit.downloadedFiles.containsKey(fileUrl),
-                        onTap: cubit.getLibraryItemsLoader
-                            ? () {}
-                            : () {
-                                cubit.showLibraryItem(
-                                  itemId: audioPlayListItem.id ?? 0,
-                                  context: context,
-                                );
-                              }
-                        // isPaid
-                        //     ? () {
-                        //         delightfulToast(
-                        //             message: "ليس لديك اشتراك", context: context);
-                        //       }
-                        //     : () {
-                        //         if (fileUrl.isNotEmpty) {
-                        //           cubit.openFile(
-                        //               fileUrl: fileUrl,
-                        //               fileType: fileType,
-                        //               title: title,
-                        //               context: context);
-                        //         } else {
-                        //           cubit.showErrorSnackBar(
-                        //               'رابط الملف غير متوفر', context);
-                        //         }
-                        //       },
-                        );
+                      isPaid: isPaid,
+                      title: title,
+                      fileType: fileType.toUpperCase(),
+                      image: image,
+                      fileColor: fileColor,
+                      isDownloading: cubit.isDownloading[fileUrl] ?? false,
+                      downloadProgress: cubit.downloadingProgress[fileUrl] ?? 0.0,
+                      isDownloaded: cubit.downloadedFiles.containsKey(fileUrl),
+                      // إضافة معلومات الملف الصوتي
+                      isAudioFile: isAudioFile,
+                      isCurrentlyPlaying: cubit.currentPlayingUrl == fileUrl && cubit.isPlaying,
+                      onTap: cubit.getLibraryItemsLoader
+                        ? () {}
+                        : () {
+                            cubit.showLibraryItem(
+                              itemId: audioPlayListItem.id ?? 0,
+                              context: context,
+                            );
+                          },
+                    );
                   },
                   separatorBuilder: (context, index) => 12.ph,
                   itemCount: audioPlaylist.length,

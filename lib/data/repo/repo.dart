@@ -18,6 +18,7 @@ import 'package:eazifly_student/data/models/library/library_order_and_subscripti
 import 'package:eazifly_student/data/models/library/plans/get_library_plans_model.dart';
 import 'package:eazifly_student/data/models/library/plans/get_plan_subscription_period_model.dart';
 import 'package:eazifly_student/data/models/library/show_library_item_model.dart';
+import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
@@ -353,6 +354,16 @@ class Repository extends BaseRepository {
     try {
       final result =
           await baseRemoteDataSource.libraryOrderAndSubscription(data: data);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetMyProgramsModel>> getMyPrograms() async {
+    try {
+      final result = await baseRemoteDataSource.getMyPrograms();
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

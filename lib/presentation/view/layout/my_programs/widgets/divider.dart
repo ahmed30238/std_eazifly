@@ -1,6 +1,5 @@
 import 'package:eazifly_student/core/component/horizntal_divider.dart';
-import 'package:eazifly_student/core/component/voice_message_widget.dart';
-import 'package:eazifly_student/core/theme/colors/main_colors.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/audio_wave_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,13 +12,10 @@ class WavyDivider extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         const CustomHorizontalDivider(),
-        VoiceMessageWidget(
-          justWave: true,
-          areaWidth: 200.w,
-          activeSliderColor: MainColors.redWaveColor,
-          noises: 15,
-          backgroundColor: MainColors.transparentColor,
-          width: 150.w,
+        AudioWaveformWidget(
+          isRecording: true,
+          height: 20.0.h,
+          width: 200.0.w,
         ),
       ],
     );

@@ -1,18 +1,23 @@
-import 'package:eazifly_student/core/extensions/context.dart';
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/images/my_images.dart';
-import 'package:eazifly_student/core/theme/colors/main_colors.dart';
-import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/divider.dart';
-import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/session_dates_details.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ProgramItem extends StatelessWidget {
   final VoidCallback onTap;
+  final String image;
+  final String title;
+  final String desc;
+  final String nextLec;
+  final String duration;
+
   const ProgramItem({
     super.key,
     required this.onTap,
+    required this.image,
+    required this.title,
+    required this.desc,
+    required this.nextLec,
+    required this.duration,
   });
 
   @override
@@ -32,22 +37,15 @@ class ProgramItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            AvatarImage(
               width: 343.w,
               height: 163.h,
-              decoration: BoxDecoration(
-                borderRadius: 16.cr,
-                image: const DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(
-                    Assets.imagesPersona,
-                  ),
-                ),
-              ),
+              radius: 16.r,
+              imageUrl: image,
             ),
             8.ph,
             Text(
-              "الرياضيات للصف السادس الإبتدائي",
+              title,
               style: MainTextStyle.boldTextStyle(
                 fontSize: 14,
                 color: MainColors.black,
@@ -55,7 +53,7 @@ class ProgramItem extends StatelessWidget {
             ),
             4.ph,
             Text(
-              "إكتشفوا جمال تعلم القرآن من خلال دروسنا المصممة خصيصًا لقادة المستقبل",
+              desc,
               style: MainTextStyle.boldTextStyle(
                 fontSize: 12,
                 color: MainColors.grayTextColors,
@@ -68,9 +66,9 @@ class ProgramItem extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               margin: EdgeInsets.symmetric(horizontal: 16.w),
               firstTitle: lang.nextLecture,
-              firstSubTitle: "12:45 PM",
+              firstSubTitle: nextLec,
               secondTitle: lang.sessionDuration,
-              secondSubTitle: "30 دقيقة",
+              secondSubTitle: duration,
               thirdSubTitle: "",
               thirdTitle: lang.sessionState,
             ),

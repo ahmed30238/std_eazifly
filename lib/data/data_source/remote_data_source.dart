@@ -26,6 +26,7 @@ import 'package:eazifly_student/data/models/library/like_item_model.dart';
 import 'package:eazifly_student/data/models/library/plans/get_library_plans_model.dart';
 import 'package:eazifly_student/data/models/library/plans/get_plan_subscription_period_model.dart';
 import 'package:eazifly_student/data/models/library/show_library_item_model.dart';
+import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_model.dart';
@@ -87,6 +88,7 @@ abstract class BaseRemoteDataSource {
   Future<GetLibraryPlansModel> getLibraryPlans({required int days});
   Future<LibraryOrderAndSubscriptionModel> libraryOrderAndSubscription(
       {required LibraryOrderAndSubscribeTojson data});
+  Future<GetMyProgramsModel> getMyPrograms();
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -709,6 +711,22 @@ class RemoteDataSource extends BaseRemoteDataSource {
         .post(path: EndPoints.libraryOrderAndSubscription, data: formData);
     if (response?.statusCode == 200) {
       return LibraryOrderAndSubscriptionModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetMyProgramsModel> getMyPrograms() async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getMyPrograms,
+    );
+    if (response?.statusCode == 200) {
+      return GetMyProgramsModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

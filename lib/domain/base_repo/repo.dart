@@ -33,6 +33,7 @@ import 'package:eazifly_student/domain/entities/get_user_orders_entities.dart';
 import 'package:eazifly_student/domain/entities/library_order_and_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/login_entities.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_my_programs_entity.dart';
 import 'package:eazifly_student/domain/entities/show_library_item_entity.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
 
@@ -89,4 +90,5 @@ abstract class BaseRepository {
       {required int days});
   Future<Either<Failure, LibraryOrderAndSubscriptionEntity>>
       libraryOrderAndSubscribe({required LibraryOrderAndSubscribeTojson data});
+  Future<Either<Failure, GetMyProgramsEntity>> getMyPrograms();
 }
