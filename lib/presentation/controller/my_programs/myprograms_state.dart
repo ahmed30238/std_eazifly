@@ -21,3 +21,13 @@ class JoinSessionErrorState extends MyProgramsState {
 
   JoinSessionErrorState(this.errorMessage);
 }
+
+class GetAssignedChildrenSuccessState extends MyProgramsState {}
+
+class GetAssignedChildrenLoadingState extends MyProgramsState {}
+
+class GetAssignedChildrenErrorState extends MyProgramsState {
+  final String errorMessage;
+
+  GetAssignedChildrenErrorState(this.errorMessage);
+}

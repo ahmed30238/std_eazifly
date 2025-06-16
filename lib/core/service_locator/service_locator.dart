@@ -8,6 +8,7 @@ import 'package:eazifly_student/domain/use_cases/create_order_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/filter_plans_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_items_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_library_lists_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_assigned_children_to_program_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_children_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_item_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart';
@@ -24,6 +25,7 @@ import 'package:eazifly_student/domain/use_cases/get_program_payment_methods_use
 import 'package:eazifly_student/domain/use_cases/get_programs_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_session_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_orders_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/join_session_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/library_order_and_subscription_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/like_item_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/login_usecase.dart';
@@ -84,6 +86,9 @@ class ServiceLocator {
     sl.registerLazySingleton(() => GetMyProgramsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => GetSessionDetailsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => JoinSessionUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetAssignedChildrenToProgramUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(
@@ -93,6 +98,8 @@ class ServiceLocator {
       () => MyProgramsCubit(
         getMyProgramsUsecase: sl(),
         getSessionDetailsUsecase: sl(),
+        joinSessionUsecase: sl(),
+        getAssignedChildrenToProgramUsecase: sl(),
       ),
     );
   }

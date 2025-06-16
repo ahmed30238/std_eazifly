@@ -41,6 +41,7 @@ import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
 import 'package:eazifly_student/domain/entities/get_program_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
 
 class Repository extends BaseRepository {
@@ -391,6 +392,19 @@ class Repository extends BaseRepository {
     try {
       final result = await baseRemoteDataSource.joinSession(
         data: data,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetAssignedChildrenToProgramEntity>>
+      getAssignedChildrenToProgram({required int programId}) async {
+    try {
+      final result = await baseRemoteDataSource.getAssignedChildrenToProgram(
+        programId: programId,
       );
       return Right(result);
     } on ServerException catch (e) {

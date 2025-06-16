@@ -34,6 +34,7 @@ import 'package:eazifly_student/domain/entities/get_user_orders_entities.dart';
 import 'package:eazifly_student/domain/entities/library_order_and_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/login_entities.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_my_programs_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_session_details_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
@@ -99,5 +100,9 @@ abstract class BaseRepository {
   });
   Future<Either<Failure, JoinSessionEntity>> joinSession({
     required JoinSessionTojson data,
+  });
+  Future<Either<Failure, GetAssignedChildrenToProgramEntity>>
+      getAssignedChildrenToProgram({
+    required int programId,
   });
 }

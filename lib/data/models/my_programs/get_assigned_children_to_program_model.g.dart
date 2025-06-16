@@ -1,0 +1,120 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'get_assigned_children_to_program_model.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+GetAssignedChildrenToProgramModel _$GetAssignedChildrenToProgramModelFromJson(
+        Map<String, dynamic> json) =>
+    GetAssignedChildrenToProgramModel()
+      ..data = (json['data'] as List<dynamic>?)
+          ?.map((e) => GetAssignedChildrenToProgramDatum.fromJson(
+              e as Map<String, dynamic>))
+          .toList()
+      ..status = (json['status'] as num?)?.toInt()
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$GetAssignedChildrenToProgramModelToJson(
+        GetAssignedChildrenToProgramModel instance) =>
+    <String, dynamic>{
+      'data': instance.data?.map((e) => e.toJson()).toList(),
+      'status': instance.status,
+      'message': instance.message,
+    };
+
+GetAssignedChildrenToProgramDatum _$GetAssignedChildrenToProgramDatumFromJson(
+        Map<String, dynamic> json) =>
+    GetAssignedChildrenToProgramDatum()
+      ..id = (json['id'] as num?)?.toInt()
+      ..firstName = json['first_name'] as String?
+      ..lastName = json['last_name'] as String?
+      ..userName = json['user_name'] as String?
+      ..email = json['email'] as String?
+      ..parentId = (json['parent_id'] as num?)?.toInt()
+      ..phone = json['phone'] as String?
+      ..whatsApp = json['whats_app'] as String?
+      ..image = json['image'] as String?
+      ..gender = json['gender'] as String?
+      ..parentName = json['parent_name'] as String?
+      ..userCoupon = json['user_coupon'] as String?
+      ..bonus = (json['bonus'] as num?)?.toInt()
+      ..childrens = json['childrens'] as List<dynamic>?
+      ..age = (json['age'] as num?)?.toInt()
+      ..token = json['token']
+      ..isGuest = json['is_guest']
+      ..fcmToken = json['fcm_token']
+      ..createdAt = json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String)
+      ..lastActiveAt = json['last_active_at']
+      ..renewData = json['renew_data'] == null
+          ? null
+          : DateTime.parse(json['renew_data'] as String)
+      ..statusLabel = json['status_label'] == null
+          ? null
+          : GetAssignedChildrenToProgramStatusLabelModel.fromJson(
+              json['status_label'] as Map<String, dynamic>)
+      ..programs = (json['programs'] as List<dynamic>?)
+          ?.map((e) => GetAssignedChildrenToProgramProgramModel.fromJson(
+              e as Map<String, dynamic>))
+          .toList()
+      ..chatId = json['chat_id'];
+
+Map<String, dynamic> _$GetAssignedChildrenToProgramDatumToJson(
+        GetAssignedChildrenToProgramDatum instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'first_name': instance.firstName,
+      'last_name': instance.lastName,
+      'user_name': instance.userName,
+      'email': instance.email,
+      'parent_id': instance.parentId,
+      'phone': instance.phone,
+      'whats_app': instance.whatsApp,
+      'image': instance.image,
+      'gender': instance.gender,
+      'parent_name': instance.parentName,
+      'user_coupon': instance.userCoupon,
+      'bonus': instance.bonus,
+      'childrens': instance.childrens,
+      'age': instance.age,
+      'token': instance.token,
+      'is_guest': instance.isGuest,
+      'fcm_token': instance.fcmToken,
+      'created_at': instance.createdAt?.toIso8601String(),
+      'last_active_at': instance.lastActiveAt,
+      'renew_data': instance.renewData?.toIso8601String(),
+      'status_label': instance.statusLabel?.toJson(),
+      'programs': instance.programs?.map((e) => e.toJson()).toList(),
+      'chat_id': instance.chatId,
+    };
+
+GetAssignedChildrenToProgramProgramModel
+    _$GetAssignedChildrenToProgramProgramModelFromJson(
+            Map<String, dynamic> json) =>
+        GetAssignedChildrenToProgramProgramModel()
+          ..title = json['title'] as String?
+          ..image = json['image'];
+
+Map<String, dynamic> _$GetAssignedChildrenToProgramProgramModelToJson(
+        GetAssignedChildrenToProgramProgramModel instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'image': instance.image,
+    };
+
+GetAssignedChildrenToProgramStatusLabelModel
+    _$GetAssignedChildrenToProgramStatusLabelModelFromJson(
+            Map<String, dynamic> json) =>
+        GetAssignedChildrenToProgramStatusLabelModel()
+          ..label = json['label'] as String?
+          ..color = json['color'] as String?;
+
+Map<String, dynamic> _$GetAssignedChildrenToProgramStatusLabelModelToJson(
+        GetAssignedChildrenToProgramStatusLabelModel instance) =>
+    <String, dynamic>{
+      'label': instance.label,
+      'color': instance.color,
+    };

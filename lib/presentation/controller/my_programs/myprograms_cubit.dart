@@ -1,8 +1,10 @@
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_my_programs_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_session_details_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
+import 'package:eazifly_student/domain/use_cases/get_assigned_children_to_program_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_my_programs_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_session_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/join_session_usecase.dart';
@@ -14,6 +16,7 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
     required this.getMyProgramsUsecase,
     required this.getSessionDetailsUsecase,
     required this.joinSessionUsecase,
+    required this.getAssignedChildrenToProgramUsecase,
   }) : super(MyprogramsInitial());
   bool getMyProgramsLoader = false;
   GetMyProgramsEntity? getMyProgramsEntity;
@@ -57,6 +60,35 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
         getSessionDetailsLoader = false;
         getSessionDetailsEntity = data;
         emit(GetMyProgramsSuccessState());
+      },
+    );
+  }
+
+  bool getAssignedChildrenLoader = false;
+  GetAssignedChildrenToProgramEntity? getAssignedChildrenToProgramEntity;
+  GetAssignedChildrenToProgramUsecase getAssignedChildrenToProgramUsecase;
+
+  Future<void> getAssignedChildrenToProgram({
+    required int programId,
+  }) async {
+    getAssignedChildrenLoader = true;
+    emit(GetAssignedChildrenLoadingState());
+
+    final result = await getAssignedChildrenToProgramUsecase.call(
+      parameter: GetAssignedChildrenToProgramParameters(
+        programId: programId,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        getAssignedChildrenLoader = false;
+        emit(GetAssignedChildrenErrorState(failure.message));
+      },
+      (data) {
+        getAssignedChildrenLoader = false;
+        getAssignedChildrenToProgramEntity = data;
+        emit(GetAssignedChildrenSuccessState());
       },
     );
   }
