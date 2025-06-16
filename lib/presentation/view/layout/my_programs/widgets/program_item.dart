@@ -12,6 +12,7 @@ class ProgramItem extends StatelessWidget {
   final String nextLec;
   final String duration;
   final String status;
+  final String? timeDiff;
   final bool isRejoin;
 
   const ProgramItem({
@@ -23,6 +24,7 @@ class ProgramItem extends StatelessWidget {
     required this.desc,
     required this.nextLec,
     required this.duration,
+    this.timeDiff,
     required this.status,
     required this.isRejoin,
   });
@@ -80,8 +82,7 @@ class ProgramItem extends StatelessWidget {
               secondTitle: lang.sessionDuration,
               secondSubTitle: duration,
               isBtn: isRejoin,
-              thirdSubTitle: "reree",
-
+              thirdSubTitle: timeDiff ?? "",
               onRejoinTap: onRejoinTap,
               thirdTitle: lang.sessionState,
             ),

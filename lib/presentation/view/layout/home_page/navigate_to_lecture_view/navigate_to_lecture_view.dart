@@ -27,60 +27,92 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        context,
-        mainTitle: "محاضرة رياضيات للصف السادس",
-        leadingText: "المواعيد",
-        isCenterTitle: true,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight.w),
+        child: BlocBuilder(
+          bloc: cubit,
+          builder: (context, state) {
+            String title =
+                cubit.getSessionDetailsEntity?.data?.programTitle ?? "";
+            return CustomAppBar(
+              context,
+              mainTitle: title,
+              leadingText: "المواعيد",
+              isCenterTitle: true,
+            );
+          },
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
           children: [
             16.ph,
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              height: 78.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: 12.cr,
-                color: MainColors.veryLightGrayFormField,
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 12.h),
-                child: SizedBox(
-                  width: 216.w,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "إسم البرنامج",
-                        style: MainTextStyle.boldTextStyle(
-                            fontSize: 11, color: MainColors.grayTextColors),
-                      ),
-                      10.5.ph,
-                      Text(
-                        "محاضرة رياضيات للصف السادس",
-                        style: MainTextStyle.boldTextStyle(
-                            fontSize: 12, color: MainColors.blackText),
-                      ),
-                    ],
+            BlocBuilder(
+              bloc: cubit,
+              builder: (context, state) {
+                String title =
+                    cubit.getSessionDetailsEntity?.data?.programTitle ?? "";
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  height: 78.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: 12.cr,
+                    color: MainColors.veryLightGrayFormField,
                   ),
-                ),
-              ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                    child: SizedBox(
+                      width: 216.w,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "إسم البرنامج",
+                            style: MainTextStyle.boldTextStyle(
+                                fontSize: 11, color: MainColors.grayTextColors),
+                          ),
+                          10.5.ph,
+                          Text(
+                            title,
+                            style: MainTextStyle.boldTextStyle(
+                                fontSize: 12, color: MainColors.blackText),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
             8.ph,
-            LectureStats(
-              reJoin: true,
-              state: LectureStatesEnum.finished,
-              horizontalPadding: 0,
-              onRejoinTap: () {},
-              titleText: const [
-                "موعد المحاضرة",
-                "مدة المحاضرة",
-                "حالة المحاضرة",
-              ],
+            BlocBuilder(
+              bloc: cubit,
+              builder: (context, state) {
+                var item = cubit.getSessionDetailsEntity?.data;
+                return LectureStats(
+                  horizontalPadding: 0,
+                  state: item?.status == "started"
+                      ? LectureStatesEnum.ongoing
+                      : item?.status == "finished"
+                          ? LectureStatesEnum.finished
+                          : LectureStatesEnum.dated,
+                  reJoin: item?.status == "started",
+                  onRejoinTap: () {
+                    // كود إعادة الدخول
+                  },
+                  // nextLecture: nextLec, // الوقت المنسق من الدالة السابقة
+                  duration: "${item?.duration} دقيقة",
+                  // timeDiff: formattedTimeDiff, // الوقت المنسق من الدالة السابقة
+                  titleText: const [
+                    "المحاضرة التالية",
+                    "مدة الجلسة",
+                    "حالة الجلسة"
+                  ], // اختياري
+                );
+              },
             ),
             8.ph,
             Row(
@@ -89,7 +121,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                 3,
                 (index) => Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: index == 1 ? 8.w : 0),
+                      EdgeInsets.symmetric(horizontal: index == 1 ? 7.w : 0),
                   child: InkWell(
                     onTap: () {},
                     child: Container(
@@ -179,7 +211,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                   width: 197.w,
                   color: MainColors.blueTextColor,
                   radius: 16.r,
-                  text: "التوجهةة الي المحاضرة",
+                  text: "التوجهة الي المحاضرة",
                   onPressed: () {},
                 ),
                 8.pw,

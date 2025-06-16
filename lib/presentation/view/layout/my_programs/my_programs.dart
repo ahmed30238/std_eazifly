@@ -1,8 +1,15 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
+import 'package:eazifly_student/core/enums/storage_enum.dart';
+import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/my_programs_loder.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/program_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:get_storage/get_storage.dart';
 
 class MyProgramsView extends StatefulWidget {
   const MyProgramsView({super.key});
@@ -13,8 +20,12 @@ class MyProgramsView extends StatefulWidget {
 
 class _MyProgramsViewState extends State<MyProgramsView> {
   late MyProgramsCubit cubit;
+  late DataModel loginData;
   @override
   void initState() {
+    loginData = DataModel.fromJson(
+      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
+    );
     cubit = context.read<MyProgramsCubit>();
     cubit.getMyPrograms();
     super.initState();
@@ -61,9 +72,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
             builder: (context, state) {
               if (cubit.getMyProgramsLoader) {
                 // Show loader while data is loading
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+                return const MyProgramsLoader();
               } else if (!cubit.getMyProgramsLoader) {
                 // Show content when data is loaded
                 var myPrograms = cubit.getMyProgramsEntity?.data;
@@ -74,6 +83,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                   );
                 }
 
+                // تحديث كود ListView.separated
                 return ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -82,6 +92,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                     bool started = item.currentSession?.status == "started";
 
                     String nextLec = "";
+                    String formattedTimeDiff = "";
 
                     // إصلاح منطق تحديد nextLec مع تحويل لصيغة 12 ساعة
                     if (item.currentSession?.status != null) {
@@ -90,8 +101,13 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         int hour = item.nextSession!.hour;
                         int minute = item.nextSession!.minute;
                         nextLec = convertTo12HourFormat(hour, minute);
+
+                        // تنسيق الوقت المتبقي
+                        formattedTimeDiff =
+                            formatTimeDifference(item.nextSession);
                       } else {
                         nextLec = "بدأت بالفعل";
+                        formattedTimeDiff = "جارية الآن";
                       }
                     } else {
                       // إذا لم تبدأ بعد، استخدم تاريخ البداية
@@ -99,19 +115,25 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         int hour = item.nextSession!.hour;
                         int minute = item.nextSession!.minute;
                         nextLec = convertTo12HourFormat(hour, minute);
+
+                        // تنسيق الوقت المتبقي
+                        formattedTimeDiff =
+                            formatTimeDifference(item.nextSession);
                       } else {
                         nextLec = "غير محدد";
+                        formattedTimeDiff = "غير محدد";
                       }
                     }
 
                     return ProgramItem(
                       desc: item.description ?? "no desc",
-                      duration: item.duration ?? "0",
+                      duration: item.duration ?? "5",
                       image: item.image ?? "",
                       nextLec: nextLec,
                       status: item.currentSession?.status ?? "tt",
                       title: item.title ?? "",
                       isRejoin: started,
+                      timeDiff: formattedTimeDiff, // استخدام الوقت المنسق
                       onRejoinTap: () async {
                         await cubit.joinSession(
                           sessionId: item.currentSession?.id ?? -1,
@@ -126,24 +148,46 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         );
                       },
                       onTap: () {
-                        item.currentSession?.status == "started"
-                            ? Navigator.pushNamed(
-                                context,
-                                arguments: {
-                                  "cubit": cubit,
-                                  "sessionId": item.currentSession?.id ?? -1,
-                                },
-                                RoutePaths.navigateToLectureView,
-                              )
-                            : print("rwerwer");
+                        if (item.currentSession?.status != null) {
+                          if (item.currentSession?.status == "started") {
+                            Navigator.pushNamed(
+                              context,
+                              arguments: {
+                                "cubit": cubit,
+                                "sessionId": item.currentSession?.id ?? -1,
+                              },
+                              RoutePaths.navigateToLectureView,
+                            );
+                          } else if (item.currentSession?.status !=
+                              "started" /*TODO this is parent account */) {
+                            log("modal Sheet");
+                          } else {
+                            log("details screen direct");
+                          }
+                        } else {
+                          Navigator.pushNamed(
+                              context,
+                              arguments: {
+                                "cubit": cubit,
+                                "sessionId": item.currentSession?.id ?? -1,
+                              },
+                              RoutePaths.navigateToLectureView,
+                            );
+                          // Navigator.pushNamed(
+                          //   context,
+                          //   RoutePaths.lectureView,
+                          //   arguments: false,
+                          // );
+                        }
+
+                        // ?
+                        // : print("rwerwer");
                       },
                     );
                   },
                   separatorBuilder: (context, index) => 20.ph,
                   itemCount: myPrograms.length,
                 );
-
-// دالة تحويل الوقت لصيغة 12 ساعة
               } else if (state is GetMyProgramsErrorState) {
                 // Show error message if something went wrong
                 return Center(

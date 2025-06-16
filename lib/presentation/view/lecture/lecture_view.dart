@@ -51,11 +51,28 @@ class _LectureViewState extends State<LectureView>
         physics: const BouncingScrollPhysics(),
         children: [
           10.ph,
-          LectureStats(
-            state: widget.isFinishedLecture!
-                ? LectureStatesEnum.finished
-                : LectureStatesEnum.dated,
-          ),
+          // TODO
+          // BlocBuilder(
+          //   bloc: cubit,
+          //   builder:(context, state) {
+          //     var item = cubit. 
+          //     return LectureStats(
+          //     state: item.currentSession?.status == "started" 
+          //       ? LectureStatesEnum.ongoing 
+          //       : item.currentSession?.status == "finished"
+          //         ? LectureStatesEnum.finished
+          //         : LectureStatesEnum.dated,
+          //     reJoin: item.currentSession?.status == "started",
+          //     onRejoinTap: () {
+          //       // كود إعادة الدخول
+          //     },
+          //     nextLecture: nextLec, // الوقت المنسق من الدالة السابقة
+          //     duration: "${item.duration} دقيقة",
+          //     timeDiff: formattedTimeDiff, // الوقت المنسق من الدالة السابقة
+          //     titleText: ["المحاضرة التالية", "مدة الجلسة", "حالة الجلسة"], // اختياري
+          //   );
+          //   },
+          // ),
           24.ph,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

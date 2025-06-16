@@ -1,9 +1,4 @@
-import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/extensions/widgets_extensions.dart';
-import 'package:eazifly_student/core/theme/colors/main_colors.dart';
-import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:flutter/material.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class SessionDatesDetails extends StatelessWidget {
   final String firstTitle;
@@ -104,13 +99,22 @@ class SessionDatesDetails extends StatelessWidget {
                     text: "اعادة دخول",
                   ),
                 } else ...{
-                  Text(
-                    secondSubTitle,
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: fixedFontSize ?? 14,
-                      color: MainColors.black,
-                    ),
-                  ),
+                  CustomLowSizeButton(
+                    onTap: () {},
+                    width: 200.w,
+                    fontSize: 10,
+                    height: 26.h,
+                    text: thirdSubTitle,
+                    btnColor: MainColors.lightRed,
+                    textColor: MainColors.red,
+                  ).center(),
+                  // Text(
+                  //   thirdSubTitle,
+                  //   style: MainTextStyle.boldTextStyle(
+                  //     fontSize: fixedFontSize ?? 14,
+                  //     color: MainColors.black,
+                  //   ),
+                  // ),
                 }
               ],
             ),

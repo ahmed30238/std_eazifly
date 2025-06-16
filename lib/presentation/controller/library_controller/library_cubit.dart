@@ -639,8 +639,8 @@ class LibraryCubit extends Cubit<LibraryState> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(_formatDuration(currentPosition)),
-                          Text(_formatDuration(totalDuration)),
+                          Text(formatDuration(currentPosition)),
+                          Text(formatDuration(totalDuration)),
                         ],
                       ),
                     ],
@@ -720,13 +720,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     }
   }
 
-  // تنسيق الوقت
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
-  }
+
 
   // إيقاف الصوت عند إغلاق الـ Cubit
 

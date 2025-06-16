@@ -23,7 +23,6 @@ String? customValidation(String? value) {
   return null;
 }
 
-
 void shareApp({required BuildContext context}) async {
   final box = context.findRenderObject() as RenderBox?;
   if (Platform.isAndroid) {
@@ -233,6 +232,7 @@ void showFlashBar({required BuildContext context, required String message}) {
     },
   );
 }
+
 Future<void> openUrl(String url) async {
   final Uri uri = Uri.parse(url);
 
@@ -242,3 +242,56 @@ Future<void> openUrl(String url) async {
     throw 'لا يمكن فتح الرابط: $url';
   }
 }
+
+// إضافة هذه الدالة في ملف منفصل أو في نفس الملف
+String formatTimeDifference(DateTime? nextSessionDateTime) {
+  if (nextSessionDateTime == null) {
+    return "غير محدد";
+  }
+
+  DateTime now = DateTime.now();
+  Duration difference = nextSessionDateTime.difference(now);
+
+  // إذا كان الوقت في الماضي
+  if (difference.isNegative) {
+    return "انتهت";
+  }
+
+  int totalDays = difference.inDays;
+  int totalHours = difference.inHours;
+  int totalMinutes = difference.inMinutes;
+
+  // أكثر من 3 أيام - عرض التاريخ
+  if (totalDays > 3) {
+    return "${nextSessionDateTime.day}/${nextSessionDateTime.month}/${nextSessionDateTime.year}";
+  }
+
+  // من يوم إلى 3 أيام - عرض عدد الأيام
+  if (totalDays >= 1 && totalDays <= 3) {
+    return "بعد $totalDays ${totalDays == 1 ? 'يوم' : 'أيام'}";
+  }
+
+  // أقل من 24 ساعة - عرض الساعات والدقائق
+  if (totalHours > 0) {
+    int remainingMinutes = totalMinutes % 60;
+    if (remainingMinutes > 0) {
+      return "بعد $totalHours ${totalHours == 1 ? 'ساعة' : 'ساعات'} و $remainingMinutes ${remainingMinutes == 1 ? 'دقيقة' : 'دقائق'}";
+    } else {
+      return "بعد $totalHours ${totalHours == 1 ? 'ساعة' : 'ساعات'}";
+    }
+  }
+
+  // أقل من ساعة - عرض الدقائق فقط
+  if (totalMinutes > 0) {
+    return "بعد $totalMinutes ${totalMinutes == 1 ? 'دقيقة' : 'دقائق'}";
+  }
+
+  return "الآن";
+}
+  // تنسيق الوقت
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+  }
