@@ -4,15 +4,15 @@ import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:just_audio/just_audio.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
 class ChatsCubit extends Cubit<ChatsState> {
   ChatsCubit() : super(ChatsInitial());
-
   static ChatsCubit get(context) => BlocProvider.of(context);
   late TabController controller;
+  
   void initController(TickerProvider vsync) {
     controller = TabController(length: 2, vsync: vsync)
       ..addListener(
@@ -25,6 +25,7 @@ class ChatsCubit extends Cubit<ChatsState> {
   }
 
   List<File> images = [];
+  
   Future<void> pickImages() async {
     final response = await pickMultiImageFromGallery();
     if (response != null) {
@@ -47,17 +48,24 @@ class ChatsCubit extends Cubit<ChatsState> {
   bool isRecording = false;
   bool isPlaying = false;
   String recordPath = "";
+
   initializeRecordVars() {
     audioPlayer = AudioPlayer();
     audioRecord = AudioRecorder();
-    audioPlayer.playerStateStream.listen(
-      (event) {
-        if (event.processingState == ProcessingState.completed) {
-          isPlaying = false;
-          emit(StopPlayingRecordState());
-        }
-      },
-    );
+    
+    // Listen to player state changes
+    audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
+      if (state == PlayerState.completed) {
+        isPlaying = false;
+        emit(StopPlayingRecordState());
+      }
+    });
+    
+    // Listen to player completion
+    audioPlayer.onPlayerComplete.listen((event) {
+      isPlaying = false;
+      emit(StopPlayingRecordState());
+    });
   }
 
   Future<String> getRecordPath() async {
@@ -70,9 +78,10 @@ class ChatsCubit extends Cubit<ChatsState> {
     if (await audioRecord.hasPermission()) {
       await audioRecord.start(
         const RecordConfig(
-            androidConfig: AndroidRecordConfig(
-          audioSource: AndroidAudioSource.mic,
-        )),
+          androidConfig: AndroidRecordConfig(
+            audioSource: AndroidAudioSource.mic,
+          )
+        ),
         path: recordPath,
       );
       isRecording = true;
@@ -89,8 +98,7 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   Future<void> playAudio() async {
     if (recordPath != "") {
-      audioPlayer.setFilePath(recordPath);
-      await audioPlayer.play();
+      await audioPlayer.play(DeviceFileSource(recordPath));
       isPlaying = true;
       emit(PlayRecordState());
     } else {
@@ -99,8 +107,7 @@ class ChatsCubit extends Cubit<ChatsState> {
   }
 
   Future<void> stopAudio() async {
-    if (recordPath != "") {
-      audioPlayer.setFilePath(recordPath);
+    if (isPlaying) {
       await audioPlayer.pause();
       isPlaying = false;
       emit(StopPlayingRecordState());

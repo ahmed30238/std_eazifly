@@ -8,7 +8,6 @@ class GetMyProgramsLoadingState extends MyProgramsState {}
 
 class GetMyProgramsErrorState extends MyProgramsState {
   final String errorMessage;
-
   GetMyProgramsErrorState(this.errorMessage);
 }
 
@@ -18,8 +17,17 @@ class JoinSessionLoadingState extends MyProgramsState {}
 
 class JoinSessionErrorState extends MyProgramsState {
   final String errorMessage;
-
   JoinSessionErrorState(this.errorMessage);
+}
+
+// States for changeSessionStatus
+class ChangeSessionStatusSuccessState extends MyProgramsState {}
+
+class ChangeSessionStatusLoadingState extends MyProgramsState {}
+
+class ChangeSessionStatusErrorState extends MyProgramsState {
+  final String errorMessage;
+  ChangeSessionStatusErrorState(this.errorMessage);
 }
 
 class GetAssignedChildrenSuccessState extends MyProgramsState {}
@@ -28,6 +36,5 @@ class GetAssignedChildrenLoadingState extends MyProgramsState {}
 
 class GetAssignedChildrenErrorState extends MyProgramsState {
   final String errorMessage;
-
   GetAssignedChildrenErrorState(this.errorMessage);
 }

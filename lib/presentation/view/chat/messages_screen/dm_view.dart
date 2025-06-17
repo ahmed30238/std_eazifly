@@ -142,6 +142,7 @@ class _DmViewState extends State<DmView> {
               ],
             ),
           ),
+          // في الجزء الخاص بالـ Recording في DmView
           BlocBuilder<ChatsCubit, ChatsState>(
             bloc: cubit,
             builder: (context, state) {
@@ -152,27 +153,46 @@ class _DmViewState extends State<DmView> {
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Row(
                     children: [
+                      // Microphone Button
                       InkWell(
                         onTap: () {
                           cubit.isRecording
                               ? cubit.stopRecording()
                               : cubit.startRecording();
                         },
-                        child: SizedBox(
+                        child: Container(
                           height: 40.h,
                           width: 40.w,
+                          decoration: BoxDecoration(
+                            color: cubit.isRecording
+                                ? MainColors.red.withOpacity(0.1)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
                           child: SvgPicture.asset(
                             Assets.iconsMicrophone,
                             fit: BoxFit.scaleDown,
+                            colorFilter: cubit.isRecording
+                                ? ColorFilter.mode(
+                                    MainColors.red,
+                                    BlendMode.srcIn,
+                                  )
+                                : null,
                           ),
                         ),
                       ),
+                      8.pw,
+
+                      // Text Field
                       const Expanded(
                         child: CustomTextFormField(
                           filledColor: MainColors.white,
                           hintText: "أكتب رسالتك",
                         ),
                       ),
+                      8.pw,
+
+                      // Gallery Button
                       InkWell(
                         onTap: () => cubit.pickImages(),
                         child: SizedBox(
@@ -190,6 +210,31 @@ class _DmViewState extends State<DmView> {
               );
             },
           ),
+
+// إضافة Recording Status Indicator (اختياري)
+          if (cubit.isRecording)
+            Container(
+              color: MainColors.red.withOpacity(0.1),
+              padding: EdgeInsets.symmetric(vertical: 8.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.fiber_manual_record,
+                    color: MainColors.red,
+                    size: 12.sp,
+                  ),
+                  8.pw,
+                  Text(
+                    "جاري التسجيل...",
+                    style: TextStyle(
+                      color: MainColors.red,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );

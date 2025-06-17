@@ -1,9 +1,12 @@
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
+import 'package:eazifly_student/data/models/my_programs/change_session_status_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
+import 'package:eazifly_student/domain/entities/my_programs/change_session_status_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_my_programs_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_session_details_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
+import 'package:eazifly_student/domain/use_cases/change_session_status_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_assigned_children_to_program_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_my_programs_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_session_details_usecase.dart';
@@ -17,6 +20,7 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
     required this.getSessionDetailsUsecase,
     required this.joinSessionUsecase,
     required this.getAssignedChildrenToProgramUsecase,
+    required this.changeSessionStatusUsecase,
   }) : super(MyprogramsInitial());
   bool getMyProgramsLoader = false;
   GetMyProgramsEntity? getMyProgramsEntity;
@@ -121,6 +125,40 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
         joinSessionLoader = false;
         joinSessionEntity = data;
         emit(JoinSessionSuccessState());
+      },
+    );
+  }
+
+  bool changeSessionStatusLoader = false;
+  ChangeSessionStatusEntity? changeSessionStatusEntity;
+  ChangeSessionStatusUsecase changeSessionStatusUsecase;
+
+  Future<void> changeSessionStatus({
+    required int sessionId,
+    required String status, // "started", "ended", إلخ...
+  }) async {
+    changeSessionStatusLoader = true;
+    emit(ChangeSessionStatusLoadingState()); // هتضيف state جديدة للـ loading
+
+    final result = await changeSessionStatusUsecase.call(
+      // أو usecase مخصص للتغيير لو عندك
+      parameter: ChangeSessionStatusParameters(
+        data: ChangeSessionStatusToJson(
+          sessionId: sessionId,
+          status: status,
+        ),
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        changeSessionStatusLoader = false;
+        emit(ChangeSessionStatusErrorState(failure.message)); // state للـ error
+      },
+      (data) {
+        changeSessionStatusLoader = false;
+        changeSessionStatusEntity = data;
+        emit(ChangeSessionStatusSuccessState()); // state للـ success
       },
     );
   }

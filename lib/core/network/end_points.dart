@@ -16,6 +16,7 @@ class EndPoints {
   static const libraryOrderAndSubscription = "library/order";
   static const getMyPrograms = "my/programs";
   static const joinSession = "update/session/status";
+  static const changeSessionStatus = "update/session/status";
   static String getAssignedChildrenToProgram({required int programId}) =>
       "get/assigned/children/in/program/$programId";
   static String getSessionDetails({required int sessionId}) =>

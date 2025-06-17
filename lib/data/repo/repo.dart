@@ -18,6 +18,7 @@ import 'package:eazifly_student/data/models/library/library_order_and_subscripti
 import 'package:eazifly_student/data/models/library/plans/get_library_plans_model.dart';
 import 'package:eazifly_student/data/models/library/plans/get_plan_subscription_period_model.dart';
 import 'package:eazifly_student/data/models/library/show_library_item_model.dart';
+import 'package:eazifly_student/data/models/my_programs/change_session_status_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_session_details_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
@@ -41,6 +42,7 @@ import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
 import 'package:eazifly_student/domain/entities/get_program_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/change_session_status_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
 
@@ -405,6 +407,19 @@ class Repository extends BaseRepository {
     try {
       final result = await baseRemoteDataSource.getAssignedChildrenToProgram(
         programId: programId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ChangeSessionStatusEntity>> changeSessionStatus(
+      {required ChangeSessionStatusToJson data}) async {
+    try {
+      final result = await baseRemoteDataSource.changeSessionStatus(
+        data: data,
       );
       return Right(result);
     } on ServerException catch (e) {

@@ -2,6 +2,7 @@ import 'package:eazifly_student/data/data_source/remote_data_source.dart';
 import 'package:eazifly_student/data/repo/repo.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/use_cases/add_single_item_to_fav_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/change_session_status_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_new_child_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_order_usecase.dart';
@@ -89,6 +90,8 @@ class ServiceLocator {
     sl.registerLazySingleton(() => JoinSessionUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => GetAssignedChildrenToProgramUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => ChangeSessionStatusUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(
@@ -97,6 +100,7 @@ class ServiceLocator {
     sl.registerFactory<MyProgramsCubit>(
       () => MyProgramsCubit(
         getMyProgramsUsecase: sl(),
+        changeSessionStatusUsecase: sl(),
         getSessionDetailsUsecase: sl(),
         joinSessionUsecase: sl(),
         getAssignedChildrenToProgramUsecase: sl(),

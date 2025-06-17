@@ -4,6 +4,7 @@ import 'package:eazifly_student/data/models/children/create_new_child_tojson.dar
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_tojson.dart';
 import 'package:eazifly_student/data/models/library/library_order_and_subscribe_tojson.dart';
+import 'package:eazifly_student/data/models/my_programs/change_session_status_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
@@ -34,6 +35,7 @@ import 'package:eazifly_student/domain/entities/get_user_orders_entities.dart';
 import 'package:eazifly_student/domain/entities/library_order_and_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/login_entities.dart';
+import 'package:eazifly_student/domain/entities/my_programs/change_session_status_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_my_programs_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_session_details_entity.dart';
@@ -104,5 +106,9 @@ abstract class BaseRepository {
   Future<Either<Failure, GetAssignedChildrenToProgramEntity>>
       getAssignedChildrenToProgram({
     required int programId,
+  });
+  Future<Either<Failure, ChangeSessionStatusEntity>>
+      changeSessionStatus({
+    required ChangeSessionStatusToJson data,
   });
 }

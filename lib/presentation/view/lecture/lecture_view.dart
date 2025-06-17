@@ -8,7 +8,6 @@ import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.da
 import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_data_item.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_link_item.dart';
-import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_stats_row.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecure_tabbar.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/student_change_item.dart';
 import 'package:flutter/material.dart' hide Badge;
