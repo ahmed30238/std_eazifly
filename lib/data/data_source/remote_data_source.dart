@@ -33,6 +33,7 @@ import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.da
 import 'package:eazifly_student/data/models/my_programs/get_program_assignments_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_sessions_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_session_details_model.dart';
+import 'package:eazifly_student/data/models/my_programs/get_user_reports_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/show_program_details_model.dart';
@@ -42,15 +43,15 @@ import 'package:eazifly_student/data/models/order_and_subscribe/create_order_mod
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plans_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/get_payment_method_details_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/get_plan_with_details_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/get_plans_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/get_program_payment_methods_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/get_user_orders_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
-import 'package:eazifly_student/data/models/order_and_subscribe/get_payment_method_details_model.dart';
 import 'package:eazifly_student/data/models/programs/get_program_details_model.dart';
-import 'package:eazifly_student/data/models/order_and_subscribe/get_program_payment_methods_model.dart';
 import 'package:eazifly_student/data/models/programs/get_programs_model.dart';
-import 'package:eazifly_student/data/models/order_and_subscribe/get_user_orders_model.dart';
 
 abstract class BaseRemoteDataSource {
   Future<LoginModel> login(String email, String password);
@@ -111,6 +112,9 @@ abstract class BaseRemoteDataSource {
   });
   Future<GetProgramAssignmentsModel> getProgramAssignments({
     required int programId,
+    required int userId,
+  });
+  Future<GetUserReportsModel> getUserReports({
     required int userId,
   });
 }
@@ -877,6 +881,25 @@ class RemoteDataSource extends BaseRemoteDataSource {
     );
     if (response?.statusCode == 200) {
       return GetProgramAssignmentsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetUserReportsModel> getUserReports(
+      {required int userId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getUserReports(
+        userId: userId,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      return GetUserReportsModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

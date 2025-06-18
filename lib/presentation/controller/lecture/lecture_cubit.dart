@@ -7,9 +7,11 @@ import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_assignments_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_sessions_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_user_reports_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/show_program_details_entity.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_assignments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_sessions_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_user_reports_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_program_details_usecase.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/deliveries_body.dart';
@@ -26,6 +28,8 @@ class LectureCubit extends Cubit<LectureState> {
     required this.showProgramDetailsUsecase,
     required this.getProgramSessionsUsecase,
     required this.getProgramAssignmentsUsecase,
+    required this.getUserReportsUsecase,
+
   }) : super(LectureInitial()) {
     var loginData = DataModel.fromJson(
         jsonDecode(GetStorage().read(StorageEnum.loginModel.name)));
@@ -99,7 +103,9 @@ class LectureCubit extends Cubit<LectureState> {
         break;
       case 4: // التقارير
         if (tabData[4] == null) {
-          _loadReportsData();
+          getUserReports(
+            userId: userId
+          );
         }
         break;
       case 5: // الملاحظات
@@ -278,6 +284,39 @@ class LectureCubit extends Cubit<LectureState> {
     );
   }
 
+  bool getUserReportsLoader = false;
+  GetUserReportsEntity? getUserReportsEntity;
+  GetUserReportsUsecase getUserReportsUsecase;
+
+  Future<void> getUserReports({
+    required int userId,
+  }) async {
+    tabLoadingStates[4] = true;
+    getUserReportsLoader = true;
+    emit(GetUserReportsLoadingState());
+
+    final result = await getUserReportsUsecase.call(
+      parameter: GetUserReportsParameters(
+        userId: userId,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        tabLoadingStates[4] = false;
+        getUserReportsLoader = false;
+        emit(GetUserReportsErrorState(errorMessage: failure.message));
+      },
+      (data) {
+        tabLoadingStates[4] = false;
+        getUserReportsLoader = false;
+        getUserReportsEntity = data;
+        tabData[4] = data;
+        emit(GetUserReportsSuccessState());
+      },
+    );
+  }
+
   // دوال تحميل البيانات للـ tabs الأخرى
   Future<void> _loadStatisticsData() async {
     tabLoadingStates[1] = true;
@@ -313,24 +352,6 @@ class LectureCubit extends Cubit<LectureState> {
     } catch (e) {
       tabLoadingStates[2] = false;
       emit(ExamsErrorState(errorMessage: e.toString()));
-    }
-  }
-
-  Future<void> _loadReportsData() async {
-    tabLoadingStates[4] = true;
-    emit(TabIndexState());
-
-    try {
-      // هنا ضع كود تحميل بيانات التقارير
-      await Future.delayed(const Duration(seconds: 2)); // محاكاة API call
-
-      tabData[4] = "reports_data";
-
-      tabLoadingStates[4] = false;
-      emit(ReportsLoadedState());
-    } catch (e) {
-      tabLoadingStates[4] = false;
-      emit(ReportsErrorState(errorMessage: e.toString()));
     }
   }
 

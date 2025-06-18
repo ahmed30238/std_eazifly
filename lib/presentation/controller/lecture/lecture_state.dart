@@ -43,6 +43,7 @@ class ExamsErrorState extends LectureState {
 
 // حالات التسليمات
 class GetProgramAssignmentsSuccessState extends LectureState {}
+
 class GetProgramAssignmentsLoadingState extends LectureState {}
 
 class GetProgramAssignmentsErrorState extends LectureState {
@@ -51,11 +52,13 @@ class GetProgramAssignmentsErrorState extends LectureState {
 }
 
 // حالات التقارير
-class ReportsLoadedState extends LectureState {}
+class GetUserReportsSuccessState extends LectureState {}
 
-class ReportsErrorState extends LectureState {
+class GetUserReportsLoadingState extends LectureState {}
+
+class GetUserReportsErrorState extends LectureState {
   final String errorMessage;
-  ReportsErrorState({required this.errorMessage});
+  GetUserReportsErrorState({required this.errorMessage});
 }
 
 // حالات الملاحظات
