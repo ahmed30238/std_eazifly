@@ -1,22 +1,56 @@
 import 'package:eazifly_student/core/component/separated_widget.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/report_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:intl/intl.dart'; // للتعامل مع التواريخ
 
 class ReportBody extends StatelessWidget {
   const ReportBody({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var cubit = context.read<LectureCubit>();
+    var reports = cubit.getProgramAssignmentsEntity?.data;
+    
     return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.symmetric(vertical: 16.h),
+      physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
-      itemBuilder: (context, index) => ReportItem(
-        onTap: () {
-          Navigator.pushNamed(context, RoutePaths.lectureReportView);
-        },
-      ),
+      itemBuilder: (context, index) {
+        var report = reports?[index];
+        return ReportItem(
+          createdAt: _formatDateWithAmPm(report?.createdAt?.toString()),
+          description: report?.text ?? "لا يوجد وصف",
+          title: report?.title ?? "تقرير غير محدد",
+          onTap: () {
+            Navigator.pushNamed(context, RoutePaths.lectureReportView);
+          },
+        );
+      },
       separatorBuilder: (context, index) => const SeparatedWidget(),
-      itemCount: 4,
+      itemCount: reports?.length ?? 0, // استخدم العدد الفعلي بدلاً من 4
     );
+  }
+
+  // دالة لتنسيق التاريخ والوقت بنظام AM/PM
+  String _formatDateWithAmPm(String? dateString) {
+    if (dateString == null || dateString.isEmpty) {
+      return "غير محدد";
+    }
+
+    try {
+      DateTime date = DateTime.parse(dateString);
+      
+      // تنسيق التاريخ
+      String formattedDate = DateFormat('dd-MM-yyyy').format(date);
+      
+      // تنسيق الوقت بنظام AM/PM
+      String formattedTime = DateFormat('hh:mm a').format(date);
+      
+      return "$formattedDate في $formattedTime";
+    } catch (e) {
+      // إذا فشل parsing التاريخ، أرجع النص كما هو
+      return dateString;
+    }
   }
 }

@@ -16,6 +16,7 @@ class CustomListTile extends StatelessWidget {
   final bool isFavourite;
   final double? iconHeight;
   final double? iconWidth;
+  final VoidCallback? onTap;
 
   const CustomListTile({
     super.key,
@@ -32,84 +33,88 @@ class CustomListTile extends StatelessWidget {
     this.isDoubleSubTitle = false,
     this.iconHeight = 40,
     this.iconWidth = 40,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Row(
-        children: [
-          IconsContainer(
-            height: iconHeight ?? 40.h,
-            width: iconWidth ?? 40.w,
-            iconWidget: SvgPicture.asset(
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24.w),
+        child: Row(
+          children: [
+            IconsContainer(
               height: iconHeight ?? 40.h,
-              fit: BoxFit.scaleDown,
               width: iconWidth ?? 40.w,
-              icon ?? "",
+              iconWidget: SvgPicture.asset(
+                height: iconHeight ?? 40.h,
+                fit: BoxFit.scaleDown,
+                width: iconWidth ?? 40.w,
+                icon ?? "",
+              ),
+              containerColor: iconContainerColor ?? MainColors.lightblue,
             ),
-            containerColor: iconContainerColor ?? MainColors.lightblue,
-          ),
-          16.pw,
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 161.w,
-                      child: Text(
-                        overflow: TextOverflow.ellipsis,
-                        title ?? "",
-                        style: MainTextStyle.boldTextStyle(fontSize: 14),
+            16.pw,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 161.w,
+                        child: Text(
+                          overflow: TextOverflow.ellipsis,
+                          title ?? "",
+                          style: MainTextStyle.boldTextStyle(fontSize: 14),
+                        ),
                       ),
-                    ),
-                    8.pw,
-                    if (isDoubleText)
+                      8.pw,
+                      if (isDoubleText)
+                        Text(
+                          secondTitle ?? "",
+                          style: MainTextStyle.boldTextStyle(fontSize: 14),
+                        ),
+                      if (isFavourite)
+                        TextedContainer(
+                          text: "مفضل",
+                          width: 46.w,
+                        )
+                    ],
+                  ),
+                  4.ph,
+                  Row(
+                    children: [
                       Text(
-                        secondTitle ?? "",
-                        style: MainTextStyle.boldTextStyle(fontSize: 14),
-                      ),
-                    if (isFavourite)
-                      TextedContainer(
-                        text: "مفضل",
-                        width: 46.w,
-                      )
-                  ],
-                ),
-                4.ph,
-                Row(
-                  children: [
-                    Text(
-                      subTitle ?? "",
-                      style: MainTextStyle.mediumTextStyle(
-                        fontSize: 12,
-                        color: MainColors.grayTextColors,
-                      ),
-                    ),
-                    8.pw,
-                    if (isDoubleSubTitle)
-                      Text(
-                        secondSubTitle ?? "",
+                        subTitle ?? "",
                         style: MainTextStyle.mediumTextStyle(
                           fontSize: 12,
                           color: MainColors.grayTextColors,
                         ),
                       ),
-                  ],
-                ),
-              ],
+                      8.pw,
+                      if (isDoubleSubTitle)
+                        Text(
+                          secondSubTitle ?? "",
+                          style: MainTextStyle.mediumTextStyle(
+                            fontSize: 12,
+                            color: MainColors.grayTextColors,
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          // const Spacer(),
-          trailing ??
-              Text(
-                trailingText ?? "",
-                style: MainTextStyle.boldTextStyle(fontSize: 14),
-              )
-        ],
+            // const Spacer(),
+            trailing ??
+                Text(
+                  trailingText ?? "",
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                )
+          ],
+        ),
       ),
     );
   }

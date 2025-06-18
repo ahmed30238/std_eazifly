@@ -100,6 +100,7 @@ class ChildrenModalSheet extends StatelessWidget {
             CustomLowSizeButton(
               text: "عرض كل الطلاب",
               onTap: () {
+                back(context);
                 Navigator.pushNamed(
                   arguments: {
                     "programId" : programId,

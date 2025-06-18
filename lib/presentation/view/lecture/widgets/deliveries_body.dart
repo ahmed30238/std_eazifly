@@ -1,44 +1,129 @@
 import 'package:eazifly_student/core/component/separated_widget.dart';
 import 'package:eazifly_student/core/enums/task_deliver_status.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/custom_list_tile.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/deliveries_body_widget_trailing.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:intl/intl.dart';
 
 class DeliveriesBodyWidget extends StatelessWidget {
   const DeliveriesBodyWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // var cubit = StudentsCubit.get(context);
-    // var assignment = cubit.getStudentAssignmentEntities?.data;
+    var cubit = context.read<LectureCubit>();
+    var assignments = cubit.getProgramAssignmentsEntity?.data;
 
     return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.symmetric(vertical: 16.h),
+      physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
-      itemBuilder: (context, index) => InkWell(
-        onTap: () => Navigator.pushNamed(
-          context,
-          RoutePaths.corrcectedAssignmentDetailsView,
-        ),
-        child: CustomListTile(
-          title: "واجب الراضيات - المعادلات الرقمية",
-          subTitle: "12-2-2025   8:10 PM ",
+      itemBuilder: (context, index) {
+        var assignment = assignments?[index];
+        var date = assignment?.createdAt;
+
+        // تحويل الـ state من السيرفر إلى enum
+        DeliverStatus deliverState =
+            _getDeliverStatusFromString(assignments?[index].status);
+        bool isDelivered = _isAssignmentDelivered(assignments?[index].status);
+
+        return CustomListTile(
+          onTap: () => Navigator.pushNamed(
+            context,
+            RoutePaths.corrcectedAssignmentDetailsView,
+          ),
+          title: assignment?.title ?? "مهمة غير محددة",
+          subTitle: _formatDate(date?.toString()),
           iconContainerColor: MainColors.white,
           trailing: DeliveriesBodyWidgetTrailing(
-            state: index == 0
-                ? DeliverStatus.deliverDone
-                : index == 1
-                    ? DeliverStatus.deliverUnderReview
-                    : DeliverStatus.notDelivered,
-            isDelivered: index == 0 ? true : false,
+            state: deliverState,
+            isDelivered: isDelivered,
+            mark: assignment?.mark ?? "لم يتم التسليم",
           ),
           icon: Assets.iconsLectAssignmentIcon,
-        ),
+        );
+      },
+      separatorBuilder: (context, index) => SeparatedWidget(
+        isThereNotes: assignments?[index].instructorNote != null,
       ),
-      separatorBuilder: (context, index) => const SeparatedWidget(
-        isThereNotes: true,
-      ),
-      itemCount: 2,
+      itemCount: assignments?.length ?? 0,
     );
+  }
+
+  // دالة لتحويل الـ state من String إلى DeliverStatus enum
+  DeliverStatus _getDeliverStatusFromString(String? state) {
+    if (state == null || state.isEmpty) {
+      return DeliverStatus.notDelivered;
+    }
+
+    switch (state.toLowerCase()) {
+      case 'corrected':
+      case 'completed':
+      case 'done':
+        return DeliverStatus.deliverDone;
+
+      case 'under_review':
+      case 'pending':
+      case 'reviewing':
+      case 'submitted':
+        return DeliverStatus.deliverUnderReview;
+
+      case 'not_delivered':
+      case 'not_submitted':
+      case 'pending_delivery':
+      case 'open':
+        return DeliverStatus.notDelivered;
+
+      default:
+        // إذا جاءت حالة غير متوقعة، نعتبرها غير مسلمة
+        return DeliverStatus.notDelivered;
+    }
+  }
+
+  // دالة لتحديد إذا كانت المهمة مسلمة أم لا
+  bool _isAssignmentDelivered(String? state) {
+    if (state == null || state.isEmpty) {
+      return false;
+    }
+
+    switch (state.toLowerCase()) {
+      case 'corrected':
+      case 'completed':
+      case 'done':
+      case 'under_review':
+      case 'pending':
+      case 'reviewing':
+      case 'submitted':
+        return true;
+
+      case 'not_delivered':
+      case 'not_submitted':
+      case 'pending_delivery':
+      case 'open':
+        return false;
+
+      default:
+        return false;
+    }
+  }
+
+  // دالة لتنسيق التاريخ
+  String _formatDate(String? dateString) {
+    if (dateString == null || dateString.isEmpty) {
+      return "غير محدد";
+    }
+
+    try {
+      DateTime date = DateTime.parse(dateString);
+
+      // تنسيق التاريخ والوقت
+      String formattedDate = DateFormat('dd-MM-yyyy').format(date);
+      String formattedTime = DateFormat('hh:mm a').format(date);
+
+      return "$formattedDate   $formattedTime";
+    } catch (e) {
+      // إذا فشل parsing التاريخ
+      return dateString;
+    }
   }
 }

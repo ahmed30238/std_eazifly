@@ -1,10 +1,16 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ReportItem extends StatelessWidget {
+  final String title;
+  final String description;
+  final String createdAt;
   final VoidCallback? onTap;
   const ReportItem({
     super.key,
     this.onTap,
+    required this.createdAt,
+    required this.description,
+    required this.title,
   });
 
   @override
@@ -21,11 +27,11 @@ class ReportItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "تقرير1",
+                  title,
                   style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 Text(
-                  "AM 8 : 35 ",
+                  createdAt,
                   style: MainTextStyle.mediumTextStyle(
                     fontSize: 11,
                     color: MainColors.grayTextColors,
@@ -35,20 +41,20 @@ class ReportItem extends StatelessWidget {
             ),
             4.ph,
             Text(
-              "مثال : هذا النص هو جزء من عملية تحسين تجربة المستخدم من خلال النص",
+             description,
               style: MainTextStyle.mediumTextStyle(
                 fontSize: 11,
                 color: MainColors.grayTextColors,
               ),
             ),
             4.ph,
-            Text(
-              "مثال : يبالايلب ايسلم بيمب  شيك لوريم لوريم لوريم",
-              style: MainTextStyle.mediumTextStyle(
-                fontSize: 11,
-                color: MainColors.grayTextColors,
-              ),
-            ),
+            // Text(
+            //   "مثال : يبالايلب ايسلم بيمب  شيك لوريم لوريم لوريم",
+            //   style: MainTextStyle.mediumTextStyle(
+            //     fontSize: 11,
+            //     color: MainColors.grayTextColors,
+            //   ),
+            // ),
           ],
         ),
       ),

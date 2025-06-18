@@ -10,7 +10,8 @@ class SchedulesBody extends StatelessWidget {
     var cubit = context.read<LectureCubit>();
     var sessions = cubit.getProgramSessionsEntity?.data;
     return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.symmetric(vertical: 16.h),
+      physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         var session = sessions?[index];
         final days = sessions

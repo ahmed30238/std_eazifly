@@ -5,10 +5,12 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 class DeliveriesBodyWidgetTrailing extends StatelessWidget {
   final DeliverStatus state;
   final bool isDelivered;
+  final String mark;
   const DeliveriesBodyWidgetTrailing({
     super.key,
     this.isDelivered = false,
     required this.state,
+    required this.mark,
   });
 
   @override
@@ -24,7 +26,7 @@ class DeliveriesBodyWidgetTrailing extends StatelessWidget {
                   ),
                   4.pw,
                   Text(
-                    "10 / 9 ",
+                    mark,
                     style: MainTextStyle.boldTextStyle(fontSize: 14),
                   ),
                 ],
