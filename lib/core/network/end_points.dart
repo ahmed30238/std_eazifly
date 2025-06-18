@@ -17,6 +17,7 @@ class EndPoints {
   static const getMyPrograms = "my/programs";
   static const joinSession = "update/session/status";
   static const changeSessionStatus = "update/session/status";
+  // static const changeSessionStatus = "program/assignment/1?user_id=3";
   static String getAssignedChildrenToProgram({required int programId}) =>
       "get/assigned/children/in/program/$programId";
   static String showProgramDetails({required int programId}) =>
@@ -26,6 +27,11 @@ class EndPoints {
     required int userId,
   }) =>
       "get/program/sessions/$programId?user_id=$userId";
+  static String getProgramAssignments({
+    required int programId,
+    required int userId,
+  }) =>
+      "program/assignment/$programId?user_id=$userId";
   static String getSessionDetails({required int sessionId}) =>
       "get/session/details/$sessionId";
   static String getLibraryPlans({required int days}) =>

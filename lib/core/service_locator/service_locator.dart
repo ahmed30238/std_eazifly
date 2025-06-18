@@ -21,6 +21,7 @@ import 'package:eazifly_student/domain/use_cases/get_payment_method_details_usec
 import 'package:eazifly_student/domain/use_cases/get_plan_subscription_period_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_plan_with_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_plans_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_program_assignments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_payment_methods_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_sessions_usecase.dart';
@@ -98,6 +99,8 @@ class ServiceLocator {
         () => ShowProgramDetailsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => GetProgramSessionsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetProgramAssignmentsUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(

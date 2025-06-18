@@ -38,6 +38,7 @@ import 'package:eazifly_student/domain/entities/login_entities.dart';
 import 'package:eazifly_student/domain/entities/my_programs/change_session_status_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_my_programs_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_program_assignments_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_session_details_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
@@ -116,6 +117,10 @@ abstract class BaseRepository {
     required int programId,
   });
   Future<Either<Failure, GetProgramSessionsEntity>> getProgramSessions({
+    required int programId,
+    required int userId,
+  });
+  Future<Either<Failure, GetProgramAssignmentsEntity>> getProgramAssignments({
     required int programId,
     required int userId,
   });

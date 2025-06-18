@@ -20,6 +20,7 @@ import 'package:eazifly_student/data/models/library/plans/get_plan_subscription_
 import 'package:eazifly_student/data/models/library/show_library_item_model.dart';
 import 'package:eazifly_student/data/models/my_programs/change_session_status_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
+import 'package:eazifly_student/data/models/my_programs/get_program_assignments_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_sessions_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_session_details_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
@@ -447,6 +448,20 @@ class Repository extends BaseRepository {
       {required int programId, required int userId}) async {
     try {
       final result = await baseRemoteDataSource.getProgramSessions(
+        programId: programId,
+        userId: userId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetProgramAssignmentsModel>> getProgramAssignments(
+      {required int programId, required int userId}) async {
+    try {
+      final result = await baseRemoteDataSource.getProgramAssignments(
         programId: programId,
         userId: userId,
       );

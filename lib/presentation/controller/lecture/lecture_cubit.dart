@@ -5,8 +5,10 @@ import 'package:eazifly_student/core/component/spline_area_chart.dart';
 import 'package:eazifly_student/core/component/stats_area.dart';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_program_assignments_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/show_program_details_entity.dart';
+import 'package:eazifly_student/domain/use_cases/get_program_assignments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_sessions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_program_details_usecase.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
@@ -23,13 +25,14 @@ class LectureCubit extends Cubit<LectureState> {
   LectureCubit({
     required this.showProgramDetailsUsecase,
     required this.getProgramSessionsUsecase,
+    required this.getProgramAssignmentsUsecase,
   }) : super(LectureInitial()) {
     var loginData = DataModel.fromJson(
         jsonDecode(GetStorage().read(StorageEnum.loginModel.name)));
     userId = loginData.id ?? -1;
     log("$userId");
   }
-  
+
   static LectureCubit get(context) => BlocProvider.of(context);
   late TabController controller;
   int userId = -1;
@@ -64,7 +67,7 @@ class LectureCubit extends Cubit<LectureState> {
           _handleTabChange(newIndex);
         }
       });
-    
+
     // تحميل بيانات Tab الأول (المواعيد) مباشرة
     _handleTabChange(0);
   }
@@ -88,7 +91,10 @@ class LectureCubit extends Cubit<LectureState> {
         break;
       case 3: // التسليمات
         if (tabData[3] == null) {
-          _loadDeliveriesData();
+          getProgramAssignments(
+            programId: currentProgramId,
+            userId: userId,
+          );
         }
         break;
       case 4: // التقارير
@@ -112,13 +118,13 @@ class LectureCubit extends Cubit<LectureState> {
   dynamic get currentTabData => tabData[controller.index];
 
   List<Widget> get screens => [
-    _buildSchedulesBody(),
-    _buildStatsBody(),
-    _buildExamBody(),
-    _buildDeliveriesBody(),
-    _buildReportBody(),
-    _buildNotesBody(),
-  ];
+        _buildSchedulesBody(),
+        _buildStatsBody(),
+        _buildExamBody(),
+        _buildDeliveriesBody(),
+        _buildReportBody(),
+        _buildNotesBody(),
+      ];
 
   // بناء محتوى كل tab مع إدارة حالة التحميل
   Widget _buildSchedulesBody() {
@@ -237,6 +243,41 @@ class LectureCubit extends Cubit<LectureState> {
     );
   }
 
+  bool getProgramAssignmentsLoader = false;
+  GetProgramAssignmentsEntity? getProgramAssignmentsEntity;
+  GetProgramAssignmentsUsecase getProgramAssignmentsUsecase;
+
+  Future<void> getProgramAssignments({
+    required int programId,
+    required int userId,
+  }) async {
+    tabLoadingStates[3] = true;
+    getProgramAssignmentsLoader = true;
+    emit(GetProgramAssignmentsLoadingState());
+
+    final result = await getProgramAssignmentsUsecase.call(
+      parameter: GetProgramAssignmentsParameters(
+        programId: programId,
+        userId: userId,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        tabLoadingStates[3] = false;
+        getProgramAssignmentsLoader = false;
+        emit(GetProgramAssignmentsErrorState(errorMessage: failure.message));
+      },
+      (data) {
+        tabLoadingStates[3] = false;
+        getProgramAssignmentsLoader = false;
+        getProgramAssignmentsEntity = data;
+        tabData[3] = data;
+        emit(GetProgramAssignmentsSuccessState());
+      },
+    );
+  }
+
   // دوال تحميل البيانات للـ tabs الأخرى
   Future<void> _loadStatisticsData() async {
     tabLoadingStates[1] = true;
@@ -245,10 +286,10 @@ class LectureCubit extends Cubit<LectureState> {
     try {
       // هنا ضع كود تحميل بيانات الإحصائيات
       await Future.delayed(const Duration(seconds: 2)); // محاكاة API call
-      
+
       // مثال على البيانات
       tabData[1] = "statistics_data";
-      
+
       tabLoadingStates[1] = false;
       emit(StatisticsLoadedState());
     } catch (e) {
@@ -264,32 +305,14 @@ class LectureCubit extends Cubit<LectureState> {
     try {
       // هنا ضع كود تحميل بيانات الإمتحانات
       await Future.delayed(const Duration(seconds: 2)); // محاكاة API call
-      
+
       tabData[2] = "exams_data";
-      
+
       tabLoadingStates[2] = false;
       emit(ExamsLoadedState());
     } catch (e) {
       tabLoadingStates[2] = false;
       emit(ExamsErrorState(errorMessage: e.toString()));
-    }
-  }
-
-  Future<void> _loadDeliveriesData() async {
-    tabLoadingStates[3] = true;
-    emit(TabIndexState());
-
-    try {
-      // هنا ضع كود تحميل بيانات التسليمات
-      await Future.delayed(const Duration(seconds: 2)); // محاكاة API call
-      
-      tabData[3] = "deliveries_data";
-      
-      tabLoadingStates[3] = false;
-      emit(DeliveriesLoadedState());
-    } catch (e) {
-      tabLoadingStates[3] = false;
-      emit(DeliveriesErrorState(errorMessage: e.toString()));
     }
   }
 
@@ -300,9 +323,9 @@ class LectureCubit extends Cubit<LectureState> {
     try {
       // هنا ضع كود تحميل بيانات التقارير
       await Future.delayed(const Duration(seconds: 2)); // محاكاة API call
-      
+
       tabData[4] = "reports_data";
-      
+
       tabLoadingStates[4] = false;
       emit(ReportsLoadedState());
     } catch (e) {
@@ -318,9 +341,9 @@ class LectureCubit extends Cubit<LectureState> {
     try {
       // هنا ضع كود تحميل بيانات الملاحظات
       await Future.delayed(const Duration(seconds: 2)); // محاكاة API call
-      
+
       tabData[5] = "notes_data";
-      
+
       tabLoadingStates[5] = false;
       emit(NotesLoadedState());
     } catch (e) {

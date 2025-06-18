@@ -42,11 +42,12 @@ class ExamsErrorState extends LectureState {
 }
 
 // حالات التسليمات
-class DeliveriesLoadedState extends LectureState {}
+class GetProgramAssignmentsSuccessState extends LectureState {}
+class GetProgramAssignmentsLoadingState extends LectureState {}
 
-class DeliveriesErrorState extends LectureState {
+class GetProgramAssignmentsErrorState extends LectureState {
   final String errorMessage;
-  DeliveriesErrorState({required this.errorMessage});
+  GetProgramAssignmentsErrorState({required this.errorMessage});
 }
 
 // حالات التقارير
