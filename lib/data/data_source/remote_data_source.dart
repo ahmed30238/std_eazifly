@@ -33,6 +33,7 @@ import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.da
 import 'package:eazifly_student/data/models/my_programs/get_program_assignments_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_sessions_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_session_details_model.dart';
+import 'package:eazifly_student/data/models/my_programs/get_user_feedbacks_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_user_reports_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
@@ -115,6 +116,9 @@ abstract class BaseRemoteDataSource {
     required int userId,
   });
   Future<GetUserReportsModel> getUserReports({
+    required int userId,
+  });
+  Future<GetUserFeedbacksModel> getUserFeedbacks({
     required int userId,
   });
 }
@@ -891,8 +895,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
   }
 
   @override
-  Future<GetUserReportsModel> getUserReports(
-      {required int userId}) async {
+  Future<GetUserReportsModel> getUserReports({required int userId}) async {
     var response = await NetworkCall().get(
       path: EndPoints.getUserReports(
         userId: userId,
@@ -900,6 +903,24 @@ class RemoteDataSource extends BaseRemoteDataSource {
     );
     if (response?.statusCode == 200) {
       return GetUserReportsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetUserFeedbacksModel> getUserFeedbacks({required int userId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getUserFeedbacks(
+        userId: userId,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      return GetUserFeedbacksModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

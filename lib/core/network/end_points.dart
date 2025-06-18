@@ -31,6 +31,10 @@ class EndPoints {
     required int userId,
   }) =>
       "get/user/reports/$userId";
+  static String getUserFeedbacks({
+    required int userId,
+  }) =>
+      "feedback/$userId";
   static String getProgramAssignments({
     required int programId,
     required int userId,

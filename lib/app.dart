@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
           getProgramSessionsUsecase: sl(),
           getProgramAssignmentsUsecase: sl(),
           getUserReportsUsecase: sl(),
+          getUserFeedbacksUsecase: sl(),
         )),
         BlocProvider(create: (context) => sl<PaymentCubit>()),
       ],

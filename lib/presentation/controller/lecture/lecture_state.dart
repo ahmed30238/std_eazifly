@@ -62,9 +62,11 @@ class GetUserReportsErrorState extends LectureState {
 }
 
 // حالات الملاحظات
-class NotesLoadedState extends LectureState {}
+class GetUserFeedbacksSuccessState extends LectureState {}
 
-class NotesErrorState extends LectureState {
+class GetUserFeedbacksLoadingState extends LectureState {}
+
+class GetUserFeedbacksErrorState extends LectureState {
   final String errorMessage;
-  NotesErrorState({required this.errorMessage});
+  GetUserFeedbacksErrorState({required this.errorMessage});
 }

@@ -7,10 +7,12 @@ import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_assignments_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_sessions_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_user_feedbacks_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_user_reports_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/show_program_details_entity.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_assignments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_sessions_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_user_feedback_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_reports_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_program_details_usecase.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
@@ -29,7 +31,7 @@ class LectureCubit extends Cubit<LectureState> {
     required this.getProgramSessionsUsecase,
     required this.getProgramAssignmentsUsecase,
     required this.getUserReportsUsecase,
-
+    required this.getUserFeedbacksUsecase,
   }) : super(LectureInitial()) {
     var loginData = DataModel.fromJson(
         jsonDecode(GetStorage().read(StorageEnum.loginModel.name)));
@@ -103,14 +105,14 @@ class LectureCubit extends Cubit<LectureState> {
         break;
       case 4: // التقارير
         if (tabData[4] == null) {
-          getUserReports(
-            userId: userId
-          );
+          getUserReports(userId: userId);
         }
         break;
       case 5: // الملاحظات
         if (tabData[5] == null) {
-          _loadNotesData();
+          getUserFeedbacks(
+            userId: userId,
+          );
         }
         break;
     }
@@ -317,6 +319,40 @@ class LectureCubit extends Cubit<LectureState> {
     );
   }
 
+  bool getUserFeedbacksLoader = false;
+  GetUserFeedbacksEntity? getUserFeedbacksEntity;
+  GetUserFeedbackUsecase getUserFeedbacksUsecase;
+
+  Future<void> getUserFeedbacks({
+    required int userId, // يمكن إضافة أي باراميترات إضافية مطلوبة
+  }) async {
+    tabLoadingStates[5] = true;
+    getUserFeedbacksLoader = true;
+    emit(GetUserFeedbacksLoadingState());
+
+    final result = await getUserFeedbacksUsecase.call(
+      parameter: GetUserFeedbackParameters(
+        userId: userId,
+        // يمكن إضافة أي باراميترات إضافية هنا
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        tabLoadingStates[5] = false;
+        getUserFeedbacksLoader = false;
+        emit(GetUserFeedbacksErrorState(errorMessage: failure.message));
+      },
+      (data) {
+        tabLoadingStates[5] = false;
+        getUserFeedbacksLoader = false;
+        getUserFeedbacksEntity = data;
+        tabData[5] = data;
+        emit(GetUserFeedbacksSuccessState());
+      },
+    );
+  }
+
   // دوال تحميل البيانات للـ tabs الأخرى
   Future<void> _loadStatisticsData() async {
     tabLoadingStates[1] = true;
@@ -352,24 +388,6 @@ class LectureCubit extends Cubit<LectureState> {
     } catch (e) {
       tabLoadingStates[2] = false;
       emit(ExamsErrorState(errorMessage: e.toString()));
-    }
-  }
-
-  Future<void> _loadNotesData() async {
-    tabLoadingStates[5] = true;
-    emit(TabIndexState());
-
-    try {
-      // هنا ضع كود تحميل بيانات الملاحظات
-      await Future.delayed(const Duration(seconds: 2)); // محاكاة API call
-
-      tabData[5] = "notes_data";
-
-      tabLoadingStates[5] = false;
-      emit(NotesLoadedState());
-    } catch (e) {
-      tabLoadingStates[5] = false;
-      emit(NotesErrorState(errorMessage: e.toString()));
     }
   }
 

@@ -23,6 +23,7 @@ import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.da
 import 'package:eazifly_student/data/models/my_programs/get_program_assignments_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_sessions_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_session_details_model.dart';
+import 'package:eazifly_student/data/models/my_programs/get_user_feedbacks_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_user_reports_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/show_program_details_model.dart';
@@ -48,6 +49,7 @@ import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/change_session_status_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_user_feedbacks_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
 
 class Repository extends BaseRepository {
@@ -477,6 +479,19 @@ class Repository extends BaseRepository {
       {required int userId}) async {
     try {
       final result = await baseRemoteDataSource.getUserReports(
+        userId: userId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetUserFeedbacksModel>> getUserFeedbacks(
+      {required int userId}) async {
+    try {
+      final result = await baseRemoteDataSource.getUserFeedbacks(
         userId: userId,
       );
       return Right(result);
