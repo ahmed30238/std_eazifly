@@ -48,6 +48,7 @@ class LectureDataPlusLinkRow extends StatelessWidget {
         16.pw,
         LectureLink(
           linkAlignment: MainAxisAlignment.start,
+          onLinkTap: (){},
           width: 227.w,
     
         ),

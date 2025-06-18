@@ -23,6 +23,7 @@ import 'package:eazifly_student/domain/use_cases/get_plan_with_details_usecase.d
 import 'package:eazifly_student/domain/use_cases/get_plans_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_payment_methods_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_program_sessions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_programs_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_session_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_orders_usecase.dart';
@@ -31,6 +32,7 @@ import 'package:eazifly_student/domain/use_cases/library_order_and_subscription_
 import 'package:eazifly_student/domain/use_cases/like_item_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/login_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_library_item_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/show_program_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/store_favourite_list_usecase.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
@@ -92,6 +94,10 @@ class ServiceLocator {
         () => GetAssignedChildrenToProgramUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => ChangeSessionStatusUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => ShowProgramDetailsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetProgramSessionsUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(

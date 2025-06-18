@@ -72,7 +72,9 @@ class LeaveLectureAlertBottomSheetDesign extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   RoutePaths.lectureView,
-                  arguments: true,
+                  arguments: {
+                    "programId" : 1, // TODO
+                  },
                 );
               },
             ),

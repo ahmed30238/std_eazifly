@@ -42,8 +42,11 @@ class ChooseProperLecturerBody extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamed(
               context,
+
               RoutePaths.lectureView,
-              arguments: false,
+              arguments: {
+                "programId" : 1 //TODO
+              },
             );
           },
         ),

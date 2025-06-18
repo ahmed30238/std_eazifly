@@ -247,7 +247,9 @@ class SubscribedStudentsSettingsView extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   RoutePaths.lectureView,
-                  arguments: false,
+                  arguments: {
+                    "programId" : 1, // TODO
+                  },
                 );
               },
               child: SizedBox(

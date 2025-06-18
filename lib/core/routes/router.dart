@@ -162,10 +162,13 @@ class AppRouter {
           ),
         );
       case RoutePaths.lectureView:
-        bool isFinishedLecture = settings.arguments as bool;
+        var arguments = settings.arguments as Map<String, dynamic>;
+        // var nextSessionDate =  arguments["nextSessionDate"] as DateTime;
+        var programId =  arguments["programId"] as int;
         return createRoute(
           LectureView(
-            isFinishedLecture: isFinishedLecture,
+            // isFinishedLecture: nextSessionDate,
+            programId: programId,
           ),
         );
       case RoutePaths.lectureDetailsView:

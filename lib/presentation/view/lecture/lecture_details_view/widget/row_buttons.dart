@@ -38,7 +38,9 @@ class RowButtons extends StatelessWidget {
             onPressed: () => Navigator.pushNamed(
               context,
               RoutePaths.lectureView,
-              arguments: true,
+              arguments: {
+                "programId": 1, // TODO
+              },
             ),
             color: MainColors.white,
             radius: 16.r,

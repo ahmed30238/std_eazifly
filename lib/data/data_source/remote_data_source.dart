@@ -30,6 +30,7 @@ import 'package:eazifly_student/data/models/my_programs/change_session_status_mo
 import 'package:eazifly_student/data/models/my_programs/change_session_status_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/get_assigned_children_to_program_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
+import 'package:eazifly_student/data/models/my_programs/get_program_sessions_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_session_details_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
@@ -103,6 +104,10 @@ abstract class BaseRemoteDataSource {
   Future<ChangeSessionStatusModel> changeSessionStatus(
       {required ChangeSessionStatusToJson data});
   Future<ShowProgramDetailsModel> showProgramDetails({required int programId});
+  Future<GetProgramSessionsModel> getProgramSessions({
+    required int programId,
+    required int userId,
+  });
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -827,6 +832,26 @@ class RemoteDataSource extends BaseRemoteDataSource {
     );
     if (response?.statusCode == 200) {
       return ShowProgramDetailsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetProgramSessionsModel> getProgramSessions(
+      {required int programId, required int userId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getProgramSessions(
+        programId: programId,
+        userId: userId,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      return GetProgramSessionsModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

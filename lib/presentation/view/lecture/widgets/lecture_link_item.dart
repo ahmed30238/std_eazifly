@@ -1,18 +1,21 @@
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
+import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_stats_row.dart';
 import 'package:flutter/material.dart' hide Badge;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LectureLink extends StatelessWidget {
   final MainAxisAlignment? linkAlignment;
   final double? width;
-  final bool? isFinishedLecture;
+  final LectureStatesEnum? state;
+  final VoidCallback onLinkTap;
   const LectureLink({
     super.key,
     this.width,
     this.linkAlignment,
-    this.isFinishedLecture = false,
+    this.state = LectureStatesEnum.pending,
+    required this.onLinkTap,
   });
 
   @override
@@ -38,17 +41,17 @@ class LectureLink extends StatelessWidget {
           8.ph,
           4.pw,
           InkWell(
-            onTap: () {},
+            onTap: onLinkTap,
             child: Text(
               "Zoom Link",
               style: MainTextStyle.mediumTextStyle(
                 fontSize: 14,
-                color: isFinishedLecture!
+                color: state == LectureStatesEnum.finished
                     ? MainColors.grayTextColors
                     : MainColors.blueTextColor,
               ).copyWith(
                 decoration: TextDecoration.underline,
-                decorationColor: isFinishedLecture!
+                decorationColor: state == LectureStatesEnum.finished
                     ? MainColors.grayTextColors
                     : MainColors.blueTextColor,
               ),

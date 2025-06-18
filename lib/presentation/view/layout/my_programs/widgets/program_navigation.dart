@@ -125,6 +125,8 @@ void _navigateToProgramDetails(BuildContext context) {
   Navigator.pushNamed(
     context,
     RoutePaths.lectureView,
-    arguments: false,
+    arguments: {
+                    "programId" : 1, // TODO
+                  },
   );
 }

@@ -150,9 +150,10 @@ class LectureStats extends StatelessWidget {
 }
 
 enum LectureStatesEnum {
-  finished,
-  ongoing,
-  dated,
+  finished, // انتهت
+  ongoing, // جارية الآن
+  dated, // مجدولة (لم تبدأ بعد)
+  pending, // في انتظار (يمكن استخدامها بدلاً من dated)
 }
 
 class LectureStates extends StatelessWidget {

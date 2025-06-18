@@ -21,6 +21,11 @@ class EndPoints {
       "get/assigned/children/in/program/$programId";
   static String showProgramDetails({required int programId}) =>
       "program/details/$programId";
+  static String getProgramSessions({
+    required int programId,
+    required int userId,
+  }) =>
+      "get/program/sessions/$programId?user_id=$userId";
   static String getSessionDetails({required int sessionId}) =>
       "get/session/details/$sessionId";
   static String getLibraryPlans({required int days}) =>

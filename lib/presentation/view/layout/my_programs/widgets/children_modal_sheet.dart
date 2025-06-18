@@ -101,7 +101,9 @@ class ChildrenModalSheet extends StatelessWidget {
               text: "عرض كل الطلاب",
               onTap: () {
                 Navigator.pushNamed(
-                  arguments: false,
+                  arguments: {
+                    "programId" : programId,
+                  },
                   context,
                   RoutePaths.lectureView,
                 );

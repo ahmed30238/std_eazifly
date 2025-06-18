@@ -21,7 +21,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ApplanuageCubit()..getAppLang()),
         BlocProvider(create: (context) => LayoutCubit()),
-        BlocProvider(create: (context) => LectureCubit()),
+        BlocProvider(create: (context) => LectureCubit(
+          showProgramDetailsUsecase: sl(),
+          getProgramSessionsUsecase: sl(),
+        )),
         BlocProvider(create: (context) => sl<PaymentCubit>()),
       ],
       child: ScreenUtilInit(

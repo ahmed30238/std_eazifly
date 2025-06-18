@@ -4,10 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTabBar extends StatelessWidget {
   final List<Widget> tabs;
+ final Function(int)? onTap;
   const CustomTabBar({
     super.key,
     required this.controller,
     required this.tabs,
+    this.onTap,
   });
 
   final TabController controller;
@@ -22,6 +24,7 @@ class CustomTabBar extends StatelessWidget {
         width: double.infinity,
         height: 52.h,
         child: TabBar(
+          onTap: onTap,
           indicatorSize: TabBarIndicatorSize.label,
           controller: controller,
           indicatorWeight: 1,

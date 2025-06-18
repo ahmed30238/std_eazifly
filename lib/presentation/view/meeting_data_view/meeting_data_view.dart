@@ -107,7 +107,9 @@ class MeetingDataView extends StatelessWidget {
                                 text: lang.renewNow,
                                 onPressed: () {
                                   Navigator.pushNamed(
-                                    arguments: false,
+                                    arguments: {
+                                      "programId": 1, // TODO
+                                    },
                                     context,
                                     RoutePaths.lectureView,
                                   );

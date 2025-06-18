@@ -5,8 +5,10 @@ import 'package:flutter/material.dart' hide Badge;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LectureData extends StatelessWidget {
+    final String host;
   const LectureData({
     super.key,
+    required this.host,
   });
 
   @override
@@ -33,7 +35,7 @@ class LectureData extends StatelessWidget {
           ),
           8.ph,
           Text(
-            "عبر تطبيق زوم",
+            host,
             style: MainTextStyle.boldTextStyle(
               fontSize: 12,
             ),

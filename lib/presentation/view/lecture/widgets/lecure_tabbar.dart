@@ -10,14 +10,16 @@ class LectureTabBar extends StatelessWidget {
   const LectureTabBar({
     super.key,
     required this.cubit,
+    this.onTabTap,
   });
 
   final LectureCubit cubit;
-
+final Function(int)? onTabTap;
   @override
   Widget build(BuildContext context) {
     return CustomTabBar(
       controller: cubit.controller,
+      onTap: onTabTap,
       tabs: List.generate(
         cubit.tabs.length,
         (index) {
