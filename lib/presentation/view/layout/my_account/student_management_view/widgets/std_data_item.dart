@@ -9,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 
 class StudentDataItem extends StatelessWidget {
   final bool hasTrailingIcon;
-  final int index;
+  // final int index;
   final double? width;
   final VoidCallback? onTrailingIconTap;
   final String name;
@@ -18,7 +18,7 @@ class StudentDataItem extends StatelessWidget {
   final String image;
   const StudentDataItem({
     super.key,
-    required this.index,
+    // required this.index,
     this.width,
     this.onTrailingIconTap,
     this.hasTrailingIcon = true,
@@ -34,8 +34,8 @@ class StudentDataItem extends StatelessWidget {
       padding: EdgeInsets.only(
         right: 8.w,
         left: 8.w,
-        top: index == 0 ? 12 : 0,
-        bottom: index == 12 ? 12 : 0,
+        // top: index == 0 ? 12 : 0,
+        // bottom: index == 12 ? 12 : 0,
       ),
       height: 65.h,
       width: width ?? 343.w,

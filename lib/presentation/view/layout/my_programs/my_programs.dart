@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
@@ -8,6 +7,7 @@ import 'package:eazifly_student/presentation/controller/my_programs/myprograms_c
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/my_programs_loder.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/program_item.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/program_navigation.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -127,7 +127,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
 
                     return ProgramItem(
                       desc: item.description ?? "no desc",
-                      duration: item.duration ?? "5",
+                      duration: "${item.duration} دقيقة",
                       image: item.image ?? "",
                       nextLec: nextLec,
                       status: item.currentSession?.status ?? "tt",
@@ -148,40 +148,16 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         );
                       },
                       onTap: () {
-                        if (item.currentSession?.status != null) {
-                          if (item.currentSession?.status == "started") {
-                            Navigator.pushNamed(
-                              context,
-                              arguments: {
-                                "cubit": cubit,
-                                "sessionId": item.currentSession?.id ?? -1,
-                              },
-                              RoutePaths.navigateToLectureView,
-                            );
-                          } else if (item.currentSession?.status !=
-                              "started" /*TODO this is parent account */) {
-                            log("modal Sheet");
-                          } else {
-                            log("details screen direct");
-                          }
-                        } else {
-                          Navigator.pushNamed(
-                              context,
-                              arguments: {
-                                "cubit": cubit,
-                                "sessionId": item.currentSession?.id ?? -1,
-                              },
-                              RoutePaths.navigateToLectureView,
-                            );
-                          // Navigator.pushNamed(
-                          //   context,
-                          //   RoutePaths.lectureView,
-                          //   arguments: false,
-                          // );
-                        }
-
-                        // ?
-                        // : print("rwerwer");
+                        onMyProgramTap(
+                          context: context,
+                          cubit: cubit,
+                          item: item,
+                          loginData: loginData,
+                          programId: item.id ?? -1,
+                          noOfChildren: cubit.getAssignedChildrenToProgramEntity
+                                  ?.data?.length ??
+                              0,
+                        );
                       },
                     );
                   },

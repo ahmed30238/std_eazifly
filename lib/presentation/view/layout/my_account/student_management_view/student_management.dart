@@ -70,7 +70,7 @@ class _StudentManagementViewState extends State<StudentManagementView> {
                         image: child.image ?? "",
                         name: "${child.firstName} ${child.lastName}",
                         phoneNumber: child.phone ?? "",
-                        index: index,
+                        // index: index,
                         onTrailingIconTap: () {
                           childrenModalSheet(context);
                         },

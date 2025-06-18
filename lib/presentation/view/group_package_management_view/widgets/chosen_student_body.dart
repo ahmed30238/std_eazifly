@@ -44,7 +44,7 @@ class ChosenStudentBody extends StatelessWidget {
                     name: "name",
                     phoneNumber: "0104255725",
                     width: 311.w,
-                    index: index,
+                    // index: index,
                     hasTrailingIcon: false,
                   ),
                 ],
