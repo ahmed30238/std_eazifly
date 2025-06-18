@@ -22,6 +22,7 @@ import 'package:eazifly_student/data/models/my_programs/change_session_status_to
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_session_details_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
+import 'package:eazifly_student/data/models/my_programs/show_program_details_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
@@ -420,6 +421,19 @@ class Repository extends BaseRepository {
     try {
       final result = await baseRemoteDataSource.changeSessionStatus(
         data: data,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ShowProgramDetailsModel>> showProgramDetails(
+      {required int programId}) async {
+    try {
+      final result = await baseRemoteDataSource.showProgramDetails(
+        programId: programId,
       );
       return Right(result);
     } on ServerException catch (e) {

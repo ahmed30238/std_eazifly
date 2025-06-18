@@ -8,6 +8,7 @@ import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.da
 import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_data_item.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_link_item.dart';
+import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_stats_row.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecure_tabbar.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/student_change_item.dart';
 import 'package:flutter/material.dart' hide Badge;
@@ -51,27 +52,23 @@ class _LectureViewState extends State<LectureView>
         children: [
           10.ph,
           // TODO
-          // BlocBuilder(
-          //   bloc: cubit,
-          //   builder:(context, state) {
-          //     var item = cubit. 
-          //     return LectureStats(
-          //     state: item.currentSession?.status == "started" 
-          //       ? LectureStatesEnum.ongoing 
-          //       : item.currentSession?.status == "finished"
-          //         ? LectureStatesEnum.finished
-          //         : LectureStatesEnum.dated,
-          //     reJoin: item.currentSession?.status == "started",
-          //     onRejoinTap: () {
-          //       // كود إعادة الدخول
-          //     },
-          //     nextLecture: nextLec, // الوقت المنسق من الدالة السابقة
-          //     duration: "${item.duration} دقيقة",
-          //     timeDiff: formattedTimeDiff, // الوقت المنسق من الدالة السابقة
-          //     titleText: ["المحاضرة التالية", "مدة الجلسة", "حالة الجلسة"], // اختياري
-          //   );
-          //   },
-          // ),
+          BlocBuilder(
+            bloc: cubit,
+            builder:(context, state) {
+              // var item = cubit. 
+              return LectureStats(
+              state: LectureStatesEnum.dated,
+              reJoin: true,
+              onRejoinTap: () {
+                // كود إعادة الدخول
+              },
+              nextLecture: "nextLec", // الوقت المنسق من الدالة السابقة
+              duration: "${0} دقيقة",
+              timeDiff: "formattedTimeDiff", // الوقت المنسق من الدالة السابقة
+              titleText: ["المحاضرة التالية", "مدة الجلسة", "حالة الجلسة"], // اختياري
+            );
+            },
+          ),
           24.ph,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

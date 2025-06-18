@@ -40,6 +40,7 @@ import 'package:eazifly_student/domain/entities/my_programs/get_assigned_childre
 import 'package:eazifly_student/domain/entities/my_programs/get_my_programs_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_session_details_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/show_program_details_entity.dart';
 import 'package:eazifly_student/domain/entities/show_library_item_entity.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
 
@@ -107,8 +108,10 @@ abstract class BaseRepository {
       getAssignedChildrenToProgram({
     required int programId,
   });
-  Future<Either<Failure, ChangeSessionStatusEntity>>
-      changeSessionStatus({
+  Future<Either<Failure, ChangeSessionStatusEntity>> changeSessionStatus({
     required ChangeSessionStatusToJson data,
+  });
+  Future<Either<Failure, ShowProgramDetailsEntity>> showProgramDetails({
+    required int programId,
   });
 }

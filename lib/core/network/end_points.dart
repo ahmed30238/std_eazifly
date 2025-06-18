@@ -19,6 +19,8 @@ class EndPoints {
   static const changeSessionStatus = "update/session/status";
   static String getAssignedChildrenToProgram({required int programId}) =>
       "get/assigned/children/in/program/$programId";
+  static String showProgramDetails({required int programId}) =>
+      "program/details/$programId";
   static String getSessionDetails({required int sessionId}) =>
       "get/session/details/$sessionId";
   static String getLibraryPlans({required int days}) =>
