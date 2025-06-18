@@ -1,10 +1,19 @@
+import 'dart:convert';
+
+import 'package:eazifly_student/core/component/avatar_image.dart';
+import 'package:eazifly_student/core/enums/storage_enum.dart';
+import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get_storage/get_storage.dart';
 
 class NotesItem extends StatelessWidget {
   final int? id;
   final bool? isRead;
   final VoidCallback onTap;
+  final String instructorName;
+  final String feedback;
+  final String date;
   // final GetUserFeedbackEntities model;
   final int index;
   const NotesItem({
@@ -13,18 +22,21 @@ class NotesItem extends StatelessWidget {
     required this.onTap,
     this.id,
     required this.index,
+    required this.date,
+    required this.instructorName,
+    required this.feedback,
     // required this.model,
   });
 
   @override
   Widget build(BuildContext context) {
-    // var loginData = LoginDataModel.fromJson(
-    //   jsonDecode(
-    //     GetStorage().read(
-    //       StorageEnum.loginModel.name,
-    //     ),
-    //   ),
-    // );
+    var loginData = DataModel.fromJson(
+      jsonDecode(
+        GetStorage().read(
+          StorageEnum.loginModel.name,
+        ),
+      ),
+    );
     return Slidable(
       key: ValueKey(id ?? 0),
       closeOnScroll: true,
@@ -58,15 +70,15 @@ class NotesItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ImageContainer(
+                      AvatarImage(
                         shape: BoxShape.circle,
-                        // image: loginData.image,
-                        containerHeight: 20.h,
-                        containerWidth: 20.w,
+                        imageUrl: loginData.image,
+                        height: 20.h,
+                        width: 20.w,
                       ),
                       4.pw,
                       Text(
-                        "أ/احمد سلامة",
+                        "أ/$instructorName",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
                           color: MainColors.grayTextColors,
@@ -75,7 +87,7 @@ class NotesItem extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "date",
+                    date,
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
                       color: MainColors.grayTextColors,
@@ -85,7 +97,7 @@ class NotesItem extends StatelessWidget {
               ),
               8.ph,
               Text(
-                "هذا الطالب فاشل",
+                feedback,
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 12,
                 ),
