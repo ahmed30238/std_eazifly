@@ -1,5 +1,6 @@
 import 'package:eazifly_student/core/component/titled_form_field.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
+import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_state.dart';
 import 'package:eazifly_student/presentation/view/account_data/widgets/profile_image_widget.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -94,10 +95,10 @@ class StudentDataBody extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      // flex: 2,
                       child: TitledFormFieldItem(
                         validator: customValidation,
                         verticalSpace: 8.ph,
+                        keyboardType: TextInputType.name,
                         iconWidget: 0.ph,
                         titleText: "الاسم الاول",
                         controller: cubit.firstNameController,
@@ -109,7 +110,7 @@ class StudentDataBody extends StatelessWidget {
                       child: TitledFormFieldItem(
                         validator: customValidation,
                         iconWidget: 0.ph,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.name,
                         controller: cubit.lastNameController,
                         titleText: "اسم العائلة",
                         formfieldHintText: "مثال",
@@ -121,6 +122,7 @@ class StudentDataBody extends StatelessWidget {
                 TitledFormFieldItem(
                   validator: customValidation,
                   iconWidget: 0.ph,
+                  keyboardType: TextInputType.number,
                   titleText: "phone",
                   formfieldHintText: "010****",
                   controller: cubit.phoneController,
@@ -128,6 +130,7 @@ class StudentDataBody extends StatelessWidget {
                 16.ph,
                 TitledFormFieldItem(
                   validator: customValidation,
+                  keyboardType: TextInputType.number,
                   iconWidget: 0.ph,
                   titleText: "whatsapp",
                   formfieldHintText: "010****",
@@ -174,24 +177,69 @@ class StudentDataBody extends StatelessWidget {
                   validator: customValidation,
                   iconWidget: 0.ph,
                   titleText: "أنشأ بريد إلكتروني",
+                  keyboardType: TextInputType.emailAddress,
                   formfieldHintText: "email",
                   controller: cubit.emailController,
                 ),
                 16.ph,
-                TitledFormFieldItem(
-                  validator: customValidation,
-                  iconWidget: 0.ph,
-                  titleText: "أنشأ كلمة مرور",
-                  formfieldHintText: "**********",
-                  controller: cubit.passwordController,
+                BlocBuilder<AddNewStudentDataToProgramCubit,
+                    AddNewStudentDataToProgramState>(
+                  builder: (context, state) {
+                    return TitledFormFieldItem(
+                      maxLines: 1,
+                      suffIcon: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 12.h,
+                        ),
+                        child: InkWell(
+                          onTap: () => cubit.changeConfirmPassisiblity(),
+                          child: Icon(
+                            cubit.confirmPassVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                        ),
+                      ),
+                      validator: customValidation,
+                      isPassword: cubit.createPassVisible,
+                      iconWidget: 0.ph,
+                      keyboardType: TextInputType.visiblePassword,
+                      titleText: "أنشأ كلمة مرور",
+                      formfieldHintText: "**********",
+                      controller: cubit.passwordController,
+                    );
+                  },
                 ),
                 16.ph,
-                TitledFormFieldItem(
-                  validator: customValidation,
-                  iconWidget: 0.ph,
-                  titleText: "تاكيد كلمة مرور",
-                  formfieldHintText: "**********",
-                  controller: cubit.confirmPasswordController,
+                BlocBuilder<AddNewStudentDataToProgramCubit,
+                    AddNewStudentDataToProgramState>(
+                  builder: (context, state) {
+                    return TitledFormFieldItem(
+                      maxLines: 1,
+                      suffIcon: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 12.h,
+                        ),
+                        child: InkWell(
+                          onTap: () => cubit.changeConfirmPassisiblity(),
+                          child: Icon(
+                            cubit.confirmPassVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                        ),
+                      ),
+                      validator: customValidation,
+                      isPassword: cubit.confirmPassVisible,
+                      iconWidget: 0.ph,
+                      titleText: "تاكيد كلمة مرور",
+                      keyboardType: TextInputType.visiblePassword,
+                      formfieldHintText: "**********",
+                      controller: cubit.confirmPasswordController,
+                    );
+                  },
                 ),
               ],
             ),

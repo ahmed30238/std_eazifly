@@ -30,3 +30,7 @@ class CreateNewChildErrorState extends AddNewStudentDataToProgramState {
 class CreateNewChildLoadingState extends AddNewStudentDataToProgramState {}
 
 class CreateNewChildSuccessState extends AddNewStudentDataToProgramState {}
+
+class ChangePasswordVisibility extends AddNewStudentDataToProgramState {}
+
+class ChangeConfirmPasswordVisibility extends AddNewStudentDataToProgramState {}

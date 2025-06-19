@@ -32,7 +32,18 @@ class AddNewStudentDataToProgramCubit
     emit(ChangeLecturerIndexState());
   }
 
-  late TabController controller;
+  TabController? controller;
+  bool createPassVisible = false;
+  void changeCreatePassVisibility() {
+    createPassVisible = !createPassVisible;
+    emit(ChangePasswordVisibility());
+  }
+
+  bool confirmPassVisible = false;
+  void changeConfirmPassisiblity() {
+    confirmPassVisible = !confirmPassVisible;
+    emit(ChangeConfirmPasswordVisibility());
+  }
 
   final List<String> tabs = [
     "مواعيد ثابتة",
@@ -41,10 +52,10 @@ class AddNewStudentDataToProgramCubit
 
   void initTabBarController(TickerProvider vsync) {
     controller = TabController(length: tabs.length, vsync: vsync);
-    controller.addListener(() {
-      if (controller.indexIsChanging) {
-        controller.animateTo(
-          controller.index,
+    controller?.addListener(() {
+      if (controller!.indexIsChanging) {
+        controller?.animateTo(
+          controller!.index,
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeIn,
         );
@@ -197,7 +208,7 @@ class AddNewStudentDataToProgramCubit
 
   reset() {
     screenIndex = 0;
-    controller.dispose();
+    controller?.dispose();
     linearIndicatorPercent = .2;
   }
 

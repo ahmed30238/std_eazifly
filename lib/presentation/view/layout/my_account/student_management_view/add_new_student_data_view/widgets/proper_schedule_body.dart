@@ -31,15 +31,15 @@ class ProperScheduleBody extends StatelessWidget {
                   innerRadius: 12.r,
                   margin: EdgeInsets.zero,
                   outerRadius: 12.cr,
-                  controller: cubit.controller,
+                  controller: cubit.controller!,
                   onTap: (value) {
-                    cubit.controller.animateTo(value);
+                    cubit.controller?.animateTo(value);
                     cubit.changeTapbarIndex(value);
                   },
                   tabs: List.generate(
                     cubit.tabs.length,
                     (index) {
-                      bool isSelected = cubit.controller.index == index;
+                      bool isSelected = cubit.controller?.index == index;
                       return Text(
                         cubit.tabs[index],
                         style: MainTextStyle.boldTextStyle(
@@ -54,7 +54,7 @@ class ProperScheduleBody extends StatelessWidget {
               BlocBuilder(
                 bloc: cubit,
                 builder: (context, state) => SizedBox(
-                  height: cubit.controller.index == 0 ? 300.h : 172 * 9.h,
+                  height: cubit.controller?.index == 0 ? 300.h : 172 * 9.h,
                   child: TabBarView(
                     physics: const NeverScrollableScrollPhysics(),
                     controller: cubit.controller,

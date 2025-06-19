@@ -19,8 +19,9 @@ class TitledFormFieldItem extends StatelessWidget {
   final String formfieldHintText;
   final String? formfieldEnText;
   final double? formFieldheight;
-  final SizedBox ?verticalSpace;
+  final SizedBox? verticalSpace;
   final TextInputType? keyboardType;
+  final bool? isPassword;
 
   final Widget? suffIcon;
   const TitledFormFieldItem({
@@ -41,6 +42,7 @@ class TitledFormFieldItem extends StatelessWidget {
     this.formFieldheight,
     this.iconWidget,
     this.maxLines,
+    this.isPassword,
   });
 
   @override
@@ -83,6 +85,7 @@ class TitledFormFieldItem extends StatelessWidget {
         SizedBox(
           // height: formFieldheight ?? 44.h,
           child: CustomTextFormField(
+            isSecured: isPassword,
             keyboardType: keyboardType,
             enabledBorder: enabledBorder,
             focusedBorder: focusedBorder,
