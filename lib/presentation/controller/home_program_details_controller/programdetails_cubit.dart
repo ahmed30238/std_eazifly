@@ -11,9 +11,11 @@ class ProgramDetailsCubit extends Cubit<ProgramdetailsState> {
   ProgramDetailsCubit({
     required this.getProgramDetailsUsecase,
   }) : super(ProgramdetailsInitial());
+  
   static ProgramDetailsCubit get(context) => BlocProvider.of(context);
-
+  
   late TabController controller;
+  
   void initController(TickerProvider vsync) {
     controller = TabController(length: tabs.length, vsync: vsync)
       ..addListener(
@@ -24,42 +26,59 @@ class ProgramDetailsCubit extends Cubit<ProgramdetailsState> {
         },
       );
   }
-
+  
   List<Widget> screens() {
+    // التحقق من وجود البيانات قبل إنشاء الشاشات
+    final programData = getProgramDetailsEntity?.data;
+    
+    if (programData == null) {
+      // إرجاع شاشات فارغة أو loading widgets
+      return List.generate(
+        tabs.length, 
+        (index) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+    
     List<Widget> screens = [
       ProgramDetailsTap(
-        programEntity: getProgramDetailsEntity!.data!,
+        programEntity: programData,
       ),
       ProgramFeatureTab(
-        programEntity: getProgramDetailsEntity!.data!,
+        programEntity: programData,
       ),
       PreviousReviewsTab(
-        programEntity: getProgramDetailsEntity!.data!,
+        programEntity: programData,
       ),
       LecturerDataTab(
-        programEntity: getProgramDetailsEntity!.data!,
+        programEntity: programData,
       ),
     ];
     return screens;
   }
-
+  
   var tabs = [
     "تفاصيل البرنامج",
-    "مزايا البرنامج",
+    "مزايا البرنامج", 
     "تقييمات سابقة",
     "بيانات المعلم",
   ];
-
+  
   bool getProgramDetailsLoading = false;
   GetProgramDetailsEntity? getProgramDetailsEntity;
   GetProgramDetailsUsecase getProgramDetailsUsecase;
-  getProgramDetails({required int programId}) async {
+  
+  Future<void> getProgramDetails({required int programId}) async {
     getProgramDetailsLoading = true;
     emit(GetProgramDetailsLoadingState());
+    
     final result = await getProgramDetailsUsecase.call(
-        parameter: ProgramDetailsParameters(
-      programId: programId,
-    ));
+      parameter: ProgramDetailsParameters(
+        programId: programId,
+      ),
+    );
+    
     result.fold(
       (l) {
         getProgramDetailsLoading = false;

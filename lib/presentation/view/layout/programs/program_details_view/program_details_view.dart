@@ -42,7 +42,59 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
               var program = cubit.getProgramDetailsEntity?.data;
 
               if (cubit.getProgramDetailsLoading) {
-                return const ProgramDetailsViewLoader();
+                return const Expanded(
+                  child: ProgramDetailsViewLoader(),
+                );
+              }
+
+              // التحقق من وجود البيانات
+              if (program == null) {
+                return Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.error_outline,
+                          size: 80.r,
+                          color: MainColors.grayTextColors,
+                        ),
+                        16.ph,
+                        Text(
+                          "حدث خطأ في تحميل البيانات",
+                          style: MainTextStyle.mediumTextStyle(
+                            fontSize: 16,
+                            color: MainColors.grayTextColors,
+                          ),
+                        ),
+                        8.ph,
+                        Text(
+                          "تحقق من الاتصال بالإنترنت وحاول مرة أخرى",
+                          style: MainTextStyle.regularTextStyle(
+                            fontSize: 14,
+                            color: MainColors.grayTextColors,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        20.ph,
+                        CustomElevatedButton(
+                          text: "إعادة المحاولة",
+                          textStyle: MainTextStyle.mediumTextStyle(
+                            fontSize: 14,
+                            color: MainColors.white,
+                          ),
+                          color: MainColors.blueTextColor,
+                          width: 120.w,
+                          height: 36.h,
+                          radius: 8.r,
+                          onPressed: () {
+                            cubit.getProgramDetails(programId: widget.programId);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                );
               }
 
               return Expanded(
@@ -56,7 +108,7 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                         AvatarImage(
                           height: 188.h,
                           width: double.infinity,
-                          imageUrl: program?.image ?? "",
+                          imageUrl: program.image ?? "",
                           radius: 16.r,
                         ),
                         16.ph,
@@ -65,17 +117,19 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                program?.title ?? "",
-                                style:
-                                    MainTextStyle.boldTextStyle(fontSize: 14),
+                              Expanded(
+                                child: Text(
+                                  program.title ?? "",
+                                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ],
                           ),
                         ),
                         8.ph,
                         Html(
-                          data: program?.description ?? "",
+                          data: program.description ?? "",
                           // style: htmlStyle,
                         ),
                         16.ph,
@@ -115,23 +169,31 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
             },
           ),
           8.ph,
-          CustomElevatedButton(
-            text: "اشترك الآن",
-            color: MainColors.blueTextColor,
-            radius: 16.r,
-            width: 343.w,
-            onPressed: () => Navigator.pushNamed(
-              arguments: {
-                "programId": widget.programId,
-                "programTitle":
-                    cubit.getProgramDetailsEntity?.data?.title ?? "",
-                "programDescription":
-                    cubit.getProgramDetailsEntity?.data?.description ?? "",
-                "programImage": cubit.getProgramDetailsEntity?.data?.image ?? ""
-              },
-              context,
-              RoutePaths.programSubscriptionPlan,
-            ),
+          // إخفاء الزر أثناء التحميل أو في حالة عدم وجود بيانات
+          BlocBuilder<ProgramDetailsCubit, ProgramdetailsState>(
+            builder: (context, state) {
+              if (cubit.getProgramDetailsLoading || 
+                  cubit.getProgramDetailsEntity?.data == null) {
+                return const SizedBox.shrink();
+              }
+              
+              return CustomElevatedButton(
+                text: "اشترك الآن",
+                color: MainColors.blueTextColor,
+                radius: 16.r,
+                width: 343.w,
+                onPressed: () => Navigator.pushNamed(
+                  arguments: {
+                    "programId": widget.programId,
+                    "programTitle": cubit.getProgramDetailsEntity?.data?.title ?? "",
+                    "programDescription": cubit.getProgramDetailsEntity?.data?.description ?? "",
+                    "programImage": cubit.getProgramDetailsEntity?.data?.image ?? ""
+                  },
+                  context,
+                  RoutePaths.programSubscriptionPlan,
+                ),
+              );
+            },
           ),
           32.ph,
         ],
