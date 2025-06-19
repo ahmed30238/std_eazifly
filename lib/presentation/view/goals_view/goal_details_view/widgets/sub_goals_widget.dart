@@ -2,20 +2,30 @@ import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:eazifly_student/presentation/controller/goal_details_controller/goal_details_cubit.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SubGoalsWidget extends StatelessWidget {
   final int index;
+  final String title;
+  final String description;
+  final bool isDone; // إضافة المتغير الجديد
+  final int lessonId; // إضافة معرف الدرس للـ API call
+  
   const SubGoalsWidget({
     super.key,
     required this.index,
+    required this.title,
+    required this.description,
+    required this.isDone, // مطلوب الآن
+    required this.lessonId, // مطلوب للـ API call
   });
 
   @override
   Widget build(BuildContext context) {
-    var cubit = GoalDetailsCubit.get(context);
+    var cubit = LectureCubit.get(context);
     return Row(
       children: [
         Text(
@@ -45,7 +55,7 @@ class SubGoalsWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "تطبيق حكم الغنة",
+                            title,
                             style: MainTextStyle.boldTextStyle(fontSize: 14),
                           ),
                           InkWell(
@@ -67,20 +77,7 @@ class SubGoalsWidget extends StatelessWidget {
                       ),
                     ),
                     16.ph,
-                    ...List.generate(
-                      3,
-                      (index) => Padding(
-                        padding:  EdgeInsets.only(bottom: 16.h),
-                        child: Text(
-                          "هذا النص هو جزء من عملية تحسين تجربة المستخدم من خلال النص.",
-                          overflow: TextOverflow.ellipsis,
-                          style: MainTextStyle.mediumTextStyle(
-                            fontSize: 12,
-                            color: MainColors.grayTextColors,
-                          ),
-                        ),
-                      ),
-                    )
+                    Html(data: description)
                   ],
                 ),
               ),
@@ -100,15 +97,33 @@ class SubGoalsWidget extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: 5.cr,
                   ),
-                  value: cubit.isSelected[index],
+                  // استخدام isDone بدلاً من cubit.isSelected[index]
+                  value: isDone,
                   activeColor: MainColors.blueTextColor,
                   onChanged: (value) {
-                    cubit.changeSelected(index);
+                    // إذا كان الدرس مكتمل، لا تسمح بإلغاء الاختيار
+                    if (!isDone && value == true) {
+                      // استدعاء API لإكمال الدرس
+                      cubit.completeChapterLesson(
+                        lessonId: lessonId,
+                        userId: cubit.userId,
+                      );
+                    }
+                    // يمكنك إضافة منطق إضافي هنا حسب احتياجاتك
                   },
                 ),
-                Text(
-                  "تطبيق حكم الغنة",
-                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: MainTextStyle.boldTextStyle(
+                      fontSize: 14,
+                      // تغيير لون النص حسب حالة الإكمال
+                      color: isDone 
+                        ? MainColors.grayTextColors 
+                        : MainColors.black,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 )
               ],
             ),

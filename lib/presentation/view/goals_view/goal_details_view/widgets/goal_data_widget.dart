@@ -5,8 +5,15 @@ import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 class GoalDataWidget extends StatelessWidget {
-  const GoalDataWidget({super.key});
+  final String title;
+  final String points;
+  const GoalDataWidget({
+    super.key,
+    required this.title,
+    required this.points,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +45,7 @@ class GoalDataWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "أصناف الناس في العبادة",
+              title,
               style: MainTextStyle.boldTextStyle(fontSize: 14),
             ),
             const Spacer(),
@@ -46,7 +53,7 @@ class GoalDataWidget extends StatelessWidget {
               Assets.iconsCoin,
             ),
             Text(
-              "20",
+              points,
               style: MainTextStyle.boldTextStyle(fontSize: 15),
             ),
           ],

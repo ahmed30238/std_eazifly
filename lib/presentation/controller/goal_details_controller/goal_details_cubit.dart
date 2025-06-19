@@ -5,9 +5,5 @@ class GoalDetailsCubit extends Cubit<GoalDetailsState> {
   GoalDetailsCubit() : super(GoalDetailsInitial());
   static GoalDetailsCubit get(context) => BlocProvider.of(context);
 
-  List<bool> isSelected = [];
-  void changeSelected(int index) {
-    isSelected[index] = !isSelected[index];
-    emit(ChangeSelectedState());
-  }
+
 }

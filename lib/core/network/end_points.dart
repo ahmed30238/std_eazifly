@@ -31,10 +31,22 @@ class EndPoints {
     required int userId,
   }) =>
       "get/user/reports/$userId";
+  static String completeChapterLesson({
+    required int lessonId,
+  }) =>
+      "complete/lesson/$lessonId";
   static String getUserFeedbacks({
     required int userId,
   }) =>
       "feedback/$userId";
+  static String getChapterLessons({
+    required int chapterId,
+  }) =>
+      "get/chapter/lessons/$chapterId";
+  static String getContentChapter({
+    required int userId,
+  }) =>
+      "get/content/chapters/$userId";
   static String getProgramAssignments({
     required int programId,
     required int userId,

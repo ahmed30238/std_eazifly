@@ -36,6 +36,9 @@ import 'package:eazifly_student/domain/entities/library_order_and_subscription_e
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/login_entities.dart';
 import 'package:eazifly_student/domain/entities/my_programs/change_session_status_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/content/complete_chapter_lesson_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/content/get_chapter_lessons_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/content/get_content_chapter.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_my_programs_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_assignments_entity.dart';
@@ -131,5 +134,14 @@ abstract class BaseRepository {
   });
   Future<Either<Failure, GetUserFeedbacksEntity>> getUserFeedbacks({
     required int userId,
+  });
+  Future<Either<Failure, GetContentChapterEntity>> getContentChapters({
+    required int userId,
+  });
+  Future<Either<Failure, GetChapterLessonsEntity>> getChapterLessons({
+    required int chapterId,
+  });
+  Future<Either<Failure, CompleteChapterLessonEntity>> completeChapterLesson({
+    required int lessonId,
   });
 }

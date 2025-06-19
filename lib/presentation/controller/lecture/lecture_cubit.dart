@@ -5,11 +5,17 @@ import 'package:eazifly_student/core/component/spline_area_chart.dart';
 import 'package:eazifly_student/core/component/stats_area.dart';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/domain/entities/my_programs/content/complete_chapter_lesson_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/content/get_chapter_lessons_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/content/get_content_chapter.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_assignments_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_user_feedbacks_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_user_reports_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/show_program_details_entity.dart';
+import 'package:eazifly_student/domain/use_cases/complete_chapter_lesson_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_chapter_lessons_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_content_chapter_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_assignments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_sessions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_feedback_usecase.dart';
@@ -32,6 +38,9 @@ class LectureCubit extends Cubit<LectureState> {
     required this.getProgramAssignmentsUsecase,
     required this.getUserReportsUsecase,
     required this.getUserFeedbacksUsecase,
+    required this.getChapterLessonsUsecase,
+    required this.getContentChaptersUsecase,
+    required this.completeChapterLessonUsecase,
   }) : super(LectureInitial()) {
     var loginData = DataModel.fromJson(
         jsonDecode(GetStorage().read(StorageEnum.loginModel.name)));
@@ -389,6 +398,119 @@ class LectureCubit extends Cubit<LectureState> {
       tabLoadingStates[2] = false;
       emit(ExamsErrorState(errorMessage: e.toString()));
     }
+  }
+
+  List<bool> isSelected = [];
+  void changeSelected(int index) {
+    isSelected[index] = !isSelected[index];
+    emit(ChangeSelectedState());
+  }
+
+  fillSelected(int listLength) {
+    for (var i = 0; i < listLength; i++) {
+      isSelected.add(false);
+    }
+  }
+
+  bool getChapterLessonsLoader = false;
+  GetChapterLessonsEntity? chapterLessonsEntity;
+  GetChapterLessonsUsecase getChapterLessonsUsecase;
+
+  Future<void> getChapterLessons({
+    required int chapterId,
+  }) async {
+    getChapterLessonsLoader = true;
+    emit(GetChapterLessonsLoadingState());
+
+    final result = await getChapterLessonsUsecase.call(
+      parameter: GetChapterLessonsParameters(
+        chapterId: chapterId,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        getChapterLessonsLoader = false;
+        emit(GetChapterLessonsErrorState(errorMessage: failure.message));
+      },
+      (data) {
+        getChapterLessonsLoader = false;
+        chapterLessonsEntity = data;
+        fillSelected(data.data?.length ?? 0);
+        emit(GetChapterLessonsSuccessState());
+      },
+    );
+  }
+
+  bool getContentChaptersLoader = false;
+  GetContentChapterEntity? getContentChapterEntity;
+  GetContentChapterUsecase getContentChaptersUsecase;
+
+  Future<void> getContentChapters({
+    required int userId,
+  }) async {
+    getContentChaptersLoader = true;
+    emit(GetContentChaptersLoadingState());
+
+    final result = await getContentChaptersUsecase.call(
+      parameter: GetContentChapterParameters(
+        userId: userId,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        getContentChaptersLoader = false;
+        emit(GetContentChaptersErrorState(errorMessage: failure.message));
+      },
+      (data) {
+        getContentChaptersLoader = false;
+        getContentChapterEntity = data;
+        emit(GetContentChaptersSuccessState());
+      },
+    );
+  }
+
+  bool completeChapterLessonLoader = false;
+  CompleteChapterLessonEntity? completeChapterLessonEntity;
+  CompleteChapterLessonUsecase completeChapterLessonUsecase;
+
+  Future<void> completeChapterLesson({
+    required int lessonId,
+    required int userId,
+  }) async {
+    completeChapterLessonLoader = true;
+    emit(CompleteChapterLessonLoadingState());
+
+    final result = await completeChapterLessonUsecase.call(
+      parameter: CompleteChapterLessonParameters(
+        lessonId: lessonId,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        completeChapterLessonLoader = false;
+        emit(CompleteChapterLessonErrorState(errorMessage: failure.message));
+      },
+      (data) {
+        completeChapterLessonLoader = false;
+        completeChapterLessonEntity = data;
+
+        // تحديث حالة الدرس في البيانات المحلية
+        if (chapterLessonsEntity?.data != null) {
+          final lessonIndex = chapterLessonsEntity!.data!
+              .indexWhere((lesson) => lesson.id == lessonId);
+
+          if (lessonIndex != -1) {
+            // تحديث isDone للدرس المحدد
+            chapterLessonsEntity!.data![lessonIndex].isDone = true;
+          }
+        }
+
+        emit(CompleteChapterLessonSuccessState());
+      },
+    );
   }
 
   @override

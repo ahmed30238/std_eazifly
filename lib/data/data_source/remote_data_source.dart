@@ -28,6 +28,9 @@ import 'package:eazifly_student/data/models/library/plans/get_plan_subscription_
 import 'package:eazifly_student/data/models/library/show_library_item_model.dart';
 import 'package:eazifly_student/data/models/my_programs/change_session_status_model.dart';
 import 'package:eazifly_student/data/models/my_programs/change_session_status_tojson.dart';
+import 'package:eazifly_student/data/models/my_programs/content/complete_chapter_lesson_model.dart';
+import 'package:eazifly_student/data/models/my_programs/content/get_chapter_lessons_model.dart';
+import 'package:eazifly_student/data/models/my_programs/content/get_content_chapter_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_assigned_children_to_program_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_assignments_model.dart';
@@ -120,6 +123,15 @@ abstract class BaseRemoteDataSource {
   });
   Future<GetUserFeedbacksModel> getUserFeedbacks({
     required int userId,
+  });
+  Future<GetContentChapterModel> getContentChapter({
+    required int userId,
+  });
+  Future<GetChapterLessonsModel> getChapterLessons({
+    required int chapterId,
+  });
+  Future<CompleteChapterLessonModel> completeChapterLesson({
+    required int lessonId,
   });
 }
 
@@ -921,6 +933,63 @@ class RemoteDataSource extends BaseRemoteDataSource {
     );
     if (response?.statusCode == 200) {
       return GetUserFeedbacksModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetContentChapterModel> getContentChapter(
+      {required int userId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getContentChapter(
+        userId: userId,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      return GetContentChapterModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetChapterLessonsModel> getChapterLessons(
+      {required int chapterId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getChapterLessons(
+        chapterId: chapterId,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      return GetChapterLessonsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<CompleteChapterLessonModel> completeChapterLesson(
+      {required int lessonId}) async {
+    var response = await NetworkCall().post(
+      path: EndPoints.completeChapterLesson(
+        lessonId: lessonId,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      return CompleteChapterLessonModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

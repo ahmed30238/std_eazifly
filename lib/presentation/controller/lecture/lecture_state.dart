@@ -4,6 +4,8 @@ class LectureInitial extends LectureState {}
 
 class TabIndexState extends LectureState {}
 
+class ChangeSelectedState extends LectureState {}
+
 class ShowProgramDetailsSuccessState extends LectureState {}
 
 class ShowProgramDetailsErrorState extends LectureState {
@@ -69,4 +71,37 @@ class GetUserFeedbacksLoadingState extends LectureState {}
 class GetUserFeedbacksErrorState extends LectureState {
   final String errorMessage;
   GetUserFeedbacksErrorState({required this.errorMessage});
+}
+
+// لحالات ChapterLessons
+class GetChapterLessonsLoadingState extends LectureState {}
+
+class GetChapterLessonsSuccessState extends LectureState {}
+
+class GetChapterLessonsErrorState extends LectureState {
+  final String errorMessage;
+
+  GetChapterLessonsErrorState({required this.errorMessage});
+}
+
+// لحالات ContentChapters
+class GetContentChaptersLoadingState extends LectureState {}
+
+class GetContentChaptersSuccessState extends LectureState {}
+
+class GetContentChaptersErrorState extends LectureState {
+  final String errorMessage;
+
+  GetContentChaptersErrorState({required this.errorMessage});
+}
+
+// لحالات CompleteChapterLesson
+class CompleteChapterLessonLoadingState extends LectureState {}
+
+class CompleteChapterLessonSuccessState extends LectureState {}
+
+class CompleteChapterLessonErrorState extends LectureState {
+  final String errorMessage;
+
+  CompleteChapterLessonErrorState({required this.errorMessage});
 }

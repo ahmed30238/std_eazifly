@@ -19,6 +19,9 @@ import 'package:eazifly_student/data/models/library/plans/get_library_plans_mode
 import 'package:eazifly_student/data/models/library/plans/get_plan_subscription_period_model.dart';
 import 'package:eazifly_student/data/models/library/show_library_item_model.dart';
 import 'package:eazifly_student/data/models/my_programs/change_session_status_tojson.dart';
+import 'package:eazifly_student/data/models/my_programs/content/complete_chapter_lesson_model.dart';
+import 'package:eazifly_student/data/models/my_programs/content/get_chapter_lessons_model.dart';
+import 'package:eazifly_student/data/models/my_programs/content/get_content_chapter_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_assignments_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_sessions_model.dart';
@@ -492,6 +495,45 @@ class Repository extends BaseRepository {
     try {
       final result = await baseRemoteDataSource.getUserFeedbacks(
         userId: userId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetContentChapterModel>> getContentChapters(
+      {required int userId}) async {
+    try {
+      final result = await baseRemoteDataSource.getContentChapter(
+        userId: userId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetChapterLessonsModel>> getChapterLessons(
+      {required int chapterId}) async {
+    try {
+      final result = await baseRemoteDataSource.getChapterLessons(
+        chapterId: chapterId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CompleteChapterLessonModel>> completeChapterLesson(
+      {required int lessonId}) async {
+    try {
+      final result = await baseRemoteDataSource.completeChapterLesson(
+        lessonId: lessonId,
       );
       return Right(result);
     } on ServerException catch (e) {

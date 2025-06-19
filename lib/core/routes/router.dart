@@ -164,7 +164,7 @@ class AppRouter {
       case RoutePaths.lectureView:
         var arguments = settings.arguments as Map<String, dynamic>;
         // var nextSessionDate =  arguments["nextSessionDate"] as DateTime;
-        var programId =  arguments["programId"] as int;
+        var programId = arguments["programId"] as int;
         return createRoute(
           LectureView(
             // isFinishedLecture: nextSessionDate,
@@ -196,10 +196,16 @@ class AppRouter {
           const LeaderBoardView(),
         );
       case RoutePaths.goalDetailsView:
+        var arguments = settings.arguments as Map<String, dynamic>;
+        int chapterId = arguments["chapterId"] as int? ?? -1;
+        String chapterTitle = arguments["chapterTitle"] as String? ?? "no title";
         return createRoute(
           BlocProvider(
             create: (context) => GoalDetailsCubit(),
-            child: const GoalDetailsView(),
+            child: GoalDetailsView(
+              chapterId: chapterId,
+              chapterTitle: chapterTitle,
+            ),
           ),
         );
       case RoutePaths.meetingDataPath:

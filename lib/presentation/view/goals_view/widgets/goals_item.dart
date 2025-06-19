@@ -4,14 +4,14 @@ import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/view/goals_view/goals_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class GoalsItem extends StatelessWidget {
   final String title;
   final String points;
-  final String description1;
-  final String description2;
+  final String description;
   final VoidCallback onTap;
 
   const GoalsItem({
@@ -19,18 +19,17 @@ class GoalsItem extends StatelessWidget {
     required this.onTap,
     required this.title,
     required this.points,
-    required this.description1,
-    required this.description2,
+    required this.description,
   });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(left: 16.w, bottom: 16.h), // Adjusted margin
+        margin: EdgeInsets.only(left: 16.w, bottom: 16.h),
         height: 96.h,
-        width: 319.w,
+        // Remove fixed width - let it expand to available space
         decoration: BoxDecoration(
           color: MainColors.veryLightGrayFormField,
           borderRadius: BorderRadius.circular(20.r),
@@ -41,50 +40,59 @@ class GoalsItem extends StatelessWidget {
           children: [
             const CustomBadge(),
             12.pw,
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 21.h,
-                  width: 211.w,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        title,
-                        style: MainTextStyle.boldTextStyle(fontSize: 14),
-                      ),
-                      const Spacer(),
-                      SvgPicture.asset(Assets.iconsCoin),
-                      Text(
-                        points,
-                        style: MainTextStyle.boldTextStyle(
-                          fontSize: 11,
-                          color: MainColors.grayTextColors,
+            // Wrap the column in Expanded to take remaining space
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 21.h,
+                    // Remove fixed width here too
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Wrap title in Flexible to handle overflow
+                        Flexible(
+                          child: Text(
+                            title,
+                            style: MainTextStyle.boldTextStyle(fontSize: 14),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                    ],
+                        8.pw, // Small spacing instead of Spacer
+                        const Spacer(),
+                        SvgPicture.asset(Assets.iconsCoin),
+                        // 4.pw, // Small spacing
+                        Text(
+                          points,
+                          style: MainTextStyle.boldTextStyle(
+                            fontSize: 11,
+                            color: MainColors.grayTextColors,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                8.ph,
-                Text(
-                  description1,
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 11,
-                    color: MainColors.grayTextColors,
+                  8.ph,
+                  // Wrap Html in Flexible to prevent overflow
+                  Flexible(
+                    child: Html(
+                      data: description,
+                      // Add these properties to control Html widget behavior
+                      // style: {
+                      //   "body": Style(
+                      //     // margin: EdgeInsets.zero,
+                      //     // padding: EdgeInsets.zero,
+                      //   ),
+                      // },
+                    ),
                   ),
-                ),
-                4.ph,
-                Text(
-                  description2,
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 11,
-                    color: MainColors.grayTextColors,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
+            // Add some right padding
+            8.pw,
           ],
         ),
       ),

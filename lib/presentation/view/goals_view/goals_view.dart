@@ -1,18 +1,38 @@
-import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
+import 'dart:convert';
+
 import 'package:eazifly_student/core/component/hexagon.dart';
-import 'package:eazifly_student/core/component/timeline_item.dart';
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/routes/paths.dart';
-import 'package:eazifly_student/core/theme/colors/main_colors.dart';
-import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
+import 'package:eazifly_student/core/enums/storage_enum.dart';
+import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
 import 'package:eazifly_student/presentation/view/goals_view/widgets/app_bar.dart';
 import 'package:eazifly_student/presentation/view/goals_view/widgets/goals_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_storage/get_storage.dart';
 
-class GoalsView extends StatelessWidget {
+class GoalsView extends StatefulWidget {
   const GoalsView({super.key});
+
+  @override
+  State<GoalsView> createState() => _GoalsViewState();
+}
+
+class _GoalsViewState extends State<GoalsView> {
+  late LectureCubit cubit;
+  late DataModel loginModel;
+
+  @override
+  void initState() {
+    loginModel = DataModel.fromJson(
+      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
+    );
+    cubit = context.read<LectureCubit>();
+    super.initState();
+    cubit.getContentChapters(
+      userId: 1,
+      // userId: loginModel.id ?? -1,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,51 +40,155 @@ class GoalsView extends StatelessWidget {
       appBar: const GoalsViewAppbar(),
       body: Column(
         children: [
-          Expanded(
-            child: ListView(
-              children: [
-                20.ph,
-                ...List.generate(
-                  7,
-                  (index) => TimlineItem(
-                    padding: EdgeInsets.symmetric(vertical: .5.h),
-                    lineXY: .01,
-                    indicatorXY: .4.h,
-                    indicator: Checkbox.adaptive(
-                      activeColor: MainColors.blueTextColor,
-                      value: index == 0,
-                      onChanged: (p) {},
-                      shape: const CircleBorder(),
-                    ),
-                    isFirst: index == 0,
-                    isLast: index == 6,
-                    child: GoalsItem(
-                      onTap: () {},
-                      title: "المنافقين من 17 الى 20",
-                      points: "20",
-                      description1: "تقييم على ماتم حفظه من 1 الى 20",
-                      description2: "إختبار تطبيقي على الغنة والقلقلة",
+          BlocBuilder<LectureCubit, LectureState>(
+            builder: (context, state) {
+              // إظهار loader أثناء تحميل البيانات
+              if (cubit.getContentChaptersLoader) {
+                return const Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+
+              var goals = cubit.getContentChapterEntity?.data;
+
+              // إظهار رسالة في حالة عدم وجود أهداف
+              if (goals == null || goals.isEmpty) {
+                return Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.track_changes_outlined,
+                          size: 80.r,
+                          color: MainColors.grayTextColors,
+                        ),
+                        16.ph,
+                        Text(
+                          "لا توجد أهداف متاحة حالياً",
+                          style: MainTextStyle.mediumTextStyle(
+                            fontSize: 16,
+                            color: MainColors.grayTextColors,
+                          ),
+                        ),
+                        8.ph,
+                        Text(
+                          "تحقق من الاتصال بالإنترنت وحاول مرة أخرى",
+                          style: MainTextStyle.regularTextStyle(
+                            fontSize: 14,
+                            color: MainColors.grayTextColors,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        20.ph,
+                        CustomElevatedButton(
+                          text: "إعادة المحاولة",
+                          textStyle: MainTextStyle.mediumTextStyle(
+                            fontSize: 14,
+                            color: MainColors.white,
+                          ),
+                          color: MainColors.blueTextColor,
+                          width: 120.w,
+                          height: 36.h,
+                          radius: 8.r,
+                          onPressed: () {
+                            cubit.getContentChapters(
+                              userId: loginModel.id ?? -1,
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ),
+                );
+              }
+
+              return Expanded(
+                child: ListView(
+                  children: [
+                    20.ph,
+                    ...List.generate(
+                      goals.length,
+                      (index) {
+                        var goal = goals[index];
+                        bool isAllElementDone = false;
+                        if (goal.lessons != null && goal.lessons!.isNotEmpty) {
+                          isAllElementDone = goal.lessons!.every(
+                            (element) => element.isDone == true,
+                          );
+                        }
+                        var points = goal.lessons?.fold<int>(0,
+                                (total, element) {
+                              int pointValue = 0;
+                              if (element.points != null) {
+                                pointValue =
+                                    int.tryParse(element.points.toString()) ??
+                                        0;
+                              }
+                              return total + pointValue;
+                            }) ??
+                            0;
+                        return TimlineItem(
+                          padding: EdgeInsets.symmetric(vertical: .5.h),
+                          lineXY: .01,
+                          indicatorXY: .4.h,
+                          indicator: Checkbox.adaptive(
+                            activeColor: MainColors.blueTextColor,
+                            value: isAllElementDone,
+                            onChanged: (p) {},
+                            shape: const CircleBorder(),
+                          ),
+                          isFirst: index == 0,
+                          isLast: index == goals.length - 1,
+                          child: GoalsItem(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                arguments: {
+                                  "chapterId": goal.id,
+                                  "chapterTitle": goal.title ?? ""
+                                },
+                                context,
+                                RoutePaths.goalDetailsView,
+                              );
+                            },
+                            title: goal.title ?? "",
+                            points: points.toString(),
+                            description: goal.description ?? "",
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              );
+            },
           ),
           8.ph,
-          CustomElevatedButton(
-            text: "قائمة المتصدرين",
-            textStyle: MainTextStyle.mediumTextStyle(
-              fontSize: 16,
-              color: MainColors.white,
-            ),
-            color: MainColors.blueTextColor,
-            width: 147.w,
-            height: 40.h,
-            radius: 12.r,
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                RoutePaths.leaderBoardView,
+          // زر قائمة المتصدرين يكون مخفي أثناء التحميل
+          BlocBuilder<LectureCubit, LectureState>(
+            builder: (context, state) {
+              if (cubit.getContentChaptersLoader) {
+                return const SizedBox.shrink();
+              }
+
+              return CustomElevatedButton(
+                text: "قائمة المتصدرين",
+                textStyle: MainTextStyle.mediumTextStyle(
+                  fontSize: 16,
+                  color: MainColors.white,
+                ),
+                color: MainColors.blueTextColor,
+                width: 147.w,
+                height: 40.h,
+                radius: 12.r,
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    RoutePaths.leaderBoardView,
+                  );
+                },
               );
             },
           ),
@@ -87,11 +211,11 @@ class CustomBadge extends StatelessWidget {
       child: Container(
         width: 80.w,
         height: 80.h,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           // color: MainColors.white
           color: MainColors.red,
           // borderRadius: 48.cr,
-          image: const DecorationImage(
+          image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
               Assets.imagesPersona,

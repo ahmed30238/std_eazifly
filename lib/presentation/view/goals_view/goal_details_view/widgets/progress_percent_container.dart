@@ -4,9 +4,12 @@ import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class ProgressPercentContainer extends StatelessWidget {
+  final String percent;
   const ProgressPercentContainer({
     super.key,
+    required this.percent,
   });
 
   @override
@@ -33,7 +36,7 @@ class ProgressPercentContainer extends StatelessWidget {
                   style: MainTextStyle.boldTextStyle(fontSize: 11),
                 ),
                 Text(
-                  "45 %",
+                  "$percent %",
                   style: MainTextStyle.boldTextStyle(fontSize: 12),
                 ),
               ],
@@ -43,7 +46,7 @@ class ProgressPercentContainer extends StatelessWidget {
           CustomLinearPercentIndicator(
             lineHeight: 6.h,
             alignment: MainAxisAlignment.start,
-            percent: .45,
+            percent: (double.tryParse(percent) != null ? double.tryParse(percent)! / 100 : 0.0),
             width: 303.w,
           ),
         ],
