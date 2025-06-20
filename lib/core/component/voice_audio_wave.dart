@@ -1,9 +1,10 @@
 // pubspec.yaml dependencies:
 // audio_waveforms: ^1.0.5
-// dio: ^5.3.2 (للتحميل من السيرفر)
-// path_provider: ^2.1.1 (للمجلدات المؤقتة)
+// dio: ^5.3.2
+// path_provider: ^2.1.1
 
 import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:audio_waveforms/audio_waveforms.dart';
@@ -11,9 +12,9 @@ import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
-class ModernVoiceMessageWidget extends StatefulWidget {
-  final String audioUrl; // تغيير الاسم ليكون واضح أنه URL
-  final String? messageId; // لحفظ الملف بـ ID مميز
+class ImprovedVoiceMessageWidget extends StatefulWidget {
+  final String audioUrl;
+  final String? messageId;
   final Color? backgroundColor;
   final Color? waveColor;
   final Color? progressColor;
@@ -21,12 +22,14 @@ class ModernVoiceMessageWidget extends StatefulWidget {
   final double? height;
   final VoidCallback? onPlayComplete;
   final Function(String)? onError;
-  final Function(double)? onDownloadProgress; // لإظهار نسبة التحميل
+  final Function(double)? onDownloadProgress;
   final bool showDuration;
   final bool autoStart;
-  final Map<String, String>? headers; // لإضافة headers مثل Authorization
+  final Map<String, String>? headers;
+  final Duration timeoutDuration;
+  final int maxRetryAttempts;
 
-  const ModernVoiceMessageWidget({
+  const ImprovedVoiceMessageWidget({
     super.key,
     required this.audioUrl,
     this.messageId,
@@ -41,88 +44,161 @@ class ModernVoiceMessageWidget extends StatefulWidget {
     this.showDuration = true,
     this.autoStart = false,
     this.headers,
+    this.timeoutDuration = const Duration(minutes: 2),
+    this.maxRetryAttempts = 3,
   });
 
   @override
-  State<ModernVoiceMessageWidget> createState() => _ModernVoiceMessageWidgetState();
+  State<ImprovedVoiceMessageWidget> createState() => _ImprovedVoiceMessageWidgetState();
 }
 
-class _ModernVoiceMessageWidgetState extends State<ModernVoiceMessageWidget> {
-  late PlayerController playerController;
+class _ImprovedVoiceMessageWidgetState extends State<ImprovedVoiceMessageWidget> 
+    with WidgetsBindingObserver {
+  PlayerController? playerController;
   bool _isInitialized = false;
   bool _isPlaying = false;
   bool _hasError = false;
   bool _isDownloading = false;
+  bool _isDisposed = false;
   String? _errorMessage;
   String? _localFilePath;
   Duration _currentDuration = Duration.zero;
   Duration _maxDuration = Duration.zero;
   double _downloadProgress = 0.0;
+  int _retryAttempts = 0;
+  Timer? _durationTimer;
   
-  static final Map<String, String> _cachedFiles = {}; // كاش للملفات المحملة
+  // Static cache for downloaded files
+  static final Map<String, String> _cachedFiles = {};
+  
+  // Cancellation token for downloads
+  CancelToken? _cancelToken;
+  
+  // Stream subscriptions
+  StreamSubscription? _playerStateSubscription;
+  StreamSubscription? _durationSubscription;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _initializeController();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused && _isPlaying) {
+      _pausePlayer();
+    }
+  }
+
   Future<void> _initializeController() async {
+    if (_isDisposed) return;
+    
     try {
+      await _cleanupController();
+      
       playerController = PlayerController();
       
-      // استمع لحالة التشغيل
-      playerController.onPlayerStateChanged.listen((state) {
-        if (mounted) {
-          setState(() {
-            _isPlaying = state.isPlaying;
-          });
-          
-          if (state.isStopped && _currentDuration.inSeconds > 0) {
-            widget.onPlayComplete?.call();
-          }
+      // Setup listeners with null checks
+      _playerStateSubscription = playerController!.onPlayerStateChanged.listen((state) {
+        if (!mounted || _isDisposed) return;
+        
+        setState(() {
+          _isPlaying = state.isPlaying;
+        });
+        
+        if (state.isStopped && _currentDuration.inSeconds > 0) {
+          widget.onPlayComplete?.call();
         }
       });
 
-      // استمع لتغيير الوقت الحالي
-      playerController.onCurrentDurationChanged.listen((duration) {
-        if (mounted) {
-          setState(() {
-            _currentDuration = Duration(milliseconds: duration);
-          });
-        }
+      _durationSubscription = playerController!.onCurrentDurationChanged.listen((duration) {
+        if (!mounted || _isDisposed) return;
+        
+        setState(() {
+          _currentDuration = Duration(milliseconds: duration);
+        });
       });
 
-      // تحضير الملف الصوتي
       if (widget.audioUrl.isNotEmpty) {
         await _downloadAndPrepareAudio();
         
-        if (mounted && _localFilePath != null) {
+        if (mounted && !_isDisposed && _localFilePath != null) {
           setState(() {
             _isInitialized = true;
-            _maxDuration = Duration(milliseconds: playerController.maxDuration);
           });
           
-          if (widget.autoStart) {
+          // Get max duration with retry logic
+          await _getMaxDuration();
+          
+          if (widget.autoStart && mounted && !_isDisposed) {
             await _playPause();
           }
         }
       }
     } catch (e) {
-      debugPrint('Error initializing audio: $e');
-      if (mounted) {
+      debugPrint('Error initializing audio controller: $e');
+      if (mounted && !_isDisposed) {
         setState(() {
           _hasError = true;
-          _errorMessage = e.toString();
+          _errorMessage = 'خطأ في تهيئة مشغل الصوت: ${e.toString()}';
         });
         widget.onError?.call(e.toString());
       }
     }
   }
 
-  Future<void> _downloadAndPrepareAudio() async {
+  Future<void> _getMaxDuration() async {
+    if (_isDisposed || playerController == null) return;
+    
     try {
-      // تحقق من الكاش أولاً
+      // Wait for the player to be ready
+      await Future.delayed(const Duration(milliseconds: 500));
+      
+      if (!_isDisposed && playerController != null) {
+        final maxDuration = playerController!.maxDuration;
+        if (maxDuration > 0) {
+          setState(() {
+            _maxDuration = Duration(milliseconds: maxDuration);
+          });
+        } else {
+          // Retry getting duration
+          _startDurationTimer();
+        }
+      }
+    } catch (e) {
+      debugPrint('Error getting max duration: $e');
+      _startDurationTimer();
+    }
+  }
+
+  void _startDurationTimer() {
+    _durationTimer?.cancel();
+    _durationTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_isDisposed || playerController == null) {
+        timer.cancel();
+        return;
+      }
+      
+      final maxDuration = playerController!.maxDuration;
+      if (maxDuration > 0) {
+        setState(() {
+          _maxDuration = Duration(milliseconds: maxDuration);
+        });
+        timer.cancel();
+      } else if (timer.tick > 10) {
+        // Stop trying after 10 seconds
+        timer.cancel();
+      }
+    });
+  }
+
+  Future<void> _downloadAndPrepareAudio() async {
+    if (_isDisposed) return;
+    
+    try {
+      // Check cache first
       final cacheKey = widget.messageId ?? widget.audioUrl;
       if (_cachedFiles.containsKey(cacheKey)) {
         final cachedPath = _cachedFiles[cacheKey]!;
@@ -141,56 +217,94 @@ class _ModernVoiceMessageWidgetState extends State<ModernVoiceMessageWidget> {
         _downloadProgress = 0.0;
       });
 
-      // إنشاء مسار للملف المؤقت
+      // Create temp file path
       final tempDir = await getTemporaryDirectory();
       final fileName = widget.messageId ?? 
           DateTime.now().millisecondsSinceEpoch.toString();
       final fileExtension = _getFileExtension(widget.audioUrl);
       _localFilePath = path.join(tempDir.path, 'voice_messages', '$fileName$fileExtension');
       
-      // إنشاء المجلد إذا لم يكن موجود
+      // Create directory if it doesn't exist
       final directory = Directory(path.dirname(_localFilePath!));
       if (!await directory.exists()) {
         await directory.create(recursive: true);
       }
 
-      // تحميل الملف
-      final dio = Dio();
-      await dio.download(
-        widget.audioUrl,
-        _localFilePath!,
-        options: Options(
-          headers: widget.headers,
-          receiveTimeout: const Duration(minutes: 2),
-          sendTimeout: const Duration(minutes: 2),
-        ),
-        onReceiveProgress: (received, total) {
-          if (total != -1) {
-            final progress = received / total;
-            setState(() {
-              _downloadProgress = progress;
-            });
-            widget.onDownloadProgress?.call(progress);
-          }
-        },
-      );
+      // Download with retry logic
+      await _downloadWithRetry();
 
-      // حفظ في الكاش
+      // Cache the file
       _cachedFiles[cacheKey] = _localFilePath!;
       
-      setState(() {
-        _isDownloading = false;
-      });
+      if (mounted && !_isDisposed) {
+        setState(() {
+          _isDownloading = false;
+        });
+      }
 
       await _prepareLocalAudio();
       
     } catch (e) {
-      setState(() {
-        _isDownloading = false;
-        _hasError = true;
-        _errorMessage = 'فشل في تحميل الملف الصوتي: ${e.toString()}';
-      });
+      if (mounted && !_isDisposed) {
+        setState(() {
+          _isDownloading = false;
+          _hasError = true;
+          _errorMessage = 'فشل في تحميل الملف الصوتي: ${e.toString()}';
+        });
+      }
       rethrow;
+    }
+  }
+
+  Future<void> _downloadWithRetry() async {
+    for (int attempt = 0; attempt <= widget.maxRetryAttempts; attempt++) {
+      if (_isDisposed) throw Exception('Widget disposed');
+      
+      try {
+        _cancelToken = CancelToken();
+        
+        final dio = Dio();
+        await dio.download(
+          widget.audioUrl,
+          _localFilePath!,
+          cancelToken: _cancelToken,
+          options: Options(
+            headers: widget.headers,
+            receiveTimeout: widget.timeoutDuration,
+            sendTimeout: widget.timeoutDuration,
+          ),
+          onReceiveProgress: (received, total) {
+            if (_isDisposed) return;
+            
+            if (total != -1) {
+              final progress = received / total;
+              if (mounted) {
+                setState(() {
+                  _downloadProgress = progress;
+                });
+              }
+              widget.onDownloadProgress?.call(progress);
+            }
+          },
+        );
+        
+        // Download successful
+        break;
+        
+      } catch (e) {
+        _retryAttempts = attempt + 1;
+        
+        if (e is DioException && e.type == DioExceptionType.cancel) {
+          throw Exception('Download cancelled');
+        }
+        
+        if (attempt == widget.maxRetryAttempts) {
+          throw Exception('Download failed after ${widget.maxRetryAttempts + 1} attempts: $e');
+        }
+        
+        // Wait before retry
+        await Future.delayed(Duration(seconds: (attempt + 1) * 2));
+      }
     }
   }
 
@@ -201,7 +315,12 @@ class _ModernVoiceMessageWidgetState extends State<ModernVoiceMessageWidget> {
       if (pathSegments.isNotEmpty) {
         final lastSegment = pathSegments.last;
         if (lastSegment.contains('.')) {
-          return '.${lastSegment.split('.').last}';
+          final extension = '.${lastSegment.split('.').last}';
+          // Validate audio extension
+          final audioExtensions = ['.mp3', '.wav', '.m4a', '.aac', '.ogg', '.mp4'];
+          if (audioExtensions.contains(extension.toLowerCase())) {
+            return extension;
+          }
         }
       }
     } catch (e) {
@@ -211,31 +330,46 @@ class _ModernVoiceMessageWidgetState extends State<ModernVoiceMessageWidget> {
   }
 
   Future<void> _prepareLocalAudio() async {
-    if (_localFilePath == null) return;
+    if (_isDisposed || _localFilePath == null || playerController == null) return;
     
-    final file = File(_localFilePath!);
-    if (await file.exists()) {
-      await playerController.preparePlayer(
-        path: _localFilePath!,
-        shouldExtractWaveform: true,
-      );
-    } else {
-      throw Exception('Downloaded audio file not found');
+    try {
+      final file = File(_localFilePath!);
+      if (await file.exists()) {
+        await playerController!.preparePlayer(
+          path: _localFilePath!,
+          shouldExtractWaveform: true,
+        );
+      } else {
+        throw Exception('Downloaded audio file not found');
+      }
+    } catch (e) {
+      debugPrint('Error preparing local audio: $e');
+      rethrow;
     }
   }
 
   Future<void> _playPause() async {
+    if (_isDisposed || !_isInitialized || playerController == null) return;
+    
     try {
-      if (!_isInitialized) return;
-      
       if (_isPlaying) {
-        await playerController.pausePlayer();
+        await _pausePlayer();
       } else {
-        await playerController.startPlayer();
+        await playerController!.startPlayer();
       }
     } catch (e) {
       debugPrint('Error playing/pausing audio: $e');
       widget.onError?.call(e.toString());
+    }
+  }
+
+  Future<void> _pausePlayer() async {
+    if (_isDisposed || playerController == null) return;
+    
+    try {
+      await playerController!.pausePlayer();
+    } catch (e) {
+      debugPrint('Error pausing player: $e');
     }
   }
 
@@ -253,12 +387,51 @@ class _ModernVoiceMessageWidgetState extends State<ModernVoiceMessageWidget> {
     }
   }
 
+  Future<void> _cleanupController() async {
+    try {
+      _durationTimer?.cancel();
+      _durationTimer = null;
+      
+      _cancelToken?.cancel();
+      _cancelToken = null;
+      
+      await _playerStateSubscription?.cancel();
+      _playerStateSubscription = null;
+      
+      await _durationSubscription?.cancel();
+      _durationSubscription = null;
+      
+      if (playerController != null) {
+        if (_isPlaying) {
+          await playerController!.stopPlayer();
+        }
+        playerController!.dispose();
+        playerController = null;
+      }
+    } catch (e) {
+      debugPrint('Error cleaning up controller: $e');
+    }
+  }
+
   @override
   void dispose() {
-    if (_isInitialized) {
-      playerController.dispose();
-    }
+    _isDisposed = true;
+    WidgetsBinding.instance.removeObserver(this);
+    _cleanupController();
     super.dispose();
+  }
+
+  // Retry mechanism for failed downloads
+  Future<void> _retryDownload() async {
+    if (_isDisposed) return;
+    
+    setState(() {
+      _hasError = false;
+      _errorMessage = null;
+      _retryAttempts = 0;
+    });
+    
+    await _downloadAndPrepareAudio();
   }
 
   @override
@@ -322,20 +495,28 @@ class _ModernVoiceMessageWidgetState extends State<ModernVoiceMessageWidget> {
           // Waveform
           Expanded(
             flex: 3,
-            child: AudioFileWaveforms(
-              size: Size(double.infinity, 35.h),
-              playerController: playerController,
-              waveformType: WaveformType.fitWidth,
-              playerWaveStyle: PlayerWaveStyle(
-                fixedWaveColor: widget.waveColor ?? Colors.grey.withOpacity(0.3),
-                liveWaveColor: widget.progressColor ?? Colors.blue,
-                spacing: 6.w,
-                showSeekLine: false,
-                waveCap: StrokeCap.round,
-                waveThickness: 3.w,
-              ),
-              enableSeekGesture: true,
-            ),
+            child: playerController != null 
+                ? AudioFileWaveforms(
+                    size: Size(double.infinity, 35.h),
+                    playerController: playerController!,
+                    waveformType: WaveformType.fitWidth,
+                    playerWaveStyle: PlayerWaveStyle(
+                      fixedWaveColor: widget.waveColor ?? Colors.grey.withOpacity(0.3),
+                      liveWaveColor: widget.progressColor ?? Colors.blue,
+                      spacing: 6.w,
+                      showSeekLine: false,
+                      waveCap: StrokeCap.round,
+                      waveThickness: 3.w,
+                    ),
+                    enableSeekGesture: true,
+                  )
+                : Container(
+                    height: 35.h,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                  ),
           ),
           
           if (widget.showDuration) ...[
@@ -423,13 +604,29 @@ class _ModernVoiceMessageWidgetState extends State<ModernVoiceMessageWidget> {
                 ),
                 if (_downloadProgress > 0)
                   Text(
-                    "${(_downloadProgress * 100).toInt()}%",
+                    "${(_downloadProgress * 100).toInt()}% ${_retryAttempts > 0 ? '(المحاولة ${_retryAttempts + 1})' : ''}",
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: Colors.grey[500],
                     ),
                   ),
               ],
+            ),
+          ),
+          // Cancel button
+          GestureDetector(
+            onTap: () {
+              _cancelToken?.cancel();
+              setState(() {
+                _isDownloading = false;
+                _hasError = true;
+                _errorMessage = 'تم إلغاء التحميل';
+              });
+            },
+            child: Icon(
+              Icons.close,
+              size: 20.sp,
+              color: Colors.grey[600],
             ),
           ),
         ],
@@ -471,7 +668,7 @@ class _ModernVoiceMessageWidgetState extends State<ModernVoiceMessageWidget> {
           SizedBox(width: 12.w),
           Expanded(
             child: Text(
-              "جاري التحميل...",
+              "جاري التحضير...",
               style: TextStyle(
                 fontSize: 14.sp,
                 color: Colors.grey[600],
@@ -530,20 +727,38 @@ class _ModernVoiceMessageWidgetState extends State<ModernVoiceMessageWidget> {
               ],
             ),
           ),
+          // Retry button
+          GestureDetector(
+            onTap: _retryDownload,
+            child: Container(
+              padding: EdgeInsets.all(8.w),
+              decoration: BoxDecoration(
+                color: Colors.red.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Icon(
+                Icons.refresh,
+                size: 16.sp,
+                color: Colors.red,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-// Widget للاستخدام السهل مع الـ Network Audio
+// Enhanced wrapper widget
 class NetworkVoiceMessage extends StatelessWidget {
   final String audioUrl;
-  final String? messageId; // مهم للكاش
+  final String? messageId;
   final Color? primaryColor;
-  final Map<String, String>? headers; // للـ Authorization
+  final Map<String, String>? headers;
   final VoidCallback? onPlayComplete;
   final Function(String)? onError;
+  final Duration timeoutDuration;
+  final int maxRetryAttempts;
   
   const NetworkVoiceMessage({
     super.key,
@@ -553,26 +768,35 @@ class NetworkVoiceMessage extends StatelessWidget {
     this.headers,
     this.onPlayComplete,
     this.onError,
+    this.timeoutDuration = const Duration(minutes: 2),
+    this.maxRetryAttempts = 3,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ModernVoiceMessageWidget(
+    return ImprovedVoiceMessageWidget(
       audioUrl: audioUrl,
       messageId: messageId,
       backgroundColor: Colors.grey[50],
       waveColor: Colors.grey.withOpacity(0.4),
       progressColor: primaryColor ?? Colors.blue,
       headers: headers,
+      timeoutDuration: timeoutDuration,
+      maxRetryAttempts: maxRetryAttempts,
       onPlayComplete: onPlayComplete ?? () {
         debugPrint("Audio playback completed");
       },
       onError: onError ?? (error) {
         debugPrint("Audio error: $error");
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('خطأ في تشغيل الملف الصوتي'),
+          SnackBar(
+            content: Text('خطأ في تشغيل الملف الصوتي: $error'),
             backgroundColor: Colors.red,
+            action: SnackBarAction(
+              label: 'حسناً',
+              textColor: Colors.white,
+              onPressed: () {},
+            ),
           ),
         );
       },
@@ -582,169 +806,3 @@ class NetworkVoiceMessage extends StatelessWidget {
     );
   }
 }
-
-// مثال على الاستخدام مع الـ Network Audio:
-// class NetworkVoiceMessageExample extends StatelessWidget {
-//   const NetworkVoiceMessageExample({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Network Voice Messages')),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           children: [
-//             // رسالة صوتية من السيرفر بدون headers
-//             NetworkVoiceMessage(
-//               audioUrl: 'https://your-server.com/api/voice/message1.mp3',
-//               messageId: 'msg_123', // مهم للكاش
-//               primaryColor: Colors.blue,
-//             ),
-//             const SizedBox(height: 16),
-            
-//             // رسالة صوتية من السيرفر مع Authorization
-//             NetworkVoiceMessage(
-//               audioUrl: 'https://your-server.com/api/voice/message2.wav',
-//               messageId: 'msg_456',
-//               primaryColor: Colors.green,
-//               headers: {
-//                 'Authorization': 'Bearer your_token_here',
-//                 'Accept': 'audio/*',
-//               },
-//               onPlayComplete: () {
-//                 print('Message played successfully!');
-//               },
-//               onError: (error) {
-//                 print('Error playing message: $error');
-//               },
-//             ),
-//             const SizedBox(height: 16),
-            
-//             // استخدام متقدم مع callbacks مخصصة
-//             ModernVoiceMessageWidget(
-//               audioUrl: 'https://your-server.com/api/voice/message3.m4a',
-//               messageId: 'msg_789',
-//               backgroundColor: Colors.blue[50],
-//               waveColor: Colors.blue.withOpacity(0.3),
-//               progressColor: Colors.blue,
-//               width: 320,
-//               height: 70,
-//               showDuration: true,
-//               headers: {
-//                 'Authorization': 'Bearer your_token_here',
-//                 'User-Agent': 'YourApp/1.0',
-//               },
-//               onDownloadProgress: (progress) {
-//                 print('Download: ${(progress * 100).toInt()}%');
-//               },
-//               onPlayComplete: () {
-//                 ScaffoldMessenger.of(context).showSnackBar(
-//                   const SnackBar(
-//                     content: Text('تم تشغيل الرسالة الصوتية بنجاح!'),
-//                     backgroundColor: Colors.green,
-//                   ),
-//                 );
-//               },
-//               onError: (error) {
-//                 ScaffoldMessenger.of(context).showSnackBar(
-//                   SnackBar(
-//                     content: Text('خطأ: $error'),
-//                     backgroundColor: Colors.red,
-//                   ),
-//                 );
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// مثال على Chat Message مع Voice
-// class ChatVoiceMessage extends StatelessWidget {
-//   final String messageId;
-//   final String audioUrl;
-//   final String senderName;
-//   final DateTime timestamp;
-//   final bool isMe;
-//   final String? authToken;
-  
-//   const ChatVoiceMessage({
-//     super.key,
-//     required this.messageId,
-//     required this.audioUrl,
-//     required this.senderName,
-//     required this.timestamp,
-//     required this.isMe,
-//     this.authToken,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-//       child: Row(
-//         mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
-//         children: [
-//           if (!isMe) ...[
-//             CircleAvatar(
-//               radius: 16,
-//               child: Text(senderName[0].toUpperCase()),
-//             ),
-//             const SizedBox(width: 8),
-//           ],
-//           Flexible(
-//             child: Column(
-//               crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-//               children: [
-//                 if (!isMe)
-//                   Text(
-//                     senderName,
-//                     style: TextStyle(
-//                       fontSize: 12,
-//                       color: Colors.grey[600],
-//                       fontWeight: FontWeight.w500,
-//                     ),
-//                   ),
-//                 const SizedBox(height: 4),
-//                 Container(
-//                   constraints: const BoxConstraints(maxWidth: 280),
-//                   child: NetworkVoiceMessage(
-//                     audioUrl: audioUrl,
-//                     messageId: messageId,
-//                     primaryColor: isMe ? Colors.blue : Colors.grey[600],
-//                     headers: authToken != null 
-//                         ? {'Authorization': 'Bearer $authToken'}
-//                         : null,
-//                   ),
-//                 ),
-//                 const SizedBox(height: 4),
-//                 Text(
-//                   _formatTime(timestamp),
-//                   style: TextStyle(
-//                     fontSize: 10,
-//                     color: Colors.grey[500],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           if (isMe) ...[
-//             const SizedBox(width: 8),
-//             CircleAvatar(
-//               radius: 16,
-//               backgroundColor: Colors.blue,
-//               child: const Icon(Icons.person, color: Colors.white, size: 20),
-//             ),
-//           ],
-//         ],
-//       ),
-//     );
-//   }
-  
-//   String _formatTime(DateTime dateTime) {
-//     return '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
-//   }
-// }
