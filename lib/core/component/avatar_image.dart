@@ -26,7 +26,7 @@ class AvatarImage extends StatelessWidget {
     this.borderWidth = 0,
     this.borderColor = Colors.transparent,
     this.child,
-    this.fallbackAssetPath = Assets.imagesPersona, // تأكد من وجودها
+    this.fallbackAssetPath = Assets.imagesPngPersona, // تأكد من وجودها
   });
 
   bool _isSvgImage(String url) {

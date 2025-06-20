@@ -11,6 +11,7 @@ import 'package:eazifly_student/domain/use_cases/filter_plans_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_items_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_library_lists_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_assigned_children_to_program_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_assignment_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_chapter_lessons_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_children_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_content_chapter_usecase.dart';
@@ -29,9 +30,11 @@ import 'package:eazifly_student/domain/use_cases/get_program_details_usecase.dar
 import 'package:eazifly_student/domain/use_cases/get_program_payment_methods_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_sessions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_programs_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_quiz_qustions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_session_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_feedback_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_orders_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_user_quizzes_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_reports_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/join_session_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/library_order_and_subscription_usecase.dart';
@@ -40,6 +43,7 @@ import 'package:eazifly_student/domain/use_cases/login_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_library_item_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_program_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/store_favourite_list_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/submit_quiz_usecase.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -115,6 +119,12 @@ class ServiceLocator {
         () => GetChapterLessonsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => CompleteChapterLessonUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetQuizQuestionsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => GetUserQuizzesUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => SubmitQuizUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetAssignmentDetailsUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(

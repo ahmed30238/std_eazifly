@@ -5,10 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 class NoDataAnimatedImageWidget extends StatelessWidget {
+  final double? width;
+  final double? height;
   final String message;
   const NoDataAnimatedImageWidget({
     super.key,
     required this.message,
+    this.width,
+    this.height,
   });
 
   @override
@@ -16,8 +20,8 @@ class NoDataAnimatedImageWidget extends StatelessWidget {
     return Column(
       children: [
         LottieBuilder.asset(
-          height: 300.h,
-          width: 300.w,
+          height: height ?? 300.h,
+          width: width ?? 300.w,
           CustomAnimation.noData,
         ),
         Text(

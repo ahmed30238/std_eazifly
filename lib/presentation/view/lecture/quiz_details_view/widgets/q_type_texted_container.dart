@@ -2,15 +2,29 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class QTypeTextedContainer extends StatelessWidget {
   final String type;
+
   const QTypeTextedContainer({
     super.key,
     required this.type,
   });
 
+  static const Map<String, String> _normalizedTypes = {
+    "مقالي": "text",
+    "text": "text",
+    "صح وخطأ": "true_false",
+    "true_false": "true_false",
+    "أختيار من متعدد": "multiple_choice",
+    "اختيار من متعدد": "multiple_choice", // بدون همزة
+    "multiple_choice": "multiple_choice",
+  };
+
   @override
   Widget build(BuildContext context) {
-    switch (type) {
-      case "مقالي":
+    final normalizedType =
+        _normalizedTypes[type.trim().toLowerCase()] ?? "unknown";
+
+    switch (normalizedType) {
+      case "text":
         return TextedContainer(
           width: 65.w,
           height: 28.h,
@@ -19,7 +33,7 @@ class QTypeTextedContainer extends StatelessWidget {
           containerColor: MainColors.lightblue,
           radius: 16.r,
         );
-      case "صح وخطأ":
+      case "true_false":
         return TextedContainer(
           width: 88.w,
           height: 28.h,
@@ -28,7 +42,7 @@ class QTypeTextedContainer extends StatelessWidget {
           containerColor: MainColors.lightblue,
           radius: 16.r,
         );
-      case "أختيار من متعدد":
+      case "multiple_choice":
         return TextedContainer(
           width: 117.w,
           height: 28.h,
@@ -37,7 +51,6 @@ class QTypeTextedContainer extends StatelessWidget {
           containerColor: MainColors.lightblue,
           radius: 16.r,
         );
-
       default:
         return TextedContainer(
           width: 117.w,

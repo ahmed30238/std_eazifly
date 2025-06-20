@@ -30,6 +30,8 @@ class MyApp extends StatelessWidget {
           completeChapterLessonUsecase: sl(),
           getChapterLessonsUsecase: sl(),
           getContentChaptersUsecase: sl(),
+          getUserQuizzesUsecase: sl(),
+          getAssignmentDetailsUsecase: sl(),
         )),
         BlocProvider(create: (context) => sl<PaymentCubit>()),
       ],

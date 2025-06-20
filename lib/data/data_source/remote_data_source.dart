@@ -32,6 +32,7 @@ import 'package:eazifly_student/data/models/my_programs/content/complete_chapter
 import 'package:eazifly_student/data/models/my_programs/content/get_chapter_lessons_model.dart';
 import 'package:eazifly_student/data/models/my_programs/content/get_content_chapter_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_assigned_children_to_program_model.dart';
+import 'package:eazifly_student/data/models/my_programs/get_assignment_details_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_assignments_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_sessions_model.dart';
@@ -40,6 +41,10 @@ import 'package:eazifly_student/data/models/my_programs/get_user_feedbacks_model
 import 'package:eazifly_student/data/models/my_programs/get_user_reports_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
+import 'package:eazifly_student/data/models/my_programs/quizzes/get_quiz_questions_model.dart';
+import 'package:eazifly_student/data/models/my_programs/quizzes/get_user_quizzes_model.dart';
+import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_model.dart';
+import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_to_json.dart';
 import 'package:eazifly_student/data/models/my_programs/show_program_details_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
@@ -132,6 +137,22 @@ abstract class BaseRemoteDataSource {
   });
   Future<CompleteChapterLessonModel> completeChapterLesson({
     required int lessonId,
+  });
+  Future<SubmitQuizModel> submitQuiz({
+    required SubmitQuizTojson data,
+  });
+  Future<GetQuizQuestionsModel> getQuizQuestions({
+    required int userId,
+    required int quizId,
+    required int programId,
+  });
+  Future<GetUserQuizzesModel> getUserQuizzes({
+    required int userId,
+    required int programId,
+  });
+  Future<GetAssignmentDetailsModel> getAssignmentDetails({
+    required int userId,
+    required int assignmentId,
   });
 }
 
@@ -990,6 +1011,84 @@ class RemoteDataSource extends BaseRemoteDataSource {
     );
     if (response?.statusCode == 200) {
       return CompleteChapterLessonModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetQuizQuestionsModel> getQuizQuestions(
+      {required int userId,
+      required int quizId,
+      required int programId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getQuizQuestions(
+        userId: userId,
+        programId: programId,
+        quizId: quizId,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      return GetQuizQuestionsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetUserQuizzesModel> getUserQuizzes(
+      {required int userId, required int programId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getUserQuizzes(
+        programId: programId,
+        userId: userId,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      return GetUserQuizzesModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<SubmitQuizModel> submitQuiz({required SubmitQuizTojson data}) async {
+    var response = await NetworkCall().post(
+        path: EndPoints.submitQuiz, data: FormData.fromMap(data.toJson()));
+    if (response?.statusCode == 200) {
+      return SubmitQuizModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetAssignmentDetailsModel> getAssignmentDetails(
+      {required int userId, required int assignmentId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getAssignmntDetails(
+        assignmentId: assignmentId,
+        userId: userId,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      return GetAssignmentDetailsModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

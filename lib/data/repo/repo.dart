@@ -22,6 +22,7 @@ import 'package:eazifly_student/data/models/my_programs/change_session_status_to
 import 'package:eazifly_student/data/models/my_programs/content/complete_chapter_lesson_model.dart';
 import 'package:eazifly_student/data/models/my_programs/content/get_chapter_lessons_model.dart';
 import 'package:eazifly_student/data/models/my_programs/content/get_content_chapter_model.dart';
+import 'package:eazifly_student/data/models/my_programs/get_assignment_details_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_assignments_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_sessions_model.dart';
@@ -29,6 +30,10 @@ import 'package:eazifly_student/data/models/my_programs/get_session_details_mode
 import 'package:eazifly_student/data/models/my_programs/get_user_feedbacks_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_user_reports_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
+import 'package:eazifly_student/data/models/my_programs/quizzes/get_quiz_questions_model.dart';
+import 'package:eazifly_student/data/models/my_programs/quizzes/get_user_quizzes_model.dart';
+import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_model.dart';
+import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_to_json.dart';
 import 'package:eazifly_student/data/models/my_programs/show_program_details_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
@@ -534,6 +539,65 @@ class Repository extends BaseRepository {
     try {
       final result = await baseRemoteDataSource.completeChapterLesson(
         lessonId: lessonId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetQuizQuestionsModel>> getQuizQuestions({
+    required int userId,
+    required int quizId,
+    required int programId,
+  }) async {
+    try {
+      final result = await baseRemoteDataSource.getQuizQuestions(
+        programId: programId,
+        quizId: quizId,
+        userId: userId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetUserQuizzesModel>> getUserQuizzes(
+      {required int userId, required int programId}) async {
+    try {
+      final result = await baseRemoteDataSource.getUserQuizzes(
+        programId: programId,
+        userId: userId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SubmitQuizModel>> submitQuiz(
+      {required SubmitQuizTojson data}) async {
+    try {
+      final result = await baseRemoteDataSource.submitQuiz(
+        data: data,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetAssignmentDetailsModel>> getAssignmentDetails(
+      {required int assignmentId, required int userId}) async {
+    try {
+      final result = await baseRemoteDataSource.getAssignmentDetails(
+        userId: userId,
+        assignmentId: assignmentId,
       );
       return Right(result);
     } on ServerException catch (e) {

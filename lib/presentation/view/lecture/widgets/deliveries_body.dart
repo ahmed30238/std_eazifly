@@ -29,6 +29,10 @@ class DeliveriesBodyWidget extends StatelessWidget {
 
         return CustomListTile(
           onTap: () => Navigator.pushNamed(
+            arguments: {
+              "assignmentId": assignment?.id,
+              "assignmentTitle": assignment?.title
+            },
             context,
             RoutePaths.corrcectedAssignmentDetailsView,
           ),

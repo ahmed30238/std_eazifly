@@ -79,6 +79,9 @@ class _TextMessageItemState extends State<TextMessageItem> {
                           )
                         : const VoiceMessageWidget(
                             backgroundColor: MainColors.transparentColor,
+                            isFile: false,
+                            audioSource: "",
+                            duration: 55.0,
                           ),
                   ),
                 ),

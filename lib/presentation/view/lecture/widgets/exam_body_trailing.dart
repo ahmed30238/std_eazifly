@@ -1,15 +1,19 @@
-
 import 'package:eazifly_student/core/enums/student_success_status.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/dummy_data.dart';
 
 import '../../subscription_details_view/widgets/imports.dart';
+
 class ExamBodyCustomTrailing extends StatelessWidget {
   final StudentStatus status;
-  final bool? isNewStudent;
+  final bool isNewExam;
+  final String quizGrade;
+  final String stdGrade;
   const ExamBodyCustomTrailing({
     super.key,
-    this.isNewStudent = false,
+    this.isNewExam = false,
     required this.status,
+    required this.quizGrade,
+    required this.stdGrade,
   });
 
   @override
@@ -22,12 +26,12 @@ class ExamBodyCustomTrailing extends StatelessWidget {
           text: studentStatus(status).text,
           onPressed: () {},
         ),
-        !isNewStudent!
-            ? Text(
-                "100 / 55",
-                style: MainTextStyle.boldTextStyle(fontSize: 12),
-              )
-            : 0.ph,
+        if (!isNewExam) ...{
+          Text(
+            "$quizGrade / $stdGrade",
+            style: MainTextStyle.boldTextStyle(fontSize: 12),
+          )
+        }
       ],
     );
   }
@@ -50,11 +54,17 @@ BtnColors studentStatus(StudentStatus state) {
           textColor: MainColors.red,
           containerColor: MainColors.lightRed,
           text: "راسب");
-
-    default:
+    case StudentStatus.pending:
       return BtnColors(
           textColor: MainColors.yellow,
           containerColor: MainColors.lightYellow,
           text: "جديد");
+
+    default:
+      return BtnColors(
+        textColor: MainColors.yellow,
+        containerColor: MainColors.lightYellow,
+        text: "جديد",
+      );
   }
 }

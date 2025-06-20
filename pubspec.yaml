@@ -52,6 +52,8 @@ dependencies:
   flutter_advanced_switch: ^3.1.0
   image_picker: ^1.1.2
   voice_message_package: ^2.2.1
+  audio_waveforms: ^1.0.5
+
   flash: ^3.1.1
   syncfusion_flutter_charts: ^25.2.7
   flutter_sound: ^9.18.0  # For audio playback and visualization

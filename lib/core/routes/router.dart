@@ -198,7 +198,8 @@ class AppRouter {
       case RoutePaths.goalDetailsView:
         var arguments = settings.arguments as Map<String, dynamic>;
         int chapterId = arguments["chapterId"] as int? ?? -1;
-        String chapterTitle = arguments["chapterTitle"] as String? ?? "no title";
+        String chapterTitle =
+            arguments["chapterTitle"] as String? ?? "no title";
         return createRoute(
           BlocProvider(
             create: (context) => GoalDetailsCubit(),
@@ -244,14 +245,33 @@ class AppRouter {
           const AssignmentDetailsView(),
         );
       case RoutePaths.corrcectedAssignmentDetailsView:
+        var arguments = settings.arguments as Map<String, dynamic>;
+        int assignmentId = arguments["assignmentId"] as int? ??-1;
+        String assignmentTitle = arguments["assignmentTitle"] as String? ??" null title";
         return createRoute(
-          const CorrcectedAssignmentDetailsView(),
+          CorrcectedAssignmentDetailsView(
+            assignmentId: assignmentId,
+            assignmentTitle: assignmentTitle,
+          ),
         );
       case RoutePaths.lectureQuizzDetailsView:
+        var arguments = settings.arguments as Map<String, dynamic>;
+        int programId = arguments["programId"] as int? ?? -1;
+        int userId = arguments["userId"] as int? ?? -1;
+        int quizId = arguments["quizId"] as int? ?? -1;
+        String quizTitle = arguments["quizTitle"] as String? ?? "";
         return createRoute(
           BlocProvider(
-            create: (context) => LecturequizCubit(),
-            child: const LectureQuizDetailsView(),
+            create: (context) => LecturequizCubit(
+              getQuizQuestionsUsecase: sl(),
+              submitQuizUsecase: sl(),
+            ),
+            child: LectureQuizDetailsView(
+              programId: programId,
+              quizId: quizId,
+              userId: userId,
+              quizTitle: quizTitle,
+            ),
           ),
         );
       case RoutePaths.correctedQuizDetailsView:

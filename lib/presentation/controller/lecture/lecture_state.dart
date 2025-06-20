@@ -14,6 +14,17 @@ class ShowProgramDetailsErrorState extends LectureState {
   ShowProgramDetailsErrorState({required this.errorMessage});
 }
 
+class GetAssignmentDetailsLoadingState extends LectureState {}
+
+class GetAssignmentDetailsSuccessState extends LectureState {
+  GetAssignmentDetailsSuccessState();
+}
+
+class GetAssignmentDetailsErrorState extends LectureState {
+  final String errorMessage;
+  GetAssignmentDetailsErrorState(this.errorMessage);
+}
+
 class ShowProgramDetailsLoadingState extends LectureState {}
 
 class GetProgramSessionsSuccessState extends LectureState {}
@@ -104,4 +115,37 @@ class CompleteChapterLessonErrorState extends LectureState {
   final String errorMessage;
 
   CompleteChapterLessonErrorState({required this.errorMessage});
+}
+
+// Get User Quizzes States
+class GetUserQuizzesLoadingState extends LectureState {}
+
+class GetUserQuizzesSuccessState extends LectureState {}
+
+class GetUserQuizzesErrorState extends LectureState {
+  final String errorMessage;
+  GetUserQuizzesErrorState({required this.errorMessage});
+}
+
+// حالات خاصة بالتابات
+class TabLoadingState extends LectureState {
+  final int tabIndex;
+  TabLoadingState({required this.tabIndex});
+}
+
+class TabLoadedState extends LectureState {
+  final int tabIndex;
+  TabLoadedState({required this.tabIndex});
+}
+
+class TabErrorState extends LectureState {
+  final int tabIndex;
+  final String errorMessage;
+  TabErrorState({required this.tabIndex, required this.errorMessage});
+}
+
+class TabEmptyState extends LectureState {
+  final int tabIndex;
+  final String message;
+  TabEmptyState({required this.tabIndex, required this.message});
 }

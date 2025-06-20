@@ -1,8 +1,38 @@
+import 'package:eazifly_student/presentation/controller/lecture_quiz_details_controller/lecturequiz_cubit.dart';
+import 'package:eazifly_student/presentation/controller/lecture_quiz_details_controller/lecturequiz_state.dart';
 import 'package:eazifly_student/presentation/view/lecture/quiz_details_view/widgets/question_container.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class LectureQuizDetailsView extends StatelessWidget {
-  const LectureQuizDetailsView({super.key});
+class LectureQuizDetailsView extends StatefulWidget {
+  final int programId;
+  final int quizId;
+  final int userId;
+  final String quizTitle;
+  const LectureQuizDetailsView({
+    super.key,
+    required this.programId,
+    required this.quizId,
+    required this.userId,
+    required this.quizTitle,
+  });
+
+  @override
+  State<LectureQuizDetailsView> createState() => _LectureQuizDetailsViewState();
+}
+
+class _LectureQuizDetailsViewState extends State<LectureQuizDetailsView> {
+  late LecturequizCubit cubit;
+
+  @override
+  void initState() {
+    cubit = context.read<LecturequizCubit>();
+    super.initState();
+    cubit.getQuizQuestions(
+      programId: widget.programId,
+      quizId: widget.quizId,
+      userId: widget.userId,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +40,7 @@ class LectureQuizDetailsView extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         context,
-        mainTitle: "إمتحان الصف  السادس الإبتدائي",
+        mainTitle: widget.quizTitle,
         leadingText: lang.back,
         isCenterTitle: true,
       ),
@@ -21,37 +51,44 @@ class LectureQuizDetailsView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 16.ph,
-                StudentStats(
-                  horizontalPadding: 0,
-                  titleText: const [
-                    "تاريخ التسليم",
-                    "درجة الإمتحان",
-                    "حالة الإمتحان"
-                  ],
-                  downSideWidgets: [
-                    Text(
-                      "2025 - 3 - 12",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                        color: MainColors.blackText,
-                      ),
-                    ),
-                    Text(
-                      " 100 / ....",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                        color: MainColors.blackText,
-                      ),
-                    ),
-                    TextedContainer(
-                      width: 105.w,
-                      height: 26.h,
-                      text: "جاري التسليم",
-                      textColor: MainColors.yellow,
-                      containerColor: MainColors.lightYellow,
-                      radius: 16.r,
-                    ),
-                  ],
+                BlocBuilder<LecturequizCubit, LecturequizState>(
+                  builder: (context, state) {
+                    var quizData = cubit.getQuizQuestionsEntity?.data;
+                    return StudentStats(
+                      horizontalPadding: 0,
+                      titleText: const [
+                        "تاريخ التسليم",
+                        "درجة الإمتحان",
+                        "حالة الإمتحان"
+                      ],
+                      downSideWidgets: [
+                        Text(
+                          formatDate(quizData?.createdAt ?? DateTime.now())
+                              .substring(0, 10),
+                          style: MainTextStyle.boldTextStyle(
+                            fontSize: 12,
+                            color: MainColors.blackText,
+                          ),
+                        ),
+                        Text(
+                          " 100 / ....",
+                          style: MainTextStyle.boldTextStyle(
+                            fontSize: 12,
+                            color: MainColors.blackText,
+                          ),
+                        ),
+                        TextedContainer(
+                          //TODO
+                          width: 105.w,
+                          height: 26.h,
+                          text: "جاري التسليم",
+                          textColor: MainColors.yellow,
+                          containerColor: MainColors.lightYellow,
+                          radius: 16.r,
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 24.ph,
                 Padding(
@@ -62,22 +99,34 @@ class LectureQuizDetailsView extends StatelessWidget {
                   ),
                 ),
                 8.ph,
-                Expanded(
-                  child: ListView.separated(
-                    padding: EdgeInsets.only(bottom: 16.h),
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) => QuestionContainer(
-                      qType: index == 0
-                          ? "مقالي"
-                          : index == 1
-                              ? "صح وخطأ"
-                              : "أختيار من متعدد",
-                      question: "ما هي أهم العوامل المؤثرة في التغير المناخي ؟",
-                      index: index,
-                    ),
-                    separatorBuilder: (context, index) => 12.ph,
-                    itemCount: 3,
-                  ),
+                BlocBuilder<LecturequizCubit, LecturequizState>(
+                  builder: (context, state) {
+                    var quizData = cubit.getQuizQuestionsEntity?.data;
+                    var questions = quizData?.questions;
+                    return Expanded(
+                      child: ListView.separated(
+                        padding: EdgeInsets.only(bottom: 16.h),
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          var question = questions?[index];
+                          return QuestionContainer(
+                            
+                            qOptions: question?.options
+                                    ?.map(
+                                      (e) => e.title ?? "",
+                                    )
+                                    .toList() ??
+                                [""],
+                            qType: quizData?.questions?[index].type ?? "",
+                            question: question?.title ?? "",
+                            index: index,
+                          );
+                        },
+                        separatorBuilder: (context, index) => 12.ph,
+                        itemCount: questions?.length ?? 0,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -86,7 +135,9 @@ class LectureQuizDetailsView extends StatelessWidget {
           CustomElevatedButton(
             width: 344.w,
             text: "تسليم الإجابات",
-            onPressed: () {},
+            onPressed: () {
+              cubit.submitQuiz(quizId: widget.quizId);
+            },
             radius: 16.r,
             color: MainColors.blueTextColor,
           ),

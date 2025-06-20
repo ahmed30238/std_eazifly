@@ -6,6 +6,7 @@ import 'package:eazifly_student/data/models/library/favourite_list/store_favouri
 import 'package:eazifly_student/data/models/library/library_order_and_subscribe_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/change_session_status_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
+import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_to_json.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
@@ -40,6 +41,7 @@ import 'package:eazifly_student/domain/entities/my_programs/content/complete_cha
 import 'package:eazifly_student/domain/entities/my_programs/content/get_chapter_lessons_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/get_content_chapter.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_assignment_details_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_my_programs_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_assignments_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_sessions_entity.dart';
@@ -47,6 +49,9 @@ import 'package:eazifly_student/domain/entities/my_programs/get_session_details_
 import 'package:eazifly_student/domain/entities/my_programs/get_user_feedbacks_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_user_reports_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_quiz_questions_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_user_quizzes_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/quizzes/submit_quiz_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/show_program_details_entity.dart';
 import 'package:eazifly_student/domain/entities/show_library_item_entity.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
@@ -143,5 +148,21 @@ abstract class BaseRepository {
   });
   Future<Either<Failure, CompleteChapterLessonEntity>> completeChapterLesson({
     required int lessonId,
+  });
+  Future<Either<Failure, GetUserQuizzesEntity>> getUserQuizzes({
+    required int userId,
+    required int programId,
+  });
+  Future<Either<Failure, GetQuizQuestionsEntity>> getQuizQuestions({
+    required int userId,
+    required int quizId,
+    required int programId,
+  });
+  Future<Either<Failure, SubmitQuizEntity>> submitQuiz({
+    required SubmitQuizTojson data,
+  });
+  Future<Either<Failure, GetAssignmentDetailsEntity>> getAssignmentDetails({
+    required int assignmentId,
+    required int userId,
   });
 }

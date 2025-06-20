@@ -81,4 +81,16 @@ class EndPoints {
   static String getPaymentMethodDetails(
           {required int programId, required int methodId}) =>
       "show/payment/method/$programId/$methodId";
+  static String getUserQuizzes({required int programId, required int userId}) =>
+      "get/quizzes?user_id=$userId&program_id=$programId";
+  static String getQuizQuestions({
+    required int programId,
+    required int userId,
+    required int quizId,
+  }) =>
+      "get/quizzes/questions?user_id=$userId&program_id=$programId&quiz_id=$quizId";
+  static const submitQuiz = "submit/quiz";
+  static String getAssignmntDetails(
+          {required int userId, required int assignmentId}) =>
+      "show/assignment/$assignmentId?user_id=$userId";
 }

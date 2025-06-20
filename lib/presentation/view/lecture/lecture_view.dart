@@ -1,8 +1,5 @@
-import 'dart:convert';
 import 'dart:developer';
 
-import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/goals_percent_container.dart';
@@ -13,7 +10,6 @@ import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_stats_
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecure_tabbar.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/student_change_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:get_storage/get_storage.dart';
 
 class LectureView extends StatefulWidget {
   final int programId;
@@ -31,7 +27,7 @@ class _LectureViewState extends State<LectureView>
     with SingleTickerProviderStateMixin {
   late LectureCubit cubit;
   late PageController pageController;
-  
+
   @override
   void initState() {
     cubit = context.read<LectureCubit>();
@@ -56,7 +52,8 @@ class _LectureViewState extends State<LectureView>
         child: BlocBuilder(
           bloc: cubit,
           builder: (context, state) {
-            String title = cubit.showProgramDetailsEntity?.data?.title ?? "البرنامج";
+            String title =
+                cubit.showProgramDetailsEntity?.data?.title ?? "البرنامج";
             return CustomAppBar(
               context,
               mainTitle: title,
@@ -71,14 +68,14 @@ class _LectureViewState extends State<LectureView>
       body: BlocBuilder<LectureCubit, LectureState>(
         bloc: cubit,
         builder: (context, state) {
-          // إذا كانت البيانات لسه بتتحمل
+          // إذا كانت البيانات الأساسية لسه بتتحمل
           if (cubit.showProgramDetailsLoader) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
-          // إذا في error
+          // إذا في error في البيانات الأساسية
           if (state is ShowProgramDetailsErrorState) {
             return Center(
               child: Column(
@@ -99,9 +96,8 @@ class _LectureViewState extends State<LectureView>
             );
           }
 
-          // إذا البيانات جاهزة
+          // إذا البيانات الأساسية جاهزة
           return Column(
-            // physics: const BouncingScrollPhysics(),
             children: [
               10.ph,
               // Lecture Stats مع loading
@@ -138,7 +134,7 @@ class _LectureViewState extends State<LectureView>
 
   Widget _buildLectureStatsWithLoading(LectureCubit cubit, LectureState state) {
     var programData = cubit.showProgramDetailsEntity?.data;
-    
+
     if (programData == null) {
       return _buildLoadingContainer(height: 120.h);
     }
@@ -161,22 +157,19 @@ class _LectureViewState extends State<LectureView>
       onRejoinTap: () {
         // كود إعادة الدخول
       },
-      nextLecture: programData.nextSession?.toString().substring(0, 10) ?? "غير محدد",
+      nextLecture:
+          programData.nextSession?.toString().substring(0, 10) ?? "غير محدد",
       duration: programData.nextSessionDuration != null
           ? "${programData.nextSessionDuration} دقيقة"
           : "غير محدد",
       timeDiff: timeDifference,
-      titleText: const [
-        "المحاضرة التالية",
-        "مدة الجلسة",
-        "حالة الجلسة"
-      ],
+      titleText: const ["المحاضرة التالية", "مدة الجلسة", "حالة الجلسة"],
     );
   }
 
   Widget _buildLectureDataWithLoading(LectureCubit cubit, LectureState state) {
     var programData = cubit.showProgramDetailsEntity?.data;
-    
+
     if (programData == null) {
       return _buildLoadingContainer(width: 150.w, height: 80.h);
     }
@@ -188,7 +181,7 @@ class _LectureViewState extends State<LectureView>
 
   Widget _buildLectureLinkWithLoading(LectureCubit cubit, LectureState state) {
     var programData = cubit.showProgramDetailsEntity?.data;
-    
+
     if (programData == null) {
       return _buildLoadingContainer(width: 226.w, height: 80.h);
     }
@@ -197,7 +190,7 @@ class _LectureViewState extends State<LectureView>
       nextSession: programData.nextSession,
       nextSessionDuration: int.tryParse(programData.nextSessionDuration ?? "0"),
     );
-    
+
     return LectureLink(
       width: 226.w,
       state: lectureState,
@@ -213,8 +206,7 @@ class _LectureViewState extends State<LectureView>
               }
             }
           : () {
-              delightfulToast(
-                  message: "لم تبدأ بعد", context: context);
+              delightfulToast(message: "لم تبدأ بعد", context: context);
               log("لم تبدأ بعد");
             },
     );
@@ -222,7 +214,7 @@ class _LectureViewState extends State<LectureView>
 
   Widget _buildGoalsPercentWithLoading(LectureCubit cubit, LectureState state) {
     var programData = cubit.showProgramDetailsEntity?.data;
-    
+
     if (programData == null) {
       return _buildLoadingContainer(height: 100.h);
     }
@@ -238,7 +230,7 @@ class _LectureViewState extends State<LectureView>
 
   Widget _buildTabBarWithLoading(LectureCubit cubit, LectureState state) {
     var programData = cubit.showProgramDetailsEntity?.data;
-    
+
     if (programData == null) {
       return _buildLoadingContainer(height: 50.h);
     }
@@ -252,30 +244,25 @@ class _LectureViewState extends State<LectureView>
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
         );
-        
-        // استدعاء العمليات المطلوبة
-        _onTabChanged(index, cubit);
       },
     );
   }
 
   Widget _buildPageViewWithLoading(LectureCubit cubit, LectureState state) {
     var programData = cubit.showProgramDetailsEntity?.data;
-    
+
     if (programData == null) {
       return _buildLoadingContainer(height: 400.h);
     }
 
     return Expanded(
-      // height: _getTabHeight(cubit.controller.index),
       child: PageView.builder(
         controller: pageController,
         onPageChanged: (index) {
           // تحديث الـ TabController عند تغيير الصفحة
           cubit.controller.animateTo(index);
-          
-          // استدعاء الدوال المطلوبة حسب التاب
-          _onTabChanged(index, cubit);
+
+          // لا حاجة لاستدعاء التحميل هنا لأن TabController listener سيقوم بذلك
         },
         itemCount: cubit.screens.length,
         itemBuilder: (context, index) {
@@ -283,30 +270,6 @@ class _LectureViewState extends State<LectureView>
         },
       ),
     );
-  }
-
-  // دالة لاستدعاء العمليات المطلوبة عند تغيير التاب
-  void _onTabChanged(int index, LectureCubit cubit) {
-        int userId = DataModel.fromJson(
-                jsonDecode(GetStorage().read(StorageEnum.loginModel.name)))
-            .id ??
-        0;
-    switch (index) {
-      case 0:
-        // تاب المواعيد - استدعي البيانات المطلوبة
-        cubit.getProgramSessions(programId: widget.programId, userId: userId);
-        break;
-      case 1:
-        // تاب الإحصائيات - استدعي البيانات المطلوبة
-        // cubit.loadStatisticsData?.call();
-        break;
-      case 2:
-        // تاب آخر - استدعي البيانات المطلوبة
-        // cubit.loadOtherData?.call();
-        break;
-      default:
-        break;
-    }
   }
 
   Widget _buildLoadingContainer({double? width, double? height}) {
@@ -324,15 +287,3 @@ class _LectureViewState extends State<LectureView>
     );
   }
 }
-
-// دالة مساعدة لحساب ارتفاع التاب
-// double _getTabHeight(int index) {
-//   switch (index) {
-//     case 0:
-//       return 74 * 9; // المواعيد
-//     case 1:
-//       return 500.h; // الإحصائيات
-//     default:
-//       return 400.h; // باقي التابز
-//   }
-// }

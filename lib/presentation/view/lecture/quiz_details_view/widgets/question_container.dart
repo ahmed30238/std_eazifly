@@ -6,12 +6,13 @@ class QuestionContainer extends StatelessWidget {
   final String qType;
   final String question;
   final int index;
+  final List<String> qOptions;
 
   const QuestionContainer({
     super.key,
     required this.qType,
     required this.question,
-    required this.index,
+    required this.index, required this.qOptions,
   });
 
   @override
@@ -56,12 +57,7 @@ class QuestionContainer extends StatelessWidget {
           8.ph,
           AnswerFieldArea(
             type: qType,
-            choicesText: const [
-              "data",
-              "data",
-              "data",
-              "data",
-            ],
+            choicesText: qOptions,
           ),
         ],
       ),
