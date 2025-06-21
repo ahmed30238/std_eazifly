@@ -1,84 +1,137 @@
-import 'package:eazifly_student/core/component/image_conainer.dart';
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/theme/colors/main_colors.dart';
-import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:eazifly_student/core/component/avatar_image.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ChatItem extends StatelessWidget {
+  final String profileAvatar;
+  final String name;
+  final String lastMessageContent;
+  final String time;
   final VoidCallback onTap;
-  const ChatItem({super.key, required this.onTap});
+  final bool isFirstChat;
+  final int? unreadCount; // إضافة عدد الرسائل غير المقروءة
+  
+  const ChatItem({
+    super.key,
+    required this.onTap,
+    required this.profileAvatar,
+    required this.name,
+    required this.lastMessageContent,
+    required this.time,
+    this.isFirstChat = false,
+    this.unreadCount,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: SizedBox(
-              height: 72.h,
-              width: double.infinity,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // الصورة الشخصية
+            AvatarImage(
+              height: 48.h,
+              width: 48.w,
+              borderWidth: 1.w,
+              shape: BoxShape.circle,
+              imageUrl: profileAvatar,
+            ),
+            12.pw,
+            
+            // محتوى الرسالة
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ImageContainer(
-                    containerHeight: 48.h,
-                    containerWidth: 48.w,
-                    borderWidth: 1.w,
-                    shape: BoxShape.circle,
-                  ),
-                  12.pw,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'ياسر أشرف',
-                              style: MainTextStyle.boldTextStyle(
-                                color: MainColors.blackText,
-                                fontSize: 15,
-                              ),
-                            ),
-                            Text(
-                              '8:35 AM',
-                              textAlign: TextAlign.right,
-                              style: MainTextStyle.regularTextStyle(
-                                color: MainColors.grayTextColors,
-                                fontSize: 12,
-                              ),
-                            )
-                          ],
-                        ),
-                        4.ph,
-                        Expanded(
-                          child: Text(
-                            'مثال :هذا النص هو جزء من عملية تحسين تجربة المستخدم من خلال النص.',
-                            style: MainTextStyle.regularTextStyle(
-                              color: MainColors.grayTextColors,
-                              fontSize: 12,
-                            ),
+                  // الصف الأول: الاسم والوقت
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // الاسم
+                      Expanded(
+                        child: Text(
+                          name,
+                          style: MainTextStyle.boldTextStyle(
+                            color: MainColors.blackText,
+                            fontSize: 16,
                           ),
-                        )
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      4.pw,
+                      // الوقت
+                      Text(
+                        time,
+                        style: MainTextStyle.regularTextStyle(
+                          color: unreadCount != null && unreadCount! > 0
+                              ? MainColors.lightGray // لون مختلف للرسائل غير المقروءة
+                              : MainColors.grayTextColors,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                  
+                  4.ph,
+                  
+                  // الصف الثاني: محتوى الرسالة وعدد الرسائل غير المقروءة
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      // محتوى الرسالة
+                      Expanded(
+                        child: Text(
+                          lastMessageContent,
+                          style: MainTextStyle.regularTextStyle(
+                            color: unreadCount != null && unreadCount! > 0
+                                ? MainColors.blackText // نص أغمق للرسائل غير المقروءة
+                                : MainColors.grayTextColors,
+                            fontSize: 14,
+                            // fontWeight: unreadCount != null && unreadCount! > 0
+                            //     ? FontWeight.w500 // خط أثقل للرسائل غير المقروءة
+                            //     : FontWeight.normal,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      
+                      // عدد الرسائل غير المقروءة
+                      if (unreadCount != null && unreadCount! > 0) ...[
+                        8.pw,
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 4.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: MainColors.greenTeal,
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          constraints: BoxConstraints(
+                            minWidth: 20.w,
+                            minHeight: 20.h,
+                          ),
+                          child: Text(
+                            unreadCount! > 99 ? '99+' : unreadCount.toString(),
+                            style: MainTextStyle.boldTextStyle(
+                              color: Colors.white,
+                              fontSize: 11,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ],
-                    ),
-                  )
+                    ],
+                  ),
                 ],
               ),
             ),
-          ),
-          // Divider(
-          //   thickness: 1,
-          //   color: MainColors.lightGray,
-          // )
-        ],
+          ],
+        ),
       ),
     );
   }

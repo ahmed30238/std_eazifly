@@ -1,23 +1,51 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
-import 'package:eazifly_student/core/extensions/context.dart';
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
-import 'package:eazifly_student/presentation/controller/chats/chats_state.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:eazifly_student/core/enums/storage_enum.dart';
+import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/chat_model/get_messages_model.dart';
+import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
+import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
+import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
+import 'package:eazifly_student/domain/use_cases/get_messages_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/send_messages_usecase.dart';
+import 'package:eazifly_student/presentation/controller/chats/chats_state.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
 class ChatsCubit extends Cubit<ChatsState> {
-  ChatsCubit() : super(ChatsInitial());
-  static ChatsCubit get(context) => BlocProvider.of(context);
-  late TabController controller;
-  
-  void initController(TickerProvider vsync) {
-    controller = TabController(length: 2, vsync: vsync)
+  ChatsCubit({
+    required this.getMessagesUsecase,
+    // required this.getMyStudentsUsecase,
+    required this.sendMessagesUsecase,
+    // required this.getOldChatsUsecase,
+  }) : super(ChatsInitial());
+
+  static ChatsCubit get(BuildContext context) => BlocProvider.of(context);
+  bool isMessageNotEmpty = false;
+
+  void initMessageListener() {
+    messageController.addListener(() {
+      final isNotEmpty = messageController.text.isNotEmpty;
+      if (isNotEmpty != isMessageNotEmpty) {
+        isMessageNotEmpty = isNotEmpty;
+        emit(MessageTextChanged());
+      }
+    });
+  }
+
+  TabController? controller;
+  TextEditingController messageController = TextEditingController();
+  void initController(TickerProvider vsync,BuildContext context) {
+    controller = TabController(length: tabs(context: context).length, vsync: vsync)
       ..addListener(
         () {
-          if (controller.indexIsChanging) {
+          if (controller!.indexIsChanging) {
             emit(ChangeTapbarState());
           }
         },
@@ -35,10 +63,12 @@ class ChatsCubit extends Cubit<ChatsState> {
   }
 
   List<String> tabs({required BuildContext context}) {
-    var lang = context.loc!;
+    // var lang = context.loc!;
     var tabs = [
-      lang.professors,
-      lang.appManagement,
+      "prof",
+      "managment"
+      // lang.professors,
+      // lang.appManagement,
     ];
     return tabs;
   }
@@ -114,11 +144,246 @@ class ChatsCubit extends Cubit<ChatsState> {
     }
   }
 
+
+//! ###################### API #######################
+  // GetOldChatsEntities? getOldChatsEntities;
+  // GetOldChatsUsecase getOldChatsUsecase;
+  // getOldChats() async {
+  //   log("started");
+  //   emit(GetOldChatsLoadingState());
+  //   final result = await getOldChatsUsecase.call(
+  //     parameter: GetOldChatsParameter(
+  //       type: "instructor",
+  //     ),
+  //   );
+  //   result.fold(
+  //     (l) {
+  //       log("left");
+  //       emit(GetOldChatsErrorState(errorMessage: l.message));
+  //     },
+  //     (r) {
+  //       log("right");
+  //       getOldChatsEntities = r;
+  //       emit(GetOldChatsSuccessState());
+  //     },
+  //   );
+  // }
+
+  GetMessagesEntities? getMessagesEntities;
+  GetMessagesUsecase getMessagesUsecase;
+  int _offset = 0;
+  final int _limit = 20;
+  bool hasMore = true;
+  bool _isFetching = false;
+
+  final ScrollController _scrollController = ScrollController();
+  ScrollController get scrollController => _scrollController;
+  //
+  void initScorllController(String chatId) {
+    _scrollController.addListener(
+      () {
+        if (_scrollController.position.pixels >=
+            _scrollController.position.maxScrollExtent - 100) {
+          getMessages(chatId: chatId);
+        }
+      },
+    );
+  }
+
+  Future<void> getMessages(
+      {bool isInitial = false,
+      required String chatId,
+      bool showLoader = true}) async {
+    if (_isFetching || !hasMore) return;
+
+    _isFetching = true;
+
+    if (isInitial) {
+      if (showLoader) emit(GetMesssagesLoadingState());
+      uiMessages.clear();
+      // messages?.clear();
+      _offset = 0;
+      hasMore = true;
+    }
+
+    final result = await getMessagesUsecase.call(
+      parameter: GetMessagesParameters(
+        chatId: int.parse(chatId),
+        offset: _offset,
+      ),
+    );
+
+    result.fold(
+      (l) {
+        emit(GetMessagesErrorState(errorMessage: l.message));
+      },
+      (r) {
+        getMessagesEntities = r;
+        final newMessages = r.data ?? [];
+
+        if (isInitial) {
+          log("is init");
+          uiMessages.clear();
+          uiMessages = newMessages
+              .map(
+                (e) => MessageUIModel(message: e),
+              )
+              .toList();
+          emit(GetMesssagesSuccesState(uiMessages: uiMessages));
+        } else {
+          final newUiMessages = r.data
+                  ?.map((message) => MessageUIModel(message: message))
+                  .toList() ??
+              [];
+
+          uiMessages.addAll(newUiMessages);
+          // messages?.addAll(newMessages);
+        }
+
+        _offset += newMessages.length;
+        hasMore = newMessages.length == _limit;
+
+        emit(GetMesssagesSuccesState(uiMessages: uiMessages));
+        // emit(GetUiMesssagesSuccesState(uiMessages: uiMessages));
+        // _updateMessagesStream();
+      },
+    );
+
+    _isFetching = false;
+  }
+
+  SendMessagesEntities? sendMessagesEntities;
+  SendMessagesUsecase sendMessagesUsecase;
+  List<MessageUIModel> uiMessages = [];
+
+  // List<GetMessagesDatumModel>? messages = [];
+
+  Future<void> sendMessages({int? userId}) async {
+    late DataModel loginData;
+    loginData = DataModel.fromJson(
+      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
+    );
+
+    final String textToSend = messageController.text;
+    messageController.clear();
+
+    final tempMessage = SendMessagesTojson(
+      message: textToSend,
+      senderId: loginData.id.toString(),
+      senderType: "User",
+      receiverId: "2",
+      receiverType: "Instructor",
+      // createdAt: DateTime.now().toIso8601String(),
+    );
+
+    // 2. ضفها للواجهة كـ isSending
+    uiMessages.insert(
+      0,
+      MessageUIModel(
+        message: GetMessagesDatumModel.fromJson(tempMessage.toJson()),
+        isSending: true,
+      ),
+    );
+    emit(SendMesssagesLoadingState());
+    final result = await sendMessagesUsecase.call(
+      parameter: SendMessagesParameters(
+        data: SendMessagesTojson(
+          message: "Hello from app without UI",
+          // message: textToSend,
+          receiverId: "2", // TODO
+          receiverType: "Instructor",
+          senderType: "User",
+          senderId: loginData.id.toString(),
+        ),
+      ),
+    );
+    log("$result");
+
+    result.fold(
+      (l) {
+        // فشل في الإرسال
+        final failed = uiMessages[0].copyWith(
+          isSending: false,
+          isFailed: true,
+        );
+        uiMessages[0] = failed;
+
+        emit(SendMessagesErrorState(errorMessage: l.message));
+        // emit(GetUiMesssagesSuccesState(uiMessages: uiMessages));
+      },
+      (r) {
+        // نجح الإرسال، استبدل الرسالة المؤقتة باللي جاية من السيرفر
+        if (r.data != null) {
+          final serverMessage =
+              GetMessagesDatumModel.fromJson(r.data!.toJson());
+          uiMessages[0] = MessageUIModel(message: serverMessage);
+        } else {
+          uiMessages[0] = uiMessages[0].copyWith(isSending: false);
+        }
+        sendMessagesEntities = r;
+        emit(SendMesssagesSuccesState());
+        // emit(GetUiMesssagesSuccesState(uiMessages: uiMessages));
+        // _updateMessagesStream(); // تحديث الـ Stream
+      },
+    );
+  }
+
+  // GetMyStudentsUsecase getMyStudentsUsecase;
+  // GetMyStudentsEntities? studentsEntities;
+  // // List<StudentModel>students = [];
+  // void getMyStudents() async {
+  //   emit(GetMyStudentsLoadingState());
+  //   var res = await getMyStudentsUsecase.call(parameter: NoParameter());
+  //   res.fold(
+  //     (l) {
+  //       emit(GetMyStudentsErrorState(errorMessage: l.message));
+  //     },
+  //     (r) {
+  //       log("studentsFilled");
+  //       studentsEntities = r;
+  //       emit(GetMyStudentsSuccessState());
+  //     },
+  //   );
+  // }
+
+  // this is a variable to use in the dm screen to get student(user) data
+  // filled when the user click on the student item in the chat screen
+  // StudentModel? currentStudent;
+  // fillCurrentStudent(int index) {
+  //   currentStudent = studentsEntities?.data?[index].student;
+  // }
+
   @override
   Future<void> close() {
+    // _messagesStreamController.close();
     audioPlayer.dispose();
     audioRecord.dispose();
-    controller.dispose();
+    controller?.dispose();
+    messageController.dispose();
     return super.close();
+  }
+}
+
+class MessageUIModel {
+  final GetMessagesDatumModel message;
+  final bool isSending;
+  final bool isFailed;
+
+  MessageUIModel({
+    required this.message,
+    this.isSending = false,
+    this.isFailed = false,
+  });
+
+  MessageUIModel copyWith({
+    GetMessagesDatumModel? message,
+    bool? isSending,
+    bool? isFailed,
+  }) {
+    return MessageUIModel(
+      message: message ?? this.message,
+      isSending: isSending ?? this.isSending,
+      isFailed: isFailed ?? this.isFailed,
+    );
   }
 }

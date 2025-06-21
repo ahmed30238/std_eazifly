@@ -20,6 +20,7 @@ import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart
 import 'package:eazifly_student/domain/use_cases/get_library_categories_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_plans_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_list_items_using_list_id_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_messages_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_my_programs_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_payment_method_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_plan_subscription_period_usecase.dart';
@@ -40,6 +41,7 @@ import 'package:eazifly_student/domain/use_cases/join_session_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/library_order_and_subscription_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/like_item_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/login_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/send_messages_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_library_item_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_program_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/store_favourite_list_usecase.dart';
@@ -125,6 +127,8 @@ class ServiceLocator {
     sl.registerLazySingleton(() => SubmitQuizUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => GetAssignmentDetailsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => SendMessagesUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => GetMessagesUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(

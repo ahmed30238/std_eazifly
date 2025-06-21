@@ -7,6 +7,9 @@ import 'package:eazifly_student/core/network/end_points.dart';
 import 'package:eazifly_student/core/network/error_message_model.dart';
 import 'package:eazifly_student/core/network/networkcall.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/chat_model/get_messages_model.dart';
+import 'package:eazifly_student/data/models/chat_model/send_messages_model.dart';
+import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_model.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/data/models/children/get_my_children_model.dart';
@@ -153,6 +156,13 @@ abstract class BaseRemoteDataSource {
   Future<GetAssignmentDetailsModel> getAssignmentDetails({
     required int userId,
     required int assignmentId,
+  });
+  Future<GetMessagesModel> getMessages({
+    required int chatId,
+    required int offset,
+  });
+  Future<SendMessagesModel> sendMessages({
+    required SendMessagesTojson data,
   });
 }
 
@@ -1089,6 +1099,43 @@ class RemoteDataSource extends BaseRemoteDataSource {
     );
     if (response?.statusCode == 200) {
       return GetAssignmentDetailsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetMessagesModel> getMessages(
+      {required int chatId, required int offset}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getMessages(chatId: chatId, offset: offset),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetMessagesModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<SendMessagesModel> sendMessages(
+      {required SendMessagesTojson data}) async {
+    var response = await NetworkCall().post(
+      data: FormData.fromMap(data.toJson()),
+      path: EndPoints.sendMessages,
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return SendMessagesModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

@@ -145,7 +145,10 @@ class AppRouter {
       case RoutePaths.reportsAndComplaintsViewPath:
         return createRoute(
           BlocProvider(
-            create: (context) => ChatsCubit(),
+            create: (context) => ChatsCubit(
+              getMessagesUsecase: sl(),
+              sendMessagesUsecase: sl()
+            ),
             child: const ReportsAndComplaintsView(),
           ),
         );
@@ -157,7 +160,10 @@ class AppRouter {
       case RoutePaths.chatsViewPath:
         return createRoute(
           BlocProvider(
-            create: (context) => ChatsCubit(),
+            create: (context) => ChatsCubit(
+              getMessagesUsecase: sl(),
+              sendMessagesUsecase: sl(),
+            ),
             child: const ChatsView(),
           ),
         );

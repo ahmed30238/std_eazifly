@@ -17,6 +17,9 @@ class EndPoints {
   static const getMyPrograms = "my/programs";
   static const joinSession = "update/session/status";
   static const changeSessionStatus = "update/session/status";
+  static String getMessages({required int chatId, required int offset}) =>
+      "chat/get-message/?offset=$offset&chat_id=$chatId";
+  static const sendMessages = "chat/send-message";
   // static const changeSessionStatus = "program/assignment/1?user_id=3";
   static String getAssignedChildrenToProgram({required int programId}) =>
       "get/assigned/children/in/program/$programId";
