@@ -1,8 +1,7 @@
+
 import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_user_quizzes_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 part 'get_user_quizzes_model.g.dart';
-
 
 @JsonSerializable(explicitToJson: true)
 class GetUserQuizzesModel extends GetUserQuizzesEntity {
@@ -15,11 +14,11 @@ class GetUserQuizzesModel extends GetUserQuizzesEntity {
 }
 
 @JsonSerializable(explicitToJson: true)
-class QuizDatumModel extends QuizDatumEntity {
-  QuizDatumModel();
+class GetUserQuizzesDatumModel extends GetUserQuizzesDatumEntity {
+  GetUserQuizzesDatumModel();
 
-  factory QuizDatumModel.fromJson(Map<String, dynamic> json) =>
-      _$QuizDatumModelFromJson(json);
+  factory GetUserQuizzesDatumModel.fromJson(Map<String, dynamic> json) =>
+      _$GetUserQuizzesDatumModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$QuizDatumModelToJson(this);
+  Map<String, dynamic> toJson() => _$GetUserQuizzesDatumModelToJson(this);
 }

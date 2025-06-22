@@ -1,21 +1,24 @@
-import 'package:eazifly_student/presentation/view/lecture/quiz_details_view/widgets/answer_field_area.dart';
-import 'package:eazifly_student/presentation/view/lecture/quiz_details_view/widgets/q_type_texted_container.dart';
+import 'package:eazifly_student/presentation/view/lecture/quiz_details_view/widgets/corrected_answer_field.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class QuestionContainer extends StatelessWidget {
+class CorrectedQuestionCotainer extends StatelessWidget {
   final String qType;
   final String question;
+  final String essayAnswer;
   final int optionsLength;
   final int index;
   final List<String> qOptions;
+  final bool isMultiTrue;
+  final bool isTrue;
 
-  const QuestionContainer({
+  const CorrectedQuestionCotainer({
     super.key,
     required this.qType,
     required this.question,
     required this.index,
     required this.qOptions,
     required this.optionsLength,
+    required this.isTrue, required this.essayAnswer, required this.isMultiTrue,
   });
 
   @override
@@ -38,7 +41,16 @@ class QuestionContainer extends StatelessWidget {
                   color: MainColors.checkBoxBorderGray,
                 ),
               ),
-              QTypeTextedContainer(type: qType),
+              TextedContainer(
+                width: 117.w,
+                height: 28.h,
+                text: isTrue ? "اجابة صحيحة" : "اجابة خطأ",
+                textColor: isTrue ? MainColors.greenTeal : MainColors.red,
+                containerColor:
+                    isTrue ? MainColors.lightgreenTeal : MainColors.lightRed,
+                radius: 16.r,
+              ),
+              // QTypeTextedContainer(type: qType),
             ],
           ),
           8.ph,
@@ -51,18 +63,19 @@ class QuestionContainer extends StatelessWidget {
             ),
           ),
           Text(
-            "الاجابة",
+            "إجابتك",
             style: MainTextStyle.boldTextStyle(
               fontSize: 14,
               color: MainColors.checkBoxBorderGray,
             ),
           ),
           8.ph,
-          AnswerFieldArea(
+          CorrectedAnswerField(
             optionsLength: optionsLength,
             type: qType,
             qIndex: index,
-            choicesText: qOptions,
+            isMultiTrue: isMultiTrue,
+            choicesText: qOptions, essayAnswer: essayAnswer,
           ),
         ],
       ),

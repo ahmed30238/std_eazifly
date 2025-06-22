@@ -1,11 +1,15 @@
+// get_quiz_questions_entity.dart
+
 import 'package:eazifly_student/data/models/my_programs/quizzes/get_quiz_questions_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class GetQuizQuestionsEntity {
   @JsonKey(name: "data")
   GetQuizQuestionsDataModel? data;
+
   @JsonKey(name: "status")
   int? status;
+
   @JsonKey(name: "message")
   String? message;
 
@@ -19,20 +23,28 @@ class GetQuizQuestionsEntity {
 class GetQuizQuestionsDataEntity {
   @JsonKey(name: "id")
   int? id;
+
   @JsonKey(name: "level")
   String? level;
+
   @JsonKey(name: "title")
   String? title;
+
   @JsonKey(name: "number_of_questions")
   String? numberOfQuestions;
+
   @JsonKey(name: "created_at")
   DateTime? createdAt;
+
   @JsonKey(name: "program_id")
   int? programId;
+
   @JsonKey(name: "instructor_id")
   int? instructorId;
+
   @JsonKey(name: "questions")
   List<GetQuizQuestionsQuestionModel>? questions;
+
   @JsonKey(name: "user_answer")
   GetQuizQuestionsUserAnswerModel? userAnswer;
 
@@ -52,16 +64,22 @@ class GetQuizQuestionsDataEntity {
 class GetQuizQuestionsQuestionEntity {
   @JsonKey(name: "id")
   int? id;
+
   @JsonKey(name: "title")
   String? title;
+
   @JsonKey(name: "type")
   String? type;
+
   @JsonKey(name: "level")
   String? level;
+
   @JsonKey(name: "mark")
-  int? mark;
+  String? mark;
+
   @JsonKey(name: "status")
   String? status;
+
   @JsonKey(name: "options")
   List<GetQuizQuestionsOptionModel>? options;
 
@@ -79,8 +97,10 @@ class GetQuizQuestionsQuestionEntity {
 class GetQuizQuestionsOptionEntity {
   @JsonKey(name: "id")
   int? id;
+
   @JsonKey(name: "title")
   String? title;
+
   @JsonKey(name: "option_status")
   String? optionStatus;
 
@@ -94,10 +114,13 @@ class GetQuizQuestionsOptionEntity {
 class GetQuizQuestionsUserAnswerEntity {
   @JsonKey(name: "status")
   String? status;
+
   @JsonKey(name: "total_mark")
-  int? totalMark;
+  String? totalMark;
+
   @JsonKey(name: "full_mark")
-  int? fullMark;
+  String? fullMark;
+
   @JsonKey(name: "question_answer")
   List<GetQuizQuestionsQuestionAnswerModel>? questionAnswer;
 
@@ -112,14 +135,18 @@ class GetQuizQuestionsUserAnswerEntity {
 class GetQuizQuestionsQuestionAnswerEntity {
   @JsonKey(name: "id")
   int? id;
+
   @JsonKey(name: "mark")
-  int? mark;
+  String? mark;
+
   @JsonKey(name: "question_id")
-  int? questionId;
+  String? questionId;
+
   @JsonKey(name: "question_option_id")
-  int? questionOptionId;
+  String? questionOptionId;
+
   @JsonKey(name: "answer")
-  String? answer;
+  dynamic answer;
 
   GetQuizQuestionsQuestionAnswerEntity({
     this.id,

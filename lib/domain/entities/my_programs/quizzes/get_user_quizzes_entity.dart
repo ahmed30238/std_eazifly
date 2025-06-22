@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 class GetUserQuizzesEntity {
   @JsonKey(name: "data")
-  List<QuizDatumModel>? data;
+  List<GetUserQuizzesDatumModel>? data;
 
   @JsonKey(name: "status")
   int? status;
@@ -18,55 +18,31 @@ class GetUserQuizzesEntity {
   });
 }
 
-class QuizDatumEntity {
+class GetUserQuizzesDatumEntity {
   @JsonKey(name: "id")
   int? id;
-
-  @JsonKey(name: "level")
-  String? level;
-
-  @JsonKey(name: "number_of_questions")
-  String? numberOfQuestions;
-
-  @JsonKey(name: "users_status")
-  String? usersStatus;
-
-  @JsonKey(name: "deadline")
-  DateTime? deadline;
-
-  @JsonKey(name: "status")
-  String? status;
-
-  @JsonKey(name: "program_id")
-  String? programId;
-
-  @JsonKey(name: "instructor_id")
-  String? instructorId;
-
-  @JsonKey(name: "tenant_id")
-  String? tenantId;
-
-  @JsonKey(name: "created_at")
-  DateTime? createdAt;
-
-  @JsonKey(name: "updated_at")
-  DateTime? updatedAt;
 
   @JsonKey(name: "title")
   String? title;
 
-  QuizDatumEntity({
+  @JsonKey(name: "created_at")
+  DateTime? createdAt;
+
+  @JsonKey(name: "status")
+  String? status;
+
+  @JsonKey(name: "full_mark")
+  String? fullMark;
+
+  @JsonKey(name: "total_mark")
+  String? totalMark;
+
+  GetUserQuizzesDatumEntity({
     this.id,
-    this.level,
-    this.numberOfQuestions,
-    this.usersStatus,
-    this.deadline,
-    this.status,
-    this.programId,
-    this.instructorId,
-    this.tenantId,
-    this.createdAt,
-    this.updatedAt,
     this.title,
+    this.createdAt,
+    this.status,
+    this.fullMark,
+    this.totalMark,
   });
 }

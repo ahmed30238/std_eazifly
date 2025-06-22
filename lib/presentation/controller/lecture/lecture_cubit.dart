@@ -684,15 +684,17 @@ class LectureCubit extends Cubit<LectureState> {
       (failure) {
         getUserQuizzesLoader = false;
         tabLoadingStates[2] = false;
+        tabErrorStates[2] = failure.message;
 
         emit(GetUserQuizzesErrorState(errorMessage: failure.message));
       },
       (data) {
+        tabLoadingStates[2] = false;
+        tabErrorStates[2] = null;
         tabData[2] = data;
         getUserQuizzesLoader = false;
-        tabLoadingStates[2] = false;
-
         getUserQuizzesEntity = data;
+        log("${getUserQuizzesEntity?.data?.length}");
         emit(GetUserQuizzesSuccessState());
       },
     );

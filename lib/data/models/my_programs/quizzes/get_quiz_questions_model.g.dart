@@ -66,7 +66,7 @@ GetQuizQuestionsQuestionModel _$GetQuizQuestionsQuestionModelFromJson(
       ..title = json['title'] as String?
       ..type = json['type'] as String?
       ..level = json['level'] as String?
-      ..mark = (json['mark'] as num?)?.toInt()
+      ..mark = json['mark'] as String?
       ..status = json['status'] as String?
       ..options = (json['options'] as List<dynamic>?)
           ?.map((e) =>
@@ -104,8 +104,8 @@ GetQuizQuestionsUserAnswerModel _$GetQuizQuestionsUserAnswerModelFromJson(
         Map<String, dynamic> json) =>
     GetQuizQuestionsUserAnswerModel()
       ..status = json['status'] as String?
-      ..totalMark = (json['total_mark'] as num?)?.toInt()
-      ..fullMark = (json['full_mark'] as num?)?.toInt()
+      ..totalMark = json['total_mark'] as String?
+      ..fullMark = json['full_mark'] as String?
       ..questionAnswer = (json['question_answer'] as List<dynamic>?)
           ?.map((e) => GetQuizQuestionsQuestionAnswerModel.fromJson(
               e as Map<String, dynamic>))
@@ -125,10 +125,10 @@ GetQuizQuestionsQuestionAnswerModel
     _$GetQuizQuestionsQuestionAnswerModelFromJson(Map<String, dynamic> json) =>
         GetQuizQuestionsQuestionAnswerModel()
           ..id = (json['id'] as num?)?.toInt()
-          ..mark = (json['mark'] as num?)?.toInt()
-          ..questionId = (json['question_id'] as num?)?.toInt()
-          ..questionOptionId = (json['question_option_id'] as num?)?.toInt()
-          ..answer = json['answer'] as String?;
+          ..mark = json['mark'] as String?
+          ..questionId = json['question_id'] as String?
+          ..questionOptionId = json['question_option_id'] as String?
+          ..answer = json['answer'];
 
 Map<String, dynamic> _$GetQuizQuestionsQuestionAnswerModelToJson(
         GetQuizQuestionsQuestionAnswerModel instance) =>

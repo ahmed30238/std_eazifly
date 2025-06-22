@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/core/enums/student_success_status.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/custom_list_tile.dart';
@@ -19,22 +21,24 @@ class ExamBodyWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         var quiz = quizzes?[index];
         return CustomListTile(
-          onTap: () => Navigator.pushNamed(
-              context, RoutePaths.lectureQuizzDetailsView,
-              arguments: {
-                "programId": int.tryParse(quiz?.programId ?? ""),
-                "userId": 3, //TODO
-                "quizId": quiz?.id,
-                "quizTitle": quiz?.title
-              }),
+          onTap: () {
+            log("${cubit.currentProgramId}");
+            Navigator.pushNamed(context, RoutePaths.lectureQuizzDetailsView,
+                arguments: {
+                  "programId": cubit.currentProgramId,
+                  "userId": 3, //TODO ==> login model or children id
+                  "quizId": quiz?.id,
+                  "quizTitle": quiz?.title
+                });
+          },
           iconHeight: 24.h,
           iconWidth: 24.w,
           iconContainerColor: MainColors.white,
           title: quiz?.title ?? "null title",
           subTitle: formatDateWithAmPm(quiz?.createdAt.toString()),
           trailing: ExamBodyCustomTrailing(
-            quizGrade: "10",
-            stdGrade: "5",
+            quizGrade: quiz?.fullMark ?? "",
+            stdGrade: quiz?.totalMark ?? "",
             status: index == 0
                 ? StudentStatus.newStudent
                 : StudentStatus.acceptable,

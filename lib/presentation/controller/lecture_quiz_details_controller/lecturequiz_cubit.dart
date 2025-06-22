@@ -12,16 +12,16 @@ class LecturequizCubit extends Cubit<LecturequizState> {
     required this.submitQuizUsecase,
   }) : super(LecturequizInitial());
   static LecturequizCubit get(context) => BlocProvider.of(context);
-  int trueFalseIndex = 0;
-  void changeTrueFalse(int index) {
-    trueFalseIndex = index;
+  List<int> trueFalseIndex = [];
+  void changeTrueFalse(int index,int qIndex) {
+    trueFalseIndex[qIndex] = index;
     emit(ChangeTrueFalseIndexState());
   }
 
-  TextEditingController essayAnswerController = TextEditingController();
-  int mulipleChoiceIndex = 0;
-  void changeMulipleChoice(int index) {
-    mulipleChoiceIndex = index;
+  TextEditingController? essayAnswerController = TextEditingController();
+  List<int> mulipleChoiceOptionIndex = [];
+  void changeMulipleChoice(int index, int questionIndex) {
+    mulipleChoiceOptionIndex[questionIndex] = index;
     emit(ChangeMulipleChoiceIndexState());
   }
 
@@ -66,8 +66,10 @@ class LecturequizCubit extends Cubit<LecturequizState> {
 
   Future<void> submitQuiz({
     required int quizId,
+    required int qIndex,
   }) async {
     int questionOptionId = -1;
+    // mulipleChoiceIndex =
 
     List<QuizAnswer> quizAnswer = List.generate(
       getQuizQuestionsEntity?.data?.questions?.length ?? 0,
@@ -75,12 +77,14 @@ class LecturequizCubit extends Cubit<LecturequizState> {
         var question = getQuizQuestionsEntity?.data?.questions?[index];
         switch (question?.type) {
           case "true_false":
-            questionOptionId = question?.options?[trueFalseIndex].id ?? -1;
+            questionOptionId = question?.options?[trueFalseIndex[qIndex]].id ?? -1;
             break;
           case "text":
             break;
           case "multiple_choice":
-            questionOptionId = question?.options?[mulipleChoiceIndex].id ?? -1;
+            // int optionId = mulipleChoiceOptionIndex.
+            questionOptionId =
+                question?.options?[mulipleChoiceOptionIndex[qIndex]].id ?? -1;
 
             break;
           default:
@@ -88,7 +92,7 @@ class LecturequizCubit extends Cubit<LecturequizState> {
 
         return QuizAnswer(
           questionId: question?.id ?? -1,
-          answer: essayAnswerController.text, // في حالة ان السؤال مقالي
+          answer: essayAnswerController?.text, // في حالة ان السؤال مقالي
           questionOptionId: questionOptionId,
         );
       },
@@ -114,8 +118,22 @@ class LecturequizCubit extends Cubit<LecturequizState> {
       (data) {
         submitQuizLoader = false;
         submitQuizEntity = data;
+        clearAfterSubmit();
         emit(SubmitQuizSuccessState());
       },
     );
+  }
+
+  void clearAfterSubmit() {
+    essayAnswerController?.clear();
+    for (var element in mulipleChoiceOptionIndex) {
+      element = 0;
+    }
+  }
+
+  @override
+  Future<void> close() {
+    essayAnswerController?.dispose();
+    return super.close();
   }
 }
