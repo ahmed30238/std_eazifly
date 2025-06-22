@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:eazifly_student/core/enums/student_success_status.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/custom_list_tile.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/exam_body_trailing.dart';
@@ -39,10 +37,12 @@ class ExamBodyWidget extends StatelessWidget {
           trailing: ExamBodyCustomTrailing(
             quizGrade: quiz?.fullMark ?? "",
             stdGrade: quiz?.totalMark ?? "",
-            status: index == 0
-                ? StudentStatus.newStudent
-                : StudentStatus.acceptable,
-            isNewExam: quiz?.status != "pending",
+            status: LectureCubit.calculateStudentStatus(
+              totalMark: quiz?.totalMark,
+              fullMark: quiz?.fullMark,
+              quizStatus: quiz?.status,
+            ),
+            isNewExam: quiz?.status == "pending",
           ),
           icon: Assets.iconsLectQuizzesIcon,
         );

@@ -8,6 +8,7 @@ class ExamBodyCustomTrailing extends StatelessWidget {
   final bool isNewExam;
   final String quizGrade;
   final String stdGrade;
+  
   const ExamBodyCustomTrailing({
     super.key,
     this.isNewExam = false,
@@ -19,6 +20,7 @@ class ExamBodyCustomTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         CustomMaterialButton(
           color: studentStatus(status).containerColor,
@@ -26,17 +28,49 @@ class ExamBodyCustomTrailing extends StatelessWidget {
           text: studentStatus(status).text,
           onPressed: () {},
         ),
-        if (!isNewExam) ...{
+        4.ph, // إضافة مسافة صغيرة
+        // عرض العلامات فقط إذا لم يكن الامتحان جديد ولديه علامات صحيحة
+        if (!isNewExam && _hasValidGrades()) ...{
           Text(
-            "$quizGrade / $stdGrade",
-            style: MainTextStyle.boldTextStyle(fontSize: 12),
+            "$stdGrade / $quizGrade",
+            style: MainTextStyle.boldTextStyle(
+              fontSize: 12,
+              color: _getGradeTextColor(),
+            ),
           )
         }
       ],
     );
   }
+
+  /// التحقق من وجود علامات صحيحة للعرض
+  bool _hasValidGrades() {
+    return quizGrade.isNotEmpty && 
+           stdGrade.isNotEmpty && 
+           quizGrade != "null" && 
+           stdGrade != "null" &&
+           status != StudentStatus.pending;
+  }
+
+  /// اختيار لون النص للعلامات بناءً على الحالة
+  Color _getGradeTextColor() {
+    switch (status) {
+      case StudentStatus.successful:
+        return MainColors.greenTeal;
+      case StudentStatus.acceptable:
+        return MainColors.blueTextColor;
+      case StudentStatus.failed:
+        return MainColors.red;
+      case StudentStatus.pending:
+      case StudentStatus.newStudent:
+        return MainColors.grayTextColors;
+      default:
+        return MainColors.grayTextColors;
+    }
+  }
 }
 
+/// دالة تحديد ألوان ونصوص الأزرار حسب حالة الطالب
 BtnColors studentStatus(StudentStatus state) {
   switch (state) {
     case StudentStatus.successful:
@@ -58,13 +92,17 @@ BtnColors studentStatus(StudentStatus state) {
       return BtnColors(
           textColor: MainColors.yellow,
           containerColor: MainColors.lightYellow,
+          text: "معلق");
+    case StudentStatus.newStudent:
+      return BtnColors(
+          textColor: MainColors.yellow,
+          containerColor: MainColors.lightYellow,
           text: "جديد");
-
     default:
       return BtnColors(
         textColor: MainColors.yellow,
         containerColor: MainColors.lightYellow,
-        text: "جديد",
+        text: "غير محدد",
       );
   }
 }

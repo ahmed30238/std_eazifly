@@ -5,6 +5,7 @@ import 'package:eazifly_student/core/component/no_data_animated_image_widget.dar
 import 'package:eazifly_student/core/component/spline_area_chart.dart';
 import 'package:eazifly_student/core/component/stats_area.dart';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
+import 'package:eazifly_student/core/enums/student_success_status.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/complete_chapter_lesson_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/get_chapter_lessons_entity.dart';
@@ -699,6 +700,94 @@ class LectureCubit extends Cubit<LectureState> {
       },
     );
   }
+  // إضافة هذه الدالة في LectureCubit class
+
+/// دالة لحساب حالة الطالب بناءً على العلامات
+/// يمكن استخدامها في أي مكان في التطبيق
+static StudentStatus calculateStudentStatus({
+  required dynamic totalMark,
+  required dynamic fullMark,
+  String? quizStatus,
+  double passPercentage = 60.0,      // النسبة المطلوبة للنجاح
+  double excellentPercentage = 85.0, // النسبة المطلوبة للامتياز
+}) {
+  // إذا كان الامتحان في حالة انتظار أو لم يتم حله بعد
+  if (quizStatus == "pending" || totalMark == null || fullMark == null) {
+    return StudentStatus.pending;
+  }
+
+  // تحويل العلامات إلى أرقام للمقارنة
+  double studentMark = 0.0;
+  double maxMark = 0.0;
+
+  try {
+    if (totalMark is String) {
+      studentMark = double.tryParse(totalMark) ?? 0.0;
+    } else if (totalMark is num) {
+      studentMark = totalMark.toDouble();
+    }
+
+    if (fullMark is String) {
+      maxMark = double.tryParse(fullMark) ?? 0.0;
+    } else if (fullMark is num) {
+      maxMark = fullMark.toDouble();
+    }
+  } catch (e) {
+    log("Error parsing marks in calculateStudentStatus: $e");
+    return StudentStatus.pending;
+  }
+
+  // إذا كانت العلامة الكاملة صفر أو أقل، تجنب القسمة على صفر
+  if (maxMark <= 0) {
+    log("Invalid max mark: $maxMark");
+    return StudentStatus.pending;
+  }
+
+  // حساب النسبة المئوية
+  double percentage = (studentMark / maxMark) * 100;
+
+  log("Student Mark: $studentMark, Full Mark: $maxMark, Percentage: ${percentage.toStringAsFixed(2)}%");
+
+  // تحديد الحالة بناءً على النسبة المئوية
+  if (percentage >= excellentPercentage) {
+    return StudentStatus.successful; // ناجح (ممتاز)
+  } else if (percentage >= passPercentage) {
+    return StudentStatus.acceptable; // مقبول
+  } else {
+    return StudentStatus.failed; // راسب
+  }
+}
+
+/// دالة لحساب النسبة المئوية للعلامة
+static double calculatePercentage({
+  required dynamic totalMark,
+  required dynamic fullMark,
+}) {
+  try {
+    double studentMark = 0.0;
+    double maxMark = 0.0;
+
+    if (totalMark is String) {
+      studentMark = double.tryParse(totalMark) ?? 0.0;
+    } else if (totalMark is num) {
+      studentMark = totalMark.toDouble();
+    }
+
+    if (fullMark is String) {
+      maxMark = double.tryParse(fullMark) ?? 0.0;
+    } else if (fullMark is num) {
+      maxMark = fullMark.toDouble();
+    }
+
+    if (maxMark > 0) {
+      return (studentMark / maxMark) * 100;
+    }
+    return 0.0;
+  } catch (e) {
+    log("Error calculating percentage: $e");
+    return 0.0;
+  }
+}
 
   @override
   Future<void> close() {
