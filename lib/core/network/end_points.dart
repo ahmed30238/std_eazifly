@@ -96,4 +96,5 @@ class EndPoints {
   static String getAssignmntDetails(
           {required int userId, required int assignmentId}) =>
       "show/assignment/$assignmentId?user_id=$userId";
+  static const postAssignment = "upload/assignment";
 }

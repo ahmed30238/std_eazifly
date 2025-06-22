@@ -73,6 +73,21 @@ class GetUserReportsErrorState extends LectureState {
   final String errorMessage;
   GetUserReportsErrorState({required this.errorMessage});
 }
+class PostAssignmentInitialState extends LectureState {}
+
+class PostAssignmentLoadingState extends LectureState {}
+
+class PostAssignmentSuccessState extends LectureState {
+  PostAssignmentSuccessState();
+}
+class PickImageFromGallerySuccessState extends LectureState {
+  PickImageFromGallerySuccessState();
+}
+
+class PostAssignmentErrorState extends LectureState {
+  final String error;
+  PostAssignmentErrorState(this.error);
+}
 
 // حالات الملاحظات
 class GetUserFeedbacksSuccessState extends LectureState {}

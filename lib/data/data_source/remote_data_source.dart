@@ -44,6 +44,8 @@ import 'package:eazifly_student/data/models/my_programs/get_user_feedbacks_model
 import 'package:eazifly_student/data/models/my_programs/get_user_reports_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
+import 'package:eazifly_student/data/models/my_programs/post_assignment_model.dart';
+import 'package:eazifly_student/data/models/my_programs/post_assignment_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/get_quiz_questions_model.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/get_user_quizzes_model.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_model.dart';
@@ -163,6 +165,9 @@ abstract class BaseRemoteDataSource {
   });
   Future<SendMessagesModel> sendMessages({
     required SendMessagesTojson data,
+  });
+  Future<PostAssignmentModel> postAssignment({
+    required PostAssignmentTojson data,
   });
 }
 
@@ -1136,6 +1141,28 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return SendMessagesModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<PostAssignmentModel> postAssignment(
+      {required PostAssignmentTojson data}) async {
+    var formData = await data.toFormData();
+
+    var response = await NetworkCall().post(
+      data: FormData.fromMap(formData),
+      path: EndPoints.postAssignment,
+    );
+
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return PostAssignmentModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

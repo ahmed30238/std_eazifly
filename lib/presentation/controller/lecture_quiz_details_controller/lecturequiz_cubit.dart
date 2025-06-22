@@ -126,8 +126,8 @@ class LecturequizCubit extends Cubit<LecturequizState> {
 
   void clearAfterSubmit() {
     essayAnswerController?.clear();
-    for (var element in mulipleChoiceOptionIndex) {
-      element = 0;
+    for (int i = 0; i < mulipleChoiceOptionIndex.length; i++) {
+      mulipleChoiceOptionIndex[i] = 0;
     }
   }
 

@@ -7,6 +7,7 @@ import 'package:eazifly_student/data/models/library/favourite_list/store_favouri
 import 'package:eazifly_student/data/models/library/library_order_and_subscribe_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/change_session_status_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
+import 'package:eazifly_student/data/models/my_programs/post_assignment_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_to_json.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
@@ -52,6 +53,7 @@ import 'package:eazifly_student/domain/entities/my_programs/get_session_details_
 import 'package:eazifly_student/domain/entities/my_programs/get_user_feedbacks_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_user_reports_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/post_assignment_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_quiz_questions_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_user_quizzes_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/quizzes/submit_quiz_entity.dart';
@@ -172,4 +174,6 @@ abstract class BaseRepository {
       {required int chatId, required int offset});
   Future<Either<Failure, SendMessagesEntities>> sendMessages(
       {required SendMessagesTojson data});
+  Future<Either<Failure, PostAssignmentEntity>> postAssignment(
+      {required PostAssignmentTojson data});
 }

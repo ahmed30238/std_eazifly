@@ -1,6 +1,7 @@
 import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/voice_audio_wave.dart';
 import 'package:eazifly_student/core/component/voice_message_widget.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class QuestionAndSolutionContainer extends StatelessWidget {
@@ -52,23 +53,37 @@ class QuestionAndSolutionContainer extends StatelessWidget {
           // Submission text header
           SizedBox(
             height: 29.h,
-            child: Text(
-              "نص التسليم",
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 12,
-                color: MainColors.checkBoxBorderGray,
+            child: GestureDetector(
+              onTap: () {
+                var cubit = context.read<LectureCubit>();
+                cubit.postAssignment(
+                  sessionAssignmentId: "1",
+                  file: cubit.profileImage,
+                );
+              },
+              child: Text(
+                "نص التسليم",
+                style: MainTextStyle.boldTextStyle(
+                  fontSize: 12,
+                  color: MainColors.checkBoxBorderGray,
+                ),
               ),
             ),
           ),
           10.ph,
 
           // Title
-          SizedBox(
-            height: 20.h,
-            child: Text(
-              title,
-              style: MainTextStyle.mediumTextStyle(
-                fontSize: 12,
+          InkWell(
+            onTap: () {
+              context.read<LectureCubit>().pickProfileImageFroGallery();
+            },
+            child: SizedBox(
+              height: 20.h,
+              child: Text(
+                title,
+                style: MainTextStyle.mediumTextStyle(
+                  fontSize: 12,
+                ),
               ),
             ),
           ),

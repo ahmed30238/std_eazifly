@@ -31,6 +31,8 @@ import 'package:eazifly_student/data/models/my_programs/get_session_details_mode
 import 'package:eazifly_student/data/models/my_programs/get_user_feedbacks_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_user_reports_model.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
+import 'package:eazifly_student/data/models/my_programs/post_assignment_model.dart';
+import 'package:eazifly_student/data/models/my_programs/post_assignment_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/get_quiz_questions_model.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/get_user_quizzes_model.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_model.dart';
@@ -626,6 +628,17 @@ class Repository extends BaseRepository {
   Future<Either<Failure, SendMessagesEntities>> sendMessages(
       {required SendMessagesTojson data}) async {
     final result = await baseRemoteDataSource.sendMessages(data: data);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, PostAssignmentModel>> postAssignment(
+      {required PostAssignmentTojson data}) async {
+    final result = await baseRemoteDataSource.postAssignment(data: data);
     try {
       return Right(result);
     } on ServerException catch (e) {

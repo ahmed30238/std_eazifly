@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/core/component/spline_area_chart.dart';
 import 'package:eazifly_student/core/component/stats_area.dart';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/core/enums/student_success_status.dart';
+import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/my_programs/post_assignment_tojson.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/complete_chapter_lesson_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/get_chapter_lessons_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/get_content_chapter.dart';
@@ -15,6 +18,7 @@ import 'package:eazifly_student/domain/entities/my_programs/get_program_assignme
 import 'package:eazifly_student/domain/entities/my_programs/get_program_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_user_feedbacks_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_user_reports_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/post_assignment_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_user_quizzes_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/show_program_details_entity.dart';
 import 'package:eazifly_student/domain/use_cases/complete_chapter_lesson_usecase.dart';
@@ -26,6 +30,7 @@ import 'package:eazifly_student/domain/use_cases/get_program_sessions_usecase.da
 import 'package:eazifly_student/domain/use_cases/get_user_feedback_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_quizzes_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_reports_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/post_assignment_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_program_details_usecase.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/deliveries_body.dart';
@@ -50,11 +55,20 @@ class LectureCubit extends Cubit<LectureState> {
     required this.completeChapterLessonUsecase,
     required this.getUserQuizzesUsecase,
     required this.getAssignmentDetailsUsecase,
+    required this.postAssignmentUsecase,
   }) : super(LectureInitial()) {
     var loginData = DataModel.fromJson(
         jsonDecode(GetStorage().read(StorageEnum.loginModel.name)));
     userId = loginData.id ?? -1;
     log("$userId");
+  }
+  File? profileImage;
+  Future<void> pickProfileImageFroGallery() async {
+    final response = await pickImageFromGallery();
+    if (response != null) {
+      profileImage = File(response.path);
+    }
+    emit(PickImageFromGallerySuccessState());
   }
 
   static LectureCubit get(context) => BlocProvider.of(context);
@@ -702,92 +716,131 @@ class LectureCubit extends Cubit<LectureState> {
   }
   // إضافة هذه الدالة في LectureCubit class
 
-/// دالة لحساب حالة الطالب بناءً على العلامات
-/// يمكن استخدامها في أي مكان في التطبيق
-static StudentStatus calculateStudentStatus({
-  required dynamic totalMark,
-  required dynamic fullMark,
-  String? quizStatus,
-  double passPercentage = 60.0,      // النسبة المطلوبة للنجاح
-  double excellentPercentage = 85.0, // النسبة المطلوبة للامتياز
-}) {
-  // إذا كان الامتحان في حالة انتظار أو لم يتم حله بعد
-  if (quizStatus == "pending" || totalMark == null || fullMark == null) {
-    return StudentStatus.pending;
-  }
-
-  // تحويل العلامات إلى أرقام للمقارنة
-  double studentMark = 0.0;
-  double maxMark = 0.0;
-
-  try {
-    if (totalMark is String) {
-      studentMark = double.tryParse(totalMark) ?? 0.0;
-    } else if (totalMark is num) {
-      studentMark = totalMark.toDouble();
+  /// دالة لحساب حالة الطالب بناءً على العلامات
+  /// يمكن استخدامها في أي مكان في التطبيق
+  static StudentStatus calculateStudentStatus({
+    required dynamic totalMark,
+    required dynamic fullMark,
+    String? quizStatus,
+    double passPercentage = 60.0, // النسبة المطلوبة للنجاح
+    double excellentPercentage = 85.0, // النسبة المطلوبة للامتياز
+  }) {
+    // إذا كان الامتحان في حالة انتظار أو لم يتم حله بعد
+    if (quizStatus == "pending" || totalMark == null || fullMark == null) {
+      return StudentStatus.pending;
     }
 
-    if (fullMark is String) {
-      maxMark = double.tryParse(fullMark) ?? 0.0;
-    } else if (fullMark is num) {
-      maxMark = fullMark.toDouble();
-    }
-  } catch (e) {
-    log("Error parsing marks in calculateStudentStatus: $e");
-    return StudentStatus.pending;
-  }
-
-  // إذا كانت العلامة الكاملة صفر أو أقل، تجنب القسمة على صفر
-  if (maxMark <= 0) {
-    log("Invalid max mark: $maxMark");
-    return StudentStatus.pending;
-  }
-
-  // حساب النسبة المئوية
-  double percentage = (studentMark / maxMark) * 100;
-
-  log("Student Mark: $studentMark, Full Mark: $maxMark, Percentage: ${percentage.toStringAsFixed(2)}%");
-
-  // تحديد الحالة بناءً على النسبة المئوية
-  if (percentage >= excellentPercentage) {
-    return StudentStatus.successful; // ناجح (ممتاز)
-  } else if (percentage >= passPercentage) {
-    return StudentStatus.acceptable; // مقبول
-  } else {
-    return StudentStatus.failed; // راسب
-  }
-}
-
-/// دالة لحساب النسبة المئوية للعلامة
-static double calculatePercentage({
-  required dynamic totalMark,
-  required dynamic fullMark,
-}) {
-  try {
+    // تحويل العلامات إلى أرقام للمقارنة
     double studentMark = 0.0;
     double maxMark = 0.0;
 
-    if (totalMark is String) {
-      studentMark = double.tryParse(totalMark) ?? 0.0;
-    } else if (totalMark is num) {
-      studentMark = totalMark.toDouble();
+    try {
+      if (totalMark is String) {
+        studentMark = double.tryParse(totalMark) ?? 0.0;
+      } else if (totalMark is num) {
+        studentMark = totalMark.toDouble();
+      }
+
+      if (fullMark is String) {
+        maxMark = double.tryParse(fullMark) ?? 0.0;
+      } else if (fullMark is num) {
+        maxMark = fullMark.toDouble();
+      }
+    } catch (e) {
+      log("Error parsing marks in calculateStudentStatus: $e");
+      return StudentStatus.pending;
     }
 
-    if (fullMark is String) {
-      maxMark = double.tryParse(fullMark) ?? 0.0;
-    } else if (fullMark is num) {
-      maxMark = fullMark.toDouble();
+    // إذا كانت العلامة الكاملة صفر أو أقل، تجنب القسمة على صفر
+    if (maxMark <= 0) {
+      log("Invalid max mark: $maxMark");
+      return StudentStatus.pending;
     }
 
-    if (maxMark > 0) {
-      return (studentMark / maxMark) * 100;
+    // حساب النسبة المئوية
+    double percentage = (studentMark / maxMark) * 100;
+
+    log("Student Mark: $studentMark, Full Mark: $maxMark, Percentage: ${percentage.toStringAsFixed(2)}%");
+
+    // تحديد الحالة بناءً على النسبة المئوية
+    if (percentage >= excellentPercentage) {
+      return StudentStatus.successful; // ناجح (ممتاز)
+    } else if (percentage >= passPercentage) {
+      return StudentStatus.acceptable; // مقبول
+    } else {
+      return StudentStatus.failed; // راسب
     }
-    return 0.0;
-  } catch (e) {
-    log("Error calculating percentage: $e");
-    return 0.0;
   }
-}
+
+  /// دالة لحساب النسبة المئوية للعلامة
+  static double calculatePercentage({
+    required dynamic totalMark,
+    required dynamic fullMark,
+  }) {
+    try {
+      double studentMark = 0.0;
+      double maxMark = 0.0;
+
+      if (totalMark is String) {
+        studentMark = double.tryParse(totalMark) ?? 0.0;
+      } else if (totalMark is num) {
+        studentMark = totalMark.toDouble();
+      }
+
+      if (fullMark is String) {
+        maxMark = double.tryParse(fullMark) ?? 0.0;
+      } else if (fullMark is num) {
+        maxMark = fullMark.toDouble();
+      }
+
+      if (maxMark > 0) {
+        return (studentMark / maxMark) * 100;
+      }
+      return 0.0;
+    } catch (e) {
+      log("Error calculating percentage: $e");
+      return 0.0;
+    }
+  }
+
+  PostAssignmentEntity? postAssignmentEntity;
+  PostAssignmentUsecase postAssignmentUsecase;
+  bool postAssignmentLoader = false;
+
+  Future<void> postAssignment({
+    required String sessionAssignmentId,
+    File? file,
+    File? voiceNote,
+  }) async {
+    try {
+      postAssignmentLoader = true;
+      emit(PostAssignmentLoadingState());
+
+      PostAssignmentTojson data = PostAssignmentTojson(
+        sessionAssignmentId: sessionAssignmentId,
+        file: file,
+        voiceNote: voiceNote,
+      );
+
+      final result = await postAssignmentUsecase.call(
+          parameter: PostAssignmentParameters(data: data));
+
+      result.fold(
+        (failure) {
+          postAssignmentLoader = false;
+          emit(PostAssignmentErrorState(failure.message));
+        },
+        (success) {
+          postAssignmentLoader = false;
+          postAssignmentEntity = success;
+          emit(PostAssignmentSuccessState()); // أو ابعت الـ entity هنا
+        },
+      );
+    } catch (error) {
+      postAssignmentLoader = false;
+      emit(PostAssignmentErrorState(error.toString()));
+    }
+  }
 
   @override
   Future<void> close() {
