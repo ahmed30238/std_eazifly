@@ -113,17 +113,39 @@ class CorrectedQuizBody extends StatelessWidget {
 
                         // تحديد ما إذا كان المستخدم قد اختار الإجابة الصحيحة
                         bool isUserAnswerCorrect = false;
+                        List<bool> optionsCorrectness = [];
+                        int? userSelectedOptionIndex;
 
                         if (question?.type == "multiple_choice") {
-                          // للأسئلة متعددة الاختيارات - نقارن option_id المختار مع الإجابة الصحيحة
-                          var correctOption = question?.options?.firstWhere(
-                            (option) => option.optionStatus == "correct",
-                            orElse: () => GetQuizQuestionsOptionModel(),
+                          // إنشاء قائمة بصحة كل خيار
+                          optionsCorrectness = question?.options?.map((option) => 
+                            option.optionStatus == "correct"
+                          ).toList() ?? [];
+                          
+                          // العثور على فهرس الخيار الذي اختاره المستخدم
+                          userSelectedOptionIndex = question?.options?.indexWhere((option) => 
+                            option.id?.toString() == userAnswer?.questionOptionId?.toString()
                           );
-
-                          isUserAnswerCorrect =
-                              userAnswer?.questionOptionId?.toString() ==
-                                  correctOption?.id?.toString();
+                          
+                          if (userSelectedOptionIndex != null && userSelectedOptionIndex >= 0) {
+                            isUserAnswerCorrect = optionsCorrectness[userSelectedOptionIndex];
+                          }
+                          
+                        } else if (question?.type == "true_false") {
+                          // للأسئلة صح وخطأ
+                          optionsCorrectness = question?.options?.map((option) => 
+                            option.optionStatus == "correct"
+                          ).toList() ?? [];
+                          
+                          // العثور على فهرس الخيار الذي اختاره المستخدم
+                          userSelectedOptionIndex = question?.options?.indexWhere((option) => 
+                            option.id?.toString() == userAnswer?.questionOptionId?.toString()
+                          );
+                          
+                          if (userSelectedOptionIndex != null && userSelectedOptionIndex >= 0) {
+                            isUserAnswerCorrect = optionsCorrectness[userSelectedOptionIndex];
+                          }
+                          
                         } else if (question?.type == "text") {
                           // للأسئلة النصية - نقارن النص المكتوب مع الإجابة الصحيحة
                           var correctAnswer = question?.options
@@ -139,25 +161,19 @@ class CorrectedQuizBody extends StatelessWidget {
                         }
 
                         return CorrectedQuestionCotainer(
-                          // يكون true فقط إذا كان المستخدم قد اختار الإجابة الصحيحة
                           isMultiTrue: isUserAnswerCorrect,
                           index: index,
-                          isTrue: quizData
-                                  ?.userAnswer?.questionAnswer?[index].mark !=
-                              "0",
+                          isTrue: userAnswer?.mark != "0",
                           optionsLength: question?.options?.length ?? 4,
                           qOptions: question?.options
                                   ?.map((e) => e.title ?? "")
                                   .toList() ??
                               [""],
-                          qType: quizData?.questions?[index].type ?? "",
+                          qType: question?.type ?? "",
                           question: question?.title ?? "",
-                          essayAnswer:
-                              quizData?.userAnswer?.questionAnswer != null
-                                  ? (quizData!.userAnswer!
-                                          .questionAnswer![index].answer ??
-                                      "")
-                                  : "",
+                          essayAnswer: userAnswer?.answer ?? "",
+                          optionsCorrectness: optionsCorrectness,
+                          userSelectedOptionIndex: userSelectedOptionIndex,
                         );
                       },
                       separatorBuilder: (context, index) => 12.ph,

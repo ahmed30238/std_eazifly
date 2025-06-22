@@ -45,9 +45,23 @@ class _LectureQuizDetailsViewState extends State<LectureQuizDetailsView> {
         leadingText: lang.back,
         isCenterTitle: true,
       ),
-      body: cubit.getQuizQuestionsEntity?.data?.userAnswer != null
-          ? NotCorrectedQuizBody(cubit: cubit, widget: widget)
-          : CorrectedQuizBody(cubit: cubit, widget: widget),
+      body: BlocBuilder<LecturequizCubit, LecturequizState>(
+        builder: (context, state) {
+          // Show loader while loading
+          if (cubit.getQuizQuestionsLoader) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          // Check if quiz is corrected (has userAnswer)
+          bool isQuizCorrected = cubit.getQuizQuestionsEntity?.data?.userAnswer != null;
+          
+          return isQuizCorrected 
+            ? CorrectedQuizBody(cubit: cubit, widget: widget)
+            : NotCorrectedQuizBody(cubit: cubit, widget: widget);
+        },
+      ),
     );
   }
 }
@@ -74,10 +88,19 @@ class NotCorrectedQuizBody extends StatelessWidget {
               BlocBuilder<LecturequizCubit, LecturequizState>(
                 builder: (context, state) {
                   var quizData = cubit.getQuizQuestionsEntity?.data;
+                  
+                  // Calculate total possible marks
+                  double totalPossibleMarks = 0;
+                  if (quizData?.questions != null) {
+                    for (var question in quizData!.questions!) {
+                      totalPossibleMarks += double.tryParse(question.mark ?? "0") ?? 0;
+                    }
+                  }
+                  
                   return StudentStats(
                     horizontalPadding: 0,
                     titleText: const [
-                      "تاريخ التسليم",
+                      "تاريخ الإنشاء",
                       "درجة الإمتحان",
                       "حالة الإمتحان"
                     ],
@@ -91,7 +114,7 @@ class NotCorrectedQuizBody extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        " 100 / ....",
+                        "${totalPossibleMarks.toStringAsFixed(0)} / ....",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
                           color: MainColors.blackText,
@@ -113,7 +136,7 @@ class NotCorrectedQuizBody extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Text(
-                  "الاسالة",
+                  "الأسئلة",
                   style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
               ),
@@ -133,18 +156,16 @@ class NotCorrectedQuizBody extends StatelessWidget {
                             QuestionContainer(
                               optionsLength: question?.options?.length ?? 4,
                               qOptions: question?.options
-                                      ?.map(
-                                        (e) => e.title ?? "",
-                                      )
+                                      ?.map((e) => e.title ?? "")
                                       .toList() ??
                                   [""],
-                              qType: quizData?.questions?[index].type ?? "",
+                              qType: question?.type ?? "",
                               question: question?.title ?? "",
                               index: index,
                             ),
                             if (questions != null &&
                                 index == questions.length - 1) ...[
-                              8.ph,
+                              16.ph,
                               CustomElevatedButton(
                                 width: 344.w,
                                 text: "تسليم الإجابات",
@@ -180,5 +201,3 @@ class NotCorrectedQuizBody extends StatelessWidget {
     );
   }
 }
-
-

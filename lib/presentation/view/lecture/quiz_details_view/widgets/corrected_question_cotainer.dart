@@ -10,6 +10,8 @@ class CorrectedQuestionCotainer extends StatelessWidget {
   final List<String> qOptions;
   final bool isMultiTrue;
   final bool isTrue;
+  final List<bool> optionsCorrectness;
+  final int? userSelectedOptionIndex;
 
   const CorrectedQuestionCotainer({
     super.key,
@@ -18,16 +20,22 @@ class CorrectedQuestionCotainer extends StatelessWidget {
     required this.index,
     required this.qOptions,
     required this.optionsLength,
-    required this.isTrue, required this.essayAnswer, required this.isMultiTrue,
+    required this.isTrue,
+    required this.essayAnswer,
+    required this.isMultiTrue,
+    required this.optionsCorrectness,
+    this.userSelectedOptionIndex,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.r),
-      height: qType == "مقالي" ? 186.h : 222.h,
       width: double.infinity,
-      color: MainColors.veryLightGrayFormField,
+      decoration: BoxDecoration(
+        color: MainColors.veryLightGrayFormField,
+        borderRadius: 8.cr,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -44,24 +52,32 @@ class CorrectedQuestionCotainer extends StatelessWidget {
               TextedContainer(
                 width: 117.w,
                 height: 28.h,
-                text: isTrue ? "اجابة صحيحة" : "اجابة خطأ",
+                text: isTrue ? "إجابة صحيحة" : "إجابة خطأ",
                 textColor: isTrue ? MainColors.greenTeal : MainColors.red,
                 containerColor:
                     isTrue ? MainColors.lightgreenTeal : MainColors.lightRed,
                 radius: 16.r,
               ),
-              // QTypeTextedContainer(type: qType),
             ],
           ),
-          8.ph,
+          12.ph,
           Container(
             padding: EdgeInsets.all(12.r),
             width: double.infinity,
+            decoration: BoxDecoration(
+              color: MainColors.white,
+              borderRadius: 8.cr,
+              border: Border.all(
+                width: 1.w,
+                color: MainColors.grayBorderColor,
+              ),
+            ),
             child: Text(
               question,
               style: MainTextStyle.mediumTextStyle(fontSize: 12),
             ),
           ),
+          16.ph,
           Text(
             "إجابتك",
             style: MainTextStyle.boldTextStyle(
@@ -75,7 +91,10 @@ class CorrectedQuestionCotainer extends StatelessWidget {
             type: qType,
             qIndex: index,
             isMultiTrue: isMultiTrue,
-            choicesText: qOptions, essayAnswer: essayAnswer,
+            choicesText: qOptions,
+            essayAnswer: essayAnswer,
+            optionsCorrectness: optionsCorrectness,
+            userSelectedOptionIndex: userSelectedOptionIndex,
           ),
         ],
       ),
