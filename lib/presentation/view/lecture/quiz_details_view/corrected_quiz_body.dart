@@ -118,34 +118,42 @@ class CorrectedQuizBody extends StatelessWidget {
 
                         if (question?.type == "multiple_choice") {
                           // إنشاء قائمة بصحة كل خيار
-                          optionsCorrectness = question?.options?.map((option) => 
-                            option.optionStatus == "correct"
-                          ).toList() ?? [];
-                          
+                          optionsCorrectness = question?.options
+                                  ?.map((option) =>
+                                      option.optionStatus == "correct")
+                                  .toList() ??
+                              [];
+
                           // العثور على فهرس الخيار الذي اختاره المستخدم
-                          userSelectedOptionIndex = question?.options?.indexWhere((option) => 
-                            option.id?.toString() == userAnswer?.questionOptionId?.toString()
-                          );
-                          
-                          if (userSelectedOptionIndex != null && userSelectedOptionIndex >= 0) {
-                            isUserAnswerCorrect = optionsCorrectness[userSelectedOptionIndex];
+                          userSelectedOptionIndex = question?.options
+                              ?.indexWhere((option) =>
+                                  option.id?.toString() ==
+                                  userAnswer?.questionOptionId?.toString());
+
+                          if (userSelectedOptionIndex != null &&
+                              userSelectedOptionIndex >= 0) {
+                            isUserAnswerCorrect =
+                                optionsCorrectness[userSelectedOptionIndex];
                           }
-                          
                         } else if (question?.type == "true_false") {
                           // للأسئلة صح وخطأ
-                          optionsCorrectness = question?.options?.map((option) => 
-                            option.optionStatus == "correct"
-                          ).toList() ?? [];
-                          
+                          optionsCorrectness = question?.options
+                                  ?.map((option) =>
+                                      option.optionStatus == "correct")
+                                  .toList() ??
+                              [];
+
                           // العثور على فهرس الخيار الذي اختاره المستخدم
-                          userSelectedOptionIndex = question?.options?.indexWhere((option) => 
-                            option.id?.toString() == userAnswer?.questionOptionId?.toString()
-                          );
-                          
-                          if (userSelectedOptionIndex != null && userSelectedOptionIndex >= 0) {
-                            isUserAnswerCorrect = optionsCorrectness[userSelectedOptionIndex];
+                          userSelectedOptionIndex = question?.options
+                              ?.indexWhere((option) =>
+                                  option.id?.toString() ==
+                                  userAnswer?.questionOptionId?.toString());
+
+                          if (userSelectedOptionIndex != null &&
+                              userSelectedOptionIndex >= 0) {
+                            isUserAnswerCorrect =
+                                optionsCorrectness[userSelectedOptionIndex];
                           }
-                          
                         } else if (question?.type == "text") {
                           // للأسئلة النصية - نقارن النص المكتوب مع الإجابة الصحيحة
                           var correctAnswer = question?.options
@@ -163,7 +171,8 @@ class CorrectedQuizBody extends StatelessWidget {
                         return CorrectedQuestionCotainer(
                           isMultiTrue: isUserAnswerCorrect,
                           index: index,
-                          isTrue: userAnswer?.mark != "0",
+                          isTrue:
+                              isUserAnswerCorrect, 
                           optionsLength: question?.options?.length ?? 4,
                           qOptions: question?.options
                                   ?.map((e) => e.title ?? "")
