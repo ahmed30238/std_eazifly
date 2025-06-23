@@ -60,6 +60,8 @@ import 'package:eazifly_student/domain/entities/my_programs/quizzes/submit_quiz_
 import 'package:eazifly_student/domain/entities/my_programs/show_program_details_entity.dart';
 import 'package:eazifly_student/domain/entities/show_library_item_entity.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
+import 'package:eazifly_student/domain/entities/subscription_management/get_library_subscription_entity.dart';
+import 'package:eazifly_student/domain/entities/subscription_management/get_program_subscription_entity.dart';
 
 abstract class BaseRepository {
   Future<Either<Failure, LoginEntity>> login({
@@ -176,4 +178,6 @@ abstract class BaseRepository {
       {required SendMessagesTojson data});
   Future<Either<Failure, PostAssignmentEntity>> postAssignment(
       {required PostAssignmentTojson data});
+  Future<Either<Failure, GetProgramSubscriptionEntity>> getProgramSubscription();
+  Future<Either<Failure, GetLibrarySubscriptionEntity>> getLibrarySubscription();
 }

@@ -46,6 +46,7 @@ import 'package:eazifly_student/data/models/order_and_subscribe/get_program_paym
 import 'package:eazifly_student/data/models/order_and_subscribe/get_user_orders_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
+import 'package:eazifly_student/data/models/subscription_management/get_library_subscription_model.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
@@ -63,6 +64,7 @@ import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/change_session_status_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
+import 'package:eazifly_student/domain/entities/subscription_management/get_program_subscription_entity.dart';
 
 class Repository extends BaseRepository {
   BaseRemoteDataSource baseRemoteDataSource;
@@ -640,6 +642,28 @@ class Repository extends BaseRepository {
       {required PostAssignmentTojson data}) async {
     final result = await baseRemoteDataSource.postAssignment(data: data);
     try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetProgramSubscriptionEntity>>
+      getProgramSubscription() async {
+    try {
+      final result = await baseRemoteDataSource.getProgramSubscriptions();
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetLibrarySubscriptionModel>>
+      getLibrarySubscription() async {
+    try {
+      final result = await baseRemoteDataSource.getLibrarySubscription();
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

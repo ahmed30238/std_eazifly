@@ -136,7 +136,10 @@ class AppRouter {
       case RoutePaths.subscriptionManagmentPath:
         return createRoute(
           BlocProvider(
-            create: (context) => SubscriptionmanagementCubit(),
+            create: (context) => SubscriptionmanagementCubit(
+              getLibrarySubscriptionUsecase: sl(),
+              getProgramSubscriptionUsecase: sl(),
+            ),
             child: const SubscriptionManagmentView(),
           ),
         );

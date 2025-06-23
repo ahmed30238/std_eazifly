@@ -66,6 +66,8 @@ import 'package:eazifly_student/data/models/programs/assign_program_review_model
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
 import 'package:eazifly_student/data/models/programs/get_program_details_model.dart';
 import 'package:eazifly_student/data/models/programs/get_programs_model.dart';
+import 'package:eazifly_student/data/models/subscription_management/get_library_subscription_model.dart';
+import 'package:eazifly_student/data/models/subscription_management/get_program_subscription_model.dart';
 
 abstract class BaseRemoteDataSource {
   Future<LoginModel> login(String email, String password);
@@ -169,6 +171,8 @@ abstract class BaseRemoteDataSource {
   Future<PostAssignmentModel> postAssignment({
     required PostAssignmentTojson data,
   });
+  Future<GetProgramSubscriptionModel> getProgramSubscriptions();
+  Future<GetLibrarySubscriptionModel> getLibrarySubscription();
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -1163,6 +1167,40 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return PostAssignmentModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetProgramSubscriptionModel> getProgramSubscriptions() async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getProgramSubscriptions,
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetProgramSubscriptionModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetLibrarySubscriptionModel> getLibrarySubscription() async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getLibrarySubscriptions,
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetLibrarySubscriptionModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(
