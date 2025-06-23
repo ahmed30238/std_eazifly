@@ -118,6 +118,7 @@ class UnderReviewItem extends StatelessWidget {
               height: 74.h,
               child: ItemDetailsCard(
                 titles: programTitles,
+                values: [],
               ),
             )
           ],

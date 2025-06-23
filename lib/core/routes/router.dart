@@ -140,6 +140,8 @@ class AppRouter {
               getLibrarySubscriptionUsecase: sl(),
               getProgramSubscriptionUsecase: sl(),
               cancelSubscriptionUsecase: sl(),
+              renewSubscriptionUsecase: sl(),
+              showPlanUsecase: sl(),
             ),
             child: const SubscriptionManagmentView(),
           ),
@@ -415,10 +417,15 @@ class AppRouter {
       case RoutePaths.subscriptionPackageDetails:
         var arguments = settings.arguments as Map<String, dynamic>;
         var cubit = arguments["cubit"] as SubscriptionmanagementCubit;
+        int mainId = arguments["mainId"] as int? ?? -1;
+        int planId = arguments["planId"] as int? ?? -1;
         return createRoute(
           BlocProvider.value(
             value: cubit,
-            child: const SubscriptiopnPackageDetails(),
+            child: SubscriptiopnPackageDetails(
+              planId: planId,
+              mainId: mainId,
+            ),
           ),
         );
       case RoutePaths.audioPlayListView:

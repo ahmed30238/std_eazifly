@@ -28,6 +28,8 @@ class GetProgramSubscriptionErrorState extends SubscriptionmanagementState {
 
 class CancelSubscriptionLoadingState extends SubscriptionmanagementState {}
 
+class PickImageFromGallerySuccessState extends SubscriptionmanagementState {}
+
 class CancelSubscriptionSuccessState extends SubscriptionmanagementState {}
 
 class CancelSubscriptionErrorState extends SubscriptionmanagementState {
@@ -46,5 +48,19 @@ class RenewSubscriptionErrorState extends SubscriptionmanagementState {
   RenewSubscriptionErrorState({
     required this.errorMessage,
     this.errorCode,
+  });
+}
+
+class GetGalleryImagesState extends SubscriptionmanagementState {}
+
+class ShowPlanLoadingState extends SubscriptionmanagementState {}
+
+class ShowPlanSuccessState extends SubscriptionmanagementState {}
+
+class ShowPlanErrorState extends SubscriptionmanagementState {
+  final String errorMessage;
+
+  ShowPlanErrorState({
+    required this.errorMessage,
   });
 }

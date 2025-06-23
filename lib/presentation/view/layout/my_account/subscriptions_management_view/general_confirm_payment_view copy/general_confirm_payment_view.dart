@@ -9,7 +9,8 @@ class GeneralConfirmPaymentView extends StatefulWidget {
   });
 
   @override
-  State<GeneralConfirmPaymentView> createState() => _GeneralConfirmPaymentViewState();
+  State<GeneralConfirmPaymentView> createState() =>
+      _GeneralConfirmPaymentViewState();
 }
 
 class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
@@ -28,8 +29,19 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
   Widget build(BuildContext context) {
     var lang = context.loc!;
     // var orderDetail =
-    //     programsubscriptionplanCubit.createOrderEntity?.data?.orderDetails?[0];
-    // var orderData = programsubscriptionplanCubit.filterPlansEntity?.data;
+    //     subscriptionmanagementCubit.createOrderEntity?.data?.orderDetails?[0];
+    var orderData = subscriptionmanagementCubit.planDetailsEntity?.data;
+    final int price = int.tryParse(orderData?.price ?? "0") ?? 0;
+    final int discountPrice =
+        int.tryParse(orderData?.discountPrice ?? "0") ?? 0;
+    final int discountAmount = price - discountPrice;
+    final String currency = orderData?.currency ?? "";
+
+    final List<String> values = [
+      "$price $currency",
+      "$discountAmount $currency",
+      "$discountPrice $currency",
+    ];
     return Scaffold(
       appBar: CustomAppBar(
         context,
@@ -54,8 +66,8 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "program",
-                  // orderData?.program ?? "",
+                  // "program",
+                  orderData?.program ?? "",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 14,
                   ),
@@ -63,35 +75,24 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
                 12.ph,
                 ProgramDetailsItem(
                   title: programDetailsTitles[0],
-                  value: "val",
-                  // value: orderData?.subscripeDays ?? "",
+                  value: "${orderData?.subscripeDays} يوم",
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[1],
-                                    value: "val",
-
-                  // value: orderData?.duration ?? "",
+                  value: "${orderData?.duration} دقيقة",
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[2],
-                  value: "عدد الطلاب",
+                  value: "${subscriptionmanagementCubit.studentNumber} طالب",
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[3],
-                                    value: "val",
-
-                  // value: orderData?.numberOfSessionPerWeek ?? "",
+                  value: "${orderData?.numberOfSessionPerWeek} حصص",
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[4],
                   value: "",
                 ),
-                // ...List.generate(
-                //   5,
-                //   (index) => ProgramDetailsItem(
-                //     title: programDetailsTitles[index],
-                //   ),
-                // ),
                 3.ph,
                 const CustomHorizontalDivider(
                   color: MainColors.lightGray,
@@ -100,13 +101,7 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
                   3,
                   (index) => ProgramDetailsItem(
                     title: cashDetailsTitles[index],
-                                      value: "val",
-
-                    // value: index == 0
-                    //     ? orderData?.price ?? ""
-                    //     : index == 1
-                    //         ? orderData?.discountPrice ?? ""
-                    //         : orderData?.discountPrice ?? "",
+                    value: values[index],
                     textStyle: index == 2
                         ? MainTextStyle.boldTextStyle(
                             fontSize: 15,
@@ -151,7 +146,7 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "قم بتحويل مبلغ 2000 ج.م الي رقم عبر فودافون كاش ",
+                      "قم بتحويل مبلغ ${orderData?.discountPrice} ج.م الي رقم عبر فودافون كاش ",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
                         color: MainColors.blackText,
@@ -172,10 +167,10 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
           ),
           16.ph,
           GestureDetector(
-            // onTap: () => subscriptionmanagementCubit.pickImages(),
+            onTap: () =>
+                subscriptionmanagementCubit.pickOrderImageFromGallery(),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
-              // margin: EdgeInsets.symmetric(horizontal: 16.w),
               height: 98.h,
               width: double.infinity,
               decoration: BoxDecoration(
@@ -185,8 +180,7 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
               child: BlocBuilder(
                 bloc: subscriptionmanagementCubit,
                 builder: (context, state) {
-                  // final images = subscriptionmanagementCubit.images;
-                  final images = [];
+                  final image = subscriptionmanagementCubit.renewOrderImage;
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -224,12 +218,12 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
                           ),
                         ],
                       ),
-                      if (images.isNotEmpty) ...[
+                      if (image != null) ...[
                         const Spacer(),
                         ClipRRect(
                           borderRadius: 16.cr,
                           child: Image.file(
-                            images.first,
+                            image,
                             height: 84.h,
                             width: 104.w,
                             fit: BoxFit.cover,
@@ -245,7 +239,6 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
           16.ph,
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
-            // margin: EdgeInsets.symmetric(horizontal: 16.w),
             height: 166.63.h,
             width: double.infinity,
             decoration: BoxDecoration(
@@ -289,20 +282,23 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
             builder: (context, state) => CustomElevatedButton(
               text: "إتمام الدفع",
               width: 343.w,
-              onPressed: () {},
-              // onPressed: subscriptionmanagementCubit.createOrderLoader
-              //     ? () {}
-              //     : () async {
-              //         await subscriptionmanagementCubit.createOrder(
-              //           programId: subscriptionmanagementCubit.programId,
-              //           context: context,
-              //         );
-              //       },
+              onPressed: subscriptionmanagementCubit.renewSubscriptionLoader
+                  ? () {}
+                  : () async {
+                      if (subscriptionmanagementCubit.renewOrderImage == null) {
+                        delightfulToast(
+                            message: "يجب رفع صورة التحويل", context: context);
+                      } else {
+                        await subscriptionmanagementCubit.renewSubscription(
+                          programId: subscriptionmanagementCubit.programId,
+                        );
+                      }
+                    },
               color: MainColors.blueTextColor,
               radius: 16.r,
-              // child: subscriptionmanagementCubit.createOrderLoader
-              //     ? const CircularProgressIndicator.adaptive()
-              //     : null,
+              child: subscriptionmanagementCubit.renewSubscriptionLoader
+                  ? const CircularProgressIndicator.adaptive()
+                  : null,
             ),
           ),
           32.ph,

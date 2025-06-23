@@ -40,16 +40,18 @@ class SubProgramsBody extends StatelessWidget {
                 Navigator.pushNamed(
                   arguments: {
                     "cubit": cubit,
+                    "planId": subscription.plan?.id,
                     "subscription": subscription,
                   },
                   context,
                   RoutePaths.subscriptionPackageDetails,
                 );
               },
+              currency: "ج.م",
               courseTitle: subscription.program ?? "اشتراك البرنامج",
               inProgress:  false,
               daysLeft: subscription.daysToExpire?.toString() ?? "0",
-              expireDate: subscription.expireDate.toString(),
+              expireDate: subscription.expireDate.toString().substring(0,10),
               noOfStudents: subscription.studentNumber?.toString() ?? "0",
               onRenewTap: () {
                 // Handle renew action

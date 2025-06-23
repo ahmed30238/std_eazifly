@@ -65,6 +65,7 @@ import 'package:eazifly_student/domain/entities/subscription_management/cancel_s
 import 'package:eazifly_student/domain/entities/subscription_management/get_library_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_program_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/renew_subscription_entity.dart';
+import 'package:eazifly_student/domain/entities/subscription_management/show_plan_entity.dart';
 
 abstract class BaseRepository {
   Future<Either<Failure, LoginEntity>> login({
@@ -190,5 +191,8 @@ abstract class BaseRepository {
   });
   Future<Either<Failure, RenewSubscriptionEntity>> renewSubscription({
     required RenewSubscriptionTojson data,
+  });
+  Future<Either<Failure, ShowPlanEntity>> showPlan({
+    required int planId,
   });
 }

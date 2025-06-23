@@ -27,6 +27,9 @@ class GetProgramSubscriptionDatumEntity {
   @JsonKey(name: "main_subscription_id")
   int? mainSubscriptionId;
 
+  @JsonKey(name: "plan")
+  GetProgramSubscriptionPlanModel? plan;
+
   @JsonKey(name: "program_id")
   int? programId;
 
@@ -60,6 +63,7 @@ class GetProgramSubscriptionDatumEntity {
   GetProgramSubscriptionDatumEntity({
     this.id,
     this.mainSubscriptionId,
+    this.plan,
     this.programId,
     this.program,
     this.price,
@@ -74,6 +78,9 @@ class GetProgramSubscriptionDatumEntity {
 }
 
 class GetProgramSubscriptionInstructorEntity {
+  @JsonKey(name: "id")
+  String? id;
+
   @JsonKey(name: "name")
   String? name;
 
@@ -81,7 +88,65 @@ class GetProgramSubscriptionInstructorEntity {
   String? image;
 
   GetProgramSubscriptionInstructorEntity({
+    this.id,
     this.name,
     this.image,
+  });
+}
+
+class GetProgramSubscriptionPlanEntity {
+  @JsonKey(name: "id")
+  int? id;
+
+  @JsonKey(name: "title")
+  String? title;
+
+  @JsonKey(name: "program")
+  String? program;
+
+  @JsonKey(name: "label")
+  String? label;
+
+  @JsonKey(name: "description")
+  String? description;
+
+  @JsonKey(name: "currency")
+  String? currency;
+
+  @JsonKey(name: "price")
+  String? price;
+
+  @JsonKey(name: "discount_price")
+  String? discountPrice;
+
+  @JsonKey(name: "subscripe_days")
+  String? subscripeDays;
+
+  @JsonKey(name: "duration")
+  String? duration;
+
+  @JsonKey(name: "number_of_session_per_week")
+  String? numberOfSessionPerWeek;
+
+  @JsonKey(name: "is_special_plan")
+  bool? isSpecialPlan;
+
+  @JsonKey(name: "type")
+  String? type;
+
+  GetProgramSubscriptionPlanEntity({
+    this.id,
+    this.title,
+    this.program,
+    this.label,
+    this.description,
+    this.currency,
+    this.price,
+    this.discountPrice,
+    this.subscripeDays,
+    this.duration,
+    this.numberOfSessionPerWeek,
+    this.isSpecialPlan,
+    this.type,
   });
 }

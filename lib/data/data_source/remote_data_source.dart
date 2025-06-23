@@ -71,6 +71,7 @@ import 'package:eazifly_student/data/models/subscription_management/get_library_
 import 'package:eazifly_student/data/models/subscription_management/get_program_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
+import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
 
 abstract class BaseRemoteDataSource {
   Future<LoginModel> login(String email, String password);
@@ -181,6 +182,9 @@ abstract class BaseRemoteDataSource {
   });
   Future<RenewSubscriptionModel> renewSubscription({
     required RenewSubscriptionTojson data,
+  });
+  Future<ShowPlanModel> showPlan({
+    required int planId,
   });
 }
 
@@ -1240,11 +1244,77 @@ class RemoteDataSource extends BaseRemoteDataSource {
   @override
   Future<RenewSubscriptionModel> renewSubscription(
       {required RenewSubscriptionTojson data}) async {
-    var response = await NetworkCall()
-        .post(path: EndPoints.renewOrder, data: data.toJson());
+    try {
+      FormData formData = FormData();
+      if (data.code.isNotEmpty) {
+        formData.fields.add(MapEntry("code", data.code));
+      }
+
+      for (var id in data.planId) {
+        formData.fields.add(MapEntry("plan_id[]", id.toString()));
+      }
+
+      for (var id in data.programId) {
+        formData.fields.add(MapEntry("program_id[]", id.toString()));
+      }
+
+      for (var number in data.studentNumber) {
+        formData.fields.add(MapEntry("student_number[]", number.toString()));
+      }
+      for (var date in data.startDate) {
+        formData.fields.add(MapEntry("start_date[]", date.toString()));
+      }
+
+      // إضافة الصورة إذا كانت موجودة
+      if (data.image != null && data.image!.isNotEmpty) {
+        final File imageFile = File(data.image!);
+        if (await imageFile.exists()) {
+          formData.files.add(
+            MapEntry(
+              "image",
+              await MultipartFile.fromFile(
+                data.image!,
+                filename: data.image!.split('/').last,
+              ),
+            ),
+          );
+          log('Profile image added to FormData: ${data.image!.split('/').last}');
+        } else {
+          throw Exception(
+              'Profile image file does not exist at path: ${data.image}');
+        }
+      }
+//
+      log('FormData fields: ${formData.fields.length}');
+      log('FormData files: ${formData.files.length}');
+
+      var response = await NetworkCall().post(
+        path: EndPoints.renewOrder,
+        data: formData, // استخدم formData بدلاً من data.toJson()
+        isMultipart: true,
+      );
+
+      if (response?.statusCode == 200) {
+        return RenewSubscriptionModel.fromJson(response?.data);
+      } else {
+        log('Error response: ${response?.data}');
+        throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromjson(response?.data),
+        );
+      }
+    } catch (e) {
+      log('Error in createOrder remote: $e');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ShowPlanModel> showPlan({required int planId}) async {
+    var response =
+        await NetworkCall().get(path: EndPoints.showPlan(planId: planId));
     if (response?.statusCode == 200) {
       log("${response?.data}");
-      return RenewSubscriptionModel.fromJson(response?.data);
+      return ShowPlanModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

@@ -2,8 +2,9 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class ItemDetailsCard extends StatelessWidget {
   final List<String> titles;
+  final List<String> values;
 
-  const ItemDetailsCard({super.key, required this.titles});
+  const ItemDetailsCard({super.key, required this.titles, required this.values});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class ItemDetailsCard extends StatelessWidget {
                 ),
                 8.ph,
                 Text(
-                  "الباقة الإفتراضية",
+                  values[index],
                   style: MainTextStyle.mediumTextStyle(
                     fontSize: 14,
                     color: MainColors.black,

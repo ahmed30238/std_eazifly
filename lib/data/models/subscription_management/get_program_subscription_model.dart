@@ -1,7 +1,9 @@
+// get_program_subscription_model.dart
+
 import 'package:eazifly_student/domain/entities/subscription_management/get_program_subscription_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
-part 'get_program_subscription_model.g.dart';
 
+part 'get_program_subscription_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class GetProgramSubscriptionModel extends GetProgramSubscriptionEntity {
   GetProgramSubscriptionModel();
@@ -9,7 +11,8 @@ class GetProgramSubscriptionModel extends GetProgramSubscriptionEntity {
   factory GetProgramSubscriptionModel.fromJson(Map<String, dynamic> json) =>
       _$GetProgramSubscriptionModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetProgramSubscriptionModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetProgramSubscriptionModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -30,4 +33,14 @@ class GetProgramSubscriptionInstructorModel extends GetProgramSubscriptionInstru
       _$GetProgramSubscriptionInstructorModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetProgramSubscriptionInstructorModelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetProgramSubscriptionPlanModel extends GetProgramSubscriptionPlanEntity {
+  GetProgramSubscriptionPlanModel();
+
+  factory GetProgramSubscriptionPlanModel.fromJson(Map<String, dynamic> json) =>
+      _$GetProgramSubscriptionPlanModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GetProgramSubscriptionPlanModelToJson(this);
 }

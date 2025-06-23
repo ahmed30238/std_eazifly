@@ -1,12 +1,8 @@
 // all_sub_body.dart - Updated to fetch all subscriptions
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_state.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/all_body_list_item_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class AllSubBody extends StatelessWidget {
   const AllSubBody({super.key});
@@ -31,32 +27,50 @@ class AllSubBody extends StatelessWidget {
         // Add program subscriptions
         if (cubit.getProgramSubscriptionEntity?.data?.isNotEmpty ?? false) {
           allSubscriptions.addAll(
-            cubit.getProgramSubscriptionEntity!.data!.map(
-              (subscription) => AllBodyListItemWidget(
-                onTap: () {
-                  Navigator.pushNamed(
-                    arguments: {
-                      "cubit": cubit,
-                      "subscription": subscription,
-                      "type": "program",
-                    },
-                    context,
-                    RoutePaths.subscriptionPackageDetails,
-                  );
-                },
-                courseTitle: subscription.program ?? "اشتراك البرنامج",
-                inProgress: false,
-                daysLeft: subscription.daysToExpire?.toString() ?? "0",
-                expireDate: subscription.expireDate.toString(),
-                noOfStudents: subscription.studentNumber?.toString() ?? "0",
-                onRenewTap: () {
-                  // Handle renew action
-                },
-                progressPercent: ((subscription.completedSessions ?? 0) +
-                        (subscription.missedSessions ?? 0))
-                    .toDouble(),
-                subscriptionPrice: subscription.price?.toString() ?? "0",
-              ),
+            List.generate(
+              cubit.getProgramSubscriptionEntity!.data!.length,
+              (index) {
+                final subscription =
+                    cubit.getProgramSubscriptionEntity!.data![index];
+                return AllBodyListItemWidget(
+                  onTap: () {
+                    cubit.fillProgramStudentNumber(
+                        int.tryParse(subscription.studentNumber ?? "-1") ?? -1);
+                    cubit.initProgramId(subscription.programId ?? -1);
+                    Navigator.pushNamed(
+                      context,
+                      RoutePaths.subscriptionPackageDetails,
+                      arguments: {
+                        "cubit": cubit,
+                        "planId": subscription.plan?.id,
+                        "mainId": subscription.mainSubscriptionId,
+                      },
+                    );
+                  },
+                  currency: "ج.م",
+                  courseTitle: subscription.program ?? "اشتراك البرنامج",
+                  inProgress: false,
+                  daysLeft: subscription.daysToExpire?.toString() ?? "0",
+                  expireDate:
+                      subscription.expireDate.toString().substring(0, 10),
+                  noOfStudents: subscription.studentNumber?.toString() ?? "0",
+                  onRenewTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutePaths.subscriptionPackageDetails,
+                      arguments: {
+                        "cubit": cubit,
+                        "planId": subscription.plan?.id,
+                        "mainId": subscription.mainSubscriptionId,
+                      },
+                    );
+                  },
+                  progressPercent: ((subscription.completedSessions ?? 0) +
+                          (subscription.missedSessions ?? 0))
+                      .toDouble(),
+                  subscriptionPrice: subscription.price?.toString() ?? "0",
+                );
+              },
             ),
           );
         }
@@ -74,17 +88,25 @@ class AllSubBody extends StatelessWidget {
                 Navigator.pushNamed(
                   arguments: {
                     "cubit": cubit,
-                    "subscription": librarySubscription,
-                    "type": "library",
+                    "planId": 1,
+                    "mainId": -1,
                   },
                   context,
                   RoutePaths.subscriptionPackageDetails,
                 );
               },
+              currency: "ج.م",
               courseTitle: librarySubscription.plan?.title ?? "اشتراك المكتبة",
               inProgress: false,
-              daysLeft: librarySubscription.expireDate.toString(),
-              expireDate: librarySubscription.expireDate?.toString() ?? "",
+              daysLeft: librarySubscription.expireDate != null
+                  ? librarySubscription.expireDate!
+                      .difference(DateTime.now())
+                      .inDays
+                      .toString()
+                  : "0",
+              expireDate:
+                  formatDate(librarySubscription.expireDate ?? DateTime.now())
+                      .substring(0, 10),
               noOfStudents: "جميع الطلاب",
               onRenewTap: () {
                 // Handle renew action

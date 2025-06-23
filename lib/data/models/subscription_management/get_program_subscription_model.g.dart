@@ -29,6 +29,10 @@ GetProgramSubscriptionDatumModel _$GetProgramSubscriptionDatumModelFromJson(
     GetProgramSubscriptionDatumModel()
       ..id = (json['id'] as num?)?.toInt()
       ..mainSubscriptionId = (json['main_subscription_id'] as num?)?.toInt()
+      ..plan = json['plan'] == null
+          ? null
+          : GetProgramSubscriptionPlanModel.fromJson(
+              json['plan'] as Map<String, dynamic>)
       ..programId = (json['program_id'] as num?)?.toInt()
       ..program = json['program'] as String?
       ..price = json['price'] as String?
@@ -52,6 +56,7 @@ Map<String, dynamic> _$GetProgramSubscriptionDatumModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'main_subscription_id': instance.mainSubscriptionId,
+      'plan': instance.plan?.toJson(),
       'program_id': instance.programId,
       'program': instance.program,
       'price': instance.price,
@@ -68,12 +73,49 @@ GetProgramSubscriptionInstructorModel
     _$GetProgramSubscriptionInstructorModelFromJson(
             Map<String, dynamic> json) =>
         GetProgramSubscriptionInstructorModel()
+          ..id = json['id'] as String?
           ..name = json['name'] as String?
           ..image = json['image'] as String?;
 
 Map<String, dynamic> _$GetProgramSubscriptionInstructorModelToJson(
         GetProgramSubscriptionInstructorModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'image': instance.image,
+    };
+
+GetProgramSubscriptionPlanModel _$GetProgramSubscriptionPlanModelFromJson(
+        Map<String, dynamic> json) =>
+    GetProgramSubscriptionPlanModel()
+      ..id = (json['id'] as num?)?.toInt()
+      ..title = json['title'] as String?
+      ..program = json['program'] as String?
+      ..label = json['label'] as String?
+      ..description = json['description'] as String?
+      ..currency = json['currency'] as String?
+      ..price = json['price'] as String?
+      ..discountPrice = json['discount_price'] as String?
+      ..subscripeDays = json['subscripe_days'] as String?
+      ..duration = json['duration'] as String?
+      ..numberOfSessionPerWeek = json['number_of_session_per_week'] as String?
+      ..isSpecialPlan = json['is_special_plan'] as bool?
+      ..type = json['type'] as String?;
+
+Map<String, dynamic> _$GetProgramSubscriptionPlanModelToJson(
+        GetProgramSubscriptionPlanModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'program': instance.program,
+      'label': instance.label,
+      'description': instance.description,
+      'currency': instance.currency,
+      'price': instance.price,
+      'discount_price': instance.discountPrice,
+      'subscripe_days': instance.subscripeDays,
+      'duration': instance.duration,
+      'number_of_session_per_week': instance.numberOfSessionPerWeek,
+      'is_special_plan': instance.isSpecialPlan,
+      'type': instance.type,
     };

@@ -8,6 +8,7 @@ class AllBodyListItemWidget extends StatelessWidget {
   final String daysLeft;
   final String expireDate;
   final double progressPercent;
+  final String currency;
   final VoidCallback onTap;
 
   const AllBodyListItemWidget({
@@ -20,7 +21,7 @@ class AllBodyListItemWidget extends StatelessWidget {
     required this.daysLeft,
     required this.expireDate,
     required this.progressPercent,
-    required this.onTap,
+    required this.onTap, required this.currency,
   });
 
   final String courseTitle;
@@ -92,7 +93,7 @@ class AllBodyListItemWidget extends StatelessWidget {
                         ),
                         4.ph,
                         Text(
-                          "$subscriptionPrice ج.م",
+                          "$subscriptionPrice $currency",
                           style: MainTextStyle.boldTextStyle(
                               fontSize: 14, color: MainColors.blackText),
                         ),

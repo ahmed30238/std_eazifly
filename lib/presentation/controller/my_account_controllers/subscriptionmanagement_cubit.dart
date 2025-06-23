@@ -1,14 +1,21 @@
 // Updated subscriptionmanagement_cubit.dart
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
+import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/cancel_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_library_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_program_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/renew_subscription_entity.dart';
+import 'package:eazifly_student/domain/entities/subscription_management/show_plan_entity.dart';
 import 'package:eazifly_student/domain/use_cases/cancel_subscription_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_subscription_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_subscriptions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/renew_subscription_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/show_plan_usecase.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_state.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/all_sub_body.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/sub_programs_body.dart';
@@ -22,6 +29,7 @@ class SubscriptionmanagementCubit extends Cubit<SubscriptionmanagementState> {
     required this.getLibrarySubscriptionUsecase,
     required this.cancelSubscriptionUsecase,
     required this.renewSubscriptionUsecase,
+    required this.showPlanUsecase,
   }) : super(SubscriptionmanagementInitial());
 
   static SubscriptionmanagementCubit get(BuildContext context) =>
@@ -40,6 +48,17 @@ class SubscriptionmanagementCubit extends Cubit<SubscriptionmanagementState> {
     'البرامج',
     'الاشتراكات',
   ];
+  int programId = -1;
+  void initProgramId(int programId) {
+    this.programId = programId;
+  }
+
+  int studentNumber = -1;
+  fillProgramStudentNumber(
+    int studentNumber,
+  ) {
+    this.studentNumber = studentNumber;
+  }
 
   void initTabBarController(TickerProvider vsync) {
     controller = TabController(length: tabs.length, vsync: vsync);
@@ -163,37 +182,98 @@ class SubscriptionmanagementCubit extends Cubit<SubscriptionmanagementState> {
     );
   }
 
+  File? renewOrderImage;
+  Future<void> pickOrderImageFromGallery() async {
+    final response = await pickImageFromGallery();
+    if (response != null) {
+      renewOrderImage = File(response.path);
+      log("DEBUG: Image selected: ${renewOrderImage?.path}");
+    }
+    emit(PickImageFromGallerySuccessState());
+  }
+
   bool renewSubscriptionLoader = false;
   RenewSubscriptionEntity? renewSubscriptionEntity;
   RenewSubscriptionUsecase renewSubscriptionUsecase;
 
-  Future<void> renewSubscription() async {
+  Future<void> renewSubscription({required int programId}) async {
     renewSubscriptionLoader = true;
     emit(RenewSubscriptionLoadingState());
 
-    final result = await renewSubscriptionUsecase.call(
-      parameter: RenewSubscriptionDataParameters(
-        data: RenewSubscriptionTojson(
-          programId: [],
-          planId: [],
-          startDate: "startDate",
-          studentNumber: [],
-          code: "code",
+    try {
+      String? imagePath;
+      if (renewOrderImage != null) {
+        final File file = renewOrderImage!;
+
+        if (!await file.exists()) {
+          throw Exception('Image file does not exist');
+        }
+
+        imagePath = file.path;
+      }
+      final renewData = RenewSubscriptionTojson(
+        code: codeController.text,
+        image: imagePath, // استخدم property جديد
+        planId: [planDetailsEntity?.data?.id ?? -1],
+        startDate: [DateTime.now().toString()],
+        programId: [programId],
+        studentNumber: [studentNumber],
+      );
+      final result = await renewSubscriptionUsecase.call(
+        parameter: RenewSubscriptionDataParameters(
+          data: renewData, // Pass the object as is
         ),
+      );
+
+      result.fold(
+        (failure) {
+          renewSubscriptionLoader = false;
+          emit(RenewSubscriptionErrorState(
+            errorMessage: failure.message,
+          ));
+        },
+        (data) {
+          renewSubscriptionLoader = false;
+          renewSubscriptionEntity = data;
+          emit(RenewSubscriptionSuccessState());
+        },
+      );
+    } catch (e) {
+      renewSubscriptionLoader = false;
+      log("Error in createOrder: $e");
+      emit(RenewSubscriptionErrorState(errorMessage: e.toString()));
+    }
+  }
+
+  bool showPlanLoader = false;
+  ShowPlanEntity? planDetailsEntity;
+  ShowPlanUsecase showPlanUsecase;
+
+  TextEditingController codeController = TextEditingController();
+
+  Future<void> showPlan({
+    required int planId,
+  }) async {
+    showPlanLoader = true;
+    emit(ShowPlanLoadingState());
+
+    final result = await showPlanUsecase.call(
+      parameter: ShowPlanParameters(
+        planId: planId,
       ),
     );
 
     result.fold(
       (failure) {
-        renewSubscriptionLoader = false;
-        emit(RenewSubscriptionErrorState(
+        showPlanLoader = false;
+        emit(ShowPlanErrorState(
           errorMessage: failure.message,
         ));
       },
       (data) {
-        renewSubscriptionLoader = false;
-        renewSubscriptionEntity = data;
-        emit(RenewSubscriptionSuccessState());
+        showPlanLoader = false;
+        planDetailsEntity = data;
+        emit(ShowPlanSuccessState());
       },
     );
   }
