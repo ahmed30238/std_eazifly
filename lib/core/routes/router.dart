@@ -51,6 +51,8 @@ import 'package:eazifly_student/presentation/view/layout/my_account/student_mana
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/student_management.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/complete_payment_process_view/complete_payment_process_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/confirm_payment_view/confirm_payment_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/general_complete_payment_process_view/general_complete_payment_process_view.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/general_confirm_payment_view%20copy/general_confirm_payment_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_management_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_package_details/subscription_package_details.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/change_lecturer_view.dart';
@@ -145,10 +147,8 @@ class AppRouter {
       case RoutePaths.reportsAndComplaintsViewPath:
         return createRoute(
           BlocProvider(
-            create: (context) => ChatsCubit(
-              getMessagesUsecase: sl(),
-              sendMessagesUsecase: sl()
-            ),
+            create: (context) =>
+                ChatsCubit(getMessagesUsecase: sl(), sendMessagesUsecase: sl()),
             child: const ReportsAndComplaintsView(),
           ),
         );
@@ -252,8 +252,9 @@ class AppRouter {
         );
       case RoutePaths.corrcectedAssignmentDetailsView:
         var arguments = settings.arguments as Map<String, dynamic>;
-        int assignmentId = arguments["assignmentId"] as int? ??-1;
-        String assignmentTitle = arguments["assignmentTitle"] as String? ??" null title";
+        int assignmentId = arguments["assignmentId"] as int? ?? -1;
+        String assignmentTitle =
+            arguments["assignmentTitle"] as String? ?? " null title";
         return createRoute(
           CorrcectedAssignmentDetailsView(
             assignmentId: assignmentId,
@@ -383,21 +384,38 @@ class AppRouter {
         );
       case RoutePaths.confirmPaymentView:
         var arguments = settings.arguments as Map<String, dynamic>?;
-        // int programId = arguments?["programId"] as int? ?? 0;
         int methodId = arguments?["methodId"] as int? ?? 0;
         var cubit = arguments?["cubit"] as ProgramsubscriptionplanCubit;
         return createRoute(
           MultiBlocProvider(
-              providers: [
-                BlocProvider.value(value: cubit),
-              ],
-              child: ConfirmPaymentView(
-                methodId: methodId,
-              )),
+            providers: [
+              BlocProvider.value(value: cubit),
+            ],
+            child: ConfirmPaymentView(
+              methodId: methodId,
+            ),
+          ),
+        );
+      case RoutePaths.generalConfirmPaymentView:
+        var arguments = settings.arguments as Map<String, dynamic>?;
+        int methodId = arguments?["methodId"] as int? ?? 0;
+        var cubit = arguments?["cubit"] as SubscriptionmanagementCubit;
+        return createRoute(
+          BlocProvider.value(
+            value: cubit,
+            child: GeneralConfirmPaymentView(
+              methodId: methodId,
+            ),
+          ),
         );
       case RoutePaths.subscriptionPackageDetails:
+        var arguments = settings.arguments as Map<String, dynamic>;
+        var cubit = arguments["cubit"] as SubscriptionmanagementCubit;
         return createRoute(
-          const SubscriptiopnPackageDetails(),
+          BlocProvider.value(
+            value: cubit,
+            child: const SubscriptiopnPackageDetails(),
+          ),
         );
       case RoutePaths.audioPlayListView:
         var arguments = settings.arguments as Map<String, dynamic>;
@@ -481,6 +499,21 @@ class AppRouter {
               BlocProvider.value(value: cubit),
             ],
             child: CompletePaymentProcessView(
+              itemId: itemId,
+            ),
+          ),
+        );
+      case RoutePaths.generalCompletePaymentProcessScreen:
+        var arguments = settings.arguments as Map<String, dynamic>?;
+        var cubit = arguments?["cubit"] as SubscriptionmanagementCubit;
+        int itemId = arguments?["itemId"] as int;
+        return createRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: sl<PaymentCubit>()),
+              BlocProvider.value(value: cubit),
+            ],
+            child: GeneralCompletePaymentProcessView(
               itemId: itemId,
             ),
           ),

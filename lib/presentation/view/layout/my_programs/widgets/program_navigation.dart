@@ -69,9 +69,14 @@ void _handleNotStartedLecture({
   required MyProgramsCubit cubit,
   required int programId,
 }) {
-  if (isParent) {
+  if (isParent && noOfChildren > 0) {
     // إذا كان المستخدم أب - عرض bottom sheet للأطفال
-    _showChildrenBottomSheet(context, noOfChildren, cubit, programId);
+    _showChildrenBottomSheet(
+      context,
+      noOfChildren,
+      cubit,
+      programId,
+    );
   } else {
     // إذا لم يكن أب - انتقال لتفاصيل البرنامج
     _navigateToProgramDetails(context);
@@ -86,14 +91,16 @@ void _handleNoCurrentSession({
   required MyProgramsCubit cubit,
   required int programId,
 }) {
-  if (isParent) {
+  if (isParent && noOfChildren > 0) {
     // إذا كان المستخدم أب - عرض bottom sheet للأطفال فقط
+    // if () {
     _showChildrenBottomSheet(
       context,
       noOfChildren,
       cubit,
       programId,
     );
+    // }
   } else {
     // إذا لم يكن أب - انتقال لتفاصيل البرنامج
     _navigateToProgramDetails(context);
@@ -126,7 +133,7 @@ void _navigateToProgramDetails(BuildContext context) {
     context,
     RoutePaths.lectureView,
     arguments: {
-                    "programId" : 1, // TODO
-                  },
+      "programId": 1, // TODO
+    },
   );
 }

@@ -5,8 +5,9 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 part 'payment_state.dart';
 
 class PaymentCubit extends Cubit<PaymentState> {
-  PaymentCubit({required this.getProgramPaymentMethodsUsecase})
-      : super(PaymentInitial());
+  PaymentCubit({
+    required this.getProgramPaymentMethodsUsecase,
+  }) : super(PaymentInitial());
 
   bool getProgramPaymentMethodLoader = false;
   GetProgramPaymentMethodsEntity? getProgramPaymentMethodsEntity;

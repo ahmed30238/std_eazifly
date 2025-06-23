@@ -1,4 +1,4 @@
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
+import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class RenewSubscriptionButton extends StatelessWidget {
@@ -8,6 +8,7 @@ class RenewSubscriptionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = context.read<SubscriptionmanagementCubit>();
     return CustomElevatedButton(
       text: "جدد الإشتراك الأن",
       height: 48.h,
@@ -73,7 +74,7 @@ class RenewSubscriptionButton extends StatelessWidget {
                                           Navigator.pushNamed(
                                             context,
                                             RoutePaths
-                                                .completePaymentProcessScreen,
+                                                .generalCompletePaymentProcessScreen,
                                           );
                                         },
                                         height: 40.h,
@@ -99,7 +100,13 @@ class RenewSubscriptionButton extends StatelessWidget {
                       text: "لا",
                       onPressed: () {
                         Navigator.pushNamed(
-                            context, RoutePaths.completePaymentProcessScreen);
+                          arguments: {
+                            "cubit": cubit,
+                            "itemId": 1, //TODO
+                          },
+                          context,
+                          RoutePaths.generalCompletePaymentProcessScreen,
+                        );
                       },
                       height: 40.h,
                       width: 120.w,

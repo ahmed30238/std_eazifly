@@ -1,4 +1,3 @@
-import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_package_details/widgets/item_details_card.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_package_details/widgets/package_feature_list.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_package_details/widgets/renew_subscription_button.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
@@ -30,8 +29,8 @@ class SubscriptiopnPackageDetails extends StatelessWidget {
                   ),
                 ),
                 8.ph,
-                 ItemDetailsCard(
-                 titles:  subscriptionDetails,
+                ItemDetailsCard(
+                  titles: subscriptionDetails,
                 ),
                 24.ph,
                 Text(
@@ -53,9 +52,22 @@ class SubscriptiopnPackageDetails extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "تغير الباقة",
-                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                GestureDetector(
+                  onTap: () => Navigator.pushNamed(
+                    arguments: {
+                      "programId": 1,
+                      "programTitle":
+                          "cubit.getProgramDetailsEntity?.data?.title ?? " "",
+                      "programDescription": "desc",
+                      "programImage": ""
+                    },
+                    context,
+                    RoutePaths.programSubscriptionPlan,
+                  ),
+                  child: Text(
+                    "تغير الباقة",
+                    style: MainTextStyle.boldTextStyle(fontSize: 14),
+                  ),
                 ),
                 Text(
                   "إلغاء الإشتراك",
@@ -70,7 +82,6 @@ class SubscriptiopnPackageDetails extends StatelessWidget {
     );
   }
 }
-
 
 var subscriptionDetails = [
   "إسم الباقة",
