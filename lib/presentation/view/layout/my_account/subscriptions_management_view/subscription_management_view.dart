@@ -1,3 +1,4 @@
+// Updated subscription_management_view.dart
 import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
@@ -66,6 +67,35 @@ class _SubscriptionManagmentViewState extends State<SubscriptionManagmentView>
           16.ph,
           BlocBuilder<SubscriptionmanagementCubit, SubscriptionmanagementState>(
             builder: (context, state) {
+              // Show error messages if any
+              if (state is GetProgramSubscriptionErrorState) {
+                return Center(
+                  child: Column(
+                    children: [
+                      Text("خطأ في تحميل اشتراكات البرامج: ${state.errorMessage}"),
+                      ElevatedButton(
+                        onPressed: () => cubit.changeTapbarIndex(cubit.tapbarIndex),
+                        child: const Text("إعادة المحاولة"),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              
+              if (state is GetLibrarySubscriptionErrorState) {
+                return Center(
+                  child: Column(
+                    children: [
+                      Text("خطأ في تحميل اشتراكات المكتبة: ${state.errorMessage}"),
+                      ElevatedButton(
+                        onPressed: () => cubit.changeTapbarIndex(cubit.tapbarIndex),
+                        child: const Text("إعادة المحاولة"),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              
               return cubit.body[cubit.tapbarIndex];
             },
           ),

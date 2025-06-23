@@ -25,3 +25,26 @@ class GetProgramSubscriptionErrorState extends SubscriptionmanagementState {
   final String errorMessage;
   GetProgramSubscriptionErrorState({required this.errorMessage});
 }
+
+class CancelSubscriptionLoadingState extends SubscriptionmanagementState {}
+
+class CancelSubscriptionSuccessState extends SubscriptionmanagementState {}
+
+class CancelSubscriptionErrorState extends SubscriptionmanagementState {
+  final String errorMessage;
+  CancelSubscriptionErrorState({required this.errorMessage});
+}
+
+class RenewSubscriptionLoadingState extends SubscriptionmanagementState {}
+
+class RenewSubscriptionSuccessState extends SubscriptionmanagementState {}
+
+class RenewSubscriptionErrorState extends SubscriptionmanagementState {
+  final String errorMessage;
+  final int? errorCode;
+
+  RenewSubscriptionErrorState({
+    required this.errorMessage,
+    this.errorCode,
+  });
+}

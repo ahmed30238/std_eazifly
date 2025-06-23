@@ -2,6 +2,7 @@ import 'package:eazifly_student/data/data_source/remote_data_source.dart';
 import 'package:eazifly_student/data/repo/repo.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/use_cases/add_single_item_to_fav_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/cancel_subscription_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/change_session_status_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/complete_chapter_lesson_usecase.dart';
@@ -19,6 +20,7 @@ import 'package:eazifly_student/domain/use_cases/get_favourite_list_item_using_l
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_categories_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_plans_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_library_subscription_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_list_items_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_messages_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_my_programs_usecase.dart';
@@ -30,6 +32,7 @@ import 'package:eazifly_student/domain/use_cases/get_program_assignments_usecase
 import 'package:eazifly_student/domain/use_cases/get_program_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_payment_methods_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_sessions_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_program_subscriptions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_programs_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_quiz_qustions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_session_details_usecase.dart';
@@ -131,6 +134,12 @@ class ServiceLocator {
     sl.registerLazySingleton(() => SendMessagesUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetMessagesUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => PostAssignmentUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetLibrarySubscriptionUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetProgramSubscriptionsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => CancelSubscriptionUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(

@@ -19,6 +19,9 @@ class EndPoints {
   static const changeSessionStatus = "update/session/status";
   static const getProgramSubscriptions = "user/subscriptions";
   static const getLibrarySubscriptions = "library/subscription";
+  static const renewOrder = "renew/order";
+  static String cancelSubscription({required int mainId}) =>
+      "cancel/subscription/$mainId";
   static String getMessages({required int chatId, required int offset}) =>
       "chat/get-message/?offset=$offset&chat_id=$chatId";
   static const sendMessages = "chat/send-message";

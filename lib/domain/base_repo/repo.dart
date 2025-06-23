@@ -13,6 +13,7 @@ import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_toj
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
+import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/domain/entities/add_single_item_to_fav_list_entity.dart';
 import 'package:eazifly_student/domain/entities/assign_program_review_entities.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
@@ -60,8 +61,10 @@ import 'package:eazifly_student/domain/entities/my_programs/quizzes/submit_quiz_
 import 'package:eazifly_student/domain/entities/my_programs/show_program_details_entity.dart';
 import 'package:eazifly_student/domain/entities/show_library_item_entity.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
+import 'package:eazifly_student/domain/entities/subscription_management/cancel_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_library_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_program_subscription_entity.dart';
+import 'package:eazifly_student/domain/entities/subscription_management/renew_subscription_entity.dart';
 
 abstract class BaseRepository {
   Future<Either<Failure, LoginEntity>> login({
@@ -172,12 +175,20 @@ abstract class BaseRepository {
     required int assignmentId,
     required int userId,
   });
-    Future<Either<Failure, GetMessagesEntities>> getMessages(
+  Future<Either<Failure, GetMessagesEntities>> getMessages(
       {required int chatId, required int offset});
   Future<Either<Failure, SendMessagesEntities>> sendMessages(
       {required SendMessagesTojson data});
   Future<Either<Failure, PostAssignmentEntity>> postAssignment(
       {required PostAssignmentTojson data});
-  Future<Either<Failure, GetProgramSubscriptionEntity>> getProgramSubscription();
-  Future<Either<Failure, GetLibrarySubscriptionEntity>> getLibrarySubscription();
+  Future<Either<Failure, GetProgramSubscriptionEntity>>
+      getProgramSubscription();
+  Future<Either<Failure, GetLibrarySubscriptionEntity>>
+      getLibrarySubscription();
+  Future<Either<Failure, CancelSubscriptionEntity>> cancelSubscription({
+    required int mainId,
+  });
+  Future<Either<Failure, RenewSubscriptionEntity>> renewSubscription({
+    required RenewSubscriptionTojson data,
+  });
 }

@@ -46,7 +46,10 @@ import 'package:eazifly_student/data/models/order_and_subscribe/get_program_paym
 import 'package:eazifly_student/data/models/order_and_subscribe/get_user_orders_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
+import 'package:eazifly_student/data/models/subscription_management/cancel_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/get_library_subscription_model.dart';
+import 'package:eazifly_student/data/models/subscription_management/renew_subscription_model.dart';
+import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
@@ -664,6 +667,29 @@ class Repository extends BaseRepository {
       getLibrarySubscription() async {
     try {
       final result = await baseRemoteDataSource.getLibrarySubscription();
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CancelSubscriptionModel>> cancelSubscription(
+      {required int mainId}) async {
+    try {
+      final result =
+          await baseRemoteDataSource.cancelSubscription(mainId: mainId);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RenewSubscriptionModel>> renewSubscription(
+      {required RenewSubscriptionTojson data}) async {
+    try {
+      final result = await baseRemoteDataSource.renewSubscription(data: data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

@@ -139,6 +139,7 @@ class AppRouter {
             create: (context) => SubscriptionmanagementCubit(
               getLibrarySubscriptionUsecase: sl(),
               getProgramSubscriptionUsecase: sl(),
+              cancelSubscriptionUsecase: sl(),
             ),
             child: const SubscriptionManagmentView(),
           ),

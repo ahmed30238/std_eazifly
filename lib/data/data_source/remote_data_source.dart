@@ -66,8 +66,11 @@ import 'package:eazifly_student/data/models/programs/assign_program_review_model
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
 import 'package:eazifly_student/data/models/programs/get_program_details_model.dart';
 import 'package:eazifly_student/data/models/programs/get_programs_model.dart';
+import 'package:eazifly_student/data/models/subscription_management/cancel_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/get_library_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/get_program_subscription_model.dart';
+import 'package:eazifly_student/data/models/subscription_management/renew_subscription_model.dart';
+import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 
 abstract class BaseRemoteDataSource {
   Future<LoginModel> login(String email, String password);
@@ -173,6 +176,12 @@ abstract class BaseRemoteDataSource {
   });
   Future<GetProgramSubscriptionModel> getProgramSubscriptions();
   Future<GetLibrarySubscriptionModel> getLibrarySubscription();
+  Future<CancelSubscriptionModel> cancelSubscription({
+    required int mainId,
+  });
+  Future<RenewSubscriptionModel> renewSubscription({
+    required RenewSubscriptionTojson data,
+  });
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -1201,6 +1210,41 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetLibrarySubscriptionModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<CancelSubscriptionModel> cancelSubscription(
+      {required int mainId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getLibrarySubscriptions,
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return CancelSubscriptionModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<RenewSubscriptionModel> renewSubscription(
+      {required RenewSubscriptionTojson data}) async {
+    var response = await NetworkCall()
+        .post(path: EndPoints.renewOrder, data: data.toJson());
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return RenewSubscriptionModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(
