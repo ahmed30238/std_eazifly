@@ -85,11 +85,11 @@ class LectureStateHelper {
     if (duration.inDays > 0) {
       return "${duration.inDays} ${duration.inDays == 1 ? 'يوم' : 'أيام'}";
     } else if (duration.inHours > 0) {
-      return "${duration.inHours} ${duration.inHours == 1 ? 'ساعة' : 'ساعات'}";
+      return "${duration.inHours} ${duration.inHours == 1 ? 'ساعة' : 'س'}";
     } else if (duration.inMinutes > 0) {
-      return "${duration.inMinutes} ${duration.inMinutes == 1 ? 'دقيقة' : 'دقائق'}";
+      return "${duration.inMinutes} ${duration.inMinutes == 1 ? 'دقيقة' : 'ق'}";
     } else {
-      return "${duration.inSeconds} ${duration.inSeconds == 1 ? 'ثانية' : 'ثواني'}";
+      return "${duration.inSeconds} ${duration.inSeconds == 1 ? 'ثانية' : 'ث'}";
     }
   }
 }

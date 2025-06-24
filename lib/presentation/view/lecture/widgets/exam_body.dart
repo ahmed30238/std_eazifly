@@ -21,13 +21,16 @@ class ExamBodyWidget extends StatelessWidget {
         return CustomListTile(
           onTap: () {
             log("${cubit.currentProgramId}");
-            Navigator.pushNamed(context, RoutePaths.lectureQuizzDetailsView,
-                arguments: {
-                  "programId": cubit.currentProgramId,
-                  "userId": 3, //TODO ==> login model or children id
-                  "quizId": quiz?.id,
-                  "quizTitle": quiz?.title
-                });
+            Navigator.pushNamed(
+              context,
+              RoutePaths.lectureQuizzDetailsView,
+              arguments: {
+                "programId": cubit.currentProgramId,
+                "userId": 3, //TODO ==> login model or children id
+                "quizId": quiz?.id,
+                "quizTitle": quiz?.title
+              },
+            );
           },
           iconHeight: 24.h,
           iconWidth: 24.w,

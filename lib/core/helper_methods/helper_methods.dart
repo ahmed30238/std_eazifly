@@ -275,7 +275,7 @@ String formatTimeDifference(DateTime? nextSessionDateTime) {
   if (totalHours > 0) {
     int remainingMinutes = totalMinutes % 60;
     if (remainingMinutes > 0) {
-      return "بعد $totalHours ${totalHours == 1 ? 'ساعة' : 'ساعات'} و $remainingMinutes ${remainingMinutes == 1 ? 'دقيقة' : 'دقائق'}";
+      return "بعد $totalHours ${totalHours == 1 ? 'ساعة' : 'ساعات'} و $remainingMinutes ${remainingMinutes == 1 ? 'ق' : 'ق'}";
     } else {
       return "بعد $totalHours ${totalHours == 1 ? 'ساعة' : 'ساعات'}";
     }

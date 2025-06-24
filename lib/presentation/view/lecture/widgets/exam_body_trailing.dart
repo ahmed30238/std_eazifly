@@ -92,7 +92,7 @@ BtnColors studentStatus(StudentStatus state) {
       return BtnColors(
           textColor: MainColors.yellow,
           containerColor: MainColors.lightYellow,
-          text: "معلق");
+          text: "جديد");
     case StudentStatus.newStudent:
       return BtnColors(
           textColor: MainColors.yellow,
