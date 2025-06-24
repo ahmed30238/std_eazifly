@@ -51,6 +51,7 @@ import 'package:eazifly_student/data/models/subscription_management/get_library_
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
+import 'package:eazifly_student/data/models/subscription_management/upgrade_order_model.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
@@ -701,6 +702,17 @@ class Repository extends BaseRepository {
   Future<Either<Failure, ShowPlanModel>> showPlan({required int planId}) async {
     try {
       final result = await baseRemoteDataSource.showPlan(planId: planId);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UpgradeOrderModel>> upgradeOrder(
+      {required CreateOrderTojson data}) async {
+    try {
+      final result = await baseRemoteDataSource.upgradeOrder(data: data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

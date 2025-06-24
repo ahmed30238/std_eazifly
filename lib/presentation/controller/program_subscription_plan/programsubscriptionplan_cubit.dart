@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/core/component/custom_dialog.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
@@ -23,11 +22,12 @@ import 'package:eazifly_student/domain/use_cases/get_plan_subscription_period_us
 import 'package:eazifly_student/domain/use_cases/get_plan_with_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_plans_usecase.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_state.dart';
+import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/program_subscription_plan_view.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart'
     hide InitTabBarControllerState
     hide TypeControllerIndexState;
 
-class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
+class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
   ProgramsubscriptionplanCubit({
     required this.getPlansUsecase,
     required this.filterPlansUsecase,
@@ -40,8 +40,11 @@ class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
   }) : super(ProgramsubscriptionplanInitial());
 
   static ProgramsubscriptionplanCubit get(context) => BlocProvider.of(context);
+  @override
   final TextEditingController studentNumberController = TextEditingController();
+  @override
   final TextEditingController copounController = TextEditingController();
+  @override
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   TabController? controller;
@@ -52,6 +55,28 @@ class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
   void initTabBarControllers(TickerProvider vsync) {
     _vsync = vsync;
     emit(InitTabBarControllerState());
+  }
+
+  @override
+  final TextEditingController startDate = TextEditingController();
+  // أضف هذه المتغيرات في الـ ProgramsubscriptionplanCubit
+
+  DateTime? selectedStartDate; // لحفظ التاريخ المحدد
+
+// دالة لتحديث التاريخ
+  @override
+  void updateStartDate(DateTime date) {
+    selectedStartDate = date;
+    startDate.text = "${date.year}-${date.month}-${date.day}";
+    emit(UpdateStartDateState()); // تحتاج تضيف هذا الـ state في ملف الـ states
+  }
+
+// دالة للحصول على التاريخ بصيغة مناسبة للـ API
+  String getFormattedDateForAPI() {
+    if (selectedStartDate == null) return "";
+
+    // يمكنك تغيير التنسيق حسب متطلبات الـ Backend
+    return "${selectedStartDate!.year}-${selectedStartDate!.month.toString().padLeft(2, '0')}-${selectedStartDate!.day.toString().padLeft(2, '0')}";
   }
 
   void _createTabController() {
@@ -150,13 +175,17 @@ class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
     );
   }
 
+  @override
   int planSubscribeDaysIndex = 0;
+  @override
   void changePlanIndex(int index) {
     planSubscribeDaysIndex = index;
     emit(ChangePlanIndexState());
   }
 
+  @override
   int lessonDurationIndex = 0;
+  @override
   void changelessonDurationIndex(int index) {
     lessonDurationIndex = index;
     emit(ChangeLessonDurationIndexState());
@@ -168,9 +197,12 @@ class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
   }
 
   //! #################### API ####################
+  @override
   bool getPlansLoader = false;
+  @override
   GetPlansEntity? getPlansEntity;
   GetPlansUsecase getPlansUsecase;
+  @override
   Future<void> getPlans({required int programId}) async {
     getPlansLoader = true;
     emit(GetPlansLoadingState());
@@ -256,6 +288,7 @@ class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
   FilterPlansEntity? filterPlansEntity;
   FilterPlansUsecase filterPlansUsecase;
   bool filterPlansLoader = false;
+  @override
   Future<void> filterPlans({required int programId}) async {
     filterPlansLoader = true;
     emit(FilterPlansLoadingState());
@@ -286,6 +319,7 @@ class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
   CheckCopounEntity? checkCopounEntity;
   CheckCopounUsecase checkCopounUsecase;
   bool checkCopounLoader = false;
+  @override
   Future<void> checkCopouns({required BuildContext context}) async {
     checkCopounLoader = true;
     emit(CheckCopounLoadingState());
@@ -329,24 +363,24 @@ class ProgramsubscriptionplanCubit extends Cubit<ProgramsubscriptionplanState> {
     emit(CreateOrderLoadingState());
 
     try {
-      final File file = images.first;
+      String? imagePath;
+      // إذا كان في صورة جديدة
+      if (images.isNotEmpty) {
+        final File file = images[0];
 
-      if (!await file.exists()) {
-        return;
-        // throw Exception('Image file does not exist');
+        if (!await file.exists()) {
+          throw Exception('Profile image file does not exist');
+        }
+
+        imagePath = file.path;
       }
-
-      // إنشاء MultipartFile مباشرة
-      final multipartFile = await MultipartFile.fromFile(
-        file.path,
-        filename: file.path.split('/').last,
-      );
 
       final result = await createOrderUsecase.call(
         parameter: CreateOrderParameters(
           data: CreateOrderTojson(
             code: copounController.text,
-            imageFile: multipartFile, // استخدم property جديد
+            image: imagePath!,
+            startDate: [getFormattedDateForAPI()],
             planId: [filterPlansEntity?.data?.id ?? 0],
             programId: [programId],
             studentNumber: [int.tryParse(studentNumberController.text) ?? 0],

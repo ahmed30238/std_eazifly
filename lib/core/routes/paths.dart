@@ -22,7 +22,12 @@ class RoutePaths {
   static const reportsAndComplaintsViewPath = "reportsAndComplaintsViewPath";
   static const privacyPolicyAndUsage = "privacyPolicyAndUsage";
   static const generalConfirmPaymentView = "generalConfirmPaymentView";
-  static const generalCompletePaymentProcessScreen = "generalCompletePaymentProcessScreen";
+  static const generalConfirmUpgradePaymentView =
+      "generalConfirmUpgradePaymentView";
+  static const generalCompletePaymentProcessScreen =
+      "generalCompletePaymentProcessScreen";
+  static const generalCompleteUpgradePaymentProcessScreen =
+      "generalCompleteUpgradePaymentProcessScreen";
   static const dmViewPath = "dmViewPath";
   static const chatsViewPath = "chatsViewPath";
   static const lectureReportView = "lectureReportView";
@@ -51,6 +56,7 @@ class RoutePaths {
   static const lectureHistoryView = "lectureHistoryView";
   static const explainPointsSystemView = "explainPointsSystemView";
   static const navigateToLectureView = "navigateToLectureView";
+  static const orderSubscriptionPlan = "orderSubscriptionPlan";
   static const addToLibraryPackageDetailsView =
       "addToLibraryPackageDetailsView";
   static const selectionOfEducationalCoursesView =

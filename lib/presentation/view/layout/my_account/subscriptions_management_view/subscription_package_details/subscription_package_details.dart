@@ -89,16 +89,17 @@ class _SubscriptiopnPackageDetailsState
                       GestureDetector(
                         onTap: () => Navigator.pushNamed(
                           context,
-                          RoutePaths.programSubscriptionPlan,
+                          RoutePaths.orderSubscriptionPlan,
                           arguments: {
-                            "programId": 1,
+                            "cubit" : cubit,
+                            "programId": cubit.programId,
                             "programTitle": planData.title ?? '',
                             "programDescription": planData.description ?? '',
                             "programImage": "",
                           },
                         ),
                         child: Text(
-                          "تغير الباقة",
+                          "تغبير الباقة",
                           style: MainTextStyle.boldTextStyle(fontSize: 14),
                         ),
                       ),

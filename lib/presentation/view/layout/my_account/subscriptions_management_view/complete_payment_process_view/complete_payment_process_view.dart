@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/complete_payment_process_view/widgets/payment_methods_loader.dart';
@@ -129,9 +130,11 @@ class PaymentMethodContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget? iconWidget;
     if (icon != null && icon!.isNotEmpty) {
-      iconWidget = icon!.endsWith("png")
-          ? Image.asset(icon!, height: 32.h, width: 32.w)
-          : SvgPicture.asset(icon!, height: 32.h, width: 32.w);
+      iconWidget = AvatarImage(
+        height: 32.h,
+        width: 32.w,
+        imageUrl: icon,
+      );
     }
 
     return InkWell(

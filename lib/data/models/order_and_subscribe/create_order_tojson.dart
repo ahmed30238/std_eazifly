@@ -6,6 +6,7 @@ class CreateOrderTojson {
   final MultipartFile? imageFile; // للـ MultipartFile المباشر
   final List<int>? planId;
   final List<int>? programId;
+  final List<String>? startDate;
   final List<int>? studentNumber;
 
   CreateOrderTojson({
@@ -14,6 +15,7 @@ class CreateOrderTojson {
     this.imageFile,
     this.planId,
     this.programId,
+    this.startDate,
     this.studentNumber,
   });
 
@@ -23,6 +25,7 @@ class CreateOrderTojson {
       'image': image,
       'plan_id': planId,
       'program_id': programId,
+      "startDate": startDate,
       'student_number': studentNumber,
     };
   }

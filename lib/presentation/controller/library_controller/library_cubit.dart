@@ -154,7 +154,7 @@ class LibraryCubit extends Cubit<LibraryState> {
           data: StoreFavouriteListTojson(
             items: itemsToAddToFvouriteWhenCreatingPlayList,
             title: favouriteListController.text,
-            image: imagePath, // أرسل المسار كـ String
+            image: imagePath, 
           ),
         ),
       );

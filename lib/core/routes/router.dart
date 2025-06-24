@@ -142,6 +142,14 @@ class AppRouter {
               cancelSubscriptionUsecase: sl(),
               renewSubscriptionUsecase: sl(),
               showPlanUsecase: sl(),
+              upgradeOrderUsecase: sl(),
+              getPlanSubscriptionUsecase: sl(),
+              getPlansUsecase: sl(),
+              getPlansWithDetailsUsecase: sl(),
+              filterPlansUsecase: sl(),
+              checkCopounUsecase: sl(),
+              createOrderUsecase: sl(),
+              getPaymentMethodDetailsUsecase: sl(),
             ),
             child: const SubscriptionManagmentView(),
           ),
@@ -329,6 +337,7 @@ class AppRouter {
         String programTitle = arguments?["programTitle"] ?? "";
         String programDescription = arguments?["programDescription"] ?? "";
         String programImage = arguments?["programImage"] ?? "";
+
         return createRoute(
           BlocProvider(
             create: (context) => ProgramsubscriptionplanCubit(
@@ -338,14 +347,44 @@ class AppRouter {
               checkCopounUsecase: sl(),
               getPlanSubscriptionUsecase: sl(),
               getPlansWithDetailsUsecase: sl(),
-              // getProgramPaymentMethodsUsecase: sl(),
               getPaymentMethodDetailsUsecase: sl(),
             ),
-            child: ProgramSubscriptionPlanView(
-                programId: programId,
-                programTitle: programTitle,
-                programDescription: programDescription,
-                programImage: programImage),
+            child: Builder(
+              builder: (context) {
+                return ProgramSubscriptionPlanView(
+                  cubit: context.read<ProgramsubscriptionplanCubit>(),
+                  programId: programId,
+                  programTitle: programTitle,
+                  programDescription: programDescription,
+                  programImage: programImage,
+                );
+              },
+            ),
+          ),
+        );
+      case RoutePaths.orderSubscriptionPlan:
+        var arguments = settings.arguments as Map<String, dynamic>?;
+        var cubit = arguments?["cubit"] as SubscriptionmanagementCubit;
+        int programId = arguments?["programId"] ?? "";
+        String programTitle = arguments?["programTitle"] ?? "";
+        String programDescription = arguments?["programDescription"] ?? "";
+        String programImage = arguments?["programImage"] ?? "";
+
+        return createRoute(
+          BlocProvider.value(
+            value: cubit,
+            child: Builder(
+              builder: (context) {
+                return ProgramSubscriptionPlanView(
+                  isUpgrade: true,
+                  cubit: cubit,
+                  programId: programId,
+                  programTitle: programTitle,
+                  programDescription: programDescription,
+                  programImage: programImage,
+                );
+              },
+            ),
           ),
         );
       case RoutePaths.programDetailsView:
@@ -410,6 +449,20 @@ class AppRouter {
           BlocProvider.value(
             value: cubit,
             child: GeneralConfirmPaymentView(
+              isUpgrade: false,
+              methodId: methodId,
+            ),
+          ),
+        );
+      case RoutePaths.generalConfirmUpgradePaymentView:
+        var arguments = settings.arguments as Map<String, dynamic>?;
+        int methodId = arguments?["methodId"] as int? ?? 0;
+        var cubit = arguments?["cubit"] as SubscriptionmanagementCubit;
+        return createRoute(
+          BlocProvider.value(
+            value: cubit,
+            child: GeneralConfirmPaymentView(
+              isUpgrade: true,
               methodId: methodId,
             ),
           ),
@@ -525,6 +578,23 @@ class AppRouter {
               BlocProvider.value(value: cubit),
             ],
             child: GeneralCompletePaymentProcessView(
+              isUpgrade: false,
+              itemId: itemId,
+            ),
+          ),
+        );
+      case RoutePaths.generalCompleteUpgradePaymentProcessScreen:
+        var arguments = settings.arguments as Map<String, dynamic>?;
+        var cubit = arguments?["cubit"] as SubscriptionmanagementCubit;
+        int itemId = arguments?["itemId"] as int;
+        return createRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: sl<PaymentCubit>()),
+              BlocProvider.value(value: cubit),
+            ],
+            child: GeneralCompletePaymentProcessView(
+              isUpgrade: true,
               itemId: itemId,
             ),
           ),

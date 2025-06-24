@@ -1,6 +1,5 @@
 // subscriptions_body.dart
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
-import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_state.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/all_body_list_item_widget.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -45,8 +44,8 @@ class SubscriptionsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = SubscriptionmanagementCubit.get(context);
 
-    return BlocBuilder<SubscriptionmanagementCubit,
-        SubscriptionmanagementState>(
+    return BlocBuilder(
+      bloc: cubit,
       builder: (context, state) {
         if (cubit.getLibrarySubscriptionLoader) {
           return const Center(

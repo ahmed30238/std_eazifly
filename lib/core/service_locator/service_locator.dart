@@ -52,6 +52,7 @@ import 'package:eazifly_student/domain/use_cases/show_plan_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_program_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/store_favourite_list_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/submit_quiz_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/upgrade_order_usecase.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -145,6 +146,7 @@ class ServiceLocator {
     sl.registerLazySingleton(
         () => RenewSubscriptionUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => ShowPlanUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => UpgradeOrderUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(

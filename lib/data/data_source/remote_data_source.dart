@@ -72,6 +72,7 @@ import 'package:eazifly_student/data/models/subscription_management/get_program_
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
+import 'package:eazifly_student/data/models/subscription_management/upgrade_order_model.dart';
 
 abstract class BaseRemoteDataSource {
   Future<LoginModel> login(String email, String password);
@@ -185,6 +186,9 @@ abstract class BaseRemoteDataSource {
   });
   Future<ShowPlanModel> showPlan({
     required int planId,
+  });
+  Future<UpgradeOrderModel> upgradeOrder({
+    required CreateOrderTojson data,
   });
 }
 
@@ -316,13 +320,6 @@ class RemoteDataSource extends BaseRemoteDataSource {
       {required CreateOrderTojson data}) async {
     try {
       FormData formData = FormData();
-      // formData.fields.addAll([
-      //   MapEntry("code", data.code ?? ""),
-      //   MapEntry("plan_id[]", data.planId.toString()),
-      //   MapEntry("program_id[]", data.programId.toString()),
-      //   // etc...
-      // ]);
-
       if (data.code != null && data.code!.isNotEmpty) {
         formData.fields.add(MapEntry("code", data.code!));
       }
@@ -342,6 +339,11 @@ class RemoteDataSource extends BaseRemoteDataSource {
       if (data.studentNumber != null) {
         for (var number in data.studentNumber!) {
           formData.fields.add(MapEntry("student_number[]", number.toString()));
+        }
+      }
+      if (data.startDate != null) {
+        for (var date in data.startDate!) {
+          formData.fields.add(MapEntry("start_date[]", date.toString()));
         }
       }
 
@@ -499,7 +501,6 @@ class RemoteDataSource extends BaseRemoteDataSource {
         ),
       );
 
-      // إضافة الصورة إذا كانت موجودة
       if (data.image != null && data.image!.isNotEmpty) {
         final File imageFile = File(data.image!);
         if (await imageFile.exists()) {
@@ -1278,10 +1279,10 @@ class RemoteDataSource extends BaseRemoteDataSource {
               ),
             ),
           );
-          log('Profile image added to FormData: ${data.image!.split('/').last}');
+          log('Store image added to FormData: ${data.image!.split('/').last}');
         } else {
           throw Exception(
-              'Profile image file does not exist at path: ${data.image}');
+              'Store image file does not exist at path: ${data.image}');
         }
       }
 //
@@ -1321,6 +1322,79 @@ class RemoteDataSource extends BaseRemoteDataSource {
           response?.data,
         ),
       );
+    }
+  }
+
+  @override
+  Future<UpgradeOrderModel> upgradeOrder(
+      {required CreateOrderTojson data}) async {
+    try {
+      FormData formData = FormData();
+      if (data.code != null && data.code!.isNotEmpty) {
+        formData.fields.add(MapEntry("code", data.code!));
+      }
+
+      if (data.planId != null) {
+        for (var id in data.planId!) {
+          formData.fields.add(MapEntry("plan_id[]", id.toString()));
+        }
+      }
+
+      if (data.programId != null) {
+        for (var id in data.programId!) {
+          formData.fields.add(MapEntry("program_id[]", id.toString()));
+        }
+      }
+
+      if (data.studentNumber != null) {
+        for (var number in data.studentNumber!) {
+          formData.fields.add(MapEntry("student_number[]", number.toString()));
+        }
+      }
+      if (data.startDate != null) {
+        for (var date in data.startDate!) {
+          formData.fields.add(MapEntry("start_date[]", date.toString()));
+        }
+      }
+
+      if (data.image != null && data.image!.isNotEmpty) {
+        final File imageFile = File(data.image ?? "");
+        if (await imageFile.exists()) {
+          formData.files.add(
+            MapEntry(
+              "image",
+              await MultipartFile.fromFile(
+                data.image ?? "",
+                filename: data.image?.split('/').last,
+              ),
+            ),
+          );
+          log('Image added to FormData: ${data.image?.split('/').last}');
+        } else {
+          throw Exception('Image file does not exist at path: ${data.image}');
+        }
+      }
+//
+      log('FormData fields: ${formData.fields.length}');
+      log('FormData files: ${formData.files.length}');
+
+      var response = await NetworkCall().post(
+        path: EndPoints.upgradeOrder,
+        data: formData, // استخدم formData بدلاً من data.toJson()
+        isMultipart: true,
+      );
+
+      if (response?.statusCode == 200) {
+        return UpgradeOrderModel.fromJson(response?.data);
+      } else {
+        log('Error response: ${response?.data}');
+        throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromjson(response?.data),
+        );
+      }
+    } catch (e) {
+      log('Error in createOrder remote: $e');
+      rethrow;
     }
   }
 }

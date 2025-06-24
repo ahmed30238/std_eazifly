@@ -2,7 +2,6 @@
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
-import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_state.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/all_body_list_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +14,9 @@ class SubProgramsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = SubscriptionmanagementCubit.get(context);
     
-    return BlocBuilder<SubscriptionmanagementCubit, SubscriptionmanagementState>(
+    return BlocBuilder(
+            bloc: cubit,
+
       builder: (context, state) {
         if (cubit.getProgramSubscriptionLoader) {
           return const Center(

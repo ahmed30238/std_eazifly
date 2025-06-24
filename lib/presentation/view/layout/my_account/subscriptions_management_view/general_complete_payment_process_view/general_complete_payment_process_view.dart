@@ -5,10 +5,12 @@ import 'package:eazifly_student/presentation/view/layout/my_account/subscription
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class GeneralCompletePaymentProcessView extends StatefulWidget {
+  final bool isUpgrade;
   final int itemId;
   const GeneralCompletePaymentProcessView({
     super.key,
     required this.itemId,
+    required this.isUpgrade,
   });
 
   @override
@@ -89,7 +91,9 @@ class _GeneralCompletePaymentProcessViewState
                       onTap: () {
                         Navigator.pushNamed(
                           context,
-                          RoutePaths.generalConfirmPaymentView,
+                          widget.isUpgrade
+                              ? RoutePaths.generalConfirmPaymentView
+                              : RoutePaths.generalConfirmUpgradePaymentView,
                           arguments: {
                             "cubit": subscriptionmanagementCubit,
                             "methodId": method.id ?? 0

@@ -40,7 +40,8 @@ class _SubscriptionManagmentViewState extends State<SubscriptionManagmentView>
       body: ListView(
         children: [
           16.ph,
-          BlocBuilder<SubscriptionmanagementCubit, SubscriptionmanagementState>(
+          BlocBuilder(
+            bloc: cubit,
             builder: (context, state) {
               return CustomFilledTabBar(
                   controller: cubit.controller,
@@ -65,37 +66,42 @@ class _SubscriptionManagmentViewState extends State<SubscriptionManagmentView>
             },
           ),
           16.ph,
-          BlocBuilder<SubscriptionmanagementCubit, SubscriptionmanagementState>(
+          BlocBuilder(
+            bloc: cubit,
             builder: (context, state) {
               // Show error messages if any
               if (state is GetProgramSubscriptionErrorState) {
                 return Center(
                   child: Column(
                     children: [
-                      Text("خطأ في تحميل اشتراكات البرامج: ${state.errorMessage}"),
+                      Text(
+                          "خطأ في تحميل اشتراكات البرامج: ${state.errorMessage}"),
                       ElevatedButton(
-                        onPressed: () => cubit.changeTapbarIndex(cubit.tapbarIndex),
+                        onPressed: () =>
+                            cubit.changeTapbarIndex(cubit.tapbarIndex),
                         child: const Text("إعادة المحاولة"),
                       ),
                     ],
                   ),
                 );
               }
-              
+
               if (state is GetLibrarySubscriptionErrorState) {
                 return Center(
                   child: Column(
                     children: [
-                      Text("خطأ في تحميل اشتراكات المكتبة: ${state.errorMessage}"),
+                      Text(
+                          "خطأ في تحميل اشتراكات المكتبة: ${state.errorMessage}"),
                       ElevatedButton(
-                        onPressed: () => cubit.changeTapbarIndex(cubit.tapbarIndex),
+                        onPressed: () =>
+                            cubit.changeTapbarIndex(cubit.tapbarIndex),
                         child: const Text("إعادة المحاولة"),
                       ),
                     ],
                   ),
                 );
               }
-              
+
               return cubit.body[cubit.tapbarIndex];
             },
           ),

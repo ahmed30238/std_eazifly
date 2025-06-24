@@ -2,24 +2,57 @@ import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/custom_drop_down.dart';
 import 'package:eazifly_student/core/component/shimmer_widget.dart';
 import 'package:eazifly_student/core/component/titled_form_field.dart';
-import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
-import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_state.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/widgets/lesson_duration_card_item.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/widgets/subscribtion_plan_card_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:flutter_html/flutter_html.dart';
+
+// إنشاء Abstract Class للـ Cubit
+abstract class SubscriptionPlanCubit extends Cubit<dynamic> {
+  // الخصائص المشتركة
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController studentNumberController = TextEditingController();
+  TextEditingController startDate = TextEditingController();
+  TextEditingController copounController = TextEditingController();
+
+  bool getPlansLoader = false;
+  int planSubscribeDaysIndex = 0;
+  int lessonDurationIndex = 0;
+
+  SubscriptionPlanCubit(super.initialState);
+
+  // الوظائف المشتركة التي يجب تنفيذها في كل Cubit
+  void getPlans({required int programId});
+  void changePlanIndex(int index);
+  void changelessonDurationIndex(int index);
+  void updateStartDate(DateTime date);
+  void filterPlans({required int programId});
+  void checkCopouns({required BuildContext context});
+
+  // الـ Entity المشترك (يمكن أن يكون مختلف حسب النوع)
+  dynamic get getPlansEntity;
+}
 
 class ProgramSubscriptionPlanView extends StatefulWidget {
   final int programId;
   final String programTitle;
   final String programDescription;
   final String programImage;
+  final bool isUpgrade;
+  final SubscriptionPlanCubit cubit; // تمرير الـ Cubit كـ parameter
+  final String appBarTitle; // عنوان مخصص للـ AppBar
+  final String leadingText; // نص الـ leading مخصص
+
   const ProgramSubscriptionPlanView({
     super.key,
     required this.programId,
     required this.programDescription,
     required this.programTitle,
     required this.programImage,
+    required this.cubit, // إضافة الـ Cubit المطلوب
+    this.appBarTitle = "تفاصيل البرنامج", // قيمة افتراضية
+    this.leadingText = "البرامج",
+    this.isUpgrade = false, // قيمة افتراضية
   });
 
   @override
@@ -29,22 +62,23 @@ class ProgramSubscriptionPlanView extends StatefulWidget {
 
 class _ProgramSubscriptionPlanViewState
     extends State<ProgramSubscriptionPlanView> {
-  late ProgramsubscriptionplanCubit cubit;
+  late SubscriptionPlanCubit cubit;
+
   @override
   void initState() {
-    cubit = ProgramsubscriptionplanCubit.get(context);
+    cubit = widget.cubit; // استخدام الـ Cubit الممرر
     cubit.getPlans(programId: widget.programId);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var lang = context.loc!;
+    // var lang = context.loc!;
     return Scaffold(
       appBar: CustomAppBar(
         context,
-        mainTitle: "تفاصيل البرنامج",
-        leadingText: lang.thePrograms,
+        mainTitle: widget.appBarTitle, // استخدام العنوان المخصص
+        leadingText: widget.leadingText, // استخدام النص المخصص
         isCenterTitle: true,
       ),
       body: Column(
@@ -61,7 +95,6 @@ class _ProgramSubscriptionPlanViewState
                     width: double.infinity,
                     radius: 16.r,
                     imageUrl: widget.programImage,
-                    // fit: BoxFit.cover,
                   ),
                   16.ph,
                   SizedBox(
@@ -73,13 +106,6 @@ class _ProgramSubscriptionPlanViewState
                           widget.programTitle,
                           style: MainTextStyle.boldTextStyle(fontSize: 14),
                         ),
-                        // TextedContainer(
-                        //   text: "540 ج.م",
-                        //   radius: 8.r,
-                        //   width: 67.w,
-                        //   containerColor: MainColors.lightblue,
-                        //   textColor: MainColors.blueTextColor,
-                        // ),
                       ],
                     ),
                   ),
@@ -100,29 +126,23 @@ class _ProgramSubscriptionPlanViewState
                   12.ph,
                   SizedBox(
                     height: 69.h,
-                    child: BlocBuilder<ProgramsubscriptionplanCubit,
-                        ProgramsubscriptionplanState>(
+                    child: BlocBuilder(
                       bloc: cubit,
                       builder: (context, state) {
-                        // حالة التحميل
                         if (cubit.getPlansLoader) {
                           return const Center(
-                            child:
-                                CircularProgressIndicator(), // أو أي Loader تفضله
+                            child: CircularProgressIndicator(),
                           );
                         }
 
-                        // حالة الخطأ
-                        if (state is GetPlansErrorState) {
-                          return Center(
-                            child: Text('حدث خطأ: ${state.errorMessage}'),
+                        if (state.toString().contains('Error')) {
+                          return const Center(
+                            child: Text('حدث خطأ في تحميل البيانات'),
                           );
                         }
 
-                        // حالة النجاح
                         if (!cubit.getPlansLoader) {
-                          final subscribeDays =
-                              cubit.getPlansEntity?.data?.subscripeDays;
+                          final subscribeDays = _getSubscribeDays();
 
                           return ListView.separated(
                             scrollDirection: Axis.horizontal,
@@ -141,7 +161,6 @@ class _ProgramSubscriptionPlanViewState
                           );
                         }
 
-                        // الحالة الافتراضية
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
@@ -164,8 +183,7 @@ class _ProgramSubscriptionPlanViewState
                     child: BlocBuilder(
                       bloc: cubit,
                       builder: (context, state) {
-                        final lessonDuration =
-                            cubit.getPlansEntity?.data?.duration;
+                        final lessonDuration = _getLessonDuration();
                         return ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) =>
@@ -207,7 +225,7 @@ class _ProgramSubscriptionPlanViewState
                     bloc: cubit,
                     builder: (context, state) {
                       if (cubit.getPlansLoader) {
-                        SizedBox(
+                        return SizedBox(
                           width: 343.w,
                           height: 48.h,
                           child: const ShimmerWidget(),
@@ -217,28 +235,56 @@ class _ProgramSubscriptionPlanViewState
                         hintText: "عدد الحصص أسبوعيا",
                         validator: (val) =>
                             val == null ? "من فضلك اختر الحصص" : null,
-                        items:
-                            cubit.getPlansEntity?.data?.numberOfSessionPerWeek!
-                                .map(
-                                  (e) => DropdownMenuItem(
-                                    value: e,
-                                    child: Text(e),
-                                  ),
-                                )
-                                .toList(),
+                        items: _getNumberOfSessionPerWeek()
+                            ?.map(
+                              (e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(e),
+                              ),
+                            )
+                            .toList(),
                         onChanged: (val) {
                           cubit.filterPlans(programId: widget.programId);
                         },
                       );
                     },
                   ),
+                  16.ph,
+                  GestureDetector(
+                    onTap: () async {
+                      DateTime? selectedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(2030),
+                        locale: const Locale('ar', 'SA'),
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: const ColorScheme.light(
+                                primary: Colors.blue,
+                                onPrimary: Colors.white,
+                                onSurface: Colors.black,
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
+                      );
 
-                  // 16.ph,
-                  // TitledFormFieldItem(
-                  //   titleText: "تاريخ البدء",
-                  //   iconWidget: 0.ph,
-                  //   formfieldHintText: "12-5-2025",
-                  // ),
+                      if (selectedDate != null) {
+                        cubit.updateStartDate(selectedDate);
+                      }
+                    },
+                    child: TitledFormFieldItem(
+                      titleText: "تاريخ البدء",
+                      iconWidget: 0.ph,
+                      formfieldHintText: "12-5-2025",
+                      controller: cubit.startDate,
+                      validator: customValidation,
+                      enabled: false,
+                    ),
+                  ),
                   16.ph,
                   const CustomHorizontalDivider(),
                   16.ph,
@@ -282,21 +328,9 @@ class _ProgramSubscriptionPlanViewState
                             );
                           }
                         },
-                        // child: Text(
-                        //   ,
-                        //   style: MainTextStyle.boldTextStyle(
-                        //     fontSize: 12,
-                        //   ),
-                        // ),
                       ),
                     ],
                   ),
-                  // 16.ph,
-                  // TitledFormFieldItem(
-                  //   titleText: "كوبون مشاركة صديق",
-                  //   iconWidget: 0.ph,
-                  //   formfieldHintText: "ASD151",
-                  // ),
                   16.ph,
                   SizedBox(
                     height: 21.h,
@@ -361,7 +395,9 @@ class _ProgramSubscriptionPlanViewState
                     "itemId": widget.programId,
                   },
                   context,
-                  RoutePaths.completePaymentProcessScreen,
+                  widget.isUpgrade
+                      ? RoutePaths.generalCompletePaymentProcessScreen
+                      : RoutePaths.completePaymentProcessScreen,
                 );
               }
             },
@@ -373,6 +409,32 @@ class _ProgramSubscriptionPlanViewState
         ],
       ),
     );
+  }
+
+  // Helper methods لاستخراج البيانات من الـ Entity المختلف
+  List<String>? _getSubscribeDays() {
+    final entity = cubit.getPlansEntity;
+    // تحقق من نوع الـ Entity وقم باستخراج البيانات المناسبة
+    if (entity?.data != null) {
+      return entity.data.subscripeDays;
+    }
+    return null;
+  }
+
+  List<String>? _getLessonDuration() {
+    final entity = cubit.getPlansEntity;
+    if (entity?.data != null) {
+      return entity.data.duration;
+    }
+    return null;
+  }
+
+  List<String>? _getNumberOfSessionPerWeek() {
+    final entity = cubit.getPlansEntity;
+    if (entity?.data != null) {
+      return entity.data.numberOfSessionPerWeek;
+    }
+    return null;
   }
 }
 

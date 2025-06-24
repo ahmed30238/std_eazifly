@@ -1,6 +1,5 @@
 // all_sub_body.dart - Updated to fetch all subscriptions
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
-import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_state.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/all_body_list_item_widget.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -11,8 +10,8 @@ class AllSubBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = SubscriptionmanagementCubit.get(context);
 
-    return BlocBuilder<SubscriptionmanagementCubit,
-        SubscriptionmanagementState>(
+    return BlocBuilder(
+      bloc: cubit,
       builder: (context, state) {
         if (cubit.getProgramSubscriptionLoader ||
             cubit.getLibrarySubscriptionLoader) {
@@ -36,7 +35,7 @@ class AllSubBody extends StatelessWidget {
                   onTap: () {
                     cubit.fillProgramStudentNumber(
                         int.tryParse(subscription.studentNumber ?? "-1") ?? -1);
-                    cubit.initProgramId(subscription.programId ?? -1);
+                    cubit.fillProgramId(subscription.programId ?? -1);
                     Navigator.pushNamed(
                       context,
                       RoutePaths.subscriptionPackageDetails,

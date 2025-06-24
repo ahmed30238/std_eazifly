@@ -2,10 +2,12 @@ import 'package:eazifly_student/presentation/controller/my_account_controllers/s
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class GeneralConfirmPaymentView extends StatefulWidget {
+  final bool isUpgrade;
   final int methodId;
   const GeneralConfirmPaymentView({
     super.key,
     required this.methodId,
+    required this.isUpgrade,
   });
 
   @override
@@ -287,11 +289,20 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
                   : () async {
                       if (subscriptionmanagementCubit.renewOrderImage == null) {
                         delightfulToast(
-                            message: "يجب رفع صورة التحويل", context: context);
-                      } else {
-                        await subscriptionmanagementCubit.renewSubscription(
-                          programId: subscriptionmanagementCubit.programId,
+                          message: "يجب رفع صورة التحويل",
+                          context: context,
                         );
+                      } else {
+                        if (widget.isUpgrade) {
+                          await subscriptionmanagementCubit.upgradeOrder(
+                            context: context,
+                            programId: subscriptionmanagementCubit.programId,
+                          );
+                        } else {
+                          await subscriptionmanagementCubit.renewSubscription(
+                            programId: subscriptionmanagementCubit.programId,
+                          );
+                        }
                       }
                     },
               color: MainColors.blueTextColor,
