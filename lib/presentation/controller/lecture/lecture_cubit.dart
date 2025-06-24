@@ -722,10 +722,6 @@ class LectureCubit extends Cubit<LectureState> {
       },
     );
   }
-  // إضافة هذه الدالة في LectureCubit class
-
-  /// دالة لحساب حالة الطالب بناءً على العلامات
-  /// يمكن استخدامها في أي مكان في التطبيق
   static StudentStatus calculateStudentStatus({
     required dynamic totalMark,
     required dynamic fullMark,
@@ -816,10 +812,6 @@ class LectureCubit extends Cubit<LectureState> {
   bool postAssignmentLoader = false;
 
   TextEditingController assignmentAnswerController = TextEditingController();
-//   import 'dart:io';
-// import 'package:file_picker/file_picker.dart';
-// import 'package:flutter/services.dart';
-
   File? selectedFile;
 
   Future<void> pickFile() async {
@@ -847,8 +839,6 @@ class LectureCubit extends Cubit<LectureState> {
 
   Future<void> postAssignment({
     required String sessionAssignmentId,
-    // File? file,
-    // File? voiceNote,
   }) async {
     try {
       postAssignmentLoader = true;
@@ -856,6 +846,7 @@ class LectureCubit extends Cubit<LectureState> {
 
       PostAssignmentTojson data = PostAssignmentTojson(
         sessionAssignmentId: sessionAssignmentId,
+        studentAnswer: assignmentAnswerController.text,
         file: selectedFile!,
         voiceNote: voiceNote,
       );
@@ -982,7 +973,6 @@ class LectureCubit extends Cubit<LectureState> {
       // بدء التشغيل من المصدر الخارجي
       await audioPlayer.play(UrlSource(audioUrl));
       isPlaying = true;
-      var currentAudioUrl = audioUrl; // حفظ رابط الصوت الحالي
       emit(PlayExternalAudioState());
 
       // إعداد مستمع لانتهاء التشغيل

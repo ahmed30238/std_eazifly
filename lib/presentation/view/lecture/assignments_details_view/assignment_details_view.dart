@@ -36,7 +36,7 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
           leadingText: "الاختبارات",
           isCenterTitle: true,
         ),
-        body: Column(
+        body: ListView(
           children: [
             16.ph,
             BlocBuilder(
@@ -62,7 +62,7 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
                       ),
                     ),
                     Text(
-                      "${assignmentDetails?.mark} / ...",
+                      "${assignmentDetails?.mark ?? "0"} / ...",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
                         color: MainColors.blackText,
@@ -89,8 +89,8 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
                 );
               },
             ),
-            const Spacer(),
-            8.ph,
+            // const Spacer(),
+            48.ph,
             CustomElevatedButton(
               text: "تسليم الإجابات",
               width: 343.w,
@@ -101,7 +101,7 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
                   sessionAssignmentId: widget.assignmentId.toString(),
                 );
               },
-            ),
+            ).center(),
             32.ph,
           ],
         ));
@@ -121,9 +121,7 @@ class AssigmentItemContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     var cubit = context.read<LectureCubit>();
     return Container(
-      constraints: BoxConstraints(
-        minHeight: 190.h,
-      ),
+      height: 450.h,
       width: double.infinity,
       color: MainColors.veryLightGrayFormField,
       child: Padding(
@@ -147,6 +145,7 @@ class AssigmentItemContainer extends StatelessWidget {
                 style: MainTextStyle.mediumTextStyle(fontSize: 14),
               ),
             ),
+            const Spacer(),
             Text(
               "مرفقات الطالب",
               style: MainTextStyle.mediumTextStyle(fontSize: 12),
@@ -178,8 +177,11 @@ class AssigmentItemContainer extends StatelessWidget {
                   },
                   child: SvgPicture.asset(
                     Assets.iconsMicrophone,
-                    color: cubit.isRecording ? Colors.red : Colors.grey,
-                  ), // أيقونة الميكروفون العادية
+                    colorFilter: ColorFilter.mode(
+                      cubit.isRecording ? Colors.red : Colors.grey,
+                      BlendMode.srcIn,
+                    ),
+                  ),
                 ),
                 8.pw,
                 Material(
@@ -294,8 +296,11 @@ Widget _buildAttachments(
                             ),
                           ),
                         ] else ...[
-                          Icon(Icons.insert_drive_file,
-                              size: 40.sp, color: Colors.blue),
+                          Icon(
+                            Icons.insert_drive_file,
+                            size: 40.sp,
+                            color: Colors.blue,
+                          ),
                           4.ph,
                           Text(
                             "ملف",
@@ -367,7 +372,11 @@ void _handleAttachmentTap({
 }) {
   if (fileUrl.toLowerCase().endsWith('.pdf')) {
     cubit.openFile(
-        fileUrl: fileUrl, fileType: fileType, context: context, title: title);
+      fileUrl: fileUrl,
+      fileType: fileType,
+      context: context,
+      title: title,
+    );
 
     // افتح ملف PDF باستخدام PDF viewer
     // يمكن استخدام حزمة مثل: flutter_pdfview
