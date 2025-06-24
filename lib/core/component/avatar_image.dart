@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class AvatarImage extends StatelessWidget {
   final String? imageUrl;
+  final File? imageFile;
   final double? width;
   final double? height;
   final double? radius;
@@ -19,6 +21,7 @@ class AvatarImage extends StatelessWidget {
   const AvatarImage({
     super.key,
     this.imageUrl,
+    this.imageFile,
     this.width,
     this.height,
     this.radius,
@@ -29,13 +32,36 @@ class AvatarImage extends StatelessWidget {
     this.fallbackAssetPath = Assets.imagesPngPersona, // تأكد من وجودها
   });
 
-  bool _isSvgImage(String url) {
-    return url.toLowerCase().endsWith('.svg') || url.contains('.svg');
+  bool _isSvgImage(String path) {
+    return path.toLowerCase().endsWith('.svg') || path.contains('.svg');
+  }
+
+  bool _isFilePath(String path) {
+    return path.startsWith('/') || 
+           path.contains('\\') || 
+           path.startsWith('file://') ||
+           (Platform.isWindows && path.contains(':'));
   }
 
   Widget _buildImage() {
+    // إعطاء الأولوية للملف المحلي إذا كان متاحاً
+    if (imageFile != null) {
+      if (_isSvgImage(imageFile!.path)) {
+        return SvgPicture.file(
+          imageFile!,
+          fit: BoxFit.cover,
+        );
+      } else {
+        return Image.file(
+          imageFile!,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => _buildFallbackImage(),
+        );
+      }
+    }
+
     final url = imageUrl ?? "https://hossam.mallahsoft.com/storage/client/instructor/1742280038.png";
-    
+        
     // Check if it's an asset path
     if (url.startsWith('assets/') || url.startsWith('asset/')) {
       if (_isSvgImage(url)) {
@@ -51,6 +77,23 @@ class AvatarImage extends StatelessWidget {
       }
     }
     
+    // Check if it's a local file path
+    if (_isFilePath(url)) {
+      final file = File(url);
+      if (_isSvgImage(url)) {
+        return SvgPicture.file(
+          file,
+          fit: BoxFit.cover,
+        );
+      } else {
+        return Image.file(
+          file,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => _buildFallbackImage(),
+        );
+      }
+    }
+        
     // Handle network images
     if (_isSvgImage(url)) {
       return SvgPicture.network(

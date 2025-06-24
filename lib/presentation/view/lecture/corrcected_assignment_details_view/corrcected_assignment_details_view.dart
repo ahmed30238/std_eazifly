@@ -44,7 +44,49 @@ class _CorrcectedAssignmentDetailsViewState
           16.ph,
           BlocBuilder<LectureCubit, LectureState>(
             builder: (context, state) {
-              var assignment = cubit.getAssignmentDetailsEntity?.data;
+              final cubit = LectureCubit.get(context);
+              final assignment = cubit.getAssignmentDetailsEntity?.data;
+
+              // حالة التحميل
+              if (cubit.getAssignmentDetailsLoader) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              // حالة الخطأ
+              if (state is GetAssignmentDetailsErrorState) {
+                return Center(
+                  child: Text(
+                    'حدث خطأ في تحميل البيانات',
+                    style: MainTextStyle.regularTextStyle(
+                        color: Colors.red, fontSize: 12),
+                  ),
+                );
+              }
+
+              // حالة عدم وجود بيانات
+              if (assignment == null) {
+                return Center(
+                  child: Text(
+                    'لا توجد بيانات متاحة',
+                    style: MainTextStyle.regularTextStyle(fontSize: 12),
+                  ),
+                );
+              }
+
+              // حساب النتيجة
+              final mark = int.tryParse(assignment.mark ?? "0") ?? 0;
+              final isCorrected = assignment.status == "corrected";
+              final isPassed = isCorrected && mark >= 5;
+              final statusText = isCorrected
+                  ? (isPassed ? "ناجح" : "راسب")
+                  : "لم يتم التصحيح بعد";
+              final statusColor = isCorrected
+                  ? (isPassed ? MainColors.greenTeal : MainColors.red)
+                  : MainColors.grayTextColors;
+              final bgColor = isCorrected
+                  ? (isPassed ? MainColors.lightgreenTeal : MainColors.lightRed)
+                  : MainColors.lightGray;
+
               return StudentStats(
                 horizontalPadding: 0,
                 titleText: const [
@@ -53,29 +95,41 @@ class _CorrcectedAssignmentDetailsViewState
                   "حالة الإمتحان"
                 ],
                 downSideWidgets: [
+                  // تاريخ التسليم
                   Text(
-                    formatDate(assignment?.createdAt ?? DateTime.now())
-                        .substring(0, 10),
+                    assignment.createdAt?.toString().substring(0, 10) ?? "-",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
                       color: MainColors.blackText,
                     ),
                   ),
+
+                  // درجة الاختبار
                   Text(
-                    "${assignment?.mark} / 100",
+                    '${assignment.mark ?? "0"} / 10',
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
                       color: MainColors.blackText,
                     ),
                   ),
-                  TextedContainer(
-                    // TODO ناجح او راسب
-                    width: 63.w,
+
+                  // حالة الاختبار
+                  Container(
+                    width: 120.w,
                     height: 26.h,
-                    text: assignment?.mark ?? "",
-                    textColor: MainColors.greenTeal,
-                    containerColor: MainColors.lightgreenTeal,
-                    radius: 55.r,
+                    decoration: BoxDecoration(
+                      color: bgColor,
+                      borderRadius: BorderRadius.circular(55.r),
+                    ),
+                    child: Center(
+                      child: Text(
+                        statusText,
+                        style: MainTextStyle.mediumTextStyle(
+                          fontSize: 12,
+                          color: statusColor,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               );
@@ -87,32 +141,26 @@ class _CorrcectedAssignmentDetailsViewState
               var assignment = cubit.getAssignmentDetailsEntity?.data;
 
               return QuestionAndSolutionContainer(
-                fullTeacherAssessment: true,
-                text: assignment?.text ?? "",
+                isCorrected: assignment?.status == "corrected", // أو false إذا لم يتم التصحيح
                 title: assignment?.title ?? "",
-                stdImages: "",
-                stdImagesLength: 2,
-                teacherAssessment: "تقييم المعلم",
-                instructorImgs: "",
-                instructorImgsLength: 2,
-                // index: 0,
+                answerText: assignment?.text ?? "",
+                teacherFeedback: "إجابة صحيحة، جيد جداً",
+                studentAttachments: [
+                  // assignment?.userVoiceNote ?? "",
+                  assignment?.file ?? ""
+                ],
+                // teacherAttachments: [
+                //   "https://example.com/teacher_feedback.pdf"
+                // ],
+                studentVoiceNote: assignment?.userVoiceNote,
+                teacherVoiceNote: assignment?.instructorVoiceNote,
+                studentVoiceDuration: 30.0,
+                teacherVoiceDuration: 45.0,
+                mark: "${assignment?.mark}",
+                fullMark: "10",
               );
             },
           ),
-          // Expanded(
-          //   child: ListView.separated(
-          //     physics: const BouncingScrollPhysics(),
-          //     padding: EdgeInsets.only(
-          //       bottom: 16.h,
-          //     ),
-          //     itemBuilder: (context, index) => QuestionAndSolutionContainer(
-          //       fullTeacherAssessment: index == 1,
-          //       index: index,
-          //     ),
-          //     separatorBuilder: (context, index) => 16.ph,
-          //     itemCount: 2,
-          //   ),
-          // ),
         ],
       ),
     );

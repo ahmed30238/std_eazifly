@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/core/component/spline_area_chart.dart';
 import 'package:eazifly_student/core/component/stats_area.dart';
@@ -45,6 +46,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
@@ -964,6 +966,135 @@ class LectureCubit extends Cubit<LectureState> {
     }
   }
 
+  /// تشغيل تسجيل صوتي من URL خارجي
+  Future<void> playExternalSourceAudio(String audioUrl) async {
+    try {
+      // إذا كان هناك تسجيل مشغّل حالياً، أوقفه أولاً
+      if (isPlaying) {
+        await audioPlayer.stop();
+      }
+
+      // تحقق من اتصال الإنترنت إذا كان URL خارجي
+      if (audioUrl.startsWith('http')) {
+        // يمكنك إضافة تحقق من الاتصال هنا إذا لزم الأمر
+      }
+
+      // بدء التشغيل من المصدر الخارجي
+      await audioPlayer.play(UrlSource(audioUrl));
+      isPlaying = true;
+      var currentAudioUrl = audioUrl; // حفظ رابط الصوت الحالي
+      emit(PlayExternalAudioState());
+
+      // إعداد مستمع لانتهاء التشغيل
+      audioPlayer.onPlayerComplete.listen((_) {
+        isPlaying = false;
+        emit(StopExternalAudioState());
+      });
+
+      // إعداد مستمع للأخطاء
+      // audioPlayer.onPlayerError.listen((error) {
+      //   log('Error playing external audio: $error');
+      //   isPlaying = false;
+      //   emit(AudioErrorState(error: 'فشل تشغيل التسجيل'));
+      // });
+    } catch (e) {
+      log('Exception in playExternalSourceAudio: $e');
+      isPlaying = false;
+      emit(AudioErrorState());
+    }
+  }
+
+  ///! files
+  final Map<String, bool> _isDownloading = {};
+  final Map<String, double> _downloadingProgress = {};
+  final Map<String, String> _downloadedFiles =
+      {}; // key: fileUrl, value: local path
+  Future<void> _downloadAndOpenPdf(
+      {required String fileUrl,
+      required String title,
+      required BuildContext context}) async {
+    try {
+      _isDownloading[fileUrl] = true;
+      _downloadingProgress[fileUrl] = 0.0;
+      emit(DownLoadPdfLoadingState());
+
+      final directory = await getApplicationDocumentsDirectory();
+      final fileName = "${title.replaceAll(RegExp(r'[^\w\s-]'), "")}.pdf";
+      final filePath = "${directory.path}/$fileName";
+
+      Dio dio = Dio();
+      await dio.download(
+        fileUrl,
+        filePath,
+        onReceiveProgress: (count, total) {
+          if (total != -1) {
+            _downloadingProgress[fileUrl] = count / total;
+            emit(DownLoadPdfLoadingState());
+          }
+        },
+      );
+      _downloadedFiles[fileUrl] = filePath;
+      _isDownloading[fileUrl] = false;
+      _downloadingProgress[fileUrl] = 1.0;
+      emit(DownLoadPdfSuccessState());
+      if (context.mounted) {
+        return;
+      }
+      await _openDownloadedFile(filePath: filePath, context: context);
+    } catch (e) {
+      _isDownloading[fileUrl] = false;
+      _downloadingProgress.remove(fileUrl);
+      emit(DownLoadPdfErrorState());
+      delightfulToast(message: 'فشل في تحميل الملف: $e', context: context);
+    }
+  }
+
+  Future<void> _openDownloadedFile(
+      {required String filePath, required BuildContext context}) async {
+    try {
+      final result = await OpenFile.open(filePath);
+      if (result.type != ResultType.done) {
+        delightfulToast(
+            message: 'لا يوجد تطبيق مناسب لفتح هذا الملف', context: context);
+      }
+    } catch (e) {
+      if (context.mounted) {
+        return;
+      }
+      delightfulToast(message: 'فشل في فتح الملف: $e', context: context);
+    }
+  }
+
+  Future<void> openFile({
+    required String fileUrl,
+    required String fileType,
+    required BuildContext context,
+    required String title,
+  }) async {
+    try {
+      if (_downloadedFiles.containsKey(fileUrl)) {
+        await _openDownloadedFile(
+            filePath: _downloadedFiles[fileUrl]!, context: context);
+        return;
+      }
+
+      switch (fileType.toLowerCase()) {
+        case "pdf":
+          await _downloadAndOpenPdf(
+              fileUrl: fileUrl, title: title, context: context);
+          break;
+
+        default:
+          delightfulToast(context: context, message: "نوع الملف غير مدعوم");
+      }
+    } catch (e) {
+      delightfulToast(
+        message: 'حدث خطأ في فتح الملف: $e',
+        context: context,
+      );
+    }
+  }
+
 // إيقاف التشغيل
   Future<void> stopPlaying() async {
     await audioPlayer.stop();
@@ -985,10 +1116,12 @@ class LectureCubit extends Cubit<LectureState> {
     return super.close();
   }
 
-  void removeAttachedFile() {
+  void removeAttachedFile(int index) {
     selectedFile = null;
     emit(AssignmentFileRemovedState());
   }
+
+  // void removeAttachment(int index) {}
 }
 
 // Future<void> pickFile() async {
