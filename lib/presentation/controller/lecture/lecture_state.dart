@@ -73,6 +73,7 @@ class GetUserReportsErrorState extends LectureState {
   final String errorMessage;
   GetUserReportsErrorState({required this.errorMessage});
 }
+
 class PostAssignmentInitialState extends LectureState {}
 
 class PostAssignmentLoadingState extends LectureState {}
@@ -80,6 +81,7 @@ class PostAssignmentLoadingState extends LectureState {}
 class PostAssignmentSuccessState extends LectureState {
   PostAssignmentSuccessState();
 }
+
 class PickImageFromGallerySuccessState extends LectureState {
   PickImageFromGallerySuccessState();
 }
@@ -164,3 +166,25 @@ class TabEmptyState extends LectureState {
   final String message;
   TabEmptyState({required this.tabIndex, required this.message});
 }
+
+class GetGalleryImagesState extends LectureState {}
+
+class RecordState extends LectureState {}
+
+class RecordSecondState extends LectureState {}
+
+class AssignmentFileRemovedState extends LectureState {}
+
+class RecordThirdState extends LectureState {}
+
+class StartRecordState extends LectureState {}
+
+class PickedFileSuccessfully extends LectureState {}
+
+class StopRecordState extends LectureState {}
+
+class StopPlayingRecordState extends LectureState {}
+
+class PlayRecordState extends LectureState {}
+class RecordErrorState extends LectureState {}
+class DeleteRecordState extends LectureState {}

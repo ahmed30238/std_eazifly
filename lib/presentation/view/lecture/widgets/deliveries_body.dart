@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/core/component/separated_widget.dart';
 import 'package:eazifly_student/core/enums/task_deliver_status.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
@@ -28,14 +30,26 @@ class DeliveriesBodyWidget extends StatelessWidget {
         bool isDelivered = _isAssignmentDelivered(assignments?[index].status);
 
         return CustomListTile(
-          onTap: () => Navigator.pushNamed(
-            arguments: {
-              "assignmentId": assignment?.id,
-              "assignmentTitle": assignment?.title
-            },
-            context,
-            RoutePaths.corrcectedAssignmentDetailsView,
-          ),
+          onTap: () {
+            log("this is assignment id ${assignment?.id}");
+            log("this is assignment id ${assignment?.isUploaded}");
+            Navigator.pushNamed(
+              arguments: assignment?.isUploaded ?? true
+                  ? {
+                      "assignmentId": assignment?.id,
+                      "assignmentTitle": assignment?.title
+                    }
+                  : {
+                      "cubit": cubit,
+                      "assignmentId": assignment?.id,
+                      "assignmentTitle": assignment?.title
+                    },
+              context,
+              assignment?.isUploaded ?? true
+                  ? RoutePaths.corrcectedAssignmentDetailsView
+                  : RoutePaths.assignmentDetailsView,
+            );
+          },
           title: assignment?.title ?? "مهمة غير محددة",
           subTitle: _formatDate(date?.toString()),
           iconContainerColor: MainColors.white,

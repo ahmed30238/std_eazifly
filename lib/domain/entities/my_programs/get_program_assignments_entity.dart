@@ -42,6 +42,8 @@ class ProgramAssignmentEntity {
 
   @JsonKey(name: "file")
   String? file;
+  @JsonKey(name: "is_uploaded")
+  bool? isUploaded;
 
   @JsonKey(name: "file_type")
   String? fileType;

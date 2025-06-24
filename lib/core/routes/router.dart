@@ -11,6 +11,7 @@ import 'package:eazifly_student/presentation/controller/corrected_quiz_controlle
 import 'package:eazifly_student/presentation/controller/goal_details_controller/goal_details_cubit.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_program_details_controller/programdetails_cubit.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture_quiz_details_controller/lecturequiz_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/meetings_controller/meeting_cubit.dart';
@@ -261,8 +262,19 @@ class AppRouter {
           const ProgramGoalsView(),
         );
       case RoutePaths.assignmentDetailsView:
+        var arguments = settings.arguments as Map<String, dynamic>;
+        var cubit = arguments["cubit"] as LectureCubit;
+        int assignmentId = arguments["assignmentId"] as int? ?? -1;
+        String assignmentTitle =
+            arguments["assignmentTitle"] as String? ?? " null title";
         return createRoute(
-          const AssignmentDetailsView(),
+          BlocProvider.value(
+            value: cubit,
+            child: AssignmentDetailsView(
+              assignmentId: assignmentId,
+              assignmentTitle: assignmentTitle,
+            ),
+          ),
         );
       case RoutePaths.corrcectedAssignmentDetailsView:
         var arguments = settings.arguments as Map<String, dynamic>;

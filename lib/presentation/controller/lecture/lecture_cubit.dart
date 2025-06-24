@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/core/component/spline_area_chart.dart';
 import 'package:eazifly_student/core/component/stats_area.dart';
@@ -39,9 +40,13 @@ import 'package:eazifly_student/presentation/view/lecture/widgets/notes_body.dar
 import 'package:eazifly_student/presentation/view/lecture/widgets/report_body.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/schedules_body.dart';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:record/record.dart';
 
 class LectureCubit extends Cubit<LectureState> {
   LectureCubit({
@@ -609,13 +614,14 @@ class LectureCubit extends Cubit<LectureState> {
   Future<void> getAssignmentDetails({
     required int assignmentId,
   }) async {
+    log("$userId");
     getAssignmentDetailsLoader = true;
     emit(GetAssignmentDetailsLoadingState());
 
     final result = await getAssignmentDetailsUsecase.call(
       parameter: GetAssignmentDetailsParameters(
         userId: userId,
-        programId: currentProgramId,
+        assignmentId: assignmentId,
       ),
     );
 
@@ -807,10 +813,40 @@ class LectureCubit extends Cubit<LectureState> {
   PostAssignmentUsecase postAssignmentUsecase;
   bool postAssignmentLoader = false;
 
+  TextEditingController assignmentAnswerController = TextEditingController();
+//   import 'dart:io';
+// import 'package:file_picker/file_picker.dart';
+// import 'package:flutter/services.dart';
+
+  File? selectedFile;
+
+  Future<void> pickFile() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf', 'jpg', 'png', 'mp3', 'm4a'],
+      );
+
+      if (result != null && result.files.single.path != null) {
+        selectedFile = File(result.files.single.path!);
+        log("تم اختيار الملف: ${selectedFile!.path}");
+      } else {
+        log("تم إلغاء اختيار الملف");
+      }
+    } on MissingPluginException catch (e) {
+      log("❌ Plugin غير مدعوم أو لم يتم تهيئته بعد: $e");
+    } on PlatformException catch (e) {
+      log("❌ خطأ من النظام الأساسي: ${e.message}");
+    } catch (e) {
+      log("❌ حصل استثناء غير متوقع: $e");
+    }
+    emit(PickedFileSuccessfully());
+  }
+
   Future<void> postAssignment({
     required String sessionAssignmentId,
-    File? file,
-    File? voiceNote,
+    // File? file,
+    // File? voiceNote,
   }) async {
     try {
       postAssignmentLoader = true;
@@ -818,7 +854,7 @@ class LectureCubit extends Cubit<LectureState> {
 
       PostAssignmentTojson data = PostAssignmentTojson(
         sessionAssignmentId: sessionAssignmentId,
-        file: file,
+        file: selectedFile!,
         voiceNote: voiceNote,
       );
 
@@ -842,9 +878,135 @@ class LectureCubit extends Cubit<LectureState> {
     }
   }
 
+  //! post assignment
+  List<File> images = [];
+
+  Future<void> pickImages() async {
+    final response = await pickMultiImageFromGallery();
+    if (response != null) {
+      images = List.from(response.map((e) => File(e.path)));
+    }
+    emit(GetGalleryImagesState());
+  }
+
+  // أضف هذه المتغيرات في أعلى الكلاس
+  File? voiceNote;
+  bool isRecording = false;
+  bool isPlaying = false;
+  String recordPath = "";
+  late AudioRecorder audioRecord;
+  late AudioPlayer audioPlayer;
+
+// دالة تهيئة التسجيل
+  void initializeRecordVars() {
+    audioPlayer = AudioPlayer();
+    audioRecord = AudioRecorder();
+
+    audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
+      if (state == PlayerState.completed) {
+        isPlaying = false;
+        emit(StopPlayingRecordState());
+      }
+    });
+  }
+
+// دالة للحصول على مسار الحفظ
+  Future<String> getRecordPath() async {
+    final directory = await getApplicationDocumentsDirectory();
+    return '${directory.path}/recording_${DateTime.now().millisecondsSinceEpoch}.m4a';
+  }
+
+// بدء التسجيل
+  Future<void> startRecording() async {
+    try {
+      if (await audioRecord.hasPermission()) {
+        recordPath = await getRecordPath();
+        await audioRecord.start(
+          const RecordConfig(
+            encoder: AudioEncoder.aacLc,
+            androidConfig: AndroidRecordConfig(
+              audioSource: AndroidAudioSource.mic,
+              // sampleRate: 44100,
+            ),
+          ),
+          path: recordPath,
+        );
+        isRecording = true;
+        emit(StartRecordState());
+      }
+    } catch (e) {
+      log("Error starting recording: $e");
+      emit(RecordErrorState());
+    }
+  }
+
+// إيقاف التسجيل
+  Future<void> stopRecording() async {
+    try {
+      final path = await audioRecord.stop();
+      isRecording = false;
+      if (path != null) {
+        voiceNote = File(path);
+        emit(StopRecordState());
+      }
+    } catch (e) {
+      log("Error stopping recording: $e");
+      emit(RecordErrorState());
+    }
+  }
+
+// تشغيل التسجيل
+  Future<void> playRecording() async {
+    if (voiceNote != null) {
+      await audioPlayer.play(DeviceFileSource(voiceNote!.path));
+      isPlaying = true;
+      emit(PlayRecordState());
+    }
+  }
+
+// إيقاف التشغيل
+  Future<void> stopPlaying() async {
+    await audioPlayer.stop();
+    isPlaying = false;
+    emit(StopPlayingRecordState());
+  }
+
+// حذف التسجيل
+  void deleteRecording() {
+    voiceNote?.delete();
+    voiceNote = null;
+    recordPath = "";
+    emit(DeleteRecordState());
+  }
+
   @override
   Future<void> close() {
     controller.dispose();
     return super.close();
   }
+
+  void removeAttachedFile() {
+    selectedFile = null;
+    emit(AssignmentFileRemovedState());
+  }
 }
+
+// Future<void> pickFile() async {
+//   FilePickerResult? result = await FilePicker.platform.pickFiles(
+//     type: FileType.custom,
+//     allowedExtensions: ['pdf', 'jpg', 'png'],
+//   );
+
+//   if (result != null) {
+//     PlatformFile file = result.files.first;
+
+//     log("Path: ${file.path}");
+//     log("Name: ${file.name}");
+//     log("Extension: ${file.extension}");
+
+//     // بعدين تقدر ترفع الملف باستخدام API أو تحتفظ بيه مؤقتًا
+//   } else {
+//     // المستخدم لغى
+//     log("تم الإلغاء");
+//   }
+// }

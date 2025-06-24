@@ -58,7 +58,7 @@ class QuestionAndSolutionContainer extends StatelessWidget {
                 var cubit = context.read<LectureCubit>();
                 cubit.postAssignment(
                   sessionAssignmentId: "1",
-                  file: cubit.profileImage,
+                  // file: cubit.profileImage,
                 );
               },
               child: Text(

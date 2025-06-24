@@ -39,6 +39,7 @@ ProgramAssignmentModel _$ProgramAssignmentModelFromJson(
       ..status = json['status'] as String?
       ..mark = json['mark'] as String?
       ..file = json['file'] as String?
+      ..isUploaded = json['is_uploaded'] as bool?
       ..fileType = json['file_type'] as String?
       ..userVoiceNote = json['user_voice_note'] as String?
       ..instructorVoiceNote = json['instructor_voice_note'] as String?
@@ -55,6 +56,7 @@ Map<String, dynamic> _$ProgramAssignmentModelToJson(
       'status': instance.status,
       'mark': instance.mark,
       'file': instance.file,
+      'is_uploaded': instance.isUploaded,
       'file_type': instance.fileType,
       'user_voice_note': instance.userVoiceNote,
       'instructor_voice_note': instance.instructorVoiceNote,

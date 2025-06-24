@@ -72,7 +72,7 @@ class _CorrcectedAssignmentDetailsViewState
                     // TODO ناجح او راسب
                     width: 63.w,
                     height: 26.h,
-                    text: assignment?.status ?? "",
+                    text: assignment?.mark ?? "",
                     textColor: MainColors.greenTeal,
                     containerColor: MainColors.lightgreenTeal,
                     radius: 55.r,

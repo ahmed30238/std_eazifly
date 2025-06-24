@@ -4,12 +4,12 @@ import 'package:dio/dio.dart';
 
 class PostAssignmentTojson {
   final String sessionAssignmentId;
-  final File? file;
+  final File file;
   final File? voiceNote;
 
   PostAssignmentTojson({
     required this.sessionAssignmentId,
-    this.file,
+    required this.file,
     this.voiceNote,
   });
 
@@ -18,13 +18,11 @@ class PostAssignmentTojson {
 
     data['session_assignment_id'] = sessionAssignmentId;
 
-    if (file != null) {
-      data['file'] = await MultipartFile.fromFile(
-        file!.path,
-        filename: file!.path.split('/').last,
-      );
-    }
-
+    data['file'] = await MultipartFile.fromFile(
+      file.path,
+      filename: file.path.split('/').last,
+    );
+  
     if (voiceNote != null) {
       data['voice_note'] = await MultipartFile.fromFile(
         voiceNote!.path,

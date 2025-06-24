@@ -1,4 +1,5 @@
 import 'package:eazifly_student/domain/entities/my_programs/get_assignment_details_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_program_assignments_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'get_assignment_details_model.g.dart';
 
@@ -13,7 +14,7 @@ class GetAssignmentDetailsModel extends GetAssignmentDetailsEntity {
 }
 
 @JsonSerializable(explicitToJson: true)
-class AssignmentDetailsDataModel extends AssignmentDetailsDataEntity {
+class AssignmentDetailsDataModel extends ProgramAssignmentEntity {
   AssignmentDetailsDataModel();
 
   factory AssignmentDetailsDataModel.fromJson(Map<String, dynamic> json) =>

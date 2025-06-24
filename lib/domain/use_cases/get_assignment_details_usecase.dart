@@ -14,14 +14,14 @@ class GetAssignmentDetailsUsecase extends BaseUsecase<
   Future<Either<Failure, GetAssignmentDetailsEntity>> call(
       {required GetAssignmentDetailsParameters parameter}) async {
     return await baseRepository.getAssignmentDetails(
-        assignmentId: parameter.programId, userId: parameter.userId);
+        assignmentId: parameter.assignmentId, userId: parameter.userId);
   }
 }
 
 class GetAssignmentDetailsParameters {
-  final int programId;
+  final int assignmentId;
   final int userId;
 
   GetAssignmentDetailsParameters(
-      {required this.programId, required this.userId});
+      {required this.assignmentId, required this.userId});
 }
