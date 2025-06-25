@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 class GetUserReportsEntity {
   @JsonKey(name: "data")
-  List<UserReportModel>? data;
+  List<GetUserReportsDatumModel>? data;
 
   @JsonKey(name: "status")
   int? status;
@@ -18,12 +18,12 @@ class GetUserReportsEntity {
   });
 }
 
-class UserReportEntity {
-  @JsonKey(name: "id")
-  int? id;
-
+class GetUserReportsDatumEntity {
   @JsonKey(name: "report_maker_type")
   String? reportMakerType;
+
+  @JsonKey(name: "report_maker_id")
+  String? reportMakerId;
 
   @JsonKey(name: "report_maker_name")
   String? reportMakerName;
@@ -37,36 +37,32 @@ class UserReportEntity {
   @JsonKey(name: "report_for_name")
   String? reportForName;
 
+  @JsonKey(name: "report_for_id")
+  String? reportForId;
+
   @JsonKey(name: "report_for_image")
   String? reportForImage;
 
   @JsonKey(name: "program")
   String? program;
 
-  @JsonKey(name: "report_question")
-  String? reportQuestion;
-
-  @JsonKey(name: "report_question_answer")
-  String? reportQuestionAnswer;
-
-  @JsonKey(name: "note")
-  String? note;
+  @JsonKey(name: "meeting_session_id")
+  String? meetingSessionId;
 
   @JsonKey(name: "created_at")
   DateTime? createdAt;
 
-  UserReportEntity({
-    this.id,
+  GetUserReportsDatumEntity({
     this.reportMakerType,
+    this.reportMakerId,
     this.reportMakerName,
     this.reportMakerImage,
     this.reportForType,
     this.reportForName,
+    this.reportForId,
     this.reportForImage,
     this.program,
-    this.reportQuestion,
-    this.reportQuestionAnswer,
-    this.note,
+    this.meetingSessionId,
     this.createdAt,
   });
 }

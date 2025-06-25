@@ -2,8 +2,7 @@ import 'package:eazifly_student/domain/entities/my_programs/get_user_reports_ent
 import 'package:json_annotation/json_annotation.dart';
 
 part 'get_user_reports_model.g.dart';
-
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class GetUserReportsModel extends GetUserReportsEntity {
   GetUserReportsModel();
 
@@ -14,11 +13,11 @@ class GetUserReportsModel extends GetUserReportsEntity {
 }
 
 @JsonSerializable(explicitToJson: true)
-class UserReportModel extends UserReportEntity {
-  UserReportModel();
+class GetUserReportsDatumModel extends GetUserReportsDatumEntity {
+  GetUserReportsDatumModel();
 
-  factory UserReportModel.fromJson(Map<String, dynamic> json) =>
-      _$UserReportModelFromJson(json);
+  factory GetUserReportsDatumModel.fromJson(Map<String, dynamic> json) =>
+      _$GetUserReportsDatumModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UserReportModelToJson(this);
+  Map<String, dynamic> toJson() => _$GetUserReportsDatumModelToJson(this);
 }

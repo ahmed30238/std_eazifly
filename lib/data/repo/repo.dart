@@ -27,6 +27,7 @@ import 'package:eazifly_student/data/models/my_programs/get_assignment_details_m
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_assignments_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_sessions_model.dart';
+import 'package:eazifly_student/data/models/my_programs/get_report_questions_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_session_details_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_user_feedbacks_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_user_reports_model.dart';
@@ -716,6 +717,29 @@ class Repository extends BaseRepository {
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetReportQuestionsModel>> getReportQuestions(
+      {required String reportMakerType,
+      required String reportForType,
+      required int reportMakerId,
+      required int reportForId,
+      required int meetingSessionId}) async {
+    try {
+      final result = await baseRemoteDataSource.getReportQuestions(
+        meetingSessionId: meetingSessionId,
+        reportForId: reportMakerId,
+        reportForType: reportForType,
+        reportMakerId: reportMakerId,
+        reportMakerType: reportMakerType,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(message: e.errorMessageModel.statusMessage),
+      );
     }
   }
 }

@@ -39,6 +39,7 @@ import 'package:eazifly_student/data/models/my_programs/get_assignment_details_m
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_assignments_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_sessions_model.dart';
+import 'package:eazifly_student/data/models/my_programs/get_report_questions_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_session_details_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_user_feedbacks_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_user_reports_model.dart';
@@ -189,6 +190,13 @@ abstract class BaseRemoteDataSource {
   });
   Future<UpgradeOrderModel> upgradeOrder({
     required CreateOrderTojson data,
+  });
+  Future<GetReportQuestionsModel> getReportQuestions({
+    required String reportMakerType,
+    required String reportForType,
+    required int reportMakerId,
+    required int reportForId,
+    required int meetingSessionId,
   });
 }
 
@@ -1395,6 +1403,33 @@ class RemoteDataSource extends BaseRemoteDataSource {
     } catch (e) {
       log('Error in createOrder remote: $e');
       rethrow;
+    }
+  }
+
+  @override
+  Future<GetReportQuestionsModel> getReportQuestions(
+      {required String reportMakerType,
+      required String reportForType,
+      required int reportMakerId,
+      required int reportForId,
+      required int meetingSessionId}) async {
+    var response = await NetworkCall().get(
+        path: EndPoints.getReportQuestions(
+      meetingSessionId: meetingSessionId,
+      reportForId: reportForId,
+      reportForType: reportForType,
+      reportMakerId: reportMakerId,
+      reportMakerType: reportMakerType,
+    ));
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetReportQuestionsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
     }
   }
 }

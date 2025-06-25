@@ -1,11 +1,19 @@
-import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/student_change_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:flutter/material.dart';
 
-class LectureReportView extends StatelessWidget {
+class LectureReportView extends StatefulWidget {
   const LectureReportView({super.key});
 
+  @override
+  State<LectureReportView> createState() => _LectureReportViewState();
+}
+
+class _LectureReportViewState extends State<LectureReportView> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

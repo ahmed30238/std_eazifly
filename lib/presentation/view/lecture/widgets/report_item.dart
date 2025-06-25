@@ -26,9 +26,11 @@ class ReportItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  title,
-                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: MainTextStyle.boldTextStyle(fontSize: 14),
+                  ),
                 ),
                 Text(
                   createdAt,

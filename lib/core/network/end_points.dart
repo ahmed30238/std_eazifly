@@ -104,4 +104,12 @@ class EndPoints {
           {required int userId, required int assignmentId}) =>
       "show/assignment/$assignmentId?user_id=$userId";
   static const postAssignment = "upload/assignment";
+  static String getReportQuestions({
+    required String reportMakerType,
+    required String reportForType,
+    required int reportMakerId,
+    required int reportForId,
+    required int meetingSessionId,
+  }) =>
+      "report/questions?report_maker_type=$reportMakerType&report_for_type=$reportForType&report_maker_id=$reportMakerId&report_for_id=$reportForId&meeting_session_id=$meetingSessionId";
 }

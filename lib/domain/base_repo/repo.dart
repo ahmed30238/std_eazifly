@@ -50,6 +50,7 @@ import 'package:eazifly_student/domain/entities/my_programs/get_assignment_detai
 import 'package:eazifly_student/domain/entities/my_programs/get_my_programs_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_assignments_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_sessions_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_report_questions_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_session_details_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_user_feedbacks_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_user_reports_entity.dart';
@@ -198,5 +199,12 @@ abstract class BaseRepository {
   });
   Future<Either<Failure, UpgradeOrderEntity>> upgradeOrder({
     required CreateOrderTojson data,
+  });
+  Future<Either<Failure, GetReportQuestionsEntity>> getReportQuestions({
+    required String reportMakerType,
+    required String reportForType,
+    required int reportMakerId,
+    required int reportForId,
+    required int meetingSessionId,
   });
 }
