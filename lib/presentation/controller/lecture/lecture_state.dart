@@ -186,13 +186,31 @@ class StopRecordState extends LectureState {}
 class StopPlayingRecordState extends LectureState {}
 
 class PlayRecordState extends LectureState {}
+
 class RecordErrorState extends LectureState {}
+
 class DeleteRecordState extends LectureState {}
 
 class AudioErrorState extends LectureState {}
+
 class ChildIndexChanged extends LectureState {}
+
 class StopExternalAudioState extends LectureState {}
+
 class PlayExternalAudioState extends LectureState {}
+
 class DownLoadPdfErrorState extends LectureState {}
+
 class DownLoadPdfSuccessState extends LectureState {}
+
 class DownLoadPdfLoadingState extends LectureState {}
+
+class GetReportQuestionsLoadingState extends LectureState {}
+
+class GetReportQuestionsErrorState extends LectureState {
+  final String errorMessage;
+
+  GetReportQuestionsErrorState({required this.errorMessage});
+}
+
+class GetReportQuestionsSuccessState extends LectureState {}

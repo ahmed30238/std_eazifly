@@ -221,8 +221,11 @@ class AppRouter {
           const ExplainPointsSystemView(),
         );
       case RoutePaths.lectureReportView:
+        var index = settings.arguments as int? ?? -1;
         return createRoute(
-          const LectureReportView(),
+          LectureReportView(
+            index: index,
+          ),
         );
       case RoutePaths.leaderBoardView:
         return createRoute(

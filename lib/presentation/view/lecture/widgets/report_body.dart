@@ -30,6 +30,7 @@ class ReportBody extends StatelessWidget {
               "تقرير للطالب ${report?.reportForName} من $from ${report?.reportMakerName}",
           onTap: () {
             Navigator.pushNamed(
+              arguments: index,
               context,
               RoutePaths.lectureReportView,
             );

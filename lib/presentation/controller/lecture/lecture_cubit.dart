@@ -18,6 +18,7 @@ import 'package:eazifly_student/domain/entities/my_programs/content/get_content_
 import 'package:eazifly_student/domain/entities/my_programs/get_assignment_details_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_assignments_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_program_sessions_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_report_questions_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_user_feedbacks_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_user_reports_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/post_assignment_entity.dart';
@@ -29,6 +30,7 @@ import 'package:eazifly_student/domain/use_cases/get_chapter_lessons_usecase.dar
 import 'package:eazifly_student/domain/use_cases/get_content_chapter_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_assignments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_sessions_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_report_questions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_feedback_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_quizzes_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_reports_usecase.dart';
@@ -63,6 +65,7 @@ class LectureCubit extends Cubit<LectureState> {
     required this.getUserQuizzesUsecase,
     required this.getAssignmentDetailsUsecase,
     required this.postAssignmentUsecase,
+    required this.getReportQuestionsUsecase,
   }) : super(LectureInitial()) {
     var loginData = DataModel.fromJson(
         jsonDecode(GetStorage().read(StorageEnum.loginModel.name)));
@@ -1142,6 +1145,46 @@ class LectureCubit extends Cubit<LectureState> {
     voiceNote = null;
     recordPath = "";
     emit(DeleteRecordState());
+  }
+
+// متغيرات حالة التحميل والنتيجة
+  bool getReportQuestionsLoader = false;
+  GetReportQuestionsEntity? reportQuestionsEntity;
+  GetReportQuestionsUsecase getReportQuestionsUsecase;
+
+  Future<void> getReportQuestions({required int index}) async {
+    getReportQuestionsLoader = true;
+    emit(GetReportQuestionsLoadingState());
+
+    final result = await getReportQuestionsUsecase.call(
+      parameter: GetQuizQuestionsParameters(
+        meetingSessionId: int.tryParse(
+                getUserReportsEntity?.data?[index].meetingSessionId ?? "0") ??
+            0,
+        reportForId:
+            int.tryParse(getUserReportsEntity?.data?[index].reportForId ?? "0") ??
+                0,
+        reportForType: getUserReportsEntity?.data?[index].reportForType ?? "",
+        reportMakerId:
+            int.tryParse(getUserReportsEntity?.data?[index].reportMakerId ?? "") ??
+                -1,
+        reportMakerType: getUserReportsEntity?.data?[index].reportMakerType ?? "",
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        getReportQuestionsLoader = false;
+        emit(GetReportQuestionsErrorState(
+          errorMessage: failure.message,
+        ));
+      },
+      (data) {
+        getReportQuestionsLoader = false;
+        reportQuestionsEntity = data;
+        emit(GetReportQuestionsSuccessState());
+      },
+    );
   }
 
   @override
