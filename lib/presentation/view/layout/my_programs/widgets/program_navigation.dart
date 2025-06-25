@@ -69,7 +69,7 @@ void _handleNotStartedLecture({
   required MyProgramsCubit cubit,
   required int programId,
 }) {
-  if (isParent && noOfChildren > 0) {
+  if (isParent /*&& noOfChildren > 0*/) {
     // إذا كان المستخدم أب - عرض bottom sheet للأطفال
     _showChildrenBottomSheet(
       context,
@@ -79,7 +79,7 @@ void _handleNotStartedLecture({
     );
   } else {
     // إذا لم يكن أب - انتقال لتفاصيل البرنامج
-    _navigateToProgramDetails(context);
+    _navigateToProgramDetails(context, programId: programId);
   }
 }
 
@@ -91,7 +91,7 @@ void _handleNoCurrentSession({
   required MyProgramsCubit cubit,
   required int programId,
 }) {
-  if (isParent && noOfChildren > 0) {
+  if (isParent /* && noOfChildren > 0*/) {
     // إذا كان المستخدم أب - عرض bottom sheet للأطفال فقط
     // if () {
     _showChildrenBottomSheet(
@@ -103,7 +103,7 @@ void _handleNoCurrentSession({
     // }
   } else {
     // إذا لم يكن أب - انتقال لتفاصيل البرنامج
-    _navigateToProgramDetails(context);
+    _navigateToProgramDetails(context, programId: programId);
   }
 }
 
@@ -128,12 +128,12 @@ void _showChildrenBottomSheet(
 }
 
 // دالة للانتقال لتفاصيل البرنامج
-void _navigateToProgramDetails(BuildContext context) {
+void _navigateToProgramDetails(BuildContext context, {required int programId}) {
   Navigator.pushNamed(
     context,
     RoutePaths.lectureView,
     arguments: {
-      "programId": 1, // TODO
+      "programId": programId,
     },
   );
 }

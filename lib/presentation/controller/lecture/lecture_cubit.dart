@@ -66,7 +66,8 @@ class LectureCubit extends Cubit<LectureState> {
   }) : super(LectureInitial()) {
     var loginData = DataModel.fromJson(
         jsonDecode(GetStorage().read(StorageEnum.loginModel.name)));
-    userId = loginData.id ?? -1;
+    fillUserId(loginData.id ?? -1);
+    // userId =
     log("$userId");
   }
   File? profileImage;
@@ -81,6 +82,10 @@ class LectureCubit extends Cubit<LectureState> {
   static LectureCubit get(context) => BlocProvider.of(context);
   late TabController controller;
   int userId = -1;
+  fillUserId(int value) {
+    userId = value;
+  }
+
   int currentProgramId = -1;
 
   // حالات التحميل لكل tab
@@ -514,6 +519,21 @@ class LectureCubit extends Cubit<LectureState> {
     );
   }
 
+  int currentChildIndex = 0;
+
+  void updateChildIndex(bool next, int totalChildren) {
+    if (totalChildren == 0) return;
+
+    if (next) {
+      currentChildIndex = (currentChildIndex + 1) % totalChildren;
+    } else {
+      currentChildIndex =
+          currentChildIndex > 0 ? currentChildIndex - 1 : totalChildren - 1;
+    }
+
+    emit(ChildIndexChanged()); // عرف State جديدة لو احتجت
+  }
+
   bool getUserFeedbacksLoader = false;
   GetUserFeedbacksEntity? getUserFeedbacksEntity;
   GetUserFeedbackUsecase getUserFeedbacksUsecase;
@@ -722,6 +742,7 @@ class LectureCubit extends Cubit<LectureState> {
       },
     );
   }
+
   static StudentStatus calculateStudentStatus({
     required dynamic totalMark,
     required dynamic fullMark,

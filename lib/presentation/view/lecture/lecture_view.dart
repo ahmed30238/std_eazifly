@@ -2,13 +2,14 @@ import 'dart:developer';
 
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
+import 'package:eazifly_student/presentation/view/lecture/widgets/child_navigator.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/goals_percent_container.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_data_item.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_link_item.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_state_helper.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_stats_row.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecure_tabbar.dart';
-import 'package:eazifly_student/presentation/view/lecture/widgets/student_change_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class LectureView extends StatefulWidget {
@@ -33,6 +34,9 @@ class _LectureViewState extends State<LectureView>
     cubit = context.read<LectureCubit>();
     cubit.initController(this, widget.programId);
     cubit.showProgramDetails(programId: widget.programId);
+    context
+        .read<MyProgramsCubit>()
+        .getAssignedChildrenToProgram(programId: widget.programId);
     pageController = PageController();
     super.initState();
   }
@@ -117,7 +121,44 @@ class _LectureViewState extends State<LectureView>
               // Goals Percent مع loading
               _buildGoalsPercentWithLoading(cubit, state),
               20.ph,
-              const StudentsChangeItem(),
+              ChildrenNavigator(
+                programId: widget.programId,
+              ),
+              // BlocBuilder<MyProgramsCubit, MyProgramsState>(
+              //   builder: (context, state) {
+              //     var programCubit = context.read<MyProgramsCubit>();
+              //     var userName = context
+              //         .read<MyProgramsCubit>()
+              //         .getAssignedChildrenToProgramEntity
+              //         ?.data?[0]
+              //         .firstName;
+
+              //     DataModel log = DataModel.fromJson(
+              //       jsonDecode(
+              //         GetStorage().read(StorageEnum.loginModel.name),
+              //       ),
+              //     );
+
+              //     return StudentsChangeItem(
+              //       studentName: userName ?? "${log.firstName} ${log.lastName}",
+              //       onBackTap: () {
+              //         cubit.showProgramDetails(programId: widget.programId);
+              //         cubit.getProgramSessions(
+              //             programId: widget.programId,
+              //             userId: programCubit
+              //                     .getAssignedChildrenToProgramEntity
+              //                     ?.data?[0]
+              //                     .id ??
+              //                 -1);
+              //         cubit.getProgramAssignments(programId: widget.programId, userId: userId)
+              //       },
+              //       onNextTap: () {
+              //         cubit.showProgramDetails(programId: widget.programId);
+              //         // cubit.getUserSe
+              //       },
+              //     );
+              //   },
+              // ),
               1.ph,
               // Tab Bar مع loading
               _buildTabBarWithLoading(cubit, state),

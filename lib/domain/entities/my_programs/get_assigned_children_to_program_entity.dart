@@ -1,10 +1,9 @@
-// get_assigned_children_to_program_entity.dart
 import 'package:eazifly_student/data/models/my_programs/get_assigned_children_to_program_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class GetAssignedChildrenToProgramEntity {
   @JsonKey(name: "data")
-  List<GetAssignedChildrenToProgramDatum>? data;
+  List<GetAssignedChildrenToProgramDatumModel>? data;
 
   @JsonKey(name: "status")
   int? status;
@@ -22,50 +21,73 @@ class GetAssignedChildrenToProgramEntity {
 class GetAssignedChildrenToProgramDatumEntity {
   @JsonKey(name: "id")
   int? id;
+
   @JsonKey(name: "first_name")
   String? firstName;
+
   @JsonKey(name: "last_name")
   String? lastName;
+
   @JsonKey(name: "user_name")
   String? userName;
+
   @JsonKey(name: "email")
   String? email;
+
   @JsonKey(name: "parent_id")
-  int? parentId;
+  String? parentId;
+
   @JsonKey(name: "phone")
   String? phone;
+
   @JsonKey(name: "whats_app")
   String? whatsApp;
+
   @JsonKey(name: "image")
   String? image;
+
   @JsonKey(name: "gender")
   String? gender;
+
   @JsonKey(name: "parent_name")
   String? parentName;
+
   @JsonKey(name: "user_coupon")
   String? userCoupon;
+
   @JsonKey(name: "bonus")
-  int? bonus;
+  String? bonus;
+
   @JsonKey(name: "childrens")
   List<dynamic>? childrens;
+
   @JsonKey(name: "age")
-  int? age;
+  String? age;
+
   @JsonKey(name: "token")
   dynamic token;
+
   @JsonKey(name: "is_guest")
   dynamic isGuest;
+
   @JsonKey(name: "fcm_token")
   dynamic fcmToken;
+
   @JsonKey(name: "created_at")
   DateTime? createdAt;
+
   @JsonKey(name: "last_active_at")
   dynamic lastActiveAt;
+
   @JsonKey(name: "renew_data")
   DateTime? renewData;
+
   @JsonKey(name: "status_label")
   GetAssignedChildrenToProgramStatusLabelModel? statusLabel;
+
   @JsonKey(name: "programs")
   List<GetAssignedChildrenToProgramProgramModel>? programs;
+
   @JsonKey(name: "chat_id")
   dynamic chatId;
 
@@ -100,8 +122,9 @@ class GetAssignedChildrenToProgramDatumEntity {
 class GetAssignedChildrenToProgramProgramEntity {
   @JsonKey(name: "title")
   String? title;
+
   @JsonKey(name: "image")
-  dynamic image;
+  String? image;
 
   GetAssignedChildrenToProgramProgramEntity({
     this.title,
@@ -112,6 +135,7 @@ class GetAssignedChildrenToProgramProgramEntity {
 class GetAssignedChildrenToProgramStatusLabelEntity {
   @JsonKey(name: "label")
   String? label;
+
   @JsonKey(name: "color")
   String? color;
 

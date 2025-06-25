@@ -174,11 +174,15 @@ class AppRouter {
 
       case RoutePaths.chatsViewPath:
         return createRoute(
-          BlocProvider(
-            create: (context) => ChatsCubit(
-              getMessagesUsecase: sl(),
-              sendMessagesUsecase: sl(),
-            ),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => ChatsCubit(
+                  getMessagesUsecase: sl(),
+                  sendMessagesUsecase: sl(),
+                ),
+              ),
+            ],
             child: const ChatsView(),
           ),
         );
@@ -187,9 +191,17 @@ class AppRouter {
         // var nextSessionDate =  arguments["nextSessionDate"] as DateTime;
         var programId = arguments["programId"] as int;
         return createRoute(
-          LectureView(
-            // isFinishedLecture: nextSessionDate,
-            programId: programId,
+          BlocProvider(
+            create: (context) => MyProgramsCubit(
+              changeSessionStatusUsecase: sl(),
+              getAssignedChildrenToProgramUsecase: sl(),
+              getMyProgramsUsecase: sl(),
+              getSessionDetailsUsecase: sl(),
+              joinSessionUsecase: sl(),
+            ),
+            child: LectureView(
+              programId: programId,
+            ),
           ),
         );
       case RoutePaths.lectureDetailsView:

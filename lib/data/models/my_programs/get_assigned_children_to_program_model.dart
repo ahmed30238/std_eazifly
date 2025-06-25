@@ -1,4 +1,5 @@
-// get_assigned_children_to_program_model.dart
+// MODEL CLASSES
+
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -18,19 +19,21 @@ class GetAssignedChildrenToProgramModel
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetAssignedChildrenToProgramDatum extends GetAssignedChildrenToProgramDatumEntity {
-  GetAssignedChildrenToProgramDatum();
+class GetAssignedChildrenToProgramDatumModel
+    extends GetAssignedChildrenToProgramDatumEntity {
+  GetAssignedChildrenToProgramDatumModel();
 
-  factory GetAssignedChildrenToProgramDatum.fromJson(
+  factory GetAssignedChildrenToProgramDatumModel.fromJson(
           Map<String, dynamic> json) =>
-      _$GetAssignedChildrenToProgramDatumFromJson(json);
+      _$GetAssignedChildrenToProgramDatumModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
-      _$GetAssignedChildrenToProgramDatumToJson(this);
+      _$GetAssignedChildrenToProgramDatumModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetAssignedChildrenToProgramProgramModel extends GetAssignedChildrenToProgramProgramEntity {
+class GetAssignedChildrenToProgramProgramModel
+    extends GetAssignedChildrenToProgramProgramEntity {
   GetAssignedChildrenToProgramProgramModel();
 
   factory GetAssignedChildrenToProgramProgramModel.fromJson(
@@ -42,7 +45,8 @@ class GetAssignedChildrenToProgramProgramModel extends GetAssignedChildrenToProg
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetAssignedChildrenToProgramStatusLabelModel extends GetAssignedChildrenToProgramStatusLabelEntity {
+class GetAssignedChildrenToProgramStatusLabelModel
+    extends GetAssignedChildrenToProgramStatusLabelEntity {
   GetAssignedChildrenToProgramStatusLabelModel();
 
   factory GetAssignedChildrenToProgramStatusLabelModel.fromJson(

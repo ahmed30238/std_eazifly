@@ -81,8 +81,11 @@ class LectureReportView extends StatelessWidget {
               ],
             ),
           ),
-          const StudentsChangeItem(
+           StudentsChangeItem(
             alignment: MainAxisAlignment.spaceEvenly,
+              studentName: "",
+                onBackTap: (){},
+                onNextTap: () {},
           ),
         ],
       ),

@@ -4,12 +4,18 @@ class StudentsChangeItem extends StatelessWidget {
   final MainAxisAlignment? alignment;
   final Color? containerColor;
   final double? height;
+  final String studentName;
+  final VoidCallback onNextTap;
+  final VoidCallback onBackTap;
 
   const StudentsChangeItem({
     super.key,
     this.containerColor,
     this.alignment,
     this.height,
+    required this.studentName,
+    required this.onNextTap,
+    required this.onBackTap,
   });
 
   @override
@@ -27,7 +33,7 @@ class StudentsChangeItem extends StatelessWidget {
           mainAxisAlignment: alignment ?? MainAxisAlignment.center,
           children: [
             InkWell(
-              onTap: () {},
+              onTap: onNextTap,
               child: SvgPicture.asset(
                 Assets.iconsArrowRight,
               ),
@@ -44,14 +50,14 @@ class StudentsChangeItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "أحمد ياسر",
+                  studentName,
                   style: MainTextStyle.boldTextStyle(fontSize: 12),
                 ),
               ],
             ),
             20.pw,
             InkWell(
-              onTap: () {},
+              onTap: onBackTap,
               child: SvgPicture.asset(
                 Assets.iconsArrowLeft,
               ),

@@ -190,6 +190,7 @@ class RecordErrorState extends LectureState {}
 class DeleteRecordState extends LectureState {}
 
 class AudioErrorState extends LectureState {}
+class ChildIndexChanged extends LectureState {}
 class StopExternalAudioState extends LectureState {}
 class PlayExternalAudioState extends LectureState {}
 class DownLoadPdfErrorState extends LectureState {}
