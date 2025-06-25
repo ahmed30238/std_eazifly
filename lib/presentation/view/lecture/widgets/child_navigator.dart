@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
@@ -22,62 +21,68 @@ class ChildrenNavigator extends StatefulWidget {
 class _ChildrenNavigatorState extends State<ChildrenNavigator> {
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<LectureCubit>();
+    var cubit = context.watch<LectureCubit>();
     return BlocBuilder<MyProgramsCubit, MyProgramsState>(
       builder: (context, state) {
         var programCubit = context.read<MyProgramsCubit>();
-        var children =
-            programCubit.getAssignedChildrenToProgramEntity?.data ?? [];
-        log("$children");
+        var children = programCubit.getAssignedChildrenToProgramEntity?.data ?? [];
 
-        DataModel loginData = DataModel.fromJson(
-          jsonDecode(
-            GetStorage().read(StorageEnum.loginModel.name),
-          ),
+        final loginData = DataModel.fromJson(
+          jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
         );
 
-        if (children.isEmpty) {
-          return StudentsChangeItem(
-            studentName: "${loginData.firstName} ${loginData.lastName}",
-            onBackTap: () {
-              log("this is index ${cubit.currentChildIndex}");
-            },
-            onNextTap: () {
-              log("this is index ${cubit.currentChildIndex}");
-            },
-          );
-        }
-
-        /// التأكد من أن الفهرس الحالي في النطاق الصحيح
-        if (cubit.currentChildIndex >= children.length) {
-          cubit.currentChildIndex = 0;
-        }
-
-        var currentChild = children[cubit.currentChildIndex];
+        final isParent = cubit.currentChildIndex == -1;
+        final currentChild = isParent ? null : children[cubit.currentChildIndex];
 
         return StudentsChangeItem(
-          studentName: "${currentChild.firstName} ${currentChild.lastName}",
+          studentName: isParent
+              ? "${loginData.firstName} ${loginData.lastName}"
+              : "${currentChild?.firstName ?? ""} ${currentChild?.lastName ?? ""}",
+
           onBackTap: () {
-            log("this is index ${cubit.currentChildIndex}");
             cubit.controller.animateTo(0);
-
             cubit.updateChildIndex(false, children.length);
-            var newChild = children[cubit.currentChildIndex];
-            cubit.fillUserId(newChild.id ?? -1);
-            cubit.showProgramDetails(programId: widget.programId);
-          },
-          onNextTap: () {
-            log("this is index ${cubit.currentChildIndex}");
-            cubit.controller.animateTo(0);
 
+            if (cubit.currentChildIndex == -1) {
+              // عرض الأب
+              cubit.fillUserId(loginData.id ?? -1);
+              cubit.showProgramDetails(programId: widget.programId);
+              cubit.getProgramSessions(
+                programId: widget.programId,
+                userId: loginData.id ?? -1,
+              );
+            } else {
+              final newChild = children[cubit.currentChildIndex];
+              cubit.fillUserId(newChild.id ?? -1);
+              cubit.showProgramDetails(programId: widget.programId);
+              cubit.getProgramSessions(
+                programId: widget.programId,
+                userId: newChild.id ?? -1,
+              );
+            }
+          },
+
+          onNextTap: () {
+            cubit.controller.animateTo(0);
             cubit.updateChildIndex(true, children.length);
-            var newChild = children[cubit.currentChildIndex];
-            cubit.fillUserId(newChild.id ?? -1);
-            cubit.showProgramDetails(programId: widget.programId);
-            // cubit.getProgramSessions(
-            //   programId: widget.programId,
-            //   userId: newChild.id ?? -1,
-            // );
+
+            if (cubit.currentChildIndex == -1) {
+              // عرض الأب
+              cubit.fillUserId(loginData.id ?? -1);
+              cubit.showProgramDetails(programId: widget.programId);
+              cubit.getProgramSessions(
+                programId: widget.programId,
+                userId: loginData.id ?? -1,
+              );
+            } else {
+              final newChild = children[cubit.currentChildIndex];
+              cubit.fillUserId(newChild.id ?? -1);
+              cubit.showProgramDetails(programId: widget.programId);
+              cubit.getProgramSessions(
+                programId: widget.programId,
+                userId: newChild.id ?? -1,
+              );
+            }
           },
         );
       },

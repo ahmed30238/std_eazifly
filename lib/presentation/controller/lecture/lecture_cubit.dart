@@ -519,20 +519,43 @@ class LectureCubit extends Cubit<LectureState> {
     );
   }
 
-  int currentChildIndex = 0;
+  int currentChildIndex = -1; // -1 يعني المستخدم الأب
+  final scrollController = ScrollController();
+
+  void showParent() {
+    currentChildIndex = -1;
+    emit(ChildIndexChanged());
+  }
 
   void updateChildIndex(bool next, int totalChildren) {
     if (totalChildren == 0) return;
 
-    if (next) {
-      currentChildIndex = (currentChildIndex + 1) % totalChildren;
+    if (currentChildIndex == -1) {
+      // أول ضغطة على "التالي"، ننتقل إلى أول طفل
+      currentChildIndex = 0;
     } else {
-      currentChildIndex =
-          currentChildIndex > 0 ? currentChildIndex - 1 : totalChildren - 1;
+      if (next) {
+        currentChildIndex = (currentChildIndex + 1) % totalChildren;
+      } else {
+        currentChildIndex =
+            currentChildIndex > 0 ? currentChildIndex - 1 : -1; // نرجع للأب
+      }
     }
 
-    emit(ChildIndexChanged()); // عرف State جديدة لو احتجت
+    emit(ChildIndexChanged());
   }
+
+  // void fillUserId(int userId) {
+  //   // هنا تنفذ أي لوجيك خاص بتحديد اليوزر
+  // }
+
+  // void showProgramDetails({required int programId}) {
+  //   // logic
+  // }
+
+  // void getProgramSessions({required int programId, required int userId}) {
+  //   // logic
+  // }
 
   bool getUserFeedbacksLoader = false;
   GetUserFeedbacksEntity? getUserFeedbacksEntity;
