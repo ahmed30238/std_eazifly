@@ -114,13 +114,13 @@ class UnderReviewItem extends StatelessWidget {
               image: image,
               state: state,
             ),
-            SizedBox(
-              height: 74.h,
-              child: ItemDetailsCard(
-                titles: programTitles,
-                values: [],
-              ),
-            )
+            // SizedBox(
+            //   height: 74.h,
+            //   child: ItemDetailsCard(
+            //     titles: programTitles,
+            //     values: [],
+            //   ),
+            // )
           ],
         ),
       ),

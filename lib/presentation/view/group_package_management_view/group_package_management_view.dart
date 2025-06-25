@@ -42,13 +42,7 @@ class GroupPackageManagementView extends StatelessWidget {
                     ),
                   ),
                 ),
-                24.ph,
-                StudentStats(
-                  horizontalPadding: 0,
-                  itemWidth: 167.5.w,
-                  alignment: MainAxisAlignment.center,
-                  length: 2,
-                ),
+                // 24.ph,
                 24.ph,
                 Expanded(
                   child: BlocBuilder(

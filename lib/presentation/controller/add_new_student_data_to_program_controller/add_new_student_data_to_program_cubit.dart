@@ -10,8 +10,6 @@ import 'package:eazifly_student/data/models/children/create_new_child_tojson.dar
 import 'package:eazifly_student/domain/entities/children_entities/create_new_child_entity.dart';
 import 'package:eazifly_student/domain/use_cases/create_new_child_usecase.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_state.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/widgets/choose_teacher_body.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/widgets/proper_schedule_body.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/widgets/student_data_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -90,10 +88,12 @@ class AddNewStudentDataToProgramCubit
   }
 
   List<Widget> bodies = [
-    const RegistrationTypeBody(),
+    const RegistrationTypeBody(
+      isRegisteringMySelf: false,
+    ),
     const StudentDataBody(),
-    const ProperScheduleBody(),
-    const ChooseTeacherBody(),
+    // const ProperScheduleBody(),
+    // const ChooseTeacherBody(),
   ];
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -116,6 +116,11 @@ class AddNewStudentDataToProgramCubit
     firstNameController.clear();
     profileImage = null;
     genderIndex = 0;
+  }
+
+  bool isAssignToProgram = false;
+  void fillIsAssignToProgram(bool val) {
+    isAssignToProgram = val;
   }
 
   void closeControllers() {
@@ -193,7 +198,16 @@ class AddNewStudentDataToProgramCubit
           createNewChildLoader = false;
           createNewChildEntity = r;
           emit(CreateNewChildSuccessState());
-          incrementScreenIndex();
+          // incrementScreenIndex();
+          !isAssignToProgram
+              ? Navigator.pushNamed(
+                  context,
+                  RoutePaths.studentManagement,
+                )
+              : Navigator.pushReplacementNamed(
+                  context,
+                  RoutePaths.groupPackageManagement,
+                );
           clearControllers();
           delightfulToast(message: r.message ?? "", context: context);
         },

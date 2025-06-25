@@ -426,8 +426,19 @@ class AppRouter {
         );
       case RoutePaths.groupPackageManagement:
         return createRoute(
-          BlocProvider(
-            create: (context) => GrouppackagemanagementCubit(),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => GrouppackagemanagementCubit(
+                  getChildrenUsecase: sl(),
+                ),
+              ),
+              BlocProvider(
+                create: (context) => ChildrenCubit(
+                  getChildrenUsecase: sl(),
+                ),
+              ),
+            ],
             child: const GroupPackageManagementView(),
           ),
         );
@@ -655,12 +666,15 @@ class AppRouter {
           ),
         );
       case RoutePaths.addNewStudentData:
+        // bool isToProgram = settings.arguments as bool? ?? false;
         return createRoute(
           BlocProvider(
             create: (context) => AddNewStudentDataToProgramCubit(
               createNewChildUsecase: sl(),
             ),
-            child: const AddNewStudentDataView(),
+            child: const AddNewStudentDataView(
+                // isToProgram: isToProgram,
+                ),
           ),
         );
       case RoutePaths.dmViewPath:

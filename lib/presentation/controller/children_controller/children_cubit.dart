@@ -8,9 +8,13 @@ class ChildrenCubit extends Cubit<ChildrenState> {
     required this.getChildrenUsecase,
     // required this.createNewChildUsecase,
   }) : super(ChildrenInitial());
+
   bool getMyChildrenLoader = false;
   GetMyChildrenEntity? getMyChildrenEntity;
   GetChildrenUsecase getChildrenUsecase;
+
+  List<bool> chosen = [];
+
   Future<void> getMyChildren() async {
     getMyChildrenLoader = true;
     emit(GetMyChildernLoadingState());
@@ -25,9 +29,22 @@ class ChildrenCubit extends Cubit<ChildrenState> {
       (r) {
         getMyChildrenLoader = false;
         getMyChildrenEntity = r;
+        initIsChosen();
         emit(GetMyChildernSuccessState());
       },
     );
   }
 
+  void initIsChosen() {
+    if (getMyChildrenEntity?.data != null) {
+      chosen = List.filled(getMyChildrenEntity!.data!.length, false);
+    }
+  }
+
+  void changeChosen(int index) {
+    if (index >= 0 && index < chosen.length) {
+      chosen[index] = !chosen[index];
+      emit(ChangeChosenState());
+    }
+  }
 }

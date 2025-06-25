@@ -5,7 +5,11 @@ import 'package:eazifly_student/presentation/view/account_data/widgets/profile_i
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class StudentDataBody extends StatelessWidget {
-  const StudentDataBody({super.key});
+  // final bool isAssignToProgram;
+  const StudentDataBody({
+    super.key,
+    // required this.isAssignToProgram,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -256,7 +260,19 @@ class StudentDataBody extends StatelessWidget {
             onPressed: cubit.createNewChildLoader
                 ? () {}
                 : () async {
-                    await cubit.createNewChild(context);
+                    cubit.isAssignToProgram
+                        ? Navigator.pushNamed(
+                            context,
+                            RoutePaths.studentManagement,
+                          )
+                        : Navigator.pushNamed(
+                            context,
+                            RoutePaths.groupPackageManagement,
+                          );
+
+                    // cubit.incrementScreenIndex();
+
+                    // await cubit.createNewChild(context);
                   },
             child: cubit.createNewChildLoader
                 ? const CircularProgressIndicator.adaptive()

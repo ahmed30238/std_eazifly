@@ -1,5 +1,4 @@
-
-
+import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class AddNewStudentArea extends StatelessWidget {
@@ -9,6 +8,9 @@ class AddNewStudentArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AddNewStudentDataToProgramCubit cubit =
+        context.read<AddNewStudentDataToProgramCubit>();
+    cubit.fillIsAssignToProgram(true);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -30,11 +32,20 @@ class AddNewStudentArea extends StatelessWidget {
                 color: MainColors.blueTextColor,
               ),
               4.pw,
-              Text(
-                "أضافة طالب جديد",
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 12,
-                  color: MainColors.blueTextColor,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    RoutePaths.addNewStudentData,
+                    // arguments: true,
+                  );
+                },
+                child: Text(
+                  "أضافة طالب جديد",
+                  style: MainTextStyle.boldTextStyle(
+                    fontSize: 12,
+                    color: MainColors.blueTextColor,
+                  ),
                 ),
               ),
             ],

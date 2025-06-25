@@ -55,10 +55,12 @@ class _SetAppointmentsViewState extends State<SetAppointmentsView>
                   ),
                 ),
                 12.ph,
+                // دي المفروض تعرض ليستة الطلاب اللي اختارتهم من الصفحة اللي فاتت
+                // ولما اخلص تسجيل طالب في البرنامج دا اعلم عليه علامة صح
                 const StudentsList(),
                 32.ph,
                 Text(
-                  lang.studentSchedules,
+                  "اختر نوع المواعيد المناسبة",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
                   ),

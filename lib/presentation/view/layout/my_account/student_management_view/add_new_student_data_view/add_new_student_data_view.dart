@@ -3,7 +3,11 @@ import 'package:eazifly_student/presentation/controller/add_new_student_data_to_
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class AddNewStudentDataView extends StatefulWidget {
-  const AddNewStudentDataView({super.key});
+  // final bool isToProgram;
+  const AddNewStudentDataView({
+    super.key,
+    // required this.isToProgram,
+  });
 
   @override
   State<AddNewStudentDataView> createState() => _AddNewStudentDataViewState();
@@ -24,7 +28,7 @@ class _AddNewStudentDataViewState extends State<AddNewStudentDataView>
     return Scaffold(
       appBar: CustomAppBar(
         context,
-        mainTitle: "أضافة بيانات طالب لبرنامج",
+        mainTitle: "أضافة بيانات طالب",
         isCenterTitle: true,
         leadingText: lang.back,
         onLeadinTap: () => cubit.decrementScreenIndex(context),

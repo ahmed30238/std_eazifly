@@ -93,7 +93,10 @@ class _StudentManagementViewState extends State<StudentManagementView> {
             width: 181.w,
             height: 40.h,
             onPressed: () {
-              Navigator.pushNamed(context, RoutePaths.addNewStudentData);
+              Navigator.pushNamed(
+                context,
+                RoutePaths.addNewStudentData,
+              );
             },
           ),
           32.ph,

@@ -7,16 +7,39 @@ class SetappointmentsCubit extends Cubit<SetappointmentsState> {
   static SetappointmentsCubit get(BuildContext context) =>
       BlocProvider.of<SetappointmentsCubit>(context);
 
-  final List<Widget> body = [
-    Text(
-      "data",
-    ),
-    Column(
-      children: [
-        Text("الأيام"),
-      ],
-    )
-  ];
+  // final List<Widget> body = [
+  //   Text(
+  //     "data",
+  //   ),
+  //   Column(
+  //     children: [
+  //       Text("الأيام"),
+  //     ],
+  //   )
+  // ];
+  TabController? fixedDateController;
+  void initFixedDateTabBarController(TickerProvider vsync) {
+    fixedDateController = TabController(length: tabs.length, vsync: vsync);
+    fixedDateController?.addListener(() {
+      if (fixedDateController!.indexIsChanging) {
+        fixedDateController?.animateTo(
+          fixedDateController!.index,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+      }
+      emit(InitTabBarControllerState());
+    });
+  }
+
+  String specifiedDay = "";
+  TextEditingController dayController = TextEditingController();
+  changeSpecifiedDay(String day) {
+    specifiedDay = day;
+    dayController.text = day;
+    emit(ChangeSpecifiedDayState());
+  }
+
   int selectedLecturerIndex = 0;
   changeLecturerIndex(int index) {
     selectedLecturerIndex = index;

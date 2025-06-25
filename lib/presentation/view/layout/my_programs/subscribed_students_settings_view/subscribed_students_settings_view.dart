@@ -96,7 +96,10 @@ class SubscribedStudentsSettingsView extends StatelessWidget {
                   btnColor: MainColors.blueTextColor,
                   borderRadius: 16.cr,
                   onTap: () {
-                    Navigator.pushNamed(context, RoutePaths.addNewStudentData);
+                    Navigator.pushNamed(
+                      context,
+                      RoutePaths.addNewStudentData,
+                    );
                   },
                 ),
               ],
@@ -184,7 +187,8 @@ class SubscribedStudentsSettingsView extends StatelessWidget {
                               8.ph,
                               Text(
                                 "01030837974",
-                                style: MainTextStyle.boldTextStyle(fontSize: 14),
+                                style:
+                                    MainTextStyle.boldTextStyle(fontSize: 14),
                               ),
                             ],
                           ),
@@ -206,7 +210,8 @@ class SubscribedStudentsSettingsView extends StatelessWidget {
                               8.ph,
                               Text(
                                 "احمد سلامة",
-                                style: MainTextStyle.boldTextStyle(fontSize: 14),
+                                style:
+                                    MainTextStyle.boldTextStyle(fontSize: 14),
                               ),
                             ],
                           ),
@@ -224,6 +229,7 @@ class SubscribedStudentsSettingsView extends StatelessWidget {
       ),
     );
   }
+
   Future<dynamic> studentMoreBottomSheet(BuildContext context) {
     return showModalSheet(
       minHeight: 260.h,
@@ -248,7 +254,7 @@ class SubscribedStudentsSettingsView extends StatelessWidget {
                   context,
                   RoutePaths.lectureView,
                   arguments: {
-                    "programId" : 1, // TODO
+                    "programId": 1, // TODO
                   },
                 );
               },

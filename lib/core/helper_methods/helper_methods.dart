@@ -134,7 +134,9 @@ delightfulToast({
 }
 
 Future<dynamic> weekDaysModalSheet(
-    BuildContext context, ChangelecturerCubit cubit) {
+  BuildContext context,
+  ChangelecturerCubit cubit,
+) {
   return showModalSheet(
     isFixedSize: true,
     minHeight: 400.h,
@@ -288,10 +290,11 @@ String formatTimeDifference(DateTime? nextSessionDateTime) {
 
   return "الآن";
 }
-  // تنسيق الوقت
-  String formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
-  }
+
+// تنسيق الوقت
+String formatDuration(Duration duration) {
+  String twoDigits(int n) => n.toString().padLeft(2, "0");
+  String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+  String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+  return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+}

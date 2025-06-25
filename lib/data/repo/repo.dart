@@ -721,12 +721,13 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetReportQuestionsModel>> getReportQuestions(
-      {required String reportMakerType,
-      required String reportForType,
-      required int reportMakerId,
-      required int reportForId,
-      required int meetingSessionId}) async {
+  Future<Either<Failure, GetReportQuestionsModel>> getReportQuestions({
+    required String reportMakerType,
+    required String reportForType,
+    required int reportMakerId,
+    required int reportForId,
+    required int meetingSessionId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getReportQuestions(
         meetingSessionId: meetingSessionId,
