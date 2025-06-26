@@ -8,6 +8,10 @@ class EndPoints {
   static const checkCopoun = "check-coupon";
   static const getUserOrders = "orders";
   static const storeFavouriteList = "store/favorite/list";
+  static String getOrderDetails({required int orderId}) =>
+      "user/order/details/$orderId";
+  static const createMeetingSession = "create/meeting/session";
+  static const addWeeklyAppointments = "add/weekly/appointments";
   static const getFavouriteList = "favorite/list";
   static const getAllItems = "get/all/items";
   static const addSingleToFavList = "add/item/to/favorite/list";

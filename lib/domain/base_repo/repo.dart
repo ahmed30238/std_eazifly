@@ -9,18 +9,22 @@ import 'package:eazifly_student/data/models/my_programs/change_session_status_to
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/post_assignment_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_to_json.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/domain/entities/add_single_item_to_fav_list_entity.dart';
+import 'package:eazifly_student/domain/entities/add_weekly_appointments_entity.dart';
 import 'package:eazifly_student/domain/entities/assign_program_review_entities.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/check_copoun_entities.dart';
 import 'package:eazifly_student/domain/entities/children_entities/create_new_child_entity.dart';
 import 'package:eazifly_student/domain/entities/children_entities/get_my_children_entity.dart';
+import 'package:eazifly_student/domain/entities/create_meeting_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
 import 'package:eazifly_student/domain/entities/get_all_items_entity.dart';
@@ -30,6 +34,7 @@ import 'package:eazifly_student/domain/entities/get_favourite_list_items_using_l
 import 'package:eazifly_student/domain/entities/get_library_category_entity.dart';
 import 'package:eazifly_student/domain/entities/get_library_plans_entity.dart';
 import 'package:eazifly_student/domain/entities/get_list_items_using_list_id_entity.dart';
+import 'package:eazifly_student/domain/entities/get_order_details_entity.dart';
 import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plan_subscription_period_entity.dart';
 import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.dart';
@@ -206,5 +211,14 @@ abstract class BaseRepository {
     required int reportMakerId,
     required int reportForId,
     required int meetingSessionId,
+  });
+  Future<Either<Failure, GetOrderDetailsEntity>> getOrderDetails(
+    {required int orderId}
+  );
+  Future<Either<Failure, AddWeeklyAppontmentsEntity>> addWeeklyAppointments({
+    required AddWeeklyAppointmentsTojson data,
+  });
+  Future<Either<Failure, CreateMeetingSessionsEntity>> createMeetingSessions({
+    required CreateMeetingSessionsTojson data,
   });
 }

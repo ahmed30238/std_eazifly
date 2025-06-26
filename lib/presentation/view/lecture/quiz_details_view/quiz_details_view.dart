@@ -1,6 +1,5 @@
 import 'package:eazifly_student/presentation/controller/lecture_quiz_details_controller/lecturequiz_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture_quiz_details_controller/lecturequiz_state.dart';
-import 'package:eazifly_student/presentation/view/lecture/quiz_details_view/corrected_quiz_body.dart';
 import 'package:eazifly_student/presentation/view/lecture/quiz_details_view/widgets/question_container.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -54,12 +53,14 @@ class _LectureQuizDetailsViewState extends State<LectureQuizDetailsView> {
             );
           }
 
-          // Check if quiz is corrected (has userAnswer)
-          bool isQuizCorrected = cubit.getQuizQuestionsEntity?.data?.userAnswer != null;
-          
-          return isQuizCorrected 
-            ? CorrectedQuizBody(cubit: cubit, widget: widget)
-            : NotCorrectedQuizBody(cubit: cubit, widget: widget);
+          // Check if quهz is corrected (has userAnswer)
+          // bool isQuizCorrected =
+          //     cubit.getQuizQuestionsEntity?.data?.userAnswer != null;
+
+          // return isQuizCorrected
+          //   ? CorrectedQuizBody(cubit: cubit, widget: widget)
+          //   :
+          return NotCorrectedQuizBody(cubit: cubit, widget: widget);
         },
       ),
     );
@@ -88,15 +89,16 @@ class NotCorrectedQuizBody extends StatelessWidget {
               BlocBuilder<LecturequizCubit, LecturequizState>(
                 builder: (context, state) {
                   var quizData = cubit.getQuizQuestionsEntity?.data;
-                  
+
                   // Calculate total possible marks
                   double totalPossibleMarks = 0;
                   if (quizData?.questions != null) {
                     for (var question in quizData!.questions!) {
-                      totalPossibleMarks += double.tryParse(question.mark ?? "0") ?? 0;
+                      totalPossibleMarks +=
+                          double.tryParse(question.mark ?? "0") ?? 0;
                     }
                   }
-                  
+
                   return StudentStats(
                     horizontalPadding: 0,
                     titleText: const [

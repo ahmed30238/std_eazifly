@@ -53,8 +53,26 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 14,
                 ),
-              )
+              ),
             ],
+          ),
+        ),
+        InkWell(
+          onTap: () => cubit.addWeeklyAppointments(orderId: 1),
+          child: Text(
+            "إضافة نفسي في البرنامج",
+            style: MainTextStyle.boldTextStyle(
+              fontSize: 14,
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () => cubit.createMeetingSessions(),
+          child: Text(
+            "إضافة نفسي في البرنامج",
+            style: MainTextStyle.boldTextStyle(
+              fontSize: 14,
+            ),
           ),
         ),
         16.ph,
@@ -62,7 +80,8 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
           builder: (context, state) {
             if (cubit.getMyChildrenLoader) {
               return const Center(child: CircularProgressIndicator());
-            } else if (!cubit.getMyChildrenLoader && cubit.getMyChildrenEntity?.data != null) {
+            } else if (!cubit.getMyChildrenLoader &&
+                cubit.getMyChildrenEntity?.data != null) {
               // الشرط المُصحح: عدم التحميل ووجود البيانات
               final childrenList = cubit.getMyChildrenEntity?.data;
               final chosen = cubit.chosen;

@@ -52,6 +52,11 @@ import 'package:eazifly_student/data/models/my_programs/quizzes/get_user_quizzes
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_model.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_to_json.dart';
 import 'package:eazifly_student/data/models/my_programs/show_program_details_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/get_order_details_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_model.dart';
@@ -190,6 +195,13 @@ abstract class BaseRemoteDataSource {
   });
   Future<UpgradeOrderModel> upgradeOrder({
     required CreateOrderTojson data,
+  });
+  Future<CreateMeetingSessionsModel> createMeetingSessions({
+    required CreateMeetingSessionsTojson data,
+  });
+  Future<GetOrderDetailsModel> getOrderDetails({required int orderId});
+  Future<AddWeeklyAppontmentsModel> addWeeklyAppointments({
+    required AddWeeklyAppointmentsTojson data,
   });
   Future<GetReportQuestionsModel> getReportQuestions({
     required String reportMakerType,
@@ -1425,6 +1437,63 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetReportQuestionsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<AddWeeklyAppontmentsModel> addWeeklyAppointments(
+      {required AddWeeklyAppointmentsTojson data}) async {
+    var response = await NetworkCall().post(
+      data: FormData.fromMap(data.toJson()),
+      path: EndPoints.addWeeklyAppointments,
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return AddWeeklyAppontmentsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<CreateMeetingSessionsModel> createMeetingSessions(
+      {required CreateMeetingSessionsTojson data}) async {
+    var response = await NetworkCall().post(
+      data: FormData.fromMap(data.toJson()),
+      path: EndPoints.createMeetingSession,
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return CreateMeetingSessionsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetOrderDetailsModel> getOrderDetails({required int orderId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getOrderDetails(
+        orderId: orderId,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetOrderDetailsModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

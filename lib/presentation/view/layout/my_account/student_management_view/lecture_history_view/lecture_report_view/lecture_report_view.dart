@@ -29,7 +29,8 @@ class _LectureReportViewState extends State<LectureReportView> {
     return Scaffold(
       appBar: CustomAppBar(
         context,
-        mainTitle: cubit.reportQuestionsEntity?.data?[0].program ?? "",
+        mainTitle:
+            cubit.reportQuestionsEntity?.data?[widget.index].program ?? "",
         leadingText: "بيانات الطالب",
         leadingCustomWidth: 120.w,
         isCenterTitle: true,
@@ -53,6 +54,13 @@ class _LectureReportViewState extends State<LectureReportView> {
             14.ph,
             BlocBuilder<LectureCubit, LectureState>(
               builder: (context, state) {
+                if (cubit.getReportQuestionsLoader) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: MainColors.blueTextColor,
+                    ),
+                  );
+                }
                 return Text(
                   cubit.reportQuestionsEntity?.data?[0].program ?? "",
                   style: MainTextStyle.boldTextStyle(
@@ -65,23 +73,60 @@ class _LectureReportViewState extends State<LectureReportView> {
             BlocBuilder(
               bloc: cubit,
               builder: (context, state) {
+                if (cubit.getReportQuestionsLoader) {
+                  return const Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: MainColors.blueTextColor,
+                      ),
+                    ),
+                  );
+                }
+
+                if (state is GetReportQuestionsErrorState) {
+                  return Expanded(
+                    child: Center(
+                      child: Text(
+                        "حدث خطأ في تحميل البيانات",
+                        style: MainTextStyle.mediumTextStyle(
+                          fontSize: 14,
+                          color: MainColors.red,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+
                 var questions = cubit.reportQuestionsEntity?.data;
+                if (questions == null || questions.isEmpty) {
+                  return Expanded(
+                    child: Center(
+                      child: Text(
+                        "لا توجد أسئلة متاحة",
+                        style: MainTextStyle.mediumTextStyle(
+                          fontSize: 14,
+                          color: MainColors.grayTextColors,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+
                 return Expanded(
                   child: ListView.separated(
                     itemBuilder: (context, index) {
-                      var question = questions?[index];
+                      var question = questions[index];
                       return EssayReportQuestion(
                         question: question,
                       );
                     },
                     separatorBuilder: (context, index) => 10.ph,
-                    itemCount: cubit.reportQuestionsEntity?.data?.length ?? 0,
+                    itemCount: questions.length,
                   ),
                 );
               },
             ),
-
-            24.ph, // Add some bottom padding
+            24.ph,
           ],
         ),
       ),
@@ -107,6 +152,7 @@ class EssayReportQuestion extends StatelessWidget {
               int.tryParse(
                 question?.reportQuestionAnswerId ?? "",
               ),
+          // orElse: () => ReportQuestionOption(id: -1, title: "لا توجد إجابة"),
         )
         .title;
     return Container(
@@ -129,7 +175,7 @@ class EssayReportQuestion extends StatelessWidget {
           ),
           8.ph,
           Text(
-            answer ?? rightMultiSelectTitle ?? "",
+            answer ?? rightMultiSelectTitle ?? "لا توجد إجابة",
             style: MainTextStyle.mediumTextStyle(
               fontSize: 12,
               color: MainColors.grayTextColors,
@@ -137,13 +183,16 @@ class EssayReportQuestion extends StatelessWidget {
               height: 1.5,
             ),
           ),
-          Text(
-            "ملحوظة :${question?.note}",
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 12,
-              color: MainColors.grayTextColors,
+          if (question?.note?.isNotEmpty ?? false) ...[
+            8.ph,
+            Text(
+              "ملحوظة: ${question?.note}",
+              style: MainTextStyle.boldTextStyle(
+                fontSize: 12,
+                color: MainColors.grayTextColors,
+              ),
             ),
-          ),
+          ],
         ],
       ),
     );

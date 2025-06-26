@@ -26,6 +26,7 @@ class NetworkCall {
     Map<String, dynamic>? headers,
     ResponseType? responseType,
     Map<String, dynamic>? queryParameters,
+    
     bool withHeaders = true,
   }) async {
     Response? response;

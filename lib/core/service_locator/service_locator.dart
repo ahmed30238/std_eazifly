@@ -2,10 +2,12 @@ import 'package:eazifly_student/data/data_source/remote_data_source.dart';
 import 'package:eazifly_student/data/repo/repo.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/use_cases/add_single_item_to_fav_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/add_weekly_appointments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/cancel_subscription_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/change_session_status_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/complete_chapter_lesson_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/create_meeting_assignment_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_new_child_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_order_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/filter_plans_usecase.dart';
@@ -24,6 +26,7 @@ import 'package:eazifly_student/domain/use_cases/get_library_subscription_usecas
 import 'package:eazifly_student/domain/use_cases/get_list_items_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_messages_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_my_programs_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_order_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_payment_method_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_plan_subscription_period_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_plan_with_details_usecase.dart';
@@ -150,6 +153,12 @@ class ServiceLocator {
     sl.registerLazySingleton(() => UpgradeOrderUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => GetReportQuestionsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => AddWeeklyAppointmentsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => CreateMeetingSessionsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetOrderDetailsUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(

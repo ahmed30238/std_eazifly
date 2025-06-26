@@ -18,15 +18,18 @@ class ExamBodyWidget extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (context, index) {
         var quiz = quizzes?[index];
+        bool notUploaded = quiz?.status == "pending";
         return CustomListTile(
           onTap: () {
             log("${cubit.currentProgramId}");
             Navigator.pushNamed(
               context,
-              RoutePaths.lectureQuizzDetailsView,
+              notUploaded
+                  ? RoutePaths.correctedQuizDetailsView
+                  : RoutePaths.lectureQuizzDetailsView,
               arguments: {
                 "programId": cubit.currentProgramId,
-                "userId": 3, //TODO ==> login model or children id
+                "userId": cubit.userId,
                 "quizId": quiz?.id,
                 "quizTitle": quiz?.title
               },

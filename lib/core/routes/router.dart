@@ -434,6 +434,9 @@ class AppRouter {
               BlocProvider(
                 create: (context) => GrouppackagemanagementCubit(
                   getChildrenUsecase: sl(),
+                  addWeeklyAppointmentsUsecase: sl(),
+                  createMeetingSessionsUsecase: sl(),
+                  getOrderDetailsUsecase: sl(),
                 ),
               ),
               BlocProvider(
