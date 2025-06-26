@@ -60,7 +60,6 @@ class MyApp extends StatelessWidget {
                   locale: Locale(langCubit.langKey),
                   debugShowCheckedModeBanner: false,
                   title: 'Flutter Demo',
-                  // home: Layout(),
                 );
               }
               return const SizedBox();

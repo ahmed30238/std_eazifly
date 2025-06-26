@@ -731,7 +731,7 @@ class Repository extends BaseRepository {
     try {
       final result = await baseRemoteDataSource.getReportQuestions(
         meetingSessionId: meetingSessionId,
-        reportForId: reportMakerId,
+        reportForId: reportForId,
         reportForType: reportForType,
         reportMakerId: reportMakerId,
         reportMakerType: reportMakerType,

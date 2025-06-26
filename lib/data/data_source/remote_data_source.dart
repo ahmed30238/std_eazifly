@@ -1407,12 +1407,13 @@ class RemoteDataSource extends BaseRemoteDataSource {
   }
 
   @override
-  Future<GetReportQuestionsModel> getReportQuestions(
-      {required String reportMakerType,
-      required String reportForType,
-      required int reportMakerId,
-      required int reportForId,
-      required int meetingSessionId}) async {
+  Future<GetReportQuestionsModel> getReportQuestions({
+    required String reportMakerType,
+    required String reportForType,
+    required int reportMakerId,
+    required int reportForId,
+    required int meetingSessionId,
+  }) async {
     var response = await NetworkCall().get(
         path: EndPoints.getReportQuestions(
       meetingSessionId: meetingSessionId,

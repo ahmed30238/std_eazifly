@@ -512,6 +512,7 @@ class LectureCubit extends Cubit<LectureState> {
         emit(GetUserReportsErrorState(errorMessage: failure.message));
       },
       (data) {
+        log("this is report for id ${data.data?[0].reportForId}");
         tabLoadingStates[4] = false;
         tabErrorStates[4] = null;
         getUserReportsLoader = false;
@@ -547,18 +548,6 @@ class LectureCubit extends Cubit<LectureState> {
 
     emit(ChildIndexChanged());
   }
-
-  // void fillUserId(int userId) {
-  //   // هنا تنفذ أي لوجيك خاص بتحديد اليوزر
-  // }
-
-  // void showProgramDetails({required int programId}) {
-  //   // logic
-  // }
-
-  // void getProgramSessions({required int programId, required int userId}) {
-  //   // logic
-  // }
 
   bool getUserFeedbacksLoader = false;
   GetUserFeedbacksEntity? getUserFeedbacksEntity;
@@ -1153,6 +1142,9 @@ class LectureCubit extends Cubit<LectureState> {
   GetReportQuestionsUsecase getReportQuestionsUsecase;
 
   Future<void> getReportQuestions({required int index}) async {
+    // log("${data.data?[0].program}");
+    log("this is report maker ${int.tryParse(getUserReportsEntity?.data?[index].reportMakerId ?? "") ?? 0}");
+    log("this is report for ${getUserReportsEntity?.data?[index].reportForId ?? "0"}");
     getReportQuestionsLoader = true;
     emit(GetReportQuestionsLoadingState());
 
@@ -1161,14 +1153,16 @@ class LectureCubit extends Cubit<LectureState> {
         meetingSessionId: int.tryParse(
                 getUserReportsEntity?.data?[index].meetingSessionId ?? "0") ??
             0,
-        reportForId:
-            int.tryParse(getUserReportsEntity?.data?[index].reportForId ?? "0") ??
-                0,
+        reportForId: int.tryParse(
+              getUserReportsEntity?.data?[index].reportForId ?? "0",
+            ) ??
+            0,
         reportForType: getUserReportsEntity?.data?[index].reportForType ?? "",
-        reportMakerId:
-            int.tryParse(getUserReportsEntity?.data?[index].reportMakerId ?? "") ??
-                -1,
-        reportMakerType: getUserReportsEntity?.data?[index].reportMakerType ?? "",
+        reportMakerId: int.tryParse(
+                getUserReportsEntity?.data?[index].reportMakerId ?? "") ??
+            -1,
+        reportMakerType:
+            getUserReportsEntity?.data?[index].reportMakerType ?? "",
       ),
     );
 
@@ -1182,6 +1176,10 @@ class LectureCubit extends Cubit<LectureState> {
       (data) {
         getReportQuestionsLoader = false;
         reportQuestionsEntity = data;
+        log("${data.data?[0].program}");
+        log("${int.tryParse(getUserReportsEntity?.data?[index].reportMakerId ?? "") ?? 0}");
+        log(getUserReportsEntity?.data?[index].reportForId ?? "0");
+
         emit(GetReportQuestionsSuccessState());
       },
     );
@@ -1197,26 +1195,4 @@ class LectureCubit extends Cubit<LectureState> {
     selectedFile = null;
     emit(AssignmentFileRemovedState());
   }
-
-  // void removeAttachment(int index) {}
 }
-
-// Future<void> pickFile() async {
-//   FilePickerResult? result = await FilePicker.platform.pickFiles(
-//     type: FileType.custom,
-//     allowedExtensions: ['pdf', 'jpg', 'png'],
-//   );
-
-//   if (result != null) {
-//     PlatformFile file = result.files.first;
-
-//     log("Path: ${file.path}");
-//     log("Name: ${file.name}");
-//     log("Extension: ${file.extension}");
-
-//     // بعدين تقدر ترفع الملف باستخدام API أو تحتفظ بيه مؤقتًا
-//   } else {
-//     // المستخدم لغى
-//     log("تم الإلغاء");
-//   }
-// }
