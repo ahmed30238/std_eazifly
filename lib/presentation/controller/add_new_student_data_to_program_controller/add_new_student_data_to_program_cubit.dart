@@ -205,6 +205,7 @@ class AddNewStudentDataToProgramCubit
                   RoutePaths.studentManagement,
                 )
               : Navigator.pushReplacementNamed(
+                arguments: "1", // orderId,
                   context,
                   RoutePaths.groupPackageManagement,
                 );

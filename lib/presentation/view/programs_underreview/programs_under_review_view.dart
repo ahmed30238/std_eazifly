@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_state.dart';
 import 'package:eazifly_student/presentation/view/programs_underreview/widgets/under_review_item.dart';
@@ -52,9 +54,12 @@ class _ProgramsUnderReviewViewState extends State<ProgramsUnderReviewView> {
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.all(16.r),
             itemBuilder: (context, index) {
+
               var order = orders[index];
+              log("this is order id${order.id.toString()}");
               // log("${order.orderDetails?[0].label}");
               return UnderReviewItem(
+                orderId: order.id.toString(),
                 image: "",
                 state: order.status?.color ?? "",
                 // state depends on the color because of the API response

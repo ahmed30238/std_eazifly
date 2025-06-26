@@ -340,13 +340,13 @@ class AppRouter {
         return createRoute(
           const SubscribedStudentsSettingsView(),
         );
-      case RoutePaths.setAppointmentsView:
-        return createRoute(
-          BlocProvider(
-            create: (context) => SetappointmentsCubit(),
-            child: const SetAppointmentsView(),
-          ),
-        );
+      // case RoutePaths.setAppointmentsView:
+      //   return createRoute(
+      //     BlocProvider(
+      //       create: (context) => SetappointmentsCubit(),
+      //       child: const SetAppointmentsView(),
+      //     ),
+      //   );
       case RoutePaths.subscriptionDetailsView:
         return createRoute(
           BlocProvider(
@@ -428,6 +428,7 @@ class AppRouter {
           ),
         );
       case RoutePaths.groupPackageManagement:
+        String orderId = settings.arguments as String? ?? "-1";
         return createRoute(
           MultiBlocProvider(
             providers: [
@@ -437,6 +438,7 @@ class AppRouter {
                   addWeeklyAppointmentsUsecase: sl(),
                   createMeetingSessionsUsecase: sl(),
                   getOrderDetailsUsecase: sl(),
+                  getInstructorsUsecase: sl(),
                 ),
               ),
               BlocProvider(
@@ -445,7 +447,9 @@ class AppRouter {
                 ),
               ),
             ],
-            child: const GroupPackageManagementView(),
+            child: GroupPackageManagementView(
+              orderId: orderId,
+            ),
           ),
         );
       case RoutePaths.homeNotification:

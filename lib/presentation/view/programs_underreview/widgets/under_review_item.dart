@@ -5,10 +5,12 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 class UnderReviewItem extends StatelessWidget {
   final String state;
   final String image;
+  final String orderId;
   const UnderReviewItem({
     super.key,
     required this.state,
     required this.image,
+    required this.orderId,
   });
 
   @override
@@ -17,6 +19,7 @@ class UnderReviewItem extends StatelessWidget {
       onTap: state == "success"
           ? () {
               Navigator.pushNamed(
+                arguments: orderId, // orderId
                 context,
                 RoutePaths.groupPackageManagement,
               );
@@ -63,7 +66,7 @@ class UnderReviewItem extends StatelessWidget {
                                 fontSize: 12,
                                 onTap: () {
                                   Navigator.pushNamed(
-                                    arguments: 0, //TODO itemId,
+                                    arguments: 1, //TODO itemId,
                                     context,
                                     RoutePaths.completePaymentProcessScreen,
                                   );
@@ -112,15 +115,9 @@ class UnderReviewItem extends StatelessWidget {
           children: [
             StackDesignState(
               image: image,
+              orderId: orderId,
               state: state,
             ),
-            // SizedBox(
-            //   height: 74.h,
-            //   child: ItemDetailsCard(
-            //     titles: programTitles,
-            //     values: [],
-            //   ),
-            // )
           ],
         ),
       ),
@@ -129,12 +126,14 @@ class UnderReviewItem extends StatelessWidget {
 }
 
 class StackDesignState extends StatelessWidget {
+  final String orderId;
   final String state;
   final String image;
   const StackDesignState({
     super.key,
     required this.state,
     required this.image,
+    required this.orderId,
   });
 
   @override
@@ -193,6 +192,7 @@ class StackDesignState extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(
                     context,
+                    arguments: orderId, //orderId,
                     RoutePaths.groupPackageManagement,
                   );
                 },

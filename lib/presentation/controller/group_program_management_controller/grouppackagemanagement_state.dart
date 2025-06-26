@@ -51,3 +51,14 @@ class CreateMeetingSessionsErrorState extends GrouppackagemanagementState {
   final String message;
   CreateMeetingSessionsErrorState(this.message);
 }
+// GetInstructors States
+class GetInstructorsLoadingState extends GrouppackagemanagementState {}
+
+class GetInstructorsSuccessState extends GrouppackagemanagementState {
+  GetInstructorsSuccessState();
+}
+
+class GetInstructorsErrorState extends GrouppackagemanagementState {
+  final String message;
+  GetInstructorsErrorState(this.message);
+}

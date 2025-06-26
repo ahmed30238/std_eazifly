@@ -1,3 +1,4 @@
+import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/screen_tabbar.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/screen_tabbar_view.dart';
@@ -5,7 +6,9 @@ import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ChosenLecturer extends StatefulWidget {
-  const ChosenLecturer({super.key});
+    final GrouppackagemanagementCubit grouppackagemanagementCubit;
+
+  const ChosenLecturer({super.key, required this.grouppackagemanagementCubit});
 
   @override
   State<ChosenLecturer> createState() => _ChosenLecturerState();
@@ -55,7 +58,9 @@ class _ChosenLecturerState extends State<ChosenLecturer>
               //! tab bar
               const ScreenTabBar(),
               //! tab bar view
-              const ScreenTabbarView(),
+               ScreenTabbarView(
+                grouppackagemanagementCubit: widget.grouppackagemanagementCubit,
+               ),
             ],
           ),
         ),

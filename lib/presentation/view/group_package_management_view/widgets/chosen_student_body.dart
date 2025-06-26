@@ -16,7 +16,6 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
   @override
   void initState() {
     cubit = GrouppackagemanagementCubit.get(context);
-    cubit.getMyChildren();
     super.initState();
   }
 
@@ -57,24 +56,6 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
             ],
           ),
         ),
-        InkWell(
-          onTap: () => cubit.addWeeklyAppointments(orderId: 1),
-          child: Text(
-            "إضافة نفسي في البرنامج",
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 14,
-            ),
-          ),
-        ),
-        InkWell(
-          onTap: () => cubit.createMeetingSessions(),
-          child: Text(
-            "إضافة نفسي في البرنامج",
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 14,
-            ),
-          ),
-        ),
         16.ph,
         BlocBuilder<GrouppackagemanagementCubit, GrouppackagemanagementState>(
           builder: (context, state) {
@@ -111,6 +92,7 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
                           value: chosen.length > index ? chosen[index] : false,
                           onChanged: (value) {
                             cubit.changeChosen(index);
+                            cubit.fillAddedUsersIds(index);
                           },
                         ),
                         Expanded(

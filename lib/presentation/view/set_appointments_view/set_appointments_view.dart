@@ -4,6 +4,7 @@ import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
+import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/screen_tabbar.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/screen_tabbar_view.dart';
@@ -12,7 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SetAppointmentsView extends StatefulWidget {
-  const SetAppointmentsView({super.key});
+    final GrouppackagemanagementCubit grouppackagemanagementCubit;
+
+  const SetAppointmentsView({super.key, required this.grouppackagemanagementCubit});
 
   @override
   State<SetAppointmentsView> createState() => _SetAppointmentsViewState();
@@ -69,7 +72,9 @@ class _SetAppointmentsViewState extends State<SetAppointmentsView>
                 //! tab bar
                 const ScreenTabBar(),
                 //! tab bar view
-                const ScreenTabbarView(),
+                 ScreenTabbarView(
+                  grouppackagemanagementCubit: widget.grouppackagemanagementCubit,
+                ),
               ],
             ),
           ),

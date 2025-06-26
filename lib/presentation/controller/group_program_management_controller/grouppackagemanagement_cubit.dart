@@ -1,13 +1,21 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/core/service_locator/service_locator.dart';
+import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/get_instructors_tojson.dart';
 import 'package:eazifly_student/domain/entities/add_weekly_appointments_entity.dart';
 import 'package:eazifly_student/domain/entities/children_entities/get_my_children_entity.dart';
 import 'package:eazifly_student/domain/entities/create_meeting_sessions_entity.dart';
+import 'package:eazifly_student/domain/entities/get_instructors_entity.dart';
 import 'package:eazifly_student/domain/entities/get_order_details_entity.dart';
 import 'package:eazifly_student/domain/use_cases/add_weekly_appointments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_meeting_assignment_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_children_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_instructors_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_order_details_usecase.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
@@ -15,6 +23,7 @@ import 'package:eazifly_student/presentation/controller/set_appointment_controll
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/chosen_lecturer.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/chosen_student_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:get_storage/get_storage.dart';
 
 part 'grouppackagemanagement_state.dart';
 
@@ -24,7 +33,16 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     required this.addWeeklyAppointmentsUsecase,
     required this.createMeetingSessionsUsecase,
     required this.getOrderDetailsUsecase,
-  }) : super(GrouppackagemanagementInitial());
+    required this.getInstructorsUsecase,
+  }) : super(GrouppackagemanagementInitial()) {
+    loginData = DataModel.fromJson(
+      jsonDecode(
+        GetStorage().read(
+          StorageEnum.loginModel.name,
+        ),
+      ),
+    );
+  }
 
   static GrouppackagemanagementCubit get(context) => BlocProvider.of(context);
 
@@ -52,7 +70,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     emit(ChangeStepperIndexState());
   }
 
-  List<Widget> bodies = [
+  List<Widget> get bodies => [
     const SizedBox(),
     BlocProvider(
       create: (context) => AddNewStudentDataToProgramCubit(
@@ -62,13 +80,23 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     ),
     BlocProvider(
       create: (context) => SetappointmentsCubit(),
-      child: const ChosenLecturer(),
+      child: ChosenLecturer(
+        grouppackagemanagementCubit: this,
+      ),
     ),
   ];
-
+  DataModel? loginData;
   bool addMyself = false;
   toggleMyself() {
     addMyself = !addMyself;
+
+    if (addMyself && !addedUsersIds.contains(loginData?.id)) {
+      addedUsersIds.add(loginData?.id ?? -1);
+    } else {
+      addedUsersIds.remove(loginData?.id ?? -1);
+    }
+    log("user id $addedUsersIds");
+    // if (addMyself) {
     emit(ToggleAddMySelfState());
   }
 
@@ -104,6 +132,40 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     }
   }
 
+  List<int> addedUsersIds = [];
+  fillAddedUsersIds(int index) {
+    if (chosen[index] &&
+        !addedUsersIds.contains(getMyChildrenEntity?.data?[index].id ?? -1)) {
+      addedUsersIds.add(getMyChildrenEntity?.data?[index].id ?? -1);
+    } else {
+      addedUsersIds.remove(getMyChildrenEntity?.data?[index].id ?? -1);
+    }
+    log("ids {$addedUsersIds}");
+  }
+
+  List<MyChildEntity>? addedChildren = [];
+
+  void fillAddedChildrenData() {
+    addedChildren = [];
+    for (var id in addedUsersIds) {
+      addedChildren?.addAll(getMyChildrenEntity?.data
+              ?.where((element) => element.id == id)
+              .toList() ??
+          []);
+    }
+    if (addedUsersIds.contains(loginData?.id)) {
+      addedChildren?.add(
+        MyChildEntity(
+          firstName: loginData?.firstName,
+          lastName: loginData?.lastName,
+          image: loginData?.image,
+          id: loginData?.id,
+        ),
+      );
+    }
+    log("$addedChildren");
+  }
+
   void changeChosen(int index) {
     if (index >= 0 && index < chosen.length) {
       chosen[index] = !chosen[index];
@@ -123,7 +185,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   AddWeeklyAppointmentsUsecase addWeeklyAppointmentsUsecase;
 
 // Methods
-  Future<void> getMyOrders({required int orderId}) async {
+  Future<void> getOrderDetails({required int orderId}) async {
     getMyOrdersLoader = true;
     emit(GetMyOrdersLoadingState());
 
@@ -143,19 +205,22 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     );
   }
 
-  Future<void> addWeeklyAppointments({required int orderId}) async {
+  Future<void> addWeeklyAppointments() async {
     addWeeklyAppointmentsLoader = true;
     emit(AddWeeklyAppointmentsLoadingState());
 
     final result = await addWeeklyAppointmentsUsecase.call(
       parameter: AddWeeklyAppointmentsParameters(
         data: AddWeeklyAppointmentsTojson(
-          startDate: "",
-          userId: 3,
-          duration: 30,
-          subscripeDays: 50,
-          numberOfSessions: 5,
-          appointments: {},
+          startDate: "2025-06-24",
+          userId: addedUsersIds[0],
+          duration:
+              int.tryParse(getOrderDetailsEntity?.data?.duration ?? "-1") ?? -1,
+          subscripeDays: int.tryParse(
+                  getOrderDetailsEntity?.data?.subscripeDays ?? "-1") ??
+              -1,
+          numberOfSessions: getOrderDetailsEntity?.data?.numberOfSessions ?? -1,
+          appointments: {"monday": "15:00", "thursday": "15:00"},
         ),
       ),
     );
@@ -198,5 +263,41 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
         emit(CreateMeetingSessionsSuccessState());
       },
     );
+  }
+
+  bool getInstructorsLoader = false;
+  GetInstructorsEntity? getInstructorsEntity;
+  GetInstructorsUsecase getInstructorsUsecase;
+
+  Future<void> getInstructors() async {
+    getInstructorsLoader = true;
+    emit(GetInstructorsLoadingState());
+
+    final result = await getInstructorsUsecase.call(
+      parameter: GetInstructorsParameters(
+        data: GetInstructorsTojson(
+          appointments: addWeeklyAppontmentsEntity!.data!,
+          programId: 1,
+        ),
+      ),
+    );
+    result.fold(
+      (failure) {
+        getInstructorsLoader = false;
+        emit(GetInstructorsErrorState(failure.message));
+      },
+      (data) {
+        getInstructorsLoader = false;
+        getInstructorsEntity = data;
+        emit(GetInstructorsSuccessState());
+      },
+    );
+  }
+
+  @override
+  Future<void> close() {
+    addedChildren = [];
+    addMyself = false;
+    return super.close();
   }
 }

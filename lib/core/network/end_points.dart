@@ -9,8 +9,9 @@ class EndPoints {
   static const getUserOrders = "orders";
   static const storeFavouriteList = "store/favorite/list";
   static String getOrderDetails({required int orderId}) =>
-      "user/order/details/$orderId";
+      "order/details/$orderId";
   static const createMeetingSession = "create/meeting/session";
+  static const getInstructors = "get/program/availabilities-instructors";
   static const addWeeklyAppointments = "add/weekly/appointments";
   static const getFavouriteList = "favorite/list";
   static const getAllItems = "get/all/items";

@@ -56,6 +56,7 @@ import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointme
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/get_instructors_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/get_order_details_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
@@ -63,6 +64,7 @@ import 'package:eazifly_student/data/models/order_and_subscribe/create_order_mod
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plans_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/get_instructors_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/get_payment_method_details_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/get_plan_with_details_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/get_plans_model.dart';
@@ -202,6 +204,9 @@ abstract class BaseRemoteDataSource {
   Future<GetOrderDetailsModel> getOrderDetails({required int orderId});
   Future<AddWeeklyAppontmentsModel> addWeeklyAppointments({
     required AddWeeklyAppointmentsTojson data,
+  });
+  Future<GetInstructorsModel> getInstructors({
+    required GetInstructorsTojson data,
   });
   Future<GetReportQuestionsModel> getReportQuestions({
     required String reportMakerType,
@@ -1494,6 +1499,25 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetOrderDetailsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetInstructorsModel> getInstructors(
+      {required GetInstructorsTojson data}) async {
+    var response = await NetworkCall().post(
+      data: FormData.fromMap(data.toJson()),
+      path: EndPoints.createMeetingSession,
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetInstructorsModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

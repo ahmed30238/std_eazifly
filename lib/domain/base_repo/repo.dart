@@ -11,6 +11,7 @@ import 'package:eazifly_student/data/models/my_programs/post_assignment_tojson.d
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_to_json.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/get_instructors_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
@@ -31,6 +32,7 @@ import 'package:eazifly_student/domain/entities/get_all_items_entity.dart';
 import 'package:eazifly_student/domain/entities/get_all_library_lists_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_items_using_list_id_entity.dart';
+import 'package:eazifly_student/domain/entities/get_instructors_entity.dart';
 import 'package:eazifly_student/domain/entities/get_library_category_entity.dart';
 import 'package:eazifly_student/domain/entities/get_library_plans_entity.dart';
 import 'package:eazifly_student/domain/entities/get_list_items_using_list_id_entity.dart';
@@ -213,12 +215,14 @@ abstract class BaseRepository {
     required int meetingSessionId,
   });
   Future<Either<Failure, GetOrderDetailsEntity>> getOrderDetails(
-    {required int orderId}
-  );
+      {required int orderId});
   Future<Either<Failure, AddWeeklyAppontmentsEntity>> addWeeklyAppointments({
     required AddWeeklyAppointmentsTojson data,
   });
   Future<Either<Failure, CreateMeetingSessionsEntity>> createMeetingSessions({
     required CreateMeetingSessionsTojson data,
+  });
+  Future<Either<Failure, GetInstructorsEntity>> getInstructors({
+    required GetInstructorsTojson data,
   });
 }

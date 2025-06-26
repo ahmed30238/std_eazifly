@@ -268,6 +268,7 @@ class StudentDataBody extends StatelessWidget {
                         : Navigator.pushNamed(
                             context,
                             RoutePaths.groupPackageManagement,
+                            arguments: "1"// orderId,
                           );
 
                     // cubit.incrementScreenIndex();

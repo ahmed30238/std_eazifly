@@ -1,9 +1,33 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/core/component/icon_stepper.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class GroupPackageManagementView extends StatelessWidget {
-  const GroupPackageManagementView({super.key});
+class GroupPackageManagementView extends StatefulWidget {
+  final String orderId;
+  const GroupPackageManagementView({
+    super.key,
+    required this.orderId,
+  });
+
+  @override
+  State<GroupPackageManagementView> createState() =>
+      _GroupPackageManagementViewState();
+}
+
+class _GroupPackageManagementViewState
+    extends State<GroupPackageManagementView> {
+  late GrouppackagemanagementCubit cubit;
+
+  @override
+  void initState() {
+    log("order id is ${widget.orderId}");
+    cubit = context.read<GrouppackagemanagementCubit>();
+    super.initState();
+    cubit.getOrderDetails(orderId: int.tryParse(widget.orderId) ?? -1);
+    cubit.getMyChildren();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +36,6 @@ class GroupPackageManagementView extends StatelessWidget {
       "إختيار الطلاب",
       "إختيار المعلمين",
     ];
-    var cubit = GrouppackagemanagementCubit.get(context);
     var lang = context.loc!;
     return Scaffold(
       appBar: CustomAppBar(
@@ -65,6 +88,7 @@ class GroupPackageManagementView extends StatelessWidget {
               radius: 16.r,
               onPressed: () {
                 cubit.incrementStepperIndex(context);
+                cubit.fillAddedChildrenData();
               },
             ),
           ),

@@ -11,3 +11,5 @@ class ChangeChosenDaysState extends SetappointmentsState {}
 class ChangeLecturerIndexState extends SetappointmentsState {}
 
 class ChangeSpecifiedDayState extends SetappointmentsState {}
+
+class InitFixedTabBarControllerState extends SetappointmentsState {}

@@ -42,10 +42,12 @@ import 'package:eazifly_student/data/models/my_programs/show_program_details_mod
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/get_instructors_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/get_instructors_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/get_program_payment_methods_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/get_user_orders_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_model.dart';
@@ -779,6 +781,17 @@ class Repository extends BaseRepository {
     try {
       final result =
           await baseRemoteDataSource.getOrderDetails(orderId: orderId);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetInstructorsModel>> getInstructors(
+      {required GetInstructorsTojson data}) async {
+    try {
+      final result = await baseRemoteDataSource.getInstructors(data: data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
