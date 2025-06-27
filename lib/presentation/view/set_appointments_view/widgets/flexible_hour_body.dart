@@ -4,7 +4,7 @@ import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
+import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/chosen_day_bottom_sheet.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/lecturer_item.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/specified_hour_row.dart';
@@ -19,7 +19,7 @@ class FlexibleHourBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var lang = context.loc!;
-    var cubit = context.read<SetappointmentsCubit>();
+    var cubit = context.read<GrouppackagemanagementCubit>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -73,6 +73,8 @@ class FlexibleHourBody extends StatelessWidget {
                     cubit.changeLecturerIndex(index);
                   },
                   child: LecturerItem(
+                    image:"" ,
+                    instructorName: "",
                     isSelected: isSelected,
                   ),
                 );

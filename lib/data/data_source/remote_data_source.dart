@@ -1455,7 +1455,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
   Future<AddWeeklyAppontmentsModel> addWeeklyAppointments(
       {required AddWeeklyAppointmentsTojson data}) async {
     var response = await NetworkCall().post(
-      data: FormData.fromMap(data.toJson()),
+      data: data.toJson(),
       path: EndPoints.addWeeklyAppointments,
     );
     if (response?.statusCode == 200) {
@@ -1512,8 +1512,8 @@ class RemoteDataSource extends BaseRemoteDataSource {
   Future<GetInstructorsModel> getInstructors(
       {required GetInstructorsTojson data}) async {
     var response = await NetworkCall().post(
-      data: FormData.fromMap(data.toJson()),
-      path: EndPoints.createMeetingSession,
+      data: data.toJson(),
+      path: EndPoints.getInstructors,
     );
     if (response?.statusCode == 200) {
       log("${response?.data}");

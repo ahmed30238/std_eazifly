@@ -5,7 +5,6 @@ import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
-import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/screen_tabbar.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/screen_tabbar_view.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/student_list.dart';
@@ -13,9 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SetAppointmentsView extends StatefulWidget {
-    final GrouppackagemanagementCubit grouppackagemanagementCubit;
 
-  const SetAppointmentsView({super.key, required this.grouppackagemanagementCubit});
+  const SetAppointmentsView({super.key});
 
   @override
   State<SetAppointmentsView> createState() => _SetAppointmentsViewState();
@@ -25,7 +23,7 @@ class _SetAppointmentsViewState extends State<SetAppointmentsView>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    SetappointmentsCubit.get(context).initTabBarController(this);
+    GrouppackagemanagementCubit.get(context).initTabBarController(this);
     super.initState();
   }
 
@@ -73,7 +71,6 @@ class _SetAppointmentsViewState extends State<SetAppointmentsView>
                 const ScreenTabBar(),
                 //! tab bar view
                  ScreenTabbarView(
-                  grouppackagemanagementCubit: widget.grouppackagemanagementCubit,
                 ),
               ],
             ),

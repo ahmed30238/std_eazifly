@@ -1,14 +1,13 @@
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
-import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/screen_tabbar.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/screen_tabbar_view.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/student_list.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ChosenLecturer extends StatefulWidget {
-    final GrouppackagemanagementCubit grouppackagemanagementCubit;
+  // final GrouppackagemanagementCubit grouppackagemanagementCubit;
 
-  const ChosenLecturer({super.key, required this.grouppackagemanagementCubit});
+  const ChosenLecturer({super.key});
 
   @override
   State<ChosenLecturer> createState() => _ChosenLecturerState();
@@ -16,10 +15,10 @@ class ChosenLecturer extends StatefulWidget {
 
 class _ChosenLecturerState extends State<ChosenLecturer>
     with TickerProviderStateMixin {
-  late SetappointmentsCubit cubit;
+  late GrouppackagemanagementCubit cubit;
   @override
   void initState() {
-    cubit = context.read<SetappointmentsCubit>();
+    cubit = context.read<GrouppackagemanagementCubit>();
     super.initState();
     cubit.initTabBarController(this);
     cubit.initFixedDateTabBarController(this);
@@ -58,9 +57,7 @@ class _ChosenLecturerState extends State<ChosenLecturer>
               //! tab bar
               const ScreenTabBar(),
               //! tab bar view
-               ScreenTabbarView(
-                grouppackagemanagementCubit: widget.grouppackagemanagementCubit,
-               ),
+              const ScreenTabbarView(),
             ],
           ),
         ),

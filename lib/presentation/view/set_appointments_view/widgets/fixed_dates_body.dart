@@ -1,19 +1,13 @@
 import 'package:eazifly_student/core/component/custom_tapbar.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
-import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class FixedDatesBody extends StatelessWidget {
-  const FixedDatesBody({
-    super.key,
-    required this.cubit, required this.grouppackagemanagementCubit,
-  });
-
-  final SetappointmentsCubit cubit;
-  final GrouppackagemanagementCubit grouppackagemanagementCubit;
+  const FixedDatesBody({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var cubit = context.read<GrouppackagemanagementCubit>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,11 +29,7 @@ class FixedDatesBody extends StatelessWidget {
           height: 270.h,
           child: TabBarView(
             controller: cubit.fixedDateController,
-            children: cubit.bodies(
-              context: context,
-              cubit: cubit,
-              grouppackagemanagementCubit: grouppackagemanagementCubit,
-            ),
+            children: cubit.bodiesMethod(context: context),
           ),
         ),
       ],

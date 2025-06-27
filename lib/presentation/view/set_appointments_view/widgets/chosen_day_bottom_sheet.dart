@@ -1,11 +1,12 @@
 import 'dart:developer';
 
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
+import 'package:eazifly_student/core/enums/week_days.dart';
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
+import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/notifications_view/notification_view.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/list_of_days_to_choose_from_item.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,8 @@ class ChosenDaysBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var lang = context.loc!;
-    final SetappointmentsCubit cubit = SetappointmentsCubit.get(context);
+    final GrouppackagemanagementCubit cubit =
+        GrouppackagemanagementCubit.get(context);
     return CustomBottomSheetDesign(
       radius: 16.r,
       widget: Padding(
@@ -48,7 +50,7 @@ class ChosenDaysBottomSheet extends StatelessWidget {
                     }
                     return ListOfDaysToChooseFromItem(
                       onChanged: (p0) => cubit.changeChosenDays(index),
-                      day: cubit.days[index],
+                      day: WeekDaysEnum.values[index].title,
                       value: cubit.chosenDays[index],
                     );
                   },

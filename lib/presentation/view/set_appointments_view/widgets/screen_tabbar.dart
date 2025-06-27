@@ -1,7 +1,6 @@
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
-import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_state.dart';
+import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/custom_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,9 +13,9 @@ class ScreenTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = SetappointmentsCubit.get(context);
+    var cubit = GrouppackagemanagementCubit.get(context);
 
-    return BlocBuilder<SetappointmentsCubit, SetappointmentsState>(
+    return BlocBuilder<GrouppackagemanagementCubit, GrouppackagemanagementState>(
       builder: (context, state) => CustomFilledTabBar(
         innerRadius: 12.r,
         margin: EdgeInsets.zero,

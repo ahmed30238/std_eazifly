@@ -21,7 +21,6 @@ import 'package:eazifly_student/presentation/controller/my_programs/myprograms_c
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
-import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
 import 'package:eazifly_student/presentation/controller/subscription_details_controller/subscriptiondetails_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
 import 'package:eazifly_student/presentation/view/account_data/edit_profile_view/edit_profile_view.dart';
@@ -76,7 +75,6 @@ import 'package:eazifly_student/presentation/view/lecture/quiz_details_view/quiz
 import 'package:eazifly_student/presentation/view/meeting_data_view/meeting_data_view.dart';
 import 'package:eazifly_student/presentation/view/package_details_view/package_details_view.dart';
 import 'package:eazifly_student/presentation/view/programs_underreview/programs_under_review_view.dart';
-import 'package:eazifly_student/presentation/view/set_appointments_view/set_appointments_view.dart';
 import 'package:eazifly_student/presentation/view/splash_screen/splash_view.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/subscription_details_view.dart';
 import 'package:flutter/material.dart';

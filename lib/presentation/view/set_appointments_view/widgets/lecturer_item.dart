@@ -1,15 +1,19 @@
-import 'package:eazifly_student/core/component/image_conainer.dart';
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class LecturerItem extends StatelessWidget {
+  final String instructorName;
+  final String image;
   final bool isSelected;
   const LecturerItem({
     super.key,
     required this.isSelected,
+    required this.instructorName,
+    required this.image,
   });
 
   @override
@@ -31,12 +35,12 @@ class LecturerItem extends StatelessWidget {
       width: 150.w,
       child: Row(
         children: [
-          const ImageContainer(
+          AvatarImage(
             shape: BoxShape.circle,
-            image: Assets.imagesEditedPersona,
+            imageUrl: image,
           ),
           Text(
-            "احمد سلامة",
+            instructorName,
             style: MainTextStyle.boldTextStyle(fontSize: 14),
           )
         ],

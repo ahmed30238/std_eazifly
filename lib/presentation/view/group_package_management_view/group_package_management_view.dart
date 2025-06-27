@@ -86,10 +86,14 @@ class _GroupPackageManagementViewState
               height: 48.h,
               width: 343.w,
               radius: 16.r,
-              onPressed: () {
-                cubit.incrementStepperIndex(context);
-                cubit.fillAddedChildrenData();
-              },
+              onPressed: cubit.stepperIndex == 1
+                  ? () {
+                      cubit.incrementStepperIndex(context);
+                      cubit.fillAddedChildrenData();
+                    }
+                  : () {
+                      cubit.createMeetingSessions();
+                    },
             ),
           ),
           32.ph,

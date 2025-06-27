@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:eazifly_student/core/enums/storage_enum.dart';
+import 'package:eazifly_student/core/enums/week_days.dart';
 import 'package:eazifly_student/core/service_locator/service_locator.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
@@ -19,9 +20,9 @@ import 'package:eazifly_student/domain/use_cases/get_instructors_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_order_details_usecase.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
-import 'package:eazifly_student/presentation/controller/set_appointment_controller/setappointments_cubit.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/chosen_lecturer.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/chosen_student_body.dart';
+import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/repeated_weekly_session.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -42,6 +43,257 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
         ),
       ),
     );
+  }
+  //! ui
+  TabController? fixedDateController;
+  void initFixedDateTabBarController(TickerProvider vsync) {
+    fixedDateController = TabController(length: tabs.length, vsync: vsync);
+    fixedDateController?.addListener(() {
+      if (fixedDateController!.indexIsChanging) {
+        fixedDateController?.animateTo(
+          fixedDateController!.index,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+      }
+      emit(InitFixedTabBarControllerState());
+    });
+  }
+
+  List<TextEditingController> dayController = [];
+  changeSpecifiedDay(String day, sessionIndex) {
+    dayController[sessionIndex].text = day;
+    emit(ChangeSpecifiedDayState());
+  }
+
+  int selectedLecturerIndex = 0;
+  changeLecturerIndex(int index) {
+    selectedLecturerIndex = index;
+    emit(ChangeLecturerIndexState());
+  }
+
+  late TabController controller;
+
+  final List<String> tabs = [
+    "مواعيد ثابتة",
+    'مواعيد مرنة',
+  ];
+  int selectedStudentIndex = 0;
+
+  void incrementSelectedStudentIndex() {
+    log("${addedChildren?.length}");
+    if (addedChildren != null &&
+        selectedStudentIndex < addedChildren!.length - 1) {
+      selectedStudentIndex++;
+    }
+    log("$selectedStudentIndex");
+    emit(IncrementSelectedStudentndex());
+  }
+
+  List<bool> isDoneAdded = [];
+  initIsDoneAdded() {
+    log("inited");
+    isDoneAdded = [];
+    if (addedUsersIds.isNotEmpty) {
+      isDoneAdded = List.filled(addedUsersIds.length, false);
+    }
+    log("l ${isDoneAdded.length}");
+  }
+
+  void initTabBarController(TickerProvider vsync) {
+    controller = TabController(length: tabs.length, vsync: vsync);
+    controller.addListener(() {
+      if (controller.indexIsChanging) {
+        controller.animateTo(
+          controller.index,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+      }
+      emit(InitTabBarControllerState());
+    });
+  }
+
+  int tapbarIndex = 0;
+
+  void changeTapbarIndex(int index) {
+    tapbarIndex = index;
+    emit(ChangeTapBarIndexState());
+  }
+
+  List<bool> chosenDays = [];
+  int limit = 3;
+  void changeChosenDays(int index) {
+    chosenDays[index] = !chosenDays[index];
+    emit(ChangeChosenDaysState());
+  }
+
+  List<Widget> bodiesMethod({
+    required BuildContext context,
+  }) {
+    int numberOfSessionPerWeek = int.tryParse(
+          getOrderDetailsEntity?.data?.numberOfSessionPerWeek ?? "0",
+        ) ??
+        0;
+    log("numberOfSessionsPerWeek $numberOfSessionPerWeek");
+    return [
+      RepeatedWeeklySession(numberOfSessionsPerWeek: numberOfSessionPerWeek),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          16.ph,
+          Text(
+            "حصة ${0 + 1}",
+            style: MainTextStyle.boldTextStyle(
+              fontSize: 14,
+              color: MainColors.blueTextColor,
+            ),
+          ),
+          Row(
+            children: [
+              Text(
+                "اليوم",
+                style: MainTextStyle.boldTextStyle(
+                  fontSize: 12,
+                ),
+              ),
+              16.pw,
+              Expanded(
+                child: InkWell(
+                  onTap: () => showDatePicker(
+                    context: context,
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2030),
+                  ),
+                  child: CustomTextFormField(
+                    enabled: false,
+                    hintText: "اختر",
+                    suffixIconWidget: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                      ),
+                      child: SvgPicture.asset(
+                        Assets.iconsCalender,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          12.ph,
+          Row(
+            children: [
+              Text(
+                "من",
+                style: MainTextStyle.boldTextStyle(fontSize: 12),
+              ),
+              16.pw,
+              const Expanded(
+                child: CustomTextFormField(
+                  keyboardType: TextInputType.datetime,
+                  hintText: "        aa / mm / hh",
+                ),
+              ),
+              15.5.pw,
+              Text(
+                "الي",
+                style: MainTextStyle.boldTextStyle(fontSize: 12),
+              ),
+              16.pw,
+              const Expanded(
+                child: CustomTextFormField(
+                  keyboardType: TextInputType.datetime,
+                  hintText: "        aa / mm / hh",
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ];
+  }
+
+//! TimePicker
+  List<TimeOfDay?> selectedTimesOfDay = [];
+  List<String> selectedTimes = [];
+
+// في الـ constructor أو في initState
+  void initializeSessionTimes(int numberOfSessions) {
+    selectedTimesOfDay = List.filled(numberOfSessions, null);
+    selectedTimes = List.filled(numberOfSessions, "24 ساعة");
+  }
+
+// إضافة هذه الدالة في الـ Cubit
+  void checkAndCallAddWeeklyAppointments() async {
+    // التحقق من أن جميع الـ sessions لها أيام وأوقات محددة
+    bool allSessionsComplete = true;
+
+    for (int i = 0; i < dayController.length; i++) {
+      if (dayController[i].text.isEmpty ||
+          i >= selectedTimesOfDay.length ||
+          selectedTimesOfDay[i] == null) {
+        allSessionsComplete = false;
+        break;
+      }
+    }
+
+    // إذا كانت جميع الـ sessions مكتملة، استدعي addWeeklyAppointments
+    if (allSessionsComplete) {
+      await addWeeklyAppointments();
+      await getInstructors();
+    }
+  }
+
+// تعديل دالة changeSelectedTime لتشمل الفحص التلقائي
+  void changeSelectedTime(TimeOfDay timeOfDay, int sessionIndex) {
+    selectedTimesOfDay[sessionIndex] = timeOfDay;
+    final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
+    final minute = timeOfDay.minute.toString().padLeft(2, '0');
+    final period = timeOfDay.period == DayPeriod.am ? 'ص' : 'م';
+    selectedTimes[sessionIndex] = '$hour:$minute $period';
+
+    // تحديث الـ controller الخاص بالـ session
+    if (sessionIndex < hoursControllers.length) {
+      hoursControllers[sessionIndex].text = selectedTimes[sessionIndex];
+    }
+
+    emit(ChangeSelectedTimeState());
+
+    // فحص إذا كانت جميع الـ sessions مكتملة
+    checkAndCallAddWeeklyAppointments();
+  }
+
+// تعديل دالة showTimePickerDialog لتأخذ index
+  Future<void> showTimePickerDialog(
+      BuildContext context, int sessionIndex) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: selectedTimesOfDay[sessionIndex] ?? TimeOfDay.now(),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      changeSelectedTime(picked, sessionIndex);
+    }
+  }
+
+// دالة للحصول على الوقت بصيغة 24 ساعة لـ session معين
+  String getTimeForServer(int sessionIndex) {
+    if (sessionIndex < selectedTimesOfDay.length &&
+        selectedTimesOfDay[sessionIndex] != null) {
+      final hour =
+          selectedTimesOfDay[sessionIndex]!.hour.toString().padLeft(2, '0');
+      final minute =
+          selectedTimesOfDay[sessionIndex]!.minute.toString().padLeft(2, '0');
+      return '$hour:$minute';
+    }
+    return '';
   }
 
   static GrouppackagemanagementCubit get(context) => BlocProvider.of(context);
@@ -71,20 +323,15 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   List<Widget> get bodies => [
-    const SizedBox(),
-    BlocProvider(
-      create: (context) => AddNewStudentDataToProgramCubit(
-        createNewChildUsecase: sl(),
-      ),
-      child: const ChosenStudentBody(),
-    ),
-    BlocProvider(
-      create: (context) => SetappointmentsCubit(),
-      child: ChosenLecturer(
-        grouppackagemanagementCubit: this,
-      ),
-    ),
-  ];
+        const SizedBox(),
+        BlocProvider(
+          create: (context) => AddNewStudentDataToProgramCubit(
+            createNewChildUsecase: sl(),
+          ),
+          child: const ChosenStudentBody(),
+        ),
+        const ChosenLecturer(),
+      ];
   DataModel? loginData;
   bool addMyself = false;
   toggleMyself() {
@@ -163,6 +410,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
         ),
       );
     }
+    initIsDoneAdded();
     log("$addedChildren");
   }
 
@@ -185,6 +433,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   AddWeeklyAppointmentsUsecase addWeeklyAppointmentsUsecase;
 
 // Methods
+// تعديل دالة getOrderDetails لتشمل التهيئة
   Future<void> getOrderDetails({required int orderId}) async {
     getMyOrdersLoader = true;
     emit(GetMyOrdersLoadingState());
@@ -200,27 +449,74 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
       },
       (data) {
         getMyOrdersLoader = false;
+        getOrderDetailsEntity = data;
+
+        // إضافة TextEditingController بناءً على numberOfSessionsPerWeek
+        int numberOfSessions = int.tryParse(
+                getOrderDetailsEntity?.data?.numberOfSessionPerWeek ?? "0") ??
+            0;
+
+        // مسح القوائم السابقة
+        for (var controller in dayController) {
+          controller.dispose();
+        }
+        for (var controller in hoursControllers) {
+          controller.dispose();
+        }
+
+        // إنشاء قوائم جديدة
+        dayController.clear();
+        hoursControllers.clear();
+
+        // إضافة controllers جديدة بناءً على العدد المطلوب
+        for (int i = 0; i < numberOfSessions; i++) {
+          dayController.add(TextEditingController());
+          hoursControllers.add(TextEditingController());
+        }
+
+        // تهيئة أوقات الـ sessions
+        initializeSessionTimes(numberOfSessions); // numberOfSessions
+
         emit(GetMyOrdersSuccessState());
       },
     );
   }
+  // تعديل في method addWeeklyAppointments() لاستخدام الوقت المختار
 
+// تعديل دالة addWeeklyAppointments لإرسال كل يوم مع وقته
   Future<void> addWeeklyAppointments() async {
     addWeeklyAppointmentsLoader = true;
     emit(AddWeeklyAppointmentsLoadingState());
 
+    // إنشاء appointments map بناء على الأيام المختارة والأوقات المختارة
+    Map<String, String> appointmentsMap = {};
+
+    // التكرار على كل session وإضافة اليوم مع وقته
+    for (int i = 0; i < dayController.length; i++) {
+      String dayText = dayController[i].text;
+      String serverTime = getTimeForServer(i);
+
+      if (dayText.isNotEmpty && serverTime.isNotEmpty) {
+        // تحويل اسم اليوم العربي إلى إنجليزي
+        String dayInEnglish = WeekDaysEnum.values[i].requestValue;
+        if (dayInEnglish.isNotEmpty) {
+          appointmentsMap[dayInEnglish.toLowerCase()] = serverTime;
+        }
+      }
+    }
+
     final result = await addWeeklyAppointmentsUsecase.call(
       parameter: AddWeeklyAppointmentsParameters(
         data: AddWeeklyAppointmentsTojson(
-          startDate: "2025-06-24",
-          userId: addedUsersIds[0],
+          startDate: DateTime.now().toString(),
+          userId: addedUsersIds[selectedStudentIndex],
           duration:
               int.tryParse(getOrderDetailsEntity?.data?.duration ?? "-1") ?? -1,
           subscripeDays: int.tryParse(
                   getOrderDetailsEntity?.data?.subscripeDays ?? "-1") ??
               -1,
           numberOfSessions: getOrderDetailsEntity?.data?.numberOfSessions ?? -1,
-          appointments: {"monday": "15:00", "thursday": "15:00"},
+          appointments: appointmentsMap,
         ),
       ),
     );
@@ -232,12 +528,14 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
       },
       (data) {
         addWeeklyAppointmentsLoader = false;
+        addWeeklyAppontmentsEntity = data;
         emit(AddWeeklyAppointmentsSuccessState());
       },
     );
   }
 
   Future<void> createMeetingSessions() async {
+    log("started");
     createMeetingSessionsLoader = true;
     emit(CreateMeetingSessionsLoadingState());
 
@@ -245,20 +543,27 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
       parameter: CreateMeetingSessionsParameters(
         data: CreateMeetingSessionsTojson(
           appointments: addWeeklyAppontmentsEntity!.data!,
-          instructorId: 2,
+          instructorId:
+              getInstructorsEntity?.data?[selectedLecturerIndex].id ?? 0,
           programContentId: 1,
           programId: 1,
-          userId: 3,
+          userId: addedUsersIds[selectedStudentIndex],
         ),
       ),
     );
 
     result.fold(
       (failure) {
+        log("failed");
         createMeetingSessionsLoader = false;
         emit(CreateMeetingSessionsErrorState(failure.message));
       },
       (data) {
+        log("success");
+        isDoneAdded[selectedStudentIndex] = true;
+        log("${isDoneAdded[selectedStudentIndex]}");
+        incrementSelectedStudentIndex();
+        clearData();
         createMeetingSessionsLoader = false;
         emit(CreateMeetingSessionsSuccessState());
       },
@@ -269,9 +574,12 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   GetInstructorsEntity? getInstructorsEntity;
   GetInstructorsUsecase getInstructorsUsecase;
 
+  List<TextEditingController> hoursControllers = [];
+
   Future<void> getInstructors() async {
     getInstructorsLoader = true;
     emit(GetInstructorsLoadingState());
+    log("list length ${addWeeklyAppontmentsEntity!.data!.length}");
 
     final result = await getInstructorsUsecase.call(
       parameter: GetInstructorsParameters(
@@ -294,10 +602,28 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     );
   }
 
+  clearData() {
+    hoursControllers.clear();
+    dayController.clear();
+  }
+
   @override
   Future<void> close() {
     addedChildren = [];
     addMyself = false;
+
+    // dispose dayControllers
+    for (var controller in dayController) {
+      controller.dispose();
+    }
+    dayController.clear();
+
+    // dispose hoursControllers
+    for (var controller in hoursControllers) {
+      controller.dispose();
+    }
+    hoursControllers.clear();
+
     return super.close();
   }
 }

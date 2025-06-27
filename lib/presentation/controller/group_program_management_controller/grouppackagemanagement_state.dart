@@ -51,6 +51,7 @@ class CreateMeetingSessionsErrorState extends GrouppackagemanagementState {
   final String message;
   CreateMeetingSessionsErrorState(this.message);
 }
+
 // GetInstructors States
 class GetInstructorsLoadingState extends GrouppackagemanagementState {}
 
@@ -62,3 +63,21 @@ class GetInstructorsErrorState extends GrouppackagemanagementState {
   final String message;
   GetInstructorsErrorState(this.message);
 }
+
+class SetappointmentsInitial extends GrouppackagemanagementState {}
+
+class ChangeTapBarIndexState extends GrouppackagemanagementState {}
+
+class InitTabBarControllerState extends GrouppackagemanagementState {}
+
+class ChangeChosenDaysState extends GrouppackagemanagementState {}
+
+class ChangeLecturerIndexState extends GrouppackagemanagementState {}
+
+class ChangeSpecifiedDayState extends GrouppackagemanagementState {}
+
+class InitFixedTabBarControllerState extends GrouppackagemanagementState {}
+
+class ChangeSelectedTimeState extends GrouppackagemanagementState {}
+
+class IncrementSelectedStudentndex extends GrouppackagemanagementState {}

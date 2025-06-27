@@ -1,15 +1,15 @@
-abstract class SetappointmentsState {}
+// abstract class SetappointmentsState {}
 
-class SetappointmentsInitial extends SetappointmentsState {}
+// class SetappointmentsInitial extends SetappointmentsState {}
 
-class ChangeTapBarIndexState extends SetappointmentsState {}
+// class ChangeTapBarIndexState extends SetappointmentsState {}
 
-class InitTabBarControllerState extends SetappointmentsState {}
+// class InitTabBarControllerState extends SetappointmentsState {}
 
-class ChangeChosenDaysState extends SetappointmentsState {}
+// class ChangeChosenDaysState extends SetappointmentsState {}
 
-class ChangeLecturerIndexState extends SetappointmentsState {}
+// class ChangeLecturerIndexState extends SetappointmentsState {}
 
-class ChangeSpecifiedDayState extends SetappointmentsState {}
+// class ChangeSpecifiedDayState extends SetappointmentsState {}
 
-class InitFixedTabBarControllerState extends SetappointmentsState {}
+// class InitFixedTabBarControllerState extends SetappointmentsState {}
