@@ -1,19 +1,10 @@
-// import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_state.dart';
-// import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/widgets/registration_type_body.dart';
-// import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/widgets/student_data_body.dart';
-// import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/domain/entities/children_entities/create_new_child_entity.dart';
 import 'package:eazifly_student/domain/use_cases/create_new_child_usecase.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_state.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/widgets/student_data_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-
-import '../../view/layout/my_account/student_management_view/add_new_student_data_view/widgets/registration_type_body.dart';
 
 class AddNewStudentDataToProgramCubit
     extends Cubit<AddNewStudentDataToProgramState> {
@@ -88,13 +79,13 @@ class AddNewStudentDataToProgramCubit
   }
 
   List<Widget> bodies = [
-    const RegistrationTypeBody(
-      isRegisteringMySelf: false,
-    ),
-    const StudentDataBody(),
+    // const RegistrationTypeBody(
+    //   isRegisteringMySelf: false,
+    // ),
+    // const StudentDataBody(),
     // const ProperScheduleBody(),
     // const ChooseTeacherBody(),
-  ];
+  ]; //! NOT used anymore
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
@@ -199,15 +190,16 @@ class AddNewStudentDataToProgramCubit
           createNewChildEntity = r;
           emit(CreateNewChildSuccessState());
           // incrementScreenIndex();
-          !isAssignToProgram
+          log("${isAssignToProgram}");
+          isAssignToProgram
               ? Navigator.pushNamed(
-                  context,
-                  RoutePaths.studentManagement,
-                )
-              : Navigator.pushReplacementNamed(
-                arguments: "1", // orderId,
+                  arguments: "1", // orderId,
                   context,
                   RoutePaths.groupPackageManagement,
+                )
+              : Navigator.pushReplacementNamed(
+                  context,
+                  RoutePaths.studentManagement,
                 );
           clearControllers();
           delightfulToast(message: r.message ?? "", context: context);

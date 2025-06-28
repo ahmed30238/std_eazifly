@@ -190,16 +190,33 @@ class NetworkCall {
   }
 
   Future<Response?> handleResponse({required Response response}) async {
-    logger.fine(
-      response.data,
-    );
+    logger.fine(response.data);
+    
+    // التحقق من الـ HTTP status code الأساسي
     if (response.statusCode == 200) {
+      // التحقق من الـ status اللي جوا الـ response body
+      if (response.data is Map<String, dynamic>) {
+        final responseData = response.data as Map<String, dynamic>;
+        final innerStatus = responseData['status'];
+        
+        // لو الـ status جوا الـ response هو 401، يبقى المستخدم مش مصرح له
+        if (innerStatus == 401) {
+          logger.warning('Unauthenticated user detected from response body');
+          await TokenUtil.clearToken();
+          navKey.currentState
+              ?.pushNamedAndRemoveUntil(RoutePaths.loginPath, (route) => false);
+          return response; // أو ممكن ترجع null حسب احتياجك
+        }
+      }
+      
       return response;
     } else if (response.statusCode == 401) {
+      // التعامل مع الـ HTTP 401 العادي
       await TokenUtil.clearToken();
       navKey.currentState
           ?.pushNamedAndRemoveUntil(RoutePaths.loginPath, (route) => false);
     }
+    
     return response;
   }
 }

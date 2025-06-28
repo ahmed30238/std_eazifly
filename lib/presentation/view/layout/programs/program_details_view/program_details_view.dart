@@ -42,9 +42,7 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
               var program = cubit.getProgramDetailsEntity?.data;
 
               if (cubit.getProgramDetailsLoading) {
-                return const Expanded(
-                  child: ProgramDetailsViewLoader(),
-                );
+                return const ProgramDetailsViewLoader();
               }
 
               // التحقق من وجود البيانات

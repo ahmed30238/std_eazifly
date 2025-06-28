@@ -72,7 +72,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   final List<String> tabs = [
     "الكل",
     'البرامج',
-    'الاشتراكات',
+    'المكتبة',
   ];
   // int programId = -1;
   // void initProgramId(int programId) {

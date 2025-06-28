@@ -33,7 +33,6 @@ class ProgramsUnderReviewCubit extends Cubit<ProgramsUnderReviewState> {
         log("success");
 
         getUserOrdersLoader = false;
-        log("${r.data?.length} ${r.data?[0].status?.color}");
         log("${r.message}");
         getUserOrdersEntity = r;
         emit(GetUserOrdersSuccessState());

@@ -85,6 +85,7 @@ class _ProgramsViewState extends State<ProgramsView> {
 
               // Show error message if state is error
               if (state is GetProgramsErrorState) {
+                log("error state");
                 return Center(
                   child: Text(state.errorMessage),
                 );

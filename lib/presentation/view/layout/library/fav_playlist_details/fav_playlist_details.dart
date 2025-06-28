@@ -1,10 +1,11 @@
 import 'dart:developer';
+
 import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
+import 'package:eazifly_student/presentation/view/layout/library/audio_playlist_view/widgets/telegram_style_file_item.dart';
 import 'package:eazifly_student/presentation/view/layout/library/fav_playlist_details/widgets/add_single_item_bottom_sheet.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/library_fav_list_item_shimmer.dart';
-import 'package:eazifly_student/presentation/view/layout/library/widgets/library_favourite_list_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class FavouritePlaylistDetails extends StatefulWidget {
@@ -206,14 +207,56 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
                   itemBuilder: (context, index) {
                     final playlistItem = cubit
                         .getFavouriteListItemsUsingListIdEntity!.data![index];
-                    return LibraryFavouriteListItem(
-                      isPaid: playlistItem.paymentType == "paid",
-                      image: playlistItem.image ?? "",
-                      index: index,
-                      likes: "21",
-                      onTap: () {},
-                      title: playlistItem.title ?? "Untitled",
-                      views: "0",
+                    var favPlayListItem = playlistItem;
+                    var fileType = favPlayListItem.fileType ?? "";
+                    var fileUrl = favPlayListItem.file ?? "";
+                    var title = favPlayListItem.title ?? "ملف بدون عنوان";
+                    var image = favPlayListItem.image ?? "ملف بدون صورة";
+                    var isPaid = favPlayListItem.paymentType == "paid";
+                    Color fileColor;
+
+                    // تحديد لون الملف حسب النوع
+                    switch (fileType.toLowerCase()) {
+                      case 'pdf':
+                        fileColor = Colors.red;
+                        break;
+                      case 'txt':
+                        fileColor = Colors.blue;
+                        break;
+                      case 'mp3':
+                      case 'audio':
+                        fileColor = Colors.green; // لون أخضر للملفات الصوتية
+                        break;
+                      default:
+                        fileColor = Colors.grey;
+                    }
+                    bool isAudioFile = fileType.toLowerCase() == 'mp3' ||
+                        fileType.toLowerCase() == 'audio';
+                    return TelegramStyleFileItem(
+                      isPaid: isPaid,
+                      title: title,
+                      fileType: fileType.toUpperCase(),
+                      image: image,
+                      fileColor: fileColor,
+                      isDownloading: cubit.isDownloading[fileUrl] ?? false,
+                      downloadProgress:
+                          cubit.downloadingProgress[fileUrl] ?? 0.0,
+                      isDownloaded: cubit.downloadedFiles.containsKey(fileUrl),
+                      // إضافة معلومات الملف الصوتي
+                      isAudioFile: isAudioFile,
+                      isCurrentlyPlaying:
+                          cubit.currentPlayingUrl == fileUrl && cubit.isPlaying,
+                      onTap: cubit.getLibraryItemsLoader
+                          ? () {
+                              log("message");
+                            }
+                          : () {
+                              log("loader");
+                              cubit.showLibraryItem(
+                                itemId: playlistItem.id ?? 0,
+                                context: context,
+                              );
+                            },
                     );
                   },
                   separatorBuilder: (context, index) => 10.ph,

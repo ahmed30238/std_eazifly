@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
@@ -112,8 +114,11 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
                       isAudioFile: isAudioFile,
                       isCurrentlyPlaying: cubit.currentPlayingUrl == fileUrl && cubit.isPlaying,
                       onTap: cubit.getLibraryItemsLoader
-                        ? () {}
+                        ? () {
+                          log("message");
+                        }
                         : () {
+                          log("loader");
                             cubit.showLibraryItem(
                               itemId: audioPlayListItem.id ?? 0,
                               context: context,

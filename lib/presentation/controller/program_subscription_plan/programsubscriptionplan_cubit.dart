@@ -357,8 +357,10 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
     emit(GetGalleryImagesState());
   }
 
-  Future<void> createOrder(
-      {required int programId, required BuildContext context}) async {
+  Future<void> createOrder({
+    required int programId,
+    required BuildContext context,
+  }) async {
     createOrderLoader = true;
     emit(CreateOrderLoadingState());
 
@@ -381,7 +383,7 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
             code: copounController.text,
             image: imagePath!,
             startDate: [getFormattedDateForAPI()],
-            planId: [filterPlansEntity?.data?.id ?? 0],
+            planId: [filterPlansEntity?.data?.id ?? planId],
             programId: [programId],
             studentNumber: [int.tryParse(studentNumberController.text) ?? 0],
           ),

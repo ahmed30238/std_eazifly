@@ -154,7 +154,7 @@ class LibraryCubit extends Cubit<LibraryState> {
           data: StoreFavouriteListTojson(
             items: itemsToAddToFvouriteWhenCreatingPlayList,
             title: favouriteListController.text,
-            image: imagePath, 
+            image: imagePath,
           ),
         ),
       );
@@ -430,6 +430,7 @@ class LibraryCubit extends Cubit<LibraryState> {
         }
       },
     );
+    getLibraryItemsLoader = false;
   }
 
   bool likeItemLoader = false;
@@ -608,7 +609,7 @@ class LibraryCubit extends Cubit<LibraryState> {
         // create: (context) => SubjectCubit(),
         child: Container(
           padding: EdgeInsets.all(20.w),
-          height: 200.h,
+          height: 250.h,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -664,7 +665,7 @@ class LibraryCubit extends Cubit<LibraryState> {
 
                       // زر التشغيل/الإيقاف
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: MainColors.greenTeal,
                           shape: BoxShape.circle,
                         ),
@@ -694,33 +695,40 @@ class LibraryCubit extends Cubit<LibraryState> {
     );
   }
 
-  // دوال التحكم في الصوت
   Future<void> _togglePlayPause() async {
     if (isPlaying) {
       await _audioPlayer.pause();
     } else {
-      await _audioPlayer.resume();
+      // التحقق من حالة الـ player
+      final playerState = _audioPlayer.state;
+
+      if (playerState == PlayerState.completed) {
+        // لو الصوت خلص، إعادة تشغيل من الأول
+        await _audioPlayer.seek(Duration.zero);
+        await _audioPlayer.resume();
+      } else {
+        // تكملة التشغيل العادي
+        await _audioPlayer.resume();
+      }
     }
     emit(AudioStateChangedState());
   }
 
   Future<void> _seekForward() async {
-    final newPosition = currentPosition + Duration(seconds: 10);
+    final newPosition = currentPosition + const Duration(seconds: 10);
     if (newPosition < totalDuration) {
       await _audioPlayer.seek(newPosition);
     }
   }
 
   Future<void> _seekBackward() async {
-    final newPosition = currentPosition - Duration(seconds: 10);
+    final newPosition = currentPosition - const Duration(seconds: 10);
     if (newPosition > Duration.zero) {
       await _audioPlayer.seek(newPosition);
     } else {
       await _audioPlayer.seek(Duration.zero);
     }
   }
-
-
 
   // إيقاف الصوت عند إغلاق الـ Cubit
 

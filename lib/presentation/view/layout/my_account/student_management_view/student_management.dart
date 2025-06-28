@@ -54,7 +54,7 @@ class _StudentManagementViewState extends State<StudentManagementView> {
               if (children == null || children.isEmpty) {
                 return const NoDataAnimatedImageWidget(
                   message: "No children found",
-                );
+                ).center();
               }
 
               return Expanded(
@@ -83,8 +83,9 @@ class _StudentManagementViewState extends State<StudentManagementView> {
               );
             },
           ),
-
-          // const Spacer(),
+          if (cubit.getMyChildrenEntity?.data == null ||
+              (cubit.getMyChildrenEntity?.data?.isEmpty ?? true))
+            const Spacer(),
           8.ph,
           CustomElevatedButton(
             text: "إضافة طالب جديد",

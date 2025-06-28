@@ -62,6 +62,10 @@ class Assets {
   /// assets/icons/add-square.svg
   static const String iconsAddSquare = "assets/icons/add-square.svg";
 
+  /// Assets for iconsAppLogo
+  /// assets/icons/app_logo.svg
+  static const String iconsAppLogo = "assets/icons/app_logo.svg";
+
   /// Assets for iconsArrowDown
   /// assets/icons/arrow_down.svg
   static const String iconsArrowDown = "assets/icons/arrow_down.svg";

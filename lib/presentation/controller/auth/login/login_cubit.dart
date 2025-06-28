@@ -34,57 +34,59 @@ class LoginCubit extends Cubit<LoginState> {
   LoginEntity? entities;
   void tryToLogin(BuildContext context) async {
     loginLoader = true;
-    if (formKey.currentState!.validate()) {
-      emit(LoginLoadingState());
-      final data = await loginUsecase.call(
-        parameter: LoginParameter(
-          email: emailController.text,
-          password: passwordController.text,
-        ),
-      );
-      data.fold(
-        (l) {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
+    emit(LoginLoadingState());
+    final data = await loginUsecase.call(
+      parameter: LoginParameter(
+        email: emailController.text,
+        password: passwordController.text,
+      ),
+    );
+    data.fold(
+      (l) {
+        loginLoader = false;
+        emit(LoginFailedState());
+        return;
+      },
+      (r) {
+        if (r.data != null) {
+          TokenUtil.saveToken(r.data?.token ?? "");
+          GetStorage().write(
+            StorageEnum.loginModel.name,
+            jsonEncode(r.data),
+          );
+          // HomePageCubit.get(context).updateFcmToken(
+          //   fcmToken: GetStorage().read(
+          //     StorageEnum.fcmToken.name,
+          //   ),
+          // );
+          loginLoader = false;
+          entities = r;
+          emit(LoginSuccessState());
+          delightfulToast(message: r.message ?? "", context: context);
+          Future.delayed(
+            Duration.zero,
+            () => Navigator.pushNamedAndRemoveUntil(
+              context,
+              RoutePaths.layoutPath,
+              (route) => false,
+            ),
+          );
+        } else {
           loginLoader = false;
           emit(LoginFailedState());
-          return;
-        },
-        (r) {
-          if (r.data != null) {
-            TokenUtil.saveToken(r.data?.token ?? "");
-            GetStorage().write(
-              StorageEnum.loginModel.name,
-              jsonEncode(r.data),
-            );
-            // HomePageCubit.get(context).updateFcmToken(
-            //   fcmToken: GetStorage().read(
-            //     StorageEnum.fcmToken.name,
-            //   ),
-            // );
-            loginLoader = false;
-            entities = r;
-            emit(LoginSuccessState());
-            delightfulToast(message: r.message ?? "", context: context);
-            Future.delayed(
-              Duration.zero,
-              () => Navigator.pushNamedAndRemoveUntil(
-                context,
-                RoutePaths.layoutPath,
-                (route) => false,
-              ),
-            );
-          } else {
-            loginLoader = false;
-            emit(LoginFailedState());
-            delightfulToast(
-              message: r.message ?? "",
-              context: context,
-              toastColor: MainColors.red,
-            );
-          }
-        },
-      );
-    }
+          delightfulToast(
+            message: r.message ?? "",
+            context: context,
+            toastColor: MainColors.red,
+          );
+        }
+      },
+    );
   }
+
   @override
   Future<void> close() {
     emailController.dispose();

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -29,6 +31,9 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
     // var orderDetail =
     //     programsubscriptionplanCubit.createOrderEntity?.data?.orderDetails?[0];
     var orderData = programsubscriptionplanCubit.filterPlansEntity?.data;
+    log("this is plan id ${programsubscriptionplanCubit.planId}");
+    // var orderData = programsubscriptionplanCubit
+    //     .getPlansWithDetailsEntity?.data?[programsubscriptionplanCubit.planId];
     return Scaffold(
       appBar: CustomAppBar(
         context,
@@ -69,7 +74,8 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[2],
-                  value: "عدد الطلاب",
+                  value:
+                      programsubscriptionplanCubit.studentNumberController.text,
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[3],
@@ -91,12 +97,19 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                 ),
                 ...List.generate(
                   3,
-                  (index) => ProgramDetailsItem(
+                  (index) {
+                    String price = orderData?.price ?? "";
+                    String discountPrice = orderData?.discountPrice ?? "";
+                    double priceValue = double.tryParse(price) ?? 0.0;
+                    double discountPriceValue = double.tryParse(discountPrice) ?? 0.0;
+                    double discountValue = priceValue - discountPriceValue;
+
+                    return ProgramDetailsItem(
                     title: cashDetailsTitles[index],
                     value: index == 0
-                        ? orderData?.price ?? ""
+                        ? price
                         : index == 1
-                            ? orderData?.discountPrice ?? ""
+                            ? discountValue.toInt().toString()
                             : orderData?.discountPrice ?? "",
                     textStyle: index == 2
                         ? MainTextStyle.boldTextStyle(
@@ -104,7 +117,8 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                             color: MainColors.blueTextColor,
                           )
                         : null,
-                  ),
+                  );
+                  },
                 ),
                 4.ph,
               ],
@@ -121,7 +135,6 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
           8.ph,
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
-            // margin: EdgeInsets.symmetric(horizontal: 16.w),
             height: 82.h,
             width: double.infinity,
             decoration: BoxDecoration(
@@ -130,33 +143,55 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
             ),
             child: Row(
               children: [
-                Text(
-                  "1",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 12,
-                    color: MainColors.blackText,
+                Container(
+                  width: 24.w,
+                  height: 24.h,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: MainColors.blueTextColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      "1",
+                      style: MainTextStyle.boldTextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
-                20.pw,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "قم بتحويل مبلغ ${orderData?.discountPrice ?? 0} ج.م الي رقم عبر فودافون كاش ",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                        color: MainColors.blackText,
+                16.pw,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        getPaymentInstructionText(
+                          programsubscriptionplanCubit
+                              .getPaymentMethodDetailsEntity?.data?.title,
+                          double.tryParse(orderData?.discountPrice ?? '') ??
+                              0.0,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: MainTextStyle.boldTextStyle(
+                          fontSize: 12,
+                          color: MainColors.blackText,
+                        ),
                       ),
-                    ),
-                    8.ph,
-                    Text(
-                      "01030837974",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                        color: MainColors.blackText,
+                      8.ph,
+                      Text(
+                        programsubscriptionplanCubit
+                                .getPaymentMethodDetailsEntity?.data?.payOn ??
+                            'معلومات الدفع',
+                        style: MainTextStyle.regularTextStyle(
+                          fontSize: 10,
+                          color: MainColors.grayTextColors,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -355,5 +390,41 @@ class ProgramDetailsItem extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+// دالة مساعدة لتنسيق نص تعليمات الدفع
+String getPaymentInstructionText(String? paymentMethodTitle, double amount) {
+  final formattedAmount = "${amount.toStringAsFixed(0)} ج.م";
+
+  switch (paymentMethodTitle?.toLowerCase()) {
+    case 'فودافون كاش':
+    case 'vodafone cash':
+      return "قم بتحويل مبلغ $formattedAmount عبر فودافون كاش";
+
+    case 'انستاباي':
+    case 'instapay':
+      return "قم بالدفع بمبلغ $formattedAmount عبر انستاباي";
+
+    case 'اورانج مني':
+    case 'orange money':
+      return "قم بتحويل مبلغ $formattedAmount عبر اورانج مني";
+
+    case 'اتصالات كاش':
+    case 'etisalat cash':
+      return "قم بتحويل مبلغ $formattedAmount عبر اتصالات كاش";
+
+    case 'فيزا':
+    case 'visa':
+    case 'ماستركارد':
+    case 'mastercard':
+      return "قم بالدفع بمبلغ $formattedAmount عبر البطاقة الائتمانية";
+
+    case 'محفظة الكترونية':
+    case 'e-wallet':
+      return "قم بالدفع بمبلغ $formattedAmount عبر المحفظة الالكترونية";
+
+    default:
+      return "قم بدفع مبلغ $formattedAmount عبر ${paymentMethodTitle ?? 'طريقة الدفع المحددة'}";
   }
 }

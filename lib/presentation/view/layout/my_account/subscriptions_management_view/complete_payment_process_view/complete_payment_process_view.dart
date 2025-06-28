@@ -77,7 +77,8 @@ class _CompletePaymentProcessViewState
 
               if (paymentMethodsList == null || paymentMethodsList.isEmpty) {
                 return const Center(
-                    child: Text('No payment methods available'));
+                  child: Text('No payment methods available'),
+                );
               }
 
               return Expanded(
@@ -89,6 +90,7 @@ class _CompletePaymentProcessViewState
                       title: method.title ?? "",
                       description: method.description ?? "",
                       onTap: () {
+                        // log("${programsubscriptionplanCubit.}")
                         Navigator.pushNamed(
                           context,
                           RoutePaths.confirmPaymentView,

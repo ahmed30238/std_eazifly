@@ -87,7 +87,7 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                Assets.iconsLectAssignmentIcon,
+                Assets.iconsAppLogo,
                 width: 150.w,
                 height: 150.h,
               ),

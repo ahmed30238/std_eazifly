@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
 import 'package:eazifly_student/core/component/custom_form_field.dart';
@@ -45,7 +46,8 @@ class Login extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Form(
               key: cubit.formKey,
-              child: ListView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   50.ph,
                   SafeArea(
@@ -60,7 +62,7 @@ class Login extends StatelessWidget {
                               color: const Color(0xff07070D)),
                         ),
                         9.pw,
-                        SvgPicture.asset(Assets.iconsAboutAppIcon),
+                        SvgPicture.asset(Assets.iconsAppLogo),
                       ],
                     ),
                   ),
@@ -117,7 +119,16 @@ class Login extends StatelessWidget {
                         isSecured: cubit.isVisible,
                         maxLines: 1,
                         enabled: !cubit.loginLoader,
-                        onFieldSubmitted: (value) => cubit.tryToLogin(context),
+                        onFieldSubmitted: (value) {
+                          if (cubit.emailController.text.isNotEmpty &&
+                              cubit.passwordController.text.isNotEmpty) {
+                            cubit.tryToLogin(context);
+                          } else {
+                            if (cubit.formKey.currentState!.validate()) {
+                              log("message");
+                            }
+                          }
+                        },
                         controller: cubit.passwordController,
                         hintText: "مثال : ",
                         suffixIconWidget: Padding(
@@ -127,8 +138,12 @@ class Login extends StatelessWidget {
                           ),
                           child: InkWell(
                             onTap: () => cubit.changeVisibility(),
-                            child: SvgPicture.asset(
-                              Assets.iconsHeart,
+                            child: Icon(
+                              cubit.isVisible
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors
+                                  .grey, // يمكنك تغيير اللون حسب احتياجاتك
                             ),
                           ),
                         ),
@@ -136,7 +151,7 @@ class Login extends StatelessWidget {
                       );
                     },
                   ),
-                  153.ph,
+                  const Spacer(),
                   CustomElevatedButton(
                     text: "بدأ الإستخدام",
                     onPressed: cubit.loginLoader
