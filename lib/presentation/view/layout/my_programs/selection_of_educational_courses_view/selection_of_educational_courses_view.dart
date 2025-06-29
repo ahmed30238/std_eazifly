@@ -124,6 +124,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                             : () {
                                 back(context);
                                 Navigator.pushNamed(
+                                  // arguments: index == 2 ?widget. programId : null,
                                   context,
                                   paths[index],
                                 );

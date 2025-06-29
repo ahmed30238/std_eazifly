@@ -201,6 +201,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   Future<void> showTimePickerDialog(
       BuildContext context, int sessionIndex) async {
     final TimeOfDay? picked = await showTimePicker(
+      
       context: context,
       initialTime: selectedTimesOfDay[sessionIndex] ?? TimeOfDay.now(),
       builder: (BuildContext context, Widget? child) {
@@ -525,183 +526,173 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   List<AddWeeklyAppontmentsDatumEntity> specifiedDates = [];
-  // void specifyAllDatesAppointments() {
-  //   List.generate(
-  //     getOrderDetailsEntity?.data?.numberOfSessions ?? 0,
-  //     (index) => AddWeeklyAppontmentsDatumEntity(
-  //       start: DateTime.tryParse(fromControllers[index].text),
-  //       end: DateTime.tryParse(toControllers[index].text),
-  //     ),
-  //   );
-  // }
-// إضافة هذه الدوال في GrouppackagemanagementCubit
 
 // دالة للتحقق من اكتمال جميع المواعيد المحددة
-void checkAndCallSpecifyAllDatesAppointments() async {
-  // التحقق من أن جميع الـ sessions لها أيام وأوقات محددة (from & to)
-  bool allSessionsComplete = true;
-  int numberOfSessions = getOrderDetailsEntity?.data?.numberOfSessions ?? 0;
+  void checkAndCallSpecifyAllDatesAppointments() async {
+    // التحقق من أن جميع الـ sessions لها أيام وأوقات محددة (from & to)
+    bool allSessionsComplete = true;
+    int numberOfSessions = getOrderDetailsEntity?.data?.numberOfSessions ?? 0;
 
-  for (int i = 0; i < numberOfSessions; i++) {
-    // التحقق من وجود اليوم
-    if (i >= specifyAlldayController.length || 
-        specifyAlldayController[i].text.isEmpty) {
-      allSessionsComplete = false;
-      break;
+    for (int i = 0; i < numberOfSessions; i++) {
+      // التحقق من وجود اليوم
+      if (i >= specifyAlldayController.length ||
+          specifyAlldayController[i].text.isEmpty) {
+        allSessionsComplete = false;
+        break;
+      }
+
+      // التحقق من وجود وقت البداية
+      if (i >= selectedFromTimes.length || selectedFromTimes[i] == null) {
+        allSessionsComplete = false;
+        break;
+      }
+
+      // التحقق من وجود وقت النهاية
+      if (i >= selectedToTimes.length || selectedToTimes[i] == null) {
+        allSessionsComplete = false;
+        break;
+      }
     }
-    
-    // التحقق من وجود وقت البداية
-    if (i >= selectedFromTimes.length || 
-        selectedFromTimes[i] == null) {
-      allSessionsComplete = false;
-      break;
-    }
-    
-    // التحقق من وجود وقت النهاية
-    if (i >= selectedToTimes.length || 
-        selectedToTimes[i] == null) {
-      allSessionsComplete = false;
-      break;
+
+    // إذا كانت جميع الـ sessions مكتملة، استدعي specifyAllDatesAppointments
+    if (allSessionsComplete && numberOfSessions > 0) {
+      specifyAllDatesAppointments();
+      await getInstructors();
+      log("All sessions completed - specifyAllDatesAppointments called");
     }
   }
-
-  // إذا كانت جميع الـ sessions مكتملة، استدعي specifyAllDatesAppointments
-  if (allSessionsComplete && numberOfSessions > 0) {
-    specifyAllDatesAppointments();
-   await getInstructors();
-    log("All sessions completed - specifyAllDatesAppointments called");
-  }
-}
 
 // تعديل دالة changeSpecifiedAllDay لتشمل الفحص التلقائي
-changeSpecifiedAllDay(String day, int sessionIndex) {
-  if (sessionIndex < specifyAlldayController.length) {
-    specifyAlldayController[sessionIndex].text = day;
-    emit(ChangeSpecifiedDayState());
-    
+  changeSpecifiedAllDay(String day, int sessionIndex) {
+    if (sessionIndex < specifyAlldayController.length) {
+      specifyAlldayController[sessionIndex].text = day;
+      emit(ChangeSpecifiedDayState());
+
+      // فحص إذا كانت جميع الـ sessions مكتملة
+      checkAndCallSpecifyAllDatesAppointments();
+    }
+  }
+
+// تعديل دالة changeSelectedFromTime لتشمل الفحص التلقائي
+  void changeSelectedFromTime(TimeOfDay timeOfDay, int sessionIndex) {
+    selectedFromTimes[sessionIndex] = timeOfDay;
+    final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
+    final minute = timeOfDay.minute.toString().padLeft(2, '0');
+    final period = timeOfDay.period == DayPeriod.am ? 'ص' : 'م';
+    selectedFromTimesDisplay[sessionIndex] = '$hour:$minute $period';
+
+    // تحديث الـ controller الخاص بالـ session
+    if (sessionIndex < fromControllers.length) {
+      fromControllers[sessionIndex].text =
+          selectedFromTimesDisplay[sessionIndex];
+    }
+
+    emit(ChangeSelectedFromTimeState());
+
     // فحص إذا كانت جميع الـ sessions مكتملة
     checkAndCallSpecifyAllDatesAppointments();
   }
-}
-
-// تعديل دالة changeSelectedFromTime لتشمل الفحص التلقائي
-void changeSelectedFromTime(TimeOfDay timeOfDay, int sessionIndex) {
-  selectedFromTimes[sessionIndex] = timeOfDay;
-  final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
-  final minute = timeOfDay.minute.toString().padLeft(2, '0');
-  final period = timeOfDay.period == DayPeriod.am ? 'ص' : 'م';
-  selectedFromTimesDisplay[sessionIndex] = '$hour:$minute $period';
-
-  // تحديث الـ controller الخاص بالـ session
-  if (sessionIndex < fromControllers.length) {
-    fromControllers[sessionIndex].text =
-        selectedFromTimesDisplay[sessionIndex];
-  }
-
-  emit(ChangeSelectedFromTimeState());
-  
-  // فحص إذا كانت جميع الـ sessions مكتملة
-  checkAndCallSpecifyAllDatesAppointments();
-}
 
 // تعديل دالة changeSelectedToTime لتشمل الفحص التلقائي
-void changeSelectedToTime(TimeOfDay timeOfDay, int sessionIndex) {
-  selectedToTimes[sessionIndex] = timeOfDay;
-  final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
-  final minute = timeOfDay.minute.toString().padLeft(2, '0');
-  final period = timeOfDay.period == DayPeriod.am ? 'ص' : 'م';
-  selectedToTimesDisplay[sessionIndex] = '$hour:$minute $period';
+  void changeSelectedToTime(TimeOfDay timeOfDay, int sessionIndex) {
+    selectedToTimes[sessionIndex] = timeOfDay;
+    final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
+    final minute = timeOfDay.minute.toString().padLeft(2, '0');
+    final period = timeOfDay.period == DayPeriod.am ? 'ص' : 'م';
+    selectedToTimesDisplay[sessionIndex] = '$hour:$minute $period';
 
-  // تحديث الـ controller الخاص بالـ session
-  if (sessionIndex < toControllers.length) {
-    toControllers[sessionIndex].text = selectedToTimesDisplay[sessionIndex];
+    // تحديث الـ controller الخاص بالـ session
+    if (sessionIndex < toControllers.length) {
+      toControllers[sessionIndex].text = selectedToTimesDisplay[sessionIndex];
+    }
+
+    emit(ChangeSelectedToTimeState());
+
+    // فحص إذا كانت جميع الـ sessions مكتملة
+    checkAndCallSpecifyAllDatesAppointments();
   }
-
-  emit(ChangeSelectedToTimeState());
-  
-  // فحص إذا كانت جميع الـ sessions مكتملة
-  checkAndCallSpecifyAllDatesAppointments();
-}
 
 // تعديل دالة specifyAllDatesAppointments لملء الليستة بشكل صحيح
-void specifyAllDatesAppointments() {
-  specifiedDates.clear(); // مسح البيانات السابقة
-  
-  int numberOfSessions = getOrderDetailsEntity?.data?.numberOfSessions ?? 0;
-  
-  for (int i = 0; i < numberOfSessions; i++) {
-    if (i < specifyAlldayController.length && 
-        i < selectedFromTimes.length && 
-        i < selectedToTimes.length &&
-        specifyAlldayController[i].text.isNotEmpty &&
-        selectedFromTimes[i] != null &&
-        selectedToTimes[i] != null) {
-      
-      // الحصول على اليوم المختار
-      String selectedDay = specifyAlldayController[i].text;
-      
-      // الحصول على التاريخ الحالي
-      DateTime now = DateTime.now();
-      
-      // البحث عن أقرب يوم مطابق في الأسبوع
-      int selectedDayIndex = WeekDaysEnum.values
-          .indexWhere((day) => day.title == selectedDay);
-      
-      if (selectedDayIndex != -1) {
-        // حساب الفرق بين اليوم الحالي واليوم المختار
-        int daysDifference = (selectedDayIndex + 1) - now.weekday;
-        if (daysDifference <= 0) {
-          daysDifference += 7; // إذا كان اليوم قد مر، اختر الأسبوع القادم
+  void specifyAllDatesAppointments() {
+    specifiedDates.clear(); // مسح البيانات السابقة
+
+    int numberOfSessions = getOrderDetailsEntity?.data?.numberOfSessions ?? 0;
+
+    for (int i = 0; i < numberOfSessions; i++) {
+      if (i < specifyAlldayController.length &&
+          i < selectedFromTimes.length &&
+          i < selectedToTimes.length &&
+          specifyAlldayController[i].text.isNotEmpty &&
+          selectedFromTimes[i] != null &&
+          selectedToTimes[i] != null) {
+        // الحصول على اليوم المختار
+        String selectedDay = specifyAlldayController[i].text;
+
+        // الحصول على التاريخ الحالي
+        DateTime now = DateTime.now();
+
+        // البحث عن أقرب يوم مطابق في الأسبوع
+        int selectedDayIndex =
+            WeekDaysEnum.values.indexWhere((day) => day.title == selectedDay);
+
+        if (selectedDayIndex != -1) {
+          // حساب الفرق بين اليوم الحالي واليوم المختار
+          int daysDifference = (selectedDayIndex + 1) - now.weekday;
+          if (daysDifference <= 0) {
+            daysDifference += 7; // إذا كان اليوم قد مر، اختر الأسبوع القادم
+          }
+
+          DateTime targetDate = now.add(Duration(days: daysDifference));
+
+          // دمج التاريخ مع أوقات البداية والنهاية
+          DateTime startDateTime = DateTime(
+            targetDate.year,
+            targetDate.month,
+            targetDate.day,
+            selectedFromTimes[i]!.hour,
+            selectedFromTimes[i]!.minute,
+          );
+
+          DateTime endDateTime = DateTime(
+            targetDate.year,
+            targetDate.month,
+            targetDate.day,
+            selectedToTimes[i]!.hour,
+            selectedToTimes[i]!.minute,
+          );
+
+          // إضافة الموعد إلى القائمة
+          specifiedDates.add(
+            AddWeeklyAppontmentsDatumEntity(
+              start: startDateTime,
+              end: endDateTime,
+            ),
+          );
         }
-        
-        DateTime targetDate = now.add(Duration(days: daysDifference));
-        
-        // دمج التاريخ مع أوقات البداية والنهاية
-        DateTime startDateTime = DateTime(
-          targetDate.year,
-          targetDate.month,
-          targetDate.day,
-          selectedFromTimes[i]!.hour,
-          selectedFromTimes[i]!.minute,
-        );
-        
-        DateTime endDateTime = DateTime(
-          targetDate.year,
-          targetDate.month,
-          targetDate.day,
-          selectedToTimes[i]!.hour,
-          selectedToTimes[i]!.minute,
-        );
-        
-        // إضافة الموعد إلى القائمة
-        specifiedDates.add(
-          AddWeeklyAppontmentsDatumEntity(
-            start: startDateTime,
-            end: endDateTime,
-          ),
-        );
       }
     }
+
+    log("Specified dates filled: ${specifiedDates.length} appointments");
+    log("Specified dates content: ${specifiedDates.map((e) => '${e.start} - ${e.end}').toList()}");
   }
-  
-  log("Specified dates filled: ${specifiedDates.length} appointments");
-  log("Specified dates content: ${specifiedDates.map((e) => '${e.start} - ${e.end}').toList()}");
-}
+
   Future<void> createMeetingSessions() async {
     log("started");
     createMeetingSessionsLoader = true;
     emit(CreateMeetingSessionsLoadingState());
+    int instructorId =
+        getInstructorsEntity?.data?[selectedLecturerIndex].id ?? 0;
+    int programId =
+        int.tryParse(getOrderDetailsEntity?.data?.programIds?.first ?? "0") ??
+            0;
 
     final result = await createMeetingSessionsUsecase.call(
       parameter: CreateMeetingSessionsParameters(
         data: CreateMeetingSessionsTojson(
           appointments: addWeeklyAppontmentsEntity?.data ?? specifiedDates,
-          instructorId:
-              getInstructorsEntity?.data?[selectedLecturerIndex].id ?? 0,
+          instructorId: instructorId,
           programContentId: programContentId,
-          programId: int.tryParse(
-                  getOrderDetailsEntity?.data?.programIds?.first ?? "0") ??
-              0,
+          programId: programId,
           userId: addedUsersIds[selectedStudentIndex],
         ),
       ),
@@ -768,22 +759,6 @@ void specifyAllDatesAppointments() {
     selectedFromTimesDisplay = List.filled(numberOfSessions, "24 ساعة");
   }
 
-  // void changeSelectedFromTime(TimeOfDay timeOfDay, int sessionIndex) {
-  //   selectedFromTimes[sessionIndex] = timeOfDay;
-  //   final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
-  //   final minute = timeOfDay.minute.toString().padLeft(2, '0');
-  //   final period = timeOfDay.period == DayPeriod.am ? 'ص' : 'م';
-  //   selectedFromTimesDisplay[sessionIndex] = '$hour:$minute $period';
-
-  //   // تحديث الـ controller الخاص بالـ session
-  //   if (sessionIndex < fromControllers.length) {
-  //     fromControllers[sessionIndex].text =
-  //         selectedFromTimesDisplay[sessionIndex];
-  //   }
-
-  //   emit(ChangeSelectedFromTimeState());
-  // }
-
   Future<void> showFromTimePickerDialog(
       BuildContext context, int sessionIndex) async {
     final TimeOfDay? picked = await showTimePicker(
@@ -822,21 +797,6 @@ void specifyAllDatesAppointments() {
     selectedToTimes = List.filled(numberOfSessions, null);
     selectedToTimesDisplay = List.filled(numberOfSessions, "24 ساعة");
   }
-
-  // void changeSelectedToTime(TimeOfDay timeOfDay, int sessionIndex) {
-  //   selectedToTimes[sessionIndex] = timeOfDay;
-  //   final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
-  //   final minute = timeOfDay.minute.toString().padLeft(2, '0');
-  //   final period = timeOfDay.period == DayPeriod.am ? 'ص' : 'م';
-  //   selectedToTimesDisplay[sessionIndex] = '$hour:$minute $period';
-
-  //   // تحديث الـ controller الخاص بالـ session
-  //   if (sessionIndex < toControllers.length) {
-  //     toControllers[sessionIndex].text = selectedToTimesDisplay[sessionIndex];
-  //   }
-
-  //   emit(ChangeSelectedToTimeState());
-  // }
 
   Future<void> showToTimePickerDialog(
       BuildContext context, int sessionIndex) async {

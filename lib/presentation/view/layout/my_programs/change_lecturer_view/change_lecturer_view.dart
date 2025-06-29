@@ -1,19 +1,33 @@
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-List<String> weekDaysAr = [
-  "السبت",
-  "الاحد",
-  "الاثنين",
-  "الثلاثاء",
-  "الاريعاء",
-  "الخميس",
-  "الجمعة",
-];
+// List<String> weekDaysAr = [
+//   "السبت",
+//   "الاحد",
+//   "الاثنين",
+//   "الثلاثاء",
+//   "الاريعاء",
+//   "الخميس",
+//   "الجمعة",
+// ];
 
-class ChangeLecturerView extends StatelessWidget {
-  const ChangeLecturerView({super.key});
+class ChangeLecturerView extends StatefulWidget {
+  final int programId;
+  const ChangeLecturerView({super.key, required this.programId});
 
+  @override
+  State<ChangeLecturerView> createState() => _ChangeLecturerViewState();
+}
+
+class _ChangeLecturerViewState extends State<ChangeLecturerView> {
+  @override
+  void initState() {
+       context
+        .read<MyProgramsCubit>()
+        .getAssignedChildrenToProgram(programId: widget.programId);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var cubit = ChangelecturerCubit.get(context);
@@ -28,7 +42,7 @@ class ChangeLecturerView extends StatelessWidget {
         onLeadinTap: () => cubit.decrementBodyIndex(context),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
         child: Column(
           children: [
             8.ph,
@@ -50,9 +64,3 @@ class ChangeLecturerView extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-

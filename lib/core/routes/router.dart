@@ -4,6 +4,7 @@ import 'package:eazifly_student/presentation/controller/account_data/accountdata
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/add_to_library_package_details_controller/addtolibrarypackagedetails_cubit.dart';
 import 'package:eazifly_student/presentation/controller/auth/login/login_cubit.dart';
+import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/children_controller/children_cubit.dart';
@@ -66,6 +67,7 @@ import 'package:eazifly_student/presentation/view/layout/programs/program_plan_f
 import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/program_subscription_plan_view.dart';
 import 'package:eazifly_student/presentation/view/leaderboard_view/leaderboard_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/assignments_details_view/assignment_details_view.dart';
+import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/cancel_session_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/corrcected_assignment_details_view/corrcected_assignment_details_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/corrected_quiz_details_view/corrected_quiz_details_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/joined_lecture_screen/joined_lecture_screen.dart';
@@ -327,11 +329,40 @@ class AppRouter {
             child: const CorrectedQuizDetailsView(),
           ),
         );
-      case RoutePaths.changeLecturerView:
+      case RoutePaths.cancelSession:
+        // int programId = settings.arguments as int? ?? -1;
         return createRoute(
-          BlocProvider(
-            create: (context) => ChangelecturerCubit(),
-            child: const ChangeLecturerView(),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => CancelSessionCubit(),
+              ),
+            ],
+            child: const CancelSessionView(),
+          ),
+        );
+      case RoutePaths.changeLecturerView:
+        int programId = settings.arguments as int? ?? -1;
+
+        return createRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => ChangelecturerCubit(),
+              ),
+              BlocProvider(
+                create: (context) => MyProgramsCubit(
+                  changeSessionStatusUsecase: sl(),
+                  getAssignedChildrenToProgramUsecase: sl(),
+                  getMyProgramsUsecase: sl(),
+                  getSessionDetailsUsecase: sl(),
+                  joinSessionUsecase: sl(),
+                ),
+              ),
+            ],
+            child: ChangeLecturerView(
+              programId: programId,
+            ),
           ),
         );
       case RoutePaths.subscribedStudentsSettingsView:

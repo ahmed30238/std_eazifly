@@ -5,6 +5,7 @@ import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:eazifly_student/core/enums/task_deliver_status.dart';
+import 'package:eazifly_student/core/enums/week_days.dart';
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/bottom_sheet_day_controller.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/dummy_data.dart';
@@ -153,10 +154,10 @@ Future<dynamic> weekDaysModalSheet(
               7,
               (index) => BottomSheetDayContainer(
                 onTap: () {
-                  cubit.changeSpecifiedDay(weekDaysAr[index]);
+                  cubit.changeSpecifiedDay(WeekDaysEnum.values[index].title);
                   back(context);
                 },
-                day: weekDaysAr[index],
+                day: WeekDaysEnum.values[index].title,
               ),
             ),
           ],

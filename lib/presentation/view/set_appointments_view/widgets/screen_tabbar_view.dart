@@ -19,7 +19,7 @@ class ScreenTabbarView extends StatelessWidget {
         child: TabBarView(
           physics: const NeverScrollableScrollPhysics(),
           controller: cubit.controller,
-          children: [const FixedDatesBody(), const FlexibleHourBody()],
+          children: const [FixedDatesBody(), FlexibleHourBody()],
         ),
       ),
     );

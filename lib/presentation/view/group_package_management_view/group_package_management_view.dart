@@ -78,6 +78,9 @@ class _GroupPackageManagementViewState
             ),
           ),
           8.ph,
+          // اضافة طالب في البرنامج
+          // لو مفيش معلم 
+          
           BlocBuilder(
             bloc: cubit,
             builder: (context, state) => CustomElevatedButton(

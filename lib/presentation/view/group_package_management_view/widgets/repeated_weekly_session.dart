@@ -6,7 +6,6 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 import 'package:shimmer/shimmer.dart';
 
 class RepeatedWeeklySession extends StatelessWidget {
-  // final int numberOfSessionsPerWeek;
   const RepeatedWeeklySession({super.key});
 
   @override

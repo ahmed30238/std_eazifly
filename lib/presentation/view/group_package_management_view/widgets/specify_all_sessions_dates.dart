@@ -19,8 +19,8 @@ class SpecifyAllSessionsDates extends StatelessWidget {
         var cubit = context.read<GrouppackagemanagementCubit>();
         int numberOfSessions =
             cubit.getOrderDetailsEntity?.data?.numberOfSessions ?? 0;
-
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: ListView.separated(

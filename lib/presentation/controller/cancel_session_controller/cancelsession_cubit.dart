@@ -1,25 +1,21 @@
-import 'dart:developer';
-
-import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_state.dart';
-import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/change_lecturer_reason_body.dart';
-import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/choose_dates_type_body.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/choose_proper_lecturer.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/specify_new_dates_body.dart';
+import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/widgets/cancel_sessions_reasons_body.dart';
+import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/widgets/choose_new_dates_options_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class ChangelecturerCubit extends Cubit<ChangelecturerState> {
-  ChangelecturerCubit() : super(ChangelecturerInitial());
+part 'cancelsession_state.dart';
 
-  static ChangelecturerCubit get(context) => BlocProvider.of(context);
-
-  List<bool> changeLecturerReason = [];
+class CancelSessionCubit extends Cubit<CancelSessionState> {
+  CancelSessionCubit() : super(CancelsessionInitial());
+    List<bool> changeLecturerReason = [];
   bool noChosenReason() {
     bool allFalse = changeLecturerReason.every((element) => element == false);
     return allFalse;
   }
 
   bool noDateTypeChosen() {
-    if (newDates || sameDates) {
+    if (chooseNewDateOption || cancelSession) {
       return false;
     } else {
       return true;
@@ -35,7 +31,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
   double linearIndicatorPercent = .25;
   void incrementBodyIndex() {
     if (bodyIndex < bodies.length) {
-      if (sameDates) {
+      if (cancelSession) {
         bodyIndex += 2;
         linearIndicatorPercent += .5;
       } else {
@@ -48,7 +44,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
 
   void decrementBodyIndex(BuildContext context) {
     if (bodyIndex > 0) {
-      if (sameDates) {
+      if (cancelSession) {
         bodyIndex -= 2;
         linearIndicatorPercent -= .5;
       } else {
@@ -60,24 +56,25 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     }
     emit(DecrementBodyIndexState());
   }
+  
 
-  bool sameDates = false;
-  bool newDates = false;
-  void toggleSameDates() {
-    sameDates = !sameDates;
-    newDates = false;
+  bool chooseNewDateOption = false;
+  bool cancelSession = false;
+  void toggleChooseNewDateOption() {
+    chooseNewDateOption = !chooseNewDateOption;
+    cancelSession = false;
     emit(ToggleTimeTypeState());
   }
 
-  void toggleNewDates() {
-    newDates = !newDates;
-    sameDates = false;
+  void toggleCancelSession() {
+    cancelSession = !cancelSession;
+    chooseNewDateOption = false;
     emit(ToggleTimeTypeState());
   }
 
   List<Widget> bodies = [
-    const ChangeLecturerReasonBody(),
-    const ChooseDatesTypeBody(),
+    const CacnelSessionsReasonsBody(),
+    const ChooseNewDatesOptionsBody(),
     const SpecifyNewDatesBody(),
     const ChooseProperLecturerBody(),
   ];
@@ -91,18 +88,28 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
   }
 
   int dateTypeIndex = 0;
-
   void changeDateTypeIndex(int index) {
     dateTypeIndex = index;
     emit(ChangeDateTypeIndexState());
   }
-  int selectedStudent = -1;
-
-  void changeSelectedStudent(int val) {
-
-    log("before $selectedStudent");
-    selectedStudent = val;
-    log("after $selectedStudent");
-    emit(ChangeSelectedStdentState());
+    TextEditingController timeController = TextEditingController();
+  
+  // متغير لحفظ الوقت المحدد
+  TimeOfDay? selectedTime;
+  
+  // دالة لتحديد الوقت
+  void changeSelectedTime(TimeOfDay time) {
+    selectedTime = time;
+    // تنسيق الوقت للعرض
+    String formattedTime = _formatTime(time);
+    timeController.text = formattedTime;
+    emit(ChangeSelectedTimeState());
+  }
+  
+  // دالة لتنسيق الوقت
+  String _formatTime(TimeOfDay time) {
+    String hour = time.hour.toString().padLeft(2, '0');
+    String minute = time.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
   }
 }

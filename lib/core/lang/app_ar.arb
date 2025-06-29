@@ -57,5 +57,6 @@
   "subscriptionDetails": "تفاصيل الاشتراك",
   "packageDetails": "تفاصيل المجموعة",
   "completePaymentProcess": "اتمام عملية الدفع",
-  "confirmPaymentProcess": "تأكيد عملية الدفع"
+  "confirmPaymentProcess": "تأكيد عملية الدفع",
+  "cancelSession": "الغاء المحاضرة"
 }

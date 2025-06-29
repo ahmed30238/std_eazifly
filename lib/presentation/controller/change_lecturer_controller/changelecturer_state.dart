@@ -13,3 +13,5 @@ class ToggleTimeTypeState extends ChangelecturerState {}
 class ChangeSpecifiedDayState extends ChangelecturerState {}
 
 class ChangeDateTypeIndexState extends ChangelecturerState {}
+
+class ChangeSelectedStdentState extends ChangelecturerState {}
