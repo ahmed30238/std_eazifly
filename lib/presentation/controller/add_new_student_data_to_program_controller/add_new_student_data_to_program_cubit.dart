@@ -13,7 +13,7 @@ class AddNewStudentDataToProgramCubit
   }) : super(AddNewStudentDataToProgramInitial());
   static AddNewStudentDataToProgramCubit get(context) =>
       BlocProvider.of(context);
-  double linearIndicatorPercent = .2; // between 0 and 1
+  // double linearIndicatorPercent = .2; // between 0 and 1
   int screenIndex = 0;
   int selectedLecturerIndex = 0;
   changeLecturerIndex(int index) {
@@ -62,7 +62,7 @@ class AddNewStudentDataToProgramCubit
 
   decrementScreenIndex(BuildContext context) {
     if (screenIndex > 0) {
-      linearIndicatorPercent -= .2;
+      // linearIndicatorPercent -= .2;
 
       screenIndex--;
     } else {
@@ -72,20 +72,20 @@ class AddNewStudentDataToProgramCubit
   }
 
   incrementScreenIndex() {
-    linearIndicatorPercent += .2;
+    // linearIndicatorPercent += .2;
 
     screenIndex++;
     emit(IncrementScreenIndexState());
   }
 
-  List<Widget> bodies = [
+  // List<Widget> bodies = [
     // const RegistrationTypeBody(
     //   isRegisteringMySelf: false,
     // ),
     // const StudentDataBody(),
     // const ProperScheduleBody(),
     // const ChooseTeacherBody(),
-  ]; //! NOT used anymore
+  // ]; //! NOT used anymore
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
@@ -216,7 +216,7 @@ class AddNewStudentDataToProgramCubit
   reset() {
     screenIndex = 0;
     controller?.dispose();
-    linearIndicatorPercent = .2;
+    // linearIndicatorPercent = .2;
   }
 
   @override

@@ -31,7 +31,10 @@ GetOrderDetailsDataModel _$GetOrderDetailsDataModelFromJson(
       ..duration = json['duration'] as String?
       ..numberOfSessionPerWeek = json['number_of_session_per_week'] as String?
       ..startDate = json['start_date']
-      ..numberOfSessions = (json['number_of_sessions'] as num?)?.toInt();
+      ..numberOfSessions = (json['number_of_sessions'] as num?)?.toInt()
+      ..programIds = (json['program_ids'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList();
 
 Map<String, dynamic> _$GetOrderDetailsDataModelToJson(
         GetOrderDetailsDataModel instance) =>
@@ -41,4 +44,5 @@ Map<String, dynamic> _$GetOrderDetailsDataModelToJson(
       'number_of_session_per_week': instance.numberOfSessionPerWeek,
       'start_date': instance.startDate,
       'number_of_sessions': instance.numberOfSessions,
+      'program_ids': instance.programIds,
     };

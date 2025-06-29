@@ -6,13 +6,16 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 import 'package:shimmer/shimmer.dart';
 
 class RepeatedWeeklySession extends StatelessWidget {
-  final int numberOfSessionsPerWeek;
-  const RepeatedWeeklySession(
-      {super.key, required this.numberOfSessionsPerWeek});
+  // final int numberOfSessionsPerWeek;
+  const RepeatedWeeklySession({super.key});
 
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<GrouppackagemanagementCubit>();
+    int numberOfSessionPerWeek = int.tryParse(
+          cubit.getOrderDetailsEntity?.data?.numberOfSessionPerWeek ?? "0",
+        ) ??
+        0;
     var lang = context.loc!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,7 +98,7 @@ class RepeatedWeeklySession extends StatelessWidget {
                             child: AbsorbPointer(
                               child: CustomTextFormField(
                                 onFieldSubmitted: (p0) {
-                                  if (sessionIndex == 2) {
+                                  if (sessionIndex == numberOfSessionPerWeek) {
                                     cubit.addWeeklyAppointments();
                                   }
                                 },
@@ -126,9 +129,7 @@ class RepeatedWeeklySession extends StatelessWidget {
               ],
             ),
             separatorBuilder: (context, index) => 16.ph,
-            itemCount:
-                // 2,
-                numberOfSessionsPerWeek,
+            itemCount: numberOfSessionPerWeek,
           ),
         ),
         16.ph,
@@ -140,6 +141,7 @@ class RepeatedWeeklySession extends StatelessWidget {
             ),
           ),
           8.ph,
+          //! Instrcutors
           BlocBuilder(
             bloc: cubit,
             builder: (context, state) {
@@ -148,7 +150,7 @@ class RepeatedWeeklySession extends StatelessWidget {
                   cubit.getInstructorsEntity == null) {
                 return SizedBox(
                   height: 48.h,
-                  child: _buildShimmerLoader(),
+                  child: buildShimmerLoader(),
                 );
               }
 
@@ -202,13 +204,31 @@ class RepeatedWeeklySession extends StatelessWidget {
               );
             },
           ),
+          // BlocBuilder(
+          //   bloc: cubit,
+          //   builder: (context, state) => CustomElevatedButton(
+          //     text: cubit.stepperIndex == 1 ? lang.next : "بدء البرامج",
+          //     color: MainColors.blueTextColor,
+          //     height: 48.h,
+          //     width: 343.w,
+          //     radius: 16.r,
+          //     onPressed: cubit.stepperIndex == 1
+          //         ? () {
+          //             cubit.incrementStepperIndex(context);
+          //             cubit.fillAddedChildrenData();
+          //           }
+          //         : () {
+          //             cubit.createMeetingSessions();
+          //           },
+          //   ),
+          // ),
         ]
       ],
     );
   }
 }
 
-Widget _buildShimmerLoader() {
+Widget buildShimmerLoader() {
   return ListView.separated(
     scrollDirection: Axis.horizontal,
     itemBuilder: (context, index) {

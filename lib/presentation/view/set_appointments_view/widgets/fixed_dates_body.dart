@@ -25,11 +25,11 @@ class FixedDatesBody extends StatelessWidget {
           ],
           controller: cubit.fixedDateController!,
         ),
-        SizedBox(
-          height: 270.h,
+        Expanded(
+          // height: 270.h,
           child: TabBarView(
             controller: cubit.fixedDateController,
-            children: cubit.bodiesMethod(context: context),
+            children: cubit.subTabbarBody(context: context),
           ),
         ),
       ],

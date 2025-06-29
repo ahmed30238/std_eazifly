@@ -437,6 +437,7 @@ class AppRouter {
                   createMeetingSessionsUsecase: sl(),
                   getOrderDetailsUsecase: sl(),
                   getInstructorsUsecase: sl(),
+                  getProgramContentUsecase: sl(),
                 ),
               ),
               BlocProvider(
@@ -674,15 +675,15 @@ class AppRouter {
           ),
         );
       case RoutePaths.addNewStudentData:
-        // bool isToProgram = settings.arguments as bool? ?? false;
+        bool isToProgram = settings.arguments as bool? ?? false;
         return createRoute(
           BlocProvider(
             create: (context) => AddNewStudentDataToProgramCubit(
               createNewChildUsecase: sl(),
             ),
-            child: const AddNewStudentDataView(
-                // isToProgram: isToProgram,
-                ),
+            child: AddNewStudentDataView(
+              isToProgram: isToProgram,
+            ),
           ),
         );
       case RoutePaths.dmViewPath:

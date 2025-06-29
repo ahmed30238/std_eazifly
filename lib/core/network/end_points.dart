@@ -86,6 +86,8 @@ class EndPoints {
       : "get/library/categories";
   static String getProgramDetails({required int programId}) =>
       "program/details/$programId";
+  static String getProgramContent({required int programId}) =>
+      "program/content/$programId";
   static const getAllLibraryLists = "all/list";
   static String getPlansWithDetails(
           {required int programId, required int days}) =>

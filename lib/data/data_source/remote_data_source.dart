@@ -34,6 +34,7 @@ import 'package:eazifly_student/data/models/my_programs/change_session_status_to
 import 'package:eazifly_student/data/models/my_programs/content/complete_chapter_lesson_model.dart';
 import 'package:eazifly_student/data/models/my_programs/content/get_chapter_lessons_model.dart';
 import 'package:eazifly_student/data/models/my_programs/content/get_content_chapter_model.dart';
+import 'package:eazifly_student/data/models/my_programs/content/get_program_content_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_assigned_children_to_program_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_assignment_details_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
@@ -207,6 +208,9 @@ abstract class BaseRemoteDataSource {
   });
   Future<GetInstructorsModel> getInstructors({
     required GetInstructorsTojson data,
+  });
+  Future<GetProgramContentModel> getProgramContent({
+    required int programId,
   });
   Future<GetReportQuestionsModel> getReportQuestions({
     required String reportMakerType,
@@ -1518,6 +1522,24 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetInstructorsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetProgramContentModel> getProgramContent(
+      {required int programId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getProgramContent(programId: programId),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetProgramContentModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

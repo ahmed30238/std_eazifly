@@ -52,6 +52,7 @@ import 'package:eazifly_student/domain/entities/my_programs/change_session_statu
 import 'package:eazifly_student/domain/entities/my_programs/content/complete_chapter_lesson_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/get_chapter_lessons_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/get_content_chapter.dart';
+import 'package:eazifly_student/domain/entities/my_programs/content/get_program_content_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assignment_details_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_my_programs_entity.dart';
@@ -224,5 +225,8 @@ abstract class BaseRepository {
   });
   Future<Either<Failure, GetInstructorsEntity>> getInstructors({
     required GetInstructorsTojson data,
+  });
+  Future<Either<Failure, GetProgramContentEntity>> getProgramContent({
+    required int programId,
   });
 }

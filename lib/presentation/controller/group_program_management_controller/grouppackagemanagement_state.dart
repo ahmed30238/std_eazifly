@@ -81,3 +81,19 @@ class InitFixedTabBarControllerState extends GrouppackagemanagementState {}
 class ChangeSelectedTimeState extends GrouppackagemanagementState {}
 
 class IncrementSelectedStudentndex extends GrouppackagemanagementState {}
+
+class ChangeSelectedFromTimeState extends GrouppackagemanagementState {}
+
+class ChangeSelectedToTimeState extends GrouppackagemanagementState {}
+
+class GetProgramContentLoadingState extends GrouppackagemanagementState {}
+
+class GetProgramContentSuccessState extends GrouppackagemanagementState {}
+
+class GetProgramContentErrorState extends GrouppackagemanagementState {
+  final String errorMessage;
+
+  GetProgramContentErrorState({
+    required this.errorMessage,
+  });
+}

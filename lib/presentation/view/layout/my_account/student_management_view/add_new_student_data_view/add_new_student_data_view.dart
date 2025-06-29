@@ -8,10 +8,10 @@ import 'package:eazifly_student/presentation/view/layout/my_account/student_mana
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class AddNewStudentDataView extends StatefulWidget {
-  // final bool isToProgram;
+  final bool isToProgram;
   const AddNewStudentDataView({
     super.key,
-    // required this.isToProgram,
+    this.isToProgram = false,
   });
 
   @override
@@ -242,11 +242,11 @@ class _AddNewStudentDataViewState extends State<AddNewStudentDataView>
                   ? () {}
                   : () async {
                       // cubit.createNewChild(context);
-                      log("${cubit.isAssignToProgram}");
-                      cubit.isAssignToProgram
+                      log("${widget.isToProgram}");
+                      widget.isToProgram
                           ? Navigator.pushNamed(
                               context, RoutePaths.groupPackageManagement,
-                              arguments: "1" // orderId,
+                              arguments: "1" // orderId, //TODO
                               )
                           : Navigator.pushNamed(
                               context,

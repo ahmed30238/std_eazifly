@@ -83,9 +83,9 @@ class _StudentManagementViewState extends State<StudentManagementView> {
               );
             },
           ),
-          if (cubit.getMyChildrenEntity?.data == null ||
-              (cubit.getMyChildrenEntity?.data?.isEmpty ?? true))
-            const Spacer(),
+          // if (cubit.getMyChildrenEntity?.data == null ||
+          //     (cubit.getMyChildrenEntity?.data?.isEmpty ?? true))
+            // const Spacer(),
           8.ph,
           CustomElevatedButton(
             text: "إضافة طالب جديد",
@@ -95,6 +95,7 @@ class _StudentManagementViewState extends State<StudentManagementView> {
             height: 40.h,
             onPressed: () {
               Navigator.pushNamed(
+                arguments: true,
                 context,
                 RoutePaths.addNewStudentData,
               );

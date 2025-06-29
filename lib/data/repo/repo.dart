@@ -23,6 +23,7 @@ import 'package:eazifly_student/data/models/my_programs/change_session_status_to
 import 'package:eazifly_student/data/models/my_programs/content/complete_chapter_lesson_model.dart';
 import 'package:eazifly_student/data/models/my_programs/content/get_chapter_lessons_model.dart';
 import 'package:eazifly_student/data/models/my_programs/content/get_content_chapter_model.dart';
+import 'package:eazifly_student/data/models/my_programs/content/get_program_content_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_assignment_details_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_my_programs_model.dart';
 import 'package:eazifly_student/data/models/my_programs/get_program_assignments_model.dart';
@@ -792,6 +793,18 @@ class Repository extends BaseRepository {
       {required GetInstructorsTojson data}) async {
     try {
       final result = await baseRemoteDataSource.getInstructors(data: data);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetProgramContentModel>> getProgramContent(
+      {required int programId}) async {
+    try {
+      final result =
+          await baseRemoteDataSource.getProgramContent(programId: programId);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

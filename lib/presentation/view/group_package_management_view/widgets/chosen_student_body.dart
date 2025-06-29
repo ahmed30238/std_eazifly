@@ -1,3 +1,4 @@
+import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/add_new_student_area.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/std_data_item.dart';
@@ -16,6 +17,9 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
   @override
   void initState() {
     cubit = GrouppackagemanagementCubit.get(context);
+    AddNewStudentDataToProgramCubit addNewStudentDataToProgramCubit =
+        context.read<AddNewStudentDataToProgramCubit>();
+    addNewStudentDataToProgramCubit.fillIsAssignToProgram(true);
     super.initState();
   }
 

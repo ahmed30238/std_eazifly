@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:eazifly_student/core/component/custom_drop_down.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/screen_tabbar.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/screen_tabbar_view.dart';
@@ -22,6 +25,10 @@ class _ChosenLecturerState extends State<ChosenLecturer>
     super.initState();
     cubit.initTabBarController(this);
     cubit.initFixedDateTabBarController(this);
+    int programId = int.tryParse(
+            cubit.getOrderDetailsEntity?.data?.programIds?.first ?? "0") ??
+        0;
+    cubit.getProgramContent(programId: programId);
   }
 
   @override
@@ -46,6 +53,38 @@ class _ChosenLecturerState extends State<ChosenLecturer>
               ),
               12.ph,
               const StudentsList(),
+              32.ph,
+              BlocBuilder(
+                bloc: cubit,
+                builder: (context, state) => cubit.getProgramContentLoader
+                    ? const CircularProgressIndicator.adaptive()
+                    : Row(
+                        children: [
+                          Text(
+                            "الهدف",
+                            style: MainTextStyle.boldTextStyle(fontSize: 12),
+                          ),
+                          8.pw,
+                          Expanded(
+                            child: CustomizedDropdownWidget(
+                              hintText: "الهدف",
+                              items: cubit.getProgramContentEntity?.data
+                                  ?.map(
+                                    (e) => DropdownMenuItem(
+                                      value: e.id,
+                                      child: Text(e.title ?? ""),
+                                    ),
+                                  )
+                                  .toList(),
+                              onChanged: (val) {
+                                cubit.onGoalChanged(val ?? 0);
+                                log("$val");
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
               32.ph,
               Text(
                 lang.studentSchedules,

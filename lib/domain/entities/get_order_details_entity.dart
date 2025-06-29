@@ -30,11 +30,16 @@ class GetOrderDetailsDataEntity {
   @JsonKey(name: "number_of_sessions")
   int? numberOfSessions;
 
+  @JsonKey(name: "program_ids")
+  List<String>? programIds;
+
+
   GetOrderDetailsDataEntity({
     this.subscripeDays,
     this.duration,
     this.numberOfSessionPerWeek,
     this.startDate,
     this.numberOfSessions,
+    this.programIds,
   });
 }
