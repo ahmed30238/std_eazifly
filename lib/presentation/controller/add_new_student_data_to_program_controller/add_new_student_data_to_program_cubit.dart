@@ -190,7 +190,7 @@ class AddNewStudentDataToProgramCubit
           createNewChildEntity = r;
           emit(CreateNewChildSuccessState());
           // incrementScreenIndex();
-          log("${isAssignToProgram}");
+          log("$isAssignToProgram");
           isAssignToProgram
               ? Navigator.pushNamed(
                   arguments: "1", // orderId,

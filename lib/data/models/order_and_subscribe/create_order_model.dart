@@ -52,3 +52,23 @@ class CreateOrderUser extends CreateOrderUserEntity {
 
   Map<String, dynamic> toJson() => _$CreateOrderUserToJson(this);
 }
+
+@JsonSerializable(explicitToJson: true)
+class CreateOrderOrderNoteModel extends CreateOrderOrderNoteEntity {
+  CreateOrderOrderNoteModel() : super();
+
+  factory CreateOrderOrderNoteModel.fromJson(Map<String, dynamic> json) =>
+      _$CreateOrderOrderNoteModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreateOrderOrderNoteModelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateOrderMakerModel extends CreateOrderMakerEntity {
+  CreateOrderMakerModel() : super();
+
+  factory CreateOrderMakerModel.fromJson(Map<String, dynamic> json) =>
+      _$CreateOrderMakerModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreateOrderMakerModelToJson(this);
+}

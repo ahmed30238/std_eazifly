@@ -40,6 +40,7 @@ import 'package:eazifly_student/data/models/my_programs/quizzes/get_user_quizzes
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_model.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_to_json.dart';
 import 'package:eazifly_student/data/models/my_programs/show_program_details_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/add_note_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_tojson.dart';
@@ -60,6 +61,7 @@ import 'package:eazifly_student/data/models/subscription_management/renew_subscr
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/upgrade_order_model.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
+import 'package:eazifly_student/domain/entities/add_note_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/children_entities/create_new_child_entity.dart';
@@ -805,6 +807,17 @@ class Repository extends BaseRepository {
     try {
       final result =
           await baseRemoteDataSource.getProgramContent(programId: programId);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AddNoteEntity>> addNote(
+      {required AddNoteTojson data}) async {
+    try {
+      final result = await baseRemoteDataSource.addNote(data: data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

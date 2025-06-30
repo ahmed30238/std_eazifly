@@ -1,6 +1,7 @@
 import 'package:eazifly_student/data/data_source/remote_data_source.dart';
 import 'package:eazifly_student/data/repo/repo.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
+import 'package:eazifly_student/domain/use_cases/add_note_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/add_single_item_to_fav_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/add_weekly_appointments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/cancel_subscription_usecase.dart';
@@ -59,8 +60,10 @@ import 'package:eazifly_student/domain/use_cases/show_program_details_usecase.da
 import 'package:eazifly_student/domain/use_cases/store_favourite_list_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/submit_quiz_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/upgrade_order_usecase.dart';
+import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
+import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 GetIt sl = GetIt.instance;
@@ -164,11 +167,23 @@ class ServiceLocator {
     sl.registerLazySingleton(() => GetInstructorsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => GetProgramContentUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => AddNoteUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(
           getProgramPaymentMethodsUsecase: sl(),
         ));
+    sl.registerLazySingleton<AddNewStudentDataToProgramCubit>(
+      () => AddNewStudentDataToProgramCubit(
+        createNewChildUsecase: sl<CreateNewChildUsecase>(),
+      ),
+    );
+    sl.registerLazySingleton<ProgramsUnderReviewCubit>(
+      () => ProgramsUnderReviewCubit(
+        getUserOrdersUsecase: sl(),
+        // addNoteUsecase: sl(),
+      ),
+    );
     sl.registerFactory<MyProgramsCubit>(
       () => MyProgramsCubit(
         getMyProgramsUsecase: sl(),

@@ -2,11 +2,13 @@ import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/routes/router.dart';
 import 'package:eazifly_student/core/service_locator/service_locator.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
+import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_cubit.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_state.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
+import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,20 +23,24 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ApplanuageCubit()..getAppLang()),
         BlocProvider(create: (context) => LayoutCubit()),
-        BlocProvider(create: (context) => LectureCubit(
-          showProgramDetailsUsecase: sl(),
-          getProgramSessionsUsecase: sl(),
-          getProgramAssignmentsUsecase: sl(),
-          getUserReportsUsecase: sl(),
-          getUserFeedbacksUsecase: sl(),
-          completeChapterLessonUsecase: sl(),
-          getChapterLessonsUsecase: sl(),
-          getContentChaptersUsecase: sl(),
-          getUserQuizzesUsecase: sl(),
-          getAssignmentDetailsUsecase: sl(),
-          postAssignmentUsecase: sl(),
-          getReportQuestionsUsecase: sl(),
-        )),
+        BlocProvider(create: (context) => sl<ProgramsUnderReviewCubit>()),
+        BlocProvider(
+            create: (context) => sl<AddNewStudentDataToProgramCubit>()),
+        BlocProvider(
+            create: (context) => LectureCubit(
+                  showProgramDetailsUsecase: sl(),
+                  getProgramSessionsUsecase: sl(),
+                  getProgramAssignmentsUsecase: sl(),
+                  getUserReportsUsecase: sl(),
+                  getUserFeedbacksUsecase: sl(),
+                  completeChapterLessonUsecase: sl(),
+                  getChapterLessonsUsecase: sl(),
+                  getContentChaptersUsecase: sl(),
+                  getUserQuizzesUsecase: sl(),
+                  getAssignmentDetailsUsecase: sl(),
+                  postAssignmentUsecase: sl(),
+                  getReportQuestionsUsecase: sl(),
+                )),
         BlocProvider(create: (context) => sl<PaymentCubit>()),
       ],
       child: ScreenUtilInit(

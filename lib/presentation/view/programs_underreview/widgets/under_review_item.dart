@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
@@ -82,12 +84,14 @@ class UnderReviewItem extends StatelessWidget {
                                 borderRadius: 16.cr,
                                 width: 128.5.w,
                                 onTap: () {
+                                  log(orderId);
                                   Navigator.pushNamed(
                                     context,
                                     RoutePaths.dmViewPath,
                                     arguments: {
                                       "cubit": ChatsCubit.get(context),
                                       "isReport": true,
+                                      "orderId": orderId,
                                       "problemState": "جاري"
                                     },
                                   );

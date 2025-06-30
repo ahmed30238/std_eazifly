@@ -8,6 +8,7 @@ class EndPoints {
   static const checkCopoun = "check-coupon";
   static const getUserOrders = "orders";
   static const storeFavouriteList = "store/favorite/list";
+  static const addNote = "order/add/note";
   static String getOrderDetails({required int orderId}) =>
       "order/details/$orderId";
   static const createMeetingSession = "create/meeting/session";
@@ -111,6 +112,7 @@ class EndPoints {
           {required int userId, required int assignmentId}) =>
       "show/assignment/$assignmentId?user_id=$userId";
   static const postAssignment = "upload/assignment";
+
   static String getReportQuestions({
     required String reportMakerType,
     required String reportForType,

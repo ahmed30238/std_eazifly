@@ -67,7 +67,7 @@ class RepeatedWeeklySession extends StatelessWidget {
                         },
                         child: CustomTextFormField(
                           controller: cubit.dayController[sessionIndex],
-                          hintText: "السبت",
+                          hintText: "اليوم",
                           enabled: false,
                         ),
                       ),
@@ -98,7 +98,7 @@ class RepeatedWeeklySession extends StatelessWidget {
                               child: CustomTextFormField(
                                 onFieldSubmitted: (p0) {
                                   if (sessionIndex == numberOfSessionPerWeek) {
-                                    cubit.addWeeklyAppointments();
+                                    cubit.addWeeklyAppointments(context);
                                   }
                                 },
                                 // عرض الوقت المحدد لهذا الـ session
@@ -173,8 +173,25 @@ class RepeatedWeeklySession extends StatelessWidget {
               if (instructors == null || instructors.isEmpty) {
                 return SizedBox(
                   height: 48.h,
-                  child: const Center(
-                    child: Text('No instructors available'),
+                  child: Center(
+                    child: CustomRichText(
+                      text1Style: MainTextStyle.boldTextStyle(
+                        fontSize: 14,
+                        color: MainColors.red,
+                      ),
+                      spaceText: "   ",
+                      text1:
+                          "لا يوجد معلمين متوفرين في هذا الوقت برجاء اختيار مواعيد اخري او ارسال طلب لتوفير معلمين في هذا الوقت",
+                      text2: "ارسال طلب ",
+                      text2Style: MainTextStyle.boldTextStyle(
+                        fontSize: 14,
+                        color: MainColors.blueTextColor,
+                      ),
+                      onText2Tap: () {},
+                    ),
+                    // Text(
+
+                    // ),
                   ),
                 );
               }

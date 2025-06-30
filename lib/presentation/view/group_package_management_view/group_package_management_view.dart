@@ -79,8 +79,8 @@ class _GroupPackageManagementViewState
           ),
           8.ph,
           // اضافة طالب في البرنامج
-          // لو مفيش معلم 
-          
+          // لو مفيش معلم
+
           BlocBuilder(
             bloc: cubit,
             builder: (context, state) => CustomElevatedButton(
@@ -91,8 +91,15 @@ class _GroupPackageManagementViewState
               radius: 16.r,
               onPressed: cubit.stepperIndex == 1
                   ? () {
-                      cubit.incrementStepperIndex(context);
-                      cubit.fillAddedChildrenData();
+                      if (cubit.addedUsersIds.isEmpty) {
+                        delightfulToast(
+                            message: "يرجي اختيار احد الطلاب",
+                            context: context);
+                        return;
+                      } else {
+                        cubit.incrementStepperIndex(context);
+                        cubit.fillAddedChildrenData();
+                      }
                     }
                   : () {
                       cubit.createMeetingSessions();

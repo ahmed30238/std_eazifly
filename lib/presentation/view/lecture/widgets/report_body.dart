@@ -5,7 +5,9 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 import 'package:intl/intl.dart'; // للتعامل مع التواريخ
 
 class ReportBody extends StatelessWidget {
-  const ReportBody({super.key});
+  const ReportBody({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

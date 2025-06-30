@@ -53,6 +53,8 @@ import 'package:eazifly_student/data/models/my_programs/quizzes/get_user_quizzes
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_model.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_to_json.dart';
 import 'package:eazifly_student/data/models/my_programs/show_program_details_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/add_note_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/add_note_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_model.dart';
@@ -211,6 +213,9 @@ abstract class BaseRemoteDataSource {
   });
   Future<GetProgramContentModel> getProgramContent({
     required int programId,
+  });
+  Future<AddNoteModel> addNote({
+    required AddNoteTojson data,
   });
   Future<GetReportQuestionsModel> getReportQuestions({
     required String reportMakerType,
@@ -1546,6 +1551,59 @@ class RemoteDataSource extends BaseRemoteDataSource {
           response?.data,
         ),
       );
+    }
+  }
+
+  @override
+  Future<AddNoteModel> addNote({required AddNoteTojson data}) async {
+    try {
+      FormData formData = FormData();
+      formData.fields.addAll([
+        MapEntry("title", data.title),
+        MapEntry("description", data.description),
+        MapEntry("order_id", data.orderId),
+        MapEntry("user_id", data.userId),
+      ]);
+      if (data.image != null) {
+        if (data.image!.isNotEmpty) {
+          final File imageFile = File(data.image ?? "");
+          if (await imageFile.exists()) {
+            formData.files.add(
+              MapEntry(
+                "image",
+                await MultipartFile.fromFile(
+                  data.image ?? "",
+                  filename: data.image?.split('/').last,
+                ),
+              ),
+            );
+            log('Image added to FormData: ${data.image?.split('/').last}');
+          } else {
+            throw Exception('Image file does not exist at path: ${data.image}');
+          }
+        }
+      }
+//
+      log('FormData fields: ${formData.fields.length}');
+      log('FormData files: ${formData.files.length}');
+
+      var response = await NetworkCall().post(
+        path: EndPoints.addNote,
+        data: formData,
+        isMultipart: true,
+      );
+
+      if (response?.statusCode == 200) {
+        return AddNoteModel.fromJson(response?.data);
+      } else {
+        log('Error response: ${response?.data}');
+        throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromjson(response?.data),
+        );
+      }
+    } catch (e) {
+      log('Error in add note remote: $e');
+      rethrow;
     }
   }
 }

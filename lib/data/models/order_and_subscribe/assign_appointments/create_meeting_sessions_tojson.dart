@@ -5,11 +5,13 @@ class CreateMeetingSessionsTojson {
   final int instructorId;
   final int userId;
   final int programContentId;
+  final int duration;
   final List<AddWeeklyAppontmentsDatumEntity> appointments;
 
   CreateMeetingSessionsTojson({
     required this.programId,
     required this.instructorId,
+    required this.duration,
     required this.userId,
     required this.programContentId,
     required this.appointments,
@@ -20,6 +22,7 @@ class CreateMeetingSessionsTojson {
       'program_id': programId,
       'instructor_id': instructorId,
       'user_id': userId,
+      "duration": duration,
       'program_content_id': programContentId,
       'appointments': appointments.map((appointment) {
         {

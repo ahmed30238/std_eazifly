@@ -9,6 +9,7 @@ import 'package:eazifly_student/data/models/my_programs/change_session_status_to
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/post_assignment_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_to_json.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/add_note_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/get_instructors_tojson.dart';
@@ -17,6 +18,7 @@ import 'package:eazifly_student/data/models/order_and_subscribe/create_order_toj
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
+import 'package:eazifly_student/domain/entities/add_note_entity.dart';
 import 'package:eazifly_student/domain/entities/add_single_item_to_fav_list_entity.dart';
 import 'package:eazifly_student/domain/entities/add_weekly_appointments_entity.dart';
 import 'package:eazifly_student/domain/entities/assign_program_review_entities.dart';
@@ -228,5 +230,8 @@ abstract class BaseRepository {
   });
   Future<Either<Failure, GetProgramContentEntity>> getProgramContent({
     required int programId,
+  });
+  Future<Either<Failure, AddNoteEntity>> addNote({
+    required AddNoteTojson data,
   });
 }

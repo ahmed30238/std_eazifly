@@ -162,8 +162,11 @@ class AppRouter {
       case RoutePaths.reportsAndComplaintsViewPath:
         return createRoute(
           BlocProvider(
-            create: (context) =>
-                ChatsCubit(getMessagesUsecase: sl(), sendMessagesUsecase: sl()),
+            create: (context) => ChatsCubit(
+              getMessagesUsecase: sl(),
+              sendMessagesUsecase: sl(),
+              addNoteUsecase: sl(),
+            ),
             child: const ReportsAndComplaintsView(),
           ),
         );
@@ -180,6 +183,7 @@ class AppRouter {
                 create: (context) => ChatsCubit(
                   getMessagesUsecase: sl(),
                   sendMessagesUsecase: sl(),
+                  addNoteUsecase: sl(),
                 ),
               ),
             ],
@@ -600,10 +604,21 @@ class AppRouter {
         );
       case RoutePaths.programsUnderReviewView:
         return createRoute(
-          BlocProvider(
-            create: (context) => ProgramsUnderReviewCubit(
-              getUserOrdersUsecase: sl(),
-            ),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: sl<ProgramsUnderReviewCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => ChatsCubit(
+                  getMessagesUsecase: sl(),
+                  sendMessagesUsecase: sl(),
+                  addNoteUsecase: sl(),
+                  // getUserOrdersUsecase: sl(),
+                ),
+              ),
+              // يمكنك إضافة المزيد من BlocProviders هنا إذا كنت بحاجة إليها
+            ],
             child: const ProgramsUnderReviewView(),
           ),
         );
@@ -706,28 +721,30 @@ class AppRouter {
           ),
         );
       case RoutePaths.addNewStudentData:
-        bool isToProgram = settings.arguments as bool? ?? false;
         return createRoute(
-          BlocProvider(
-            create: (context) => AddNewStudentDataToProgramCubit(
-              createNewChildUsecase: sl(),
-            ),
-            child: AddNewStudentDataView(
-              isToProgram: isToProgram,
-            ),
+          BlocProvider.value(
+            value: sl<AddNewStudentDataToProgramCubit>(),
+            child: const AddNewStudentDataView(),
           ),
         );
       case RoutePaths.dmViewPath:
         var argument = settings.arguments as Map<String, dynamic>?;
         var cubit = argument?["cubit"] as ChatsCubit;
         var isReport = argument?["isReport"] as bool;
+        String orderId = argument?["orderId"] as String? ?? "";
         String? problemState = argument?["problemState"] as String;
         // var cubit = settings.arguments as ChatsCubit;
         return createRoute(
-          BlocProvider.value(
-            value: cubit,
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: cubit),
+              BlocProvider.value(
+                value: sl<ProgramsUnderReviewCubit>(),
+              ),
+            ],
             child: DmView(
               isReport: isReport,
+              orderId: int.tryParse(orderId),
               problemState: problemState,
             ),
           ),

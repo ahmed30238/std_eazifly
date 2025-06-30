@@ -47,6 +47,10 @@ UserOrderModel _$UserOrderModelFromJson(Map<String, dynamic> json) =>
       ..orderDetails = (json['order_details'] as List<dynamic>?)
           ?.map(
               (e) => CreateOrderOrderDetail.fromJson(e as Map<String, dynamic>))
+          .toList()
+      ..orderNotes = (json['order_notes'] as List<dynamic>?)
+          ?.map((e) =>
+              CreateOrderOrderNoteModel.fromJson(e as Map<String, dynamic>))
           .toList();
 
 Map<String, dynamic> _$UserOrderModelToJson(UserOrderModel instance) =>
@@ -62,6 +66,7 @@ Map<String, dynamic> _$UserOrderModelToJson(UserOrderModel instance) =>
       'used_coupon': instance.usedCoupon,
       'created_at': instance.createdAt?.toIso8601String(),
       'order_details': instance.orderDetails?.map((e) => e.toJson()).toList(),
+      'order_notes': instance.orderNotes?.map((e) => e.toJson()).toList(),
     };
 
 OrderDetailModel _$OrderDetailModelFromJson(Map<String, dynamic> json) =>

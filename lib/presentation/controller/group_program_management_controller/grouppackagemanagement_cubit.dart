@@ -158,7 +158,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
 // إضافة هذه الدالة في الـ Cubit
-  void checkAndCallAddWeeklyAppointments() async {
+  void checkAndCallAddWeeklyAppointments(BuildContext context) async {
     // التحقق من أن جميع الـ sessions لها أيام وأوقات محددة
     bool allSessionsComplete = true;
 
@@ -173,13 +173,13 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
 
     // إذا كانت جميع الـ sessions مكتملة، استدعي addWeeklyAppointments
     if (allSessionsComplete) {
-      await addWeeklyAppointments();
+      await addWeeklyAppointments(context);
       await getInstructors();
     }
   }
 
 // تعديل دالة changeSelectedTime لتشمل الفحص التلقائي
-  void changeSelectedTime(TimeOfDay timeOfDay, int sessionIndex) {
+  void changeSelectedTime(TimeOfDay timeOfDay, int sessionIndex,BuildContext context) {
     selectedTimesOfDay[sessionIndex] = timeOfDay;
     final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
     final minute = timeOfDay.minute.toString().padLeft(2, '0');
@@ -194,14 +194,13 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     emit(ChangeSelectedTimeState());
 
     // فحص إذا كانت جميع الـ sessions مكتملة
-    checkAndCallAddWeeklyAppointments();
+    checkAndCallAddWeeklyAppointments(context);
   }
 
 // تعديل دالة showTimePickerDialog لتأخذ index
   Future<void> showTimePickerDialog(
       BuildContext context, int sessionIndex) async {
     final TimeOfDay? picked = await showTimePicker(
-      
       context: context,
       initialTime: selectedTimesOfDay[sessionIndex] ?? TimeOfDay.now(),
       builder: (BuildContext context, Widget? child) {
@@ -213,7 +212,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     );
 
     if (picked != null) {
-      changeSelectedTime(picked, sessionIndex);
+      changeSelectedTime(picked, sessionIndex,context);
     }
   }
 
@@ -258,10 +257,8 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
 
   List<Widget> get bodies => [
         const SizedBox(),
-        BlocProvider(
-          create: (context) => AddNewStudentDataToProgramCubit(
-            createNewChildUsecase: sl(),
-          ),
+        BlocProvider.value(
+          value: sl<AddNewStudentDataToProgramCubit>(),
           child: const ChosenStudentBody(),
         ),
         const ChosenLecturer(),
@@ -438,7 +435,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   // تعديل في method addWeeklyAppointments() لاستخدام الوقت المختار
 
 // تعديل دالة addWeeklyAppointments لإرسال كل يوم مع وقته
-  Future<void> addWeeklyAppointments() async {
+  Future<void> addWeeklyAppointments(BuildContext context) async {
     addWeeklyAppointmentsLoader = true;
     emit(AddWeeklyAppointmentsLoadingState());
 
@@ -479,10 +476,14 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
       (failure) {
         addWeeklyAppointmentsLoader = false;
         emit(AddWeeklyAppointmentsErrorState(failure.message));
+        delightfulToast(message: failure.message, context: context);
       },
       (data) {
         addWeeklyAppointmentsLoader = false;
         addWeeklyAppontmentsEntity = data;
+        if (data.status != 200) {
+          delightfulToast(message: data.message??"", context: context);
+        }
         emit(AddWeeklyAppointmentsSuccessState());
       },
     );
@@ -678,6 +679,8 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
 
   Future<void> createMeetingSessions() async {
     log("started");
+    log("${addedUsersIds[selectedStudentIndex]}");
+    log("$programContentId");
     createMeetingSessionsLoader = true;
     emit(CreateMeetingSessionsLoadingState());
     int instructorId =
@@ -691,6 +694,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
         data: CreateMeetingSessionsTojson(
           appointments: addWeeklyAppontmentsEntity?.data ?? specifiedDates,
           instructorId: instructorId,
+          duration: int.tryParse(getOrderDetailsEntity?.data?.duration?.toString() ?? "0") ?? 0,
           programContentId: programContentId,
           programId: programId,
           userId: addedUsersIds[selectedStudentIndex],
@@ -708,7 +712,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
         log("success");
         isDoneAdded[selectedStudentIndex] = true;
         log("${isDoneAdded[selectedStudentIndex]}");
-        incrementSelectedStudentIndex();
+        // incrementSelectedStudentIndex();
         clearData();
         createMeetingSessionsLoader = false;
         emit(CreateMeetingSessionsSuccessState());
@@ -829,11 +833,23 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   clearData() {
-    hoursControllers.clear();
-    dayController.clear();
-    specifyAlldayController.clear();
-    fromControllers.clear();
-    toControllers.clear();
+    for (var controller in hoursControllers) {
+      controller.clear();
+    }
+
+    for (var controller in fromControllers) {
+      controller.clear();
+    }
+
+    for (var controller in toControllers) {
+      controller.clear();
+    }
+    for (var controller in dayController) {
+      controller.clear();
+    }
+    // for (var controller in specifyAlldayController) {
+    //   controller.clear();
+    // }
     // مسح الأوقات المحفوظة
     selectedFromTimes.clear();
     selectedFromTimesDisplay.clear();

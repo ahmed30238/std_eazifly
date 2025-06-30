@@ -2,14 +2,16 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/chat_model/get_messages_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/add_note_tojson.dart';
+import 'package:eazifly_student/domain/entities/add_note_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
+import 'package:eazifly_student/domain/use_cases/add_note_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_messages_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/send_messages_usecase.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_state.dart';
@@ -24,7 +26,13 @@ class ChatsCubit extends Cubit<ChatsState> {
     // required this.getMyStudentsUsecase,
     required this.sendMessagesUsecase,
     // required this.getOldChatsUsecase,
-  }) : super(ChatsInitial());
+    required this.addNoteUsecase,
+  }) : super(ChatsInitial()) {
+    loginData = DataModel.fromJson(
+      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
+    );
+  }
+  DataModel? loginData;
 
   static ChatsCubit get(BuildContext context) => BlocProvider.of(context);
   bool isMessageNotEmpty = false;
@@ -41,19 +49,20 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   TabController? controller;
   TextEditingController messageController = TextEditingController();
-  void initController(TickerProvider vsync,BuildContext context) {
-    controller = TabController(length: tabs(context: context).length, vsync: vsync)
-      ..addListener(
-        () {
-          if (controller!.indexIsChanging) {
-            emit(ChangeTapbarState());
-          }
-        },
-      );
+  void initController(TickerProvider vsync, BuildContext context) {
+    controller =
+        TabController(length: tabs(context: context).length, vsync: vsync)
+          ..addListener(
+            () {
+              if (controller!.indexIsChanging) {
+                emit(ChangeTapbarState());
+              }
+            },
+          );
   }
 
   List<File> images = [];
-  
+
   Future<void> pickImages() async {
     final response = await pickMultiImageFromGallery();
     if (response != null) {
@@ -82,7 +91,7 @@ class ChatsCubit extends Cubit<ChatsState> {
   initializeRecordVars() {
     audioPlayer = AudioPlayer();
     audioRecord = AudioRecorder();
-    
+
     // Listen to player state changes
     audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
       if (state == PlayerState.completed) {
@@ -90,7 +99,7 @@ class ChatsCubit extends Cubit<ChatsState> {
         emit(StopPlayingRecordState());
       }
     });
-    
+
     // Listen to player completion
     audioPlayer.onPlayerComplete.listen((event) {
       isPlaying = false;
@@ -108,10 +117,9 @@ class ChatsCubit extends Cubit<ChatsState> {
     if (await audioRecord.hasPermission()) {
       await audioRecord.start(
         const RecordConfig(
-          androidConfig: AndroidRecordConfig(
-            audioSource: AndroidAudioSource.mic,
-          )
-        ),
+            androidConfig: AndroidRecordConfig(
+          audioSource: AndroidAudioSource.mic,
+        )),
         path: recordPath,
       );
       isRecording = true;
@@ -144,7 +152,6 @@ class ChatsCubit extends Cubit<ChatsState> {
     }
   }
 
-
 //! ###################### API #######################
   // GetOldChatsEntities? getOldChatsEntities;
   // GetOldChatsUsecase getOldChatsUsecase;
@@ -168,6 +175,49 @@ class ChatsCubit extends Cubit<ChatsState> {
   //     },
   //   );
   // }
+
+  AddNoteEntity? addNoteEntity;
+  AddNoteUsecase addNoteUsecase;
+  bool addNoteLoader = false;
+  Future<void> addNote(
+      {required String orderId, required BuildContext context}) async {
+    String? imagePath;
+    // إذا كان في صورة جديدة
+    if (images.isNotEmpty) {
+      final File file = images.last;
+
+      if (!await file.exists()) {
+        throw Exception('Profile image file does not exist');
+      }
+
+      imagePath = file.path;
+    }
+    String userId = loginData?.id.toString() ?? "";
+    emit(GetOldChatsLoadingState());
+    final result = await addNoteUsecase.call(
+      parameter: AddNoteParameters(
+        data: AddNoteTojson(
+          title: messageController.text,
+          description: "description",
+          orderId: orderId,
+          userId: userId,
+          image: imagePath,
+        ),
+      ),
+    );
+    result.fold(
+      (l) {
+        log("left");
+        emit(GetOldChatsErrorState(errorMessage: l.message));
+      },
+      (r) {
+        log("right");
+        addNoteEntity = r;
+        messageController.clear();
+        emit(GetOldChatsSuccessState());
+      },
+    );
+  }
 
   GetMessagesEntities? getMessagesEntities;
   GetMessagesUsecase getMessagesUsecase;
