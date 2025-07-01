@@ -102,7 +102,14 @@ class _GroupPackageManagementViewState
                       }
                     }
                   : () {
-                      cubit.createMeetingSessions();
+                      if (cubit.getInstructorsEntity?.data != null &&
+                          cubit.getInstructorsEntity!.data!.isNotEmpty) {
+                        cubit.createMeetingSessions();
+                      } else {
+                        delightfulToast(
+                            message: "غير متوفر",
+                            context: context);
+                      }
                     },
             ),
           ),

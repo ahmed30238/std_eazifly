@@ -179,7 +179,8 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
 // تعديل دالة changeSelectedTime لتشمل الفحص التلقائي
-  void changeSelectedTime(TimeOfDay timeOfDay, int sessionIndex,BuildContext context) {
+  void changeSelectedTime(
+      TimeOfDay timeOfDay, int sessionIndex, BuildContext context) {
     selectedTimesOfDay[sessionIndex] = timeOfDay;
     final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
     final minute = timeOfDay.minute.toString().padLeft(2, '0');
@@ -212,7 +213,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     );
 
     if (picked != null) {
-      changeSelectedTime(picked, sessionIndex,context);
+      changeSelectedTime(picked, sessionIndex, context);
     }
   }
 
@@ -476,13 +477,13 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
       (failure) {
         addWeeklyAppointmentsLoader = false;
         emit(AddWeeklyAppointmentsErrorState(failure.message));
-        delightfulToast(message: failure.message, context: context);
+        // delightfulToast(message: failure.message, context: context);
       },
       (data) {
         addWeeklyAppointmentsLoader = false;
         addWeeklyAppontmentsEntity = data;
         if (data.status != 200) {
-          delightfulToast(message: data.message??"", context: context);
+          delightfulToast(message: data.message ?? "", context: context);
         }
         emit(AddWeeklyAppointmentsSuccessState());
       },
@@ -679,10 +680,41 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
 
   Future<void> createMeetingSessions() async {
     log("started");
-    log("${addedUsersIds[selectedStudentIndex]}");
-    log("$programContentId");
+    log("addedUsersIds: $addedUsersIds");
+    log("selectedStudentIndex: $selectedStudentIndex");
+    log("addedUsersIds.length: ${addedUsersIds.length}");
+
+    // التحقق من صحة البيانات قبل الوصول للقائمة
+    if (addedUsersIds.isEmpty) {
+      log("Error: addedUsersIds is empty");
+      createMeetingSessionsLoader = false;
+      emit(CreateMeetingSessionsErrorState("لا توجد مستخدمين مضافين"));
+      return;
+    }
+
+    if (selectedStudentIndex < 0 ||
+        selectedStudentIndex >= addedUsersIds.length) {
+      log("Error: selectedStudentIndex ($selectedStudentIndex) is out of range (0-${addedUsersIds.length - 1})");
+      createMeetingSessionsLoader = false;
+      emit(CreateMeetingSessionsErrorState("فهرس الطالب غير صحيح"));
+      return;
+    }
+
+    // التحقق من صحة userId
+    int userId = addedUsersIds[selectedStudentIndex];
+    if (userId == -1) {
+      log("Error: Invalid userId: $userId");
+      createMeetingSessionsLoader = false;
+      emit(CreateMeetingSessionsErrorState("معرف المستخدم غير صحيح"));
+      return;
+    }
+
+    log("Valid userId: $userId");
+    log("programContentId: $programContentId");
+
     createMeetingSessionsLoader = true;
     emit(CreateMeetingSessionsLoadingState());
+
     int instructorId =
         getInstructorsEntity?.data?[selectedLecturerIndex].id ?? 0;
     int programId =
@@ -694,25 +726,34 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
         data: CreateMeetingSessionsTojson(
           appointments: addWeeklyAppontmentsEntity?.data ?? specifiedDates,
           instructorId: instructorId,
-          duration: int.tryParse(getOrderDetailsEntity?.data?.duration?.toString() ?? "0") ?? 0,
+          duration: int.tryParse(
+                  getOrderDetailsEntity?.data?.duration?.toString() ?? "0") ??
+              0,
           programContentId: programContentId,
           programId: programId,
-          userId: addedUsersIds[selectedStudentIndex],
+          userId: userId, // استخدام المتغير المتحقق منه
         ),
       ),
     );
 
     result.fold(
       (failure) {
-        log("failed");
+        log("failed: ${failure.message}");
         createMeetingSessionsLoader = false;
         emit(CreateMeetingSessionsErrorState(failure.message));
       },
       (data) {
         log("success");
-        isDoneAdded[selectedStudentIndex] = true;
-        log("${isDoneAdded[selectedStudentIndex]}");
-        // incrementSelectedStudentIndex();
+
+        // التحقق من صحة isDoneAdded قبل الوصول إليها
+        if (isDoneAdded.length > selectedStudentIndex) {
+          isDoneAdded[selectedStudentIndex] = true;
+          log("isDoneAdded[$selectedStudentIndex] = ${isDoneAdded[selectedStudentIndex]}");
+        } else {
+          log("Warning: isDoneAdded length (${isDoneAdded.length}) is less than selectedStudentIndex ($selectedStudentIndex)");
+        }
+
+        incrementSelectedStudentIndex();
         clearData();
         createMeetingSessionsLoader = false;
         emit(CreateMeetingSessionsSuccessState());
@@ -833,6 +874,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   clearData() {
+    // TODO في مشكلة هنا
     for (var controller in hoursControllers) {
       controller.clear();
     }
