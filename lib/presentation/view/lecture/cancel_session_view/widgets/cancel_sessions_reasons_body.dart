@@ -21,23 +21,24 @@ class CacnelSessionsReasonsBody extends StatelessWidget {
         Expanded(
           child: BlocBuilder(
             bloc: cubit,
-            builder: (context, state) => ListView.separated(
-              itemBuilder: (context, index) {
-                for (var i = 0; i < 4; i++) {
-                  cubit.changeLecturerReason.add(false);
-                }
-                bool isSelcted = cubit.changeLecturerReason[index] == true;
-                return TextedCheckBoxRow(
-                  isSelcted: isSelcted,
-                  onChanged: (value) =>
-                      cubit.chooseLecturerReasons(index, value ?? false),
-                  text: "سبب ${index + 1}",
-                  value: cubit.changeLecturerReason[index],
-                );
-              },
-              separatorBuilder: (context, index) => 12.ph,
-              itemCount: 4,
-            ),
+            builder: (context, state) {
+              var reasons = cubit.getCancelReasonsEntity?.data;
+              return ListView.separated(
+                itemBuilder: (context, index) {
+                  var reason = reasons?[index];
+                  bool isSelcted = cubit.cancelSessionReasons[index] == true;
+                  return TextedCheckBoxRow(
+                    isSelcted: isSelcted,
+                    onChanged: (value) =>
+                        cubit.chooseCancelReasons(index, value ?? false),
+                    text: reason?.title ?? "",
+                    value: cubit.cancelSessionReasons[index],
+                  );
+                },
+                separatorBuilder: (context, index) => 12.ph,
+                itemCount: reasons?.length ?? 0,
+              );
+            },
           ),
         ),
         8.ph,

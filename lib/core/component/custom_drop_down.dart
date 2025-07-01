@@ -52,6 +52,7 @@ class CustomizedDropdownWidget<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<T>(
+      
       isDense: true,
       // isExpanded: true,
       hint: Align(alignment: Alignment.center, child: Text(hintText)),
