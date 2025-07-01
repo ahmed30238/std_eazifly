@@ -4,7 +4,9 @@ import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/use_cases/add_note_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/add_single_item_to_fav_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/add_weekly_appointments_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/cancel_session_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/cancel_subscription_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/change_session_date_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/change_session_status_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/complete_chapter_lesson_usecase.dart';
@@ -16,11 +18,13 @@ import 'package:eazifly_student/domain/use_cases/get_all_items_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_all_library_lists_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_assigned_children_to_program_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_assignment_details_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_cancel_session_reasons_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_chapter_lessons_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_children_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_content_chapter_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_item_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_instructor_availabilities_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_instructors_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_categories_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_plans_usecase.dart';
@@ -168,6 +172,13 @@ class ServiceLocator {
     sl.registerLazySingleton(
         () => GetProgramContentUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => AddNoteUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetInstructorAvailabilitiesUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetCancelSessionReasonsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => ChangeSessionDateUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => CancelSessionUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(

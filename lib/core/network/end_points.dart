@@ -27,6 +27,13 @@ class EndPoints {
   static const getLibrarySubscriptions = "library/subscription";
   static const renewOrder = "renew/order";
   static const upgradeOrder = "upgrade/order";
+  static const getReasons = "reason/cancel/session?type=user";
+  static const cancelSession = "cancel/session";
+  static String changeSessionDate({required int sessionId}) =>
+      "change/session/date/$sessionId";
+  static String getInstructorAvailablities(
+          {required int duration, required int instructorId}) =>
+      "session/availabilities/time/$instructorId?duration=$duration";
   static String cancelSubscription({required int mainId}) =>
       "cancel/subscription/$mainId";
   static String showPlan({required int planId}) => "plan/show/$planId";

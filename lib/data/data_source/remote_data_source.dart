@@ -77,6 +77,12 @@ import 'package:eazifly_student/data/models/programs/assign_program_review_model
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
 import 'package:eazifly_student/data/models/programs/get_program_details_model.dart';
 import 'package:eazifly_student/data/models/programs/get_programs_model.dart';
+import 'package:eazifly_student/data/models/sessions/cancel_session_model.dart';
+import 'package:eazifly_student/data/models/sessions/cancel_session_tojson.dart';
+import 'package:eazifly_student/data/models/sessions/change_session_date_model.dart';
+import 'package:eazifly_student/data/models/sessions/change_session_date_tojson.dart';
+import 'package:eazifly_student/data/models/sessions/get_cancel_session_reason_model.dart';
+import 'package:eazifly_student/data/models/sessions/get_instructor_availabilities_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/cancel_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/get_library_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/get_program_subscription_model.dart';
@@ -214,15 +220,28 @@ abstract class BaseRemoteDataSource {
   Future<GetProgramContentModel> getProgramContent({
     required int programId,
   });
-  Future<AddNoteModel> addNote({
-    required AddNoteTojson data,
-  });
+
   Future<GetReportQuestionsModel> getReportQuestions({
     required String reportMakerType,
     required String reportForType,
     required int reportMakerId,
     required int reportForId,
     required int meetingSessionId,
+  });
+  Future<AddNoteModel> addNote({
+    required AddNoteTojson data,
+  });
+  Future<GetCancelSessionReasonModel> getCancelSessionReasons();
+  Future<GetInstructorAvailabilitiesModel> getInstructorAvailabilities({
+    required int instructorId,
+    required int duration,
+  });
+  Future<CancelSessionModel> cancelSession({
+    required CancelSessionTojson data,
+  });
+  Future<ChangeSessionDateModel> changeSessionDate({
+    required ChangeSessionDateTojson data,
+    required int sessionId,
   });
 }
 
@@ -1604,6 +1623,82 @@ class RemoteDataSource extends BaseRemoteDataSource {
     } catch (e) {
       log('Error in add note remote: $e');
       rethrow;
+    }
+  }
+
+  @override
+  Future<CancelSessionModel> cancelSession(
+      {required CancelSessionTojson data}) async {
+    var response = await NetworkCall().post(
+      data: data.tojson(),
+      path: EndPoints.cancelSession,
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return CancelSessionModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<ChangeSessionDateModel> changeSessionDate(
+      {required ChangeSessionDateTojson data, required int sessionId}) async {
+    var response = await NetworkCall().post(
+      data: data.tojson(),
+      path: EndPoints.changeSessionDate(sessionId: sessionId),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return ChangeSessionDateModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetCancelSessionReasonModel> getCancelSessionReasons() async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getReasons,
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetCancelSessionReasonModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetInstructorAvailabilitiesModel> getInstructorAvailabilities(
+      {required int instructorId, required int duration}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getInstructorAvailablities(
+        instructorId: instructorId,
+        duration: duration,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetInstructorAvailabilitiesModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
     }
   }
 }

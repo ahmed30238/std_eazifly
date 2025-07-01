@@ -17,6 +17,8 @@ import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_toj
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
+import 'package:eazifly_student/data/models/sessions/cancel_session_tojson.dart';
+import 'package:eazifly_student/data/models/sessions/change_session_date_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/domain/entities/add_note_entity.dart';
 import 'package:eazifly_student/domain/entities/add_single_item_to_fav_list_entity.dart';
@@ -70,6 +72,10 @@ import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_quiz_que
 import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_user_quizzes_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/quizzes/submit_quiz_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/show_program_details_entity.dart';
+import 'package:eazifly_student/domain/entities/sessions/cancel_session_entity.dart';
+import 'package:eazifly_student/domain/entities/sessions/change_session_date_entity.dart';
+import 'package:eazifly_student/domain/entities/sessions/get_cancel_session_reason_entity.dart';
+import 'package:eazifly_student/domain/entities/sessions/get_instructor_availabilities_entity.dart';
 import 'package:eazifly_student/domain/entities/show_library_item_entity.dart';
 import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/cancel_subscription_entity.dart';
@@ -233,5 +239,19 @@ abstract class BaseRepository {
   });
   Future<Either<Failure, AddNoteEntity>> addNote({
     required AddNoteTojson data,
+  });
+  Future<Either<Failure, GetCancelSessionReasonEntity>>
+      gettCancelSessionReasons();
+  Future<Either<Failure, GetInstructorAvailabilitiesEntity>>
+      getInstructorAvailabilities({
+    required int instructorId,
+    required int duration,
+  });
+  Future<Either<Failure, ChangeSessionDateEntity>> changeSessionDate({
+    required ChangeSessionDateTojson data,
+    required int sessionId,
+  });
+  Future<Either<Failure, CancelSessionEntity>> cancelSession({
+    required CancelSessionTojson data,
   });
 }

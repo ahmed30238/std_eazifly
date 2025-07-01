@@ -54,6 +54,8 @@ import 'package:eazifly_student/data/models/order_and_subscribe/get_program_paym
 import 'package:eazifly_student/data/models/order_and_subscribe/get_user_orders_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_model.dart';
 import 'package:eazifly_student/data/models/programs/assign_program_review_tojson.dart';
+import 'package:eazifly_student/data/models/sessions/cancel_session_tojson.dart';
+import 'package:eazifly_student/data/models/sessions/change_session_date_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/cancel_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/get_library_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_model.dart';
@@ -80,6 +82,10 @@ import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/change_session_status_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
+import 'package:eazifly_student/domain/entities/sessions/cancel_session_entity.dart';
+import 'package:eazifly_student/domain/entities/sessions/change_session_date_entity.dart';
+import 'package:eazifly_student/domain/entities/sessions/get_cancel_session_reason_entity.dart';
+import 'package:eazifly_student/domain/entities/sessions/get_instructor_availabilities_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_program_subscription_entity.dart';
 
 class Repository extends BaseRepository {
@@ -818,6 +824,53 @@ class Repository extends BaseRepository {
       {required AddNoteTojson data}) async {
     try {
       final result = await baseRemoteDataSource.addNote(data: data);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CancelSessionEntity>> cancelSession(
+      {required CancelSessionTojson data}) async {
+    try {
+      final result = await baseRemoteDataSource.cancelSession(data: data);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ChangeSessionDateEntity>> changeSessionDate(
+      {required ChangeSessionDateTojson data, required int sessionId}) async {
+    try {
+      final result = await baseRemoteDataSource.changeSessionDate(
+          data: data, sessionId: sessionId);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetInstructorAvailabilitiesEntity>>
+      getInstructorAvailabilities(
+          {required int instructorId, required int duration}) async {
+    try {
+      final result = await baseRemoteDataSource.getInstructorAvailabilities(
+          instructorId: instructorId, duration: duration);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetCancelSessionReasonEntity>>
+      gettCancelSessionReasons() async {
+    try {
+      final result = await baseRemoteDataSource.getCancelSessionReasons();
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

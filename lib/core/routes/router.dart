@@ -339,7 +339,12 @@ class AppRouter {
           MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) => CancelSessionCubit(),
+                create: (context) => CancelSessionCubit(
+                  cancelSessionUsecase: sl(),
+                  changeSessionDateUsecase: sl(),
+                  getCancelSessionReasonsUsecase: sl(),
+                  getInstructorAvailabilitiesUsecase: sl(),
+                ),
               ),
             ],
             child: const CancelSessionView(),
