@@ -19,28 +19,35 @@ class CacnelSessionsReasonsBody extends StatelessWidget {
         ),
         20.ph,
         Expanded(
-          child: BlocBuilder(
-            bloc: cubit,
-            builder: (context, state) {
-              var reasons = cubit.getCancelReasonsEntity?.data;
-              return ListView.separated(
-                itemBuilder: (context, index) {
-                  var reason = reasons?[index];
-                  bool isSelcted = cubit.cancelSessionReasons[index] == true;
-                  return TextedCheckBoxRow(
-                    isSelcted: isSelcted,
-                    onChanged: (value) =>
-                        cubit.chooseCancelReasons(index, value ?? false),
-                    text: reason?.title ?? "",
-                    value: cubit.cancelSessionReasons[index],
-                  );
-                },
-                separatorBuilder: (context, index) => 12.ph,
-                itemCount: reasons?.length ?? 0,
-              );
-            },
-          ),
-        ),
+            child: BlocBuilder(
+          bloc: cubit,
+          builder: (context, state) {
+            if (cubit.getCancelReasonsLoader) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            var reasons = cubit.getCancelReasonsEntity?.data;
+            if (reasons == null || reasons.isEmpty) {
+              return const Center(child: Text("No cancellation reasons available"));
+            }
+
+            return ListView.separated(
+              itemBuilder: (context, index) {
+                var reason = reasons[index];
+                bool isSelected = cubit.cancelSessionReasons[index] == true;
+                return TextedCheckBoxRow(
+                  isSelcted: isSelected,
+                  onChanged: (value) =>
+                      cubit.chooseCancelReasons(index, value ?? false),
+                  text: reason.title ?? "",
+                  value: cubit.cancelSessionReasons[index],
+                );
+              },
+              separatorBuilder: (context, index) => 12.ph,
+              itemCount: reasons.length,
+            );
+          },
+        )),
         8.ph,
         CustomElevatedButton(
           text: lang.next,

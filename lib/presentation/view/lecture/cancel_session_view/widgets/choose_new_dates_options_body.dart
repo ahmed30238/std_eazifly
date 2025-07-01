@@ -385,7 +385,7 @@ class _TimeSelectionBottomSheetState extends State<_TimeSelectionBottomSheet> {
     return selectedDay != null && selectedTimeSlot != null;
   }
 
-  void _confirmSelection(BuildContext context) {
+  void _confirmSelection(BuildContext context) async {
     if (!_canConfirmSelection()) return;
 
     log("=== Final Selection Details ===");
@@ -421,10 +421,14 @@ class _TimeSelectionBottomSheetState extends State<_TimeSelectionBottomSheet> {
         log("==============================");
 
         // استدعاء تغيير موعد الجلسة
-        widget.cubit.changeSessionDate(sessionId: 1);
+        await widget.cubit.changeSessionDate(sessionId: 1).then(
+          (value) {
+            Navigator.pushReplacementNamed(context, RoutePaths.layoutPath);
+          },
+        );
 
         // إغلاق الـ BottomSheet
-        Navigator.pop(context);
+        // back(context);
       } else {
         throw Exception("البيانات غير مكتملة");
       }

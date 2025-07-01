@@ -216,6 +216,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
 // تحديث دالة changeSessionDate لتستخدم البيانات المحفوظة
   Future<void> changeSessionDate({
     required int sessionId,
+    // required BuildContext context,
   }) async {
     // التحقق من وجود البيانات المطلوبة
     if (dayController.text.isEmpty || selectedTimeSlotData == null) {
@@ -228,7 +229,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     emit(ChangeSessionDateLoadingState());
 
     // استخراج الوقت من selectedTimeSlotData بدلاً من timeController
-    String startTime = selectedTimeSlotData.startTime ?? "";
+    String startTime = selectedTimeSlotData?.startTime ?? "";
     if (startTime.isEmpty) {
       log("Error: Start time is empty");
       emit(ChangeSessionDateErrorState("خطأ في بيانات الوقت"));
@@ -249,11 +250,10 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
       return;
     }
 
-    // تحضير البيانات للإرسال
     final changeSessionData = ChangeSessionDateTojson(
-      day: dayController.text, // اليوم المحدد
-      sessionDate: sessionDate, // التاريخ المنسق (YYYY-MM-DD فقط)
-      sessionTime: formattedTime, // الوقت المحدد (HH:MM فقط)
+      day: dayController.text, 
+      sessionDate: sessionDate, 
+      sessionTime: formattedTime, 
     );
 
     log("=== Sending change session request ===");
@@ -278,6 +278,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
       (data) {
         changeSessionDateLoader = false;
         changeSessionDateEntity = data;
+        // Navigator.pushReplacementNamed(context, RoutePaths.layoutPath);
         log("Change session date success: ${data.message}");
         emit(ChangeSessionDateSuccessState());
       },
@@ -372,8 +373,6 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     return "";
   }
 
-  // دالة لحفظ بيانات الموعد المحدد بشكل مفصل
-// دالة لحفظ بيانات الموعد المحدد بشكل مفصل
   void saveSelectedScheduleData({
     required String dayName,
     required dynamic timeSlotData,
