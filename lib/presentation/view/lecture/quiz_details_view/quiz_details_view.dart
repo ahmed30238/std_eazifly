@@ -125,7 +125,7 @@ class NotCorrectedQuizBody extends StatelessWidget {
                       TextedContainer(
                         width: 105.w,
                         height: 26.h,
-                        text: "جاري التسليم",
+                        text: quizData?.userAnswer != null ? "done" : "",
                         textColor: MainColors.yellow,
                         containerColor: MainColors.lightYellow,
                         radius: 16.r,

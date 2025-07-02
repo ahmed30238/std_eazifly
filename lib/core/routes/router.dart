@@ -8,7 +8,6 @@ import 'package:eazifly_student/presentation/controller/cancel_session_controlle
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/children_controller/children_cubit.dart';
-import 'package:eazifly_student/presentation/controller/corrected_quiz_controller/correctedquiz_cubit.dart';
 import 'package:eazifly_student/presentation/controller/goal_details_controller/goal_details_cubit.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_program_details_controller/programdetails_cubit.dart';
@@ -326,10 +325,23 @@ class AppRouter {
           ),
         );
       case RoutePaths.correctedQuizDetailsView:
+        var arguments = settings.arguments as Map<String, dynamic>;
+        int programId = arguments["programId"] as int? ?? -1;
+        int userId = arguments["userId"] as int? ?? -1;
+        int quizId = arguments["quizId"] as int? ?? -1;
+        String quizTitle = arguments["quizTitle"] as String? ?? "";
         return createRoute(
           BlocProvider(
-            create: (context) => CorrectedquizCubit(),
-            child: const CorrectedQuizDetailsView(),
+            create: (context) => LecturequizCubit(
+              getQuizQuestionsUsecase: sl(),
+              submitQuizUsecase: sl(),
+            ),
+            child: CorrectedQuizDetailsView(
+              programId: programId,
+              quizId: quizId,
+              userId: userId,
+              quizTitle: quizTitle,
+            ),
           ),
         );
       case RoutePaths.cancelSession:
@@ -337,13 +349,8 @@ class AppRouter {
         return createRoute(
           MultiBlocProvider(
             providers: [
-              BlocProvider(
-                create: (context) => CancelSessionCubit(
-                  cancelSessionUsecase: sl(),
-                  changeSessionDateUsecase: sl(),
-                  getCancelSessionReasonsUsecase: sl(),
-                  getInstructorAvailabilitiesUsecase: sl(),
-                ),
+              BlocProvider.value(
+                value: sl<CancelSessionCubit>(),
               ),
             ],
             child: const CancelSessionView(),

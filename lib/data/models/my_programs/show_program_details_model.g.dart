@@ -41,12 +41,13 @@ ShowProgramDataModel _$ShowProgramDataModelFromJson(
       ..specialFor = json['special_for'] as String?
       ..advantages = json['advantages']
       ..planPage = json['plan_page'] as String?
-      ..nextSession = json['next_session']
-      ..nextSessionDuration = json['next_session_duration']
-      ..meetingUrl = json['meeting_url']
+      ..nextSession = json['next_session'] == null
+          ? null
+          : NextSessionModel.fromJson(
+              json['next_session'] as Map<String, dynamic>)
       ..host = json['host'] as String?
       ..goalsPercentage = (json['goals_percentage'] as num?)?.toInt()
-      ..contentId = json['content_id'];
+      ..contentId = json['content_id'] as String?;
 
 Map<String, dynamic> _$ShowProgramDataModelToJson(
         ShowProgramDataModel instance) =>
@@ -66,10 +67,27 @@ Map<String, dynamic> _$ShowProgramDataModelToJson(
       'special_for': instance.specialFor,
       'advantages': instance.advantages,
       'plan_page': instance.planPage,
-      'next_session': instance.nextSession,
-      'next_session_duration': instance.nextSessionDuration,
-      'meeting_url': instance.meetingUrl,
+      'next_session': instance.nextSession?.toJson(),
       'host': instance.host,
       'goals_percentage': instance.goalsPercentage,
       'content_id': instance.contentId,
+    };
+
+NextSessionModel _$NextSessionModelFromJson(Map<String, dynamic> json) =>
+    NextSessionModel()
+      ..id = (json['id'] as num?)?.toInt()
+      ..instructorId = json['instructor_id'] as String?
+      ..sessionDatetime = json['session_datetime'] == null
+          ? null
+          : DateTime.parse(json['session_datetime'] as String)
+      ..duration = json['duration'] as String?
+      ..meetingUrl = json['meeting_url'] as String?;
+
+Map<String, dynamic> _$NextSessionModelToJson(NextSessionModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'instructor_id': instance.instructorId,
+      'session_datetime': instance.sessionDatetime?.toIso8601String(),
+      'duration': instance.duration,
+      'meeting_url': instance.meetingUrl,
     };

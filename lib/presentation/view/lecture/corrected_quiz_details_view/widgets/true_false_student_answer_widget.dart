@@ -1,4 +1,4 @@
-import 'package:eazifly_student/presentation/controller/corrected_quiz_controller/correctedquiz_cubit.dart';
+import 'package:eazifly_student/presentation/controller/lecture_quiz_details_controller/lecturequiz_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class TrueFalseStudentAnswer extends StatelessWidget {
@@ -7,7 +7,7 @@ class TrueFalseStudentAnswer extends StatelessWidget {
     required this.cubit,
   });
 
-  final CorrectedquizCubit cubit;
+  final LecturequizCubit cubit;
 
   @override
   Widget build(BuildContext context) {

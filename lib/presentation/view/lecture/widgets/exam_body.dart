@@ -25,8 +25,8 @@ class ExamBodyWidget extends StatelessWidget {
             Navigator.pushNamed(
               context,
               notUploaded
-                  ? RoutePaths.correctedQuizDetailsView
-                  : RoutePaths.lectureQuizzDetailsView,
+                  ? RoutePaths.lectureQuizzDetailsView
+                  : RoutePaths.correctedQuizDetailsView,
               arguments: {
                 "programId": cubit.currentProgramId,
                 "userId": cubit.userId,

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/data/models/sessions/cancel_session_tojson.dart';
 import 'package:eazifly_student/data/models/sessions/change_session_date_tojson.dart';
@@ -11,6 +10,7 @@ import 'package:eazifly_student/domain/use_cases/cancel_session_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/change_session_date_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_cancel_session_reasons_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_instructor_availabilities_usecase.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/widgets/cancel_sessions_reasons_body.dart';
 import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/widgets/choose_new_dates_options_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
@@ -171,13 +171,21 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
   CancelSessionEntity? postCancelSessionEntity;
   CancelSessionUsecase cancelSessionUsecase;
   Future<void> postCancelSession(BuildContext context) async {
+    int sessionId = context
+            .read<LectureCubit>()
+            .showProgramDetailsEntity
+            ?.data
+            ?.nextSession
+            ?.id ??
+        -1;
+    log("cancel this session id $sessionId");
     postCancelSessionLoader = true;
     emit(PostCancelSessionLoadingState());
     final result = await cancelSessionUsecase.call(
       parameter: CancelSessionParameters(
         data: CancelSessionTojson(
           reasonsIds: selectedReasonsIds,
-          sessionId: 1,
+          sessionId: sessionId,
         ),
       ),
     );
@@ -251,9 +259,9 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     }
 
     final changeSessionData = ChangeSessionDateTojson(
-      day: dayController.text, 
-      sessionDate: sessionDate, 
-      sessionTime: formattedTime, 
+      day: dayController.text,
+      sessionDate: sessionDate,
+      sessionTime: formattedTime,
     );
 
     log("=== Sending change session request ===");

@@ -1,3 +1,4 @@
+// ============ get_instructor_availabilities_entity.dart ============
 import 'package:eazifly_student/data/models/sessions/get_instructor_availabilities_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -41,6 +42,30 @@ class GetInstructorAvailabilitieDataEntity {
     this.thursday,
     this.friday,
   });
+
+  // Helper method to check if there are any available times
+  bool get hasAvailabilities {
+    return (saturday?.isNotEmpty ?? false) ||
+        (sunday?.isNotEmpty ?? false) ||
+        (monday?.isNotEmpty ?? false) ||
+        (tuesday?.isNotEmpty ?? false) ||
+        (wednesday?.isNotEmpty ?? false) ||
+        (thursday?.isNotEmpty ?? false) ||
+        (friday?.isNotEmpty ?? false);
+  }
+
+  // Helper method to get all available days
+  List<String> get availableDays {
+    List<String> days = [];
+    if (saturday?.isNotEmpty ?? false) days.add('Saturday');
+    if (sunday?.isNotEmpty ?? false) days.add('Sunday');
+    if (monday?.isNotEmpty ?? false) days.add('Monday');
+    if (tuesday?.isNotEmpty ?? false) days.add('Tuesday');
+    if (wednesday?.isNotEmpty ?? false) days.add('Wednesday');
+    if (thursday?.isNotEmpty ?? false) days.add('Thursday');
+    if (friday?.isNotEmpty ?? false) days.add('Friday');
+    return days;
+  }
 }
 
 class GetInstructorAvailabilitieDayEntity {

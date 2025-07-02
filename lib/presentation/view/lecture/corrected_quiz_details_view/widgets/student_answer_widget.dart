@@ -1,4 +1,4 @@
-import 'package:eazifly_student/presentation/controller/corrected_quiz_controller/correctedquiz_cubit.dart';
+import 'package:eazifly_student/presentation/controller/lecture_quiz_details_controller/lecturequiz_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/corrected_quiz_details_view/widgets/essay_student_answer.dart';
 import 'package:eazifly_student/presentation/view/lecture/corrected_quiz_details_view/widgets/multible_choices_student_answer_widget.dart';
 import 'package:eazifly_student/presentation/view/lecture/corrected_quiz_details_view/widgets/true_false_student_answer_widget.dart';
@@ -19,7 +19,7 @@ class StudentAnswerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = CorrectedquizCubit.get(context);
+    var cubit = LecturequizCubit.get(context);
     switch (type) {
       case "مقالي":
         return EssayStudentAnswer(essayAnswer: essayAnswer);
@@ -27,7 +27,10 @@ class StudentAnswerWidget extends StatelessWidget {
         return TrueFalseStudentAnswer(cubit: cubit);
       case "أختيار من متعدد":
         return MultipleChoiceStudentAnswer(
-            cubit: cubit, answerState: answerState, choicesText: choicesText);
+          cubit: cubit,
+          answerState: answerState,
+          choicesText: choicesText,
+        );
       default:
         return TextedContainer(
           width: 117.w,

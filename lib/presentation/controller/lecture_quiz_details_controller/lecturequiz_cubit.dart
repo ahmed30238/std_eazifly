@@ -69,7 +69,6 @@ class LecturequizCubit extends Cubit<LecturequizState> {
     required int qIndex,
   }) async {
     int questionOptionId = -1;
-    // mulipleChoiceIndex =
 
     List<QuizAnswer> quizAnswer = List.generate(
       getQuizQuestionsEntity?.data?.questions?.length ?? 0,
@@ -82,7 +81,6 @@ class LecturequizCubit extends Cubit<LecturequizState> {
           case "text":
             break;
           case "multiple_choice":
-            // int optionId = mulipleChoiceOptionIndex.
             questionOptionId =
                 question?.options?[mulipleChoiceOptionIndex[qIndex]].id ?? -1;
 

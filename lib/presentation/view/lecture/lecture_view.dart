@@ -325,14 +325,14 @@ class _LectureViewState extends State<LectureView>
 
     // تحديد حالة المحاضرة
     LectureStatesEnum lectureState = LectureStateHelper.getLectureState(
-      nextSession: programData.nextSession,
-      nextSessionDuration: int.tryParse(programData.nextSessionDuration ?? "0"),
+      nextSession: programData.nextSession?.sessionDatetime.toString(),
+      nextSessionDuration: int.tryParse(programData.nextSession?.duration ?? "0"),
     );
 
     // حساب الوقت المتبقي/المنقضي
     String timeDifference = LectureStateHelper.getTimeDifference(
-      nextSession: programData.nextSession,
-      nextSessionDuration: int.tryParse(programData.nextSessionDuration ?? "0"),
+      nextSession: programData.nextSession?.sessionDatetime?.toString(),
+      nextSessionDuration: int.tryParse(programData.nextSession?.duration ?? "0"),
     );
 
     return LectureStats(
@@ -342,9 +342,9 @@ class _LectureViewState extends State<LectureView>
         // كود إعادة الدخول
       },
       nextLecture:
-          programData.nextSession?.toString().substring(0, 10) ?? "غير محدد",
-      duration: programData.nextSessionDuration != null
-          ? "${programData.nextSessionDuration} دقيقة"
+          programData.nextSession?.sessionDatetime?.toString().substring(0, 10) ?? "غير محدد",
+      duration: programData.nextSession?.duration != null
+          ? "${programData.nextSession?.duration} دقيقة"
           : "غير محدد",
       timeDiff: timeDifference,
       titleText: const ["المحاضرة التالية", "مدة الجلسة", "حالة الجلسة"],
@@ -371,8 +371,8 @@ class _LectureViewState extends State<LectureView>
     }
 
     var lectureState = LectureStateHelper.getLectureState(
-      nextSession: programData.nextSession,
-      nextSessionDuration: int.tryParse(programData.nextSessionDuration ?? "0"),
+      nextSession: programData.nextSession?.sessionDatetime?.toString(),
+      nextSessionDuration: int.tryParse(programData.nextSession?.duration ?? "0"),
     );
 
     return LectureLink(
@@ -382,7 +382,7 @@ class _LectureViewState extends State<LectureView>
       onLinkTap: lectureState == LectureStatesEnum.ongoing
           ? () {
               // TODO call join session before this. in Program Cubit
-              final meetingUrl = programData.meetingUrl;
+              final meetingUrl = programData.nextSession?.meetingUrl;
               if (meetingUrl != null && meetingUrl.isNotEmpty) {
                 openUrl(meetingUrl);
               } else {

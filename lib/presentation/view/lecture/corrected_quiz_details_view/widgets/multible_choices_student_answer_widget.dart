@@ -1,4 +1,4 @@
-import 'package:eazifly_student/presentation/controller/corrected_quiz_controller/correctedquiz_cubit.dart';
+import 'package:eazifly_student/presentation/controller/lecture_quiz_details_controller/lecturequiz_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class MultipleChoiceStudentAnswer extends StatelessWidget {
@@ -9,7 +9,7 @@ class MultipleChoiceStudentAnswer extends StatelessWidget {
     required this.choicesText,
   });
 
-  final CorrectedquizCubit cubit;
+  final LecturequizCubit cubit;
   final bool answerState;
   final List<String>? choicesText;
 

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
@@ -918,7 +917,6 @@ class LectureCubit extends Cubit<LectureState> {
     emit(GetGalleryImagesState());
   }
 
-  // أضف هذه المتغيرات في أعلى الكلاس
   File? voiceNote;
   bool isRecording = false;
   bool isPlaying = false;

@@ -1,9 +1,12 @@
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class CancelSessionView extends StatefulWidget {
   // final int programId;
-  const CancelSessionView({super.key, });
+  const CancelSessionView({
+    super.key,
+  });
 
   @override
   State<CancelSessionView> createState() => _CancelSessionViewState();
@@ -16,7 +19,28 @@ class _CancelSessionViewState extends State<CancelSessionView> {
     cubit = context.read<CancelSessionCubit>();
     super.initState();
     cubit.getCancelReasons();
-    cubit.getInstructorAvailabilities(instructorId: 2, duration: 30);
+    cubit.getInstructorAvailabilities(
+      instructorId: (int.tryParse(
+            context
+                    .read<LectureCubit>()
+                    .showProgramDetailsEntity
+                    ?.data
+                    ?.nextSession
+                    ?.instructorId ??
+                "",
+          )) ??
+          -1,
+      duration: (int.tryParse(
+            context
+                    .read<LectureCubit>()
+                    .showProgramDetailsEntity
+                    ?.data
+                    ?.nextSession
+                    ?.duration ??
+                "",
+          )) ??
+          -1,
+    );
   }
 
   @override

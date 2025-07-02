@@ -65,6 +65,7 @@ import 'package:eazifly_student/domain/use_cases/store_favourite_list_usecase.da
 import 'package:eazifly_student/domain/use_cases/submit_quiz_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/upgrade_order_usecase.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
+import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
@@ -202,6 +203,14 @@ class ServiceLocator {
         getSessionDetailsUsecase: sl(),
         joinSessionUsecase: sl(),
         getAssignedChildrenToProgramUsecase: sl(),
+      ),
+    );
+    sl.registerFactory<CancelSessionCubit>(
+      () => CancelSessionCubit(
+        cancelSessionUsecase: sl(),
+        changeSessionDateUsecase: sl(),
+        getCancelSessionReasonsUsecase: sl(),
+        getInstructorAvailabilitiesUsecase: sl(),
       ),
     );
   }

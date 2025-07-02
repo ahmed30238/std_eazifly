@@ -21,3 +21,13 @@ class ShowProgramDataModel extends ShowProgramDataEntity {
 
   Map<String, dynamic> toJson() => _$ShowProgramDataModelToJson(this);
 }
+
+@JsonSerializable(explicitToJson: true)
+class NextSessionModel extends NextSessionEntity {
+  NextSessionModel() : super();
+
+  factory NextSessionModel.fromJson(Map<String, dynamic> json) =>
+      _$NextSessionModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NextSessionModelToJson(this);
+}

@@ -21,67 +21,42 @@ class ShowProgramDetailsEntity {
 class ShowProgramDataEntity {
   @JsonKey(name: "id")
   int? id;
-
   @JsonKey(name: "title")
   String? title;
-
   @JsonKey(name: "label")
   String? label;
-
   @JsonKey(name: "description")
   String? description;
-
   @JsonKey(name: "slug")
   String? slug;
-
   @JsonKey(name: "goals")
   String? goals;
-
   @JsonKey(name: "content")
   String? content;
-
   @JsonKey(name: "why_us")
   String? whyUs;
-
   @JsonKey(name: "limit_users")
   String? limitUsers;
-
   @JsonKey(name: "learning_track")
   String? learningTrack;
-
   @JsonKey(name: "image")
   String? image;
-
   @JsonKey(name: "program_type")
   String? programType;
-
   @JsonKey(name: "special_for")
   String? specialFor;
-
   @JsonKey(name: "advantages")
   dynamic advantages;
-
   @JsonKey(name: "plan_page")
   String? planPage;
-
   @JsonKey(name: "next_session")
-  dynamic nextSession;
-
-  @JsonKey(name: "next_session_duration")
-  dynamic nextSessionDuration;
-
-  @JsonKey(name: "meeting_url")
-  dynamic meetingUrl;
-
+  NextSessionModel? nextSession;
   @JsonKey(name: "host")
   String? host;
-
   @JsonKey(name: "goals_percentage")
   int? goalsPercentage;
-
   @JsonKey(name: "content_id")
-  dynamic contentId;
-
+  String? contentId;
   ShowProgramDataEntity({
     this.id,
     this.title,
@@ -99,10 +74,29 @@ class ShowProgramDataEntity {
     this.advantages,
     this.planPage,
     this.nextSession,
-    this.nextSessionDuration,
-    this.meetingUrl,
     this.host,
     this.goalsPercentage,
     this.contentId,
+  });
+}
+
+class NextSessionEntity {
+  @JsonKey(name: "id")
+  int? id;
+  @JsonKey(name: "instructor_id")
+  String? instructorId;
+  @JsonKey(name: "session_datetime")
+  DateTime? sessionDatetime;
+  @JsonKey(name: "duration")
+  String? duration;
+  @JsonKey(name: "meeting_url")
+  String? meetingUrl;
+
+  NextSessionEntity({
+    this.id,
+    this.instructorId,
+    this.sessionDatetime,
+    this.duration,
+    this.meetingUrl,
   });
 }

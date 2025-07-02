@@ -29,7 +29,7 @@ class _GoalsViewState extends State<GoalsView> {
     cubit = context.read<LectureCubit>();
     super.initState();
     cubit.getContentChapters(
-      userId: 1,
+      userId: cubit.userId,
       // userId: loginModel.id ?? -1,
     );
   }
@@ -95,7 +95,7 @@ class _GoalsViewState extends State<GoalsView> {
                           radius: 8.r,
                           onPressed: () {
                             cubit.getContentChapters(
-                              userId: loginModel.id ?? -1,
+                              userId: cubit.userId,
                             );
                           },
                         ),
