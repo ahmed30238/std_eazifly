@@ -3,9 +3,11 @@ import 'package:intl/intl.dart';
 
 class GetInstructorsTojson {
   final int programId;
+  final int? instructorId;
   final List<AddWeeklyAppontmentsDatumEntity> appointments;
 
   GetInstructorsTojson({
+    this.instructorId,
     required this.programId,
     required this.appointments,
   });
@@ -15,6 +17,7 @@ class GetInstructorsTojson {
 
     return {
       'program_id': programId,
+      'instructor_id': instructorId,
       'appointments': appointments
           .map((appointment) => {
                 "start": appointment.start != null

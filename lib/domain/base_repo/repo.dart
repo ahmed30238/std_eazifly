@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:eazifly_student/core/general_failure/failure.dart';
+import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
@@ -24,6 +25,9 @@ import 'package:eazifly_student/domain/entities/add_note_entity.dart';
 import 'package:eazifly_student/domain/entities/add_single_item_to_fav_list_entity.dart';
 import 'package:eazifly_student/domain/entities/add_weekly_appointments_entity.dart';
 import 'package:eazifly_student/domain/entities/assign_program_review_entities.dart';
+import 'package:eazifly_student/domain/entities/change_instructor/change_instructor_entity.dart';
+import 'package:eazifly_student/domain/entities/change_instructor/get_remaining_program_sessions_entity.dart';
+import 'package:eazifly_student/domain/entities/change_instructor/get_user_subscription_data_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/check_copoun_entities.dart';
@@ -253,5 +257,18 @@ abstract class BaseRepository {
   });
   Future<Either<Failure, CancelSessionEntity>> cancelSession({
     required CancelSessionTojson data,
+  });
+  Future<Either<Failure, GetRemainingProgramSessionsEntity>>
+      getRemainingProgramSessions({
+    required int userId,
+    required int programId,
+  });
+  Future<Either<Failure, ChangeInstructorEntity>> changeInstructor({
+    required ChangeInstructorTojson data,
+  });
+  Future<Either<Failure, GetUserSubscriptionDataEntity>>
+      getUserSubscriptionData({
+    required int programId,
+    required int userId,
   });
 }

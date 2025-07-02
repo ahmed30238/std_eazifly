@@ -68,6 +68,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                           (index) => BottomSheetDayContainer(
                                             onTap: () {
                                               cubit.changeSpecifiedAllDay(
+                                                context,
                                                 WeekDaysEnum
                                                     .values[index].title,
                                                 sessionIndex,

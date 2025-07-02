@@ -22,6 +22,7 @@ import 'package:eazifly_student/domain/use_cases/get_order_details_usecase.dart'
 import 'package:eazifly_student/domain/use_cases/get_program_content_usecase.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/chosen_lecturer.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/chosen_student_body.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/repeated_weekly_session.dart';
@@ -174,7 +175,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     // إذا كانت جميع الـ sessions مكتملة، استدعي addWeeklyAppointments
     if (allSessionsComplete) {
       await addWeeklyAppointments(context);
-      await getInstructors();
+      await getInstructors(context);
     }
   }
 
@@ -530,7 +531,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   List<AddWeeklyAppontmentsDatumEntity> specifiedDates = [];
 
 // دالة للتحقق من اكتمال جميع المواعيد المحددة
-  void checkAndCallSpecifyAllDatesAppointments() async {
+  void checkAndCallSpecifyAllDatesAppointments(BuildContext context) async {
     // التحقق من أن جميع الـ sessions لها أيام وأوقات محددة (from & to)
     bool allSessionsComplete = true;
     int numberOfSessions = getOrderDetailsEntity?.data?.numberOfSessions ?? 0;
@@ -559,24 +560,25 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     // إذا كانت جميع الـ sessions مكتملة، استدعي specifyAllDatesAppointments
     if (allSessionsComplete && numberOfSessions > 0) {
       specifyAllDatesAppointments();
-      await getInstructors();
+      await getInstructors(context);
       log("All sessions completed - specifyAllDatesAppointments called");
     }
   }
 
 // تعديل دالة changeSpecifiedAllDay لتشمل الفحص التلقائي
-  changeSpecifiedAllDay(String day, int sessionIndex) {
+  changeSpecifiedAllDay(BuildContext context, String day, int sessionIndex) {
     if (sessionIndex < specifyAlldayController.length) {
       specifyAlldayController[sessionIndex].text = day;
       emit(ChangeSpecifiedDayState());
 
       // فحص إذا كانت جميع الـ sessions مكتملة
-      checkAndCallSpecifyAllDatesAppointments();
+      checkAndCallSpecifyAllDatesAppointments(context);
     }
   }
 
 // تعديل دالة changeSelectedFromTime لتشمل الفحص التلقائي
-  void changeSelectedFromTime(TimeOfDay timeOfDay, int sessionIndex) {
+  void changeSelectedFromTime(
+      BuildContext context, TimeOfDay timeOfDay, int sessionIndex) {
     selectedFromTimes[sessionIndex] = timeOfDay;
     final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
     final minute = timeOfDay.minute.toString().padLeft(2, '0');
@@ -592,11 +594,12 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     emit(ChangeSelectedFromTimeState());
 
     // فحص إذا كانت جميع الـ sessions مكتملة
-    checkAndCallSpecifyAllDatesAppointments();
+    checkAndCallSpecifyAllDatesAppointments(context);
   }
 
 // تعديل دالة changeSelectedToTime لتشمل الفحص التلقائي
-  void changeSelectedToTime(TimeOfDay timeOfDay, int sessionIndex) {
+  void changeSelectedToTime(
+      BuildContext context, TimeOfDay timeOfDay, int sessionIndex) {
     selectedToTimes[sessionIndex] = timeOfDay;
     final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
     final minute = timeOfDay.minute.toString().padLeft(2, '0');
@@ -611,7 +614,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     emit(ChangeSelectedToTimeState());
 
     // فحص إذا كانت جميع الـ sessions مكتملة
-    checkAndCallSpecifyAllDatesAppointments();
+    checkAndCallSpecifyAllDatesAppointments(context);
   }
 
 // تعديل دالة specifyAllDatesAppointments لملء الليستة بشكل صحيح
@@ -769,7 +772,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   List<TextEditingController> fromControllers = [];
   List<TextEditingController> toControllers = [];
 
-  Future<void> getInstructors() async {
+  Future<void> getInstructors(BuildContext context) async {
     getInstructorsLoader = true;
     emit(GetInstructorsLoadingState());
     log("list length ${addWeeklyAppontmentsEntity?.data?.length ?? specifiedDates.length}");
@@ -778,7 +781,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
       parameter: GetInstructorsParameters(
         data: GetInstructorsTojson(
           appointments: addWeeklyAppontmentsEntity?.data ?? specifiedDates,
-          programId: 1,
+          programId: context.read<LectureCubit>().currentProgramId,
         ),
       ),
     );
@@ -805,7 +808,9 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   Future<void> showFromTimePickerDialog(
-      BuildContext context, int sessionIndex) async {
+    BuildContext context,
+    int sessionIndex,
+  ) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: selectedFromTimes[sessionIndex] ?? TimeOfDay.now(),
@@ -818,7 +823,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     );
 
     if (picked != null) {
-      changeSelectedFromTime(picked, sessionIndex);
+      changeSelectedFromTime(context, picked, sessionIndex);
     }
   }
 
@@ -857,7 +862,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     );
 
     if (picked != null) {
-      changeSelectedToTime(picked, sessionIndex);
+      changeSelectedToTime(context,picked, sessionIndex);
     }
   }
 

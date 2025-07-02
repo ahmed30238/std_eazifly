@@ -363,7 +363,11 @@ class AppRouter {
           MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) => ChangelecturerCubit(),
+                create: (context) => ChangelecturerCubit(
+                  changeInstructorUsecase: sl(),
+                  getRemainingProgramSessionsUsecase: sl(),
+                  getUserSubscriptionDataUsecase: sl()
+                ),
               ),
               BlocProvider(
                 create: (context) => MyProgramsCubit(

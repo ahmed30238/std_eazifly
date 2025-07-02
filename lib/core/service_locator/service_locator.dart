@@ -6,6 +6,7 @@ import 'package:eazifly_student/domain/use_cases/add_single_item_to_fav_usecase.
 import 'package:eazifly_student/domain/use_cases/add_weekly_appointments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/cancel_session_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/cancel_subscription_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/change_instructor_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/change_session_date_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/change_session_status_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
@@ -45,12 +46,14 @@ import 'package:eazifly_student/domain/use_cases/get_program_sessions_usecase.da
 import 'package:eazifly_student/domain/use_cases/get_program_subscriptions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_programs_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_quiz_qustions_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_remaining_program_sessions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_report_questions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_session_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_feedback_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_orders_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_quizzes_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_reports_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_user_subscription_data_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/join_session_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/library_order_and_subscription_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/like_item_usecase.dart';
@@ -180,6 +183,12 @@ class ServiceLocator {
     sl.registerLazySingleton(
         () => ChangeSessionDateUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => CancelSessionUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetUserSubscriptionDataUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetRemainingProgramSessionsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => ChangeInstructorUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(

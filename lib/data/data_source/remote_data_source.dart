@@ -7,6 +7,10 @@ import 'package:eazifly_student/core/network/end_points.dart';
 import 'package:eazifly_student/core/network/error_message_model.dart';
 import 'package:eazifly_student/core/network/networkcall.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/change_instructor/change_instructor_model.dart';
+import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
+import 'package:eazifly_student/data/models/change_instructor/get_remaining_program_sessions_model.dart';
+import 'package:eazifly_student/data/models/change_instructor/get_user_subscription_data_model.dart';
 import 'package:eazifly_student/data/models/chat_model/get_messages_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
@@ -242,6 +246,17 @@ abstract class BaseRemoteDataSource {
   Future<ChangeSessionDateModel> changeSessionDate({
     required ChangeSessionDateTojson data,
     required int sessionId,
+  });
+  Future<GetRemainingProgramSessionsModel> getRemainingProgramSessions({
+    required int programId,
+    required int userId,
+  });
+  Future<GetUserSubscriptionDataModel> getUserSubscriptionData({
+    required int programId,
+    required int userId,
+  });
+  Future<ChangeInstructorModel> changeInstructor({
+    required ChangeInstructorTojson data,
   });
 }
 
@@ -1693,6 +1708,66 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetInstructorAvailabilitiesModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<ChangeInstructorModel> changeInstructor(
+      {required ChangeInstructorTojson data}) async {
+    var response = await NetworkCall().post(
+      data: data.toJson(),
+      path: EndPoints.changeInstructor,
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return ChangeInstructorModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetRemainingProgramSessionsModel> getRemainingProgramSessions(
+      {required int programId, required int userId}) async {
+    var response = await NetworkCall()
+        .post(path: EndPoints.getRemainingProgramSessions, data: {
+      "user_id": userId,
+      "program_id": programId,
+    });
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetRemainingProgramSessionsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetUserSubscriptionDataModel> getUserSubscriptionData(
+      {required int programId, required int userId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getUserSubscriptionData(
+        programId: programId,
+        userId: userId,
+      ),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetUserSubscriptionDataModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

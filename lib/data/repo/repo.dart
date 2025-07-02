@@ -3,6 +3,10 @@ import 'package:eazifly_student/core/exceptions/exceptions.dart';
 import 'package:eazifly_student/core/general_failure/failure.dart';
 import 'package:eazifly_student/data/data_source/remote_data_source.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/change_instructor/change_instructor_model.dart';
+import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
+import 'package:eazifly_student/data/models/change_instructor/get_remaining_program_sessions_model.dart';
+import 'package:eazifly_student/data/models/change_instructor/get_user_subscription_data_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/data/models/children/get_my_children_model.dart';
@@ -871,6 +875,47 @@ class Repository extends BaseRepository {
       gettCancelSessionReasons() async {
     try {
       final result = await baseRemoteDataSource.getCancelSessionReasons();
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ChangeInstructorModel>> changeInstructor(
+      {required ChangeInstructorTojson data}) async {
+    try {
+      final result = await baseRemoteDataSource.changeInstructor(data: data);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetRemainingProgramSessionsModel>>
+      getRemainingProgramSessions(
+          {required int userId, required int programId}) async {
+    try {
+      final result = await baseRemoteDataSource.getRemainingProgramSessions(
+        userId: userId,
+        programId: programId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetUserSubscriptionDataModel>>
+      getUserSubscriptionData(
+          {required int programId, required int userId}) async {
+    try {
+      final result = await baseRemoteDataSource.getUserSubscriptionData(
+        userId: userId,
+        programId: programId,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
