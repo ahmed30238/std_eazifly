@@ -159,7 +159,12 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
               color: MainColors.blueTextColor,
               onPressed: _canConfirmSelection()
                   ? () => _confirmSelection(context)
-                  : () {},
+                  : () {
+                    log("Cant Confirm");
+                  },
+              child: widget.cubit.changeSessionDateLoader
+                  ? const CircularProgressIndicator.adaptive()
+                  : null,
             ),
           ),
           16.ph,
@@ -211,7 +216,9 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
   }
 
   bool _canConfirmSelection() {
-    return selectedDay != null && selectedTimeSlot != null;
+    return selectedDay != null &&
+        selectedTimeSlot != null &&
+        !widget.cubit.changeSessionDateLoader;
   }
 
   void _confirmSelection(BuildContext context) async {
@@ -251,7 +258,7 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
 
         // استدعاء تغيير موعد الجلسة
         await widget.cubit.changeSessionDate(sessionId: widget.sessionId);
-        
+
         // التحقق من أن Widget لا يزال mounted قبل استخدام context
         if (!mounted) return;
 
@@ -262,10 +269,10 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
           final lectureCubit = context.read<LectureCubit>();
           final userId = lectureCubit.userId;
           final programId = lectureCubit.currentProgramId;
-          
+
           log("user id is $userId");
           back(context);
-          
+
           // استدعاء getProgramSessions مع المعلومات المحفوظة
           lectureCubit.getProgramSessions(
             programId: programId,
@@ -277,10 +284,10 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
       }
     } catch (e) {
       log("Error saving selection: $e");
-      
+
       // التحقق من mounted قبل إظهار SnackBar
       if (!mounted) return;
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("حدث خطأ في حفظ البيانات: ${e.toString()}"),
