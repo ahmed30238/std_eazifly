@@ -31,7 +31,7 @@ class ChooseDatesTypeBody extends StatelessWidget {
                       ? cubit.toggleSameDates()
                       : cubit.toggleNewDates(),
                   text: index == 0
-                      ? "تحدد محاضر بنفس المواعيد القديمة"
+                      ? "تحديد محاضر بنفس المواعيد القديمة"
                       : "إختيار مواعيد جديدة",
                   value: index == 0 ? cubit.sameDates : cubit.newDates,
                 );
@@ -42,45 +42,53 @@ class ChooseDatesTypeBody extends StatelessWidget {
           ),
         ),
         8.ph,
-        CustomElevatedButton(
-          text: lang.next,
-          width: 343.w,
-          radius: 16.r,
-          color: MainColors.blueTextColor,
-          onPressed: () {
-            if (cubit.noDateTypeChosen()) {
-              customAdaptiveDialog(
-                context,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  decoration: BoxDecoration(
-                    borderRadius: 16.cr,
-                    color: MainColors.white,
-                  ),
-                  height: 160.h,
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        Assets.iconsRejectRequest,
-                      ),
-                      8.ph,
-                      Text(
-                        "برجاء اختيار المواعيد المناسبة",
-                        style: MainTextStyle.boldTextStyle(
-                          fontSize: 15,
-                          color: MainColors.red,
+        BlocBuilder(
+          bloc: cubit,
+          builder: (context, state) => CustomElevatedButton(
+            text: lang.next,
+            width: 343.w,
+            radius: 16.r,
+            color: MainColors.blueTextColor,
+            onPressed: cubit.getInstructorsLoader
+                ? () {}
+                : () {
+                    if (cubit.noDateTypeChosen()) {
+                      customAdaptiveDialog(
+                        context,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          decoration: BoxDecoration(
+                            borderRadius: 16.cr,
+                            color: MainColors.white,
+                          ),
+                          height: 160.h,
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                Assets.iconsRejectRequest,
+                              ),
+                              8.ph,
+                              Text(
+                                "برجاء اختيار المواعيد المناسبة",
+                                style: MainTextStyle.boldTextStyle(
+                                  fontSize: 15,
+                                  color: MainColors.red,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            } else {
-              cubit.incrementBodyIndex();
-            }
-          },
+                      );
+                    } else {
+                      cubit.incrementBodyIndex(context);
+                    }
+                  },
+            child: cubit.getInstructorsLoader
+                ? CircularProgressIndicator.adaptive()
+                : null,
+          ),
         ),
         32.ph,
       ],

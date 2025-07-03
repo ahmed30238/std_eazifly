@@ -23,8 +23,59 @@ class ChangeLecturerReasonBody extends StatelessWidget {
             return BlocBuilder<MyProgramsCubit, MyProgramsState>(
               bloc: programCubit,
               builder: (context, programState) {
-                var childern =
+                // Handle loading state with shimmer effect
+                if (programCubit.getAssignedChildrenLoader) {
+                  return SizedBox(
+                    height: 98.h,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Container(
+                          width: 80.w,
+                          height: 98.h,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) => 8.pw,
+                      itemCount: 3, // Show 3 loading placeholders
+                    ),
+                  );
+                }
+
+                // Handle error state
+                if (programState is GetAssignedChildrenErrorState) {
+                  return SizedBox(
+                    height: 98.h,
+                    child: const Center(
+                      child: Text(
+                        'Error loading students',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  );
+                }
+
+                var children =
                     programCubit.getAssignedChildrenToProgramEntity?.data;
+
+                // Handle empty state
+                if (children == null || children.isEmpty) {
+                  return SizedBox(
+                    height: 98.h,
+                    child: const Center(
+                      child: Text('No students found'),
+                    ),
+                  );
+                }
 
                 return SizedBox(
                   height: 98.h,
@@ -33,19 +84,19 @@ class ChangeLecturerReasonBody extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
                       bool isSelected = index == selectedStudent;
-                      var child = childern?[index];
+                      var child = children[index];
                       return StudentItem(
                         onTap: () {
-                          cubit.changeSelectedStudent(index, child?.id ?? -1);
+                          cubit.changeSelectedStudent(index, child.id ?? -1);
                         },
-                        name: "${child?.firstName}",
-                        image: child?.image ?? "",
+                        name: "${child.firstName}",
+                        image: child.image ?? "",
                         isSelected: isSelected,
                         isDoneAdded: false,
                       );
                     },
                     separatorBuilder: (context, index) => 8.pw,
-                    itemCount: childern?.length ?? 0,
+                    itemCount: children.length,
                   ),
                 );
               },

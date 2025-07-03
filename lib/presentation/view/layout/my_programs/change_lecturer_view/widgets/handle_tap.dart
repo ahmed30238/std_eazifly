@@ -72,7 +72,7 @@ handleTap({
     )
         .then(
       (value) {
-        cubit.incrementBodyIndex();
+              cubit.incrementBodyIndex(context);
       },
     );
   }

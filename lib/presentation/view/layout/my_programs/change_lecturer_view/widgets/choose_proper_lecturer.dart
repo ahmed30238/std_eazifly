@@ -1,4 +1,7 @@
+import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
+import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_state.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
+import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/repeated_weekly_session.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/widgets/choose_teacher_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -7,7 +10,8 @@ class ChooseProperLecturerBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var cubit = ChangelecturerCubit.get(context);
+    var cubit = context.read<ChangelecturerCubit>();
+    // var lang = context.loc!;
     return Column(
       children: [
         44.ph,
@@ -21,34 +25,162 @@ class ChooseProperLecturerBody extends StatelessWidget {
           ),
         ),
         28.ph,
-        SizedBox(
-          height: 157.h,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) => const SuggestedTeachersItem(
-              blured: false,
-            ),
-            separatorBuilder: (context, index) => 16.pw,
-            itemCount: 5,
-          ),
-        ),
-        const Spacer(),
-        32.ph,
-        CustomElevatedButton(
-          radius: 16.r,
-          width: 343.w,
-          height: 48.w,
-          color: MainColors.blueTextColor,
-          text: "التالي",
-          onPressed: () {
-            Navigator.pushNamed(
-              context,
-              RoutePaths.lectureView,
-              arguments: {
-                "programId": context.read<LectureCubit>().currentProgramId,
-              },
+        // SizedBox(
+        //   height: 157.h,
+        //   child: ListView.separated(
+        //     scrollDirection: Axis.horizontal,
+        //     itemBuilder: (context, index) {
+        //       bool isSelected = cubit.selectedLecturerIndex == index;
+        //       return SuggestedTeachersItem(
+        //         image: "",
+        //         instructorName: "",
+        //         isSelected: isSelected,
+        //         blured: false,
+        //         onTap: () {
+        //           cubit.changeLecturerIndex(index);
+        //         },
+        //       );
+        //     },
+        //     separatorBuilder: (context, index) => 16.pw,
+        //     itemCount: 5,
+        //   ),
+        // ),
+        // if (cubit.getRemainingProgramSessionsEntity != null)
+        // Text(
+        //   lang.chooseAppropriateLecturer,
+        //   style: MainTextStyle.boldTextStyle(
+        //     fontSize: 12,
+        //   ),
+        // ),
+        // 8.ph,
+        //! Instrcutors
+        BlocBuilder(
+          bloc: cubit,
+          builder: (context, state) {
+            // Handle loading state
+            if (cubit.getInstructorsLoader ||
+                cubit.getInstructorsEntity == null) {
+              return SizedBox(
+                height: 48.h,
+                child: buildShimmerLoader(),
+              );
+            }
+
+            // Handle error state (optional)
+            if (state is GetInstructorsErrorState) {
+              return SizedBox(
+                height: 48.h,
+                child: const Center(
+                  child: Text(
+                    'Error loading instructors',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+              );
+            }
+
+            // Handle success state with data
+            var instructors = cubit.getInstructorsEntity?.data;
+
+            // Handle empty data
+            if (instructors == null || instructors.isEmpty) {
+              return SizedBox(
+                height: 48.h,
+                child: Center(
+                  child: CustomRichText(
+                    text1Style: MainTextStyle.boldTextStyle(
+                      fontSize: 14,
+                      color: MainColors.red,
+                    ),
+                    spaceText: "   ",
+                    text1:
+                        "لا يوجد معلمين متوفرين في هذا الوقت برجاء اختيار مواعيد اخري او ارسال طلب لتوفير معلمين في هذا الوقت",
+                    text2: "ارسال طلب ",
+                    text2Style: MainTextStyle.boldTextStyle(
+                      fontSize: 14,
+                      color: MainColors.blueTextColor,
+                    ),
+                    onText2Tap: () {},
+                  ),
+                  // Text(
+
+                  // ),
+                ),
+              );
+            }
+
+            return SizedBox(
+              height: 48.h,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  bool isSelected = cubit.selectedLecturerIndex == index;
+                  var instructor = instructors[index];
+                  return SuggestedTeachersItem(
+                    onTap: () {
+                      cubit.changeLecturerIndex(index);
+                    },
+                    isSelected: isSelected,
+                    image: instructor.image ?? "",
+                    instructorName: instructor.nameAr ?? "",
+                    blured: false,
+                  );
+                },
+                separatorBuilder: (context, index) => 8.pw,
+                itemCount: instructors.length,
+              ),
             );
           },
+        ),
+        // BlocBuilder(
+        //   bloc: cubit,
+        //   builder: (context, state) => CustomElevatedButton(
+        //     text: cubit.stepperIndex == 1 ? lang.next : "بدء البرامج",
+        //     color: MainColors.blueTextColor,
+        //     height: 48.h,
+        //     width: 343.w,
+        //     radius: 16.r,
+        //     onPressed: cubit.stepperIndex == 1
+        //         ? () {
+        //             cubit.incrementStepperIndex(context);
+        //             cubit.fillAddedChildrenData();
+        //           }
+        //         : () {
+        //             cubit.createMeetingSessions();
+        //           },
+        //   ),
+        // ),
+
+        const Spacer(),
+        32.ph,
+        BlocBuilder(
+          bloc: cubit,
+          builder: (context, state) => CustomElevatedButton(
+            radius: 16.r,
+            width: 343.w,
+            height: 48.w,
+            color: MainColors.blueTextColor,
+            text: "التالي",
+            onPressed: cubit.changeInstructorLoader
+                ? () {}
+                : () async {
+                    await cubit.changeInstructor(context).then(
+                      (value) {
+                        Navigator.pushNamed(
+                          context,
+                          RoutePaths.lectureView,
+                          arguments: {
+                            "programId":
+                                context.read<LectureCubit>().currentProgramId,
+                          },
+                        );
+                      },
+                    );
+                  },
+            child: cubit.changeInstructorLoader
+                ? const CircularProgressIndicator.adaptive()
+                : null,
+          ),
         ),
         32.ph,
       ],

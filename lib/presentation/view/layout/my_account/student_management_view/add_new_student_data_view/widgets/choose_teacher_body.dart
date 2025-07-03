@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/titled_form_field.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -93,7 +94,12 @@ class ChooseTeacherBody extends StatelessWidget {
             height: 157.h,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => const SuggestedTeachersItem(),
+              itemBuilder: (context, index) => SuggestedTeachersItem(
+                onTap: (){},
+                image: "",
+                instructorName: "name",
+                isSelected: index == 0,
+              ),
               separatorBuilder: (context, index) => 16.pw,
               itemCount: 5,
             ),
@@ -141,68 +147,84 @@ class ChooseTeacherBody extends StatelessWidget {
 }
 
 class SuggestedTeachersItem extends StatelessWidget {
+  final String image;
+  final String instructorName;
+  final bool isSelected;
+  final VoidCallback onTap;
+
   final bool blured;
   const SuggestedTeachersItem({
     super.key,
     this.blured = true,
+    required this.image,
+    required this.instructorName,
+    required this.isSelected,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: blured ? 3 : 0, sigmaY: blured ? 3 : 0),
-      child: Container(
-        height: 157.h,
-        width: 243.w,
-        decoration: BoxDecoration(
-          borderRadius: 12.cr,
-          color: MainColors.lightblue,
-          border: Border.all(
-            color: MainColors.blueTextColor,
+    return GestureDetector(
+      onTap: onTap,
+      child: BackdropFilter(
+        filter:
+            ImageFilter.blur(sigmaX: blured ? 3 : 0, sigmaY: blured ? 3 : 0),
+        child: Container(
+          height: 157.h,
+          width: 243.w,
+          decoration: BoxDecoration(
+            borderRadius: 12.cr,
+            color: isSelected ? MainColors.lightblue : MainColors.white,
+            border: Border.all(
+              color: isSelected
+                  ? MainColors.blueTextColor
+                  : MainColors.grayBorderColor,
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ImageContainer(
-              containerHeight: 50.h,
-              containerWidth: 50.w,
-              radius: 16.r,
-            ),
-            8.ph,
-            Text(
-              "أحمد سلامة",
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 14,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AvatarImage(
+                height: 50.h,
+                width: 50.w,
+                radius: 16.r,
+                imageUrl: image,
               ),
-            ),
-            12.ph,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomLowSizeButton(
-                  btnColor: MainColors.white,
-                  width: 62.w,
-                  text: "قران",
-                  onTap: () {},
+              8.ph,
+              Text(
+                instructorName,
+                style: MainTextStyle.boldTextStyle(
+                  fontSize: 14,
                 ),
-                8.pw,
-                CustomLowSizeButton(
-                  btnColor: MainColors.white,
-                  width: 69.w,
-                  text: "تجويد",
-                  onTap: () {},
-                ),
-                8.pw,
-                CustomLowSizeButton(
-                  btnColor: MainColors.white,
-                  width: 64.w,
-                  text: "حفظ",
-                  onTap: () {},
-                ),
-              ],
-            )
-          ],
+              ),
+              12.ph,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomLowSizeButton(
+                    btnColor: MainColors.white,
+                    width: 62.w,
+                    text: "قران",
+                    onTap: () {},
+                  ),
+                  8.pw,
+                  CustomLowSizeButton(
+                    btnColor: MainColors.white,
+                    width: 69.w,
+                    text: "تجويد",
+                    onTap: () {},
+                  ),
+                  8.pw,
+                  CustomLowSizeButton(
+                    btnColor: MainColors.white,
+                    width: 64.w,
+                    text: "حفظ",
+                    onTap: () {},
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -57,12 +57,13 @@ class SpecifyNewDatesBody extends StatelessWidget {
         ),
         BlocBuilder(
           bloc: cubit,
-          builder: (context, state) => SizedBox(
-            height: 345.h,
+          builder: (context, state) => Expanded(
+            // height: 500.h,
             child: TabBarView(
               physics: const NeverScrollableScrollPhysics(),
               controller: cubit.controller,
               children: [
+                //! مواعيد ثابتة
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -83,12 +84,14 @@ class SpecifyNewDatesBody extends StatelessWidget {
                     Expanded(
                       // height: 270.h,
                       child: TabBarView(
+                        physics: const NeverScrollableScrollPhysics(),
                         controller: cubit.fixedDateController,
                         children: cubit.subTabbarBody(context: context),
                       ),
                     ),
                   ],
                 ),
+                //! مواعيد مرنة
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -249,17 +252,8 @@ class SpecifyNewDatesBody extends StatelessWidget {
         //   padding: EdgeInsets.symmetric(horizontal: 16.w),
         //   child: const BoundedTimeSlotFormFields(),
         // ),
-        const Spacer(),
-        CustomElevatedButton(
-          radius: 16.r,
-          width: 343.w,
-          height: 48.w,
-          color: MainColors.blueTextColor,
-          text: "التالي",
-          onPressed: () {
-            cubit.incrementBodyIndex();
-          },
-        ),
+        // const Spacer(),
+
         32.ph,
       ],
     );
