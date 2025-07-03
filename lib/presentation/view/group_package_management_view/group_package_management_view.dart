@@ -25,6 +25,7 @@ class _GroupPackageManagementViewState
     log("order id is ${widget.orderId}");
     cubit = context.read<GrouppackagemanagementCubit>();
     super.initState();
+    cubit.fillOrderId(int.tryParse(widget.orderId) ?? -1);
     cubit.getOrderDetails(orderId: int.tryParse(widget.orderId) ?? -1);
     cubit.getMyChildren();
   }
@@ -106,9 +107,7 @@ class _GroupPackageManagementViewState
                           cubit.getInstructorsEntity!.data!.isNotEmpty) {
                         cubit.createMeetingSessions();
                       } else {
-                        delightfulToast(
-                            message: "غير متوفر",
-                            context: context);
+                        delightfulToast(message: "غير متوفر", context: context);
                       }
                     },
             ),

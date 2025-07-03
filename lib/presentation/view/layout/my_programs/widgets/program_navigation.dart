@@ -69,7 +69,7 @@ void _handleNotStartedLecture({
   required MyProgramsCubit cubit,
   required int programId,
 }) {
-  if (isParent /*&& noOfChildren > 0*/) {
+  if (isParent && noOfChildren > 0) {
     // إذا كان المستخدم أب - عرض bottom sheet للأطفال
     _showChildrenBottomSheet(
       context,
@@ -91,7 +91,7 @@ void _handleNoCurrentSession({
   required MyProgramsCubit cubit,
   required int programId,
 }) {
-  if (isParent /* && noOfChildren > 0*/) {
+  if (isParent && noOfChildren > 0) {
     // إذا كان المستخدم أب - عرض bottom sheet للأطفال فقط
     // if () {
     _showChildrenBottomSheet(

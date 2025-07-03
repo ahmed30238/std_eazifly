@@ -6,10 +6,10 @@ import 'package:eazifly_student/presentation/view/layout/my_account/student_mana
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class AddNewStudentDataView extends StatefulWidget {
-  // final bool isToProgram;
+  final String? orderId;
   const AddNewStudentDataView({
     super.key,
-    // this.isToProgram = false,
+    this.orderId,
   });
 
   @override
@@ -31,7 +31,7 @@ class _AddNewStudentDataViewState extends State<AddNewStudentDataView>
     return Scaffold(
       appBar: CustomAppBar(
         context,
-        mainTitle: "أضافة بيانات طالب",
+        mainTitle: "إضافة بيانات طالب",
         isCenterTitle: true,
         leadingText: lang.back,
         onLeadinTap: () => cubit.decrementScreenIndex(context),
@@ -239,21 +239,12 @@ class _AddNewStudentDataViewState extends State<AddNewStudentDataView>
               onPressed: cubit.createNewChildLoader
                   ? () {}
                   : () async {
-                      // cubit.createNewChild(context);
-                      // log("${widget.isToProgram}");
-                      cubit.isAssignToProgram
-                          ? Navigator.pushNamed(
-                              context, RoutePaths.groupPackageManagement,
-                              arguments: "1" // orderId, //TODO
-                              )
-                          : Navigator.pushNamed(
-                              context,
-                              RoutePaths.studentManagement,
-                            );
-
-                      // cubit.incrementScreenIndex();
-
-                      // await cubit.createNewChild(context);
+                      cubit.createNewChild(
+                        context,
+                        orderId: int.tryParse(
+                          widget.orderId ?? "-1",
+                        ),
+                      );
                     },
               child: cubit.createNewChildLoader
                   ? const CircularProgressIndicator.adaptive()

@@ -1,8 +1,10 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class AddNewStudentArea extends StatelessWidget {
+  final String orderId;
   const AddNewStudentArea({
     super.key,
+    required this.orderId,
   });
 
   @override
@@ -31,6 +33,9 @@ class AddNewStudentArea extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(
+                    arguments: {
+                      "orderId": orderId,
+                    },
                     context,
                     RoutePaths.addNewStudentData,
                     // arguments: true,

@@ -147,18 +147,30 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                           RoutePaths.navigateToLectureView,
                         );
                       },
-                      onTap: () {
-                        onMyProgramTap(
-                          context: context,
-                          cubit: cubit,
-                          item: item,
-                          loginData: loginData,
-                          programId: item.id ?? -1,
-                          noOfChildren: cubit.getAssignedChildrenToProgramEntity
-                                  ?.data?.length ??
-                              0,
-                        );
-                      },
+                      
+                      onTap: cubit.getAssignedChildrenLoader
+                          ? () {}
+                          : () async {
+                              await cubit
+                                  .getAssignedChildrenToProgram(
+                                      programId: item.id ?? -1)
+                                  .then(
+                                (value) {
+                                  onMyProgramTap(
+                                    context: context,
+                                    cubit: cubit,
+                                    item: item,
+                                    loginData: loginData,
+                                    programId: item.id ?? -1,
+                                    noOfChildren: cubit
+                                            .getAssignedChildrenToProgramEntity
+                                            ?.data
+                                            ?.length ??
+                                        0,
+                                  );
+                                },
+                              );
+                            },
                     );
                   },
                   separatorBuilder: (context, index) => 20.ph,

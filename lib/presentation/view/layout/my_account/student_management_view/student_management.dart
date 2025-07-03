@@ -66,6 +66,7 @@ class _StudentManagementViewState extends State<StudentManagementView> {
                     itemBuilder: (context, index) {
                       var child = children[index];
                       return StudentDataItem(
+                        onChildTap: (){},
                         age: child.age ?? "",
                         image: child.image ?? "",
                         name: "${child.firstName} ${child.lastName}",
@@ -95,7 +96,7 @@ class _StudentManagementViewState extends State<StudentManagementView> {
             height: 40.h,
             onPressed: () {
               Navigator.pushNamed(
-                arguments: true,
+                // arguments: true,
                 context,
                 RoutePaths.addNewStudentData,
               );

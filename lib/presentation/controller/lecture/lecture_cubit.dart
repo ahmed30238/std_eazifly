@@ -84,7 +84,7 @@ class LectureCubit extends Cubit<LectureState> {
   static LectureCubit get(context) => BlocProvider.of(context);
   late TabController controller;
   int userId = -1;
-  fillUserId(int value) {
+  void fillUserId(int value) {
     userId = value;
   }
 
@@ -523,7 +523,6 @@ class LectureCubit extends Cubit<LectureState> {
   }
 
   int currentChildIndex = -1; // -1 يعني المستخدم الأب
-  final scrollController = ScrollController();
 
   void showParent() {
     currentChildIndex = -1;

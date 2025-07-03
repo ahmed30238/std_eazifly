@@ -935,4 +935,9 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     controller?.dispose();
     return super.close();
   }
+
+  int orderId = -1;
+  void fillOrderId(int val) {
+    orderId = val;
+  }
 }

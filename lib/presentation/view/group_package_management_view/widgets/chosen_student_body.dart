@@ -29,7 +29,9 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
 
     return Column(
       children: [
-        const AddNewStudentArea(),
+        AddNewStudentArea(
+          orderId: cubit.orderId.toString(),
+        ),
         16.ph,
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -101,6 +103,7 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
                         ),
                         Expanded(
                           child: StudentDataItem(
+                            onChildTap: (){},
                             age: child?.age.toString() ?? "",
                             image: child?.image ?? Assets.imagesEditedPersona,
                             name: child?.firstName ?? "غير معروف",

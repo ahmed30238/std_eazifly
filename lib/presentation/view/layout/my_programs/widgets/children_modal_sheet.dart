@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
+import 'package:eazifly_student/core/enums/storage_enum.dart';
+import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/std_data_item.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/std_data_item_shimmer.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ChildrenModalSheet extends StatelessWidget {
   final MyProgramsCubit cubit;
@@ -19,7 +25,7 @@ class ChildrenModalSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: cubit..getAssignedChildrenToProgram(programId: programId),
+      value: cubit,
       child: Container(
         decoration: BoxDecoration(
           color: MainColors.white,
@@ -30,11 +36,14 @@ class ChildrenModalSheet extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'انت مشترك في هذا البرنامج ب$noOfChildren طالب',
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 14,
-                color: MainColors.blackText,
+            BlocBuilder(
+              bloc: cubit,
+              builder: (context, state) => Text(
+                'انت مشترك في هذا البرنامج ب$noOfChildren طالب',
+                style: MainTextStyle.boldTextStyle(
+                  fontSize: 14,
+                  color: MainColors.blackText,
+                ),
               ),
             ),
             8.ph,
@@ -83,6 +92,16 @@ class ChildrenModalSheet extends StatelessWidget {
                       String name =
                           "${child.firstName ?? ""} ${child.lastName ?? ""}";
                       return StudentDataItem(
+                        onChildTap: () {
+                          context
+                              .read<LectureCubit>()
+                              .fillUserId(child.id ?? -1);
+                          Navigator.pushNamed(
+                            context,
+                            arguments: {"programId": programId},
+                            RoutePaths.lectureView,
+                          );
+                        },
                         age: child.age?.toString() ?? "غير محدد",
                         image: child.image ?? "",
                         hasTrailingIcon: false,
@@ -100,10 +119,22 @@ class ChildrenModalSheet extends StatelessWidget {
             CustomLowSizeButton(
               text: "عرض كل الطلاب",
               onTap: () {
+                var read = context.read<LectureCubit>();
+                read.currentChildIndex = -1;
+                read.fillUserId(
+                  DataModel.fromJson(
+                        jsonDecode(
+                          GetStorage().read(
+                            StorageEnum.loginModel.name,
+                          ),
+                        ),
+                      ).id ??
+                      -1,
+                );
                 back(context);
                 Navigator.pushNamed(
                   arguments: {
-                    "programId" : programId,
+                    "programId": programId,
                   },
                   context,
                   RoutePaths.lectureView,

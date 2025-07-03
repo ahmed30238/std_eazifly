@@ -737,10 +737,15 @@ class AppRouter {
           ),
         );
       case RoutePaths.addNewStudentData:
+        var argument = settings.arguments as Map<String, dynamic>?;
+        String orderId = argument?["orderId"] as String? ?? "";
+
         return createRoute(
           BlocProvider.value(
             value: sl<AddNewStudentDataToProgramCubit>(),
-            child: const AddNewStudentDataView(),
+            child: AddNewStudentDataView(
+              orderId: orderId,
+            ),
           ),
         );
       case RoutePaths.dmViewPath:

@@ -12,6 +12,7 @@ class StudentDataItem extends StatelessWidget {
   // final int index;
   final double? width;
   final VoidCallback? onTrailingIconTap;
+  final VoidCallback onChildTap;
   final String name;
   final String age;
   final String phoneNumber;
@@ -26,91 +27,95 @@ class StudentDataItem extends StatelessWidget {
     required this.name,
     required this.image,
     required this.phoneNumber,
+    required this.onChildTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-        right: 8.w,
-        left: 8.w,
-        // top: index == 0 ? 12 : 0,
-        // bottom: index == 12 ? 12 : 0,
-      ),
-      height: 65.h,
-      width: width ?? 343.w,
-      decoration: BoxDecoration(
-        borderRadius: 12.cr,
-        color: MainColors.veryLightGrayFormField,
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          //! image
-          AvatarImage(
-            shape: BoxShape.circle,
-            imageUrl: image,
-            height: 45.h,
-            width: 45.w,
-          ),
-          8.pw,
-          //! name and age
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 100.w,
-                child: Text(
-                  name,
-                  style: MainTextStyle.boldTextStyle(fontSize: 14),
-                  textWidthBasis: TextWidthBasis.longestLine,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              8.ph,
-              Text(
-                "$age عام",
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 12,
-                  color: MainColors.grayTextColors,
-                ),
-              ),
-            ],
-          ),
-          if (hasTrailingIcon) ...{
-            20.pw,
-          } else ...{
-            const Spacer(),
-          },
-          //! phone
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "رقم التواصل",
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 12,
-                  color: MainColors.grayTextColors,
-                ),
-              ),
-              8.ph,
-              Text(
-                phoneNumber,
-                style: MainTextStyle.boldTextStyle(fontSize: 14),
-              ),
-            ],
-          ),
-          if (hasTrailingIcon) const Spacer(),
-          if (hasTrailingIcon)
-            InkWell(
-              onTap: onTrailingIconTap,
-              child: SvgPicture.asset(
-                Assets.iconsHorizontalDots,
-              ),
+    return GestureDetector(
+      onTap: onChildTap,
+      child: Container(
+        padding: EdgeInsets.only(
+          right: 8.w,
+          left: 8.w,
+          // top: index == 0 ? 12 : 0,
+          // bottom: index == 12 ? 12 : 0,
+        ),
+        height: 65.h,
+        width: width ?? 343.w,
+        decoration: BoxDecoration(
+          borderRadius: 12.cr,
+          color: MainColors.veryLightGrayFormField,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            //! image
+            AvatarImage(
+              shape: BoxShape.circle,
+              imageUrl: image,
+              height: 45.h,
+              width: 45.w,
             ),
-        ],
+            8.pw,
+            //! name and age
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 100.w,
+                  child: Text(
+                    name,
+                    style: MainTextStyle.boldTextStyle(fontSize: 14),
+                    textWidthBasis: TextWidthBasis.longestLine,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                8.ph,
+                Text(
+                  "$age عام",
+                  style: MainTextStyle.boldTextStyle(
+                    fontSize: 12,
+                    color: MainColors.grayTextColors,
+                  ),
+                ),
+              ],
+            ),
+            if (hasTrailingIcon) ...{
+              20.pw,
+            } else ...{
+              const Spacer(),
+            },
+            //! phone
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "رقم التواصل",
+                  style: MainTextStyle.boldTextStyle(
+                    fontSize: 12,
+                    color: MainColors.grayTextColors,
+                  ),
+                ),
+                8.ph,
+                Text(
+                  phoneNumber,
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                ),
+              ],
+            ),
+            if (hasTrailingIcon) const Spacer(),
+            if (hasTrailingIcon)
+              InkWell(
+                onTap: onTrailingIconTap,
+                child: SvgPicture.asset(
+                  Assets.iconsHorizontalDots,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

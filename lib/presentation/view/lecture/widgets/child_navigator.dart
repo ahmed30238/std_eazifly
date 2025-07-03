@@ -25,20 +25,30 @@ class _ChildrenNavigatorState extends State<ChildrenNavigator> {
     return BlocBuilder<MyProgramsCubit, MyProgramsState>(
       builder: (context, state) {
         var programCubit = context.read<MyProgramsCubit>();
-        var children = programCubit.getAssignedChildrenToProgramEntity?.data ?? [];
+        var children =
+            programCubit.getAssignedChildrenToProgramEntity?.data ?? [];
 
         final loginData = DataModel.fromJson(
           jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
         );
 
         final isParent = cubit.currentChildIndex == -1;
-        final currentChild = isParent ? null : children[cubit.currentChildIndex];
+        var currentChild = isParent ? null : children[cubit.currentChildIndex];
+        if (loginData.id !=
+            cubit.userId /* يعني المستخدم الحالي مش هو الاب */) {
+          cubit.currentChildIndex = children.indexWhere(
+            (child) => child.id == cubit.userId,
+          );
+
+          currentChild = children.firstWhere(
+            (element) => element.id == cubit.userId,
+          );
+        }
 
         return StudentsChangeItem(
           studentName: isParent
               ? "${loginData.firstName} ${loginData.lastName}"
               : "${currentChild?.firstName ?? ""} ${currentChild?.lastName ?? ""}",
-
           onBackTap: () {
             cubit.controller.animateTo(0);
             cubit.updateChildIndex(false, children.length);
@@ -61,7 +71,6 @@ class _ChildrenNavigatorState extends State<ChildrenNavigator> {
               );
             }
           },
-
           onNextTap: () {
             cubit.controller.animateTo(0);
             cubit.updateChildIndex(true, children.length);

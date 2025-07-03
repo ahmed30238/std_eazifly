@@ -79,12 +79,12 @@ class AddNewStudentDataToProgramCubit
   }
 
   // List<Widget> bodies = [
-    // const RegistrationTypeBody(
-    //   isRegisteringMySelf: false,
-    // ),
-    // const StudentDataBody(),
-    // const ProperScheduleBody(),
-    // const ChooseTeacherBody(),
+  // const RegistrationTypeBody(
+  //   isRegisteringMySelf: false,
+  // ),
+  // const StudentDataBody(),
+  // const ProperScheduleBody(),
+  // const ChooseTeacherBody(),
   // ]; //! NOT used anymore
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -140,11 +140,18 @@ class AddNewStudentDataToProgramCubit
   CreateNewChildEntity? createNewChildEntity;
   CreateNewChildUsecase createNewChildUsecase;
   bool createNewChildLoader = false;
-  Future<void> createNewChild(BuildContext context) async {
+  Future<void> createNewChild(BuildContext context, {int? orderId}) async {
     log("start");
     if (!formKey.currentState!.validate()) {
       return;
     }
+
+    // التحقق من وجود orderId عندما يكون isAssignToProgram = true
+    if (isAssignToProgram == true && orderId == null) {
+      delightfulToast(message: "يجب توفير معرف الطلب", context: context);
+      return;
+    }
+
     createNewChildLoader = true;
     emit(CreateNewChildLoadingState());
 
@@ -189,11 +196,11 @@ class AddNewStudentDataToProgramCubit
           createNewChildLoader = false;
           createNewChildEntity = r;
           emit(CreateNewChildSuccessState());
-          // incrementScreenIndex();
           log("$isAssignToProgram");
-          isAssignToProgram
+
+          isAssignToProgram == true
               ? Navigator.pushNamed(
-                  arguments: "1", // orderId,
+                  arguments: orderId, 
                   context,
                   RoutePaths.groupPackageManagement,
                 )
