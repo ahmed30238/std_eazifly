@@ -1,3 +1,4 @@
+import 'package:eazifly_student/domain/entities/change_instructor/get_remaining_program_sessions_entity.dart';
 
 class Session {
   final int id;
@@ -9,7 +10,6 @@ class Session {
     required this.start,
     required this.end,
   });
-
 
   // تحويل إلى JSON
   Map<String, dynamic> toJson() {
@@ -28,7 +28,7 @@ class ChangeInstructorTojson {
   final int programId;
   final int oldInstructorId;
   final int userId;
-  final List<Session> sessions;
+  final List<GetRemainigProgramSessionsDatumEntity> sessions;
 
   ChangeInstructorTojson({
     required this.reasonToChangeInstructorIds,
@@ -46,7 +46,13 @@ class ChangeInstructorTojson {
       'program_id': programId,
       'old_instructor_id': oldInstructorId,
       'user_id': userId,
-      'sessions': sessions.map((session) => session.toJson()).toList(),
+      'sessions': sessions
+          .map((session) => {
+                "id": session.id,
+                "start": session.start,
+                "end": session.end,
+              })
+          .toList(),
     };
   }
 }

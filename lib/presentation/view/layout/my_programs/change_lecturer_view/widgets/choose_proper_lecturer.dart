@@ -1,3 +1,4 @@
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/widgets/choose_teacher_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -42,10 +43,9 @@ class ChooseProperLecturerBody extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamed(
               context,
-
               RoutePaths.lectureView,
               arguments: {
-                "programId" : 1 //TODO
+                "programId": context.read<LectureCubit>().currentProgramId,
               },
             );
           },

@@ -366,7 +366,8 @@ class AppRouter {
                 create: (context) => ChangelecturerCubit(
                   changeInstructorUsecase: sl(),
                   getRemainingProgramSessionsUsecase: sl(),
-                  getUserSubscriptionDataUsecase: sl()
+                  getUserSubscriptionDataUsecase: sl(),
+                  getInstructorsUsecase: sl(),
                 ),
               ),
               BlocProvider(

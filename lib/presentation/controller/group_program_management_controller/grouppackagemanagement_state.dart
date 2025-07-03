@@ -56,7 +56,6 @@ class CreateMeetingSessionsErrorState extends GrouppackagemanagementState {
 class GetInstructorsLoadingState extends GrouppackagemanagementState {}
 
 class GetInstructorsSuccessState extends GrouppackagemanagementState {
-  GetInstructorsSuccessState();
 }
 
 class GetInstructorsErrorState extends GrouppackagemanagementState {

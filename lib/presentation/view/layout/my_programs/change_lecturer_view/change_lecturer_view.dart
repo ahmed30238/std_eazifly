@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
-import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -23,7 +20,8 @@ class ChangeLecturerView extends StatefulWidget {
   State<ChangeLecturerView> createState() => _ChangeLecturerViewState();
 }
 
-class _ChangeLecturerViewState extends State<ChangeLecturerView> {
+class _ChangeLecturerViewState extends State<ChangeLecturerView>
+    with TickerProviderStateMixin {
   late ChangelecturerCubit cubit;
   @override
   void initState() {
@@ -31,11 +29,9 @@ class _ChangeLecturerViewState extends State<ChangeLecturerView> {
     context
         .read<MyProgramsCubit>()
         .getAssignedChildrenToProgram(programId: widget.programId);
-    log("p id is ${widget.programId}");
-    log("p id is ${context.read<LectureCubit>().userId}");
-    cubit.getUserSubscriptionData(
-        programId: widget.programId,
-        userId: context.read<LectureCubit>().userId);
+    cubit.initTabBarController(this);
+    cubit.initFixedDateTabBarController(this);
+
     super.initState();
   }
 

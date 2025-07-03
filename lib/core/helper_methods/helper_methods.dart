@@ -154,7 +154,7 @@ Future<dynamic> weekDaysModalSheet(
               7,
               (index) => BottomSheetDayContainer(
                 onTap: () {
-                  cubit.changeSpecifiedDay(WeekDaysEnum.values[index].title);
+                  cubit.changeSpecifiedDay(WeekDaysEnum.values[index].title,index);
                   back(context);
                 },
                 day: WeekDaysEnum.values[index].title,

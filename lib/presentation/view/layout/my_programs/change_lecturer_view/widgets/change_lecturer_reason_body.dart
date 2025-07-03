@@ -2,6 +2,7 @@ import 'package:eazifly_student/presentation/controller/change_lecturer_controll
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_state.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/handle_tap.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/student_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -35,7 +36,7 @@ class ChangeLecturerReasonBody extends StatelessWidget {
                       var child = childern?[index];
                       return StudentItem(
                         onTap: () {
-                          cubit.changeSelectedStudent(index);
+                          cubit.changeSelectedStudent(index, child?.id ?? -1);
                         },
                         name: "${child?.firstName}",
                         image: child?.image ?? "",
@@ -61,7 +62,7 @@ class ChangeLecturerReasonBody extends StatelessWidget {
         if (cubit.selectedStudent != -1)
           BlocBuilder(
             bloc: cubit,
-            builder:(context, state) =>  Text(
+            builder: (context, state) => Text(
               "${programCubit.getAssignedChildrenToProgramEntity?.data?[cubit.selectedStudent].firstName} للطالب",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 14,
@@ -92,45 +93,25 @@ class ChangeLecturerReasonBody extends StatelessWidget {
           ),
         ),
         8.ph,
-        CustomElevatedButton(
-          text: lang.next,
-          width: 343.w,
-          radius: 16.r,
-          color: MainColors.blueTextColor,
-          onPressed: () {
-            if (cubit.noChosenReason()) {
-              customAdaptiveDialog(
-                context,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  decoration: BoxDecoration(
-                    borderRadius: 16.cr,
-                    color: MainColors.white,
-                  ),
-                  height: 160.h,
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        Assets.iconsRejectRequest,
-                      ),
-                      8.ph,
-                      Text(
-                        "برجاء اختيار سبب تغيير المعلم",
-                        style: MainTextStyle.boldTextStyle(
-                          fontSize: 15,
-                          color: MainColors.red,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            } else {
-              cubit.incrementBodyIndex();
-            }
-          },
+        BlocBuilder(
+          bloc: cubit,
+          builder: (context, state) => CustomElevatedButton(
+            text: lang.next,
+            width: 343.w,
+            radius: 16.r,
+            color: MainColors.blueTextColor,
+            onPressed: cubit.getUserSubscriptionDataLoader
+                ? () {}
+                : () {
+                    handleTap(
+                      context: context,
+                      cubit: cubit,
+                    );
+                  },
+            child: cubit.getUserSubscriptionDataLoader
+                ? const CircularProgressIndicator.adaptive()
+                : null,
+          ),
         ),
         32.ph,
       ],

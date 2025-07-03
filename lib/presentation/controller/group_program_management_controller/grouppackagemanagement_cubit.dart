@@ -72,18 +72,12 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   List<TextEditingController> specifyAlldayController = [];
-  // changeSpecifiedAllDay(String day, int sessionIndex) {
-  //   specifyAlldayController[sessionIndex].text = day;
-  //   emit(ChangeSpecifiedDayState());
-  // }
 
   int selectedLecturerIndex = 0;
   changeLecturerIndex(int index) {
     selectedLecturerIndex = index;
     emit(ChangeLecturerIndexState());
   }
-
-  late TabController controller;
 
   final List<String> tabs = [
     "مواعيد ثابتة",
@@ -111,12 +105,13 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     log("l ${isDoneAdded.length}");
   }
 
+  TabController? controller;
   void initTabBarController(TickerProvider vsync) {
     controller = TabController(length: tabs.length, vsync: vsync);
-    controller.addListener(() {
-      if (controller.indexIsChanging) {
-        controller.animateTo(
-          controller.index,
+    controller?.addListener(() {
+      if (controller!.indexIsChanging) {
+        controller?.animateTo(
+          controller!.index,
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeIn,
         );
@@ -862,7 +857,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     );
 
     if (picked != null) {
-      changeSelectedToTime(context,picked, sessionIndex);
+      changeSelectedToTime(context, picked, sessionIndex);
     }
   }
 
@@ -937,7 +932,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
       controller.dispose();
     }
     toControllers.clear();
-
+    controller?.dispose();
     return super.close();
   }
 }

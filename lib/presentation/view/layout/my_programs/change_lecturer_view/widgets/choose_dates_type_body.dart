@@ -42,7 +42,6 @@ class ChooseDatesTypeBody extends StatelessWidget {
           ),
         ),
         8.ph,
-        // const Spacer(),
         CustomElevatedButton(
           text: lang.next,
           width: 343.w,

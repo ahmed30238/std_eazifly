@@ -5,7 +5,7 @@ import 'package:eazifly_student/presentation/view/layout/my_account/subscription
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+//
 class ScreenTabBar extends StatelessWidget {
   const ScreenTabBar({
     super.key,
@@ -20,15 +20,15 @@ class ScreenTabBar extends StatelessWidget {
         innerRadius: 12.r,
         margin: EdgeInsets.zero,
         outerRadius: 12.cr,
-        controller: cubit.controller,
+        controller: cubit.controller!,
         onTap: (value) {
-          cubit.controller.animateTo(value);
+          cubit.controller!.animateTo(value);
           cubit.changeTapbarIndex(value);
         },
         tabs: List.generate(
           cubit.tabs.length,
           (index) {
-            bool isSelected = cubit.controller.index == index;
+            bool isSelected = cubit.controller?.index == index;
             return Text(
               cubit.tabs[index],
               style: MainTextStyle.boldTextStyle(
