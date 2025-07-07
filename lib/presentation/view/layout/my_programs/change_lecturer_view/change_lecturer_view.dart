@@ -2,16 +2,6 @@ import 'package:eazifly_student/presentation/controller/change_lecturer_controll
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-// List<String> weekDaysAr = [
-//   "السبت",
-//   "الاحد",
-//   "الاثنين",
-//   "الثلاثاء",
-//   "الاريعاء",
-//   "الخميس",
-//   "الجمعة",
-// ];
-
 class ChangeLecturerView extends StatefulWidget {
   final int programId;
   const ChangeLecturerView({super.key, required this.programId});
@@ -30,6 +20,7 @@ class _ChangeLecturerViewState extends State<ChangeLecturerView>
         .read<MyProgramsCubit>()
         .getAssignedChildrenToProgram(programId: widget.programId);
     cubit.initTabBarController(this);
+    cubit.getChangeInstructorReasons();
     cubit.initFixedDateTabBarController(this);
 
     super.initState();

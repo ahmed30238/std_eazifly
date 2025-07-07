@@ -26,6 +26,7 @@ import 'package:eazifly_student/domain/entities/add_single_item_to_fav_list_enti
 import 'package:eazifly_student/domain/entities/add_weekly_appointments_entity.dart';
 import 'package:eazifly_student/domain/entities/assign_program_review_entities.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/change_instructor_entity.dart';
+import 'package:eazifly_student/domain/entities/change_instructor/get_change_instructor_reasons_entity.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/get_remaining_program_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/get_user_subscription_data_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
@@ -271,4 +272,6 @@ abstract class BaseRepository {
     required int programId,
     required int userId,
   });
+  Future<Either<Failure, GetChangeInstructorReasonsEntity>>
+      getChangeInstructorReasons();
 }

@@ -95,6 +95,12 @@ class LayoutCubit extends Cubit<LayoutState> {
     ];
     return bottomNavigationBarItem;
   }
+
+  @override
+  Future<void> close() {
+    index = 0;
+    return super.close();
+  }
 }
 
 class BottomNavBarItemModel {

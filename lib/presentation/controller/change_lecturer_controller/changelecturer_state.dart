@@ -70,3 +70,11 @@ class GetInstructorsErrorState extends ChangelecturerState {
   final String message;
   GetInstructorsErrorState(this.message);
 }
+class GetChangeInstructorReasonsLoadingState extends ChangelecturerState {}
+
+class GetChangeInstructorReasonsSuccessState extends ChangelecturerState {}
+
+class GetChangeInstructorReasonsErrorState extends ChangelecturerState {
+  final String message;
+  GetChangeInstructorReasonsErrorState(this.message);
+}

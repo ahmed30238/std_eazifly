@@ -1,13 +1,16 @@
 import 'dart:developer';
+import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/core/enums/week_days.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/get_instructors_tojson.dart';
 import 'package:eazifly_student/domain/entities/add_weekly_appointments_entity.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/change_instructor_entity.dart';
+import 'package:eazifly_student/domain/entities/change_instructor/get_change_instructor_reasons_entity.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/get_remaining_program_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/get_user_subscription_data_entity.dart';
 import 'package:eazifly_student/domain/entities/get_instructors_entity.dart';
 import 'package:eazifly_student/domain/use_cases/change_instructor_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_change_instructor_reasons.dart';
 import 'package:eazifly_student/domain/use_cases/get_instructors_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_remaining_program_sessions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_subscription_data_usecase.dart';
@@ -28,6 +31,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     required this.getUserSubscriptionDataUsecase,
     required this.changeInstructorUsecase,
     required this.getInstructorsUsecase,
+    required this.getChangeInstructorReasonsUsecase,
   }) : super(ChangelecturerInitial());
 
   static ChangelecturerCubit get(context) => BlocProvider.of(context);
@@ -203,7 +207,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
           linearIndicatorPercent += .5;
         } catch (e) {
           // في حالة الخطأ، ارجع للحالة السابقة
-          print('Error in incrementBodyIndex (sameDates): $e');
+          log('Error in incrementBodyIndex (sameDates): $e');
           return;
         }
       } else if (newDates) {
@@ -440,7 +444,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
   }) {
     return [
       const RepeatWeekSessionToChangeInstructor(),
-      SpecifyAllSessionDatesChangeInstructor(),
+      const SpecifyAllSessionDatesChangeInstructor(),
     ];
   }
 
@@ -458,8 +462,19 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
 
   void chooseLecturerReasons(int index, bool value) {
     changeLecturerReason[index] = value;
+    int reasonId = getChangeInstructorReasonsEntity?.data?[index].id ?? -1;
+    if (value) {
+      if (!selectedReasonsIds.contains(reasonId)) {
+        selectedReasonsIds.add(reasonId);
+      }
+    } else {
+      selectedReasonsIds.remove(reasonId);
+    }
+    log("$selectedReasonsIds");
     emit(ChooseChangeLecturerReasonState());
   }
+
+  List<int> selectedReasonsIds = [];
 
   int bodyIndex = 0;
   double linearIndicatorPercent = .25;
@@ -856,6 +871,33 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
         getRemainingProgramSessionsLoader = false;
         getRemainingProgramSessionsEntity = data;
         emit(GetRemainingProgramSessionsSuccessState());
+      },
+    );
+  }
+
+  bool getChangeInstructorReasonsLoader = false;
+
+  GetChangeInstructorReasonsEntity? getChangeInstructorReasonsEntity;
+  GetChangeInstructorReasonsUsecase getChangeInstructorReasonsUsecase;
+
+  Future<void> getChangeInstructorReasons() async {
+    getChangeInstructorReasonsLoader = true;
+    emit(GetChangeInstructorReasonsLoadingState());
+
+    final result =
+        await getChangeInstructorReasonsUsecase.call(parameter: NoParameter());
+
+    result.fold(
+      (failure) {
+        getChangeInstructorReasonsLoader = false;
+        emit(GetChangeInstructorReasonsErrorState(
+          failure.message,
+        ));
+      },
+      (data) {
+        getChangeInstructorReasonsLoader = false;
+        getChangeInstructorReasonsEntity = data;
+        emit(GetChangeInstructorReasonsSuccessState());
       },
     );
   }

@@ -1,4 +1,5 @@
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
+import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/widgets/texted_checkbox_loader.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class CacnelSessionsReasonsBody extends StatelessWidget {
@@ -19,35 +20,37 @@ class CacnelSessionsReasonsBody extends StatelessWidget {
         ),
         20.ph,
         Expanded(
-            child: BlocBuilder(
-          bloc: cubit,
-          builder: (context, state) {
-            if (cubit.getCancelReasonsLoader) {
-              return const Center(child: CircularProgressIndicator());
-            }
+          child: BlocBuilder(
+            bloc: cubit,
+            builder: (context, state) {
+              if (cubit.getCancelReasonsLoader) {
+                return const TextedCheckboxLoaderList();
+              }
 
-            var reasons = cubit.getCancelReasonsEntity?.data;
-            if (reasons == null || reasons.isEmpty) {
-              return const Center(child: Text("No cancellation reasons available"));
-            }
+              var reasons = cubit.getCancelReasonsEntity?.data;
+              if (reasons == null || reasons.isEmpty) {
+                return const Center(
+                    child: Text("No cancellation reasons available"));
+              }
 
-            return ListView.separated(
-              itemBuilder: (context, index) {
-                var reason = reasons[index];
-                bool isSelected = cubit.cancelSessionReasons[index] == true;
-                return TextedCheckBoxRow(
-                  isSelcted: isSelected,
-                  onChanged: (value) =>
-                      cubit.chooseCancelReasons(index, value ?? false),
-                  text: reason.title ?? "",
-                  value: cubit.cancelSessionReasons[index],
-                );
-              },
-              separatorBuilder: (context, index) => 12.ph,
-              itemCount: reasons.length,
-            );
-          },
-        )),
+              return ListView.separated(
+                itemBuilder: (context, index) {
+                  var reason = reasons[index];
+                  bool isSelected = cubit.cancelSessionReasons[index] == true;
+                  return TextedCheckBoxRow(
+                    isSelcted: isSelected,
+                    onChanged: (value) =>
+                        cubit.chooseCancelReasons(index, value ?? false),
+                    text: reason.title ?? "",
+                    value: cubit.cancelSessionReasons[index],
+                  );
+                },
+                separatorBuilder: (context, index) => 12.ph,
+                itemCount: reasons.length,
+              );
+            },
+          ),
+        ),
         8.ph,
         CustomElevatedButton(
           text: lang.next,

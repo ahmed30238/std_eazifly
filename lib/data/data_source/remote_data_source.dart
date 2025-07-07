@@ -9,6 +9,7 @@ import 'package:eazifly_student/core/network/networkcall.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
+import 'package:eazifly_student/data/models/change_instructor/get_change_instructor_reasons_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/get_remaining_program_sessions_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/get_user_subscription_data_model.dart';
 import 'package:eazifly_student/data/models/chat_model/get_messages_model.dart';
@@ -258,6 +259,7 @@ abstract class BaseRemoteDataSource {
   Future<ChangeInstructorModel> changeInstructor({
     required ChangeInstructorTojson data,
   });
+  Future<GetChangeInstructorReasonsModel> getChangeInstructorReasons();
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -1768,6 +1770,22 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetUserSubscriptionDataModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetChangeInstructorReasonsModel> getChangeInstructorReasons() async {
+    var response =
+        await NetworkCall().get(path: EndPoints.getChangeInstructorReasons);
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetChangeInstructorReasonsModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

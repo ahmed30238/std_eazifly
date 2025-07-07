@@ -365,6 +365,7 @@ class AppRouter {
               BlocProvider(
                 create: (context) => ChangelecturerCubit(
                   changeInstructorUsecase: sl(),
+                  getChangeInstructorReasonsUsecase: sl(),
                   getRemainingProgramSessionsUsecase: sl(),
                   getUserSubscriptionDataUsecase: sl(),
                   getInstructorsUsecase: sl(),
