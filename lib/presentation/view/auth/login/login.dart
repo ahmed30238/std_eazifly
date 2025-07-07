@@ -42,156 +42,170 @@ class Login extends StatelessWidget {
               ],
             ),
           ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Form(
-              key: cubit.formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  50.ph,
-                  SafeArea(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+          child: Form(
+            key: cubit.formKey,
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Eazifly",
-                          style: GoogleFonts.plusJakartaSans().copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 25.69.sp,
-                              color: const Color(0xff07070D)),
+                        50.ph,
+                        SafeArea(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Eazifly",
+                                style: GoogleFonts.plusJakartaSans().copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 25.69.sp,
+                                    color: const Color(0xff07070D)),
+                              ),
+                              9.pw,
+                              SvgPicture.asset(Assets.iconsAppLogo),
+                            ],
+                          ),
                         ),
-                        9.pw,
-                        SvgPicture.asset(Assets.iconsAppLogo),
+                        100.ph,
+                        Text(
+                          "مرحبًا بك !",
+                          style: MainTextStyle.boldTextStyle(
+                            fontSize: 24,
+                            color: MainColors.blackText,
+                          ),
+                        ),
+                        8.ph,
+                        Text(
+                          "رحلتك التعليمية تبدأ هنا.",
+                          style: MainTextStyle.boldTextStyle(
+                            fontSize: 12,
+                            color: MainColors.grayTextColors,
+                          ),
+                        ),
+                        40.ph,
+                        Text(
+                          "البريد الإلكتروني أو رقم الهاتف",
+                          style: MainTextStyle.boldTextStyle(
+                            fontSize: 12,
+                            color: MainColors.blackText,
+                          ),
+                        ),
+                        8.ph,
+                        CustomTextFormField(
+                          focusNode: cubit.emailFocusNode,
+                          hintText: "مثال : ",
+                          maxLines: 1,
+                          controller: cubit.emailController,
+                          onFieldSubmitted: (value) {
+                            FocusScope.of(context)
+                                .requestFocus(cubit.passwordFocusNode);
+                          },
+                          keyboardType: TextInputType.emailAddress,
+                          validator: customValidation,
+                        ),
+                        24.ph,
+                        Text(
+                          "كلمة المرور",
+                          style: MainTextStyle.boldTextStyle(
+                            fontSize: 12,
+                            color: MainColors.blackText,
+                          ),
+                        ),
+                        8.ph,
+                        BlocBuilder<LoginCubit, LoginState>(
+                          builder: (context, state) {
+                            return CustomTextFormField(
+                              focusNode: cubit.passwordFocusNode,
+                              isSecured: cubit.isVisible,
+                              maxLines: 1,
+                              enabled: !cubit.loginLoader,
+                              onFieldSubmitted: (value) {
+                                if (cubit.emailController.text.isNotEmpty &&
+                                    cubit.passwordController.text.isNotEmpty) {
+                                  cubit.tryToLogin(context);
+                                } else {
+                                  if (cubit.formKey.currentState!.validate()) {
+                                    log("message");
+                                  }
+                                }
+                              },
+                              controller: cubit.passwordController,
+                              hintText: "مثال : ",
+                              suffixIconWidget: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 12.w,
+                                  vertical: 12.h,
+                                ),
+                                child: InkWell(
+                                  onTap: () => cubit.changeVisibility(),
+                                  child: Icon(
+                                    cubit.isVisible
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Colors
+                                        .grey, // يمكنك تغيير اللون حسب احتياجاتك
+                                  ),
+                                ),
+                              ),
+                              validator: customValidation,
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
-                  100.ph,
-                  Text(
-                    "مرحبًا بك !",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 24,
-                      color: MainColors.blackText,
-                    ),
-                  ),
-                  8.ph,
-                  Text(
-                    "رحلتك التعليمية تبدأ هنا.",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 12,
-                      color: MainColors.grayTextColors,
-                    ),
-                  ),
-                  40.ph,
-                  Text(
-                    "البريد الإلكتروني أو رقم الهاتف",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 12,
-                      color: MainColors.blackText,
-                    ),
-                  ),
-                  8.ph,
-                  CustomTextFormField(
-                    focusNode: cubit.emailFocusNode,
-                    hintText: "مثال : ",
-                    maxLines: 1,
-                    controller: cubit.emailController,
-                    onFieldSubmitted: (value) {
-                      FocusScope.of(context)
-                          .requestFocus(cubit.passwordFocusNode);
-                    },
-                    keyboardType: TextInputType.emailAddress,
-                    validator: customValidation,
-                  ),
-                  24.ph,
-                  Text(
-                    "كلمة المرور",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 12,
-                      color: MainColors.blackText,
-                    ),
-                  ),
-                  8.ph,
-                  BlocBuilder<LoginCubit, LoginState>(
-                    builder: (context, state) {
-                      return CustomTextFormField(
-                        focusNode: cubit.passwordFocusNode,
-                        isSecured: cubit.isVisible,
-                        maxLines: 1,
-                        enabled: !cubit.loginLoader,
-                        onFieldSubmitted: (value) {
-                          if (cubit.emailController.text.isNotEmpty &&
-                              cubit.passwordController.text.isNotEmpty) {
-                            cubit.tryToLogin(context);
-                          } else {
-                            if (cubit.formKey.currentState!.validate()) {
-                              log("message");
-                            }
-                          }
-                        },
-                        controller: cubit.passwordController,
-                        hintText: "مثال : ",
-                        suffixIconWidget: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 12.w,
-                            vertical: 12.h,
-                          ),
-                          child: InkWell(
-                            onTap: () => cubit.changeVisibility(),
-                            child: Icon(
-                              cubit.isVisible
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: Colors
-                                  .grey, // يمكنك تغيير اللون حسب احتياجاتك
-                            ),
-                          ),
-                        ),
-                        validator: customValidation,
-                      );
-                    },
-                  ),
-                  const Spacer(),
-                  CustomElevatedButton(
-                    text: "بدأ الإستخدام",
-                    onPressed: cubit.loginLoader
-                        ? () {}
-                        : () {
-                            cubit.tryToLogin(context);
-                          },
-                    height: 48.h,
-                    width: 343.w,
-                    color: MainColors.blueTextColor,
-                    radius: 16.r,
-                    child: cubit.loginLoader
-                        ? const CircularProgressIndicator.adaptive().center()
-                        : null,
-                  ),
-                  24.ph,
-                  Center(
-                    child: RichText(
-                      text: TextSpan(
-                        text: "ليس لديك حساب..!  ",
-                        style: MainTextStyle.mediumTextStyle(
-                          color: MainColors.grayTextColors,
-                          fontSize: 12,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: "إنشاء حساب جديد",
-                            style: MainTextStyle.boldTextStyle(
-                              fontSize: 12,
-                              color: MainColors.blueTextColor,
-                            ),
-                            recognizer: TapGestureRecognizer()..onTap = () {},
-                          ),
-                        ],
+                ),
+                // الزرار والنص في أسفل الشاشة
+                Padding(
+                  padding: EdgeInsets.all(16.w),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CustomElevatedButton(
+                        text: "بدأ الإستخدام",
+                        onPressed: cubit.loginLoader
+                            ? () {}
+                            : () {
+                                cubit.tryToLogin(context);
+                              },
+                        height: 48.h,
+                        width: 343.w,
+                        color: MainColors.blueTextColor,
+                        radius: 16.r,
+                        child: cubit.loginLoader
+                            ? const CircularProgressIndicator.adaptive().center()
+                            : null,
                       ),
-                    ),
+                      24.ph,
+                      Center(
+                        child: RichText(
+                          text: TextSpan(
+                            text: "ليس لديك حساب..!  ",
+                            style: MainTextStyle.mediumTextStyle(
+                              color: MainColors.grayTextColors,
+                              fontSize: 12,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: "إنشاء حساب جديد",
+                                style: MainTextStyle.boldTextStyle(
+                                  fontSize: 12,
+                                  color: MainColors.blueTextColor,
+                                ),
+                                recognizer: TapGestureRecognizer()..onTap = () {},
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      24.ph,
+                    ],
                   ),
-                  24.ph,
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
