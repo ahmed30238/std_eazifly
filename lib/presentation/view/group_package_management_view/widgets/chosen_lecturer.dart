@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:eazifly_student/core/component/custom_drop_down.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
+import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/widgets/texted_checkbox_loader.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/screen_tabbar.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/screen_tabbar_view.dart';
 import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/student_list.dart';
@@ -57,7 +58,7 @@ class _ChosenLecturerState extends State<ChosenLecturer>
               BlocBuilder(
                 bloc: cubit,
                 builder: (context, state) => cubit.getProgramContentLoader
-                    ? const CircularProgressIndicator.adaptive()
+                    ? const TextedCheckboxLoader()
                     : Row(
                         children: [
                           Text(
