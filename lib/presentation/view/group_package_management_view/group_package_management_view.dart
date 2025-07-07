@@ -78,41 +78,41 @@ class _GroupPackageManagementViewState
               ],
             ),
           ),
-          8.ph,
+          // 8.ph,
           // اضافة طالب في البرنامج
           // لو مفيش معلم
 
-          BlocBuilder(
-            bloc: cubit,
-            builder: (context, state) => CustomElevatedButton(
-              text: cubit.stepperIndex == 1 ? lang.next : "بدء البرامج",
-              color: MainColors.blueTextColor,
-              height: 48.h,
-              width: 343.w,
-              radius: 16.r,
-              onPressed: cubit.stepperIndex == 1
-                  ? () {
-                      if (cubit.addedUsersIds.isEmpty) {
-                        delightfulToast(
-                            message: "يرجي اختيار احد الطلاب",
-                            context: context);
-                        return;
-                      } else {
-                        cubit.incrementStepperIndex(context);
-                        cubit.fillAddedChildrenData();
-                      }
-                    }
-                  : () {
-                      if (cubit.getInstructorsEntity?.data != null &&
-                          cubit.getInstructorsEntity!.data!.isNotEmpty) {
-                        cubit.createMeetingSessions();
-                      } else {
-                        delightfulToast(message: "غير متوفر", context: context);
-                      }
-                    },
-            ),
-          ),
-          32.ph,
+          // BlocBuilder(
+          //   bloc: cubit,
+          //   builder: (context, state) => CustomElevatedButton(
+          //     text: cubit.stepperIndex == 1 ? lang.next : "بدء البرامج",
+          //     color: MainColors.blueTextColor,
+          //     height: 48.h,
+          //     width: 343.w,
+          //     radius: 16.r,
+          //     onPressed: cubit.stepperIndex == 1
+          //         ? () {
+          //             if (cubit.addedUsersIds.isEmpty) {
+          //               delightfulToast(
+          //                   message: "يرجي اختيار احد الطلاب",
+          //                   context: context);
+          //               return;
+          //             } else {
+          //               cubit.incrementStepperIndex(context);
+          //               cubit.fillAddedChildrenData();
+          //             }
+          //           }
+          //         : () {
+          //             if (cubit.getInstructorsEntity?.data != null &&
+          //                 cubit.getInstructorsEntity!.data!.isNotEmpty) {
+          //               cubit.createMeetingSessions();
+          //             } else {
+          //               delightfulToast(message: "غير متوفر", context: context);
+          //             }
+          //           },
+          //   ),
+          // ),
+          // 32.ph,
         ],
       ),
     );

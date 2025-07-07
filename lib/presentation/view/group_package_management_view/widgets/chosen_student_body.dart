@@ -26,7 +26,7 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
   @override
   Widget build(BuildContext context) {
     var cubit = GrouppackagemanagementCubit.get(context);
-
+    var lang = context.loc!;
     return Column(
       children: [
         AddNewStudentArea(
@@ -103,7 +103,7 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
                         ),
                         Expanded(
                           child: StudentDataItem(
-                            onChildTap: (){},
+                            onChildTap: () {},
                             age: child?.age.toString() ?? "",
                             image: child?.image ?? Assets.imagesEditedPersona,
                             name: child?.firstName ?? "غير معروف",
@@ -130,6 +130,37 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
               return const SizedBox();
             }
           },
+        ),
+        BlocBuilder(
+          bloc: cubit,
+          builder: (context, state) => CustomElevatedButton(
+              text: lang.next,
+              color: MainColors.blueTextColor,
+              height: 48.h,
+              width: 343.w,
+              radius: 16.r,
+              onPressed:
+                  // cubit.stepperIndex == 1
+                  //     ?
+                  () {
+                if (cubit.addedUsersIds.isEmpty) {
+                  delightfulToast(
+                      message: "يرجي اختيار احد الطلاب", context: context);
+                  return;
+                } else {
+                  cubit.incrementStepperIndex(context);
+                  cubit.fillAddedChildrenData();
+                }
+              }
+              // : () {
+              //     if (cubit.getInstructorsEntity?.data != null &&
+              //         cubit.getInstructorsEntity!.data!.isNotEmpty) {
+              //       cubit.createMeetingSessions();
+              //     } else {
+              //       delightfulToast(message: "غير متوفر", context: context);
+              //     }
+              //   },
+              ),
         ),
       ],
     );

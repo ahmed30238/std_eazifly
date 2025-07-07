@@ -771,12 +771,13 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     getInstructorsLoader = true;
     emit(GetInstructorsLoadingState());
     log("list length ${addWeeklyAppontmentsEntity?.data?.length ?? specifiedDates.length}");
+    log("${context.read<LectureCubit>().currentProgramId}");
 
     final result = await getInstructorsUsecase.call(
       parameter: GetInstructorsParameters(
         data: GetInstructorsTojson(
           appointments: addWeeklyAppontmentsEntity?.data ?? specifiedDates,
-          programId: context.read<LectureCubit>().currentProgramId,
+          programId: context.read<LectureCubit>().currentProgramId, // TODO: order programId
         ),
       ),
     );
@@ -937,6 +938,8 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   int orderId = -1;
+
+  GlobalKey<FormState> repeatedFormKey = GlobalKey<FormState>();
   void fillOrderId(int val) {
     orderId = val;
   }
