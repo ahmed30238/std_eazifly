@@ -57,7 +57,7 @@ class StudentDataItem extends StatelessWidget {
               const Spacer(),
               InkWell(
                 onTap: () {
-                  studentMoreBottomSheet(context, programId);
+                  studentMoreBottomSheet(context, programId, student.id ?? -1);
                 },
                 child: SvgPicture.asset(
                   Assets.iconsHorizontalDots,

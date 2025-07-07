@@ -1,6 +1,10 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-Future<dynamic> studentMoreBottomSheet(BuildContext context, int programId) {
+Future<dynamic> studentMoreBottomSheet(
+  BuildContext context,
+  int programId,
+  int userId,
+) {
   return showModalSheet(
     minHeight: 260.h,
     maxHeight: 261.h,
@@ -37,7 +41,11 @@ Future<dynamic> studentMoreBottomSheet(BuildContext context, int programId) {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () => Navigator.pushNamed(
+              arguments: userId,
+              context,
+              RoutePaths.updateChildProfile,
+            ),
             child: SizedBox(
               height: 45.h,
               child: Text(

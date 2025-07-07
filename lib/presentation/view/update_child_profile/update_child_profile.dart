@@ -1,39 +1,36 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:eazifly_student/core/component/custom_drop_down.dart';
 import 'package:eazifly_student/core/component/titled_form_field.dart';
 import 'package:eazifly_student/core/enums/gender_enum.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
-import 'package:eazifly_student/presentation/controller/account_data/accountdata_cubit.dart';
+import 'package:eazifly_student/presentation/controller/account_data/update_child_profile_controller/updatechildprofile_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/widgets/profile_image_widget.dart';
 import 'package:eazifly_student/presentation/view/account_data/widgets/user_name_text.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:get_storage/get_storage.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
+class UpdateChildProfile extends StatefulWidget {
+  final int userId;
+  const UpdateChildProfile({super.key, required this.userId});
 
   @override
-  State<EditProfile> createState() => _EditProfileState();
+  State<UpdateChildProfile> createState() => _UpdateChildProfileState();
 }
 
-class _EditProfileState extends State<EditProfile> {
-  late DataModel loginData;
+class _UpdateChildProfileState extends State<UpdateChildProfile> {
+  // late DataModel loginData;
   @override
   void initState() {
-    loginData = DataModel.fromJson(
-      jsonDecode(
-        GetStorage().read(StorageEnum.loginModel.name),
-      ),
-    );
+    // loginData = DataModel.fromJson(
+    //   jsonDecode(
+    //     GetStorage().read(StorageEnum.loginModel.name),
+    //   ),
+    // );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var cubit = AccountdataCubit.get(context);
+    var cubit = context.read<UpdatechildprofileCubit>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
@@ -84,7 +81,7 @@ class _EditProfileState extends State<EditProfile> {
                           );
                         }
                         return ProfileImageWidget(
-                          image: loginData.image ?? "",
+                          image: "loginData.image ?? " "",
                           onEditTap: () {
                             cubit.pickProfileImageFroGallery();
                           },
@@ -93,8 +90,10 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                   18.ph,
-                  UserNameText(
-                      name: "${loginData.firstName} ${loginData.lastName}"),
+                  const UserNameText(
+                      name:
+                          "name" // "${loginData.firstName} ${loginData.lastName}"
+                      ),
                   32.ph,
                   TitledFormFieldItem(
                     controller: cubit.firstNameController,
@@ -196,7 +195,10 @@ class _EditProfileState extends State<EditProfile> {
               onPressed: cubit.updateProfileLoader
                   ? () {}
                   : () {
-                      cubit.updateProfile();
+                      log("userid is ${widget.userId}");
+                      cubit.updateProfile(
+                        userId: widget.userId,
+                      );
                     },
               color: MainColors.blueTextColor,
               radius: 16.r,

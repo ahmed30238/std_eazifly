@@ -25,34 +25,24 @@ class CreateOrderDataEntity {
 
   @JsonKey(name: "id")
   int? id;
-
   @JsonKey(name: "user")
   CreateOrderUser? user;
-
   @JsonKey(name: "total_order_price", fromJson: customInt)
   int? totalOrderPrice;
-
   @JsonKey(name: "total_after_discount", fromJson: customInt)
   int? totalAfterDiscount;
-
   @JsonKey(name: "currency")
   String? currency;
-
   @JsonKey(name: "status")
   CreateOrderStatus? status;
-
   @JsonKey(name: "type")
   CreateOrderStatus? type;
-
   @JsonKey(name: "subscription_type")
   String? subscriptionType;
-
   @JsonKey(name: "used_coupon")
   bool? usedCoupon;
-
   @JsonKey(name: "created_at")
   DateTime? createdAt;
-
   @JsonKey(name: "order_details")
   List<CreateOrderOrderDetail>? orderDetails;
   @JsonKey(name: "order_notes")
@@ -186,9 +176,9 @@ class CreateOrderOrderNoteEntity {
 
 class CreateOrderMakerEntity {
   @JsonKey(name: "name")
-   String? name;
+  String? name;
   @JsonKey(name: "image")
-   String? image;
+  String? image;
 
   CreateOrderMakerEntity({
     this.name,

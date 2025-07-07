@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/network/handle_token.dart';

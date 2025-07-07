@@ -1,44 +1,19 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:eazifly_student/core/enums/gender_enum.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
 import 'package:eazifly_student/domain/entities/user/update_profile_entity.dart';
 import 'package:eazifly_student/domain/use_cases/update_profile_usecase.dart';
-import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:eazifly_student/presentation/controller/account_data/update_child_profile_controller/updatechildprofile_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'accountdata_state.dart';
-
-class AccountdataCubit extends Cubit<AccountdataState> {
-  AccountdataCubit({
+class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
+  UpdatechildprofileCubit({
     required this.updateProfileUsecase,
-  }) : super(AccountdataInitial()) {
-    loginData = DataModel.fromJson(
-      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
-    );
-    if (loginData != null) {
-      lastNameController.text = loginData?.lastName ?? "no name";
-      firstNameController.text = loginData?.firstName ?? "no name";
-      phoneController.text = loginData?.phone ?? "no name";
-      whatsAppController.text = loginData?.whatsApp ?? "no name";
-      emailController.text = loginData?.email ?? "no email"; // تم تصحيح هذا
-      userNameController.text = loginData?.userName ?? "";
-      ageController.text = loginData?.age ?? "no age";
-
-      // تحديد الجنس من البيانات المحفوظة
-      if (loginData?.gender != null) {
-        gender =
-            loginData!.gender == 'male' ? GenderEnum.male : GenderEnum.female;
-      }
-    }
-  }
-  DataModel? loginData;
-
-  static AccountdataCubit get(context) => BlocProvider.of(context);
+  }) : super(UpdatechildprofileInitial());
 
   TextEditingController lastNameController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
@@ -67,7 +42,10 @@ class AccountdataCubit extends Cubit<AccountdataState> {
     log(gender.requestValue);
   }
 
-  Future<void> updateProfile() async {
+  Future<void> updateProfile({required int userId}) async {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
     updateProfileLoader = true;
     emit(UpdateProfileLoadingState());
 
@@ -87,7 +65,7 @@ class AccountdataCubit extends Cubit<AccountdataState> {
 
       final result = await updateProfileUsecase.call(
         parameter: UpdateProfileParameters(
-          userId: loginData?.id ?? 0,
+          userId: userId,
           data: UpdateProfileTojson(
             age: ageController.text,
             whatsApp: whatsAppController.text,

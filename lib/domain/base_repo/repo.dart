@@ -21,6 +21,7 @@ import 'package:eazifly_student/data/models/programs/assign_program_review_tojso
 import 'package:eazifly_student/data/models/sessions/cancel_session_tojson.dart';
 import 'package:eazifly_student/data/models/sessions/change_session_date_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
+import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
 import 'package:eazifly_student/domain/entities/add_note_entity.dart';
 import 'package:eazifly_student/domain/entities/add_single_item_to_fav_list_entity.dart';
 import 'package:eazifly_student/domain/entities/add_weekly_appointments_entity.dart';
@@ -89,6 +90,7 @@ import 'package:eazifly_student/domain/entities/subscription_management/get_prog
 import 'package:eazifly_student/domain/entities/subscription_management/renew_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/show_plan_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/upgrade_order_entity.dart';
+import 'package:eazifly_student/domain/entities/user/update_profile_entity.dart';
 
 abstract class BaseRepository {
   Future<Either<Failure, LoginEntity>> login({
@@ -274,4 +276,8 @@ abstract class BaseRepository {
   });
   Future<Either<Failure, GetChangeInstructorReasonsEntity>>
       getChangeInstructorReasons();
+  Future<Either<Failure, UpdateProfileEntity>> updateProfile({
+    required int userId,
+    required UpdateProfileTojson data,
+  });
 }

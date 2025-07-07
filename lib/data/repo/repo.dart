@@ -67,6 +67,8 @@ import 'package:eazifly_student/data/models/subscription_management/renew_subscr
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/upgrade_order_model.dart';
+import 'package:eazifly_student/data/models/user/update_profile_model.dart';
+import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/add_note_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
@@ -927,6 +929,20 @@ class Repository extends BaseRepository {
       getChangeInstructorReasons() async {
     try {
       final result = await baseRemoteDataSource.getChangeInstructorReasons();
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UpdateProfileModel>> updateProfile(
+      {required int userId, required UpdateProfileTojson data}) async {
+    try {
+      final result = await baseRemoteDataSource.updateProfile(
+        data: data,
+        userId: userId,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

@@ -95,6 +95,8 @@ import 'package:eazifly_student/data/models/subscription_management/renew_subscr
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/upgrade_order_model.dart';
+import 'package:eazifly_student/data/models/user/update_profile_model.dart';
+import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
 
 abstract class BaseRemoteDataSource {
   Future<LoginModel> login(String email, String password);
@@ -260,6 +262,10 @@ abstract class BaseRemoteDataSource {
     required ChangeInstructorTojson data,
   });
   Future<GetChangeInstructorReasonsModel> getChangeInstructorReasons();
+  Future<UpdateProfileModel> updateProfile({
+    required int userId,
+    required UpdateProfileTojson data,
+  });
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -1792,6 +1798,71 @@ class RemoteDataSource extends BaseRemoteDataSource {
           response?.data,
         ),
       );
+    }
+  }
+
+  @override
+  Future<UpdateProfileModel> updateProfile({
+    required UpdateProfileTojson data,
+    required int userId,
+  }) async {
+    try {
+      FormData formData = FormData();
+
+      // إضافة جميع الحقول النصية
+      formData.fields.addAll([
+        MapEntry("age", data.age),
+        MapEntry("whats_app", data.whatsApp),
+        MapEntry("gender", data.gender),
+        MapEntry("email", data.email),
+        MapEntry("phone", data.phone),
+        MapEntry("user_name", data.userName),
+        MapEntry("first_name", data.firstName),
+        MapEntry("last_name", data.lastName),
+      ]);
+
+      // إضافة الصورة إذا كانت موجودة
+      if (data.image != null && data.image!.isNotEmpty) {
+        final File imageFile = File(data.image!);
+        if (await imageFile.exists()) {
+          formData.files.add(
+            MapEntry(
+              "image",
+              await MultipartFile.fromFile(
+                data.image!,
+                filename: data.image!.split('/').last,
+              ),
+            ),
+          );
+          log('Profile image added to FormData: ${data.image!.split('/').last}');
+        } else {
+          throw Exception(
+              'Profile image file does not exist at path: ${data.image}');
+        }
+      }
+
+      log('UpdateProfile FormData fields: ${formData.fields.length}');
+      log('UpdateProfile FormData files: ${formData.files.length}');
+
+      var response = await NetworkCall().post(
+        path: EndPoints.updateProfile(
+          userId: userId,
+        ),
+        data: formData,
+        isMultipart: true,
+      );
+
+      if (response?.statusCode == 200) {
+        return UpdateProfileModel.fromJson(response?.data);
+      } else {
+        log('UpdateProfile Error response: ${response?.data}');
+        throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromjson(response?.data),
+        );
+      }
+    } catch (e) {
+      log('Error in updateProfile remote: $e');
+      rethrow;
     }
   }
 }

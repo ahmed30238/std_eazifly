@@ -1,6 +1,7 @@
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/service_locator/service_locator.dart';
 import 'package:eazifly_student/presentation/controller/account_data/accountdata_cubit.dart';
+import 'package:eazifly_student/presentation/controller/account_data/update_child_profile_controller/updatechildprofile_cubit.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/add_to_library_package_details_controller/addtolibrarypackagedetails_cubit.dart';
 import 'package:eazifly_student/presentation/controller/auth/login/login_cubit.dart';
@@ -78,6 +79,7 @@ import 'package:eazifly_student/presentation/view/package_details_view/package_d
 import 'package:eazifly_student/presentation/view/programs_underreview/programs_under_review_view.dart';
 import 'package:eazifly_student/presentation/view/splash_screen/splash_view.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/subscription_details_view.dart';
+import 'package:eazifly_student/presentation/view/update_child_profile/update_child_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -107,7 +109,9 @@ class AppRouter {
       case RoutePaths.accountDataPath:
         return createRoute(
           BlocProvider(
-            create: (context) => AccountdataCubit(),
+            create: (context) => AccountdataCubit(
+              updateProfileUsecase: sl(),
+            ),
             child: const AccountData(),
           ),
         );
@@ -117,6 +121,18 @@ class AppRouter {
           BlocProvider.value(
             value: cubit,
             child: const EditProfile(),
+          ),
+        );
+      case RoutePaths.updateChildProfile:
+        var userId = settings.arguments as int? ??-1 ;
+        return createRoute(
+          BlocProvider(
+            create: (context) => UpdatechildprofileCubit(
+              updateProfileUsecase: sl(),
+            ),
+            child:  UpdateChildProfile(
+              userId: userId
+            ),
           ),
         );
       case RoutePaths.studentManagement:
