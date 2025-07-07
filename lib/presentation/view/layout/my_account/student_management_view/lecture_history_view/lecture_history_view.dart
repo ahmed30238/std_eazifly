@@ -1,8 +1,35 @@
+import 'dart:developer';
+
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/lecture_history_view/widgets/lecture_history_details.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class Lecturehistoryview extends StatelessWidget {
+class Lecturehistoryview extends StatefulWidget {
   const Lecturehistoryview({super.key});
+
+  @override
+  State<Lecturehistoryview> createState() => _LecturehistoryviewState();
+}
+
+class _LecturehistoryviewState extends State<Lecturehistoryview> {
+  late int programId;
+  late LectureCubit lectureCubit;
+  // late MyProgramsCubit myProgramsCubit;
+  @override
+  void initState() {
+    lectureCubit = context.read<LectureCubit>();
+    // myProgramsCubit = context.read<MyProgramsCubit>();
+    programId = context.read<LectureCubit>().currentProgramId;
+    log("$programId");
+
+    // myProgramsCubit.getAssignedChildrenToProgram(programId: programId);
+    lectureCubit.showProgramDetails(programId: programId);
+    lectureCubit.getProgramSessions(
+      programId: programId,
+      userId: lectureCubit.userId,
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +64,6 @@ class Lecturehistoryview extends StatelessWidget {
                           width: 216.w,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 "إسم البرنامج",
@@ -47,42 +73,61 @@ class Lecturehistoryview extends StatelessWidget {
                               ),
                               10.5.ph,
                               Text(
-                                "محاضرة رياضيات للصف السادس",
+                                lectureCubit.showProgramDetailsEntity?.data
+                                        ?.title ??
+                                    "",
                                 style: MainTextStyle.boldTextStyle(
-                                    fontSize: 12, color: MainColors.blackText),
+                                  fontSize: 12,
+                                  color: MainColors.blackText,
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ),
                       20.pw,
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 13.5.h,
-                        ),
-                        child: SizedBox(
-                          height: 50.h,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "موعد تجديد الإشتراك",
-                                style: MainTextStyle.boldTextStyle(
-                                  fontSize: 11,
-                                  color: MainColors.grayTextColors,
-                                ),
+                      BlocBuilder(
+                        bloc: lectureCubit,
+                        builder: (context, state) {
+
+
+                          // String expireDate = context.read<MyProgramsCubit>().getMyProgramsEntity.data[0].ex;
+                          //     LectureStateHelper.getTimeDifference(
+                          //   nextSession: programData
+                          //       .nextSession?.sessionDatetime
+                          //       ?.toString(),
+                          //   nextSessionDuration: int.tryParse(
+                          //       programData.nextSession?.duration ?? "0"),
+                          // );
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 13.5.h,
+                            ),
+                            child: SizedBox(
+                              height: 50.h,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "موعد تجديد الإشتراك",
+                                    style: MainTextStyle.boldTextStyle(
+                                      fontSize: 11,
+                                      color: MainColors.grayTextColors,
+                                    ),
+                                  ),
+                                  4.ph,
+                                  TextedContainer(
+                                    width: 80.w,
+                                    height: 26.h,
+                                    text: "بعد 3 أيام",
+                                    containerColor: MainColors.lightRed,
+                                    textColor: MainColors.red,
+                                  ),
+                                ],
                               ),
-                              4.ph,
-                              TextedContainer(
-                                width: 80.w,
-                                height: 26.h,
-                                text: "بعد 3 أيام",
-                                containerColor: MainColors.lightRed,
-                                textColor: MainColors.red,
-                              ),
-                            ],
-                          ),
-                        ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),

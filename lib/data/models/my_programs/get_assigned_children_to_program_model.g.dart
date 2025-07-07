@@ -57,6 +57,10 @@ GetAssignedChildrenToProgramDatumModel
               ? null
               : GetAssignedChildrenToProgramStatusLabelModel.fromJson(
                   json['status_label'] as Map<String, dynamic>)
+          ..instructorAssiignedData = json['instructor_assiigned_data'] == null
+              ? null
+              : InstructorAssiignedDataModel.fromJson(
+                  json['instructor_assiigned_data'] as Map<String, dynamic>)
           ..programs = (json['programs'] as List<dynamic>?)
               ?.map((e) => GetAssignedChildrenToProgramProgramModel.fromJson(
                   e as Map<String, dynamic>))
@@ -88,6 +92,7 @@ Map<String, dynamic> _$GetAssignedChildrenToProgramDatumModelToJson(
       'last_active_at': instance.lastActiveAt,
       'renew_data': instance.renewData?.toIso8601String(),
       'status_label': instance.statusLabel?.toJson(),
+      'instructor_assiigned_data': instance.instructorAssiignedData?.toJson(),
       'programs': instance.programs?.map((e) => e.toJson()).toList(),
       'chat_id': instance.chatId,
     };
@@ -103,6 +108,23 @@ Map<String, dynamic> _$GetAssignedChildrenToProgramProgramModelToJson(
         GetAssignedChildrenToProgramProgramModel instance) =>
     <String, dynamic>{
       'title': instance.title,
+      'image': instance.image,
+    };
+
+InstructorAssiignedDataModel _$InstructorAssiignedDataModelFromJson(
+        Map<String, dynamic> json) =>
+    InstructorAssiignedDataModel()
+      ..id = (json['id'] as num?)?.toInt()
+      ..name = json['name'] as String?
+      ..phone = json['phone'] as String?
+      ..image = json['image'] as String?;
+
+Map<String, dynamic> _$InstructorAssiignedDataModelToJson(
+        InstructorAssiignedDataModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'phone': instance.phone,
       'image': instance.image,
     };
 

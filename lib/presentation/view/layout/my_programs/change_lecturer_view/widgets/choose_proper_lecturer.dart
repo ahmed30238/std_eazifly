@@ -1,6 +1,5 @@
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_state.dart';
-import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/repeated_weekly_session.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/widgets/choose_teacher_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
@@ -58,8 +57,10 @@ class ChooseProperLecturerBody extends StatelessWidget {
           bloc: cubit,
           builder: (context, state) {
             // Handle loading state
-            if (cubit.getInstructorsLoader ||
-                cubit.getInstructorsEntity == null) {
+            if (cubit.getInstructorsLoader
+
+                // cubit.getInstructorsEntity == null
+                ) {
               return SizedBox(
                 height: 48.h,
                 child: buildShimmerLoader(),
@@ -164,18 +165,7 @@ class ChooseProperLecturerBody extends StatelessWidget {
             onPressed: cubit.changeInstructorLoader
                 ? () {}
                 : () async {
-                    await cubit.changeInstructor(context).then(
-                      (value) {
-                        Navigator.pushNamed(
-                          context,
-                          RoutePaths.lectureView,
-                          arguments: {
-                            "programId":
-                                context.read<LectureCubit>().currentProgramId,
-                          },
-                        );
-                      },
-                    );
+                    await cubit.changeInstructor(context);
                   },
             child: cubit.changeInstructorLoader
                 ? const CircularProgressIndicator.adaptive()

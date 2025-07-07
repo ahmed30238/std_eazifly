@@ -1,9 +1,7 @@
 import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/horizntal_divider.dart';
-import 'package:eazifly_student/core/component/image_conainer.dart';
 import 'package:eazifly_student/core/component/texted_container.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_cubit.dart';

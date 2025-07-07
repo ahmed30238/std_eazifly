@@ -84,6 +84,9 @@ class GetAssignedChildrenToProgramDatumEntity {
 
   @JsonKey(name: "status_label")
   GetAssignedChildrenToProgramStatusLabelModel? statusLabel;
+  
+  @JsonKey(name: "instructor_assiigned_data")
+  InstructorAssiignedDataModel? instructorAssiignedData;
 
   @JsonKey(name: "programs")
   List<GetAssignedChildrenToProgramProgramModel>? programs;
@@ -116,6 +119,24 @@ class GetAssignedChildrenToProgramDatumEntity {
     this.statusLabel,
     this.programs,
     this.chatId,
+  });
+}
+
+class InstructorAssiignedDataEntity {
+  @JsonKey(name: "id")
+  int? id;
+  @JsonKey(name: "name")
+  String? name;
+  @JsonKey(name: "phone")
+  String? phone;
+  @JsonKey(name: "image")
+  String? image;
+
+  InstructorAssiignedDataEntity({
+    this.id,
+    this.name,
+    this.phone,
+    this.image,
   });
 }
 

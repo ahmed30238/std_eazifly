@@ -45,6 +45,15 @@ class GetAssignedChildrenToProgramProgramModel
 }
 
 @JsonSerializable(explicitToJson: true)
+class InstructorAssiignedDataModel extends InstructorAssiignedDataEntity {
+  InstructorAssiignedDataModel();
+
+  factory InstructorAssiignedDataModel.fromJson(Map<String, dynamic> json) =>
+      _$InstructorAssiignedDataModelFromJson(json);
+  Map<String, dynamic> toJson() => _$InstructorAssiignedDataModelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
 class GetAssignedChildrenToProgramStatusLabelModel
     extends GetAssignedChildrenToProgramStatusLabelEntity {
   GetAssignedChildrenToProgramStatusLabelModel();

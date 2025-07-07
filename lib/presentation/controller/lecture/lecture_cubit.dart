@@ -511,7 +511,6 @@ class LectureCubit extends Cubit<LectureState> {
         emit(GetUserReportsErrorState(errorMessage: failure.message));
       },
       (data) {
-        log("this is report for id ${data.data?[0].reportForId}");
         tabLoadingStates[4] = false;
         tabErrorStates[4] = null;
         getUserReportsLoader = false;

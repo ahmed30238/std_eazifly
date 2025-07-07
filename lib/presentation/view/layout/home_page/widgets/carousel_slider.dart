@@ -1,7 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eazifly_student/core/component/avatar_image.dart';
-import 'package:eazifly_student/core/component/image_conainer.dart';
-import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class HomeCarousel extends StatelessWidget {

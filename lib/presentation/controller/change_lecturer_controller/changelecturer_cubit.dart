@@ -37,6 +37,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
   static ChangelecturerCubit get(context) => BlocProvider.of(context);
   // تعديل method getInstructors لتعمل بناءً على نوع المواعيد المختارة
   Future<void> getInstructors(BuildContext context) async {
+    log("started");
     getInstructorsLoader = true;
     emit(GetInstructorsLoadingState());
 
@@ -44,6 +45,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
 
     // إذا اختار المستخدم "نفس المواعيد" - استخدم المواعيد من getRemainingProgramSessions
     if (sameDates) {
+      log("same start");
       appointments = List.generate(
         getRemainingProgramSessionsEntity?.data?.length ?? 0,
         (index) {
@@ -53,6 +55,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
           );
         },
       );
+      log("same end");
     }
     // إذا اختار المستخدم "مواعيد جديدة" - استخدم المواعيد التي اختارها المستخدم
     else if (newDates) {
@@ -66,13 +69,15 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
         },
       );
     }
-
+    log("empty dates");
     // إذا لم يكن هناك مواعيد، أرسل خطأ
     if (appointments.isEmpty) {
       getInstructorsLoader = false;
       emit(GetInstructorsErrorState("لا توجد مواعيد محددة"));
+      log("no error");
       return;
     }
+    log("error");
 
     final result = await getInstructorsUsecase.call(
       parameter: GetInstructorsParameters(
@@ -123,6 +128,8 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
       emit(ChangeInstructorErrorState(
         errorMessage: "لا توجد مواعيد محددة لتغيير المحاضر",
       ));
+      delightfulToast(
+          message: "لا يوجد مواعيد محددة لتغيير المحاضر", context: context);
       return;
     }
 
@@ -152,6 +159,13 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
       (data) {
         changeInstructorLoader = false;
         changeInstructorEntity = data;
+        Navigator.pushNamed(
+          context,
+          RoutePaths.lectureView,
+          arguments: {
+            "programId": context.read<LectureCubit>().currentProgramId,
+          },
+        );
         emit(ChangeInstructorSuccessState());
       },
     );
@@ -202,6 +216,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
             programId: context.read<LectureCubit>().currentProgramId,
             userId: selectedStudentId,
           );
+          log("here");
           await getInstructors(context);
           bodyIndex += 2;
           linearIndicatorPercent += .5;
@@ -458,6 +473,13 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
   changeLecturerIndex(int index) {
     selectedLecturerIndex = index;
     emit(ChangeLecturerIndexState());
+  }
+
+  initChangeLecturerSessionReasons() {
+    if (getChangeInstructorReasonsEntity?.data != null) {
+      changeLecturerReason =
+          List.filled(getChangeInstructorReasonsEntity!.data!.length, false);
+    }
   }
 
   void chooseLecturerReasons(int index, bool value) {
@@ -897,6 +919,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
       (data) {
         getChangeInstructorReasonsLoader = false;
         getChangeInstructorReasonsEntity = data;
+        initChangeLecturerSessionReasons();
         emit(GetChangeInstructorReasonsSuccessState());
       },
     );
