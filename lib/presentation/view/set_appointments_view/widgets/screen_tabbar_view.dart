@@ -4,8 +4,10 @@ import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ScreenTabbarView extends StatelessWidget {
+  final int programId;
   const ScreenTabbarView({
     super.key,
+    required this.programId,
   });
 
   @override
@@ -19,7 +21,12 @@ class ScreenTabbarView extends StatelessWidget {
         child: TabBarView(
           physics: const NeverScrollableScrollPhysics(),
           controller: cubit.controller,
-          children: const [FixedDatesBody(), FlexibleHourBody()],
+          children: [
+            FixedDatesBody(
+              programId: programId,
+            ),
+            const FlexibleHourBody()
+          ],
         ),
       ),
     );

@@ -41,6 +41,7 @@ UserOrderModel _$UserOrderModelFromJson(Map<String, dynamic> json) =>
           : CreateOrderStatus.fromJson(json['type'] as Map<String, dynamic>)
       ..subscriptionType = json['subscription_type'] as String?
       ..usedCoupon = json['used_coupon'] as bool?
+      ..programId = json['program_id'] as String?
       ..createdAt = json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String)
@@ -64,6 +65,7 @@ Map<String, dynamic> _$UserOrderModelToJson(UserOrderModel instance) =>
       'type': instance.type?.toJson(),
       'subscription_type': instance.subscriptionType,
       'used_coupon': instance.usedCoupon,
+      'program_id': instance.programId,
       'created_at': instance.createdAt?.toIso8601String(),
       'order_details': instance.orderDetails?.map((e) => e.toJson()).toList(),
       'order_notes': instance.orderNotes?.map((e) => e.toJson()).toList(),

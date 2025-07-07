@@ -6,7 +6,11 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 import 'package:shimmer/shimmer.dart';
 
 class RepeatedWeeklySession extends StatelessWidget {
-  const RepeatedWeeklySession({super.key});
+  final int programId;
+  const RepeatedWeeklySession({
+    super.key,
+    required this.programId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +99,7 @@ class RepeatedWeeklySession extends StatelessWidget {
                               onTap: () {
                                 // إرسال الـ sessionIndex للدالة
                                 cubit.showTimePickerDialog(
-                                    context, sessionIndex);
+                                    context, sessionIndex, programId);
                                 // الدالة ستتنادى تلقائياً من الـ Cubit
                               },
                               child: AbsorbPointer(

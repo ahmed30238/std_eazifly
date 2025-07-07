@@ -5,7 +5,8 @@ import 'package:eazifly_student/presentation/view/layout/my_account/student_mana
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ChosenStudentBody extends StatefulWidget {
-  const ChosenStudentBody({super.key});
+  final int programId;
+  const ChosenStudentBody({super.key, required this.programId});
 
   @override
   State<ChosenStudentBody> createState() => _ChosenStudentBodyState();
@@ -148,7 +149,7 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
                       message: "يرجي اختيار احد الطلاب", context: context);
                   return;
                 } else {
-                  cubit.incrementStepperIndex(context);
+                  cubit.incrementStepperIndex(context, widget.programId);
                   cubit.fillAddedChildrenData();
                 }
               }

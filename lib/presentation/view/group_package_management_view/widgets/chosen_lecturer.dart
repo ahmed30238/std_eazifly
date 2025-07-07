@@ -9,9 +9,10 @@ import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ChosenLecturer extends StatefulWidget {
+  final int orderProgramId;
   // final GrouppackagemanagementCubit grouppackagemanagementCubit;
 
-  const ChosenLecturer({super.key});
+  const ChosenLecturer({super.key, required this.orderProgramId});
 
   @override
   State<ChosenLecturer> createState() => _ChosenLecturerState();
@@ -97,7 +98,9 @@ class _ChosenLecturerState extends State<ChosenLecturer>
               //! tab bar
               const ScreenTabBar(),
               //! tab bar view
-              const ScreenTabbarView(),
+               ScreenTabbarView(
+                programId: widget.orderProgramId,
+               ),
             ],
           ),
         ),

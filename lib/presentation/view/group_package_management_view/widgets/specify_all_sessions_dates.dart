@@ -6,8 +6,10 @@ import 'package:eazifly_student/presentation/view/set_appointments_view/widgets/
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class SpecifyAllSessionsDates extends StatelessWidget {
+  final int programId;
   const SpecifyAllSessionsDates({
     super.key,
+    required this.programId,
   });
 
   @override
@@ -72,6 +74,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                                 WeekDaysEnum
                                                     .values[index].title,
                                                 sessionIndex,
+                                                programId,
                                               );
                                               back(context);
                                             },
@@ -120,7 +123,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                 if (sessionIndex <
                                     cubit.fromControllers.length) {
                                   cubit.showFromTimePickerDialog(
-                                      context, sessionIndex);
+                                      context, sessionIndex, programId);
                                 }
                               },
                               child: CustomTextFormField(
@@ -154,7 +157,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                 // التأكد من وجود controller قبل استدعاء الدالة
                                 if (sessionIndex < cubit.toControllers.length) {
                                   cubit.showToTimePickerDialog(
-                                      context, sessionIndex);
+                                      context, sessionIndex, programId);
                                 }
                               },
                               child: CustomTextFormField(

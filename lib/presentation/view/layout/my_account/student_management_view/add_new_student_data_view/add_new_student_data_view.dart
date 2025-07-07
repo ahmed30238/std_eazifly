@@ -7,9 +7,11 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class AddNewStudentDataView extends StatefulWidget {
   final String? orderId;
+  final String? programId;
   const AddNewStudentDataView({
     super.key,
     this.orderId,
+    this.programId,
   });
 
   @override
@@ -244,6 +246,7 @@ class _AddNewStudentDataViewState extends State<AddNewStudentDataView>
                         orderId: int.tryParse(
                           widget.orderId ?? "-1",
                         ),
+                        programId: int.tryParse(widget.programId ?? "-1"),
                       );
                     },
               child: cubit.createNewChildLoader

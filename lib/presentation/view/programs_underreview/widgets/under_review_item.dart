@@ -8,11 +8,13 @@ class UnderReviewItem extends StatelessWidget {
   final String state;
   final String image;
   final String orderId;
+  final String programId;
   const UnderReviewItem({
     super.key,
     required this.state,
     required this.image,
     required this.orderId,
+    required this.programId,
   });
 
   @override
@@ -21,7 +23,11 @@ class UnderReviewItem extends StatelessWidget {
       onTap: state == "success"
           ? () {
               Navigator.pushNamed(
-                arguments: orderId, // orderId
+                arguments: {
+                  "orderId": orderId,
+                  "programId": programId,
+                }, // orderId
+
                 context,
                 RoutePaths.groupPackageManagement,
               );
@@ -121,6 +127,7 @@ class UnderReviewItem extends StatelessWidget {
               image: image,
               orderId: orderId,
               state: state,
+              programId: programId,
             ),
           ],
         ),
@@ -133,11 +140,13 @@ class StackDesignState extends StatelessWidget {
   final String orderId;
   final String state;
   final String image;
+  final String programId;
   const StackDesignState({
     super.key,
     required this.state,
     required this.image,
     required this.orderId,
+    required this.programId,
   });
 
   @override
@@ -196,7 +205,10 @@ class StackDesignState extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(
                     context,
-                    arguments: orderId, //orderId,
+                    arguments: {
+                      "orderId": orderId,
+                      "programId": programId,
+                    }, 
                     RoutePaths.groupPackageManagement,
                   );
                 },

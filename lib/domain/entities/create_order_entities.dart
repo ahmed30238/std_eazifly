@@ -41,6 +41,8 @@ class CreateOrderDataEntity {
   String? subscriptionType;
   @JsonKey(name: "used_coupon")
   bool? usedCoupon;
+  @JsonKey(name: "program_id")
+  String? programId;
   @JsonKey(name: "created_at")
   DateTime? createdAt;
   @JsonKey(name: "order_details")
@@ -52,6 +54,7 @@ class CreateOrderDataEntity {
     this.id,
     this.user,
     this.totalOrderPrice,
+    this.programId,
     this.totalAfterDiscount,
     this.currency,
     this.status,

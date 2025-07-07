@@ -3,7 +3,8 @@ import 'package:eazifly_student/presentation/controller/group_program_management
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class FixedDatesBody extends StatelessWidget {
-  const FixedDatesBody({super.key});
+  final int programId;
+  const FixedDatesBody({super.key, required this.programId});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,10 @@ class FixedDatesBody extends StatelessWidget {
           // height: 270.h,
           child: TabBarView(
             controller: cubit.fixedDateController,
-            children: cubit.subTabbarBody(context: context),
+            children: cubit.subTabbarBody(
+              context: context,
+              programId: programId
+            ),
           ),
         ),
       ],

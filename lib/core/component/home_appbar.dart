@@ -1,9 +1,11 @@
 import 'package:eazifly_student/core/component/icons_container.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
+import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart' hide Badge;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainAppBar extends AppBar {
@@ -82,14 +84,12 @@ class MainAppBar extends AppBar {
                       color: const Color(0xff07070D)),
                 ),
                 9.pw,
-                const Icon(Icons.add),
-                //todo  appIcon
-                // SvgPicture.asset(
-                //   MyImages.appIcon,
-                //   fit: BoxFit.scaleDown,
-                //   width: appIconWidth ?? 30.w,
-                //   height: appIconHeight ?? 30.h,
-                // ),
+                SvgPicture.asset(
+                  Assets.iconsAppLogo,
+                  fit: BoxFit.scaleDown,
+                  width: appIconWidth ?? 30.w,
+                  height: appIconHeight ?? 30.h,
+                ),
                 16.pw,
               ],
         );

@@ -54,11 +54,13 @@ class _ProgramsUnderReviewViewState extends State<ProgramsUnderReviewView> {
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.all(16.r),
             itemBuilder: (context, index) {
-
               var order = orders[index];
               log("this is order id${order.id.toString()}");
+              log("this is order program id${order.programId.toString()}");
+
               // log("${order.orderDetails?[0].label}");
               return UnderReviewItem(
+                programId: order.programId ?? "",
                 orderId: order.id.toString(),
                 image: "",
                 state: order.status?.color ?? "",

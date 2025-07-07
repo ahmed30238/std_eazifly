@@ -12,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SetAppointmentsView extends StatefulWidget {
-  const SetAppointmentsView({super.key});
+  final int programId;
+  const SetAppointmentsView({super.key, required this.programId});
 
   @override
   State<SetAppointmentsView> createState() => _SetAppointmentsViewState();
@@ -69,7 +70,9 @@ class _SetAppointmentsViewState extends State<SetAppointmentsView>
                 //! tab bar
                 const ScreenTabBar(),
                 //! tab bar view
-                ScreenTabbarView(),
+                ScreenTabbarView(
+                  programId: widget.programId,
+                ),
               ],
             ),
           ),

@@ -6,9 +6,11 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class GroupPackageManagementView extends StatefulWidget {
   final String orderId;
+  final String programId;
   const GroupPackageManagementView({
     super.key,
     required this.orderId,
+    required this.programId,
   });
 
   @override
@@ -23,6 +25,7 @@ class _GroupPackageManagementViewState
   @override
   void initState() {
     log("order id is ${widget.orderId}");
+    log("order pid is ${widget.programId}");
     cubit = context.read<GrouppackagemanagementCubit>();
     super.initState();
     cubit.fillOrderId(int.tryParse(widget.orderId) ?? -1);
@@ -72,7 +75,8 @@ class _GroupPackageManagementViewState
                   child: BlocBuilder(
                     bloc: cubit,
                     builder: (context, state) =>
-                        cubit.bodies[cubit.stepperIndex],
+                        cubit.bodies(int.tryParse(widget.programId) ?? -1)[
+                            cubit.stepperIndex],
                   ),
                 ),
               ],

@@ -140,7 +140,11 @@ class AddNewStudentDataToProgramCubit
   CreateNewChildEntity? createNewChildEntity;
   CreateNewChildUsecase createNewChildUsecase;
   bool createNewChildLoader = false;
-  Future<void> createNewChild(BuildContext context, {int? orderId}) async {
+  Future<void> createNewChild(
+    BuildContext context, {
+    int? orderId,
+    int? programId,
+  }) async {
     log("start");
     if (!formKey.currentState!.validate()) {
       return;
@@ -200,7 +204,10 @@ class AddNewStudentDataToProgramCubit
 
           isAssignToProgram == true
               ? Navigator.pushNamed(
-                  arguments: orderId, 
+                  arguments: {
+                    "orderId": orderId,
+                    "programId": programId,
+                  },
                   context,
                   RoutePaths.groupPackageManagement,
                 )

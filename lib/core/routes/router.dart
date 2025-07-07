@@ -124,15 +124,13 @@ class AppRouter {
           ),
         );
       case RoutePaths.updateChildProfile:
-        var userId = settings.arguments as int? ??-1 ;
+        var userId = settings.arguments as int? ?? -1;
         return createRoute(
           BlocProvider(
             create: (context) => UpdatechildprofileCubit(
               updateProfileUsecase: sl(),
             ),
-            child:  UpdateChildProfile(
-              userId: userId
-            ),
+            child: UpdateChildProfile(userId: userId),
           ),
         );
       case RoutePaths.studentManagement:
@@ -503,7 +501,9 @@ class AppRouter {
           ),
         );
       case RoutePaths.groupPackageManagement:
-        String orderId = settings.arguments as String? ?? "-1";
+        var arguments = settings.arguments as Map<String, dynamic>;
+        String orderId = arguments["orderId"] as String? ?? "-1";
+        String programId = arguments["programId"] as String? ?? "-1";
         return createRoute(
           MultiBlocProvider(
             providers: [
@@ -525,6 +525,7 @@ class AppRouter {
             ],
             child: GroupPackageManagementView(
               orderId: orderId,
+              programId: programId,
             ),
           ),
         );
