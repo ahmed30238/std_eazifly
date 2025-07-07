@@ -17,6 +17,7 @@ class NestedAvatarContainer extends StatelessWidget {
   final Color? textColors;
   final int? noOfItems;
   final MainAxisAlignment? alignment;
+  final List<String> image;
   const NestedAvatarContainer({
     this.areaHeigt,
     this.areaWidth,
@@ -30,6 +31,7 @@ class NestedAvatarContainer extends StatelessWidget {
     this.noOfItems,
     required this.number,
     super.key,
+    required this.image,
   });
 
   @override
@@ -47,6 +49,7 @@ class NestedAvatarContainer extends StatelessWidget {
                 width: avatarWidth ?? 32.w,
                 height: avatarHeigt ?? 32.w,
                 padding: index * 15.w,
+                image: image[index],
               ),
             ),
           ),

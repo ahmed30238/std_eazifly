@@ -1,4 +1,4 @@
-import 'package:eazifly_student/core/component/image_conainer.dart';
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
@@ -66,7 +66,7 @@ class CustomAppBar extends AppBar {
                           ),
                         ]
                       : [
-                          const ImageContainer(
+                          const AvatarImage(
                               // shape: BoxShape.circle,
                               // containerHeight: 28.h,
                               // containerWidth: 28.w,

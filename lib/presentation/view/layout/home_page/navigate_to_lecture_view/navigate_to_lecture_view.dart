@@ -150,6 +150,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                           index == 0
                               ? NestedAvatarContainer(
                                   alignment: MainAxisAlignment.center,
+                                  image: [""],
                                   number: "9",
                                   textColors: MainColors.blackText,
                                   areaHeigt: 26.h,

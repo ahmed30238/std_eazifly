@@ -72,7 +72,11 @@ class LectureHistoryDetails extends StatelessWidget {
           ),
           const CustomHorizontalDivider(),
           const ItemDetailsCard(
-            values: [],
+            values: [
+              "12/5",
+              "12:30",
+              "30  ق"
+            ],
             titles: [
               "تاريخ المحاضرة",
               "وقت المحاضرة",

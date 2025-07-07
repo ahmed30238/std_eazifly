@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/widgets/audio_player_screen.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
@@ -29,9 +30,9 @@ class PlayingProgramContainer extends StatelessWidget {
             12.ph,
             Row(
               children: [
-                ImageContainer(
-                  containerHeight: 40.h,
-                  containerWidth: 40.w,
+                AvatarImage(
+                  height: 40.h,
+                  width: 40.w,
                   radius: 8.r,
                 ),
                 8.pw,

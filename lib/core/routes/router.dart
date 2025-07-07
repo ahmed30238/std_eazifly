@@ -388,7 +388,16 @@ class AppRouter {
         );
       case RoutePaths.subscribedStudentsSettingsView:
         return createRoute(
-          const SubscribedStudentsSettingsView(),
+          BlocProvider(
+            create: (context) => MyProgramsCubit(
+              changeSessionStatusUsecase: sl(),
+              getAssignedChildrenToProgramUsecase: sl(),
+              getMyProgramsUsecase: sl(),
+              getSessionDetailsUsecase: sl(),
+              joinSessionUsecase: sl(),
+            ),
+            child: const SubscribedStudentsSettingsView(),
+          ),
         );
       // case RoutePaths.setAppointmentsView:
       //   return createRoute(

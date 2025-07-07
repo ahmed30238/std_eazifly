@@ -1,5 +1,5 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/home_appbar.dart';
-import 'package:eazifly_student/core/component/image_conainer.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -29,9 +29,9 @@ class JoinedLectureScreen extends StatelessWidget {
       body: Column(
         children: [
           4.ph,
-          ImageContainer(
-            containerHeight: 308.h,
-            containerWidth: double.infinity,
+          AvatarImage(
+            height: 308.h,
+            width: double.infinity,
             child: Align(
               alignment: Alignment.bottomRight,
               child: Container(
@@ -53,9 +53,9 @@ class JoinedLectureScreen extends StatelessWidget {
             ),
           ),
           7.ph,
-          ImageContainer(
-            containerHeight: 308.h,
-            containerWidth: double.infinity,
+          AvatarImage(
+            height: 308.h,
+            width: double.infinity,
           ),
           19.ph,
           const DownSideIconsRow(),

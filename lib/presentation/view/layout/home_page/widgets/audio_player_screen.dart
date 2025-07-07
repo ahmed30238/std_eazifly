@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class AudioPlayerScreen extends StatelessWidget {
@@ -12,9 +13,9 @@ class AudioPlayerScreen extends StatelessWidget {
       widget: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          const ImageContainer(
-            containerWidth: double.infinity,
-            containerHeight: double.infinity,
+          const AvatarImage(
+            width: double.infinity,
+            height: double.infinity,
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16.w),

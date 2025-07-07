@@ -1,5 +1,6 @@
 
 
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/btn_depending_on_state.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -33,10 +34,10 @@ class ChosenTeacherItem extends StatelessWidget {
                   style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 8.pw,
-                ImageContainer(
-                  containerWidth: 56.w,
+                AvatarImage(
+                  width: 56.w,
                   radius: 4.r,
-                  containerHeight: 40.h,
+                  height: 40.h,
                 ),
                 4.pw,
                 Text(

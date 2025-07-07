@@ -1,8 +1,36 @@
+import 'dart:developer';
+
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/nested_avatar_container.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class SubscribedStudentsSettingsView extends StatelessWidget {
+class SubscribedStudentsSettingsView extends StatefulWidget {
   const SubscribedStudentsSettingsView({super.key});
+
+  @override
+  State<SubscribedStudentsSettingsView> createState() =>
+      _SubscribedStudentsSettingsViewState();
+}
+
+class _SubscribedStudentsSettingsViewState
+    extends State<SubscribedStudentsSettingsView> {
+  late int programId;
+  late LectureCubit lectureCubit;
+  late MyProgramsCubit myProgramsCubit;
+
+  @override
+  void initState() {
+    lectureCubit = context.read<LectureCubit>();
+    myProgramsCubit = context.read<MyProgramsCubit>();
+    programId = context.read<LectureCubit>().currentProgramId;
+    log("$programId");
+
+    myProgramsCubit.getAssignedChildrenToProgram(programId: programId);
+    lectureCubit.showProgramDetails(programId: programId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +69,7 @@ class SubscribedStudentsSettingsView extends StatelessWidget {
                     ),
                     10.5.ph,
                     Text(
-                      "محاضرة رياضيات للصف السادس",
+                      lectureCubit.showProgramDetailsEntity?.data?.title ?? "",
                       style: MainTextStyle.boldTextStyle(
                           fontSize: 12, color: MainColors.blackText),
                     ),
@@ -75,14 +103,30 @@ class SubscribedStudentsSettingsView extends StatelessWidget {
                           color: MainColors.grayTextColors,
                         ),
                       ),
-                      NestedAvatarContainer(
-                        number: "3 - 4 طلاب",
-                        avatarWidth: 24.w,
-                        noOfItems: 4,
-                        areaWidth: 68.w,
-                        areaHeigt: 26.h,
-                        avatarHeigt: 24.h,
-                        textColors: MainColors.blackText,
+                      BlocBuilder(
+                        bloc: myProgramsCubit,
+                        builder: (context, state) {
+                          var studentImages = myProgramsCubit
+                              .getAssignedChildrenToProgramEntity?.data
+                              ?.map((e) => e.image ?? '')
+                              .toList();
+                          int studentCount = myProgramsCubit
+                                  .getAssignedChildrenToProgramEntity
+                                  ?.data
+                                  ?.length ??
+                              0;
+                          String show = studentCount > 1 ? "طلاب" : "طالب";
+                          return NestedAvatarContainer(
+                            image: studentImages ?? [],
+                            number: "$studentCount $show",
+                            avatarWidth: 24.w,
+                            noOfItems: studentCount,
+                            areaWidth: studentCount < 4 ? 40.w : 68.w,
+                            areaHeigt: 26.h,
+                            avatarHeigt: 24.h,
+                            textColors: MainColors.blackText,
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -106,124 +150,138 @@ class SubscribedStudentsSettingsView extends StatelessWidget {
             ),
           ),
           28.ph,
-          SizedBox(
-            height: 145.h * 5 + 16.h * 6,
-            child: ListView.separated(
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => Container(
-                padding: EdgeInsets.only(
-                  right: 8.w,
-                  left: 8.w,
-                  top: 0 == 0 ? 12 : 0,
-                  bottom: 0 == 12 ? 12 : 0,
-                ),
-                height: 145.h,
-                width: 343.w,
-                decoration: BoxDecoration(
-                  borderRadius: 12.cr,
-                  color: MainColors.veryLightGrayFormField,
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+          BlocBuilder(
+            bloc: myProgramsCubit,
+            builder: (context, state) {
+              var students =
+                  myProgramsCubit.getAssignedChildrenToProgramEntity?.data;
+              if (students == null) {
+                return const Text("null");
+              }
+              return SizedBox(
+                height: 145.h * students.length + 16.h * 6,
+                child: ListView.separated(
+                  padding: EdgeInsets.only(
+                    right: 8.w,
+                    left: 8.w,
+                    top: 12.h,
+                    bottom: 12.h,
+                  ),
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    var student = students[index];
+                    return Container(
+                    height: 145.h,
+                    width: 343.w,
+                    decoration: BoxDecoration(
+                      borderRadius: 12.cr,
+                      color: MainColors.veryLightGrayFormField,
+                    ),
+                    child: Column(
                       children: [
-                        //! image
-                        ImageContainer(
-                          shape: BoxShape.circle,
-                          image: Assets.imagesPersona,
-                          containerHeight: 45.h,
-                          containerWidth: 45.w,
-                        ),
-                        8.pw,
-                        //! name and age
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              "أحمد سلامة",
-                              style: MainTextStyle.boldTextStyle(fontSize: 14),
+                            //! image
+                            AvatarImage(
+                              shape: BoxShape.circle,
+                              imageUrl: student.image,
+                              height: 45.h,
+                              width: 45.w,
                             ),
-                            8.ph,
-                            Text(
-                              "15 عام",
-                              style: MainTextStyle.boldTextStyle(
-                                fontSize: 12,
-                                color: MainColors.grayTextColors,
+                            8.pw,
+                            //! name and age
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "${student.firstName} ${student.lastName}",
+                                  style:
+                                      MainTextStyle.boldTextStyle(fontSize: 14),
+                                ),
+                                8.ph,
+                                Text(
+                                  "${student.age} عام",
+                                  style: MainTextStyle.boldTextStyle(
+                                    fontSize: 12,
+                                    color: MainColors.grayTextColors,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            InkWell(
+                              onTap: () {
+                                studentMoreBottomSheet(context);
+                              },
+                              child: SvgPicture.asset(
+                                Assets.iconsHorizontalDots,
                               ),
                             ),
                           ],
                         ),
-                        const Spacer(),
-                        InkWell(
-                          onTap: () {
-                            studentMoreBottomSheet(context);
-                          },
-                          child: SvgPicture.asset(
-                            Assets.iconsHorizontalDots,
-                          ),
+                        8.ph,
+                        const CustomHorizontalDivider(),
+                        8.ph,
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 127.5.h,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "رقم التواصل",
+                                    style: MainTextStyle.boldTextStyle(
+                                      fontSize: 12,
+                                      color: MainColors.grayTextColors,
+                                    ),
+                                  ),
+                                  8.ph,
+                                  Text(
+                                    "01030837974",
+                                    style: MainTextStyle.boldTextStyle(
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            32.pw,
+                            SizedBox(
+                              width: 127.5.h,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "المعلم",
+                                    style: MainTextStyle.boldTextStyle(
+                                      fontSize: 12,
+                                      color: MainColors.grayTextColors,
+                                    ),
+                                  ),
+                                  8.ph,
+                                  Text(
+                                    "احمد سلامة",
+                                    style: MainTextStyle.boldTextStyle(
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    8.ph,
-                    const CustomHorizontalDivider(),
-                    8.ph,
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 127.5.h,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "رقم التواصل",
-                                style: MainTextStyle.boldTextStyle(
-                                  fontSize: 12,
-                                  color: MainColors.grayTextColors,
-                                ),
-                              ),
-                              8.ph,
-                              Text(
-                                "01030837974",
-                                style:
-                                    MainTextStyle.boldTextStyle(fontSize: 14),
-                              ),
-                            ],
-                          ),
-                        ),
-                        32.pw,
-                        SizedBox(
-                          width: 127.5.h,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "المعلم",
-                                style: MainTextStyle.boldTextStyle(
-                                  fontSize: 12,
-                                  color: MainColors.grayTextColors,
-                                ),
-                              ),
-                              8.ph,
-                              Text(
-                                "احمد سلامة",
-                                style:
-                                    MainTextStyle.boldTextStyle(fontSize: 14),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                  );
+                  },
+                  separatorBuilder: (context, index) => 16.ph,
+                  itemCount: students.length,
                 ),
-              ),
-              separatorBuilder: (context, index) => 16.ph,
-              itemCount: 5,
-            ),
+              );
+            },
           ),
         ],
       ),
@@ -254,7 +312,7 @@ class SubscribedStudentsSettingsView extends StatelessWidget {
                   context,
                   RoutePaths.lectureView,
                   arguments: {
-                    "programId": 1, // TODO
+                    "programId": programId,
                   },
                 );
               },

@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class SelectionProgramItemDetailsView extends StatelessWidget {
@@ -183,9 +184,9 @@ class TeacherData extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ImageContainer(
-                containerHeight: 24.h,
-                containerWidth: 24.w,
+              AvatarImage(
+                height: 24.h,
+                width: 24.w,
                 radius: 8.r,
               ),
               4.pw,
@@ -215,9 +216,9 @@ class StudentData extends StatelessWidget {
         children: [
           Row(
             children: [
-              ImageContainer(
-                containerHeight: 40.h,
-                containerWidth: 40.w,
+              AvatarImage(
+                height: 40.h,
+                width: 40.w,
                 shape: BoxShape.circle,
               ),
               8.pw,

@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/horizntal_divider.dart';
 import 'package:eazifly_student/core/component/image_conainer.dart';
 import 'package:eazifly_student/core/component/texted_container.dart';
@@ -36,12 +37,12 @@ class AllMeetingItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             //! image
-            ImageContainer(
-              fit: BoxFit.fill,
+            AvatarImage(
+              // fit: BoxFit.fill,
               radius: 8.r,
-              containerHeight: 143.h,
-              containerWidth: 327.w,
-              image: Assets.imagesPersona,
+              height: 143.h,
+              width: 327.w,
+              // imageUrl: Assets.imagesPersona,
             ),
             12.ph,
             SizedBox(

@@ -1,5 +1,4 @@
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/lecture_history_view/widgets/lecture_history_details.dart';
-import 'package:eazifly_student/presentation/view/lecture/widgets/student_change_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class Lecturehistoryview extends StatelessWidget {
@@ -126,12 +125,12 @@ class Lecturehistoryview extends StatelessWidget {
               ],
             ),
           ),
-           StudentsChangeItem(
-            alignment: MainAxisAlignment.spaceEvenly,
-              studentName: "",
-                onBackTap: (){},
-                onNextTap: () {},
-          ),
+          //  StudentsChangeItem(
+          //   alignment: MainAxisAlignment.spaceEvenly,
+          //     studentName: "",
+          //       onBackTap: (){},
+          //       onNextTap: () {},
+          // ),
         ],
       ),
     );
