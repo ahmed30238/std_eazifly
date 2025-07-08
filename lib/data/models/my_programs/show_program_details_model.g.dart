@@ -47,7 +47,10 @@ ShowProgramDataModel _$ShowProgramDataModelFromJson(
               json['next_session'] as Map<String, dynamic>)
       ..host = json['host'] as String?
       ..goalsPercentage = (json['goals_percentage'] as num?)?.toInt()
-      ..contentId = json['content_id'] as String?;
+      ..contentId = json['content_id'] as String?
+      ..expireDate = json['expire_date'] == null
+          ? null
+          : DateTime.parse(json['expire_date'] as String);
 
 Map<String, dynamic> _$ShowProgramDataModelToJson(
         ShowProgramDataModel instance) =>
@@ -71,6 +74,7 @@ Map<String, dynamic> _$ShowProgramDataModelToJson(
       'host': instance.host,
       'goals_percentage': instance.goalsPercentage,
       'content_id': instance.contentId,
+      'expire_date': instance.expireDate?.toIso8601String(),
     };
 
 NextSessionModel _$NextSessionModelFromJson(Map<String, dynamic> json) =>

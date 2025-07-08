@@ -57,6 +57,8 @@ class ShowProgramDataEntity {
   int? goalsPercentage;
   @JsonKey(name: "content_id")
   String? contentId;
+  @JsonKey(name: "expire_date")
+  DateTime? expireDate;
   ShowProgramDataEntity({
     this.id,
     this.title,
@@ -77,6 +79,7 @@ class ShowProgramDataEntity {
     this.host,
     this.goalsPercentage,
     this.contentId,
+    this.expireDate,
   });
 }
 

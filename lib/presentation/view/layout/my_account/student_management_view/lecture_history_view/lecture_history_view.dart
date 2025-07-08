@@ -17,11 +17,9 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
   @override
   void initState() {
     lectureCubit = context.read<LectureCubit>();
-    // myProgramsCubit = context.read<MyProgramsCubit>();
     programId = context.read<LectureCubit>().currentProgramId;
-    log("$programId");
+    log("program id is $programId");
 
-    // myProgramsCubit.getAssignedChildrenToProgram(programId: programId);
     lectureCubit.showProgramDetails(programId: programId);
     lectureCubit.getProgramSessions(
       programId: programId,
@@ -88,14 +86,13 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                       BlocBuilder(
                         bloc: lectureCubit,
                         builder: (context, state) {
-                          // String expireDate = context.read<MyProgramsCubit>().getMyProgramsEntity.data[0].ex;
-                          //     LectureStateHelper.getTimeDifference(
-                          //   nextSession: programData
-                          //       .nextSession?.sessionDatetime
-                          //       ?.toString(),
-                          //   nextSessionDuration: int.tryParse(
-                          //       programData.nextSession?.duration ?? "0"),
-                          // );
+                          DateTime expireDate = context
+                                  .read<LectureCubit>()
+                                  .showProgramDetailsEntity
+                                  ?.data
+                                  ?.expireDate ??
+                              DateTime.now();
+                          var diff = formatTimeDifference(expireDate);
                           return Padding(
                             padding: EdgeInsets.symmetric(
                               vertical: 13.5.h,
@@ -116,7 +113,7 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                                   TextedContainer(
                                     width: 80.w,
                                     height: 26.h,
-                                    text: "بعد 3 أيام",
+                                    text: diff,
                                     containerColor: MainColors.lightRed,
                                     textColor: MainColors.red,
                                   ),
