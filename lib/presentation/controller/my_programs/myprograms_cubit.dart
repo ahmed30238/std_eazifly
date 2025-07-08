@@ -71,10 +71,12 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
   bool getAssignedChildrenLoader = false;
   GetAssignedChildrenToProgramEntity? getAssignedChildrenToProgramEntity;
   GetAssignedChildrenToProgramUsecase getAssignedChildrenToProgramUsecase;
+  var students = [];
 
   Future<void> getAssignedChildrenToProgram({
     required int programId,
   }) async {
+    students = [];
     getAssignedChildrenLoader = true;
     emit(GetAssignedChildrenLoadingState());
 
@@ -92,6 +94,9 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
       (data) {
         getAssignedChildrenLoader = false;
         getAssignedChildrenToProgramEntity = data;
+        if (data.data != null) {
+          students.addAll(data.data!);
+        }
         emit(GetAssignedChildrenSuccessState());
       },
     );

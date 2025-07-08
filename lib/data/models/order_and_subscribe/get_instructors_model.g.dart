@@ -32,7 +32,7 @@ GetInstructorsInstructorModel _$GetInstructorsInstructorModelFromJson(
       ..phone = json['phone'] as String?
       ..whatsApp = json['whats_app'] as String?
       ..address = json['address'] as String?
-      ..age = (json['age'] as num?)?.toInt()
+      ..age = GetInstructorsInstructorEntity.customInt(json['age'])
       ..gender = json['gender'] as String?
       ..image = json['image'] as String?;
 

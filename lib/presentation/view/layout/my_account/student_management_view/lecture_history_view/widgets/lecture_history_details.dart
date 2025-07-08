@@ -2,8 +2,21 @@ import 'package:eazifly_student/presentation/view/layout/my_account/student_mana
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class LectureHistoryDetails extends StatelessWidget {
+  final String title;
+  final String status;
+  final String sessionDate;
+  final String sessionTime;
+  final String sessionDuration;
+  final int index;
+
   const LectureHistoryDetails({
     super.key,
+    required this.title,
+    required this.status,
+    required this.sessionDate,
+    required this.sessionTime,
+    required this.sessionDuration,
+    required this.index,
   });
 
   @override
@@ -34,7 +47,7 @@ class LectureHistoryDetails extends StatelessWidget {
                   ),
                   8.ph,
                   Text(
-                    "تعليم أصول الفقة",
+                    title,
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
                       color: MainColors.blackText,
@@ -53,17 +66,14 @@ class LectureHistoryDetails extends StatelessWidget {
                     ),
                   ),
                   4.ph,
-                  TextedContainer(
-                    height: 26.h,
-                    radius: 32.r,
-                    width: 60.w,
-                    text: "قادمة",
-                  ),
+                  SessionStatusArea(
+                    status: status,
+                  )
                 ],
               ),
               const Spacer(),
               InkWell(
-                onTap: () => lectureReportModelSheet(context),
+                onTap: () => lectureReportModelSheet(context, index),
                 child: SvgPicture.asset(
                   Assets.iconsHorizontalDots,
                 ),
@@ -71,13 +81,9 @@ class LectureHistoryDetails extends StatelessWidget {
             ],
           ),
           const CustomHorizontalDivider(),
-          const ItemDetailsCard(
-            values: [
-              "12/5",
-              "12:30",
-              "30  ق"
-            ],
-            titles: [
+          ItemDetailsCard(
+            values: [sessionDate, sessionTime, "$sessionDuration دقيقة"],
+            titles: const [
               "تاريخ المحاضرة",
               "وقت المحاضرة",
               "مدة المحاضرة",
@@ -87,6 +93,34 @@ class LectureHistoryDetails extends StatelessWidget {
       ),
     );
   }
+}
 
+class SessionStatusArea extends StatelessWidget {
+  final String status;
+  const SessionStatusArea({super.key, required this.status});
 
+  @override
+  Widget build(BuildContext context) {
+    switch (status) {
+      case "pending":
+        return TextedContainer(
+          height: 26.h,
+          radius: 32.r,
+          width: 60.w,
+          text: "قادمة",
+        );
+      case "canceled":
+        return TextedContainer(
+          height: 30.h,
+          radius: 32.r,
+          containerColor: MainColors.lightYellow,
+          textColor: MainColors.yellow,
+          width: 80.w,
+          text: "تم الغاؤها",
+        );
+
+      default:
+        return TextedContainer(text: "غير محدد");
+    }
+  }
 }

@@ -1,8 +1,6 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-import '../../../../../../../core/helper_methods/helper_methods.dart';
-
-Future<dynamic> lectureReportModelSheet(BuildContext context) {
+Future<dynamic> lectureReportModelSheet(BuildContext context, int index) {
   return showModalSheet(
     isFixedSize: true,
     minHeight: 101.h,
@@ -15,8 +13,13 @@ Future<dynamic> lectureReportModelSheet(BuildContext context) {
           vertical: 24.h,
         ),
         child: InkWell(
-          onTap: () =>
-              Navigator.pushNamed(context, RoutePaths.lectureReportView),
+          onTap: () {
+            //   Navigator.pushNamed(
+            //   arguments: index,
+            //   context,
+            //   RoutePaths.lectureReportView,
+            // );
+          },
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 12.h),
             height: 45.h,

@@ -129,6 +129,7 @@ class AppRouter {
           BlocProvider(
             create: (context) => UpdatechildprofileCubit(
               updateProfileUsecase: sl(),
+              removeAssignedStudentUsecase: sl(),
             ),
             child: UpdateChildProfile(userId: userId),
           ),
@@ -402,14 +403,24 @@ class AppRouter {
         );
       case RoutePaths.subscribedStudentsSettingsView:
         return createRoute(
-          BlocProvider(
-            create: (context) => MyProgramsCubit(
-              changeSessionStatusUsecase: sl(),
-              getAssignedChildrenToProgramUsecase: sl(),
-              getMyProgramsUsecase: sl(),
-              getSessionDetailsUsecase: sl(),
-              joinSessionUsecase: sl(),
-            ),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => MyProgramsCubit(
+                  changeSessionStatusUsecase: sl(),
+                  getAssignedChildrenToProgramUsecase: sl(),
+                  getMyProgramsUsecase: sl(),
+                  getSessionDetailsUsecase: sl(),
+                  joinSessionUsecase: sl(),
+                ),
+              ),
+              BlocProvider(
+                create: (context) => UpdatechildprofileCubit(
+                  removeAssignedStudentUsecase: sl(),
+                  updateProfileUsecase: sl(),
+                ),
+              ),
+            ],
             child: const SubscribedStudentsSettingsView(),
           ),
         );

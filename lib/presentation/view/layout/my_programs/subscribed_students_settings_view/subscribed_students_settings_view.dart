@@ -147,8 +147,8 @@ class _SubscribedStudentsSettingsViewState
                           }
 
                           var studentImages = myProgramsCubit
-                              .getAssignedChildrenToProgramEntity?.data
-                              ?.map((e) => e.image ?? '')
+                              .students
+                              .map((e) => e.image ?? '')
                               .toList();
                           int studentCount = myProgramsCubit
                                   .getAssignedChildrenToProgramEntity
@@ -157,7 +157,7 @@ class _SubscribedStudentsSettingsViewState
                               0;
                           String show = studentCount > 1 ? "طلاب" : "طالب";
                           return NestedAvatarContainer(
-                            image: studentImages ?? [],
+                            image: studentImages.cast<String>(),
                             number: "$studentCount $show",
                             avatarWidth: 24.w,
                             noOfItems: studentCount,
@@ -242,7 +242,8 @@ class _SubscribedStudentsSettingsViewState
                         InkWell(
                           onTap: () {
                             myProgramsCubit.getAssignedChildrenToProgram(
-                                programId: programId);
+                              programId: programId,
+                            );
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
@@ -268,10 +269,9 @@ class _SubscribedStudentsSettingsViewState
                 );
               }
 
-              var students =
-                  myProgramsCubit.getAssignedChildrenToProgramEntity?.data;
+              var students = myProgramsCubit.students;
 
-              if (students == null || students.isEmpty) {
+              if (students.isEmpty) {
                 return SizedBox(
                   height: 200.h,
                   child: Center(

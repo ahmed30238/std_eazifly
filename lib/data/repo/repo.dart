@@ -94,6 +94,7 @@ import 'package:eazifly_student/domain/entities/sessions/change_session_date_ent
 import 'package:eazifly_student/domain/entities/sessions/get_cancel_session_reason_entity.dart';
 import 'package:eazifly_student/domain/entities/sessions/get_instructor_availabilities_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_program_subscription_entity.dart';
+import 'package:eazifly_student/domain/entities/subscription_management/remove_assigned_student_entity.dart';
 
 class Repository extends BaseRepository {
   BaseRemoteDataSource baseRemoteDataSource;
@@ -941,6 +942,20 @@ class Repository extends BaseRepository {
     try {
       final result = await baseRemoteDataSource.updateProfile(
         data: data,
+        userId: userId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RemoveAssignedStudentEntity>> removeAssignedStudent(
+      {required int userId, required int programId}) async {
+    try {
+      final result = await baseRemoteDataSource.removeAssignedStudent(
+        programId: programId,
         userId: userId,
       );
       return Right(result);

@@ -87,6 +87,7 @@ import 'package:eazifly_student/domain/entities/store_favourite_list_entity.dart
 import 'package:eazifly_student/domain/entities/subscription_management/cancel_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_library_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_program_subscription_entity.dart';
+import 'package:eazifly_student/domain/entities/subscription_management/remove_assigned_student_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/renew_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/show_plan_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/upgrade_order_entity.dart';
@@ -279,5 +280,9 @@ abstract class BaseRepository {
   Future<Either<Failure, UpdateProfileEntity>> updateProfile({
     required int userId,
     required UpdateProfileTojson data,
+  });
+  Future<Either<Failure, RemoveAssignedStudentEntity>> removeAssignedStudent({
+    required int userId,
+    required int programId,
   });
 }

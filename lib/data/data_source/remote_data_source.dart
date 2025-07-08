@@ -91,6 +91,7 @@ import 'package:eazifly_student/data/models/sessions/get_instructor_availabiliti
 import 'package:eazifly_student/data/models/subscription_management/cancel_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/get_library_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/get_program_subscription_model.dart';
+import 'package:eazifly_student/data/models/subscription_management/remove_assigned_student_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
@@ -265,6 +266,10 @@ abstract class BaseRemoteDataSource {
   Future<UpdateProfileModel> updateProfile({
     required int userId,
     required UpdateProfileTojson data,
+  });
+  Future<RemoveAssignedStudentModel> removeAssignedStudent({
+    required int userId,
+    required int programId,
   });
 }
 
@@ -1863,6 +1868,28 @@ class RemoteDataSource extends BaseRemoteDataSource {
     } catch (e) {
       log('Error in updateProfile remote: $e');
       rethrow;
+    }
+  }
+
+  @override
+  Future<RemoveAssignedStudentModel> removeAssignedStudent({
+    required int userId,
+    required int programId,
+  }) async {
+    var response =
+        await NetworkCall().post(path: EndPoints.removeAssignedStudent, data: {
+      "program_id": programId,
+      "user_id": userId,
+    });
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return RemoveAssignedStudentModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
     }
   }
 }

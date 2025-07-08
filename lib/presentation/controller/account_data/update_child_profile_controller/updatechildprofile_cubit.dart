@@ -1,10 +1,11 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:eazifly_student/core/enums/gender_enum.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
+import 'package:eazifly_student/domain/entities/subscription_management/remove_assigned_student_entity.dart';
 import 'package:eazifly_student/domain/entities/user/update_profile_entity.dart';
+import 'package:eazifly_student/domain/use_cases/remove_assigned_student_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/update_profile_usecase.dart';
 import 'package:eazifly_student/presentation/controller/account_data/update_child_profile_controller/updatechildprofile_state.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
   UpdatechildprofileCubit({
     required this.updateProfileUsecase,
+    required this.removeAssignedStudentUsecase,
   }) : super(UpdatechildprofileInitial());
 
   TextEditingController lastNameController = TextEditingController();
@@ -99,9 +101,40 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
     }
   }
 
+// Variables
+  bool removeAssignedStudentLoader = false;
+  RemoveAssignedStudentEntity? removeAssignedStudentEntity;
+  RemoveAssignedStudentUsecase removeAssignedStudentUsecase;
+
+// Method
+  Future<void> removeAssignedStudent({
+    required int programId,
+    required int userId,
+  }) async {
+    removeAssignedStudentLoader = true;
+    emit(RemoveAssignedStudentLoadingState());
+
+    final result = await removeAssignedStudentUsecase.call(
+      parameter: RemoveAssignedStudetParameters(
+        programId: programId,
+        userId: userId,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        removeAssignedStudentLoader = false;
+        emit(RemoveAssignedStudentErrorState(failure.message));
+      },
+      (data) {
+        removeAssignedStudentLoader = false;
+        emit(RemoveAssignedStudentSuccessState(programId, userId));
+      },
+    );
+  }
+
   @override
   Future<void> close() {
-    // إغلاق جميع الكونترولرات
     lastNameController.dispose();
     firstNameController.dispose();
     phoneController.dispose();
@@ -109,7 +142,6 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
     emailController.dispose();
     userNameController.dispose();
     ageController.dispose();
-    // image.dispose();
 
     return super.close();
   }

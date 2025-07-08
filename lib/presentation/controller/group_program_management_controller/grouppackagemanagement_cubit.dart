@@ -84,11 +84,13 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   ];
   int selectedStudentIndex = 0;
 
-  void incrementSelectedStudentIndex() {
+  void incrementSelectedStudentIndex(BuildContext context) {
     log("${addedChildren?.length}");
     if (addedChildren != null &&
         selectedStudentIndex < addedChildren!.length - 1) {
       selectedStudentIndex++;
+    } else {
+      Navigator.pushNamed(context, RoutePaths.layoutPath);
     }
     log("$selectedStudentIndex");
     emit(IncrementSelectedStudentndex());
@@ -700,7 +702,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     log("Specified dates content: ${specifiedDates.map((e) => '${e.start} - ${e.end}').toList()}");
   }
 
-  Future<void> createMeetingSessions() async {
+  Future<void> createMeetingSessions(BuildContext context) async {
     log("started");
     log("addedUsersIds: $addedUsersIds");
     log("selectedStudentIndex: $selectedStudentIndex");
@@ -775,7 +777,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
           log("Warning: isDoneAdded length (${isDoneAdded.length}) is less than selectedStudentIndex ($selectedStudentIndex)");
         }
 
-        incrementSelectedStudentIndex();
+        incrementSelectedStudentIndex(context);
         clearData();
         createMeetingSessionsLoader = false;
         emit(CreateMeetingSessionsSuccessState());
@@ -902,22 +904,22 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     return '';
   }
 
-  clearData() {
+  void clearData() {
     // TODO في مشكلة هنا
-    for (var controller in hoursControllers) {
-      controller.clear();
-    }
+    // for (var controller in hoursControllers) {
+    //   controller.clear();
+    // }
 
-    for (var controller in fromControllers) {
-      controller.clear();
-    }
+    // for (var controller in fromControllers) {
+    //   controller.clear();
+    // }
 
-    for (var controller in toControllers) {
-      controller.clear();
-    }
-    for (var controller in dayController) {
-      controller.clear();
-    }
+    // for (var controller in toControllers) {
+    //   controller.clear();
+    // }
+    // for (var controller in dayController) {
+    //   controller.clear();
+    // }
     // for (var controller in specifyAlldayController) {
     //   controller.clear();
     // }

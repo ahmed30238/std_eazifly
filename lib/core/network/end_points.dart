@@ -10,6 +10,7 @@ class EndPoints {
   static const storeFavouriteList = "store/favorite/list";
   static const addNote = "order/add/note";
   static const getRemainingProgramSessions = "program/sessions/date";
+  static const removeAssignedStudent = "remove/user/from/program";
   static String updateProfile({required int userId}) =>
       "update/profile/$userId";
   static String getUserSubscriptionData(

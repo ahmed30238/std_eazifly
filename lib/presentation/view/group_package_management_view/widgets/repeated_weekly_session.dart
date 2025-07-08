@@ -265,7 +265,7 @@ class RepeatedWeeklySession extends StatelessWidget {
               }
               if (cubit.getInstructorsEntity?.data != null &&
                   cubit.getInstructorsEntity!.data!.isNotEmpty) {
-                cubit.createMeetingSessions();
+                cubit.createMeetingSessions(context);
               } else {
                 delightfulToast(message: "غير متوفر", context: context);
               }

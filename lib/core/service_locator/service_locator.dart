@@ -60,6 +60,7 @@ import 'package:eazifly_student/domain/use_cases/library_order_and_subscription_
 import 'package:eazifly_student/domain/use_cases/like_item_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/login_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/post_assignment_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/remove_assigned_student_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/renew_subscription_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/send_messages_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_library_item_usecase.dart';
@@ -194,6 +195,7 @@ class ServiceLocator {
     sl.registerLazySingleton(
         () => GetChangeInstructorReasonsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => UpdateProfileUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => RemoveAssignedStudentUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(

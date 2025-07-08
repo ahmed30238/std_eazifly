@@ -14,7 +14,6 @@ class Lecturehistoryview extends StatefulWidget {
 class _LecturehistoryviewState extends State<Lecturehistoryview> {
   late int programId;
   late LectureCubit lectureCubit;
-  // late MyProgramsCubit myProgramsCubit;
   @override
   void initState() {
     lectureCubit = context.read<LectureCubit>();
@@ -89,8 +88,6 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                       BlocBuilder(
                         bloc: lectureCubit,
                         builder: (context, state) {
-
-
                           // String expireDate = context.read<MyProgramsCubit>().getMyProgramsEntity.data[0].ex;
                           //     LectureStateHelper.getTimeDifference(
                           //   nextSession: programData
@@ -153,16 +150,37 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                         ),
                       ),
                       12.ph,
-                      SizedBox(
-                        height: 8 * 155,
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) =>
-                              const LectureHistoryDetails(),
-                          separatorBuilder: (context, index) => 8.ph,
-                          itemCount: 8,
-                        ),
+                      BlocBuilder(
+                        bloc: lectureCubit,
+                        builder: (context, state) {
+                          var sessions =
+                              lectureCubit.getProgramSessionsEntity?.data;
+                          return SizedBox(
+                            height:
+                                sessions != null ? sessions.length * 155 : 0,
+                            child: ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                var session = sessions?[index];
+                                return LectureHistoryDetails(
+                                  title: session?.programTitle ?? "",
+                                  index: index,
+                                  sessionDate: session?.sessionDatetime
+                                          ?.toIso8601String()
+                                          .substring(0, 10) ??
+                                      "",
+                                  sessionDuration: session?.duration ?? "",
+                                  sessionTime:
+                                      "${session?.sessionTime?.substring(0, 5)} الي ${session?.sessionTimeTo?.substring(0, 5)}",
+                                  status: session?.status ?? "",
+                                );
+                              },
+                              separatorBuilder: (context, index) => 8.ph,
+                              itemCount: sessions?.length ?? 0,
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),

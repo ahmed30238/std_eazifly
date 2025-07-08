@@ -19,6 +19,10 @@ class GetInstructorsEntity {
 }
 
 class GetInstructorsInstructorEntity {
+  static int? customInt(val) {
+    return int.tryParse(val?.toString() ?? "");
+  }
+
   @JsonKey(name: "id")
   int? id;
 
@@ -37,7 +41,7 @@ class GetInstructorsInstructorEntity {
   @JsonKey(name: "address")
   String? address;
 
-  @JsonKey(name: "age")
+  @JsonKey(name: "age", fromJson: customInt)
   int? age;
 
   @JsonKey(name: "gender")

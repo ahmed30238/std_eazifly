@@ -13,3 +13,17 @@ class UpdateProfileErrorState extends UpdatechildprofileState {
 
   UpdateProfileErrorState({required this.errorMessage});
 }
+
+// RemoveAssignedStudent States
+class RemoveAssignedStudentLoadingState extends UpdatechildprofileState {}
+
+class RemoveAssignedStudentSuccessState extends UpdatechildprofileState {
+  final int programId;
+  final int userId;
+  RemoveAssignedStudentSuccessState(this.programId, this.userId);
+}
+
+class RemoveAssignedStudentErrorState extends UpdatechildprofileState {
+  final String message;
+  RemoveAssignedStudentErrorState(this.message);
+}

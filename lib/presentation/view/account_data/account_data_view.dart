@@ -98,19 +98,20 @@ class _AccountDataState extends State<AccountData> {
                 32.ph,
                 TitledFormFieldItem(
                   enabled: false,
+                  iconWidget: 0.ph,
                   controller: TextEditingController(
-                      text: "${loginData.firstName} ${loginData.lastName}"),
+                      text: "${loginData.userName}"),
                   formfieldHintText: "",
-                  titleText: "إسم المستخدم بالعربية",
+                  titleText: "اسم المستخدم",
                 ),
                 16.ph,
                 TitledFormFieldItem(
                   iconWidget: 0.ph,
                   enabled: false,
-                  titleText: "العنوان",
+                  titleText: "الهاتف",
                   formfieldHintText: "",
                   controller: TextEditingController(
-                      text: loginData.parentName ?? "No Address"),
+                      text: loginData.phone ?? "No Address"),
                   // formfieldEnText: "loginData.address",
                 ),
                 16.ph,
