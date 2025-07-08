@@ -11,7 +11,7 @@ List<String> textList(BuildContext context) {
   return textList;
 }
 List<String> paths = [
-  RoutePaths.lectureView,
+  RoutePaths.currentSession,
   RoutePaths.assignments,
   RoutePaths.quizzes,
   RoutePaths.meetings,

@@ -11,6 +11,8 @@ import 'package:eazifly_student/data/models/change_instructor/get_user_subscript
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/data/models/children/get_my_children_model.dart';
+import 'package:eazifly_student/data/models/home/get_home_closest_sessions_model.dart';
+import 'package:eazifly_student/data/models/home/get_home_current_session_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_list_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_items_using_list_id_model.dart';
@@ -63,6 +65,7 @@ import 'package:eazifly_student/data/models/sessions/cancel_session_tojson.dart'
 import 'package:eazifly_student/data/models/sessions/change_session_date_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/cancel_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/get_library_subscription_model.dart';
+import 'package:eazifly_student/data/models/subscription_management/remove_assigned_student_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
@@ -85,6 +88,7 @@ import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.d
 import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
 import 'package:eazifly_student/domain/entities/get_program_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
+import 'package:eazifly_student/domain/entities/home/get_home_library_entity.dart';
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/change_session_status_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
@@ -94,7 +98,6 @@ import 'package:eazifly_student/domain/entities/sessions/change_session_date_ent
 import 'package:eazifly_student/domain/entities/sessions/get_cancel_session_reason_entity.dart';
 import 'package:eazifly_student/domain/entities/sessions/get_instructor_availabilities_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_program_subscription_entity.dart';
-import 'package:eazifly_student/domain/entities/subscription_management/remove_assigned_student_entity.dart';
 
 class Repository extends BaseRepository {
   BaseRemoteDataSource baseRemoteDataSource;
@@ -951,13 +954,49 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, RemoveAssignedStudentEntity>> removeAssignedStudent(
+  Future<Either<Failure, RemoveAssignedStudentModel>> removeAssignedStudent(
       {required int userId, required int programId}) async {
     try {
       final result = await baseRemoteDataSource.removeAssignedStudent(
         programId: programId,
         userId: userId,
       );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetHomeClosestSessionsModel>> getHomeClosestSessions(
+      {required int userId}) async {
+    try {
+      final result = await baseRemoteDataSource.getHomeClosestSessions(
+        userId: userId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetHomeCurrentSessionModel>> getHomeCurrentSession(
+      {required int userId}) async {
+    try {
+      final result = await baseRemoteDataSource.getHomeCurrentSession(
+        userId: userId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetHomeLibraryEntity>> getHomeLibrary() async {
+    try {
+      final result = await baseRemoteDataSource.getHomeLibrary();
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

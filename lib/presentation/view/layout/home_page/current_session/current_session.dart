@@ -1,27 +1,26 @@
 import 'package:eazifly_student/core/component/nested_avatar_container.dart';
-import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_stats_row.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NavigateToLectureView extends StatefulWidget {
-  final int sessionId;
-  const NavigateToLectureView({
+class CurrentSession extends StatefulWidget {
+  // final int sessionId;
+  const CurrentSession({
     super.key,
-    required this.sessionId,
+    // required this.sessionId,
   });
 
   @override
-  State<NavigateToLectureView> createState() => _NavigateToLectureViewState();
+  State<CurrentSession> createState() => _CurrentSessionState();
 }
 
-class _NavigateToLectureViewState extends State<NavigateToLectureView> {
-  late MyProgramsCubit cubit;
+class _CurrentSessionState extends State<CurrentSession> {
+  late HomeCubit cubit;
   @override
   void initState() {
-    cubit = context.read<MyProgramsCubit>();
+    cubit = context.read<HomeCubit>();
     super.initState();
-    cubit.getSessionDetails(sessionId: widget.sessionId);
+    cubit.getHomeCurrentSession();
   }
 
   @override
@@ -33,7 +32,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
           bloc: cubit,
           builder: (context, state) {
             String title =
-                cubit.getSessionDetailsEntity?.data?.programTitle ?? "";
+                cubit.getHomeCurrentSessionEntity?.data?.programTitle ?? "";
             return CustomAppBar(
               context,
               mainTitle: title,
@@ -52,7 +51,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
               bloc: cubit,
               builder: (context, state) {
                 String title =
-                    cubit.getSessionDetailsEntity?.data?.programTitle ?? "";
+                    cubit.getHomeCurrentSessionEntity?.data?.programTitle ?? "";
                 return Container(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   height: 78.h,
@@ -91,7 +90,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
             BlocBuilder(
               bloc: cubit,
               builder: (context, state) {
-                var item = cubit.getSessionDetailsEntity?.data;
+                var item = cubit.getHomeCurrentSessionEntity?.data;
                 return LectureStats(
                   horizontalPadding: 0,
                   state: item?.status == "started"
@@ -149,10 +148,9 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                           ),
                           index == 0
                               ? NestedAvatarContainer(
-                                noOfItems: 0,
+                                  noOfItems: 0,
                                   alignment: MainAxisAlignment.center,
-                                  image: [
-                                  ],
+                                  image: [],
                                   number: "9",
                                   textColors: MainColors.blackText,
                                   areaHeigt: 26.h,
@@ -211,7 +209,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
               children: [
                 CustomElevatedButton(
                   height: 48.h,
-                  width: 197.w,
+                  width: 196.w,
                   color: MainColors.blueTextColor,
                   radius: 16.r,
                   text: "التوجهة الي المحاضرة",

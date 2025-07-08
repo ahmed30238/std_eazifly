@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var lang = context.loc!;
 
-    // var cubit = HomeCubit.get(context);
     return Scaffold(
       appBar: HomeAppbar(
         loginData: loginData,

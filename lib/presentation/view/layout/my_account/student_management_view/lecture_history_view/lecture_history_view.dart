@@ -187,7 +187,7 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                           }
 
                           if (sessions == null || sessions.isEmpty) {
-                            return Container(
+                            return SizedBox(
                               height: 150.h,
                               child: Center(
                                 child: Column(
@@ -238,7 +238,7 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                           );
                         },
                       ),
-                      16.ph, // Add some bottom padding
+                      16.ph,
                     ],
                   ),
                 )

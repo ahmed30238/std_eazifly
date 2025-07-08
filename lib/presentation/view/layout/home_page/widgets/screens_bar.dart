@@ -1,4 +1,5 @@
 import 'package:eazifly_student/core/component/icons_container.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/widgets/dummy_data.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -15,7 +16,12 @@ class ScreensBar extends StatelessWidget {
         4,
         (index) => InkWell(
           onTap: () => Navigator.pushNamed(
-            arguments: false,
+            arguments: index == 0
+                ? {
+                    "cubit": context.read<MyProgramsCubit>(),
+                    "sessionId": 1,
+                  }
+                : false,
             context,
             paths[index],
           ),

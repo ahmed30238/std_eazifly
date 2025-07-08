@@ -32,6 +32,7 @@ import 'package:eazifly_student/presentation/view/goals_view/goal_details_view/g
 import 'package:eazifly_student/presentation/view/goals_view/goals_view.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/group_package_management_view.dart';
 import 'package:eazifly_student/presentation/view/home_meetings_view/home_meetings_view.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/current_session/current_session.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_notification_view.dart/home_notofication_view.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/navigate_to_lecture_view/navigate_to_lecture_view.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
@@ -79,6 +80,7 @@ import 'package:eazifly_student/presentation/view/package_details_view/package_d
 import 'package:eazifly_student/presentation/view/programs_underreview/programs_under_review_view.dart';
 import 'package:eazifly_student/presentation/view/splash_screen/splash_view.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/subscription_details_view.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:eazifly_student/presentation/view/update_child_profile/update_child_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -772,6 +774,19 @@ class AppRouter {
             child: NavigateToLectureView(
               sessionId: sessionId,
             ),
+          ),
+        );
+      case RoutePaths.currentSession:
+        // var arguments = settings.arguments as Map<String, dynamic>;
+
+        return createRoute(
+          BlocProvider(
+            create: (context) => HomeCubit(
+              getHomeClosestSessionsUsecase: sl(),
+              getHomeLibraryUsecase: sl(),
+              getHomeCurrentSessionUsecase: sl(),
+            ),
+            child: const CurrentSession(),
           ),
         );
       case RoutePaths.addNewStudentData:

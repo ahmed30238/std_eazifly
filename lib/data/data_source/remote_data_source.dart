@@ -18,6 +18,9 @@ import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart
 import 'package:eazifly_student/data/models/children/create_new_child_model.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/data/models/children/get_my_children_model.dart';
+import 'package:eazifly_student/data/models/home/get_home_closest_sessions_model.dart';
+import 'package:eazifly_student/data/models/home/get_home_current_session_model.dart';
+import 'package:eazifly_student/data/models/home/get_home_library_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_list_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_items_using_list_id_model.dart';
@@ -169,6 +172,13 @@ abstract class BaseRemoteDataSource {
   Future<GetContentChapterModel> getContentChapter({
     required int userId,
   });
+  Future<GetHomeCurrentSessionModel> getHomeCurrentSession({
+    required int userId,
+  });
+  Future<GetHomeClosestSessionsModel> getHomeClosestSessions({
+    required int userId,
+  });
+  Future<GetHomeLibraryModel> getHomeLibrary();
   Future<GetChapterLessonsModel> getChapterLessons({
     required int chapterId,
   });
@@ -1884,6 +1894,57 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return RemoveAssignedStudentModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetHomeClosestSessionsModel> getHomeClosestSessions(
+      {required int userId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getHomeClosestSessions(userId: userId),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetHomeClosestSessionsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetHomeCurrentSessionModel> getHomeCurrentSession(
+      {required int userId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getHomeCurrentSession(userId: userId),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetHomeCurrentSessionModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetHomeLibraryModel> getHomeLibrary() async {
+    var response = await NetworkCall().get(path: EndPoints.getHomeLibrary);
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetHomeLibraryModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

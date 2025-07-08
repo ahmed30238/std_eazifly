@@ -13,6 +13,11 @@ class EndPoints {
   static const removeAssignedStudent = "remove/user/from/program";
   static String updateProfile({required int userId}) =>
       "update/profile/$userId";
+  static String getHomeCurrentSession({required int userId}) =>
+      "home/current/session/$userId";
+  static const getHomeLibrary = "library/category/with/items";
+  static String getHomeClosestSessions({required int userId}) =>
+      "home/program/sessions/$userId";
   static String getUserSubscriptionData(
           {required int userId, required int programId}) =>
       "subscription/data?program_id=$programId&user_id=$userId";

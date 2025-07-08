@@ -55,6 +55,9 @@ import 'package:eazifly_student/domain/entities/get_program_details_entities.dar
 import 'package:eazifly_student/domain/entities/get_program_payment_methods_entities.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/domain/entities/get_user_orders_entities.dart';
+import 'package:eazifly_student/domain/entities/home/get_home_closest_sessions_entity.dart';
+import 'package:eazifly_student/domain/entities/home/get_home_current_session_entity.dart';
+import 'package:eazifly_student/domain/entities/home/get_home_library_entity.dart';
 import 'package:eazifly_student/domain/entities/library_order_and_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/login_entities.dart';
@@ -284,5 +287,12 @@ abstract class BaseRepository {
   Future<Either<Failure, RemoveAssignedStudentEntity>> removeAssignedStudent({
     required int userId,
     required int programId,
+  });
+  Future<Either<Failure, GetHomeCurrentSessionEntity>> getHomeCurrentSession({
+    required int userId,
+  });
+  Future<Either<Failure, GetHomeLibraryEntity>> getHomeLibrary();
+  Future<Either<Failure, GetHomeClosestSessionsEntity>> getHomeClosestSessions({
+    required int userId,
   });
 }
