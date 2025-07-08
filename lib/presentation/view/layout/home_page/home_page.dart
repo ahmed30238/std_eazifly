@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                     title: "المحاضرات القادمة",
                   ),
                   12.ph,
-                  const NextLectureList(),
+                  NextLectureList(),
                 },
                 // if (!isGuest) ...{
                 // },

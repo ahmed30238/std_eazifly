@@ -1,10 +1,16 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class NextLectureItem extends StatelessWidget {
+  final String title;
+  final String sessionDuration;
+  final String sessionTime;
   final VoidCallback onTap;
   const NextLectureItem({
     super.key,
     required this.onTap,
+    required this.title,
+    required this.sessionDuration,
+    required this.sessionTime,
   });
 
   @override
@@ -29,7 +35,7 @@ class NextLectureItem extends StatelessWidget {
           children: [
             16.ph,
             Text(
-              "إسم المحاضرة",
+              title,
               style: MainTextStyle.boldTextStyle(
                 fontSize: 14,
               ),
@@ -40,9 +46,9 @@ class NextLectureItem extends StatelessWidget {
               fixedSpace: 8.ph,
               firstTitle: "وقت المحاضرة",
               onRejoinTap: () {},
-              firstSubTitle: "12:45 PM",
+              firstSubTitle: sessionTime,
               secondTitle: lang.sessionDuration,
-              secondSubTitle: "30 دقيقة",
+              secondSubTitle: sessionDuration,
               thirdSubTitle: "",
               thirdTitle: lang.sessionState,
             )

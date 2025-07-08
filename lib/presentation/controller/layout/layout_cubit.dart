@@ -27,22 +27,24 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<Widget> screens = [
     MultiBlocProvider(
       providers: [
-        BlocProvider<HomeCubit>(
+        BlocProvider(
           create: (context) => HomeCubit(
             getHomeClosestSessionsUsecase: sl(),
             getHomeCurrentSessionUsecase: sl(),
             getHomeLibraryUsecase: sl(),
-          ),
+          )
+            ..getHomeLibrary()
+            ..getHomeClosestSessions(),
         ),
-        BlocProvider(
-          create: (context) => MyProgramsCubit(
-            changeSessionStatusUsecase: sl(),
-            getAssignedChildrenToProgramUsecase: sl(),
-            getMyProgramsUsecase: sl(),
-            getSessionDetailsUsecase: sl(),
-            joinSessionUsecase: sl(),
-          ),
-        ),
+        // BlocProvider(
+        //   create: (context) => MyProgramsCubit(
+        //     changeSessionStatusUsecase: sl(),
+        //     getAssignedChildrenToProgramUsecase: sl(),
+        //     getMyProgramsUsecase: sl(),
+        //     getSessionDetailsUsecase: sl(),
+        //     joinSessionUsecase: sl(),
+        //   ),
+        // ),
       ],
       child: const HomePage(),
     ),
