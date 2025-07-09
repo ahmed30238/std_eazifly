@@ -178,6 +178,8 @@ class LectureStates extends StatelessWidget {
         return "مجدولة";
       case LectureStatesEnum.finished:
         return "انتهت";
+      case LectureStatesEnum.pending:
+        return "قادمة";
       default:
         return "غير محدد";
     }

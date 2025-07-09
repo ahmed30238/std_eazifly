@@ -5,12 +5,18 @@ class NextLectureItem extends StatelessWidget {
   final String sessionDuration;
   final String sessionTime;
   final VoidCallback onTap;
+  final VoidCallback onRejoinTap;
+  final bool isRejoin;
+  final String sessionState;
   const NextLectureItem({
     super.key,
     required this.onTap,
     required this.title,
     required this.sessionDuration,
     required this.sessionTime,
+    required this.onRejoinTap,
+    required this.isRejoin,
+    required this.sessionState,
   });
 
   @override
@@ -45,12 +51,15 @@ class NextLectureItem extends StatelessWidget {
             SessionDatesDetails(
               fixedSpace: 8.ph,
               firstTitle: "وقت المحاضرة",
-              onRejoinTap: () {},
+              onRejoinTap: onRejoinTap,
+              isBtn: isRejoin,
               firstSubTitle: sessionTime,
               secondTitle: lang.sessionDuration,
               secondSubTitle: sessionDuration,
-              thirdSubTitle: "",
-              thirdTitle: lang.sessionState,
+              thirdSubTitle: sessionState,
+              thirdTitle: sessionState == "started"
+                  ? lang.sessionState
+                  : "تاريخ المحاضرة",
             )
           ],
         ),

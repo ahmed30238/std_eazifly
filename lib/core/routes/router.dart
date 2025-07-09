@@ -35,6 +35,7 @@ import 'package:eazifly_student/presentation/view/home_meetings_view/home_meetin
 import 'package:eazifly_student/presentation/view/layout/home_page/current_session/current_session.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_notification_view.dart/home_notofication_view.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/navigate_to_lecture_view/navigate_to_lecture_view.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/widgets/view_all_next_sessions.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
 import 'package:eazifly_student/presentation/view/layout/library/add_to_library_package_details/add_to_library_package_details.dart';
 import 'package:eazifly_student/presentation/view/layout/library/audio_playlist_view/audio_playlist_view.dart';
@@ -777,18 +778,21 @@ class AppRouter {
           ),
         );
       case RoutePaths.currentSession:
-        // var arguments = settings.arguments as Map<String, dynamic>;
-
-        return createRoute(
-          BlocProvider(
-            create: (context) => HomeCubit(
-              getHomeClosestSessionsUsecase: sl(),
-              getHomeLibraryUsecase: sl(),
-              getHomeCurrentSessionUsecase: sl(),
+        return createRoute(MultiBlocProvider(
+          providers: [
+            BlocProvider.value(
+              value: sl<HomeCubit>(),
             ),
-            child: const CurrentSession(),
-          ),
-        );
+            BlocProvider(
+              create: (context) => ChatsCubit(
+                getMessagesUsecase: sl(),
+                sendMessagesUsecase: sl(),
+                addNoteUsecase: sl(),
+              ),
+            ),
+          ],
+          child: const CurrentSession(),
+        ));
       case RoutePaths.addNewStudentData:
         var argument = settings.arguments as Map<String, dynamic>?;
         String orderId = argument?["orderId"] as String? ?? "";
@@ -804,9 +808,9 @@ class AppRouter {
       case RoutePaths.dmViewPath:
         var argument = settings.arguments as Map<String, dynamic>?;
         var cubit = argument?["cubit"] as ChatsCubit;
-        var isReport = argument?["isReport"] as bool;
-        String orderId = argument?["orderId"] as String? ?? "";
-        String? problemState = argument?["problemState"] as String;
+        var isReport = argument?["isReport"] as bool? ?? false;
+        String orderId = argument?["orderId"] as String? ?? "0";
+        String? problemState = argument?["problemState"] as String? ?? "";
         // var cubit = settings.arguments as ChatsCubit;
         return createRoute(
           MultiBlocProvider(
@@ -828,6 +832,14 @@ class AppRouter {
           BlocProvider(
             create: (context) => NotificationCubit(),
             child: const NotificationView(),
+          ),
+        );
+      case RoutePaths.viewAllNextSessions:
+        // var cubit = settings.arguments as HomeCubit;
+        return createRoute(
+          BlocProvider.value(
+            value: sl<HomeCubit>(),
+            child: const ViewAllNextSessions(),
           ),
         );
       default:

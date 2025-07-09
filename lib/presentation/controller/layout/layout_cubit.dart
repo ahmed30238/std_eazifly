@@ -1,16 +1,15 @@
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/service_locator/service_locator.dart';
-import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_state.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_controller/programs_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/layout/library/library.dart';
+import 'package:eazifly_student/presentation/view/layout/my_account/settings.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/my_programs.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/programs_view.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,23 +27,27 @@ class LayoutCubit extends Cubit<LayoutState> {
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => HomeCubit(
-            getHomeClosestSessionsUsecase: sl(),
-            getHomeCurrentSessionUsecase: sl(),
-            getHomeLibraryUsecase: sl(),
-          )
-            ..getHomeLibrary()
-            ..getHomeClosestSessions(),
+          create: (context) => MyProgramsCubit(
+              getMyProgramsUsecase: sl(),
+              getSessionDetailsUsecase: sl(),
+              joinSessionUsecase: sl(),
+              getAssignedChildrenToProgramUsecase: sl(),
+              changeSessionStatusUsecase: sl()),
         ),
-        // BlocProvider(
-        //   create: (context) => MyProgramsCubit(
-        //     changeSessionStatusUsecase: sl(),
-        //     getAssignedChildrenToProgramUsecase: sl(),
-        //     getMyProgramsUsecase: sl(),
-        //     getSessionDetailsUsecase: sl(),
-        //     joinSessionUsecase: sl(),
-        //   ),
-        // ),
+        BlocProvider(
+          create: (context) => LibraryCubit(
+            addSingleItemToFavListUsecase: sl(),
+            allLibraryListsUsecase: sl(),
+            getAllItemsUsecase: sl(),
+            getFavouriteListItemUsingListIdUsecase: sl(),
+            getFavouriteListUsecase: sl(),
+            getLibraryItemsUsecase: sl(),
+            getListItemsUsingListIdUsecase: sl(),
+            libraryCategoriesUsecase: sl(),
+            likeItemUsecase: sl(),
+            storeFavouriteListUsecase: sl(),
+          ),
+        ),
       ],
       child: const HomePage(),
     ),

@@ -70,7 +70,7 @@ class GetHomeCurrentSessionData {
 class GetHomeCurrentSessionUser {
   @JsonKey(name: "id")
   int? id;
-  @JsonKey(name: "GetHomeCurrentSession_name")
+  @JsonKey(name: "user_name")
   String? userName;
 
   GetHomeCurrentSessionUser({

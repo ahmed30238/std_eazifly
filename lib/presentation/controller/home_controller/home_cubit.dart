@@ -20,27 +20,57 @@ class HomeCubit extends Cubit<HomeState> {
     required this.getHomeCurrentSessionUsecase,
     required this.getHomeClosestSessionsUsecase,
   }) : super(HomeInitial()) {
-    userId = DataModel.fromJson(
-          jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
-        ).id ??
-        0;
+    _initializeUser();
   }
+  
   static HomeCubit get(context) => BlocProvider.of(context);
-  CarouselSliderController carouselSliderController =
-      CarouselSliderController();
+  CarouselSliderController carouselSliderController = CarouselSliderController();
 
+  int userId = -1;
+  bool isGuest = true;
+
+  void _initializeUser() {
+    try {
+      final loginData = DataModel.fromJson(
+        jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
+      );
+      userId = loginData.id ?? 0;
+      isGuest = loginData.isGuest ?? true;
+    } catch (e) {
+      userId = 0;
+      isGuest = true;
+    }
+  }
+
+  // Initialize all data
+  Future<void> initializeHomeData() async {
+    // Always load library
+    await getHomeLibrary();
+    
+    // Only load user-specific data if not guest
+    if (!isGuest && userId > 0) {
+      await Future.wait([
+        getHomeCurrentSession(),
+        getHomeClosestSessions(),
+      ]);
+    }
+  }
+
+  // Current Session
   bool getHomeCurrentSessionLoader = false;
   GetHomeCurrentSessionEntity? getHomeCurrentSessionEntity;
   GetHomeCurrentSessionUsecase getHomeCurrentSessionUsecase;
 
-  int userId = -1;
   Future<void> getHomeCurrentSession() async {
+    if (isGuest) return;
+    
     getHomeCurrentSessionLoader = true;
     emit(GetHomeCurrentSessionLoadingState());
+    
     final result = await getHomeCurrentSessionUsecase.call(
-      parameter: GetHomeCurrentSessionParameters(
-          userId: userId), // تأكد من وجود userId في الكلاس
+      parameter: GetHomeCurrentSessionParameters(userId: userId),
     );
+    
     result.fold(
       (l) {
         getHomeCurrentSessionLoader = false;
@@ -54,6 +84,7 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
+  // Home Library
   bool getHomeLibraryLoader = false;
   GetHomeLibraryEntity? getHomeLibraryEntity;
   GetHomeLibraryUsecase getHomeLibraryUsecase;
@@ -61,9 +92,11 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> getHomeLibrary() async {
     getHomeLibraryLoader = true;
     emit(GetHomeLibraryLoadingState());
+    
     final result = await getHomeLibraryUsecase.call(
       parameter: NoParameter(),
     );
+    
     result.fold(
       (l) {
         getHomeLibraryLoader = false;
@@ -77,17 +110,21 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
+  // Closest Sessions
   bool getHomeClosestSessionsLoader = false;
   GetHomeClosestSessionsEntity? getHomeClosestSessionsEntity;
   GetHomeClosestSessionsUsecase getHomeClosestSessionsUsecase;
 
   Future<void> getHomeClosestSessions() async {
+    if (isGuest) return;
+    
     getHomeClosestSessionsLoader = true;
     emit(GetHomeClosestSessionsLoadingState());
+    
     final result = await getHomeClosestSessionsUsecase.call(
-      parameter: GetHomeClosestSessionsParameters(
-          userId: userId), // تأكد من وجود userId في الكلاس
+      parameter: GetHomeClosestSessionsParameters(userId: userId),
     );
+    
     result.fold(
       (l) {
         getHomeClosestSessionsLoader = false;
@@ -99,5 +136,24 @@ class HomeCubit extends Cubit<HomeState> {
         emit(GetHomeClosestSessionsSuccessState());
       },
     );
+  }
+
+  // Refresh all data
+  Future<void> refreshAllData() async {
+    await initializeHomeData();
+  }
+
+  // Reset cubit state
+  void resetState() {
+    getHomeCurrentSessionLoader = false;
+    getHomeCurrentSessionEntity = null;
+    
+    getHomeLibraryLoader = false;
+    getHomeLibraryEntity = null;
+    
+    getHomeClosestSessionsLoader = false;
+    getHomeClosestSessionsEntity = null;
+    
+    emit(HomeInitial());
   }
 }

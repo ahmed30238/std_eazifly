@@ -2,8 +2,10 @@ import 'package:eazifly_student/presentation/view/layout/home_page/widgets/next_
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class NextLectureList extends StatelessWidget {
+  final bool isHorizontal;
   const NextLectureList({
     super.key,
+    this.isHorizontal = true,
   });
 
   @override
@@ -15,11 +17,18 @@ class NextLectureList extends StatelessWidget {
         return SizedBox(
           height: 127.h,
           child: ListView.separated(
-            scrollDirection: Axis.horizontal,
+            padding:
+                isHorizontal ? null : EdgeInsets.symmetric(horizontal: 16.w),
+            scrollDirection: isHorizontal ? Axis.horizontal : Axis.vertical,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               var session = closestSessions?[index];
               return NextLectureItem(
+                isRejoin: session?.status == "started",
+                onRejoinTap: () {
+                  openUrl(session?.meetingUrl ?? "");
+                },
+                sessionState: "${session?.sessionDate.toString().substring(0,10)}",
                 sessionDuration: "${session?.duration} دقيقة",
                 sessionTime:
                     "${session?.sessionTime?.substring(0, 5)} ${session?.sessionTimeTo?.substring(0, 5)}",

@@ -74,11 +74,11 @@ GetHomeCurrentSessionUserModel _$GetHomeCurrentSessionUserModelFromJson(
         Map<String, dynamic> json) =>
     GetHomeCurrentSessionUserModel()
       ..id = (json['id'] as num?)?.toInt()
-      ..userName = json['GetHomeCurrentSession_name'] as String?;
+      ..userName = json['user_name'] as String?;
 
 Map<String, dynamic> _$GetHomeCurrentSessionUserModelToJson(
         GetHomeCurrentSessionUserModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'GetHomeCurrentSession_name': instance.userName,
+      'user_name': instance.userName,
     };

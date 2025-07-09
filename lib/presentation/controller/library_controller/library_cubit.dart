@@ -351,8 +351,10 @@ class LibraryCubit extends Cubit<LibraryState> {
   ShowLibraryItemEntity? libraryItemsEntity;
   ShowLibraryItemUsecase getLibraryItemsUsecase;
 
-  Future<void> showLibraryItem(
-      {required int itemId, required BuildContext context}) async {
+  Future<void> showLibraryItem({
+    required int itemId,
+    required BuildContext context,
+  }) async {
     getLibraryItemsLoader = true;
     emit(GetLibraryItemsLoadingState());
 

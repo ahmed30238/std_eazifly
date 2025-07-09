@@ -1,14 +1,11 @@
 import 'package:eazifly_student/core/component/nested_avatar_container.dart';
+import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_stats_row.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CurrentSession extends StatefulWidget {
-  // final int sessionId;
-  const CurrentSession({
-    super.key,
-    // required this.sessionId,
-  });
+  const CurrentSession({super.key});
 
   @override
   State<CurrentSession> createState() => _CurrentSessionState();
@@ -16,6 +13,7 @@ class CurrentSession extends StatefulWidget {
 
 class _CurrentSessionState extends State<CurrentSession> {
   late HomeCubit cubit;
+
   @override
   void initState() {
     cubit = context.read<HomeCubit>();
@@ -31,6 +29,9 @@ class _CurrentSessionState extends State<CurrentSession> {
         child: BlocBuilder(
           bloc: cubit,
           builder: (context, state) {
+            if (cubit.getHomeCurrentSessionEntity == null) {
+              return const Center(child: CircularProgressIndicator());
+            }
             String title =
                 cubit.getHomeCurrentSessionEntity?.data?.programTitle ?? "";
             return CustomAppBar(
@@ -50,6 +51,10 @@ class _CurrentSessionState extends State<CurrentSession> {
             BlocBuilder(
               bloc: cubit,
               builder: (context, state) {
+                if (cubit.getHomeCurrentSessionLoader ||
+                    cubit.getHomeCurrentSessionEntity == null) {
+                  return const Center(child: CircularProgressIndicator());
+                }
                 String title =
                     cubit.getHomeCurrentSessionEntity?.data?.programTitle ?? "";
                 return Container(
@@ -66,7 +71,6 @@ class _CurrentSessionState extends State<CurrentSession> {
                       width: 216.w,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             "إسم البرنامج",
@@ -90,6 +94,10 @@ class _CurrentSessionState extends State<CurrentSession> {
             BlocBuilder(
               bloc: cubit,
               builder: (context, state) {
+                if (cubit.getHomeCurrentSessionLoader ||
+                    cubit.getHomeCurrentSessionEntity == null) {
+                  return const Center(child: CircularProgressIndicator());
+                }
                 var item = cubit.getHomeCurrentSessionEntity?.data;
                 return LectureStats(
                   horizontalPadding: 0,
@@ -97,91 +105,114 @@ class _CurrentSessionState extends State<CurrentSession> {
                       ? LectureStatesEnum.ongoing
                       : item?.status == "finished"
                           ? LectureStatesEnum.finished
-                          : LectureStatesEnum.dated,
+                          : LectureStatesEnum.pending,
                   reJoin: item?.status == "started",
+                  nextLecture: "${item?.sessionTime?.substring(0, 5)}",
                   onRejoinTap: () {
                     // كود إعادة الدخول
                   },
-                  // nextLecture: nextLec, // الوقت المنسق من الدالة السابقة
                   duration: "${item?.duration} دقيقة",
-                  // timeDiff: formattedTimeDiff, // الوقت المنسق من الدالة السابقة
                   titleText: const [
                     "المحاضرة التالية",
                     "مدة الجلسة",
                     "حالة الجلسة"
-                  ], // اختياري
+                  ],
                 );
               },
             ),
             8.ph,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                3,
-                (index) => Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: index == 1 ? 7.w : 0),
-                  child: InkWell(
-                    onTap: () {},
-                    child: Container(
+            BlocBuilder(
+              bloc: cubit,
+              builder: (context, state) {
+                if (cubit.getHomeCurrentSessionLoader ||
+                    cubit.getHomeCurrentSessionEntity == null) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                var item = cubit.getHomeCurrentSessionEntity?.data;
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    3,
+                    (index) => Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: index == 2 ? 12.w : 0,
-                      ),
-                      height: 78.h,
-                      width: 109.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        color: MainColors.veryLightGrayFormField,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: index == 2
-                            ? CrossAxisAlignment.start
-                            : CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            stdTitleList[index],
-                            style: MainTextStyle.boldTextStyle(
-                              fontSize: 12,
-                              color: MainColors.grayTextColors,
-                            ),
+                          horizontal: index == 1 ? 7.w : 0),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: index == 2 ? 12.w : 0,
                           ),
-                          index == 0
-                              ? NestedAvatarContainer(
-                                  noOfItems: 0,
-                                  alignment: MainAxisAlignment.center,
-                                  image: [],
-                                  number: "9",
-                                  textColors: MainColors.blackText,
-                                  areaHeigt: 26.h,
-                                  areaWidth: 52.w,
-                                  avatarHeigt: 24.h,
-                                  avatarWidth: 24.w,
-                                )
-                              : index == 1
-                                  ? Text(
-                                      "عبر تطبيق زوم",
-                                      style: MainTextStyle.boldTextStyle(
-                                        fontSize: 12,
-                                        color: MainColors.blackText,
-                                      ),
-                                    )
-                                  : Text(
-                                      "Zoom Link",
-                                      style: GoogleFonts.inter(
-                                          color: MainColors.blueTextColor,
-                                          decoration: TextDecoration.underline,
-                                          decorationColor:
-                                              MainColors.blueTextColor,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                        ],
+                          height: 78.h,
+                          width: 109.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            color: MainColors.veryLightGrayFormField,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: index == 2
+                                ? CrossAxisAlignment.start
+                                : CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                stdTitleList[index],
+                                style: MainTextStyle.boldTextStyle(
+                                  fontSize: 12,
+                                  color: MainColors.grayTextColors,
+                                ),
+                              ),
+                              index == 0
+                                  ? (item!.users!.length != 1)
+                                      ? NestedAvatarContainer(
+                                          noOfItems: item.users!.length,
+                                          alignment: MainAxisAlignment.center,
+                                          image: (item.users
+                                                  ?.map((e) => e.userName ?? "")
+                                                  .toList()) ??
+                                              [],
+                                          number:
+                                              item.users?.length.toString() ??
+                                                  "0",
+                                          textColors: MainColors.blackText,
+                                          areaHeigt: 26.h,
+                                          areaWidth: 52.w,
+                                          avatarHeigt: 24.h,
+                                          avatarWidth: 24.w,
+                                        )
+                                      : Text(
+                                          "${item.users?.first.userName}",
+                                          style: MainTextStyle.boldTextStyle(
+                                            fontSize: 14,
+                                            plusJakartaSans: true,
+                                          ),
+                                        )
+                                  : index == 1
+                                      ? Text(
+                                          "عبر تطبيق زوم",
+                                          style: MainTextStyle.boldTextStyle(
+                                            fontSize: 12,
+                                            color: MainColors.blackText,
+                                          ),
+                                        )
+                                      : Text(
+                                          "Zoom Link",
+                                          style: GoogleFonts.inter(
+                                              color: MainColors.blueTextColor,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              decorationColor:
+                                                  MainColors.blueTextColor,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
             24.ph,
             Row(
@@ -225,7 +256,22 @@ class _CurrentSessionState extends State<CurrentSession> {
                   radius: 16.r,
                   text: "تواصل مع المعلم",
                   textSize: 14,
-                  onPressed: () {},
+                  onPressed: () {
+                    /*
+                            var argument = settings.arguments as Map<String, dynamic>?;
+        var cubit = argument?["cubit"] as ChatsCubit;
+        var isReport = argument?["isReport"] as bool;
+        String orderId = argument?["orderId"] as String? ?? "";
+        String? problemState = argument?["problemState"] as String;
+                     */
+                    Navigator.pushNamed(
+                      context,
+                      arguments: {
+                        "cubit": context.read<ChatsCubit>(),
+                      },
+                      RoutePaths.dmViewPath,
+                    );
+                  },
                 ),
               ],
             ),

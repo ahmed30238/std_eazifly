@@ -17,6 +17,7 @@ class RoutePaths {
   // static const allPossibleFavItems = "allPossibleFavItems";
   static const confirmPaymentView = "confirmPaymentView";
   static const libraryconfirmPaymentView = "libraryconfirmPaymentView";
+  static const viewAllNextSessions = "viewAllNextSessions";
   static const completeLibraryPaymentProcessScreen =
       "completeLibraryPaymentProcessScreen";
   static const audioPlayListView = "audioPlayListView";

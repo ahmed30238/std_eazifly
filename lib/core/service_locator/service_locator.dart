@@ -75,6 +75,7 @@ import 'package:eazifly_student/domain/use_cases/update_profile_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/upgrade_order_usecase.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
+import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
@@ -198,15 +199,27 @@ class ServiceLocator {
     sl.registerLazySingleton(
         () => GetChangeInstructorReasonsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => UpdateProfileUsecase(baseRepository: sl()));
-    sl.registerLazySingleton(() => RemoveAssignedStudentUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => RemoveAssignedStudentUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetHomeLibraryUsecase(baseRepository: sl()));
-    sl.registerLazySingleton(() => GetHomeClosestSessionsUsecase(baseRepository: sl()));
-    sl.registerLazySingleton(() => GetHomeCurrentSessionUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetHomeClosestSessionsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetHomeCurrentSessionUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(
           getProgramPaymentMethodsUsecase: sl(),
         ));
+    sl.registerLazySingleton<HomeCubit>(
+      () => HomeCubit(
+        getHomeClosestSessionsUsecase: sl(),
+        getHomeCurrentSessionUsecase: sl(),
+        getHomeLibraryUsecase: sl(),
+      )
+        ..getHomeClosestSessions()
+        ..getHomeLibrary(),
+    );
     sl.registerLazySingleton<AddNewStudentDataToProgramCubit>(
       () => AddNewStudentDataToProgramCubit(
         createNewChildUsecase: sl<CreateNewChildUsecase>(),

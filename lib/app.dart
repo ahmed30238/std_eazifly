@@ -4,6 +4,7 @@ import 'package:eazifly_student/core/service_locator/service_locator.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
+import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_cubit.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_state.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ApplanuageCubit()..getAppLang()),
         BlocProvider(create: (context) => LayoutCubit()),
         BlocProvider(create: (context) => sl<ProgramsUnderReviewCubit>()),
+        BlocProvider(create: (context) => sl<HomeCubit>()),
         BlocProvider(
             create: (context) => sl<AddNewStudentDataToProgramCubit>()),
         BlocProvider(
