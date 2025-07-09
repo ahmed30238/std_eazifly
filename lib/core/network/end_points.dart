@@ -24,6 +24,10 @@ class EndPoints {
   static const changeInstructor = "change/instructor";
   static String getOrderDetails({required int orderId}) =>
       "order/details/$orderId";
+  static String getHomeQuizzes({required int userId}) =>
+      "get/quizzes?user_id=$userId";
+  static String getHomeAssignments({required int userId}) =>
+      "program/assignment?user_id=$userId";
   static const createMeetingSession = "create/meeting/session";
   static const getChangeInstructorReasons = "reason/change/instructor";
   static const getInstructors = "get/program/availabilities-instructors";

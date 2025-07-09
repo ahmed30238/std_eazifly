@@ -88,7 +88,9 @@ import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.d
 import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
 import 'package:eazifly_student/domain/entities/get_program_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
+import 'package:eazifly_student/domain/entities/home/get_home_assigments_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_library_entity.dart';
+import 'package:eazifly_student/domain/entities/home/get_home_quizzes_entity.dart';
 import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/change_session_status_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
@@ -997,6 +999,31 @@ class Repository extends BaseRepository {
   Future<Either<Failure, GetHomeLibraryEntity>> getHomeLibrary() async {
     try {
       final result = await baseRemoteDataSource.getHomeLibrary();
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetHomeAssignmentsEntity>> getHomeAssigments(
+      {required int userId}) async {
+    try {
+      final result =
+          await baseRemoteDataSource.getHomeAssignments(userId: userId);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetHomeQuizzesEntity>> getHomeQuizzes(
+      {required int userId}) async {
+    try {
+      final result = await baseRemoteDataSource.getHomeQuizzes(
+        userId: userId,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

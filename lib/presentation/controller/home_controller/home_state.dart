@@ -46,3 +46,22 @@ class HomeDataErrorState extends HomeState {
 
 // Refresh State
 class HomeRefreshingState extends HomeState {}
+
+class GetHomeAssignmentsLoadingState extends HomeState {}
+
+class GetHomeAssignmentsSuccessState extends HomeState {}
+
+class GetHomeAssignmentsErrorState extends HomeState {
+  final String errorMessage;
+  GetHomeAssignmentsErrorState({required this.errorMessage});
+}
+
+// For quizzes
+class GetHomeQuizzesLoadingState extends HomeState {}
+
+class GetHomeQuizzesSuccessState extends HomeState {}
+
+class GetHomeQuizzesErrorState extends HomeState {
+  final String errorMessage;
+  GetHomeQuizzesErrorState({required this.errorMessage});
+}

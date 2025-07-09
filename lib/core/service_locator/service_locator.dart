@@ -216,6 +216,8 @@ class ServiceLocator {
         getHomeClosestSessionsUsecase: sl(),
         getHomeCurrentSessionUsecase: sl(),
         getHomeLibraryUsecase: sl(),
+        getHomeAssignmentsUsecase: sl(),
+        getHomeQuizzesUsecase: sl(),
       )
         ..getHomeClosestSessions()
         ..getHomeLibrary(),

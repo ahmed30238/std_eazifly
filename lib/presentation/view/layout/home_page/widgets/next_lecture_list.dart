@@ -1,5 +1,4 @@
 import 'package:eazifly_student/presentation/view/layout/home_page/widgets/next_lecture_item.dart';
-import 'package:eazifly_student/presentation/view/layout/my_programs/my_programs.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class NextLectureList extends StatelessWidget {

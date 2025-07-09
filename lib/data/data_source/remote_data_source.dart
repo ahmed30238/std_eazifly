@@ -18,9 +18,11 @@ import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart
 import 'package:eazifly_student/data/models/children/create_new_child_model.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/data/models/children/get_my_children_model.dart';
+import 'package:eazifly_student/data/models/home/get_home_assigments_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_closest_sessions_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_current_session_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_library_model.dart';
+import 'package:eazifly_student/data/models/home/get_home_quizzes_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_list_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_items_using_list_id_model.dart';
@@ -176,6 +178,12 @@ abstract class BaseRemoteDataSource {
     required int userId,
   });
   Future<GetHomeClosestSessionsModel> getHomeClosestSessions({
+    required int userId,
+  });
+  Future<GetHomeQuizzesModel> getHomeQuizzes({
+    required int userId,
+  });
+  Future<GetHomeAssignmentsModel> getHomeAssignments({
     required int userId,
   });
   Future<GetHomeLibraryModel> getHomeLibrary();
@@ -1945,6 +1953,39 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetHomeLibraryModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetHomeAssignmentsModel> getHomeAssignments(
+      {required int userId}) async {
+    var response = await NetworkCall()
+        .get(path: EndPoints.getHomeAssignments(userId: userId));
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetHomeAssignmentsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetHomeQuizzesModel> getHomeQuizzes({required int userId}) async {
+    var response =
+        await NetworkCall().get(path: EndPoints.getHomeQuizzes(userId: userId));
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetHomeQuizzesModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(
