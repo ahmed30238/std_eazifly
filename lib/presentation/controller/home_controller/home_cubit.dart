@@ -179,7 +179,7 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> getHomeQuizzes() async {
     if (isGuest) return;
 
-    getHomeQuizzesLoader = false;
+    getHomeQuizzesLoader = true;
     emit(GetHomeQuizzesLoadingState());
 
     final result = await getHomeQuizzesUsecase.call(
