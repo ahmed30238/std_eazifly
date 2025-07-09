@@ -235,7 +235,13 @@ void showFlashBar({required BuildContext context, required String message}) {
     },
   );
 }
+String convertTo12HourFormat(int hour, int minute) {
+  String period = hour >= 12 ? 'PM' : 'AM';
+  int displayHour = hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour);
+  String formattedMinute = minute.toString().padLeft(2, '0');
 
+  return '$displayHour:$formattedMinute $period';
+}
 Future<void> openUrl(String url) async {
   final Uri uri = Uri.parse(url);
 

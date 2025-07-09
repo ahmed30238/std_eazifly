@@ -1,4 +1,5 @@
 import 'package:eazifly_student/presentation/view/layout/home_page/widgets/next_lecture_item.dart';
+import 'package:eazifly_student/presentation/view/layout/my_programs/my_programs.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class NextLectureList extends StatelessWidget {
@@ -28,10 +29,15 @@ class NextLectureList extends StatelessWidget {
                 onRejoinTap: () {
                   openUrl(session?.meetingUrl ?? "");
                 },
-                sessionState: "${session?.sessionDate.toString().substring(0,10)}",
+                sessionState:
+                    "${session?.sessionDate.toString().substring(0, 10)}",
                 sessionDuration: "${session?.duration} دقيقة",
-                sessionTime:
-                    "${session?.sessionTime?.substring(0, 5)} ${session?.sessionTimeTo?.substring(0, 5)}",
+                sessionTime: convertTo12HourFormat(
+                    int.tryParse(session?.sessionTime?.split(":").first ?? "") ??
+                        0,
+                    int.tryParse(session?.sessionTime?.split(":")[1] ?? "") ??
+                        0),
+                // "${session?.sessionTime?.substring(0, 5)} ${session?.sessionTimeTo?.substring(0, 5)}",
                 title: session?.programTitle ?? "",
                 onTap: () =>
                     Navigator.pushNamed(context, RoutePaths.currentSession),

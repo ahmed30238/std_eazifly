@@ -10,6 +10,7 @@ import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/pro
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/program_navigation.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class MyProgramsView extends StatefulWidget {
   const MyProgramsView({super.key});
@@ -21,6 +22,11 @@ class MyProgramsView extends StatefulWidget {
 class _MyProgramsViewState extends State<MyProgramsView> {
   late MyProgramsCubit cubit;
   late DataModel loginData;
+
+  GlobalKey keyReviewButton = GlobalKey();
+  late TutorialCoachMark tutorialCoachMark;
+  List<TargetFocus> targets = [];
+
   @override
   void initState() {
     loginData = DataModel.fromJson(
@@ -28,7 +34,48 @@ class _MyProgramsViewState extends State<MyProgramsView> {
     );
     cubit = context.read<MyProgramsCubit>();
     cubit.getMyPrograms();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showTutorial();
+    });
+
     super.initState();
+  }
+
+  void showTutorial() {
+    initTargets();
+    tutorialCoachMark = TutorialCoachMark(
+      // context,
+      targets: targets,
+      textSkip: "تخطي",
+      paddingFocus: 10,
+      colorShadow: Colors.black.withOpacity(0.8),
+      onFinish: () => print("تم الانتهاء من الشرح"),
+    )..show(
+      context: context,
+    );
+  }
+
+  void initTargets() {
+    targets.clear();
+    targets.add(
+      TargetFocus(
+        identify: "review_button",
+        keyTarget: keyReviewButton,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            child: const Text(
+              "اضغط هنا لرؤية البرامج تحت المراجعة",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -42,14 +89,13 @@ class _MyProgramsViewState extends State<MyProgramsView> {
         leadingCustomWidth: 10.w,
         customAction: [
           InkWell(
+            key: keyReviewButton,
             onTap: () => Navigator.pushNamed(
               context,
               RoutePaths.programsUnderReviewView,
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 16.w,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: SvgPicture.asset(Assets.iconsMyProgramAppbar),
             ),
           ),
@@ -71,10 +117,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
             bloc: cubit,
             builder: (context, state) {
               if (cubit.getMyProgramsLoader) {
-                // Show loader while data is loading
                 return const MyProgramsLoader();
               } else if (!cubit.getMyProgramsLoader) {
-                // Show content when data is loaded
                 var myPrograms = cubit.getMyProgramsEntity?.data;
 
                 if (myPrograms == null || myPrograms.isEmpty) {
@@ -83,7 +127,6 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                   );
                 }
 
-                // تحديث كود ListView.separated
                 return ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -94,31 +137,22 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                     String nextLec = "";
                     String formattedTimeDiff = "";
 
-                    // إصلاح منطق تحديد nextLec مع تحويل لصيغة 12 ساعة
                     if (item.currentSession?.status != null) {
-                      // إذا كان هناك جلسة حالية، استخدم بيانات الجلسة التالية
                       if (item.nextSession != null) {
                         int hour = item.nextSession!.hour;
                         int minute = item.nextSession!.minute;
                         nextLec = convertTo12HourFormat(hour, minute);
-
-                        // تنسيق الوقت المتبقي
-                        formattedTimeDiff =
-                            formatTimeDifference(item.nextSession);
+                        formattedTimeDiff = formatTimeDifference(item.nextSession);
                       } else {
                         nextLec = "بدأت بالفعل";
                         formattedTimeDiff = "جارية الآن";
                       }
                     } else {
-                      // إذا لم تبدأ بعد، استخدم تاريخ البداية
                       if (item.nextSession != null) {
                         int hour = item.nextSession!.hour;
                         int minute = item.nextSession!.minute;
                         nextLec = convertTo12HourFormat(hour, minute);
-
-                        // تنسيق الوقت المتبقي
-                        formattedTimeDiff =
-                            formatTimeDifference(item.nextSession);
+                        formattedTimeDiff = formatTimeDifference(item.nextSession);
                       } else {
                         nextLec = "غير محدد";
                         formattedTimeDiff = "غير محدد";
@@ -133,7 +167,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                       status: item.currentSession?.status ?? "tt",
                       title: item.title ?? "",
                       isRejoin: started,
-                      timeDiff: formattedTimeDiff, // استخدام الوقت المنسق
+                      timeDiff: formattedTimeDiff,
                       onRejoinTap: () async {
                         await cubit.joinSession(
                           sessionId: item.currentSession?.id ?? -1,
@@ -147,29 +181,26 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                           RoutePaths.navigateToLectureView,
                         );
                       },
-                      
                       onTap: cubit.getAssignedChildrenLoader
                           ? () {}
                           : () async {
                               await cubit
                                   .getAssignedChildrenToProgram(
                                       programId: item.id ?? -1)
-                                  .then(
-                                (value) {
-                                  onMyProgramTap(
-                                    context: context,
-                                    cubit: cubit,
-                                    item: item,
-                                    loginData: loginData,
-                                    programId: item.id ?? -1,
-                                    noOfChildren: cubit
-                                            .getAssignedChildrenToProgramEntity
-                                            ?.data
-                                            ?.length ??
-                                        0,
-                                  );
-                                },
-                              );
+                                  .then((value) {
+                                onMyProgramTap(
+                                  context: context,
+                                  cubit: cubit,
+                                  item: item,
+                                  loginData: loginData,
+                                  programId: item.id ?? -1,
+                                  noOfChildren: cubit
+                                          .getAssignedChildrenToProgramEntity
+                                          ?.data
+                                          ?.length ??
+                                      0,
+                                );
+                              });
                             },
                     );
                   },
@@ -177,38 +208,18 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                   itemCount: myPrograms.length,
                 );
               } else if (state is GetMyProgramsErrorState) {
-                // Show error message if something went wrong
                 return Center(
                   child: Text(state.errorMessage),
                 );
               } else {
-                // Default case
                 return const SizedBox();
               }
             },
           ),
-          // ProgramItem(
-          //   onTap: () =>
-          // ),
           20.ph,
-          // InkWell(
-          //   onTap: () => Navigator.pushNamed(
-          //     context,
-          //     RoutePaths.selectionOfEducationalCoursesView,
-          //   ),
-          //   child: const CollectionSessionList(),
-          // ),
           20.ph,
         ],
       ),
     );
   }
-}
-
-String convertTo12HourFormat(int hour, int minute) {
-  String period = hour >= 12 ? 'PM' : 'AM';
-  int displayHour = hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour);
-  String formattedMinute = minute.toString().padLeft(2, '0');
-
-  return '$displayHour:$formattedMinute $period';
 }

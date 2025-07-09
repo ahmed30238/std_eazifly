@@ -8,10 +8,12 @@ class LectureViewAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.cubit,
     required this.widget,
+    required this.btnKey,
   });
 
   final LectureCubit cubit;
   final LectureView widget;
+  final GlobalKey btnKey;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,11 @@ class LectureViewAppBar extends StatelessWidget implements PreferredSizeWidget {
           onLeadinTap: () => Navigator.pop(context),
           customAction: [
             InkWell(
-              onTap: () => lectureAppBarModalSheet(context, widget.programId),
+              key: btnKey,
+              onTap: () => lectureAppBarModalSheet(
+                context,
+                widget.programId,
+              ),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: SvgPicture.asset(
