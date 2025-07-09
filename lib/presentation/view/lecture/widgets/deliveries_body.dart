@@ -26,8 +26,8 @@ class DeliveriesBodyWidget extends StatelessWidget {
 
         // تحويل الـ state من السيرفر إلى enum
         DeliverStatus deliverState =
-            _getDeliverStatusFromString(assignments?[index].status);
-        bool isDelivered = _isAssignmentDelivered(assignments?[index].status);
+            getDeliverStatusFromString(assignments?[index].status);
+        bool isDelivered = isAssignmentDelivered(assignments?[index].status);
 
         return CustomListTile(
           onTap: () {
@@ -51,7 +51,7 @@ class DeliveriesBodyWidget extends StatelessWidget {
             );
           },
           title: assignment?.title ?? "مهمة غير محددة",
-          subTitle: _formatDate(date?.toString()),
+          subTitle: formatDate(date?.toString()),
           iconContainerColor: MainColors.white,
           trailing: DeliveriesBodyWidgetTrailing(
             state: deliverState,
@@ -67,81 +67,81 @@ class DeliveriesBodyWidget extends StatelessWidget {
       itemCount: assignments?.length ?? 0,
     );
   }
+}
 
-  // دالة لتحويل الـ state من String إلى DeliverStatus enum
-  DeliverStatus _getDeliverStatusFromString(String? state) {
-    if (state == null || state.isEmpty) {
+// دالة لتحويل الـ state من String إلى DeliverStatus enum
+DeliverStatus getDeliverStatusFromString(String? state) {
+  if (state == null || state.isEmpty) {
+    return DeliverStatus.notDelivered;
+  }
+
+  switch (state.toLowerCase()) {
+    case 'corrected':
+    case 'completed':
+    case 'done':
+      return DeliverStatus.deliverDone;
+
+    case 'under_review':
+    case 'pending':
+    case 'reviewing':
+    case 'submitted':
+      return DeliverStatus.deliverUnderReview;
+
+    case 'not_delivered':
+    case 'not_submitted':
+    case 'pending_delivery':
+    case 'open':
       return DeliverStatus.notDelivered;
-    }
 
-    switch (state.toLowerCase()) {
-      case 'corrected':
-      case 'completed':
-      case 'done':
-        return DeliverStatus.deliverDone;
+    default:
+      // إذا جاءت حالة غير متوقعة، نعتبرها غير مسلمة
+      return DeliverStatus.notDelivered;
+  }
+}
 
-      case 'under_review':
-      case 'pending':
-      case 'reviewing':
-      case 'submitted':
-        return DeliverStatus.deliverUnderReview;
-
-      case 'not_delivered':
-      case 'not_submitted':
-      case 'pending_delivery':
-      case 'open':
-        return DeliverStatus.notDelivered;
-
-      default:
-        // إذا جاءت حالة غير متوقعة، نعتبرها غير مسلمة
-        return DeliverStatus.notDelivered;
-    }
+// دالة لتحديد إذا كانت المهمة مسلمة أم لا
+bool isAssignmentDelivered(String? state) {
+  if (state == null || state.isEmpty) {
+    return false;
   }
 
-  // دالة لتحديد إذا كانت المهمة مسلمة أم لا
-  bool _isAssignmentDelivered(String? state) {
-    if (state == null || state.isEmpty) {
+  switch (state.toLowerCase()) {
+    case 'corrected':
+    case 'completed':
+    case 'done':
+    case 'under_review':
+    case 'pending':
+    case 'reviewing':
+    case 'submitted':
+      return true;
+
+    case 'not_delivered':
+    case 'not_submitted':
+    case 'pending_delivery':
+    case 'open':
       return false;
-    }
 
-    switch (state.toLowerCase()) {
-      case 'corrected':
-      case 'completed':
-      case 'done':
-      case 'under_review':
-      case 'pending':
-      case 'reviewing':
-      case 'submitted':
-        return true;
+    default:
+      return false;
+  }
+}
 
-      case 'not_delivered':
-      case 'not_submitted':
-      case 'pending_delivery':
-      case 'open':
-        return false;
-
-      default:
-        return false;
-    }
+// دالة لتنسيق التاريخ
+String formatDate(String? dateString) {
+  if (dateString == null || dateString.isEmpty) {
+    return "غير محدد";
   }
 
-  // دالة لتنسيق التاريخ
-  String _formatDate(String? dateString) {
-    if (dateString == null || dateString.isEmpty) {
-      return "غير محدد";
-    }
+  try {
+    DateTime date = DateTime.parse(dateString);
 
-    try {
-      DateTime date = DateTime.parse(dateString);
+    // تنسيق التاريخ والوقت
+    String formattedDate = DateFormat('dd-MM-yyyy').format(date);
+    String formattedTime = DateFormat('hh:mm a').format(date);
 
-      // تنسيق التاريخ والوقت
-      String formattedDate = DateFormat('dd-MM-yyyy').format(date);
-      String formattedTime = DateFormat('hh:mm a').format(date);
-
-      return "$formattedDate   $formattedTime";
-    } catch (e) {
-      // إذا فشل parsing التاريخ
-      return dateString;
-    }
+    return "$formattedDate   $formattedTime";
+  } catch (e) {
+    // إذا فشل parsing التاريخ
+    return dateString;
   }
 }

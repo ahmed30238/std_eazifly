@@ -26,9 +26,11 @@ import 'package:eazifly_student/domain/use_cases/get_children_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_content_chapter_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_item_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_home_assignments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_closest_sessions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_current_session_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_library_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_home_quizzes_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_instructor_availabilities_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_instructors_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_categories_usecase.dart';
@@ -206,6 +208,9 @@ class ServiceLocator {
         () => GetHomeClosestSessionsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => GetHomeCurrentSessionUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetHomeAssignmentsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => GetHomeQuizzesUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(

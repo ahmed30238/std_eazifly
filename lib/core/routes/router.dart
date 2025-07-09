@@ -33,7 +33,9 @@ import 'package:eazifly_student/presentation/view/goals_view/goals_view.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/group_package_management_view.dart';
 import 'package:eazifly_student/presentation/view/home_meetings_view/home_meetings_view.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/current_session/current_session.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_assignments/home_assignments.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_notification_view.dart/home_notofication_view.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_quizzes/home_quizzes.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/navigate_to_lecture_view/navigate_to_lecture_view.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/widgets/view_all_next_sessions.dart';
 import 'package:eazifly_student/presentation/view/layout/layout.dart';
@@ -546,6 +548,20 @@ class AppRouter {
       case RoutePaths.homeNotification:
         return createRoute(
           const HomeNotificationView(),
+        );
+      case RoutePaths.assignments:
+        return createRoute(
+          BlocProvider.value(
+            value: sl<HomeCubit>(),
+            child: const HomeAssignments(),
+          ),
+        );
+      case RoutePaths.quizzes:
+        return createRoute(
+          BlocProvider.value(
+            value: sl<HomeCubit>(),
+            child: const HomeQuizzes(),
+          ),
         );
       case RoutePaths.favPlaylistDetails:
         var arguments = settings.arguments as Map<String, dynamic>?;
