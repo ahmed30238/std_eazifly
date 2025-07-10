@@ -9,11 +9,13 @@ import 'package:eazifly_student/domain/entities/home/get_home_closest_sessions_e
 import 'package:eazifly_student/domain/entities/home/get_home_current_session_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_library_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_quizzes_entity.dart';
+import 'package:eazifly_student/domain/entities/update_fcm_token_entity.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_assignments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_closest_sessions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_current_session_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_library_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_quizzes_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/update_fcm_token_usecase.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:get_storage/get_storage.dart';
 part 'home_state.dart';
@@ -25,6 +27,7 @@ class HomeCubit extends Cubit<HomeState> {
     required this.getHomeClosestSessionsUsecase,
     required this.getHomeQuizzesUsecase,
     required this.getHomeAssignmentsUsecase,
+    required this.updateFcmTokenUsecase,
   }) : super(HomeInitial()) {
     _initializeUser();
   }
@@ -216,5 +219,22 @@ class HomeCubit extends Cubit<HomeState> {
     getHomeClosestSessionsEntity = null;
 
     emit(HomeInitial());
+  }
+    UpdateFcmTokenEntity? updateFcmTokenEntity;
+  UpdateFcmTokenUsecase updateFcmTokenUsecase;
+  void updateFcmToken({required String fcmToken}) async {
+    emit(UpdateFcmTokenLoadingState());
+    final res = await updateFcmTokenUsecase.call(
+      parameter: UpdateFcmTokenParameter(fcmToken: fcmToken),
+    );
+    res.fold(
+      (l) {
+        emit(UpdateFcmTokenErrorState(errorMessage: l.message));
+      },
+      (r) {
+        updateFcmTokenEntity = r;
+        emit(UpdateFcmTokenSuccessState());
+      },
+    );
   }
 }

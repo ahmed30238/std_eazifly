@@ -7,6 +7,7 @@ import 'package:eazifly_student/core/network/end_points.dart';
 import 'package:eazifly_student/core/network/error_message_model.dart';
 import 'package:eazifly_student/core/network/networkcall.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/auth/update_fcm_token_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
 import 'package:eazifly_student/data/models/change_instructor/get_change_instructor_reasons_model.dart';
@@ -293,6 +294,8 @@ abstract class BaseRemoteDataSource {
   Future<GetMyChatsModel> getMyChats({
     required String type,
   });
+    Future<UpdateFcmTokenModel> updateFcmToken({required String fcmToken});
+
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -2006,6 +2009,25 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetMyChatsModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+    @override
+  Future<UpdateFcmTokenModel> updateFcmToken({required String fcmToken}) async {
+    var response = await NetworkCall().post(
+      data: FormData.fromMap({
+        "fcm_token": fcmToken,
+      }),
+      path: EndPoints.updateFcmToken,
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return UpdateFcmTokenModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

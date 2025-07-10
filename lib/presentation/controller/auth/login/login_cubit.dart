@@ -7,6 +7,7 @@ import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/domain/entities/login_entities.dart';
 import 'package:eazifly_student/domain/use_cases/login_usecase.dart';
 import 'package:eazifly_student/presentation/controller/auth/login/login_state.dart';
+import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
@@ -56,11 +57,11 @@ class LoginCubit extends Cubit<LoginState> {
             StorageEnum.loginModel.name,
             jsonEncode(r.data),
           );
-          // HomePageCubit.get(context).updateFcmToken(
-          //   fcmToken: GetStorage().read(
-          //     StorageEnum.fcmToken.name,
-          //   ),
-          // );
+          context.read<HomeCubit>().updateFcmToken(
+                fcmToken: GetStorage().read(
+                  StorageEnum.fcmToken.name,
+                ),
+              );
           loginLoader = false;
           entities = r;
           emit(LoginSuccessState());

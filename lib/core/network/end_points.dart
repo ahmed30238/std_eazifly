@@ -17,6 +17,8 @@ class EndPoints {
   static String getHomeCurrentSession({required int userId}) =>
       "home/current/session/$userId";
   static const getHomeLibrary = "library/category/with/items";
+  static const updateFcmToken = "update/fcm";
+
   static String getHomeClosestSessions({required int userId}) =>
       "home/program/sessions/$userId";
   static String getUserSubscriptionData(

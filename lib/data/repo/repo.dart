@@ -3,6 +3,7 @@ import 'package:eazifly_student/core/exceptions/exceptions.dart';
 import 'package:eazifly_student/core/general_failure/failure.dart';
 import 'package:eazifly_student/data/data_source/remote_data_source.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/auth/update_fcm_token_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
 import 'package:eazifly_student/data/models/change_instructor/get_change_instructor_reasons_model.dart';
@@ -1038,6 +1039,18 @@ class Repository extends BaseRepository {
       final result = await baseRemoteDataSource.getMyChats(
         type: type,
       );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UpdateFcmTokenModel>> updateFcmToken(
+      {required String fcmToken}) async {
+    final result =
+        await baseRemoteDataSource.updateFcmToken(fcmToken: fcmToken);
+    try {
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

@@ -65,3 +65,13 @@ class GetHomeQuizzesErrorState extends HomeState {
   final String errorMessage;
   GetHomeQuizzesErrorState({required this.errorMessage});
 }
+
+class UpdateFcmTokenSuccessState extends HomeState {}
+
+class UpdateFcmTokenErrorState extends HomeState {
+  final String errorMessage;
+
+  UpdateFcmTokenErrorState({required this.errorMessage});
+}
+
+class UpdateFcmTokenLoadingState extends HomeState {}

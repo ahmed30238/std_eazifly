@@ -97,6 +97,7 @@ import 'package:eazifly_student/domain/entities/subscription_management/remove_a
 import 'package:eazifly_student/domain/entities/subscription_management/renew_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/show_plan_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/upgrade_order_entity.dart';
+import 'package:eazifly_student/domain/entities/update_fcm_token_entity.dart';
 import 'package:eazifly_student/domain/entities/user/update_profile_entity.dart';
 
 abstract class BaseRepository {
@@ -306,4 +307,6 @@ abstract class BaseRepository {
   Future<Either<Failure, GetMyChatsEntity>> getMyChats({
     required String type,
   });
+    Future<Either<Failure, UpdateFcmTokenEntity>> updateFcmToken(
+      {required String fcmToken});
 }

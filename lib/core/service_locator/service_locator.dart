@@ -74,6 +74,7 @@ import 'package:eazifly_student/domain/use_cases/show_plan_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_program_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/store_favourite_list_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/submit_quiz_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/update_fcm_token_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/update_profile_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/upgrade_order_usecase.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
@@ -215,6 +216,7 @@ class ServiceLocator {
         () => GetHomeAssignmentsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetHomeQuizzesUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetMyChatsUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => UpdateFcmTokenUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(
@@ -227,6 +229,7 @@ class ServiceLocator {
         getHomeLibraryUsecase: sl(),
         getHomeAssignmentsUsecase: sl(),
         getHomeQuizzesUsecase: sl(),
+        updateFcmTokenUsecase: sl(),
       )
         ..getHomeClosestSessions()
         ..getHomeLibrary(),
