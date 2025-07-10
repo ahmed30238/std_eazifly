@@ -1,4 +1,6 @@
+import 'package:eazifly_student/core/fire_base_helper/firebase_notifiction.dart';
 import 'package:eazifly_student/core/network/handle_token.dart';
+import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -66,9 +68,9 @@ class _SplashScreenState extends State<SplashScreen>
         ),
         () {
           // var notificationCubit = HomeNotificationCubit.get(context);
-          // var chatCubit = ChatsCubit.get(context);
+          var chatCubit = context.read<ChatsCubit>();
           // NotificationService.instance.setCubit(notificationCubit);
-          // NotificationService.instance.setChatsCubit(chatCubit);
+          NotificationService.instance.setChatsCubit(chatCubit);
         },
       );
     }

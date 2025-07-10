@@ -57,7 +57,7 @@ class HomeCubit extends Cubit<HomeState> {
     // Only load user-specific data if not guest
     if (!isGuest && userId > 0) {
       await Future.wait([
-        getHomeCurrentSession(),
+        // getHomeCurrentSession(),
         getHomeClosestSessions(),
       ]);
     }

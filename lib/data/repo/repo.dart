@@ -8,6 +8,7 @@ import 'package:eazifly_student/data/models/change_instructor/change_instructor_
 import 'package:eazifly_student/data/models/change_instructor/get_change_instructor_reasons_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/get_remaining_program_sessions_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/get_user_subscription_data_model.dart';
+import 'package:eazifly_student/data/models/chat_model/get_my_chats_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/data/models/children/get_my_children_model.dart';
@@ -1023,6 +1024,19 @@ class Repository extends BaseRepository {
     try {
       final result = await baseRemoteDataSource.getHomeQuizzes(
         userId: userId,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetMyChatsModel>> getMyChats(
+      {required String type}) async {
+    try {
+      final result = await baseRemoteDataSource.getMyChats(
+        type: type,
       );
       return Right(result);
     } on ServerException catch (e) {

@@ -4,6 +4,7 @@ import 'package:eazifly_student/core/service_locator/service_locator.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
+import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_cubit.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_state.dart';
@@ -25,27 +26,13 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ApplanuageCubit()..getAppLang()),
         BlocProvider(create: (context) => LayoutCubit()),
-        BlocProvider(create: (context) => sl<ProgramsUnderReviewCubit>()),
-        BlocProvider(create: (context) => sl<HomeCubit>()),
-        BlocProvider(
-            create: (context) => sl<AddNewStudentDataToProgramCubit>()),
-        BlocProvider(
-            create: (context) => LectureCubit(
-                  showProgramDetailsUsecase: sl(),
-                  getProgramSessionsUsecase: sl(),
-                  getProgramAssignmentsUsecase: sl(),
-                  getUserReportsUsecase: sl(),
-                  getUserFeedbacksUsecase: sl(),
-                  completeChapterLessonUsecase: sl(),
-                  getChapterLessonsUsecase: sl(),
-                  getContentChaptersUsecase: sl(),
-                  getUserQuizzesUsecase: sl(),
-                  getAssignmentDetailsUsecase: sl(),
-                  postAssignmentUsecase: sl(),
-                  getReportQuestionsUsecase: sl(),
-                )),
-        BlocProvider(create: (context) => sl<PaymentCubit>()),
-        BlocProvider(create: (context) => sl<CancelSessionCubit>()),
+        BlocProvider.value(value: sl<ProgramsUnderReviewCubit>()),
+        BlocProvider.value(value: sl<HomeCubit>()),
+        BlocProvider.value(value: sl<ChatsCubit>()),
+        BlocProvider.value(value: sl<AddNewStudentDataToProgramCubit>()),
+        BlocProvider.value(value: sl<LectureCubit>()),
+        BlocProvider.value(value: sl<PaymentCubit>()),
+        BlocProvider.value(value: sl<CancelSessionCubit>()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),

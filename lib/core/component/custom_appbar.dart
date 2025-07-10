@@ -22,10 +22,14 @@ class CustomAppBar extends AppBar {
   final Function()? onTitleTapped;
   final double? customElevation;
   final double? customTitleWidth;
+  final String? dmImageUrl;
+  final String? dmTitle;
   final bool? isDmView;
 
   CustomAppBar(
     this.context, {
+    this.dmImageUrl,
+    this.dmTitle,
     required this.mainTitle,
     required this.leadingText,
     this.onLeadinTap,
@@ -66,14 +70,15 @@ class CustomAppBar extends AppBar {
                           ),
                         ]
                       : [
-                          const AvatarImage(
-                              // shape: BoxShape.circle,
-                              // containerHeight: 28.h,
-                              // containerWidth: 28.w,
-                              ),
+                          AvatarImage(
+                            height: 28.h,
+                            width: 28.w,
+                            shape: BoxShape.circle,
+                            imageUrl: dmImageUrl,
+                          ),
                           8.pw,
                           Text(
-                            "ياسر  محمود",
+                            dmTitle ?? "",
                             style: MainTextStyle.boldTextStyle(
                               fontSize: mainTitleFontSize ?? 15,
                             ),

@@ -44,7 +44,8 @@ class _WritingMessageAreaState extends State<WritingMessageArea> {
                               context: context,
                             );
                           } else {
-                            cubit.sendMessages();
+                            cubit.sendMessages(
+                                receiverId: cubit.currentInstructor?.id ?? "");
                           }
                           // if (cubit.messageController.text.isNotEmpty) {
                           // }

@@ -2,7 +2,6 @@ import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/voice_message_widget.dart';
 import 'package:eazifly_student/core/enums/mesage_type_enum.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/extensions/widgets_extensions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/widgets.dart/images_area.dart';
@@ -43,52 +42,50 @@ class TextMessageItem extends StatelessWidget {
             imageUrl: messageSenderAvatar,
           ),
           8.pw,
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                constraints: BoxConstraints(
-                  minHeight: 40.h,
-                  minWidth: 120.w,
-                  // نزيل maxWidth لجعل الحاوية تتمدد مع محتوى الرسالة
-                  maxWidth: messageModel.content.length > 40
-                      ? 280.w // حد أقصى للعرض بنسبة من عرض الشاشة
-                      : 140.w,
-                ),
-                decoration: BoxDecoration(
-                  color: messageModel.isSender
-                      ? messageModel.type == MessageTypeEnum.voiceMessage
-                          ? MainColors.grayBorderColor
-                          : MainColors.greenTeal
-                      : MainColors.grayBorderColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(messageModel.isSender ? 16.r : 0),
-                    topRight:
-                        Radius.circular(messageModel.isSender ? 0.r : 16.r),
-                    bottomLeft: Radius.circular(16.r),
-                    bottomRight: Radius.circular(16.r),
+          Flexible(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                  constraints: BoxConstraints(
+                    minHeight: 40.h,
+                    maxWidth: MediaQuery.of(context).size.width * 0.7, // 70% من عرض الشاشة كحد أقصى
                   ),
-                ),
-                child: _buildMessageContent(messageModel).center(),
-              ),
-              8.ph,
-              if (isThereImages == true) ...{
-                const ImagesArea(),
-              },
-              8.ph,
-              if (isLastMesage == true) ...{
-                Text(
-                  '12/2/2024',
-                  textAlign: TextAlign.center,
-                  style: MainTextStyle.regularTextStyle(
-                    color: MainColors.grayTextColors,
-                    fontSize: 11,
+                  decoration: BoxDecoration(
+                    color: messageModel.isSender
+                        ? messageModel.type == MessageTypeEnum.voiceMessage
+                            ? MainColors.grayBorderColor
+                            : MainColors.greenTeal
+                        : MainColors.grayBorderColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(messageModel.isSender ? 16.r : 0),
+                      topRight:
+                          Radius.circular(messageModel.isSender ? 0.r : 16.r),
+                      bottomLeft: Radius.circular(16.r),
+                      bottomRight: Radius.circular(16.r),
+                    ),
                   ),
-                )
-              }
-            ],
+                  child: _buildMessageContent(messageModel),
+                ),
+                8.ph,
+                if (isThereImages == true) ...{
+                  const ImagesArea(),
+                },
+                8.ph,
+                if (isLastMesage == true) ...{
+                  Text(
+                    '12/2/2024',
+                    textAlign: TextAlign.center,
+                    style: MainTextStyle.regularTextStyle(
+                      color: MainColors.grayTextColors,
+                      fontSize: 11,
+                    ),
+                  )
+                }
+              ],
+            ),
           ),
         ],
       ),
@@ -99,37 +96,41 @@ class TextMessageItem extends StatelessWidget {
 Widget _buildMessageContent(Message message) {
   switch (message.type) {
     case MessageTypeEnum.text:
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-            child: Text(
-              message.content,
-              style: MainTextStyle.boldTextStyle(
-                color: message.isSender
-                    ? MainColors.white
-                    : MainColors.grayTextColors,
-                fontSize: 12,
+      return IntrinsicWidth(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              child: Text(
+                message.content,
+                style: MainTextStyle.boldTextStyle(
+                  color: message.isSender
+                      ? MainColors.white
+                      : MainColors.grayTextColors,
+                  fontSize: 12,
+                ),
+                softWrap: true,
+                maxLines: null,
+                overflow: TextOverflow.visible,
               ),
-              softWrap: true, // يسمح بالتفاف النص
-              maxLines: null, // بدون حد لعدد السطور
-              overflow: TextOverflow.visible, // يظهر كل النص
             ),
-          ),
-          8.pw,
-          Text(
-            message.createdAt,
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 11,
-              color: MainColors.black,
+            8.pw,
+            Text(
+              message.createdAt,
+              style: MainTextStyle.boldTextStyle(
+                fontSize: 11,
+                color: MainColors.black,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
     case MessageTypeEnum.image:
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             message.content,
@@ -139,9 +140,9 @@ Widget _buildMessageContent(Message message) {
                   : MainColors.grayTextColors,
               fontSize: 12,
             ),
-            softWrap: true, // يسمح بالتفاف النص
-            maxLines: null, // بدون حد لعدد السطور
-            overflow: TextOverflow.visible, // يظهر كل النص
+            softWrap: true,
+            maxLines: null,
+            overflow: TextOverflow.visible,
           ),
           8.ph,
           AvatarImage(

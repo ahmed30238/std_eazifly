@@ -11,6 +11,7 @@ class EndPoints {
   static const addNote = "order/add/note";
   static const getRemainingProgramSessions = "program/sessions/date";
   static const removeAssignedStudent = "remove/user/from/program";
+  static String getMyChats({required String type}) => "get/chats?type=$type";
   static String updateProfile({required int userId}) =>
       "update/profile/$userId";
   static String getHomeCurrentSession({required int userId}) =>

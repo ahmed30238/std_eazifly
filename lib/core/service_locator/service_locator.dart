@@ -38,6 +38,7 @@ import 'package:eazifly_student/domain/use_cases/get_library_plans_usecase.dart'
 import 'package:eazifly_student/domain/use_cases/get_library_subscription_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_list_items_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_messages_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_my_chats_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_my_programs_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_order_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_payment_method_details_usecase.dart';
@@ -77,7 +78,9 @@ import 'package:eazifly_student/domain/use_cases/update_profile_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/upgrade_order_usecase.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
+import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
@@ -211,6 +214,7 @@ class ServiceLocator {
     sl.registerLazySingleton(
         () => GetHomeAssignmentsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetHomeQuizzesUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => GetMyChatsUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(
@@ -230,6 +234,30 @@ class ServiceLocator {
     sl.registerLazySingleton<AddNewStudentDataToProgramCubit>(
       () => AddNewStudentDataToProgramCubit(
         createNewChildUsecase: sl<CreateNewChildUsecase>(),
+      ),
+    );
+    sl.registerLazySingleton<ChatsCubit>(
+      () => ChatsCubit(
+        getMessagesUsecase: sl(),
+        sendMessagesUsecase: sl(),
+        addNoteUsecase: sl(),
+        getMyChatsUsecase: sl(),
+      ),
+    );
+    sl.registerLazySingleton<LectureCubit>(
+      () => LectureCubit(
+        showProgramDetailsUsecase: sl(),
+        getProgramSessionsUsecase: sl(),
+        getProgramAssignmentsUsecase: sl(),
+        getUserReportsUsecase: sl(),
+        getUserFeedbacksUsecase: sl(),
+        completeChapterLessonUsecase: sl(),
+        getChapterLessonsUsecase: sl(),
+        getContentChaptersUsecase: sl(),
+        getUserQuizzesUsecase: sl(),
+        getAssignmentDetailsUsecase: sl(),
+        postAssignmentUsecase: sl(),
+        getReportQuestionsUsecase: sl(),
       ),
     );
     sl.registerLazySingleton<ProgramsUnderReviewCubit>(

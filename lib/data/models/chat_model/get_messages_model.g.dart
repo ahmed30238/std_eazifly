@@ -28,7 +28,10 @@ GetMessagesDatumModel _$GetMessagesDatumModelFromJson(
       ..id = (json['id'] as num?)?.toInt()
       ..chatId = (json['chat_id'] as num?)?.toInt()
       ..senderType = json['sender_type'] as String?
-      ..message = json['message'] as String?;
+      ..message = json['message'] as String?
+      ..createdAt = json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String);
 
 Map<String, dynamic> _$GetMessagesDatumModelToJson(
         GetMessagesDatumModel instance) =>
@@ -37,4 +40,5 @@ Map<String, dynamic> _$GetMessagesDatumModelToJson(
       'chat_id': instance.chatId,
       'sender_type': instance.senderType,
       'message': instance.message,
+      'created_at': instance.createdAt?.toIso8601String(),
     };

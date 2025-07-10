@@ -180,12 +180,8 @@ class AppRouter {
         );
       case RoutePaths.reportsAndComplaintsViewPath:
         return createRoute(
-          BlocProvider(
-            create: (context) => ChatsCubit(
-              getMessagesUsecase: sl(),
-              sendMessagesUsecase: sl(),
-              addNoteUsecase: sl(),
-            ),
+          BlocProvider.value(
+            value: sl<ChatsCubit>(),
             child: const ReportsAndComplaintsView(),
           ),
         );
@@ -198,13 +194,7 @@ class AppRouter {
         return createRoute(
           MultiBlocProvider(
             providers: [
-              BlocProvider(
-                create: (context) => ChatsCubit(
-                  getMessagesUsecase: sl(),
-                  sendMessagesUsecase: sl(),
-                  addNoteUsecase: sl(),
-                ),
-              ),
+              BlocProvider.value(value: sl<ChatsCubit>()), // نفس الـ instance
             ],
             child: const ChatsView(),
           ),
@@ -682,14 +672,8 @@ class AppRouter {
               BlocProvider.value(
                 value: sl<ProgramsUnderReviewCubit>(),
               ),
-              BlocProvider(
-                create: (context) => ChatsCubit(
-                  getMessagesUsecase: sl(),
-                  sendMessagesUsecase: sl(),
-                  addNoteUsecase: sl(),
-                  // getUserOrdersUsecase: sl(),
-                ),
-              ),
+              BlocProvider.value(value: sl<ChatsCubit>()), // نفس الـ instance
+
               // يمكنك إضافة المزيد من BlocProviders هنا إذا كنت بحاجة إليها
             ],
             child: const ProgramsUnderReviewView(),
@@ -799,13 +783,7 @@ class AppRouter {
             BlocProvider.value(
               value: sl<HomeCubit>(),
             ),
-            BlocProvider(
-              create: (context) => ChatsCubit(
-                getMessagesUsecase: sl(),
-                sendMessagesUsecase: sl(),
-                addNoteUsecase: sl(),
-              ),
-            ),
+            BlocProvider.value(value: sl<ChatsCubit>()), // نفس الـ instance
           ],
           child: const CurrentSession(),
         ));
@@ -823,15 +801,15 @@ class AppRouter {
         );
       case RoutePaths.dmViewPath:
         var argument = settings.arguments as Map<String, dynamic>?;
-        var cubit = argument?["cubit"] as ChatsCubit;
+        // var cubit = argument?["cubit"] as ChatsCubit;
         var isReport = argument?["isReport"] as bool? ?? false;
         String orderId = argument?["orderId"] as String? ?? "0";
         String? problemState = argument?["problemState"] as String? ?? "";
-        // var cubit = settings.arguments as ChatsCubit;
+        String? chatId = argument?["chatId"] as String? ?? "-1";
         return createRoute(
           MultiBlocProvider(
             providers: [
-              BlocProvider.value(value: cubit),
+              // BlocProvider.value(value: cubit),
               BlocProvider.value(
                 value: sl<ProgramsUnderReviewCubit>(),
               ),
@@ -839,6 +817,7 @@ class AppRouter {
             child: DmView(
               isReport: isReport,
               orderId: int.tryParse(orderId),
+              chatId: chatId,
               problemState: problemState,
             ),
           ),

@@ -13,6 +13,7 @@ import 'package:eazifly_student/data/models/change_instructor/get_change_instruc
 import 'package:eazifly_student/data/models/change_instructor/get_remaining_program_sessions_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/get_user_subscription_data_model.dart';
 import 'package:eazifly_student/data/models/chat_model/get_messages_model.dart';
+import 'package:eazifly_student/data/models/chat_model/get_my_chats_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_model.dart';
@@ -288,6 +289,9 @@ abstract class BaseRemoteDataSource {
   Future<RemoveAssignedStudentModel> removeAssignedStudent({
     required int userId,
     required int programId,
+  });
+  Future<GetMyChatsModel> getMyChats({
+    required String type,
   });
 }
 
@@ -1986,6 +1990,22 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetHomeQuizzesModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetMyChatsModel> getMyChats({required String type}) async {
+    var response =
+        await NetworkCall().get(path: EndPoints.getMyChats(type: type));
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetMyChatsModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

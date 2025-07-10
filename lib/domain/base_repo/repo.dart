@@ -31,6 +31,7 @@ import 'package:eazifly_student/domain/entities/change_instructor/get_change_ins
 import 'package:eazifly_student/domain/entities/change_instructor/get_remaining_program_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/get_user_subscription_data_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
+import 'package:eazifly_student/domain/entities/chat/get_my_chats_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/check_copoun_entities.dart';
 import 'package:eazifly_student/domain/entities/children_entities/create_new_child_entity.dart';
@@ -298,9 +299,11 @@ abstract class BaseRepository {
     required int userId,
   });
   Future<Either<Failure, GetHomeAssignmentsEntity>> getHomeAssigments(
-    {required int userId}
-  );
+      {required int userId});
   Future<Either<Failure, GetHomeQuizzesEntity>> getHomeQuizzes({
     required int userId,
+  });
+  Future<Either<Failure, GetMyChatsEntity>> getMyChats({
+    required String type,
   });
 }

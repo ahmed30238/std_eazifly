@@ -5,6 +5,8 @@ import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/routes/router.dart';
 import 'package:eazifly_student/firebase_options.dart';
+import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -42,10 +44,10 @@ class NotificationService {
   //   _notificationCubit = cubit;
   // }
 
-  // ChatsCubit? _chatsCubit;
-  // void setChatsCubit(ChatsCubit cubit) {
-  //   _chatsCubit = cubit;
-  // }
+  ChatsCubit? _chatsCubit;
+  void setChatsCubit(ChatsCubit cubit) {
+    _chatsCubit = cubit;
+  }
 
   /// Initialize Firebase and get messaging instance
   Future<void> initializeFirebase() async {
@@ -262,7 +264,8 @@ class NotificationService {
       log("Get message From Notif Service");
       final chatId = message.data[NotificationConstants.chatIdKey];
       log("id in notif ${message.data[NotificationConstants.chatIdKey]}");
-      // _chatsCubit?.getMessages(chatId: chatId, isInitial: true,showLoader: false);
+
+      _chatsCubit?.getMessages(chatId: chatId, isInitial: true,showLoader: false);
     }
   }
 

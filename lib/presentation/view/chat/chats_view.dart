@@ -1,8 +1,11 @@
 import 'package:eazifly_student/core/component/custom_tapbar.dart';
 import 'package:eazifly_student/core/component/icons_container.dart';
+import 'package:eazifly_student/core/component/separated_widget.dart';
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_state.dart';
+import 'package:eazifly_student/presentation/view/chat/widgets/chat_item.dart';
+import 'package:eazifly_student/presentation/view/chat/widgets/chat_item_shimmer.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ChatsView extends StatefulWidget {
@@ -15,17 +18,31 @@ class ChatsView extends StatefulWidget {
 class _ChatsViewState extends State<ChatsView>
     with SingleTickerProviderStateMixin {
   late final ChatsCubit cubit;
+  bool _isInitialized = false;
+
   @override
   void initState() {
     cubit = ChatsCubit.get(context);
     cubit.initializeRecordVars();
-    // cubit.getMyStudents();
-    cubit.initController(this, context);
+    cubit.getMyChats();
     super.initState();
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isInitialized) {
+      // هنا يمكن الوصول للـ context بأمان
+      cubit.initController(this, context);
+      _isInitialized = true;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // تحديد الـ tabs هنا في الـ build method
+    final tabsList = _getTabs(context);
+
     return Scaffold(
       appBar: CustomAppBar(
         context,
@@ -64,11 +81,11 @@ class _ChatsViewState extends State<ChatsView>
               return CustomTabBar(
                 controller: cubit.controller!,
                 tabs: List.generate(
-                  cubit.tabs(context: context).length,
+                  tabsList.length,
                   (index) {
                     bool isSelected = index == cubit.controller?.index;
                     return Text(
-                      cubit.tabs(context: context)[index],
+                      tabsList[index],
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
                         color: isSelected
@@ -89,63 +106,110 @@ class _ChatsViewState extends State<ChatsView>
               child: TabBarView(
                 controller: cubit.controller,
                 children: [
-                  CustomElevatedButton(
-                    text: "text",
-                    onPressed: () {
-                      cubit.sendMessages();
+                  BlocBuilder(
+                    builder: (context, state) {
+                      // Handle different states explicitly
+                      if (cubit.getMyChatsLoader) {
+                        return const ChatItemShimmerList();
+                      }
+
+                      if (state is GetMyChatsErrorState) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.error_outline,
+                                size: 64,
+                                color: MainColors.lightGray,
+                              ),
+                              SizedBox(height: 16.h),
+                              Text(
+                                'Failed to load chats',
+                                style: TextStyle(
+                                  color: MainColors.lightGray,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                              SizedBox(height: 8.h),
+                              ElevatedButton(
+                                onPressed: () => cubit.getMyChats(),
+                                child: const Text('Retry'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+
+                      // Handle success state
+                      if (!cubit.getMyChatsLoader &&
+                          cubit.getMyChatsEntity != null) {
+                        final chats = cubit.getMyChatsEntity?.data ?? [];
+
+                        if (chats.isEmpty) {
+                          return Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.chat_bubble_outline,
+                                  size: 64,
+                                  color: MainColors.lightGray,
+                                ),
+                                SizedBox(height: 16.h),
+                                Text(
+                                  'No chats yet',
+                                  style: TextStyle(
+                                    color: MainColors.lightGray,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+
+                        return ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: chats.length,
+                          separatorBuilder: (context, index) => SeparatedWidget(
+                            dividerColor: MainColors.lightGray,
+                            verticalPadding: 8.h,
+                          ),
+                          itemBuilder: (context, index) {
+                            var user = chats[index].participant1;
+                            return ChatItem(
+                              isFirstChat: true,
+                              lastMessageContent:
+                                  chats[index].latestMessage?.message ?? "",
+                              profileAvatar: user?.image ?? "",
+                              name: "${user?.name}",
+                              time: formatDate(
+                                chats[index].createdAt ?? DateTime.now(),
+                              ).substring(0, 10),
+                              onTap: () {
+                                cubit.fillCurrentInstructor(index);
+                                Navigator.pushNamed(
+                                  context,
+                                  RoutePaths.dmViewPath,
+                                  arguments: {
+                                    "chatId": chats[index]
+                                        .latestMessage
+                                        ?.chatId
+                                        ?.toString(),
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        );
+                      }
+
+                      // Default loading state
+                      return const ChatItemShimmerList();
                     },
-                    color: MainColors.blueTextColor,
+                    bloc: cubit,
                   ),
-                  CustomElevatedButton(
-                    text: "text",
-                    onPressed: () {
-                      cubit.getMessages(
-                        chatId: "2",
-                        isInitial: true,
-                        showLoader: true
-                      );
-                    },
-                    color: MainColors.blueTextColor,
-                  ),
-                  // BlocBuilder(
-                  //   builder: (context, state) => cubit.studentsEntities != null
-                  //       ? ListView.separated(
-                  //           physics: const BouncingScrollPhysics(),
-                  //           itemCount:
-                  //               cubit.studentsEntities?.data?.length ?? 0,
-                  //           separatorBuilder: (context, index) =>
-                  //               SeparatedWidget(
-                  //             dividerColor: MainColors.lightGray,
-                  //             verticalPadding: 8.h,
-                  //           ),
-                  //           itemBuilder: (context, index) {
-                  //             var user =
-                  //                 cubit.studentsEntities?.data?[index].student;
-                  //             return ChatItem(
-                  //               isFirstChat: true,
-                  //               lastMessageContent: "",
-                  //               profileAvatar: user?.image ?? "",
-                  //               name: "${user?.firstName} ${user?.lastName}",
-                  //               time: "",
-                  //               onTap: () {
-                  //                 cubit.fillCurrentStudent(index);
-                  //                 Navigator.pushNamed(
-                  //                   arguments: {
-                  //                     "chatId": cubit
-                  //                         .getOldChatsEntities?.data?[index].id
-                  //                         .toString(),
-                  //                   },
-                  //                   context,
-                  //                   RoutePaths.dmViewPath,
-                  //                 );
-                  //               },
-                  //             );
-                  //           },
-                  //         )
-                  //       : const ChatItemShimmerList(),
-                  //   bloc: cubit,
-                  // ),
-                  // const Text("data"),
                   const Text("data"),
                 ],
               ),
@@ -154,5 +218,14 @@ class _ChatsViewState extends State<ChatsView>
         ],
       ),
     );
+  }
+
+  // دالة منفصلة لتحديد الـ tabs
+  List<String> _getTabs(BuildContext context) {
+    var lang = context.loc!;
+    return [
+      lang.professors,
+      lang.appManagement,
+    ];
   }
 }

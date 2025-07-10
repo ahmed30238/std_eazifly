@@ -6,15 +6,19 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/chat_model/get_messages_model.dart';
+import 'package:eazifly_student/data/models/chat_model/get_my_chats_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/add_note_tojson.dart';
 import 'package:eazifly_student/domain/entities/add_note_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
+import 'package:eazifly_student/domain/entities/chat/get_my_chats_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
 import 'package:eazifly_student/domain/use_cases/add_note_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_messages_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_my_chats_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/send_messages_usecase.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_state.dart';
+import 'package:eazifly_student/presentation/controller/chats/message_ui_model.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
@@ -23,7 +27,7 @@ import 'package:record/record.dart';
 class ChatsCubit extends Cubit<ChatsState> {
   ChatsCubit({
     required this.getMessagesUsecase,
-    // required this.getMyStudentsUsecase,
+    required this.getMyChatsUsecase,
     required this.sendMessagesUsecase,
     // required this.getOldChatsUsecase,
     required this.addNoteUsecase,
@@ -72,12 +76,10 @@ class ChatsCubit extends Cubit<ChatsState> {
   }
 
   List<String> tabs({required BuildContext context}) {
-    // var lang = context.loc!;
+    var lang = context.loc!;
     var tabs = [
-      "prof",
-      "managment"
-      // lang.professors,
-      // lang.appManagement,
+      lang.professors,
+      lang.appManagement,
     ];
     return tabs;
   }
@@ -153,28 +155,6 @@ class ChatsCubit extends Cubit<ChatsState> {
   }
 
 //! ###################### API #######################
-  // GetOldChatsEntities? getOldChatsEntities;
-  // GetOldChatsUsecase getOldChatsUsecase;
-  // getOldChats() async {
-  //   log("started");
-  //   emit(GetOldChatsLoadingState());
-  //   final result = await getOldChatsUsecase.call(
-  //     parameter: GetOldChatsParameter(
-  //       type: "instructor",
-  //     ),
-  //   );
-  //   result.fold(
-  //     (l) {
-  //       log("left");
-  //       emit(GetOldChatsErrorState(errorMessage: l.message));
-  //     },
-  //     (r) {
-  //       log("right");
-  //       getOldChatsEntities = r;
-  //       emit(GetOldChatsSuccessState());
-  //     },
-  //   );
-  // }
 
   AddNoteEntity? addNoteEntity;
   AddNoteUsecase addNoteUsecase;
@@ -308,7 +288,7 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   // List<GetMessagesDatumModel>? messages = [];
 
-  Future<void> sendMessages({int? userId}) async {
+  Future<void> sendMessages({int? userId,required String receiverId}) async {
     late DataModel loginData;
     loginData = DataModel.fromJson(
       jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
@@ -321,7 +301,7 @@ class ChatsCubit extends Cubit<ChatsState> {
       message: textToSend,
       senderId: loginData.id.toString(),
       senderType: "User",
-      receiverId: "2",
+      receiverId: receiverId,
       receiverType: "Instructor",
       // createdAt: DateTime.now().toIso8601String(),
     );
@@ -337,14 +317,7 @@ class ChatsCubit extends Cubit<ChatsState> {
     emit(SendMesssagesLoadingState());
     final result = await sendMessagesUsecase.call(
       parameter: SendMessagesParameters(
-        data: SendMessagesTojson(
-          message: "Hello from app without UI",
-          // message: textToSend,
-          receiverId: "2", // TODO
-          receiverType: "Instructor",
-          senderType: "User",
-          senderId: loginData.id.toString(),
-        ),
+        data: tempMessage,
       ),
     );
     log("$result");
@@ -378,30 +351,33 @@ class ChatsCubit extends Cubit<ChatsState> {
     );
   }
 
-  // GetMyStudentsUsecase getMyStudentsUsecase;
-  // GetMyStudentsEntities? studentsEntities;
-  // // List<StudentModel>students = [];
-  // void getMyStudents() async {
-  //   emit(GetMyStudentsLoadingState());
-  //   var res = await getMyStudentsUsecase.call(parameter: NoParameter());
-  //   res.fold(
-  //     (l) {
-  //       emit(GetMyStudentsErrorState(errorMessage: l.message));
-  //     },
-  //     (r) {
-  //       log("studentsFilled");
-  //       studentsEntities = r;
-  //       emit(GetMyStudentsSuccessState());
-  //     },
-  //   );
-  // }
+  bool getMyChatsLoader = false;
+  GetMyChatsUsecase getMyChatsUsecase;
+  GetMyChatsEntity? getMyChatsEntity;
 
-  // this is a variable to use in the dm screen to get student(user) data
-  // filled when the user click on the student item in the chat screen
-  // StudentModel? currentStudent;
-  // fillCurrentStudent(int index) {
-  //   currentStudent = studentsEntities?.data?[index].student;
-  // }
+// Method
+  Future<void> getMyChats() async {
+    getMyChatsLoader = true;
+    emit(GetMyChatsLoadingState());
+
+    final result = await getMyChatsUsecase.call(
+      parameter: GetMyChatsParameters(
+        type: "user",
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        getMyChatsLoader = false;
+        emit(GetMyChatsErrorState(failure.message));
+      },
+      (data) {
+        getMyChatsLoader = false;
+        getMyChatsEntity = data;
+        emit(GetMyChatsSuccessState());
+      },
+    );
+  }
 
   @override
   Future<void> close() {
@@ -412,28 +388,11 @@ class ChatsCubit extends Cubit<ChatsState> {
     messageController.dispose();
     return super.close();
   }
-}
 
-class MessageUIModel {
-  final GetMessagesDatumModel message;
-  final bool isSending;
-  final bool isFailed;
-
-  MessageUIModel({
-    required this.message,
-    this.isSending = false,
-    this.isFailed = false,
-  });
-
-  MessageUIModel copyWith({
-    GetMessagesDatumModel? message,
-    bool? isSending,
-    bool? isFailed,
-  }) {
-    return MessageUIModel(
-      message: message ?? this.message,
-      isSending: isSending ?? this.isSending,
-      isFailed: isFailed ?? this.isFailed,
-    );
+  // this is a variable to use in the dm screen to get student(user) data
+  // filled when the user click on the student item in the chat screen
+  GetMyChatsParticipantModel? currentInstructor;
+  fillCurrentInstructor(int index) {
+    currentInstructor = getMyChatsEntity?.data?[index].participant1;
   }
 }

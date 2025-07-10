@@ -19,10 +19,13 @@ class GetMessagesDatumEntities {
   String? senderType;
   @JsonKey(name: "message")
   String? message;
+  @JsonKey(name: "created_at")
+  DateTime? createdAt;
   GetMessagesDatumEntities({
     this.id,
     this.chatId,
     this.senderType,
     this.message,
+    this.createdAt,
   });
 }

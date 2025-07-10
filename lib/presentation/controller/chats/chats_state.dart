@@ -1,4 +1,4 @@
-import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
+import 'package:eazifly_student/presentation/controller/chats/message_ui_model.dart';
 
 abstract class ChatsState {}
 
@@ -13,6 +13,16 @@ class RecordState extends ChatsState {}
 class RecordSecondState extends ChatsState {}
 
 class RecordThirdState extends ChatsState {}
+
+// GetMyChats States
+class GetMyChatsLoadingState extends ChatsState {}
+
+class GetMyChatsSuccessState extends ChatsState {}
+
+class GetMyChatsErrorState extends ChatsState {
+  final String message;
+  GetMyChatsErrorState(this.message);
+}
 
 class StartRecordState extends ChatsState {}
 
