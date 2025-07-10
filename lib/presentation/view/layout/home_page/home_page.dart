@@ -7,10 +7,13 @@ import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_library_model.dart';
 import 'package:eazifly_student/presentation/controller/home_notification/home_notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_notification/home_notification_state.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_loader.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:get_storage/get_storage.dart';
+
+DataModel? loginData;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,7 +23,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late DataModel loginData;
+  // late DataModel loginData;
   late bool isGuest;
   late HomeCubit cubit;
 
@@ -29,9 +32,18 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     cubit = context.read<HomeCubit>();
     loginData = DataModel.fromJson(
-        jsonDecode(GetStorage().read(StorageEnum.loginModel.name)));
-    isGuest = loginData.isGuest ?? true;
-    log("user id is ${loginData.id}");
+      jsonDecode(
+        GetStorage().read(
+          StorageEnum.loginModel.name,
+        ),
+      ),
+    );
+    context.read<LectureCubit>().fillUserId(loginData?.id ?? -1);
+    isGuest = loginData?.isGuest ?? true;
+    log("user id is ${loginData?.id}");
+
+    cubit.getHomeClosestSessions();
+    cubit.getHomeLibrary();
 
     // Initialize all data
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -52,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                 .isRead
                 .every((element) => element);
             return HomeAppbar(
-              loginData: loginData,
+              loginData: loginData!,
               showBadge: !allNotificationsRead,
             );
           },

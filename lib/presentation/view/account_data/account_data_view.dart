@@ -1,27 +1,23 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
 import 'package:eazifly_student/core/component/home_appbar.dart';
 import 'package:eazifly_student/core/component/titled_form_field.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
-import 'package:eazifly_student/core/network/handle_token.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/presentation/controller/account_data/accountdata_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/widgets/profile_image_widget.dart';
 import 'package:eazifly_student/presentation/view/account_data/widgets/user_name_text.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get_storage/get_storage.dart';
 
 class AccountData extends StatefulWidget {
   const AccountData({super.key});
@@ -31,18 +27,6 @@ class AccountData extends StatefulWidget {
 }
 
 class _AccountDataState extends State<AccountData> {
-  late DataModel loginData;
-  @override
-  void initState() {
-    loginData = DataModel.fromJson(
-      jsonDecode(
-        GetStorage().read(
-          StorageEnum.loginModel.name,
-        ),
-      ),
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +70,7 @@ class _AccountDataState extends State<AccountData> {
                   bloc: cubit,
                   builder: (context, state) => ProfileImageWidget(
                     isEditable: false,
-                    image: loginData.image ?? "",
+                    image: loginData?.image ?? "",
                     onEditTap: () {
                       cubit.pickProfileImageFroGallery();
                     },
@@ -94,13 +78,13 @@ class _AccountDataState extends State<AccountData> {
                 ),
                 18.ph,
                 UserNameText(
-                    name: "${loginData.firstName} ${loginData.lastName}"),
+                    name: "${loginData?.firstName} ${loginData?.lastName}"),
                 32.ph,
                 TitledFormFieldItem(
                   enabled: false,
                   iconWidget: 0.ph,
-                  controller: TextEditingController(
-                      text: "${loginData.userName}"),
+                  controller:
+                      TextEditingController(text: "${loginData?.userName}"),
                   formfieldHintText: "",
                   titleText: "اسم المستخدم",
                 ),
@@ -111,15 +95,15 @@ class _AccountDataState extends State<AccountData> {
                   titleText: "الهاتف",
                   formfieldHintText: "",
                   controller: TextEditingController(
-                      text: loginData.phone ?? "No Address"),
-                  // formfieldEnText: "loginData.address",
+                      text: loginData?.phone ?? "No Address"),
+                  // formfieldEnText: "loginData?.address",
                 ),
                 16.ph,
                 TitledFormFieldItem(
                   enabled: false,
                   titleText: "البريد الالكتروني",
                   formfieldHintText: "",
-                  formfieldEnText: "${loginData.email}",
+                  formfieldEnText: "${loginData?.email}",
                   iconWidget: const Icon(
                     Icons.done_all_outlined,
                     color: MainColors.blueMoreTextColor,
@@ -174,22 +158,22 @@ class _AccountDataState extends State<AccountData> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CustomElevatedButton(
-                          text: "نعم",
-                          color: MainColors.red,
-                          width: 110.w,
-                          radius: 16.r,
-                          onPressed: () async {
-                            await TokenUtil.clearToken().then(
-                              (value) {
-                                Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  RoutePaths.loginPath,
-                                  (route) => false,
-                                );
-                              },
-                            );
-                          },
+                        BlocBuilder(
+                          bloc: cubit,
+                          builder: (context, state) => CustomElevatedButton(
+                            text: "نعم",
+                            color: MainColors.red,
+                            width: 110.w,
+                            radius: 16.r,
+                            onPressed: cubit.logoutLoader
+                                ? () {}
+                                : () async {
+                                    await cubit.logout(context);
+                                  },
+                            child: cubit.logoutLoader
+                                ? const CircularProgressIndicator.adaptive()
+                                : null,
+                          ),
                         ),
                         CustomElevatedButton(
                           radius: 16.r,

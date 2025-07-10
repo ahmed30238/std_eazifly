@@ -1,15 +1,13 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/core/component/spline_area_chart.dart';
 import 'package:eazifly_student/core/component/stats_area.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/core/enums/student_success_status.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/my_programs/post_assignment_tojson.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/complete_chapter_lesson_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/get_chapter_lessons_entity.dart';
@@ -36,17 +34,17 @@ import 'package:eazifly_student/domain/use_cases/get_user_reports_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/post_assignment_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/show_program_details_usecase.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/deliveries_body.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/exam_body.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/notes_body.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/report_body.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/schedules_body.dart';
-import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
@@ -66,12 +64,11 @@ class LectureCubit extends Cubit<LectureState> {
     required this.postAssignmentUsecase,
     required this.getReportQuestionsUsecase,
   }) : super(LectureInitial()) {
-    var loginData = DataModel.fromJson(
-        jsonDecode(GetStorage().read(StorageEnum.loginModel.name)));
-    fillUserId(loginData.id ?? -1);
+    fillUserId(loginData?.id ?? -1);
     // userId =
     log("$userId");
   }
+  // DataModel? loginData;
   File? profileImage;
   Future<void> pickProfileImageFroGallery() async {
     final response = await pickImageFromGallery();

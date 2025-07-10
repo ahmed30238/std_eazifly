@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/chat_model/get_messages_model.dart';
 import 'package:eazifly_student/data/models/chat_model/get_my_chats_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
@@ -19,8 +17,8 @@ import 'package:eazifly_student/domain/use_cases/get_my_chats_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/send_messages_usecase.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_state.dart';
 import 'package:eazifly_student/presentation/controller/chats/message_ui_model.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
@@ -31,12 +29,7 @@ class ChatsCubit extends Cubit<ChatsState> {
     required this.sendMessagesUsecase,
     // required this.getOldChatsUsecase,
     required this.addNoteUsecase,
-  }) : super(ChatsInitial()) {
-    loginData = DataModel.fromJson(
-      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
-    );
-  }
-  DataModel? loginData;
+  }) : super(ChatsInitial());
 
   static ChatsCubit get(BuildContext context) => BlocProvider.of(context);
   bool isMessageNotEmpty = false;
@@ -288,18 +281,15 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   // List<GetMessagesDatumModel>? messages = [];
 
-  Future<void> sendMessages({int? userId,required String receiverId}) async {
-    late DataModel loginData;
-    loginData = DataModel.fromJson(
-      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
-    );
+  Future<void> sendMessages({int? userId, required String receiverId}) async {
+
 
     final String textToSend = messageController.text;
     messageController.clear();
 
     final tempMessage = SendMessagesTojson(
       message: textToSend,
-      senderId: loginData.id.toString(),
+      senderId: loginData?.id.toString()??"",
       senderType: "User",
       receiverId: receiverId,
       receiverType: "Instructor",

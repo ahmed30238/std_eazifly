@@ -17,8 +17,10 @@ import 'package:get_storage/get_storage.dart';
 // Constants
 class NotificationConstants {
   static const String highImportanceChannelId = 'high_importance_channel';
-  static const String highImportanceChannelName = 'High Importance Notifications';
-  static const String highImportanceChannelDescription = 'This channel is used for important notifications.';
+  static const String highImportanceChannelName =
+      'High Importance Notifications';
+  static const String highImportanceChannelDescription =
+      'This channel is used for important notifications.';
   static const String androidIcon = '@mipmap/ic_launcher';
   static const String chatNotificationType = 'chat';
   static const String chatIdKey = 'chat_id';
@@ -36,7 +38,8 @@ class NotificationService {
   static final NotificationService instance = NotificationService._();
 
   // Private fields
-  final FlutterLocalNotificationsPlugin _localNotifications = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin _localNotifications =
+      FlutterLocalNotificationsPlugin();
   bool _isFlutterLocalNotificationsInitialized = false;
   late FirebaseMessaging _messaging;
 
@@ -76,7 +79,7 @@ class NotificationService {
     await initializeFirebase();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     final permissionSettings = await _requestNotificationPermission();
-    
+
     // Only proceed if permissions are granted
     if (_areNotificationsEnabled(permissionSettings)) {
       await _setupMessageHandlers();
@@ -97,10 +100,10 @@ class NotificationService {
       carPlay: false,
       criticalAlert: false,
     );
-    
+
     // Log permission status for debugging
     log('Notification permission status: ${settings.authorizationStatus}');
-    
+
     // Handle different permission states
     switch (settings.authorizationStatus) {
       case AuthorizationStatus.authorized:
@@ -116,7 +119,7 @@ class NotificationService {
         log('User granted provisional notification permissions');
         break;
     }
-    
+
     return settings;
   }
 
@@ -135,7 +138,7 @@ class NotificationService {
   Future<void> showNotification(RemoteMessage message) async {
     final notification = message.notification;
     final android = message.notification?.android;
-    
+
     if (_shouldShowNotification(notification, android)) {
       await _displayLocalNotification(notification!, message);
     }
@@ -172,7 +175,7 @@ class NotificationService {
 
   /// Save FCM token to local storage
   Future<void> _saveFcmTokenToStorage(String? token) async {
-    GetStorage().write(StorageEnum.fcmToken.name, token);
+    await GetStorage().write(StorageEnum.fcmToken.name, token);
   }
 
   /// Create Android notification channel
@@ -185,7 +188,8 @@ class NotificationService {
     );
 
     await _localNotifications
-        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
   }
 
@@ -210,12 +214,14 @@ class NotificationService {
   }
 
   /// Check if notification should be displayed
-  bool _shouldShowNotification(RemoteNotification? notification, AndroidNotification? android) {
+  bool _shouldShowNotification(
+      RemoteNotification? notification, AndroidNotification? android) {
     return notification != null && android != null;
   }
 
   /// Display local notification
-  Future<void> _displayLocalNotification(RemoteNotification notification, RemoteMessage message) async {
+  Future<void> _displayLocalNotification(
+      RemoteNotification notification, RemoteMessage message) async {
     await _localNotifications.show(
       notification.hashCode,
       notification.title,
@@ -231,7 +237,8 @@ class NotificationService {
       android: AndroidNotificationDetails(
         NotificationConstants.highImportanceChannelId,
         NotificationConstants.highImportanceChannelName,
-        channelDescription: NotificationConstants.highImportanceChannelDescription,
+        channelDescription:
+            NotificationConstants.highImportanceChannelDescription,
         importance: Importance.high,
         priority: Priority.high,
         icon: NotificationConstants.androidIcon,
@@ -267,7 +274,8 @@ class NotificationService {
       final chatId = message.data[NotificationConstants.chatIdKey];
       log("id in notif ${message.data[NotificationConstants.chatIdKey]}");
 
-      _chatsCubit?.getMessages(chatId: chatId, isInitial: true,showLoader: false);
+      _chatsCubit?.getMessages(
+          chatId: chatId, isInitial: true, showLoader: false);
     }
   }
 
@@ -286,7 +294,8 @@ class NotificationService {
 
   /// Check if notification is a chat notification
   bool _isChatNotification(RemoteMessage message) {
-    return message.data[NotificationConstants.typeKey] == NotificationConstants.chatNotificationType;
+    return message.data[NotificationConstants.typeKey] ==
+        NotificationConstants.chatNotificationType;
   }
 
   /// Navigate to chat screen
@@ -305,6 +314,6 @@ class NotificationService {
   /// Check if notifications are enabled
   bool _areNotificationsEnabled(NotificationSettings settings) {
     return settings.authorizationStatus == AuthorizationStatus.authorized ||
-           settings.authorizationStatus == AuthorizationStatus.provisional;
+        settings.authorizationStatus == AuthorizationStatus.provisional;
   }
 }

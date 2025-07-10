@@ -1,25 +1,26 @@
-import 'dart:convert';
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/core/enums/gender_enum.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/core/network/handle_token.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
+import 'package:eazifly_student/domain/entities/notification/auth/logout_entity.dart';
 import 'package:eazifly_student/domain/entities/user/update_profile_entity.dart';
+import 'package:eazifly_student/domain/use_cases/logout_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/update_profile_usecase.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:get_storage/get_storage.dart';
 
 import 'accountdata_state.dart';
 
 class AccountdataCubit extends Cubit<AccountdataState> {
   AccountdataCubit({
     required this.updateProfileUsecase,
+    required this.logoutUsecase,
   }) : super(AccountdataInitial()) {
-    loginData = DataModel.fromJson(
-      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
-    );
     if (loginData != null) {
       lastNameController.text = loginData?.lastName ?? "no name";
       firstNameController.text = loginData?.firstName ?? "no name";
@@ -32,11 +33,10 @@ class AccountdataCubit extends Cubit<AccountdataState> {
       // تحديد الجنس من البيانات المحفوظة
       if (loginData?.gender != null) {
         gender =
-            loginData!.gender == 'male' ? GenderEnum.male : GenderEnum.female;
+            loginData?.gender == 'male' ? GenderEnum.male : GenderEnum.female;
       }
     }
   }
-  DataModel? loginData;
 
   static AccountdataCubit get(context) => BlocProvider.of(context);
 
@@ -119,6 +119,42 @@ class AccountdataCubit extends Cubit<AccountdataState> {
       log("Error in updateProfile: $e");
       emit(UpdateProfileErrorState(errorMessage: e.toString()));
     }
+  }
+
+// Variables
+  bool logoutLoader = false;
+  LogoutUsecase logoutUsecase;
+  LogoutEntity? logoutEntity;
+
+// Method
+  Future<void> logout(BuildContext context) async {
+    logoutLoader = true;
+    emit(LogoutLoadingState());
+
+    final result = await logoutUsecase.call(parameter: NoParameter());
+
+    result.fold(
+      (failure) {
+        logoutLoader = false;
+        emit(LogoutErrorState(failure.message));
+      },
+      (data) async {
+        logoutLoader = false;
+        logoutEntity = data;
+        emit(LogoutSuccessState());
+        await TokenUtil.clearToken().then(
+          (value) {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              RoutePaths.loginPath,
+              (route) => false,
+            );
+          },
+        );
+        // Optional: Navigate to login screen after successful logout
+        // navigatorKey.currentState?.pushReplacementNamed(RoutePaths.login);
+      },
+    );
   }
 
   @override

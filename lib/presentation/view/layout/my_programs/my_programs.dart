@@ -1,15 +1,11 @@
-import 'dart:convert';
-
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/my_programs_loder.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/program_item.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/program_navigation.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class MyProgramsView extends StatefulWidget {
@@ -21,7 +17,6 @@ class MyProgramsView extends StatefulWidget {
 
 class _MyProgramsViewState extends State<MyProgramsView> {
   late MyProgramsCubit cubit;
-  late DataModel loginData;
 
   GlobalKey keyReviewButton = GlobalKey();
   late TutorialCoachMark tutorialCoachMark;
@@ -29,9 +24,6 @@ class _MyProgramsViewState extends State<MyProgramsView> {
 
   @override
   void initState() {
-    loginData = DataModel.fromJson(
-      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
-    );
     cubit = context.read<MyProgramsCubit>();
     cubit.getMyPrograms();
 
@@ -52,8 +44,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
       colorShadow: Colors.black.withOpacity(0.8),
       onFinish: () => print("تم الانتهاء من الشرح"),
     )..show(
-      context: context,
-    );
+        context: context,
+      );
   }
 
   void initTargets() {
@@ -142,7 +134,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         int hour = item.nextSession!.hour;
                         int minute = item.nextSession!.minute;
                         nextLec = convertTo12HourFormat(hour, minute);
-                        formattedTimeDiff = formatTimeDifference(item.nextSession);
+                        formattedTimeDiff =
+                            formatTimeDifference(item.nextSession);
                       } else {
                         nextLec = "بدأت بالفعل";
                         formattedTimeDiff = "جارية الآن";
@@ -152,7 +145,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         int hour = item.nextSession!.hour;
                         int minute = item.nextSession!.minute;
                         nextLec = convertTo12HourFormat(hour, minute);
-                        formattedTimeDiff = formatTimeDifference(item.nextSession);
+                        formattedTimeDiff =
+                            formatTimeDifference(item.nextSession);
                       } else {
                         nextLec = "غير محدد";
                         formattedTimeDiff = "غير محدد";
@@ -192,7 +186,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                                   context: context,
                                   cubit: cubit,
                                   item: item,
-                                  loginData: loginData,
+                                  loginData: loginData!,
                                   programId: item.id ?? -1,
                                   noOfChildren: cubit
                                           .getAssignedChildrenToProgramEntity

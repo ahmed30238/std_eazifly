@@ -7,6 +7,7 @@ import 'package:eazifly_student/core/network/end_points.dart';
 import 'package:eazifly_student/core/network/error_message_model.dart';
 import 'package:eazifly_student/core/network/networkcall.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/auth/logout_model.dart';
 import 'package:eazifly_student/data/models/auth/update_fcm_token_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
@@ -300,6 +301,7 @@ abstract class BaseRemoteDataSource {
   Future<GetLatestNotificationModel> getLatestNotification(
       {required int offset, required String type});
   Future<ReadNotificationModel> readNotification({required int notificationId});
+  Future<LogoutModel> logout();
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -2069,6 +2071,23 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return ReadNotificationModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<LogoutModel> logout() async {
+    var response = await NetworkCall().post(
+      path: EndPoints.logout,
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return LogoutModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

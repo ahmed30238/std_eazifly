@@ -278,7 +278,7 @@ class OverlayTooltip {
     final renderBox = key.currentContext?.findRenderObject() as RenderBox?;
     
     if (renderBox != null) {
-      final size = renderBox.size;
+      // final size = renderBox.size;
       final offset = renderBox.localToGlobal(Offset.zero);
       
       _overlayEntry = OverlayEntry(

@@ -1,17 +1,13 @@
-import 'dart:convert';
-
 import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/component/persona_list_tile.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/widgets/dummy_data.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/widgets/setting_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_storage/get_storage.dart';
 
 class MyAccountView extends StatefulWidget {
   const MyAccountView({super.key});
@@ -21,12 +17,10 @@ class MyAccountView extends StatefulWidget {
 }
 
 class _MyAccountViewState extends State<MyAccountView> {
-  late final DataModel dataModel;
+  // late final DataModel dataModel;
   @override
   initState() {
-    dataModel = DataModel.fromJson(
-      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
-    );
+
     super.initState();
   }
 
@@ -62,9 +56,9 @@ class _MyAccountViewState extends State<MyAccountView> {
             imageContainerHeight: 48.h,
             imageContainerWidth: 48.w,
             titleFontSize: 16,
-            title: "${dataModel.firstName} ${dataModel.lastName}",
-            image: "${dataModel.image}",
-            subTitleText: "${dataModel.phone}",
+            title: "${loginData?.firstName} ${loginData?.lastName}",
+            image: "${loginData?.image}",
+            subTitleText: "${loginData?.phone}",
           ),
           24.ph,
           ...List.generate(

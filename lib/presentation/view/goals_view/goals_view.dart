@@ -1,14 +1,9 @@
-import 'dart:convert';
-
 import 'package:eazifly_student/core/component/hexagon.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
 import 'package:eazifly_student/presentation/view/goals_view/widgets/app_bar.dart';
 import 'package:eazifly_student/presentation/view/goals_view/widgets/goals_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:get_storage/get_storage.dart';
 
 class GoalsView extends StatefulWidget {
   const GoalsView({super.key});
@@ -19,18 +14,13 @@ class GoalsView extends StatefulWidget {
 
 class _GoalsViewState extends State<GoalsView> {
   late LectureCubit cubit;
-  late DataModel loginModel;
 
   @override
   void initState() {
-    loginModel = DataModel.fromJson(
-      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
-    );
     cubit = context.read<LectureCubit>();
     super.initState();
     cubit.getContentChapters(
       userId: cubit.userId,
-      // userId: loginModel.id ?? -1,
     );
   }
 

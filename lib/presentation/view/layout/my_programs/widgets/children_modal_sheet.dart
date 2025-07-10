@@ -1,15 +1,11 @@
-import 'dart:convert';
-
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/std_data_item.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/widgets/std_data_item_shimmer.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:get_storage/get_storage.dart';
 
 class ChildrenModalSheet extends StatelessWidget {
   final MyProgramsCubit cubit;
@@ -122,14 +118,7 @@ class ChildrenModalSheet extends StatelessWidget {
                 var read = context.read<LectureCubit>();
                 read.currentChildIndex = -1;
                 read.fillUserId(
-                  DataModel.fromJson(
-                        jsonDecode(
-                          GetStorage().read(
-                            StorageEnum.loginModel.name,
-                          ),
-                        ),
-                      ).id ??
-                      -1,
+                  loginData?.id ?? -1,
                 );
                 back(context);
                 Navigator.pushNamed(

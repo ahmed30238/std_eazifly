@@ -13,3 +13,12 @@ class UpdateProfileErrorState extends AccountdataState {
 
   UpdateProfileErrorState({required this.errorMessage});
 }
+// Logout States
+class LogoutLoadingState extends AccountdataState {}
+
+class LogoutSuccessState extends AccountdataState {}
+
+class LogoutErrorState extends AccountdataState {
+  final String message;
+  LogoutErrorState(this.message);
+}

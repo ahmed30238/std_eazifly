@@ -1,9 +1,5 @@
-import 'dart:convert';
-
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_assigments_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_closest_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_current_session_entity.dart';
@@ -16,8 +12,9 @@ import 'package:eazifly_student/domain/use_cases/get_home_current_session_usecas
 import 'package:eazifly_student/domain/use_cases/get_home_library_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_quizzes_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/update_fcm_token_usecase.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:get_storage/get_storage.dart';
+
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -29,7 +26,7 @@ class HomeCubit extends Cubit<HomeState> {
     required this.getHomeAssignmentsUsecase,
     required this.updateFcmTokenUsecase,
   }) : super(HomeInitial()) {
-    _initializeUser();
+    // _initializeUser();
   }
 
   static HomeCubit get(context) => BlocProvider.of(context);
@@ -41,11 +38,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   void _initializeUser() {
     try {
-      final loginData = DataModel.fromJson(
-        jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
-      );
-      userId = loginData.id ?? 0;
-      isGuest = loginData.isGuest ?? true;
+      userId = loginData?.id ?? 0;
+      isGuest = loginData?.isGuest ?? true;
     } catch (e) {
       userId = 0;
       isGuest = true;
@@ -54,6 +48,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   // Initialize all data
   Future<void> initializeHomeData() async {
+    _initializeUser();
     // Always load library
     await getHomeLibrary();
 

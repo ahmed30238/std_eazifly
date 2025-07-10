@@ -36,7 +36,6 @@ class _SplashScreenState extends State<SplashScreen>
     // الانتقال للشاشة التالية بعد انتهاء المؤقت
     Future.delayed(const Duration(seconds: 3), () {
       final String token = TokenUtil.getTokenFromMemory();
-      print(token);
       if (token.isEmpty) {
         Navigator.pushNamedAndRemoveUntil(
           context,

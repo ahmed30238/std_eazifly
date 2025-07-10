@@ -11,6 +11,7 @@ class EndPoints {
   static const addNote = "order/add/note";
   static const getRemainingProgramSessions = "program/sessions/date";
   static const removeAssignedStudent = "remove/user/from/program";
+  static const logout = "logout";
   static String getLatestNotification(
           {required String type, required int offset}) =>
       "notifications?type=$type&offset=$offset";

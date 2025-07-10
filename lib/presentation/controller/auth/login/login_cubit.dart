@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/network/handle_token.dart';
@@ -32,18 +33,21 @@ class LoginCubit extends Cubit<LoginState> {
 
   bool loginLoader = false;
   LoginEntity? entities;
+
   void tryToLogin(BuildContext context) async {
     loginLoader = true;
     if (!formKey.currentState!.validate()) {
       return;
     }
     emit(LoginLoadingState());
+
     final data = await loginUsecase.call(
       parameter: LoginParameter(
         email: emailController.text,
         password: passwordController.text,
       ),
     );
+
     data.fold(
       (l) {
         loginLoader = false;

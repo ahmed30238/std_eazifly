@@ -17,17 +17,6 @@ class UpdateChildProfile extends StatefulWidget {
 }
 
 class _UpdateChildProfileState extends State<UpdateChildProfile> {
-  // late DataModel loginData;
-  @override
-  void initState() {
-    // loginData = DataModel.fromJson(
-    //   jsonDecode(
-    //     GetStorage().read(StorageEnum.loginModel.name),
-    //   ),
-    // );
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<UpdatechildprofileCubit>();

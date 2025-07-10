@@ -84,6 +84,7 @@ import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_quiz_que
 import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_user_quizzes_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/quizzes/submit_quiz_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/show_program_details_entity.dart';
+import 'package:eazifly_student/domain/entities/notification/auth/logout_entity.dart';
 import 'package:eazifly_student/domain/entities/notification/get_latest_notifications_entities.dart';
 import 'package:eazifly_student/domain/entities/notification/read_notification_entities.dart';
 import 'package:eazifly_student/domain/entities/sessions/cancel_session_entity.dart';
@@ -315,4 +316,5 @@ abstract class BaseRepository {
       {required String type, required int offset});
   Future<Either<Failure, ReadNotificationEntities>> readNotification(
       {required int notificationId});
+  Future<Either<Failure, LogoutEntity>> logout();
 }

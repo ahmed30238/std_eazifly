@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:eazifly_student/core/component/avatar_image.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:get_storage/get_storage.dart';
 
 class NotesItem extends StatelessWidget {
   final int? id;
@@ -30,13 +26,6 @@ class NotesItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var loginData = DataModel.fromJson(
-      jsonDecode(
-        GetStorage().read(
-          StorageEnum.loginModel.name,
-        ),
-      ),
-    );
     return Slidable(
       key: ValueKey(id ?? 0),
       closeOnScroll: true,
@@ -72,7 +61,7 @@ class NotesItem extends StatelessWidget {
                     children: [
                       AvatarImage(
                         shape: BoxShape.circle,
-                        imageUrl: loginData.image,
+                        imageUrl: loginData?.image,
                         height: 20.h,
                         width: 20.w,
                       ),

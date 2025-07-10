@@ -1,21 +1,13 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:eazifly_student/core/enums/mesage_type_enum.dart';
-import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/theme/colors/main_colors.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_state.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/widgets.dart/message_item.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/widgets.dart/writing_message_area.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
 class DmBody extends StatelessWidget {
@@ -84,10 +76,7 @@ class DmBody extends StatelessWidget {
                         bool isLastElement = index == messages.length - 1;
                         final message = messages[index];
                         log("building message: ${message.message.message}");
-                        DataModel loginData = DataModel.fromJson(
-                          jsonDecode(
-                              GetStorage().read(StorageEnum.loginModel.name)),
-                        );
+                       
                         return TextMessageItem(
                           isLastMesage: isLastElement,
                           messageModel: Message(
@@ -99,7 +88,7 @@ class DmBody extends StatelessWidget {
                           ),
                           messageSenderAvatar:
                               message.message.senderType == "User"
-                                  ? loginData.image ?? ""
+                                  ? loginData?.image ?? ""
                                   : cubit.currentInstructor?.image ?? "",
                         );
                       },

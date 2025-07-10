@@ -99,6 +99,7 @@ import 'package:eazifly_student/domain/entities/like_item_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/change_session_status_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
+import 'package:eazifly_student/domain/entities/notification/auth/logout_entity.dart';
 import 'package:eazifly_student/domain/entities/sessions/cancel_session_entity.dart';
 import 'package:eazifly_student/domain/entities/sessions/change_session_date_entity.dart';
 import 'package:eazifly_student/domain/entities/sessions/get_cancel_session_reason_entity.dart';
@@ -1076,6 +1077,16 @@ class Repository extends BaseRepository {
       {required int notificationId}) async {
     final result = await baseRemoteDataSource.readNotification(
         notificationId: notificationId);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, LogoutEntity>> logout() async {
+    final result = await baseRemoteDataSource.logout();
     try {
       return Right(result);
     } on ServerException catch (e) {

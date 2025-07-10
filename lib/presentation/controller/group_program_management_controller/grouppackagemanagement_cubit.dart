@@ -1,10 +1,7 @@
-import 'dart:convert';
 import 'dart:developer';
 
-import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/core/enums/week_days.dart';
 import 'package:eazifly_student/core/service_locator/service_locator.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/get_instructors_tojson.dart';
@@ -26,8 +23,8 @@ import 'package:eazifly_student/presentation/view/group_package_management_view/
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/chosen_student_body.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/repeated_weekly_session.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/specify_all_sessions_dates.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:get_storage/get_storage.dart';
 
 part 'grouppackagemanagement_state.dart';
 
@@ -39,15 +36,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
       required this.getOrderDetailsUsecase,
       required this.getInstructorsUsecase,
       required this.getProgramContentUsecase})
-      : super(GrouppackagemanagementInitial()) {
-    loginData = DataModel.fromJson(
-      jsonDecode(
-        GetStorage().read(
-          StorageEnum.loginModel.name,
-        ),
-      ),
-    );
-  }
+      : super(GrouppackagemanagementInitial());
   //! ui
   TabController? fixedDateController;
   void initFixedDateTabBarController(TickerProvider vsync) {
@@ -276,7 +265,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     ];
   }
 
-  DataModel? loginData;
+  // DataModel? loginData;
   bool addMyself = false;
   toggleMyself() {
     addMyself = !addMyself;

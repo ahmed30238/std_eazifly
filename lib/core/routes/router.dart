@@ -1,4 +1,3 @@
-import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/service_locator/service_locator.dart';
 import 'package:eazifly_student/presentation/controller/account_data/accountdata_cubit.dart';
 import 'package:eazifly_student/presentation/controller/account_data/update_child_profile_controller/updatechildprofile_cubit.dart';
@@ -22,7 +21,6 @@ import 'package:eazifly_student/presentation/controller/my_programs/myprograms_c
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
-import 'package:eazifly_student/presentation/controller/subscription_details_controller/subscriptiondetails_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
 import 'package:eazifly_student/presentation/view/account_data/edit_profile_view/edit_profile_view.dart';
 import 'package:eazifly_student/presentation/view/auth/login/login.dart';
@@ -47,7 +45,6 @@ import 'package:eazifly_student/presentation/view/layout/library/payment/library
 import 'package:eazifly_student/presentation/view/layout/my_account/about_app_view/about_app_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/copouns_and_discounts_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/explain_point_view/explain_point_view.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/notifications_view/notification_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/privacy_policy_and_usage_view/privacy_policy_and_usage_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/reports_and_complaints_view/reports_and_complaints_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/add_new_student_data_view/add_new_student_data_view.dart';
@@ -60,9 +57,7 @@ import 'package:eazifly_student/presentation/view/layout/my_account/subscription
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/general_confirm_payment_view%20copy/general_confirm_payment_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_management_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/subscription_package_details/subscription_package_details.dart';
-import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/change_lecturer_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/program_goals_view/program_goals_view.dart';
-import 'package:eazifly_student/presentation/view/layout/my_programs/selection_of_educational_courses_view/selection_of_educational_courses_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/selection_program_item_details_view/selection_program_item_details_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/session_details_view/session_details_view.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/subscribed_students_settings_view/subscribed_students_settings_view.dart';
@@ -80,13 +75,10 @@ import 'package:eazifly_student/presentation/view/lecture/lecture_view.dart';
 import 'package:eazifly_student/presentation/view/lecture/quiz_details_view/quiz_details_view.dart';
 import 'package:eazifly_student/presentation/view/meeting_data_view/meeting_data_view.dart';
 import 'package:eazifly_student/presentation/view/package_details_view/package_details_view.dart';
-import 'package:eazifly_student/presentation/view/programs_underreview/programs_under_review_view.dart';
 import 'package:eazifly_student/presentation/view/splash_screen/splash_view.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/subscription_details_view.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:eazifly_student/presentation/view/update_child_profile/update_child_profile.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 final navKey = GlobalKey<NavigatorState>();
 final RouteObserver<PageRoute> navigatorObservers = RouteObserver<PageRoute>();
@@ -116,6 +108,7 @@ class AppRouter {
           BlocProvider(
             create: (context) => AccountdataCubit(
               updateProfileUsecase: sl(),
+              logoutUsecase: sl(),
             ),
             child: const AccountData(),
           ),

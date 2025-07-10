@@ -1,13 +1,9 @@
-import 'dart:convert';
-
-import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/student_change_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:get_storage/get_storage.dart';
 
 class ChildrenNavigator extends StatefulWidget {
   final int programId;
@@ -28,13 +24,9 @@ class _ChildrenNavigatorState extends State<ChildrenNavigator> {
         var children =
             programCubit.getAssignedChildrenToProgramEntity?.data ?? [];
 
-        final loginData = DataModel.fromJson(
-          jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
-        );
-
         final isParent = cubit.currentChildIndex == -1;
         var currentChild = isParent ? null : children[cubit.currentChildIndex];
-        if (loginData.id !=
+        if (loginData?.id !=
             cubit.userId /* يعني المستخدم الحالي مش هو الاب */) {
           cubit.currentChildIndex = children.indexWhere(
             (child) => child.id == cubit.userId,
@@ -47,7 +39,7 @@ class _ChildrenNavigatorState extends State<ChildrenNavigator> {
 
         return StudentsChangeItem(
           studentName: isParent
-              ? "${loginData.firstName} ${loginData.lastName}"
+              ? "${loginData?.firstName} ${loginData?.lastName}"
               : "${currentChild?.firstName ?? ""} ${currentChild?.lastName ?? ""}",
           onBackTap: () {
             cubit.controller.animateTo(0);
@@ -55,11 +47,11 @@ class _ChildrenNavigatorState extends State<ChildrenNavigator> {
 
             if (cubit.currentChildIndex == -1) {
               // عرض الأب
-              cubit.fillUserId(loginData.id ?? -1);
+              cubit.fillUserId(loginData?.id ?? -1);
               cubit.showProgramDetails(programId: widget.programId);
               cubit.getProgramSessions(
                 programId: widget.programId,
-                userId: loginData.id ?? -1,
+                userId: loginData?.id ?? -1,
               );
             } else {
               final newChild = children[cubit.currentChildIndex];
@@ -77,11 +69,11 @@ class _ChildrenNavigatorState extends State<ChildrenNavigator> {
 
             if (cubit.currentChildIndex == -1) {
               // عرض الأب
-              cubit.fillUserId(loginData.id ?? -1);
+              cubit.fillUserId(loginData?.id ?? -1);
               cubit.showProgramDetails(programId: widget.programId);
               cubit.getProgramSessions(
                 programId: widget.programId,
-                userId: loginData.id ?? -1,
+                userId: loginData?.id ?? -1,
               );
             } else {
               final newChild = children[cubit.currentChildIndex];

@@ -23,6 +23,8 @@ class TokenUtil {
   static Future<void> clearToken() async {
     await GetStorage().remove(StorageEnum.loginModel.name);
     await GetStorage().remove(TokenEnum.token.name);
+    await GetStorage().remove(StorageEnum.fcmToken.name);
+
     _token = "";
   }
 }
