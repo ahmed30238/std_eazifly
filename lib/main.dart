@@ -28,11 +28,10 @@ void main() async {
   ]);
   await NotificationService.instance.initialize();
   logger.debug(
-    //GetStorage().write(StorageEnum.fcmToken.name, token)
     "this is FCMToken ${await GetStorage().read(StorageEnum.fcmToken.name)}",
   );
-  logger.info("my token is empty ${TokenUtil.getTokenFromMemory().isEmpty}");
-  logger.error("val is ${TokenUtil.getTokenFromMemory()}");
+  // logger.info("my token is empty ${TokenUtil.getTokenFromMemory().isEmpty}");
+  // logger.error("val is ${TokenUtil.getTokenFromMemory()}");
   NotificationService.instance.setupFlutterNotifications();
   runApp(
     const RequestsInspector(

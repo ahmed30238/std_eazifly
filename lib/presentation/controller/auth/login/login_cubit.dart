@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:eazifly_student/core/enums/storage_enum.dart';
+import 'package:eazifly_student/core/fire_base_helper/firebase_notifiction.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/network/handle_token.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
@@ -9,6 +11,7 @@ import 'package:eazifly_student/domain/entities/login_entities.dart';
 import 'package:eazifly_student/domain/use_cases/login_usecase.dart';
 import 'package:eazifly_student/presentation/controller/auth/login/login_state.dart';
 import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
+import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
@@ -54,17 +57,20 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginFailedState());
         return;
       },
-      (r) {
+      (r) async {
         if (r.data != null) {
+          context.read<LayoutCubit>().changeIndex(0);
           TokenUtil.saveToken(r.data?.token ?? "");
           GetStorage().write(
             StorageEnum.loginModel.name,
             jsonEncode(r.data),
           );
+          String fcmToken =
+              await NotificationService.instance.getFcmToken() ?? "";
+          log("sent fcmToken is $fcmToken");
+
           context.read<HomeCubit>().updateFcmToken(
-                fcmToken: GetStorage().read(
-                  StorageEnum.fcmToken.name,
-                ),
+                fcmToken: fcmToken,
               );
           loginLoader = false;
           entities = r;
