@@ -33,6 +33,7 @@ import 'package:eazifly_student/domain/use_cases/get_home_library_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_quizzes_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_instructor_availabilities_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_instructors_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_latest_notification_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_categories_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_plans_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_library_subscription_usecase.dart';
@@ -66,6 +67,7 @@ import 'package:eazifly_student/domain/use_cases/library_order_and_subscription_
 import 'package:eazifly_student/domain/use_cases/like_item_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/login_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/post_assignment_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/read_notification_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/remove_assigned_student_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/renew_subscription_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/send_messages_usecase.dart';
@@ -81,6 +83,7 @@ import 'package:eazifly_student/presentation/controller/add_new_student_data_to_
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
+import 'package:eazifly_student/presentation/controller/home_notification/home_notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
@@ -217,6 +220,10 @@ class ServiceLocator {
     sl.registerLazySingleton(() => GetHomeQuizzesUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetMyChatsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => UpdateFcmTokenUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => GetLatestNotificationUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+        () => ReadNotificationUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(
@@ -267,6 +274,12 @@ class ServiceLocator {
       () => ProgramsUnderReviewCubit(
         getUserOrdersUsecase: sl(),
         // addNoteUsecase: sl(),
+      ),
+    );
+    sl.registerLazySingleton<HomeNotificationCubit>(
+      () => HomeNotificationCubit(
+        getLatestNotificationsUsecase: sl(),
+        readNotificationUsecase: sl(),
       ),
     );
     sl.registerFactory<MyProgramsCubit>(

@@ -4,8 +4,10 @@ import 'dart:developer';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/routes/router.dart';
+import 'package:eazifly_student/domain/entities/notification/get_latest_notifications_entities.dart';
 import 'package:eazifly_student/firebase_options.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
+import 'package:eazifly_student/presentation/controller/home_notification/home_notification_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -39,10 +41,10 @@ class NotificationService {
   late FirebaseMessaging _messaging;
 
   // Commented out cubits (keeping as requested)
-  // HomeNotificationCubit? _notificationCubit;
-  // void setCubit(HomeNotificationCubit cubit) {
-  //   _notificationCubit = cubit;
-  // }
+  HomeNotificationCubit? _notificationCubit;
+  void setCubit(HomeNotificationCubit cubit) {
+    _notificationCubit = cubit;
+  }
 
   ChatsCubit? _chatsCubit;
   void setChatsCubit(ChatsCubit cubit) {
@@ -271,16 +273,15 @@ class NotificationService {
 
   /// Process general notifications
   void _processGeneralNotification(RemoteMessage message) {
-    // TODO GET NOTIFICATION 
-    // final notification = GetLatestNotificationDatumEntities(
-    //   id: DateTime.now().millisecondsSinceEpoch,
-    //   title: message.notification?.title ?? '',
-    //   message: message.notification?.body ?? '',
-    //   read: false,
-    //   type: message.data['type'] ?? 'info',
-    // );
+    final notification = GetLatestNotificationDatumEntities(
+      id: DateTime.now().millisecondsSinceEpoch,
+      title: message.notification?.title ?? '',
+      message: message.notification?.body ?? '',
+      read: false,
+      type: message.data['type'] ?? 'info',
+    );
 
-    // _notificationCubit?.addRealTimeNotification(notification);
+    _notificationCubit?.addRealTimeNotification(notification);
   }
 
   /// Check if notification is a chat notification

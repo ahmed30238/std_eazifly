@@ -4,10 +4,12 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   final DataModel loginData;
+  final bool showBadge;
 
   const HomeAppbar({
     super.key,
     required this.loginData,
+    this.showBadge = false,
   });
 
   @override
@@ -16,8 +18,10 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       context,
       mainTitle: "",
       leadingCustomWidth: 200.w,
-      onLeadinTap: () =>
-          Navigator.pushNamed(context, RoutePaths.copounsAndDiscountsViewPath),
+      onLeadinTap: () => Navigator.pushNamed(
+        context,
+        RoutePaths.copounsAndDiscountsViewPath,
+      ),
       customLeading: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
@@ -77,11 +81,8 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
             context,
             RoutePaths.homeNotification,
           ),
-          child: AppbarIconWidget(
-            iconWidget: SvgPicture.asset(
-              Assets.iconsNotificationIcon,
-              fit: BoxFit.scaleDown,
-            ),
+          child: CustomNotificationIcon(
+            showBadge: showBadge,
           ),
         ),
         16.pw,
@@ -90,5 +91,5 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight.h);
 }

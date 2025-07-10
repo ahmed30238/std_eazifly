@@ -65,6 +65,8 @@ import 'package:eazifly_student/data/models/my_programs/quizzes/get_user_quizzes
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_model.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_to_json.dart';
 import 'package:eazifly_student/data/models/my_programs/show_program_details_model.dart';
+import 'package:eazifly_student/data/models/notification/get_latest_notification_model.dart';
+import 'package:eazifly_student/data/models/notification/read_notification_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/add_note_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/add_note_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_model.dart';
@@ -294,8 +296,10 @@ abstract class BaseRemoteDataSource {
   Future<GetMyChatsModel> getMyChats({
     required String type,
   });
-    Future<UpdateFcmTokenModel> updateFcmToken({required String fcmToken});
-
+  Future<UpdateFcmTokenModel> updateFcmToken({required String fcmToken});
+  Future<GetLatestNotificationModel> getLatestNotification(
+      {required int offset, required String type});
+  Future<ReadNotificationModel> readNotification({required int notificationId});
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -2017,7 +2021,8 @@ class RemoteDataSource extends BaseRemoteDataSource {
       );
     }
   }
-    @override
+
+  @override
   Future<UpdateFcmTokenModel> updateFcmToken({required String fcmToken}) async {
     var response = await NetworkCall().post(
       data: FormData.fromMap({
@@ -2028,6 +2033,42 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return UpdateFcmTokenModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetLatestNotificationModel> getLatestNotification(
+      {required int offset, required String type}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getLatestNotification(type: type, offset: offset),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetLatestNotificationModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<ReadNotificationModel> readNotification(
+      {required int notificationId}) async {
+    var response = await NetworkCall().post(
+      path: EndPoints.readNotification(notificationID: notificationId),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return ReadNotificationModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

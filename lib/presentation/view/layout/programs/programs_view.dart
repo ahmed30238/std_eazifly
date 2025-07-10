@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
 import 'package:eazifly_student/core/enums/plan_page_enum.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
+import 'package:eazifly_student/presentation/controller/home_notification/home_notification_cubit.dart';
+import 'package:eazifly_student/presentation/controller/home_notification/home_notification_state.dart';
 import 'package:eazifly_student/presentation/controller/programs_controller/programs_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_controller/programs_state.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/widgets/p_item.dart';
@@ -29,39 +31,46 @@ class _ProgramsViewState extends State<ProgramsView> {
   Widget build(BuildContext context) {
     var lang = context.loc!;
     return Scaffold(
-      appBar: CustomAppBar(
-        context,
-        mainTitle: lang.thePrograms,
-        leadingText: "",
-        leadingCustomWidth: 10.w,
-        customAction: [
-          InkWell(
-            onTap: () => Navigator.pushNamed(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight.h),
+        child: BlocBuilder<HomeNotificationCubit, HomeNotificationState>(
+          builder: (context, state) {
+            bool allNotificationsRead = HomeNotificationCubit.get(context)
+                .isRead
+                .every((element) => element);
+            return CustomAppBar(
               context,
-              RoutePaths.chatsViewPath,
-            ),
-            child: AppbarIconWidget(
-              iconWidget: SvgPicture.asset(
-                Assets.iconsChatsIcon,
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-          4.pw,
-          InkWell(
-            onTap: () => Navigator.pushNamed(
-              context,
-              RoutePaths.homeNotification,
-            ),
-            child: AppbarIconWidget(
-              iconWidget: SvgPicture.asset(
-                Assets.iconsNotificationIcon,
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-          ),
-          16.pw,
-        ],
+              mainTitle: lang.thePrograms,
+              leadingText: "",
+              leadingCustomWidth: 10.w,
+              customAction: [
+                InkWell(
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    RoutePaths.chatsViewPath,
+                  ),
+                  child: AppbarIconWidget(
+                    iconWidget: SvgPicture.asset(
+                      Assets.iconsChatsIcon,
+                      fit: BoxFit.scaleDown,
+                    ),
+                  ),
+                ),
+                4.pw,
+                InkWell(
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    RoutePaths.homeNotification,
+                  ),
+                  child: CustomNotificationIcon(
+                    showBadge: !allNotificationsRead,
+                  ),
+                ),
+                16.pw,
+              ],
+            );
+          },
+        ),
       ),
       body: Column(
         children: [

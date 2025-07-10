@@ -11,6 +11,11 @@ class EndPoints {
   static const addNote = "order/add/note";
   static const getRemainingProgramSessions = "program/sessions/date";
   static const removeAssignedStudent = "remove/user/from/program";
+  static String getLatestNotification(
+          {required String type, required int offset}) =>
+      "notifications?type=$type&offset=$offset";
+  static String readNotification({required int notificationID}) =>
+      "notifications/read/$notificationID";
   static String getMyChats({required String type}) => "get/chats?type=$type";
   static String updateProfile({required int userId}) =>
       "update/profile/$userId";

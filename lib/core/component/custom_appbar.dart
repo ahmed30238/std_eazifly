@@ -1,12 +1,14 @@
 import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
+import 'package:eazifly_student/core/extensions/widgets_extensions.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Badge;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:badges/badges.dart';
 
 class CustomAppBar extends AppBar {
   final BuildContext context;
@@ -118,4 +120,54 @@ class CustomAppBar extends AppBar {
                 ),
           ),
         );
+}
+
+class CustomNotificationIcon extends StatelessWidget {
+  // final VoidCallback? onTap;
+  final bool showBadge;
+  const CustomNotificationIcon({
+    super.key,
+    required this.showBadge,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 40.w,
+      height: 40.h,
+      decoration: BoxDecoration(
+        color: MainColors.veryLightGrayFormField,
+        borderRadius: BorderRadius.circular(15.r),
+      ),
+      child: Badge(
+        badgeContent: Container(
+          width: 5.w,
+          height: 5.h,
+          decoration: BoxDecoration(
+            color: MainColors.red,
+            borderRadius: BorderRadius.circular(4.r),
+          ),
+        ),
+        position: BadgePosition.topStart(
+          start: 10.w,
+          top: 10.h,
+        ),
+        onTap: () {},
+        showBadge: showBadge,
+        badgeStyle: const BadgeStyle(
+          padding: EdgeInsets.zero,
+          borderSide: BorderSide(
+            color: MainColors.transparentColor,
+          ),
+        ),
+        badgeAnimation: const BadgeAnimation.fade(
+          curve: Curves.easeOut,
+        ),
+        child: const Icon(
+          Icons.notifications,
+          color: MainColors.grayTextColors,
+        ).center(),
+      ),
+    );
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:eazifly_student/core/fire_base_helper/firebase_notifiction.dart';
 import 'package:eazifly_student/core/network/handle_token.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
+import 'package:eazifly_student/presentation/controller/home_notification/home_notification_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -67,9 +68,9 @@ class _SplashScreenState extends State<SplashScreen>
           milliseconds: 200,
         ),
         () {
-          // var notificationCubit = HomeNotificationCubit.get(context);
+          var notificationCubit = context.read<HomeNotificationCubit>();
           var chatCubit = context.read<ChatsCubit>();
-          // NotificationService.instance.setCubit(notificationCubit);
+          NotificationService.instance.setCubit(notificationCubit);
           NotificationService.instance.setChatsCubit(chatCubit);
         },
       );

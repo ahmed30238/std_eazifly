@@ -6,6 +6,7 @@ import 'package:eazifly_student/presentation/controller/add_new_student_data_to_
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_controller/home_cubit.dart';
+import 'package:eazifly_student/presentation/controller/home_notification/home_notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_cubit.dart';
 import 'package:eazifly_student/presentation/controller/language/applanuage_state.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         BlocProvider.value(value: sl<AddNewStudentDataToProgramCubit>()),
         BlocProvider.value(value: sl<LectureCubit>()),
         BlocProvider.value(value: sl<PaymentCubit>()),
+        BlocProvider.value(value: sl<HomeNotificationCubit>()),
         BlocProvider.value(value: sl<CancelSessionCubit>()),
       ],
       child: ScreenUtilInit(

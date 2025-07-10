@@ -5,6 +5,8 @@ import 'package:eazifly_student/core/component/shimmer_widget.dart';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_library_model.dart';
+import 'package:eazifly_student/presentation/controller/home_notification/home_notification_cubit.dart';
+import 'package:eazifly_student/presentation/controller/home_notification/home_notification_state.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_loader.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
@@ -42,8 +44,19 @@ class _HomePageState extends State<HomePage> {
     var lang = context.loc!;
 
     return Scaffold(
-      appBar: HomeAppbar(
-        loginData: loginData,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight.h),
+        child: BlocBuilder<HomeNotificationCubit, HomeNotificationState>(
+          builder: (context, state) {
+            bool allNotificationsRead = HomeNotificationCubit.get(context)
+                .isRead
+                .every((element) => element);
+            return HomeAppbar(
+              loginData: loginData,
+              showBadge: !allNotificationsRead,
+            );
+          },
+        ),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -250,18 +263,6 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         }
-
-        // Only show if there's a current session
-        // if (cubit.getHomeCurrentSessionEntity?.data != null) {
-        //   return Column(
-        //     children: [
-        //       32.ph,
-        //       const PlayingProgramContainer(),
-        //       8.ph,
-        //     ],
-        //   );
-        // }
-
         return const SizedBox.shrink();
       },
     );

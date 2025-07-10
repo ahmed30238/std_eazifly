@@ -49,6 +49,8 @@ import 'package:eazifly_student/data/models/my_programs/quizzes/get_user_quizzes
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_model.dart';
 import 'package:eazifly_student/data/models/my_programs/quizzes/submit_quiz_to_json.dart';
 import 'package:eazifly_student/data/models/my_programs/show_program_details_model.dart';
+import 'package:eazifly_student/data/models/notification/get_latest_notification_model.dart';
+import 'package:eazifly_student/data/models/notification/read_notification_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/add_note_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_model.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
@@ -1050,6 +1052,30 @@ class Repository extends BaseRepository {
       {required String fcmToken}) async {
     final result =
         await baseRemoteDataSource.updateFcmToken(fcmToken: fcmToken);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetLatestNotificationModel>> getLatestNotification(
+      {required String type, required int offset}) async {
+    final result = await baseRemoteDataSource.getLatestNotification(
+        type: type, offset: offset);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ReadNotificationModel>> readNotification(
+      {required int notificationId}) async {
+    final result = await baseRemoteDataSource.readNotification(
+        notificationId: notificationId);
     try {
       return Right(result);
     } on ServerException catch (e) {
