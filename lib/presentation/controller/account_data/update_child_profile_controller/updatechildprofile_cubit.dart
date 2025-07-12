@@ -145,4 +145,22 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
 
     return super.close();
   }
+
+  void fillData({
+    required String firstName,
+    required String lastName,
+    required String age,
+    required String whatsApp,
+    required String phone,
+    required String userName,
+    required String email,
+  }) {
+    lastNameController.text = lastName;
+    firstNameController.text = firstName;
+    phoneController.text = phone;
+    whatsAppController.text = whatsApp;
+    emailController.text = email;
+    userNameController.text = userName;
+    ageController.text = age;
+  }
 }

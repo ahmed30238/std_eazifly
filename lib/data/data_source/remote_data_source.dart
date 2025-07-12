@@ -106,6 +106,7 @@ import 'package:eazifly_student/data/models/subscription_management/renew_subscr
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/upgrade_order_model.dart';
+import 'package:eazifly_student/data/models/user/delete_account_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
 
@@ -302,6 +303,7 @@ abstract class BaseRemoteDataSource {
       {required int offset, required String type});
   Future<ReadNotificationModel> readNotification({required int notificationId});
   Future<LogoutModel> logout();
+  Future<DeleteAccountModel> deleteAccount({required int userId});
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -1374,9 +1376,9 @@ class RemoteDataSource extends BaseRemoteDataSource {
       for (var number in data.studentNumber) {
         formData.fields.add(MapEntry("student_number[]", number.toString()));
       }
-      for (var date in data.startDate) {
-        formData.fields.add(MapEntry("start_date[]", date.toString()));
-      }
+      // for (var date in data.startDate) {
+      //   formData.fields.add(MapEntry("start_date[]", date.toString()));
+      // }
 
       // إضافة الصورة إذا كانت موجودة
       if (data.image != null && data.image!.isNotEmpty) {
@@ -1391,10 +1393,10 @@ class RemoteDataSource extends BaseRemoteDataSource {
               ),
             ),
           );
-          log('Store image added to FormData: ${data.image!.split('/').last}');
+          log('order image added to FormData: ${data.image!.split('/').last}');
         } else {
           throw Exception(
-              'Store image file does not exist at path: ${data.image}');
+              'Profile image file does not exist at path: ${data.image}');
         }
       }
 //
@@ -1470,20 +1472,21 @@ class RemoteDataSource extends BaseRemoteDataSource {
       }
 
       if (data.image != null && data.image!.isNotEmpty) {
-        final File imageFile = File(data.image ?? "");
+        final File imageFile = File(data.image!);
         if (await imageFile.exists()) {
           formData.files.add(
             MapEntry(
               "image",
               await MultipartFile.fromFile(
-                data.image ?? "",
-                filename: data.image?.split('/').last,
+                data.image!,
+                filename: data.image!.split('/').last,
               ),
             ),
           );
-          log('Image added to FormData: ${data.image?.split('/').last}');
+          log('order image added to FormData: ${data.image!.split('/').last}');
         } else {
-          throw Exception('Image file does not exist at path: ${data.image}');
+          throw Exception(
+              'Profile image file does not exist at path: ${data.image}');
         }
       }
 //
@@ -2088,6 +2091,23 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return LogoutModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<DeleteAccountModel> deleteAccount({required int userId}) async {
+    var response = await NetworkCall().post(
+      path: EndPoints.deleteAccount(userId: userId),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return DeleteAccountModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

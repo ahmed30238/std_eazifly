@@ -42,6 +42,10 @@ class Assets {
   /// assets/bottom_nav_bar_icons/inactive-programs.svg
   static const String bottom_nav_bar_iconsInactivePrograms = "assets/bottom_nav_bar_icons/inactive-programs.svg";
 
+  /// Assets for iconsAboutApp
+  /// assets/icons/about_app.svg
+  static const String iconsAboutApp = "assets/icons/about_app.svg";
+
   /// Assets for iconsAboutAppIcon
   /// assets/icons/about-app-icon.svg
   static const String iconsAboutAppIcon = "assets/icons/about-app-icon.svg";
@@ -133,6 +137,10 @@ class Assets {
   /// Assets for iconsCompletePaymentProcess
   /// assets/icons/complete-payment-process.svg
   static const String iconsCompletePaymentProcess = "assets/icons/complete-payment-process.svg";
+
+  /// Assets for iconsCopouns
+  /// assets/icons/copouns.svg
+  static const String iconsCopouns = "assets/icons/copouns.svg";
 
   /// Assets for iconsDeleteBin
   /// assets/icons/delete_bin.svg
@@ -262,6 +270,10 @@ class Assets {
   /// assets/icons/my-program-appbar.svg
   static const String iconsMyProgramAppbar = "assets/icons/my-program-appbar.svg";
 
+  /// Assets for iconsNotification
+  /// assets/icons/notification.svg
+  static const String iconsNotification = "assets/icons/notification.svg";
+
   /// Assets for iconsNotificationIcon
   /// assets/icons/notification_icon.svg
   static const String iconsNotificationIcon = "assets/icons/notification_icon.svg";
@@ -314,6 +326,10 @@ class Assets {
   /// assets/icons/quizzes.svg
   static const String iconsQuizzes = "assets/icons/quizzes.svg";
 
+  /// Assets for iconsRadar
+  /// assets/icons/radar.svg
+  static const String iconsRadar = "assets/icons/radar.svg";
+
   /// Assets for iconsRecordOn
   /// assets/icons/record-on.svg
   static const String iconsRecordOn = "assets/icons/record-on.svg";
@@ -337,6 +353,10 @@ class Assets {
   /// Assets for iconsSend2
   /// assets/icons/send-2.svg
   static const String iconsSend2 = "assets/icons/send-2.svg";
+
+  /// Assets for iconsSettigns
+  /// assets/icons/settigns.svg
+  static const String iconsSettigns = "assets/icons/settigns.svg";
 
   /// Assets for iconsSetting
   /// assets/icons/setting.svg
@@ -365,6 +385,14 @@ class Assets {
   /// Assets for iconsStarImage
   /// assets/icons/star-image.svg
   static const String iconsStarImage = "assets/icons/star-image.svg";
+
+  /// Assets for iconsStdManage
+  /// assets/icons/std_manage.svg
+  static const String iconsStdManage = "assets/icons/std_manage.svg";
+
+  /// Assets for iconsSubsManage
+  /// assets/icons/subs_manage.svg
+  static const String iconsSubsManage = "assets/icons/subs_manage.svg";
 
   /// Assets for iconsTicketExpired
   /// assets/icons/ticket-expired.svg

@@ -109,6 +109,7 @@ class AppRouter {
             create: (context) => AccountdataCubit(
               updateProfileUsecase: sl(),
               logoutUsecase: sl(),
+              deleteAccountUsecase: sl(),
             ),
             child: const AccountData(),
           ),

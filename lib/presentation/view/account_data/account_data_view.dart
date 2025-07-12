@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
 import 'package:eazifly_student/core/component/home_appbar.dart';
@@ -27,7 +25,6 @@ class AccountData extends StatefulWidget {
 }
 
 class _AccountDataState extends State<AccountData> {
-
   @override
   Widget build(BuildContext context) {
     AccountdataCubit cubit = AccountdataCubit.get(context);
@@ -122,7 +119,58 @@ class _AccountDataState extends State<AccountData> {
                 32.ph,
                 GestureDetector(
                   onTap: () {
-                    log("message");
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog.adaptive(
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              BlocBuilder(
+                                bloc: cubit,
+                                builder: (context, state) =>
+                                    CustomElevatedButton(
+                                  text: "نعم",
+                                  color: MainColors.red,
+                                  width: 110.w,
+                                  radius: 16.r,
+                                  onPressed: cubit.deleteAccountLoader
+                                      ? () {}
+                                      : () async {
+                                          // هنا يمكنك إضافة منطق حذف الحساب
+                                          await cubit.deleteAccount(context);
+                                        },
+                                  child: cubit.deleteAccountLoader
+                                      ? const CircularProgressIndicator
+                                          .adaptive()
+                                      : null,
+                                ),
+                              ),
+                              CustomElevatedButton(
+                                radius: 16.r,
+                                text: "لا",
+                                width: 110.w,
+                                color: MainColors.greenTeal,
+                                onPressed: () {
+                                  back(context);
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                        title: Text(
+                          "هل أنت متأكد من حذف الحساب؟",
+                          style: MainTextStyle.boldTextStyle(fontSize: 18),
+                        ),
+                        content: Text(
+                          "سيتم حذف جميع بياناتك نهائياً ولا يمكن التراجع عن هذا الإجراء",
+                          style: MainTextStyle.regularTextStyle(
+                            fontSize: 14,
+                            color: MainColors.lightGray,
+                          ),
+                        ),
+                      ),
+                    );
                   },
                   child: SizedBox(
                     width: 180.w,

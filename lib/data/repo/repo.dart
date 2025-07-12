@@ -74,6 +74,7 @@ import 'package:eazifly_student/data/models/subscription_management/renew_subscr
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/upgrade_order_model.dart';
+import 'package:eazifly_student/data/models/user/delete_account_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
@@ -1087,6 +1088,17 @@ class Repository extends BaseRepository {
   @override
   Future<Either<Failure, LogoutEntity>> logout() async {
     final result = await baseRemoteDataSource.logout();
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DeleteAccountModel>> deleteAccount(
+      {required int userId}) async {
+    final result = await baseRemoteDataSource.deleteAccount(userId: userId);
     try {
       return Right(result);
     } on ServerException catch (e) {

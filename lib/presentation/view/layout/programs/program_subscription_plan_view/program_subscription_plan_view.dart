@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/custom_drop_down.dart';
 import 'package:eazifly_student/core/component/shimmer_widget.dart';
@@ -26,7 +28,7 @@ abstract class SubscriptionPlanCubit extends Cubit<dynamic> {
   void changePlanIndex(int index);
   void changelessonDurationIndex(int index);
   void updateStartDate(DateTime date);
-  void filterPlans({required int programId});
+  void filterPlans({required int programId, required BuildContext context});
   void checkCopouns({required BuildContext context});
 
   // الـ Entity المشترك (يمكن أن يكون مختلف حسب النوع)
@@ -39,9 +41,9 @@ class ProgramSubscriptionPlanView extends StatefulWidget {
   final String programDescription;
   final String programImage;
   final bool isUpgrade;
-  final SubscriptionPlanCubit cubit; // تمرير الـ Cubit كـ parameter
-  final String appBarTitle; // عنوان مخصص للـ AppBar
-  final String leadingText; // نص الـ leading مخصص
+  final SubscriptionPlanCubit cubit;
+  final String appBarTitle;
+  final String leadingText;
 
   const ProgramSubscriptionPlanView({
     super.key,
@@ -49,10 +51,10 @@ class ProgramSubscriptionPlanView extends StatefulWidget {
     required this.programDescription,
     required this.programTitle,
     required this.programImage,
-    required this.cubit, // إضافة الـ Cubit المطلوب
-    this.appBarTitle = "تفاصيل البرنامج", // قيمة افتراضية
+    required this.cubit,
+    this.appBarTitle = "تفاصيل البرنامج",
     this.leadingText = "البرامج",
-    this.isUpgrade = false, // قيمة افتراضية
+    this.isUpgrade = false,
   });
 
   @override
@@ -244,7 +246,9 @@ class _ProgramSubscriptionPlanViewState
                             )
                             .toList(),
                         onChanged: (val) {
-                          cubit.filterPlans(programId: widget.programId);
+                          log("this is programId ${widget.programId.toString()}");
+                          cubit.filterPlans(
+                              programId: widget.programId, context: context);
                         },
                       );
                     },

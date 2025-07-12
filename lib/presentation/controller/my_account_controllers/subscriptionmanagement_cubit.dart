@@ -34,6 +34,7 @@ import 'package:eazifly_student/domain/use_cases/renew_subscription_usecase.dart
 import 'package:eazifly_student/domain/use_cases/show_plan_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/upgrade_order_usecase.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_state.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/all_sub_body.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/sub_programs_body.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/subscriptions_body.dart';
@@ -117,17 +118,18 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
         getProgramSubscription(); // Replace with actual IDs
         break;
       case 2: // الاشتراكات
-        getLibrarySubscription(userId: 1); // Replace with actual user ID
+        getLibrarySubscription(
+            userId: loginData?.id ?? 0); // Replace with actual user ID
         break;
     }
 
     emit(ChangeTapBarIndexState());
   }
 
-  // Load all subscriptions (both program and library)
   void loadAllSubscriptions() {
     getProgramSubscription(); // Replace with actual IDs
-    getLibrarySubscription(userId: 1); // Replace with actual user ID
+    getLibrarySubscription(
+        userId: loginData?.id ?? 0); // Replace with actual user ID
   }
 
   //! ################# API ####################
@@ -264,7 +266,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
       );
     } catch (e) {
       renewSubscriptionLoader = false;
-      log("Error in createOrder: $e");
+      log("Error in renew subscription: $e");
       emit(RenewSubscriptionErrorState(errorMessage: e.toString()));
     }
   }
@@ -274,25 +276,27 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   bool upgradeOrderLoader = false;
   @override
   final TextEditingController studentNumberController = TextEditingController();
-  List<File> images = [];
-  Future<void> pickImages() async {
-    final response = await pickMultiImageFromGallery();
+  File? upgradeOrderImage;
+  Future<void> pickupgradeOrderImageFroGallery() async {
+    final response = await pickImageFromGallery();
     if (response != null) {
-      images = List.from(response.map((e) => File(e.path)));
+      upgradeOrderImage = File(response.path);
     }
-    emit(GetGalleryImagesState());
+    emit(PickImageFromGallerySuccessState());
   }
 
-  Future<void> upgradeOrder(
-      {required int programId, required BuildContext context}) async {
+  Future<void> upgradeOrder({ //! تجديد الاشتراك
+    required int programId,
+    required BuildContext context,
+  }) async {
     upgradeOrderLoader = true;
     emit(UpgradeOrderLoadingState());
 
     try {
       String? imagePath;
-      // إذا كان في صورة جديدة
-      if (images.isNotEmpty) {
-        final File file = images[0];
+
+      if (upgradeOrderImage != null) {
+        final File file = upgradeOrderImage!;
 
         if (!await file.exists()) {
           throw Exception('Profile image file does not exist');
@@ -381,10 +385,6 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     );
   }
 
-// // Controllers and Form Key
-// @override
-// final TextEditingController studentNumberController = TextEditingController();
-
   @override
   final TextEditingController copounController = TextEditingController();
 
@@ -424,15 +424,11 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   void fillProgramId(int value) {
     programId = value;
   }
-  // أضف هذه المتغيرات في الـ ProgramsubscriptionplanCubit
 
-  DateTime? selectedStartDate; // لحفظ التاريخ المحدد
+  DateTime? selectedStartDate;
 
-// دالة للحصول على التاريخ بصيغة مناسبة للـ API
   String getFormattedDateForAPI() {
     if (selectedStartDate == null) return "";
-
-    // يمكنك تغيير التنسيق حسب متطلبات الـ Backend
     return "${selectedStartDate!.year}-${selectedStartDate!.month.toString().padLeft(2, '0')}-${selectedStartDate!.day.toString().padLeft(2, '0')}";
   }
 
@@ -490,15 +486,19 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   FilterPlansEntity? filterPlansEntity;
 
   @override
-  Future<void> filterPlans({required int programId}) async {
+  Future<void> filterPlans(
+      {required int programId, required BuildContext context}) async {
     filterPlansLoader = true;
     emit(FilterPlansLoadingState());
     var plan = getPlansEntity?.data;
+    log("dur ${plan?.duration?[lessonDurationIndex]}");
+    log("sess ${plan?.numberOfSessionPerWeek?.first}");
+    log("sub days ${plan?.subscripeDays?[planSubscribeDaysIndex]}");
     final result = await filterPlansUsecase.call(
       parameter: FilterPlansParameters(
         data: FilterPlansTojson(
           duration: plan?.duration?[lessonDurationIndex] ?? "",
-          numberOfSessionPerWeek: plan?.numberOfSessionPerWeek?[0] ?? "",
+          numberOfSessionPerWeek: plan?.numberOfSessionPerWeek?.first ?? "",
           programId: programId.toString(),
           subscribeDays: plan?.subscripeDays?[planSubscribeDaysIndex] ?? "",
         ),
@@ -512,6 +512,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
       (r) {
         filterPlansLoader = false;
         filterPlansEntity = r;
+        delightfulToast(message: r.message ?? "", context: context);
         emit(FilterPlansSuccessState());
       },
     );

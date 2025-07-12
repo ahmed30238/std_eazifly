@@ -22,3 +22,12 @@ class LogoutErrorState extends AccountdataState {
   final String message;
   LogoutErrorState(this.message);
 }
+// Account Deletion States
+class DeleteAccountLoadingState extends AccountdataState {}
+
+class DeleteAccountSuccessState extends AccountdataState {}
+
+class DeleteAccountErrorState extends AccountdataState {
+  final String message;
+  DeleteAccountErrorState(this.message);
+}

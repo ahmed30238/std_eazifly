@@ -155,4 +155,7 @@ class EndPoints {
     required int meetingSessionId,
   }) =>
       "report/questions?report_maker_type=$reportMakerType&report_for_type=$reportForType&report_maker_id=$reportMakerId&report_for_id=$reportForId&meeting_session_id=$meetingSessionId";
+
+  static String deleteAccount({required int userId}) =>
+      "delete/account/$userId";
 }

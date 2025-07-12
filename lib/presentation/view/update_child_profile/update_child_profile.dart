@@ -6,6 +6,7 @@ import 'package:eazifly_student/core/enums/gender_enum.dart';
 import 'package:eazifly_student/presentation/controller/account_data/update_child_profile_controller/updatechildprofile_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/widgets/profile_image_widget.dart';
 import 'package:eazifly_student/presentation/view/account_data/widgets/user_name_text.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class UpdateChildProfile extends StatefulWidget {
@@ -20,6 +21,19 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<UpdatechildprofileCubit>();
+    var childData = loginData?.childrens?.firstWhere(
+      (element) => element.id == widget.userId,
+    );
+    cubit.fillData(
+      firstName: childData?.firstName ?? "",
+      lastName: childData?.lastName ?? "",
+      age: childData?.age ?? "",
+      whatsApp: childData?.whatsApp ?? "",
+      phone: childData?.phone ?? "",
+      userName: childData?.userName ?? "",
+      email: childData?.email ?? "",
+    );
+    log("${childData?.firstName}");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
@@ -70,7 +84,7 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
                           );
                         }
                         return ProfileImageWidget(
-                          image: "loginData.image ?? " "",
+                          image: "${childData?.image}",
                           onEditTap: () {
                             cubit.pickProfileImageFroGallery();
                           },
@@ -79,16 +93,15 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
                     ),
                   ),
                   18.ph,
-                  const UserNameText(
-                      name:
-                          "name" // "${loginData.firstName} ${loginData.lastName}"
-                      ),
+                  UserNameText(
+                      name: "${childData?.firstName} ${childData?.lastName}"),
                   32.ph,
                   TitledFormFieldItem(
                     controller: cubit.firstNameController,
                     validator: customValidation,
-                    formfieldHintText: "محمد عصام المليجي",
+                    formfieldHintText: "أحمد سلامة",
                     titleText: "الاسم الاول",
+                    iconWidget: 0.ph,
                   ),
                   16.ph,
                   TitledFormFieldItem(
@@ -96,7 +109,7 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
                     validator: customValidation,
                     formfieldHintText: "",
                     controller: cubit.lastNameController,
-                    // formfieldEnText: loginData.nameEn,
+                    iconWidget: 0.ph,
                   ),
                   16.ph,
                   TitledFormFieldItem(

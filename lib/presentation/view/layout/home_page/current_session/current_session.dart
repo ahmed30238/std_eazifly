@@ -18,7 +18,7 @@ class _CurrentSessionState extends State<CurrentSession> {
   void initState() {
     cubit = context.read<HomeCubit>();
     super.initState();
-    cubit.getHomeCurrentSession();
+    // cubit.getHomeCurrentSession();
   }
 
   @override
@@ -256,18 +256,29 @@ class _CurrentSessionState extends State<CurrentSession> {
                   radius: 16.r,
                   text: "تواصل مع المعلم",
                   textSize: 14,
-                  onPressed: () {
+                  onPressed: () async {
+                    var chatsCubit = context.read<ChatsCubit>();
+                    await chatsCubit.fillCurrentInstructor(
+                      chatsCubit.getMyChatsEntity?.data != null
+                          ? chatsCubit.getMyChatsEntity!.data!.indexWhere(
+                              (element) =>
+                                  element.participant1?.id == "2", // TODO: InstructorId
+                            )
+                          : -1,
+                    );
                     /*
                             var argument = settings.arguments as Map<String, dynamic>?;
         var cubit = argument?["cubit"] as ChatsCubit;
         var isReport = argument?["isReport"] as bool;
         String orderId = argument?["orderId"] as String? ?? "";
         String? problemState = argument?["problemState"] as String;
+        String? chatId = argument?["chatId"] as String? ?? "-1"
                      */
                     Navigator.pushNamed(
                       context,
                       arguments: {
                         "cubit": context.read<ChatsCubit>(),
+                        "chatId": "2", // TODO: ChatID,
                       },
                       RoutePaths.dmViewPath,
                     );
