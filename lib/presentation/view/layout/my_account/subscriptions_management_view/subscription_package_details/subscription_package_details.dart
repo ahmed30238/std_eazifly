@@ -31,7 +31,7 @@ class _SubscriptiopnPackageDetailsState
   @override
   @override
   Widget build(BuildContext context) {
-    var cubit = context.watch<SubscriptionmanagementCubit>();
+    // var cubit = context.watch<SubscriptionmanagementCubit>();
     var lang = context.loc!;
     final planData = cubit.planDetailsEntity?.data;
 

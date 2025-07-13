@@ -31,6 +31,7 @@ class FilterPlansSuccessState extends ProgramsubscriptionplanState {}
 class CreateOrderLoadingState extends ProgramsubscriptionplanState {}
 
 class UpdateStartDateState extends ProgramsubscriptionplanState {}
+
 class CreateOrderErrorState extends ProgramsubscriptionplanState {
   final String errorMessage;
 
@@ -89,3 +90,7 @@ class ChangePackageIndexState extends ProgramsubscriptionplanState {}
 class TypeControllerIndexState extends ProgramsubscriptionplanState {}
 
 class ChangePlanIdState extends ProgramsubscriptionplanState {}
+
+class IncrementStudentCountState extends ProgramsubscriptionplanState {}
+
+class DecrementStudentCountState extends ProgramsubscriptionplanState {}

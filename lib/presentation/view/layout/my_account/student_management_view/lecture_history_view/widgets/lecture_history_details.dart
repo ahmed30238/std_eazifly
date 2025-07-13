@@ -109,7 +109,7 @@ class SessionStatusArea extends StatelessWidget {
           width: 60.w,
           text: "قادمة",
         );
-      case "canceled":
+      case "danger":
         return TextedContainer(
           height: 30.h,
           radius: 32.r,

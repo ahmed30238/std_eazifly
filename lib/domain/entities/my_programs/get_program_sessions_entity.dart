@@ -60,7 +60,7 @@ class ProgramSessionEntity {
   String? programId;
 
   @JsonKey(name: "status")
-  String? status;
+  GetProgramSessionsStatusModel? status;
 
   ProgramSessionEntity({
     this.id,
@@ -91,4 +91,16 @@ class UserEntity {
     this.id,
     this.userName,
   });
+}
+class GetProgramSessionsStatus {
+    @JsonKey(name: "label")
+    String? label;
+    @JsonKey(name: "color")
+    String? color;
+
+    GetProgramSessionsStatus({
+        this.label,
+        this.color,
+    });
+
 }

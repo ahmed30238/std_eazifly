@@ -13,10 +13,9 @@ class SubProgramsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = SubscriptionmanagementCubit.get(context);
-    
-    return BlocBuilder(
-            bloc: cubit,
 
+    return BlocBuilder(
+      bloc: cubit,
       builder: (context, state) {
         if (cubit.getProgramSubscriptionLoader) {
           return const Center(
@@ -35,7 +34,8 @@ class SubProgramsBody extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            final subscription = cubit.getProgramSubscriptionEntity!.data![index];
+            final subscription =
+                cubit.getProgramSubscriptionEntity!.data![index];
             return AllBodyListItemWidget(
               onTap: () {
                 Navigator.pushNamed(
@@ -48,16 +48,18 @@ class SubProgramsBody extends StatelessWidget {
                   RoutePaths.subscriptionPackageDetails,
                 );
               },
-              currency: "ج.م",
+              currency: subscription.plan?.currency ?? "",
               courseTitle: subscription.program ?? "اشتراك البرنامج",
-              inProgress:  false,
+              inProgress: false,
               daysLeft: subscription.daysToExpire?.toString() ?? "0",
-              expireDate: subscription.expireDate.toString().substring(0,10),
+              expireDate: subscription.expireDate.toString().substring(0, 10),
               noOfStudents: subscription.studentNumber?.toString() ?? "0",
               onRenewTap: () {
                 // Handle renew action
               },
-              progressPercent: ((subscription.completedSessions ?? 0) + (subscription.missedSessions ?? 0)).toDouble(),
+              progressPercent: ((subscription.completedSessions ?? 0) +
+                      (subscription.missedSessions ?? 0))
+                  .toDouble(),
               subscriptionPrice: subscription.price?.toString() ?? "0",
             );
           },

@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:eazifly_student/data/models/order_and_subscribe/filter_plans_model.dart';
+import 'package:eazifly_student/data/models/order_and_subscribe/get_plan_with_details_model.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -28,12 +30,17 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
   @override
   Widget build(BuildContext context) {
     var lang = context.loc!;
-    // var orderDetail =
-    //     programsubscriptionplanCubit.createOrderEntity?.data?.orderDetails?[0];
-    var orderData = programsubscriptionplanCubit.filterPlansEntity?.data;
-    log("this is plan id ${programsubscriptionplanCubit.planId}");
-    // var orderData = programsubscriptionplanCubit
-    //     .getPlansWithDetailsEntity?.data?[programsubscriptionplanCubit.planId];
+    FilterPlansDataModel? orderData =
+        programsubscriptionplanCubit.filterPlansEntity?.data;
+    log(
+      "this is plan id ${programsubscriptionplanCubit.planId}",
+    );
+    PlanDetailsModel? filteredOrderData = programsubscriptionplanCubit
+        .getPlansWithDetailsEntity?.data
+        ?.firstWhere(
+            (element) => element.id == programsubscriptionplanCubit.planId,
+            orElse: () => PlanDetailsModel());
+    log("this is it ${filteredOrderData?.program}");
     return Scaffold(
       appBar: CustomAppBar(
         context,
@@ -58,7 +65,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  orderData?.program ?? "",
+                  orderData?.program ?? filteredOrderData?.program ?? "",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 14,
                   ),
@@ -66,31 +73,28 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                 12.ph,
                 ProgramDetailsItem(
                   title: programDetailsTitles[0],
-                  value: orderData?.subscripeDays ?? "",
+                  value:
+                      "${orderData?.subscripeDays ?? filteredOrderData?.subscripeDays} يوم",
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[1],
-                  value: orderData?.duration ?? "",
+                  value:
+                      "${orderData?.duration ?? filteredOrderData?.duration} دقيقة",
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[2],
                   value:
-                      programsubscriptionplanCubit.studentNumberController.text,
+                      "${programsubscriptionplanCubit.studentNumberController.text.isEmpty ? programsubscriptionplanCubit.studentCount.toString() : programsubscriptionplanCubit.studentNumberController.text} طالب",
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[3],
-                  value: orderData?.numberOfSessionPerWeek ?? "",
+                  value:
+                      "${orderData?.numberOfSessionPerWeek ?? filteredOrderData?.numberOfSessionPerWeek} حصة",
                 ),
                 ProgramDetailsItem(
                   title: programDetailsTitles[4],
-                  value: "",
+                  value: programsubscriptionplanCubit.startDate.text,
                 ),
-                // ...List.generate(
-                //   5,
-                //   (index) => ProgramDetailsItem(
-                //     title: programDetailsTitles[index],
-                //   ),
-                // ),
                 3.ph,
                 const CustomHorizontalDivider(
                   color: MainColors.lightGray,
@@ -98,26 +102,32 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                 ...List.generate(
                   3,
                   (index) {
-                    String price = orderData?.price ?? "";
-                    String discountPrice = orderData?.discountPrice ?? "";
+                    String price =
+                        orderData?.price ?? filteredOrderData?.price ?? "";
+                    String discountPrice = orderData?.discountPrice ??
+                        filteredOrderData?.discountPrice ??
+                        "";
                     double priceValue = double.tryParse(price) ?? 0.0;
-                    double discountPriceValue = double.tryParse(discountPrice) ?? 0.0;
+                    double discountPriceValue =
+                        double.tryParse(discountPrice) ?? 0.0;
                     double discountValue = priceValue - discountPriceValue;
 
                     return ProgramDetailsItem(
-                    title: cashDetailsTitles[index],
-                    value: index == 0
-                        ? price
-                        : index == 1
-                            ? discountValue.toInt().toString()
-                            : orderData?.discountPrice ?? "",
-                    textStyle: index == 2
-                        ? MainTextStyle.boldTextStyle(
-                            fontSize: 15,
-                            color: MainColors.blueTextColor,
-                          )
-                        : null,
-                  );
+                      title: cashDetailsTitles[index],
+                      value: index == 0
+                          ? price
+                          : index == 1
+                              ? discountValue.toInt().toString()
+                              : orderData?.discountPrice ??
+                                  filteredOrderData?.discountPrice ??
+                                  "",
+                      textStyle: index == 2
+                          ? MainTextStyle.boldTextStyle(
+                              fontSize: 15,
+                              color: MainColors.blueTextColor,
+                            )
+                          : null,
+                    );
                   },
                 ),
                 4.ph,
@@ -170,7 +180,11 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                         getPaymentInstructionText(
                           programsubscriptionplanCubit
                               .getPaymentMethodDetailsEntity?.data?.title,
-                          double.tryParse(orderData?.discountPrice ?? '') ??
+                          double.tryParse(
+                                orderData?.discountPrice ??
+                                    filteredOrderData?.discountPrice ??
+                                    "",
+                              ) ??
                               0.0,
                         ),
                         maxLines: 2,
@@ -201,7 +215,6 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
             onTap: () => programsubscriptionplanCubit.pickImages(),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
-              // margin: EdgeInsets.symmetric(horizontal: 16.w),
               height: 98.h,
               width: double.infinity,
               decoration: BoxDecoration(

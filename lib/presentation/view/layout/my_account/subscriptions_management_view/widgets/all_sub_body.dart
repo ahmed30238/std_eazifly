@@ -46,7 +46,7 @@ class AllSubBody extends StatelessWidget {
                       },
                     );
                   },
-                  currency: "ج.م",
+                  currency: subscription.plan?.currency ?? "",
                   courseTitle: subscription.program ?? "اشتراك البرنامج",
                   inProgress: false,
                   daysLeft: subscription.daysToExpire?.toString() ?? "0",
@@ -94,7 +94,7 @@ class AllSubBody extends StatelessWidget {
                   RoutePaths.subscriptionPackageDetails,
                 );
               },
-              currency: "ج.م",
+              currency: "ج.م", // TODO: 
               courseTitle: librarySubscription.plan?.title ?? "اشتراك المكتبة",
               inProgress: false,
               daysLeft: librarySubscription.expireDate != null

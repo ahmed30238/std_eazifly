@@ -59,54 +59,49 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
 
   @override
   final TextEditingController startDate = TextEditingController();
-  // أضف هذه المتغيرات في الـ ProgramsubscriptionplanCubit
 
-  DateTime? selectedStartDate; // لحفظ التاريخ المحدد
+  DateTime? selectedStartDate;
 
-// دالة لتحديث التاريخ
   @override
   void updateStartDate(DateTime date) {
     selectedStartDate = date;
     startDate.text = "${date.year}-${date.month}-${date.day}";
-    emit(UpdateStartDateState()); // تحتاج تضيف هذا الـ state في ملف الـ states
+    emit(UpdateStartDateState());
   }
 
-// دالة للحصول على التاريخ بصيغة مناسبة للـ API
   String getFormattedDateForAPI() {
     if (selectedStartDate == null) return "";
-
-    // يمكنك تغيير التنسيق حسب متطلبات الـ Backend
     return "${selectedStartDate!.year}-${selectedStartDate!.month.toString().padLeft(2, '0')}-${selectedStartDate!.day.toString().padLeft(2, '0')}";
   }
 
   void _createTabController() {
     if (_vsync != null && subscriptionTypeTabs.isNotEmpty) {
-      controller?.dispose(); // Dispose old controller if exists
+      controller?.dispose();
       controller =
           TabController(length: subscriptionTypeTabs.length, vsync: _vsync!)
-            ..addListener(() {
-              if (controller!.indexIsChanging) {
-                controller!.animateTo(
-                  controller!.index,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeIn,
-                );
-                packageIndex = 0; // Reset package index on tab change
-
-                // Get library plans for selected period
-                final selectedPeriod =
-                    getPlanSubscriptionPeriodEntity?.data?[controller!.index];
-                int days = int.tryParse(selectedPeriod?.days ?? "0") ?? -1;
-                if (selectedPeriod != null && days > 0) {
-                  getplansWithDetails(
-                    programId: programId,
-                    days: days,
+            ..addListener(
+              () {
+                if (controller!.indexIsChanging) {
+                  controller!.animateTo(
+                    controller!.index,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeIn,
                   );
-                }
+                  packageIndex = 0;
+                  final selectedPeriod =
+                      getPlanSubscriptionPeriodEntity?.data?[controller!.index];
+                  int days = int.tryParse(selectedPeriod?.days ?? "0") ?? -1;
+                  if (selectedPeriod != null && days > 0) {
+                    getplansWithDetails(
+                      programId: programId,
+                      days: days,
+                    );
+                  }
 
-                emit(TypeControllerIndexState());
-              }
-            });
+                  emit(TypeControllerIndexState());
+                }
+              },
+            );
     }
   }
 
@@ -148,16 +143,11 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
         getPlanSubscriptionPeriodEntity = success;
         getPlanSubscriptionLoader = false;
 
-        // Clear and populate tabs
         subscriptionTypeTabs.clear();
         final titles = success.data?.map((e) => e.title ?? "").toList() ?? [];
         subscriptionTypeTabs.addAll(titles);
         log("DEBUG: Subscription tabs: $subscriptionTypeTabs");
-
-        // Create tab controller after getting data
         _createTabController();
-
-        // Load plans for first tab (default)
         if (success.data?.isNotEmpty == true) {
           int days = int.tryParse(success.data?.first.days ?? "0") ?? -1;
           if (days > 0) {
@@ -447,5 +437,19 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
         emit(GetProgramPaymentMethodDetailsSuccessState());
       },
     );
+  }
+
+  int studentCount = 1;
+
+  void incrementCount() {
+    studentCount++;
+    emit(IncrementStudentCountState());
+  }
+
+  void decrementCount() {
+    if (studentCount > 1) {
+      studentCount--;
+    }
+    emit(DecrementStudentCountState());
   }
 }

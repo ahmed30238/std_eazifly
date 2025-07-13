@@ -1339,10 +1339,13 @@ class RemoteDataSource extends BaseRemoteDataSource {
   }
 
   @override
-  Future<CancelSubscriptionModel> cancelSubscription(
-      {required int mainId}) async {
-    var response = await NetworkCall().get(
-      path: EndPoints.getLibrarySubscriptions,
+  Future<CancelSubscriptionModel> cancelSubscription({
+    required int mainId,
+  }) async {
+    var response = await NetworkCall().post(
+      path: EndPoints.cancelSubscription(
+        mainId: mainId,
+      ),
     );
     if (response?.statusCode == 200) {
       log("${response?.data}");

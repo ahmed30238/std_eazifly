@@ -48,7 +48,10 @@ ProgramSessionModel _$ProgramSessionModelFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['instructor_join_time'] as String)
       ..programTitle = json['program_title'] as String?
       ..programId = json['program_id'] as String?
-      ..status = json['status'] as String?;
+      ..status = json['status'] == null
+          ? null
+          : GetProgramSessionsStatusModel.fromJson(
+              json['status'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$ProgramSessionModelToJson(
         ProgramSessionModel instance) =>
@@ -66,7 +69,7 @@ Map<String, dynamic> _$ProgramSessionModelToJson(
       'instructor_join_time': instance.instructorJoinTime?.toIso8601String(),
       'program_title': instance.programTitle,
       'program_id': instance.programId,
-      'status': instance.status,
+      'status': instance.status?.toJson(),
     };
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel()
@@ -76,4 +79,17 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel()
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'id': instance.id,
       'user_name': instance.userName,
+    };
+
+GetProgramSessionsStatusModel _$GetProgramSessionsStatusModelFromJson(
+        Map<String, dynamic> json) =>
+    GetProgramSessionsStatusModel()
+      ..label = json['label'] as String?
+      ..color = json['color'] as String?;
+
+Map<String, dynamic> _$GetProgramSessionsStatusModelToJson(
+        GetProgramSessionsStatusModel instance) =>
+    <String, dynamic>{
+      'label': instance.label,
+      'color': instance.color,
     };

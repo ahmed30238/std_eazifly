@@ -7,6 +7,7 @@ import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/pro
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/program_navigation.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+import 'package:get_storage/get_storage.dart';
 
 class MyProgramsView extends StatefulWidget {
   const MyProgramsView({super.key});
@@ -17,6 +18,10 @@ class MyProgramsView extends StatefulWidget {
 
 class _MyProgramsViewState extends State<MyProgramsView> {
   late MyProgramsCubit cubit;
+  final GetStorage storage = GetStorage();
+  
+  // Key for storing tutorial completion status
+  static const String _tutorialCompletedKey = 'my_programs_tutorial_completed';
 
   GlobalKey keyReviewButton = GlobalKey();
   late TutorialCoachMark tutorialCoachMark;
@@ -28,21 +33,41 @@ class _MyProgramsViewState extends State<MyProgramsView> {
     cubit.getMyPrograms();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      showTutorial();
+      // Check if tutorial has been shown before
+      if (!_isTutorialCompleted()) {
+        showTutorial();
+      }
     });
 
     super.initState();
   }
 
+  // Check if tutorial has been completed before
+  bool _isTutorialCompleted() {
+    return storage.read(_tutorialCompletedKey) ?? false;
+  }
+
+  // Mark tutorial as completed
+  void _markTutorialCompleted() {
+    storage.write(_tutorialCompletedKey, true);
+  }
+
   void showTutorial() {
     initTargets();
     tutorialCoachMark = TutorialCoachMark(
-      // context,
       targets: targets,
       textSkip: "تخطي",
       paddingFocus: 10,
       colorShadow: Colors.black.withOpacity(0.8),
-      onFinish: () => print("تم الانتهاء من الشرح"),
+      onFinish: () {
+        print("تم الانتهاء من الشرح");
+        _markTutorialCompleted(); // Mark as completed when finished
+      },
+      onSkip: () {
+        print("تم تخطي الشرح");
+        _markTutorialCompleted(); // Mark as completed when skipped
+        return true;
+      },
     )..show(
         context: context,
       );
@@ -68,6 +93,11 @@ class _MyProgramsViewState extends State<MyProgramsView> {
         ],
       ),
     );
+  }
+
+  // Optional: Method to reset tutorial (for testing or settings)
+  void resetTutorial() {
+    storage.remove(_tutorialCompletedKey);
   }
 
   @override

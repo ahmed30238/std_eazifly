@@ -116,8 +116,6 @@ class AddtolibrarypackagedetailsCubit
 
         // Create tab controller after getting data
         _createTabController();
-
-        // Load plans for first tab (default)
         if (success.data?.isNotEmpty == true) {
           int days = int.tryParse(success.data?.first.days ?? "0") ?? -1;
           if (days > 0) {

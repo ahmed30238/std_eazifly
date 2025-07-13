@@ -81,7 +81,7 @@ class ScheduleItem extends StatelessWidget {
               ),
             ),
             27.pw,
-            state == "canceled"
+            state == "danger"
                 ? Text(
                     "ملغية",
                     style: MainTextStyle.boldTextStyle(

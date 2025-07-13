@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/controller/add_to_library_package_details_controller/addtolibrarypackagedetails_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/complete_payment_process_view/widgets/payment_methods_loader.dart';
@@ -23,7 +24,8 @@ class _CompleteLibraryPaymentProcessViewState
   @override
   void initState() {
     cubit = context.read<PaymentCubit>();
-    addtolibrarypackagedetailsCubit = context.read<AddtolibrarypackagedetailsCubit>();
+    addtolibrarypackagedetailsCubit =
+        context.read<AddtolibrarypackagedetailsCubit>();
     cubit.getProgramPaymentMethod(
       programId: widget.itemId,
     );
@@ -127,9 +129,11 @@ class PaymentMethodContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget? iconWidget;
     if (icon != null && icon!.isNotEmpty) {
-      iconWidget = icon!.endsWith("png")
-          ? Image.asset(icon!, height: 32.h, width: 32.w)
-          : SvgPicture.asset(icon!, height: 32.h, width: 32.w);
+      iconWidget = AvatarImage(
+        imageUrl: icon,
+        height: 32.h,
+        width: 32.w,
+      );
     }
 
     return InkWell(

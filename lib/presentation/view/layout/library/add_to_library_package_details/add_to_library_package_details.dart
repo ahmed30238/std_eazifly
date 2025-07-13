@@ -127,9 +127,9 @@ class _AddToLibraryPackageDetailsViewState
                           onTap: () {
                             log("DEBUG: User tapped plan at index $index");
                             log("DEBUG: Plan ID: ${plan.id}, Title: ${plan.title}");
-                            
+
                             cubit.changePackageIndex(index);
-                            
+
                             if (plan.id != null && plan.id! > 0) {
                               cubit.fillPlanId(plan.id!);
                             } else {
@@ -201,10 +201,7 @@ class _AddToLibraryPackageDetailsViewState
               onPressed: () {
                 // TODO add programId as arguments
                 Navigator.pushNamed(
-                  arguments: {
-                    "itemId" : 1,
-                    "cubit" :cubit
-                  },
+                  arguments: {"itemId": 1, "cubit": cubit},
                   context,
                   RoutePaths.completeLibraryPaymentProcessScreen,
                 );

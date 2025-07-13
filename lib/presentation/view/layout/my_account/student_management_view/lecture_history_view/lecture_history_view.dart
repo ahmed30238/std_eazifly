@@ -229,7 +229,7 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                                   sessionDuration: session.duration ?? "",
                                   sessionTime:
                                       "${session.sessionTime?.substring(0, 5)} الي ${session.sessionTimeTo?.substring(0, 5)}",
-                                  status: session.status ?? "",
+                                  status: session.status?.color ?? "",
                                 );
                               },
                               separatorBuilder: (context, index) => 8.ph,

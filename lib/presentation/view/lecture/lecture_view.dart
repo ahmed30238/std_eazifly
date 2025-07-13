@@ -11,6 +11,7 @@ import 'package:eazifly_student/presentation/view/lecture/widgets/child_navigato
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_view_app_bar.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LectureView extends StatefulWidget {
   final int programId;
@@ -28,11 +29,15 @@ class _LectureViewState extends State<LectureView>
     with SingleTickerProviderStateMixin {
   late LectureCubit cubit;
   late PageController pageController;
+  final GetStorage storage = GetStorage();
 
   /// 🟡 Tutorial setup
   late TutorialCoachMark tutorialCoachMark;
   List<TargetFocus> targets = [];
   GlobalKey btnKey = GlobalKey();
+  
+  // Key for storing tutorial completion status
+  static const String _lectureTutorialCompletedKey = 'lecture_tutorial_completed';
 
   @override
   void initState() {
@@ -44,12 +49,14 @@ class _LectureViewState extends State<LectureView>
         );
     pageController = PageController();
 
-    /// 🟡 Start the tutorial
+    /// 🟡 Start the tutorial only if not shown before
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(
         const Duration(milliseconds: 300),
         () {
-          showTutorial();
+          if (!_isTutorialCompleted()) {
+            showTutorial();
+          }
         },
       );
     });
@@ -57,17 +64,33 @@ class _LectureViewState extends State<LectureView>
     super.initState();
   }
 
+  // Check if tutorial has been completed before
+  bool _isTutorialCompleted() {
+    return storage.read(_lectureTutorialCompletedKey) ?? false;
+  }
+
+  // Mark tutorial as completed
+  void _markTutorialCompleted() {
+    storage.write(_lectureTutorialCompletedKey, true);
+  }
+
   /// 🟡 Show tutorial coach mark
   void showTutorial() {
     initTargets();
     tutorialCoachMark = TutorialCoachMark(
-      // useSafeArea: false,
-      // context: context,
       targets: targets,
       textSkip: "تخطي",
       paddingFocus: 8,
       colorShadow: Colors.black.withOpacity(0.8),
-      onFinish: () => print("تم الانتهاء من الشرح"),
+      onFinish: () {
+        print("تم الانتهاء من الشرح");
+        _markTutorialCompleted(); // Mark as completed when finished
+      },
+      onSkip: () {
+        print("تم تخطي الشرح");
+        _markTutorialCompleted(); // Mark as completed when skipped
+        return true;
+      },
     )..show(context: context);
   }
 
@@ -86,12 +109,19 @@ class _LectureViewState extends State<LectureView>
               style: MainTextStyle.boldTextStyle(
                 fontSize: 14,
                 color: MainColors.white,
+              ).copyWith(
+                
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  // Optional: Method to reset tutorial (for testing or settings)
+  void resetTutorial() {
+    storage.remove(_lectureTutorialCompletedKey);
   }
 
   @override

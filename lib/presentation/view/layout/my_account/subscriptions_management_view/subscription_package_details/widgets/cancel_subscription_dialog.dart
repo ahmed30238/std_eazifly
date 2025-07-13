@@ -2,7 +2,11 @@
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-void showCancelSubscriptionDialog(BuildContext context,{required SubscriptionmanagementCubit cubit,required int mainId}) {
+void showCancelSubscriptionDialog(
+  BuildContext context, {
+  required SubscriptionmanagementCubit cubit,
+  required int mainId,
+}) {
   showDialog(
     context: context,
     barrierDismissible: false,
@@ -63,7 +67,9 @@ void showCancelSubscriptionDialog(BuildContext context,{required Subscriptionman
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop(); // إغلاق الـ dialog
-               cubit.cancelSubscription(mainId: mainId); // تنفيذ إلغاء الاشتراك
+                cubit.cancelSubscription(
+                  mainId: mainId,
+                ); // تنفيذ إلغاء الاشتراك
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,

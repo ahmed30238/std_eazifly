@@ -81,10 +81,10 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   // }
 
   int studentNumber = -1;
-  fillProgramStudentNumber(
-    int studentNumber,
-  ) {
+  void fillProgramStudentNumber(int studentNumber) {
+    log("Started");
     this.studentNumber = studentNumber;
+    log("filled student number: ${this.studentNumber}");
   }
 
   void initTabBarController(TickerProvider vsync) {
@@ -105,32 +105,6 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   }
 
   int tapbarIndex = 0;
-
-  void changeTapbarIndex(int index) {
-    tapbarIndex = index;
-
-    // Load data based on selected tab
-    switch (index) {
-      case 0: // الكل
-        loadAllSubscriptions();
-        break;
-      case 1: // البرامج
-        getProgramSubscription(); // Replace with actual IDs
-        break;
-      case 2: // الاشتراكات
-        getLibrarySubscription(
-            userId: loginData?.id ?? 0); // Replace with actual user ID
-        break;
-    }
-
-    emit(ChangeTapBarIndexState());
-  }
-
-  void loadAllSubscriptions() {
-    getProgramSubscription(); // Replace with actual IDs
-    getLibrarySubscription(
-        userId: loginData?.id ?? 0); // Replace with actual user ID
-  }
 
   //! ################# API ####################
   bool getProgramSubscriptionLoader = false;
@@ -161,27 +135,27 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   GetLibrarySubscriptionEntity? getLibrarySubscriptionEntity;
   GetLibrarySubscriptionUsecase getLibrarySubscriptionUsecase;
 
-  Future<void> getLibrarySubscription({
-    required int userId,
-  }) async {
-    getLibrarySubscriptionLoader = true;
-    emit(GetLibrarySubscriptionLoadingState());
+  // Future<void> getLibrarySubscription({
+  //   required int userId,
+  // }) async {
+  //   getLibrarySubscriptionLoader = true;
+  //   emit(GetLibrarySubscriptionLoadingState());
 
-    final result =
-        await getLibrarySubscriptionUsecase.call(parameter: NoParameter());
+  //   final result =
+  //       await getLibrarySubscriptionUsecase.call(parameter: NoParameter());
 
-    result.fold(
-      (failure) {
-        getLibrarySubscriptionLoader = false;
-        emit(GetLibrarySubscriptionErrorState(errorMessage: failure.message));
-      },
-      (data) {
-        getLibrarySubscriptionLoader = false;
-        getLibrarySubscriptionEntity = data;
-        emit(GetLibrarySubscriptionSuccessState());
-      },
-    );
-  }
+  //   result.fold(
+  //     (failure) {
+  //       getLibrarySubscriptionLoader = false;
+  //       emit(GetLibrarySubscriptionErrorState(errorMessage: failure.message));
+  //     },
+  //     (data) {
+  //       getLibrarySubscriptionLoader = false;
+  //       getLibrarySubscriptionEntity = data;
+  //       emit(GetLibrarySubscriptionSuccessState());
+  //     },
+  //   );
+  // }
 
   bool cancelSubscriptionLoader = false;
   CancelSubscriptionEntity? cancelSubscriptionEntity;
@@ -225,6 +199,25 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   RenewSubscriptionUsecase renewSubscriptionUsecase;
 
   Future<void> renewSubscription({required int programId}) async {
+    if (planDetailsEntity?.data?.id == null ||
+        planDetailsEntity!.data!.id! <= 0) {
+      emit(RenewSubscriptionErrorState(
+          errorMessage: "خطأ: معرف الخطة غير صحيح"));
+      return;
+    }
+
+    if (programId <= 0) {
+      emit(RenewSubscriptionErrorState(
+          errorMessage: "خطأ: معرف البرنامج غير صحيح"));
+      return;
+    }
+
+    if (studentNumber <= 0) {
+      emit(RenewSubscriptionErrorState(
+          errorMessage: "خطأ: رقم الطالب غير صحيح"));
+      return;
+    }
+
     renewSubscriptionLoader = true;
     emit(RenewSubscriptionLoadingState());
 
@@ -232,21 +225,21 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
       String? imagePath;
       if (renewOrderImage != null) {
         final File file = renewOrderImage!;
-
         if (!await file.exists()) {
-          throw Exception('Fav image file does not exist');
+          throw Exception('ملف الصورة غير موجود');
         }
-
         imagePath = file.path;
       }
+
       final renewData = RenewSubscriptionTojson(
         code: codeController.text,
         image: imagePath,
-        planId: [planDetailsEntity?.data?.id ?? -1],
+        planId: [planDetailsEntity!.data!.id!], // استخدام القيمة الصحيحة
         startDate: [DateTime.now().toString()],
         programId: [programId],
         studentNumber: [studentNumber],
       );
+
       final result = await renewSubscriptionUsecase.call(
         parameter: RenewSubscriptionDataParameters(data: renewData),
       );
@@ -254,9 +247,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
       result.fold(
         (failure) {
           renewSubscriptionLoader = false;
-          emit(RenewSubscriptionErrorState(
-            errorMessage: failure.message,
-          ));
+          emit(RenewSubscriptionErrorState(errorMessage: failure.message));
         },
         (data) {
           renewSubscriptionLoader = false;
@@ -285,23 +276,37 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     emit(PickImageFromGallerySuccessState());
   }
 
-  Future<void> upgradeOrder({ //! تجديد الاشتراك
+  Future<void> upgradeOrder({
     required int programId,
     required BuildContext context,
   }) async {
+    if (planDetailsEntity?.data?.id == null ||
+        planDetailsEntity!.data!.id! <= 0) {
+      emit(UpgradeOrderErrorState(errorMessage: "خطأ: معرف الخطة غير صحيح"));
+      return;
+    }
+
+    if (programId <= 0) {
+      emit(UpgradeOrderErrorState(errorMessage: "خطأ: معرف البرنامج غير صحيح"));
+      return;
+    }
+
+    final studentNum = int.tryParse(studentNumberController.text);
+    if (studentNum == null || studentNum <= 0) {
+      emit(UpgradeOrderErrorState(errorMessage: "خطأ: رقم الطالب غير صحيح"));
+      return;
+    }
+
     upgradeOrderLoader = true;
     emit(UpgradeOrderLoadingState());
 
     try {
       String? imagePath;
-
       if (upgradeOrderImage != null) {
         final File file = upgradeOrderImage!;
-
         if (!await file.exists()) {
-          throw Exception('Profile image file does not exist');
+          throw Exception('ملف الصورة غير موجود');
         }
-
         imagePath = file.path;
       }
 
@@ -309,33 +314,34 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
         parameter: UpgradeOrderParameters(
           data: CreateOrderTojson(
             code: codeController.text,
-            image: imagePath, // استخدم property جديد
+            image: imagePath,
             startDate: [getFormattedDateForAPI()],
-            planId: [planDetailsEntity?.data?.id ?? -1],
+            planId: [planDetailsEntity!.data!.id!],
             programId: [programId],
-            studentNumber: [int.tryParse(studentNumberController.text) ?? 0],
+            studentNumber: [studentNum],
           ),
         ),
       );
 
       result.fold(
-        (l) {
+        (failure) {
           upgradeOrderLoader = false;
-          emit(UpgradeOrderErrorState(errorMessage: l.message));
+          emit(UpgradeOrderErrorState(errorMessage: failure.message));
         },
-        (r) {
+        (data) {
           upgradeOrderLoader = false;
-          upgradeOrderEntity = r;
+          upgradeOrderEntity = data;
           emit(UpgradeOrderSuccessState());
 
           showAdaptiveDialog(
             context: context,
             builder: (context) => const CustomDialog(
               title: "جاري مراجعة طلب التحويل",
-              subTitle: "سيتم ارسال اشعار التاكيد في اقرب وقت ",
+              subTitle: "سيتم ارسال اشعار التاكيد في اقرب وقت",
               loader: true,
             ),
           );
+
           Timer(
             const Duration(seconds: 2),
             () => Navigator.pushReplacementNamed(
@@ -347,9 +353,150 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
       );
     } catch (e) {
       upgradeOrderLoader = false;
-      log("Error in createOrder: $e");
+      log("Error in upgradeOrder: $e");
       emit(UpgradeOrderErrorState(errorMessage: e.toString()));
     }
+  }
+
+  Future<void> getLibrarySubscription({required int userId}) async {
+    if (userId <= 0) {
+      emit(GetLibrarySubscriptionErrorState(
+          errorMessage: "خطأ: معرف المستخدم غير صحيح"));
+      return;
+    }
+
+    getLibrarySubscriptionLoader = true;
+    emit(GetLibrarySubscriptionLoadingState());
+
+    final result = await getLibrarySubscriptionUsecase.call(
+      parameter: NoParameter(),
+    );
+
+    result.fold(
+      (failure) {
+        getLibrarySubscriptionLoader = false;
+        emit(GetLibrarySubscriptionErrorState(errorMessage: failure.message));
+      },
+      (data) {
+        getLibrarySubscriptionLoader = false;
+        getLibrarySubscriptionEntity = data;
+        emit(GetLibrarySubscriptionSuccessState());
+      },
+    );
+  }
+
+// 4. تحسين loadAllSubscriptions
+  void loadAllSubscriptions() {
+    final userId = loginData?.id;
+    if (userId == null || userId <= 0) {
+      emit(GetLibrarySubscriptionErrorState(
+          errorMessage: "خطأ: المستخدم غير مسجل الدخول"));
+      return;
+    }
+
+    getProgramSubscription();
+    getLibrarySubscription(userId: userId);
+  }
+
+// 5. تحسين changeTapbarIndex
+  void changeTapbarIndex(int index) {
+    tapbarIndex = index;
+
+    switch (index) {
+      case 0: // الكل
+        loadAllSubscriptions();
+        break;
+      case 1: // البرامج
+        getProgramSubscription();
+        break;
+      case 2: // الاشتراكات
+        final userId = loginData?.id;
+        if (userId == null || userId <= 0) {
+          emit(GetLibrarySubscriptionErrorState(
+              errorMessage: "خطأ: المستخدم غير مسجل الدخول"));
+          return;
+        }
+        getLibrarySubscription(userId: userId);
+        break;
+    }
+
+    emit(ChangeTapBarIndexState());
+  }
+
+  bool validateUserData() {
+    if (loginData?.id == null || loginData!.id! <= 0) {
+      log("خطأ: بيانات المستخدم غير صحيحة");
+      return false;
+    }
+    return true;
+  }
+
+// 7. إضافة دالة للتحقق من صحة خطة الاشتراك
+  bool validatePlanData() {
+    if (planDetailsEntity?.data?.id == null ||
+        planDetailsEntity!.data!.id! <= 0) {
+      log("خطأ: بيانات الخطة غير صحيحة");
+      return false;
+    }
+    return true;
+  }
+
+// 8. تحسين filterPlans للتأكد من وجود البيانات
+  @override
+  Future<void> filterPlans({
+    required int programId,
+    required BuildContext context,
+  }) async {
+    if (programId <= 0) {
+      emit(FilterPlansErrorState(errorMessage: "خطأ: معرف البرنامج غير صحيح"));
+      return;
+    }
+
+    if (getPlansEntity?.data == null) {
+      emit(
+          FilterPlansErrorState(errorMessage: "خطأ: لا توجد بيانات خطط متاحة"));
+      return;
+    }
+
+    final plan = getPlansEntity!.data!;
+
+    // التحقق من وجود البيانات المطلوبة
+    if (plan.duration == null ||
+        plan.duration!.isEmpty ||
+        plan.numberOfSessionPerWeek == null ||
+        plan.numberOfSessionPerWeek!.isEmpty ||
+        plan.subscripeDays == null ||
+        plan.subscripeDays!.isEmpty) {
+      emit(FilterPlansErrorState(errorMessage: "خطأ: بيانات الخطة غير مكتملة"));
+      return;
+    }
+
+    filterPlansLoader = true;
+    emit(FilterPlansLoadingState());
+
+    final result = await filterPlansUsecase.call(
+      parameter: FilterPlansParameters(
+        data: FilterPlansTojson(
+          duration: plan.duration![lessonDurationIndex],
+          numberOfSessionPerWeek: plan.numberOfSessionPerWeek!.first,
+          programId: programId.toString(),
+          subscribeDays: plan.subscripeDays![planSubscribeDaysIndex],
+        ),
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        filterPlansLoader = false;
+        emit(FilterPlansErrorState(errorMessage: failure.message));
+      },
+      (data) {
+        filterPlansLoader = false;
+        filterPlansEntity = data;
+        delightfulToast(message: data.message ?? "", context: context);
+        emit(FilterPlansSuccessState());
+      },
+    );
   }
 
   bool showPlanLoader = false;
@@ -423,6 +570,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   int programId = -1;
   void fillProgramId(int value) {
     programId = value;
+    log("programid filled $programId");
   }
 
   DateTime? selectedStartDate;
@@ -484,39 +632,6 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   bool getPaymentMethodDetailsLoader = false; // لتحميل تفاصيل طريقة الدفع
   CheckCopounEntity? checkCopounEntity;
   FilterPlansEntity? filterPlansEntity;
-
-  @override
-  Future<void> filterPlans(
-      {required int programId, required BuildContext context}) async {
-    filterPlansLoader = true;
-    emit(FilterPlansLoadingState());
-    var plan = getPlansEntity?.data;
-    log("dur ${plan?.duration?[lessonDurationIndex]}");
-    log("sess ${plan?.numberOfSessionPerWeek?.first}");
-    log("sub days ${plan?.subscripeDays?[planSubscribeDaysIndex]}");
-    final result = await filterPlansUsecase.call(
-      parameter: FilterPlansParameters(
-        data: FilterPlansTojson(
-          duration: plan?.duration?[lessonDurationIndex] ?? "",
-          numberOfSessionPerWeek: plan?.numberOfSessionPerWeek?.first ?? "",
-          programId: programId.toString(),
-          subscribeDays: plan?.subscripeDays?[planSubscribeDaysIndex] ?? "",
-        ),
-      ),
-    );
-    result.fold(
-      (l) {
-        filterPlansLoader = false;
-        emit(FilterPlansErrorState(errorMessage: l.message));
-      },
-      (r) {
-        filterPlansLoader = false;
-        filterPlansEntity = r;
-        delightfulToast(message: r.message ?? "", context: context);
-        emit(FilterPlansSuccessState());
-      },
-    );
-  }
 
   @override
   Future<void> checkCopouns({required BuildContext context}) async {

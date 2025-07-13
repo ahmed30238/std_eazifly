@@ -126,7 +126,7 @@ class EndPoints {
   static const getAllLibraryLists = "all/list";
   static String getPlansWithDetails(
           {required int programId, required int days}) =>
-      "program/plans/details/$programId?day=$days";
+      "program/plans/details/$programId?days=$days";
   static String getPlans({required int programId}) => "plans/$programId";
   static String getProgramPaymentMethods({required int programId}) =>
       "get/program/payment/method/$programId";

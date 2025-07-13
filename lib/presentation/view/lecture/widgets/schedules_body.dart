@@ -22,7 +22,7 @@ class SchedulesBody extends StatelessWidget {
         return ScheduleItem(
           date: session?.sessionDate?.toIso8601String().substring(0, 10) ?? "",
           day: days?[index] ?? "",
-          state: session?.status ?? "",
+          state: session?.status?.color ?? "",
           from: session?.sessionTime?.substring(0, 5) ?? "",
           to: session?.sessionTimeTo?.substring(0, 5) ?? "",
           sessionId: session?.id ?? -1,

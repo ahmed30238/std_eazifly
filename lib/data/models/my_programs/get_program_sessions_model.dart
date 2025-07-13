@@ -10,8 +10,7 @@ class GetProgramSessionsModel extends GetProgramSessionsEntity {
   factory GetProgramSessionsModel.fromJson(Map<String, dynamic> json) =>
       _$GetProgramSessionsModelFromJson(json);
 
-  Map<String, dynamic> toJson() =>
-      _$GetProgramSessionsModelToJson(this);
+  Map<String, dynamic> toJson() => _$GetProgramSessionsModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -24,7 +23,7 @@ class ProgramSessionModel extends ProgramSessionEntity {
   Map<String, dynamic> toJson() => _$ProgramSessionModelToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class UserModel extends UserEntity {
   UserModel();
 
@@ -32,4 +31,13 @@ class UserModel extends UserEntity {
       _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetProgramSessionsStatusModel extends GetProgramSessionsStatus {
+  GetProgramSessionsStatusModel();
+  factory GetProgramSessionsStatusModel.fromJson(Map<String, dynamic> json) =>
+      _$GetProgramSessionsStatusModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GetProgramSessionsStatusModelToJson(this);
 }
