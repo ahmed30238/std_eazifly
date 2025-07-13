@@ -32,7 +32,6 @@ import 'package:eazifly_student/presentation/controller/library_controller/libra
 import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_body.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/favourite_body.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/menu_list_body.dart';
-import 'package:eazifly_student/presentation/view/layout/library/widgets/visuals_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 // import 'package:just_audio/just_audio.dart';
 import 'package:open_file/open_file.dart';
@@ -54,7 +53,7 @@ class LibraryCubit extends Cubit<LibraryState> {
   }) : super(LibraryInitial());
   static LibraryCubit get(context) => BlocProvider.of(context);
   initTabController(TickerProvider vsync) {
-    tabController = TabController(length: 4, vsync: vsync)
+    tabController = TabController(length: tabTexts.length, vsync: vsync)
       ..addListener(() {
         if (tabController.indexIsChanging) {
           tabController.animateTo(tabController.index,
@@ -81,15 +80,16 @@ class LibraryCubit extends Cubit<LibraryState> {
 
   late TabController tabController;
 
+  // stop visuals temporarily
   List<String> tabTexts = [
     'صوتيات',
-    'مرئيات',
+    // 'مرئيات',
     'القوائم',
     'المفضلة',
   ];
   List<Widget> libraryBodies = [
     const AudiosBody(),
-    const VisualsBody(),
+    // const VisualsBody(),
     const MenuListBody(),
     const FavouriteBody(),
   ];
