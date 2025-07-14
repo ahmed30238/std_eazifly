@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:eazifly_student/core/general_failure/failure.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
+import 'package:eazifly_student/data/models/chat_model/check_chat_tojson.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
@@ -30,6 +31,7 @@ import 'package:eazifly_student/domain/entities/change_instructor/change_instruc
 import 'package:eazifly_student/domain/entities/change_instructor/get_change_instructor_reasons_entity.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/get_remaining_program_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/get_user_subscription_data_entity.dart';
+import 'package:eazifly_student/domain/entities/chat/check_chat_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/chat/get_my_chats_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
@@ -319,4 +321,5 @@ abstract class BaseRepository {
       {required int notificationId});
   Future<Either<Failure, LogoutEntity>> logout();
   Future<Either<Failure, DeleteAccountEntity>> deleteAccount({required int userId});
+  Future<Either<Failure, CheckChatEntity>> checkChat({required CheckChatTojson data});
 }

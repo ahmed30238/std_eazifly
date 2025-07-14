@@ -1,5 +1,7 @@
-import 'package:eazifly_student/data/models/home/get_home_closest_sessions_model.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
+
+import 'package:eazifly_student/data/models/home/get_home_closest_sessions_model.dart';
 
 class GetHomeClosestSessionsEntity {
   @JsonKey(name: "data")
@@ -46,7 +48,7 @@ class GetHomeClosestSessionsDatum {
   @JsonKey(name: "program_id")
   String? programId;
   @JsonKey(name: "status")
-  String? status;
+  GetHomeClosestSessionStatusModel? status;
 
   GetHomeClosestSessionsDatum({
     this.id,
@@ -76,5 +78,16 @@ class GetHomeClosestSessionsUser {
   GetHomeClosestSessionsUser({
     this.id,
     this.userName,
+  });
+}
+
+class GetHomeClosestSessionStatus {
+  @JsonKey(name: "label")
+  String? label;
+  @JsonKey(name: "color")
+  String? color;
+  GetHomeClosestSessionStatus({
+    this.label,
+    this.color,
   });
 }

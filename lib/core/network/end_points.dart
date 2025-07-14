@@ -56,6 +56,7 @@ class EndPoints {
   static const upgradeOrder = "upgrade/order";
   static const getReasons = "reason/cancel/session?type=user";
   static const cancelSession = "cancel/session";
+  static const checkChat = "check/chat";
   static String changeSessionDate({required int sessionId}) =>
       "change/session/date/$sessionId";
   static String getInstructorAvailablities(

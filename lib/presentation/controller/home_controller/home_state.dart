@@ -75,3 +75,13 @@ class UpdateFcmTokenErrorState extends HomeState {
 }
 
 class UpdateFcmTokenLoadingState extends HomeState {}
+
+class CheckChatSuccessState extends HomeState {}
+
+class CheckChatErrorState extends HomeState {
+  final String errorMessage;
+
+  CheckChatErrorState({required this.errorMessage});
+}
+
+class CheckChatLoadingState extends HomeState {}

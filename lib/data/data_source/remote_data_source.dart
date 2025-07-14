@@ -14,6 +14,8 @@ import 'package:eazifly_student/data/models/change_instructor/change_instructor_
 import 'package:eazifly_student/data/models/change_instructor/get_change_instructor_reasons_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/get_remaining_program_sessions_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/get_user_subscription_data_model.dart';
+import 'package:eazifly_student/data/models/chat_model/check_chat_model.dart';
+import 'package:eazifly_student/data/models/chat_model/check_chat_tojson.dart';
 import 'package:eazifly_student/data/models/chat_model/get_messages_model.dart';
 import 'package:eazifly_student/data/models/chat_model/get_my_chats_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_model.dart';
@@ -304,6 +306,7 @@ abstract class BaseRemoteDataSource {
   Future<ReadNotificationModel> readNotification({required int notificationId});
   Future<LogoutModel> logout();
   Future<DeleteAccountModel> deleteAccount({required int userId});
+  Future<CheckChatModel> checkChat({required CheckChatTojson data});
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -2111,6 +2114,24 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return DeleteAccountModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<CheckChatModel> checkChat({required CheckChatTojson data}) async {
+    var response = await NetworkCall().post(
+      path: EndPoints.checkChat,
+      data: data.toJson(),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return CheckChatModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

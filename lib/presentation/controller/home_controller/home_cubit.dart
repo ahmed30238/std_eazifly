@@ -1,11 +1,14 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
+import 'package:eazifly_student/data/models/chat_model/check_chat_tojson.dart';
+import 'package:eazifly_student/domain/entities/chat/check_chat_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_assigments_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_closest_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_current_session_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_library_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_quizzes_entity.dart';
 import 'package:eazifly_student/domain/entities/update_fcm_token_entity.dart';
+import 'package:eazifly_student/domain/use_cases/check_chat_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_assignments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_closest_sessions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_current_session_usecase.dart';
@@ -25,6 +28,7 @@ class HomeCubit extends Cubit<HomeState> {
     required this.getHomeQuizzesUsecase,
     required this.getHomeAssignmentsUsecase,
     required this.updateFcmTokenUsecase,
+    required this.checkChatUsecase,
   }) : super(HomeInitial()) {
     // _initializeUser();
   }
@@ -215,7 +219,8 @@ class HomeCubit extends Cubit<HomeState> {
 
     emit(HomeInitial());
   }
-    UpdateFcmTokenEntity? updateFcmTokenEntity;
+
+  UpdateFcmTokenEntity? updateFcmTokenEntity;
   UpdateFcmTokenUsecase updateFcmTokenUsecase;
   void updateFcmToken({required String fcmToken}) async {
     emit(UpdateFcmTokenLoadingState());
@@ -229,6 +234,37 @@ class HomeCubit extends Cubit<HomeState> {
       (r) {
         updateFcmTokenEntity = r;
         emit(UpdateFcmTokenSuccessState());
+      },
+    );
+  }
+
+  CheckChatUsecase checkChatUsecase;
+  CheckChatEntity? checkChatEntity;
+
+  Future<void> checkChat() async {
+    if (isGuest) return;
+
+    emit(CheckChatLoadingState());
+
+    final result = await checkChatUsecase.call(
+      parameter: CheckChatParameters(
+        data: CheckChatTojson(
+          senderType: "User",
+          senderId: loginData?.id.toString() ?? "",
+          receiverId:
+              "2", //getHomeCurrentSessionEntity?.data?.instructor ?? "", // TODO actual instrucor id
+          receiverType: "Instructor",
+        ),
+      ),
+    );
+
+    result.fold(
+      (l) {
+        emit(CheckChatErrorState(errorMessage: l.message));
+      },
+      (r) {
+        checkChatEntity = r;
+        emit(CheckChatSuccessState());
       },
     );
   }

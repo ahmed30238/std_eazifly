@@ -9,6 +9,7 @@ import 'package:eazifly_student/data/models/change_instructor/change_instructor_
 import 'package:eazifly_student/data/models/change_instructor/get_change_instructor_reasons_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/get_remaining_program_sessions_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/get_user_subscription_data_model.dart';
+import 'package:eazifly_student/data/models/chat_model/check_chat_tojson.dart';
 import 'package:eazifly_student/data/models/chat_model/get_my_chats_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
@@ -79,6 +80,7 @@ import 'package:eazifly_student/data/models/user/update_profile_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/add_note_entity.dart';
+import 'package:eazifly_student/domain/entities/chat/check_chat_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/children_entities/create_new_child_entity.dart';
@@ -1099,6 +1101,17 @@ class Repository extends BaseRepository {
   Future<Either<Failure, DeleteAccountModel>> deleteAccount(
       {required int userId}) async {
     final result = await baseRemoteDataSource.deleteAccount(userId: userId);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CheckChatEntity>> checkChat(
+      {required CheckChatTojson data}) async {
+    final result = await baseRemoteDataSource.checkChat(data: data);
     try {
       return Right(result);
     } on ServerException catch (e) {

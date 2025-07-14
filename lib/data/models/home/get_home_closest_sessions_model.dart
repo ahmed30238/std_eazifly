@@ -34,3 +34,15 @@ class GetHomeClosestSessionsUserModel extends GetHomeClosestSessionsUser {
   Map<String, dynamic> toJson() =>
       _$GetHomeClosestSessionsUserModelToJson(this);
 }
+
+@JsonSerializable(explicitToJson: true)
+class GetHomeClosestSessionStatusModel extends GetHomeClosestSessionStatus {
+  GetHomeClosestSessionStatusModel();
+
+  factory GetHomeClosestSessionStatusModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetHomeClosestSessionStatusModelFromJson(json);
+
+  Map<String, dynamic> toJson() =>
+      _$GetHomeClosestSessionStatusModelToJson(this);
+}

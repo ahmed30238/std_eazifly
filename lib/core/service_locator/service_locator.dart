@@ -241,6 +241,7 @@ class ServiceLocator {
         getHomeAssignmentsUsecase: sl(),
         getHomeQuizzesUsecase: sl(),
         updateFcmTokenUsecase: sl(),
+        checkChatUsecase: sl(),
       ),
     );
     sl.registerLazySingleton<AddNewStudentDataToProgramCubit>(
