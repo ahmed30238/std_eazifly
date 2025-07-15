@@ -59,20 +59,4 @@ class PaymentMethodContainerShimmer extends StatelessWidget {
   }
 }
 
-class PaymentMethodsLoader extends StatelessWidget {
-  const PaymentMethodsLoader({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400.h,
-      child: ListView.separated(
-        itemBuilder: (context, index) {
-          return const PaymentMethodContainerShimmer();
-        },
-        separatorBuilder: (context, index) => 20.ph,
-        itemCount: 3,
-      ),
-    );
-  }
-}

@@ -267,14 +267,14 @@ class _HomePageState extends State<HomePage> {
           return const SizedBox.shrink(); // Hide on error
         }
 
-        if (cubit.getHomeCurrentSessionLoader) {
-          return Padding(
-            padding: EdgeInsets.all(16.w),
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
+        // if (cubit.getHomeCurrentSessionLoader) {
+        //   return Padding(
+        //     padding: EdgeInsets.all(16.w),
+        //     child: const Center(
+        //       child: CircularProgressIndicator(),
+        //     ),
+        //   );
+        // }
         return const SizedBox.shrink();
       },
     );

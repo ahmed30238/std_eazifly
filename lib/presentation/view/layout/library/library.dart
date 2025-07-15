@@ -35,7 +35,7 @@ class _LibraryViewState extends State<LibraryView>
             leadingText: "",
             leadingCustomWidth: 10.w,
             customAction: [
-              cubit.tabController.index == 3
+              cubit.tabController.index == 2
                   ? Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: AppbarIconWidget(

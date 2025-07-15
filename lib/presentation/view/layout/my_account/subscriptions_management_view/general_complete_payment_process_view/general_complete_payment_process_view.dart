@@ -1,7 +1,7 @@
 import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/complete_payment_process_view/widgets/payment_methods_loader.dart';
+import 'package:eazifly_student/presentation/view/layout/library/payment/complete_payment_process_view/widgets/payment_methods_loader.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class GeneralCompletePaymentProcessView extends StatefulWidget {

@@ -18,7 +18,7 @@ class _CurrentSessionState extends State<CurrentSession> {
   void initState() {
     cubit = context.read<HomeCubit>();
     super.initState();
-    // cubit.getHomeCurrentSession();
+    cubit.getHomeCurrentSession();
   }
 
   @override
@@ -262,7 +262,8 @@ class _CurrentSessionState extends State<CurrentSession> {
                       chatsCubit.getMyChatsEntity?.data != null
                           ? chatsCubit.getMyChatsEntity!.data!.indexWhere(
                               (element) =>
-                                  element.participant1?.id == "2", // TODO: InstructorId
+                                  element.participant1?.id ==
+                                  "2", // TODO: InstructorId
                             )
                           : -1,
                     );

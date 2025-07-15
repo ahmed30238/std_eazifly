@@ -279,8 +279,11 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
   FilterPlansUsecase filterPlansUsecase;
   bool filterPlansLoader = false;
   @override
-  Future<void> filterPlans(
-      {required int programId, required BuildContext context}) async {
+  Future<void> filterPlans({
+    required int programId,
+    required BuildContext context,
+    required String numberOfSessionsPerWeek,
+  }) async {
     filterPlansLoader = true;
     emit(FilterPlansLoadingState());
     var plan = getPlansEntity?.data;
@@ -288,7 +291,7 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
       parameter: FilterPlansParameters(
         data: FilterPlansTojson(
           duration: plan?.duration?[lessonDurationIndex] ?? "",
-          numberOfSessionPerWeek: plan?.numberOfSessionPerWeek?.first ?? "",
+          numberOfSessionPerWeek: numberOfSessionsPerWeek,
           programId: programId.toString(),
           subscribeDays: plan?.subscripeDays?[planSubscribeDaysIndex] ?? "",
         ),
@@ -377,7 +380,9 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
             startDate: [getFormattedDateForAPI()],
             planId: [filterPlansEntity?.data?.id ?? planId],
             programId: [programId],
-            studentNumber: [int.tryParse(studentNumberController.text) ?? 0],
+            studentNumber: studentNumberController.text.isEmpty
+                ? [studentCount]
+                : [int.tryParse(studentNumberController.text) ?? 0],
           ),
         ),
       );

@@ -1,3 +1,4 @@
+import 'package:eazifly_student/domain/entities/home/get_home_closest_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_current_session_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -31,4 +32,16 @@ class GetHomeCurrentSessionUserModel extends GetHomeCurrentSessionUser {
       _$GetHomeCurrentSessionUserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetHomeCurrentSessionUserModelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetHomeCurrentSessionStatusModel extends GetHomeClosestSessionStatus {
+  GetHomeCurrentSessionStatusModel();
+
+  factory GetHomeCurrentSessionStatusModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetHomeCurrentSessionStatusModelFromJson(json);
+
+  Map<String, dynamic> toJson() =>
+      _$GetHomeCurrentSessionStatusModelToJson(this);
 }

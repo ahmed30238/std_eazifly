@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
@@ -19,7 +20,7 @@ class MyProgramsView extends StatefulWidget {
 class _MyProgramsViewState extends State<MyProgramsView> {
   late MyProgramsCubit cubit;
   final GetStorage storage = GetStorage();
-  
+
   // Key for storing tutorial completion status
   static const String _tutorialCompletedKey = 'my_programs_tutorial_completed';
 
@@ -144,8 +145,16 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                 var myPrograms = cubit.getMyProgramsEntity?.data;
 
                 if (myPrograms == null || myPrograms.isEmpty) {
-                  return const Center(
-                    child: Text("No programs available"),
+                  return Column(
+                    children: [
+                      const NoDataAnimatedImageWidget(
+                        message: "ليس لديك اشتراكات",
+                      ),
+                      24.ph,
+                      const Text(
+                        "اشترك الان",
+                      ),
+                    ],
                   );
                 }
 

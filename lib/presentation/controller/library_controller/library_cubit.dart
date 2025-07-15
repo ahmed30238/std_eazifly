@@ -63,12 +63,12 @@ class LibraryCubit extends Cubit<LibraryState> {
             case 0:
               getLibraryCategories(type: "voice");
               break;
+            // case 1:
+            //   getLibraryCategories(type: "visuals");
+              // break;
             case 1:
-              getLibraryCategories(type: "visuals");
-              break;
-            case 2:
               getAllLibraryLists();
-            case 3:
+            case 2:
               getFavouriteList();
               break;
             default:

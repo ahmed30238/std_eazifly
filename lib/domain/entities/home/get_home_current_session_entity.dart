@@ -46,7 +46,7 @@ class GetHomeCurrentSessionData {
   @JsonKey(name: "program_id")
   String? programId;
   @JsonKey(name: "status")
-  String? status;
+  GetHomeCurrentSessionStatusModel? status;
 
   GetHomeCurrentSessionData({
     this.id,

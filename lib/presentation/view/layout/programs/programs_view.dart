@@ -1,8 +1,8 @@
 import 'dart:developer';
 
+import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
 import 'package:eazifly_student/core/enums/plan_page_enum.dart';
-import 'package:eazifly_student/domain/entities/get_programs_entities.dart';
 import 'package:eazifly_student/presentation/controller/home_notification/home_notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_notification/home_notification_state.dart';
 import 'package:eazifly_student/presentation/controller/programs_controller/programs_cubit.dart';
@@ -102,6 +102,12 @@ class _ProgramsViewState extends State<ProgramsView> {
 
               // Default case (LoadedState or similar)
               var programsList = cubit.getProgramsEntity?.data;
+              if (programsList == null || programsList.isEmpty) {
+                log("empty state");
+                return const NoDataAnimatedImageWidget(
+                  message: "لا يوجد برامج متاحة",
+                ).center();
+              }
 
               return Expanded(
                 child: ListView.separated(
@@ -109,22 +115,21 @@ class _ProgramsViewState extends State<ProgramsView> {
                   padding:
                       EdgeInsets.only(bottom: 16.h, right: 16.w, left: 16.w),
                   itemBuilder: (context, index) => ProgramItem(
-                    programEntity:
-                        programsList?[index] ?? GetProgramsProgramEntity(),
+                    programEntity: programsList[index],
                     onTap: () {
-                      var planPage = programsList?[index].planPage;
+                      var planPage = programsList[index].planPage;
                       log("this is planPage $planPage");
-                      log("this is prog id ${programsList?[index].id}");
+                      log("this is prog id ${programsList[index].id}");
 
                       Navigator.pushNamed(
-                        arguments: programsList?[index].id,
+                        arguments: programsList[index].id,
                         context,
                         getRouteForPlanPage(planPage ?? "") ?? "",
                       );
                     },
                   ),
                   separatorBuilder: (context, index) => 16.ph,
-                  itemCount: programsList?.length ?? 0,
+                  itemCount: programsList.length,
                 ),
               );
             },

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_loader.dart';
@@ -27,7 +28,16 @@ class AudiosBody extends StatelessWidget {
               (element) => element.type == "voice",
             )
             .toList();
-        log("$voiceListCategories ${voiceListCategories?.length}");
+        if (voiceListCategories == null || voiceListCategories.isEmpty) {
+          log("empty state");
+          return Padding(
+            padding:  EdgeInsets.only(top: 48.h),
+            child: const NoDataAnimatedImageWidget(
+              message: "لا يوجد صوتيات متاحة",
+            ).center(),
+          );
+        }
+        log("$voiceListCategories ${voiceListCategories.length}");
         return ListView.separated(
           padding: EdgeInsets.symmetric(vertical: 24.h),
           shrinkWrap: true,
@@ -38,19 +48,19 @@ class AudiosBody extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Text(
-                  voiceListCategories?[index].title ?? "",
+                  voiceListCategories[index].title ?? "",
                   style: MainTextStyle.boldTextStyle(fontSize: 16),
                 ),
               ),
               8.ph,
               CategoryCard(
-                voiceListCategories: voiceListCategories?[index],
+                voiceListCategories: voiceListCategories[index],
                 onTap: () {},
               ),
             ],
           ),
           separatorBuilder: (context, index) => 24.ph,
-          itemCount: voiceListCategories?.length ?? 0,
+          itemCount: voiceListCategories.length,
         );
       },
     );

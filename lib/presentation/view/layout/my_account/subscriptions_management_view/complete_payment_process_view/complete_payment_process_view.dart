@@ -1,7 +1,7 @@
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/library/payment/complete_payment_process_view/complete_payment_process_view.dart';
-import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/complete_payment_process_view/widgets/payment_methods_loader.dart';
+import 'package:eazifly_student/presentation/view/layout/library/payment/complete_payment_process_view/widgets/payment_methods_loader.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class CompletePaymentProcessView extends StatefulWidget {
@@ -90,7 +90,6 @@ class _CompletePaymentProcessViewState
                       title: method.title ?? "",
                       description: method.description ?? "",
                       onTap: () {
-                        // log("${programsubscriptionplanCubit.}")
                         Navigator.pushNamed(
                           context,
                           RoutePaths.confirmPaymentView,

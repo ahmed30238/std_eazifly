@@ -178,6 +178,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                     children: [
                       Text(
                         getPaymentInstructionText(
+                          currency: orderData?.currency ?? "ج.م",
                           programsubscriptionplanCubit
                               .getPaymentMethodDetailsEntity?.data?.title,
                           double.tryParse(
@@ -407,7 +408,8 @@ class ProgramDetailsItem extends StatelessWidget {
 }
 
 // دالة مساعدة لتنسيق نص تعليمات الدفع
-String getPaymentInstructionText(String? paymentMethodTitle, double amount, {String? currency}) {
+String getPaymentInstructionText(String? paymentMethodTitle, double amount,
+    {String? currency}) {
   final formattedAmount = "${amount.toStringAsFixed(0)} $currency";
 
   switch (paymentMethodTitle?.toLowerCase()) {

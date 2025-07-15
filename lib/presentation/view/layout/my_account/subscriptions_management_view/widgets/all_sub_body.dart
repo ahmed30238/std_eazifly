@@ -96,7 +96,7 @@ class AllSubBody extends StatelessWidget {
                   // استخدام نسبة الأيام المستهلكة للـ progress indicator
                   progressPercent: progressPercent,
                   subscriptionPrice:
-                      subscription.plan?.price?.toString() ?? "0",
+                      subscription.price?.toString() ?? "0",
                 );
               },
             ),

@@ -4,6 +4,7 @@ import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/custom_drop_down.dart';
 import 'package:eazifly_student/core/component/shimmer_widget.dart';
 import 'package:eazifly_student/core/component/titled_form_field.dart';
+import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/widgets/lesson_duration_card_item.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/widgets/subscribtion_plan_card_item.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
@@ -28,11 +29,15 @@ abstract class SubscriptionPlanCubit extends Cubit<dynamic> {
   void changePlanIndex(int index);
   void changelessonDurationIndex(int index);
   void updateStartDate(DateTime date);
-  void filterPlans({required int programId, required BuildContext context});
+  void filterPlans({
+    required int programId,
+    required BuildContext context,
+    required String numberOfSessionsPerWeek,
+  });
   void checkCopouns({required BuildContext context});
 
   // الـ Entity المشترك (يمكن أن يكون مختلف حسب النوع)
-  dynamic get getPlansEntity;
+  GetPlansEntity? get getPlansEntity;
 }
 
 class ProgramSubscriptionPlanView extends StatefulWidget {
@@ -79,8 +84,8 @@ class _ProgramSubscriptionPlanViewState
     return Scaffold(
       appBar: CustomAppBar(
         context,
-        mainTitle: widget.appBarTitle, // استخدام العنوان المخصص
-        leadingText: widget.leadingText, // استخدام النص المخصص
+        mainTitle: widget.appBarTitle,
+        leadingText: widget.leadingText,
         isCenterTitle: true,
       ),
       body: Column(
@@ -247,8 +252,12 @@ class _ProgramSubscriptionPlanViewState
                             .toList(),
                         onChanged: (val) {
                           log("this is programId ${widget.programId.toString()}");
+                          log("val is sessio Per week count ${val.toString()}");
                           cubit.filterPlans(
-                              programId: widget.programId, context: context);
+                            programId: widget.programId,
+                            context: context,
+                            numberOfSessionsPerWeek: val.toString(),
+                          );
                         },
                       );
                     },
@@ -336,54 +345,54 @@ class _ProgramSubscriptionPlanViewState
                     ],
                   ),
                   16.ph,
-                  SizedBox(
-                    height: 21.h,
-                    child: Text(
-                      "خدمات اضافية",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                  16.ph,
-                  ...List.generate(
-                    2,
-                    (index) => Row(
-                      children: [
-                        Checkbox.adaptive(
-                          activeColor: MainColors.blueTextColor,
-                          value: index == 0,
-                          onChanged: (val) {},
-                        ),
-                        Text(
-                          index == 0
-                              ? "إختيار موعد الحصص مخصص"
-                              : "تسجيل الحصص الخاص بك",
-                          style: MainTextStyle.boldTextStyle(
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  16.ph,
-                  const CustomHorizontalDivider(),
-                  43.ph,
-                  Row(
-                    children: [
-                      Checkbox.adaptive(
-                        activeColor: MainColors.blueTextColor,
-                        value: false,
-                        onChanged: (val) {},
-                      ),
-                      Text(
-                        "أوافق علي الشروط والأحكام و سياسة الخصوصية",
-                        style: MainTextStyle.boldTextStyle(
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // SizedBox(
+                  //   height: 21.h,
+                  //   child: Text(
+                  //     "خدمات اضافية",
+                  //     style: MainTextStyle.boldTextStyle(
+                  //       fontSize: 14,
+                  //     ),
+                  //   ),
+                  // ),
+                  // 16.ph,
+                  // ...List.generate(
+                  //   2,
+                  //   (index) => Row(
+                  //     children: [
+                  //       Checkbox.adaptive(
+                  //         activeColor: MainColors.blueTextColor,
+                  //         value: index == 0,
+                  //         onChanged: (val) {},
+                  //       ),
+                  //       Text(
+                  //         index == 0
+                  //             ? "إختيار موعد الحصص مخصص"
+                  //             : "تسجيل الحصص الخاص بك",
+                  //         style: MainTextStyle.boldTextStyle(
+                  //           fontSize: 12,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // 16.ph,
+                  // const CustomHorizontalDivider(),
+                  // 43.ph,
+                  // Row(
+                  //   children: [
+                  //     Checkbox.adaptive(
+                  //       activeColor: MainColors.blueTextColor,
+                  //       value: false,
+                  //       onChanged: (val) {},
+                  //     ),
+                  //     Text(
+                  //       "أوافق علي الشروط والأحكام و سياسة الخصوصية",
+                  //       style: MainTextStyle.boldTextStyle(
+                  //         fontSize: 12,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
@@ -393,15 +402,28 @@ class _ProgramSubscriptionPlanViewState
             text: "اشتراك",
             onPressed: () async {
               if (cubit.formKey.currentState!.validate()) {
+                log("message");
+                log("${cubit.getPlansEntity?.data?.numberOfSessionPerWeek}");
+                if (cubit.getPlansEntity?.data == null) {
+                  log("make sure that you have plans");
+                  delightfulToast(
+                    message: "لا توجد خطط متاحة",
+                    context: context,
+                  );
+                  return;
+                }
+
+                final String routePath = widget.isUpgrade
+                    ? RoutePaths.generalCompleteUpgradePaymentProcessScreen
+                    : RoutePaths.completePaymentProcessScreen;
+
                 Navigator.pushNamed(
+                  context,
+                  routePath,
                   arguments: {
                     "cubit": cubit,
                     "itemId": widget.programId,
                   },
-                  context,
-                  widget.isUpgrade
-                      ? RoutePaths.generalCompleteUpgradePaymentProcessScreen
-                      : RoutePaths.completePaymentProcessScreen,
                 );
               }
             },
@@ -420,7 +442,7 @@ class _ProgramSubscriptionPlanViewState
     final entity = cubit.getPlansEntity;
     // تحقق من نوع الـ Entity وقم باستخراج البيانات المناسبة
     if (entity?.data != null) {
-      return entity.data.subscripeDays;
+      return entity?.data?.subscripeDays;
     }
     return null;
   }
@@ -428,7 +450,7 @@ class _ProgramSubscriptionPlanViewState
   List<String>? _getLessonDuration() {
     final entity = cubit.getPlansEntity;
     if (entity?.data != null) {
-      return entity.data.duration;
+      return entity?.data?.duration;
     }
     return null;
   }
@@ -436,7 +458,7 @@ class _ProgramSubscriptionPlanViewState
   List<String>? _getNumberOfSessionPerWeek() {
     final entity = cubit.getPlansEntity;
     if (entity?.data != null) {
-      return entity.data.numberOfSessionPerWeek;
+      return entity?.data?.numberOfSessionPerWeek;
     }
     return null;
   }

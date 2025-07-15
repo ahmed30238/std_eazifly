@@ -474,6 +474,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   Future<void> filterPlans({
     required int programId,
     required BuildContext context,
+    required String numberOfSessionsPerWeek,
   }) async {
     if (programId <= 0) {
       emit(FilterPlansErrorState(errorMessage: "خطأ: معرف البرنامج غير صحيح"));
@@ -506,7 +507,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
       parameter: FilterPlansParameters(
         data: FilterPlansTojson(
           duration: plan.duration![lessonDurationIndex],
-          numberOfSessionPerWeek: plan.numberOfSessionPerWeek!.first,
+          numberOfSessionPerWeek: numberOfSessionsPerWeek,
           programId: programId.toString(),
           subscribeDays: plan.subscripeDays![planSubscribeDaysIndex],
         ),
