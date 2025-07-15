@@ -8,11 +8,11 @@ import 'package:eazifly_student/core/component/custom_dialog.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
-import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/filter_plan_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/domain/entities/check_copoun_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
+import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/cancel_subscription_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_library_subscription_entity.dart';
@@ -79,6 +79,28 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   // void initProgramId(int programId) {
   //   this.programId = programId;
   // }
+  bool getPaymentMethodDetailsLoader = false;
+  GetPaymentMethodDetailsEntity? getPaymentMethodDetailsEntity;
+  GetPaymentMethodDetailsUsecase getPaymentMethodDetailsUsecase;
+  Future<void> getPamyentMethodDetails({required int methodId}) async {
+    getPaymentMethodDetailsLoader = true;
+    emit(GetProgramPaymentMethodDetailsLoadingState());
+    final result = await getPaymentMethodDetailsUsecase.call(
+      parameter: GetPaymentMethodDetailsParameters(
+          methodId: methodId, programId: programId),
+    );
+    result.fold(
+      (l) {
+        getPaymentMethodDetailsLoader = false;
+        emit(GetProgramPaymentMethodDetailsErrorState(errorMessage: l.message));
+      },
+      (r) {
+        getPaymentMethodDetailsLoader = false;
+        getPaymentMethodDetailsEntity = r;
+        emit(GetProgramPaymentMethodDetailsSuccessState());
+      },
+    );
+  }
 
   int studentNumber = -1;
   void fillProgramStudentNumber(int studentNumber) {
@@ -201,18 +223,23 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   Future<void> renewSubscription({required int programId}) async {
     if (planDetailsEntity?.data?.id == null ||
         planDetailsEntity!.data!.id! <= 0) {
+      log("planDetailsEntity is null");
       emit(RenewSubscriptionErrorState(
           errorMessage: "خطأ: معرف الخطة غير صحيح"));
       return;
     }
 
     if (programId <= 0) {
+      log("programId is invalid: $programId");
+
       emit(RenewSubscriptionErrorState(
           errorMessage: "خطأ: معرف البرنامج غير صحيح"));
       return;
     }
 
     if (studentNumber <= 0) {
+      log("studentNumber is invalid: $studentNumber");
+
       emit(RenewSubscriptionErrorState(
           errorMessage: "خطأ: رقم الطالب غير صحيح"));
       return;
@@ -235,7 +262,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
         code: codeController.text,
         image: imagePath,
         planId: [planDetailsEntity!.data!.id!], // استخدام القيمة الصحيحة
-        startDate: [DateTime.now().toString()],
+        // startDate: [DateTime.now().toString()],
         programId: [programId],
         studentNumber: [studentNumber],
       );
@@ -312,10 +339,10 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
 
       final result = await upgradeOrderUsecase.call(
         parameter: UpgradeOrderParameters(
-          data: CreateOrderTojson(
+          data: RenewSubscriptionTojson(
             code: codeController.text,
             image: imagePath,
-            startDate: [getFormattedDateForAPI()],
+            // startDate: [getFormattedDateForAPI()],
             planId: [planDetailsEntity!.data!.id!],
             programId: [programId],
             studentNumber: [studentNum],
@@ -331,6 +358,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
         (data) {
           upgradeOrderLoader = false;
           upgradeOrderEntity = data;
+          upgradeOrderImage = null; // Reset image after successful upgrade,
           emit(UpgradeOrderSuccessState());
 
           showAdaptiveDialog(
@@ -575,10 +603,10 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
 
   DateTime? selectedStartDate;
 
-  String getFormattedDateForAPI() {
-    if (selectedStartDate == null) return "";
-    return "${selectedStartDate!.year}-${selectedStartDate!.month.toString().padLeft(2, '0')}-${selectedStartDate!.day.toString().padLeft(2, '0')}";
-  }
+  // String getFormattedDateForAPI() {
+  //   if (selectedStartDate == null) return "";
+  //   return "${selectedStartDate!.year}-${selectedStartDate!.month.toString().padLeft(2, '0')}-${selectedStartDate!.day.toString().padLeft(2, '0')}";
+  // }
 
   @override
   void updateStartDate(DateTime date) {
@@ -622,14 +650,14 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
 
   CreateOrderUsecase createOrderUsecase;
 
-  GetPaymentMethodDetailsUsecase getPaymentMethodDetailsUsecase;
+  // GetPaymentMethodDetailsUsecase getPaymentMethodDetailsUsecase;
   bool getPlanSubscriptionLoader = false; // لتحميل فترات الاشتراك
 // bool getPlansLoader = false; // لتحميل الخطط
   bool getPlansWithDetailsLoader = false; // لتحميل الخطط مع التفاصيل
   bool filterPlansLoader = false; // لتحميل الخطط المفلترة
   bool checkCopounLoader = false; // لتحميل التحقق من الكوبون
   bool createOrderLoader = false; // لتحميل إنشاء الطلب
-  bool getPaymentMethodDetailsLoader = false; // لتحميل تفاصيل طريقة الدفع
+  // bool getPaymentMethodDetailsLoader = false; // لتحميل تفاصيل طريقة الدفع
   CheckCopounEntity? checkCopounEntity;
   FilterPlansEntity? filterPlansEntity;
 

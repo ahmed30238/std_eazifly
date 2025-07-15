@@ -407,8 +407,8 @@ class ProgramDetailsItem extends StatelessWidget {
 }
 
 // دالة مساعدة لتنسيق نص تعليمات الدفع
-String getPaymentInstructionText(String? paymentMethodTitle, double amount) {
-  final formattedAmount = "${amount.toStringAsFixed(0)} ج.م";
+String getPaymentInstructionText(String? paymentMethodTitle, double amount, {String? currency}) {
+  final formattedAmount = "${amount.toStringAsFixed(0)} $currency";
 
   switch (paymentMethodTitle?.toLowerCase()) {
     case 'فودافون كاش':

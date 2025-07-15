@@ -36,31 +36,64 @@ class SubProgramsBody extends StatelessWidget {
           itemBuilder: (context, index) {
             final subscription =
                 cubit.getProgramSubscriptionEntity!.data![index];
+
+            var daysToExpire = subscription.expireDate
+                    ?.difference(DateTime.now())
+                    .inDays
+                    .toString() ??
+                "0";
+
+            // الحصول على إجمالي أيام الباقة
+            var totalDays =
+                int.tryParse(subscription.plan?.subscripeDays ?? "0") ?? 0;
+            var remainingDays = int.tryParse(daysToExpire) ?? 0;
+
+            // حساب نسبة الأيام المستهلكة (للـ progress indicator)
+            double progressPercent = 0.0;
+            if (totalDays > 0) {
+              var consumedDays = totalDays - remainingDays;
+              progressPercent = (consumedDays / totalDays).clamp(0.0, 1.0);
+            }
             return AllBodyListItemWidget(
               onTap: () {
-                Navigator.pushNamed(
-                  arguments: {
-                    "cubit": cubit,
-                    "planId": subscription.plan?.id,
-                    "subscription": subscription,
+                cubit.fillProgramStudentNumber(
+                    int.tryParse(subscription.studentNumber ?? "-1") ?? -1);
+                cubit.fillProgramId(subscription.programId ?? -1);
+                Future.delayed(
+                  const Duration(milliseconds: 100),
+                  () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutePaths.subscriptionPackageDetails,
+                      arguments: {
+                        "cubit": cubit,
+                        "planId": subscription.plan?.id,
+                        "mainId": subscription.mainSubscriptionId,
+                      },
+                    );
                   },
-                  context,
-                  RoutePaths.subscriptionPackageDetails,
                 );
               },
-              currency: subscription.plan?.currency ?? "",
+              currency: subscription.plan?.currency ?? "ج.م",
               courseTitle: subscription.program ?? "اشتراك البرنامج",
-              inProgress: false,
-              daysLeft: subscription.daysToExpire?.toString() ?? "0",
+              inProgress: true,
+              daysLeft: remainingDays.toString(),
               expireDate: subscription.expireDate.toString().substring(0, 10),
               noOfStudents: subscription.studentNumber?.toString() ?? "0",
               onRenewTap: () {
-                // Handle renew action
+                Navigator.pushNamed(
+                  context,
+                  RoutePaths.subscriptionPackageDetails,
+                  arguments: {
+                    "cubit": cubit,
+                    "planId": subscription.plan?.id,
+                    "mainId": subscription.mainSubscriptionId,
+                  },
+                );
               },
-              progressPercent: ((subscription.completedSessions ?? 0) +
-                      (subscription.missedSessions ?? 0))
-                  .toDouble(),
-              subscriptionPrice: subscription.price?.toString() ?? "0",
+              // استخدام نسبة الأيام المستهلكة للـ progress indicator
+              progressPercent: progressPercent,
+              subscriptionPrice: subscription.plan?.price?.toString() ?? "0",
             );
           },
           separatorBuilder: (context, index) => 10.ph,

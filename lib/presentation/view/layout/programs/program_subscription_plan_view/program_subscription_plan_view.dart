@@ -400,7 +400,7 @@ class _ProgramSubscriptionPlanViewState
                   },
                   context,
                   widget.isUpgrade
-                      ? RoutePaths.generalCompletePaymentProcessScreen
+                      ? RoutePaths.generalCompleteUpgradePaymentProcessScreen
                       : RoutePaths.completePaymentProcessScreen,
                 );
               }

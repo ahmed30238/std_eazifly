@@ -9,6 +9,7 @@ import 'package:eazifly_student/domain/use_cases/cancel_subscription_usecase.dar
 import 'package:eazifly_student/domain/use_cases/change_instructor_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/change_session_date_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/change_session_status_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/check_chat_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/complete_chapter_lesson_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_meeting_assignment_usecase.dart';
@@ -228,6 +229,7 @@ class ServiceLocator {
         () => ReadNotificationUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => LogoutUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => DeleteAccountUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => CheckChatUsecase(baseRepository: sl()));
 
     // Registering the Factories
     sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(

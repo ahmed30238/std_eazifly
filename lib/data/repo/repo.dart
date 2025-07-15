@@ -748,7 +748,7 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, UpgradeOrderModel>> upgradeOrder(
-      {required CreateOrderTojson data}) async {
+      {required RenewSubscriptionTojson data}) async {
     try {
       final result = await baseRemoteDataSource.upgradeOrder(data: data);
       return Right(result);

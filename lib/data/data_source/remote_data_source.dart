@@ -239,7 +239,7 @@ abstract class BaseRemoteDataSource {
     required int planId,
   });
   Future<UpgradeOrderModel> upgradeOrder({
-    required CreateOrderTojson data,
+    required RenewSubscriptionTojson data,
   });
   Future<CreateMeetingSessionsModel> createMeetingSessions({
     required CreateMeetingSessionsTojson data,
@@ -1447,36 +1447,26 @@ class RemoteDataSource extends BaseRemoteDataSource {
 
   @override
   Future<UpgradeOrderModel> upgradeOrder(
-      {required CreateOrderTojson data}) async {
+      {required RenewSubscriptionTojson data}) async {
     try {
       FormData formData = FormData();
-      if (data.code != null && data.code!.isNotEmpty) {
-        formData.fields.add(MapEntry("code", data.code!));
+      if (data.code.isNotEmpty) {
+        formData.fields.add(MapEntry("code", data.code));
       }
 
-      if (data.planId != null) {
-        for (var id in data.planId!) {
-          formData.fields.add(MapEntry("plan_id[]", id.toString()));
-        }
+      for (var id in data.planId) {
+        formData.fields.add(MapEntry("plan_id[]", id.toString()));
       }
 
-      if (data.programId != null) {
-        for (var id in data.programId!) {
-          formData.fields.add(MapEntry("program_id[]", id.toString()));
-        }
+      for (var id in data.programId) {
+        formData.fields.add(MapEntry("program_id[]", id.toString()));
       }
 
-      if (data.studentNumber != null) {
-        for (var number in data.studentNumber!) {
-          formData.fields.add(MapEntry("student_number[]", number.toString()));
-        }
-      }
-      if (data.startDate != null) {
-        for (var date in data.startDate!) {
-          formData.fields.add(MapEntry("start_date[]", date.toString()));
-        }
+      for (var number in data.studentNumber) {
+        formData.fields.add(MapEntry("student_number[]", number.toString()));
       }
 
+      // إضافة الصورة إذا كانت موجودة
       if (data.image != null && data.image!.isNotEmpty) {
         final File imageFile = File(data.image!);
         if (await imageFile.exists()) {

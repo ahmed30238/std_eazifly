@@ -235,7 +235,7 @@ abstract class BaseRepository {
     required int planId,
   });
   Future<Either<Failure, UpgradeOrderEntity>> upgradeOrder({
-    required CreateOrderTojson data,
+    required RenewSubscriptionTojson data,
   });
   Future<Either<Failure, GetReportQuestionsEntity>> getReportQuestions({
     required String reportMakerType,

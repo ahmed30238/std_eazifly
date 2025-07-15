@@ -92,8 +92,8 @@ class _GeneralCompletePaymentProcessViewState
                         Navigator.pushNamed(
                           context,
                           widget.isUpgrade
-                              ? RoutePaths.generalConfirmPaymentView
-                              : RoutePaths.generalConfirmUpgradePaymentView,
+                              ? RoutePaths.generalConfirmUpgradePaymentView
+                              : RoutePaths.generalConfirmPaymentView,
                           arguments: {
                             "cubit": subscriptionmanagementCubit,
                             "methodId": method.id ?? 0
