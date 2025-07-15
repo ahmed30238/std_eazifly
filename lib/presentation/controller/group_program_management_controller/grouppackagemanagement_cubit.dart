@@ -59,6 +59,101 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     emit(ChangeSpecifiedDayState());
   }
 
+  Future<void> showUnifiedTimePickerDialog({
+    required BuildContext context,
+    required int sessionIndex,
+    required int programId,
+    required String timeType, // 'regular', 'from', 'to'
+  }) async {
+    // تحديد الوقت الأولي بناءً على النوع
+    TimeOfDay? initialTime;
+    switch (timeType) {
+      case 'regular':
+        initialTime = sessionIndex < selectedTimesOfDay.length
+            ? selectedTimesOfDay[sessionIndex]
+            : TimeOfDay.now();
+        break;
+      case 'from':
+        initialTime = sessionIndex < selectedFromTimes.length
+            ? selectedFromTimes[sessionIndex]
+            : TimeOfDay.now();
+        break;
+      case 'to':
+        initialTime = sessionIndex < selectedToTimes.length
+            ? selectedToTimes[sessionIndex]
+            : TimeOfDay.now();
+        break;
+      default:
+        initialTime = TimeOfDay.now();
+    }
+
+    // التأكد من أن الدقائق إما 0 أو 30
+    if (initialTime != null &&
+        initialTime.minute != 0 &&
+        initialTime.minute != 30) {
+      // إذا كانت الدقائق غير 0 أو 30، اجعلها 0
+      initialTime = TimeOfDay(hour: initialTime.hour, minute: 0);
+    }
+
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: initialTime ?? TimeOfDay.now(),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              // تخصيص شكل الـ TimePicker إذا أردت
+              timePickerTheme: const TimePickerThemeData(),
+            ),
+            child: child!,
+          ),
+        );
+      },
+    );
+
+    if (picked != null) {
+      // تقريب الوقت إلى أقرب نصف ساعة
+      TimeOfDay correctedTime = _roundToNearestHalfHour(picked);
+
+      // استدعاء الدالة المناسبة بناءً على النوع
+      switch (timeType) {
+        case 'regular':
+          changeSelectedTime(correctedTime, sessionIndex, context, programId);
+          break;
+        case 'from':
+          changeSelectedFromTime(
+              context, correctedTime, sessionIndex, programId);
+          break;
+        case 'to':
+          changeSelectedToTime(context, correctedTime, sessionIndex, programId);
+          break;
+      }
+    }
+  }
+
+  TimeOfDay _roundToNearestHalfHour(TimeOfDay time) {
+    int minute = time.minute;
+    int roundedMinute;
+
+    if (minute <= 15) {
+      roundedMinute = 0;
+    } else if (minute <= 45) {
+      roundedMinute = 30;
+    } else {
+      // إذا كانت الدقائق أكبر من 45، انتقل للساعة التالية
+      return TimeOfDay(
+        hour: (time.hour + 1) % 24,
+        minute: 0,
+      );
+    }
+
+    return TimeOfDay(
+      hour: time.hour,
+      minute: roundedMinute,
+    );
+  }
+
   List<TextEditingController> specifyAlldayController = [];
 
   int selectedLecturerIndex = 0;
@@ -168,20 +263,21 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     }
   }
 
-// تعديل دالة changeSelectedTime لتشمل الفحص التلقائي
   void changeSelectedTime(
     TimeOfDay timeOfDay,
     int sessionIndex,
     BuildContext context,
     int programId,
   ) {
-    selectedTimesOfDay[sessionIndex] = timeOfDay;
-    final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
-    final minute = timeOfDay.minute.toString().padLeft(2, '0');
-    final period = timeOfDay.period == DayPeriod.am ? 'ص' : 'م';
+    TimeOfDay correctedTime = _roundToNearestHalfHour(timeOfDay);
+
+    selectedTimesOfDay[sessionIndex] = correctedTime;
+    final hour =
+        correctedTime.hourOfPeriod == 0 ? 12 : correctedTime.hourOfPeriod;
+    final minute = correctedTime.minute.toString().padLeft(2, '0');
+    final period = correctedTime.period == DayPeriod.am ? 'ص' : 'م';
     selectedTimes[sessionIndex] = '$hour:$minute $period';
 
-    // تحديث الـ controller الخاص بالـ session
     if (sessionIndex < hoursControllers.length) {
       hoursControllers[sessionIndex].text = selectedTimes[sessionIndex];
     }
@@ -195,30 +291,22 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
 // تعديل دالة showTimePickerDialog لتأخذ index
   Future<void> showTimePickerDialog(
       BuildContext context, int sessionIndex, int programId) async {
-    final TimeOfDay? picked = await showTimePicker(
+    await showUnifiedTimePickerDialog(
       context: context,
-      initialTime: selectedTimesOfDay[sessionIndex] ?? TimeOfDay.now(),
-      builder: (BuildContext context, Widget? child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-          child: child!,
-        );
-      },
+      sessionIndex: sessionIndex,
+      programId: programId,
+      timeType: 'regular',
     );
-
-    if (picked != null) {
-      changeSelectedTime(picked, sessionIndex, context, programId);
-    }
   }
 
 // دالة للحصول على الوقت بصيغة 24 ساعة لـ session معين
   String getTimeForServer(int sessionIndex) {
     if (sessionIndex < selectedTimesOfDay.length &&
         selectedTimesOfDay[sessionIndex] != null) {
-      final hour =
-          selectedTimesOfDay[sessionIndex]!.hour.toString().padLeft(2, '0');
-      final minute =
-          selectedTimesOfDay[sessionIndex]!.minute.toString().padLeft(2, '0');
+      TimeOfDay correctedTime =
+          _roundToNearestHalfHour(selectedTimesOfDay[sessionIndex]!);
+      final hour = correctedTime.hour.toString().padLeft(2, '0');
+      final minute = correctedTime.minute.toString().padLeft(2, '0');
       return '$hour:$minute';
     }
     return '';
@@ -585,10 +673,14 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     int sessionIndex,
     int programId,
   ) {
-    selectedFromTimes[sessionIndex] = timeOfDay;
-    final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
-    final minute = timeOfDay.minute.toString().padLeft(2, '0');
-    final period = timeOfDay.period == DayPeriod.am ? 'ص' : 'م';
+    // التأكد من أن الوقت ساعة صحيحة أو نصف ساعة
+    TimeOfDay correctedTime = _roundToNearestHalfHour(timeOfDay);
+
+    selectedFromTimes[sessionIndex] = correctedTime;
+    final hour =
+        correctedTime.hourOfPeriod == 0 ? 12 : correctedTime.hourOfPeriod;
+    final minute = correctedTime.minute.toString().padLeft(2, '0');
+    final period = correctedTime.period == DayPeriod.am ? 'ص' : 'م';
     selectedFromTimesDisplay[sessionIndex] = '$hour:$minute $period';
 
     // تحديث الـ controller الخاص بالـ session
@@ -610,10 +702,14 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     int sessionIndex,
     int programId,
   ) {
-    selectedToTimes[sessionIndex] = timeOfDay;
-    final hour = timeOfDay.hourOfPeriod == 0 ? 12 : timeOfDay.hourOfPeriod;
-    final minute = timeOfDay.minute.toString().padLeft(2, '0');
-    final period = timeOfDay.period == DayPeriod.am ? 'ص' : 'م';
+    // التأكد من أن الوقت ساعة صحيحة أو نصف ساعة
+    TimeOfDay correctedTime = _roundToNearestHalfHour(timeOfDay);
+
+    selectedToTimes[sessionIndex] = correctedTime;
+    final hour =
+        correctedTime.hourOfPeriod == 0 ? 12 : correctedTime.hourOfPeriod;
+    final minute = correctedTime.minute.toString().padLeft(2, '0');
+    final period = correctedTime.period == DayPeriod.am ? 'ص' : 'م';
     selectedToTimesDisplay[sessionIndex] = '$hour:$minute $period';
 
     // تحديث الـ controller الخاص بالـ session
@@ -823,29 +919,21 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     int sessionIndex,
     int programId,
   ) async {
-    final TimeOfDay? picked = await showTimePicker(
+    await showUnifiedTimePickerDialog(
       context: context,
-      initialTime: selectedFromTimes[sessionIndex] ?? TimeOfDay.now(),
-      builder: (BuildContext context, Widget? child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-          child: child!,
-        );
-      },
+      sessionIndex: sessionIndex,
+      programId: programId,
+      timeType: 'from',
     );
-
-    if (picked != null) {
-      changeSelectedFromTime(context, picked, sessionIndex, programId);
-    }
   }
 
   String getFromTimeForServer(int sessionIndex) {
     if (sessionIndex < selectedFromTimes.length &&
         selectedFromTimes[sessionIndex] != null) {
-      final hour =
-          selectedFromTimes[sessionIndex]!.hour.toString().padLeft(2, '0');
-      final minute =
-          selectedFromTimes[sessionIndex]!.minute.toString().padLeft(2, '0');
+      TimeOfDay correctedTime =
+          _roundToNearestHalfHour(selectedFromTimes[sessionIndex]!);
+      final hour = correctedTime.hour.toString().padLeft(2, '0');
+      final minute = correctedTime.minute.toString().padLeft(2, '0');
       return '$hour:$minute';
     }
     return '';
@@ -865,29 +953,21 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     int sessionIndex,
     int programId,
   ) async {
-    final TimeOfDay? picked = await showTimePicker(
+    await showUnifiedTimePickerDialog(
       context: context,
-      initialTime: selectedToTimes[sessionIndex] ?? TimeOfDay.now(),
-      builder: (BuildContext context, Widget? child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-          child: child!,
-        );
-      },
+      sessionIndex: sessionIndex,
+      programId: programId,
+      timeType: 'to',
     );
-
-    if (picked != null) {
-      changeSelectedToTime(context, picked, sessionIndex, programId);
-    }
   }
 
   String getToTimeForServer(int sessionIndex) {
     if (sessionIndex < selectedToTimes.length &&
         selectedToTimes[sessionIndex] != null) {
-      final hour =
-          selectedToTimes[sessionIndex]!.hour.toString().padLeft(2, '0');
-      final minute =
-          selectedToTimes[sessionIndex]!.minute.toString().padLeft(2, '0');
+      TimeOfDay correctedTime =
+          _roundToNearestHalfHour(selectedToTimes[sessionIndex]!);
+      final hour = correctedTime.hour.toString().padLeft(2, '0');
+      final minute = correctedTime.minute.toString().padLeft(2, '0');
       return '$hour:$minute';
     }
     return '';
@@ -913,10 +993,10 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     //   controller.clear();
     // }
     // مسح الأوقات المحفوظة
-    selectedFromTimes.clear();
-    selectedFromTimesDisplay.clear();
-    selectedToTimes.clear();
-    selectedToTimesDisplay.clear();
+    // selectedFromTimes.clear();
+    // selectedFromTimesDisplay.clear();
+    // selectedToTimes.clear();
+    // selectedToTimesDisplay.clear();
   }
 
   @override

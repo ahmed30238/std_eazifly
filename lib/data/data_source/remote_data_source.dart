@@ -23,6 +23,8 @@ import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart
 import 'package:eazifly_student/data/models/children/create_new_child_model.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/data/models/children/get_my_children_model.dart';
+import 'package:eazifly_student/data/models/find_instructor/request_to_find_instructor_model.dart';
+import 'package:eazifly_student/data/models/find_instructor/request_to_find_instructor_tojson.dart';
 import 'package:eazifly_student/data/models/home/get_home_assigments_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_closest_sessions_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_current_session_model.dart';
@@ -307,6 +309,8 @@ abstract class BaseRemoteDataSource {
   Future<LogoutModel> logout();
   Future<DeleteAccountModel> deleteAccount({required int userId});
   Future<CheckChatModel> checkChat({required CheckChatTojson data});
+  Future<RequestToFindInstructorModel> findInstructor(
+      {required RequestToFindInstructorTojson data});
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -2122,6 +2126,25 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return CheckChatModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<RequestToFindInstructorModel> findInstructor(
+      {required RequestToFindInstructorTojson data}) async {
+    var response = await NetworkCall().post(
+      path: EndPoints.requestToFindInstrcutor,
+      data: data.toJson(),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return RequestToFindInstructorModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

@@ -16,7 +16,7 @@ void main() async {
 
   await Future.wait<void>([
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitUp
     ]),
     Future(
       () async {
@@ -28,8 +28,7 @@ void main() async {
   ]);
   await NotificationService.instance.initialize();
   logger.debug(
-    "this is FCMToken ${await GetStorage().read(StorageEnum.fcmToken.name)}",
-  );
+      "this is FCMToken ${await GetStorage().read(StorageEnum.fcmToken.name)}");
   // logger.info("my token is empty ${TokenUtil.getTokenFromMemory().isEmpty}");
   // logger.error("val is ${TokenUtil.getTokenFromMemory()}");
   NotificationService.instance.setupFlutterNotifications();

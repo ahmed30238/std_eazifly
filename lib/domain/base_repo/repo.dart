@@ -4,6 +4,7 @@ import 'package:eazifly_student/data/models/change_instructor/change_instructor_
 import 'package:eazifly_student/data/models/chat_model/check_chat_tojson.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
+import 'package:eazifly_student/data/models/find_instructor/request_to_find_instructor_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_tojson.dart';
 import 'package:eazifly_student/data/models/library/library_order_and_subscribe_tojson.dart';
@@ -41,6 +42,7 @@ import 'package:eazifly_student/domain/entities/children_entities/get_my_childre
 import 'package:eazifly_student/domain/entities/create_meeting_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
+import 'package:eazifly_student/domain/entities/find_instructor/request_to_find_instructor_entity.dart';
 import 'package:eazifly_student/domain/entities/get_all_items_entity.dart';
 import 'package:eazifly_student/domain/entities/get_all_library_lists_entity.dart';
 import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
@@ -320,6 +322,10 @@ abstract class BaseRepository {
   Future<Either<Failure, ReadNotificationEntities>> readNotification(
       {required int notificationId});
   Future<Either<Failure, LogoutEntity>> logout();
-  Future<Either<Failure, DeleteAccountEntity>> deleteAccount({required int userId});
-  Future<Either<Failure, CheckChatEntity>> checkChat({required CheckChatTojson data});
+  Future<Either<Failure, DeleteAccountEntity>> deleteAccount(
+      {required int userId});
+  Future<Either<Failure, CheckChatEntity>> checkChat(
+      {required CheckChatTojson data});
+  Future<Either<Failure, RequestToFindInstructorEntity>> findInstructor(
+      {required RequestToFindInstructorTojson data});
 }

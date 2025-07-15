@@ -14,6 +14,8 @@ import 'package:eazifly_student/data/models/chat_model/get_my_chats_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
 import 'package:eazifly_student/data/models/children/create_new_child_tojson.dart';
 import 'package:eazifly_student/data/models/children/get_my_children_model.dart';
+import 'package:eazifly_student/data/models/find_instructor/request_to_find_instructor_model.dart';
+import 'package:eazifly_student/data/models/find_instructor/request_to_find_instructor_tojson.dart';
 import 'package:eazifly_student/data/models/home/get_home_closest_sessions_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_current_session_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_list_model.dart';
@@ -1112,6 +1114,17 @@ class Repository extends BaseRepository {
   Future<Either<Failure, CheckChatEntity>> checkChat(
       {required CheckChatTojson data}) async {
     final result = await baseRemoteDataSource.checkChat(data: data);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RequestToFindInstructorModel>> findInstructor(
+      {required RequestToFindInstructorTojson data}) async {
+    final result = await baseRemoteDataSource.findInstructor(data: data);
     try {
       return Right(result);
     } on ServerException catch (e) {

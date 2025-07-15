@@ -257,13 +257,20 @@ class _CurrentSessionState extends State<CurrentSession> {
                   text: "تواصل مع المعلم",
                   textSize: 14,
                   onPressed: () async {
+                    await cubit.checkChat();
+                    var checkChatData = cubit.checkChatEntity?.data;
+                    if (checkChatData == null) {
+                      return;
+                    }
+
                     var chatsCubit = context.read<ChatsCubit>();
                     await chatsCubit.fillCurrentInstructor(
                       chatsCubit.getMyChatsEntity?.data != null
                           ? chatsCubit.getMyChatsEntity!.data!.indexWhere(
                               (element) =>
                                   element.participant1?.id ==
-                                  "2", // TODO: InstructorId
+                                  checkChatData
+                                      .participant1?.id, // TODO: InstructorId
                             )
                           : -1,
                     );
@@ -279,7 +286,8 @@ class _CurrentSessionState extends State<CurrentSession> {
                       context,
                       arguments: {
                         "cubit": context.read<ChatsCubit>(),
-                        "chatId": "2", // TODO: ChatID,
+                        "chatId": checkChatData.latestMessage?.chatId ??
+                            0, // TODO: ChatID,
                       },
                       RoutePaths.dmViewPath,
                     );
