@@ -17,7 +17,7 @@ class GoalsPercentContainer extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         margin: EdgeInsets.symmetric(horizontal: 16.w),
         height: 82.h,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: MainColors.veryLightGrayFormField,
         ),
         child: Column(

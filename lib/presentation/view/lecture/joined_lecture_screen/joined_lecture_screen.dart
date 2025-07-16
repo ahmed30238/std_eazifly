@@ -44,7 +44,7 @@ class JoinedLectureScreen extends StatelessWidget {
                 child: SvgPicture.asset(
                   Assets.iconsVerticalDots,
                   fit: BoxFit.scaleDown,
-                  colorFilter: const ColorFilter.mode(
+                  colorFilter: ColorFilter.mode(
                     MainColors.white,
                     BlendMode.srcIn,
                   ),
@@ -64,9 +64,3 @@ class JoinedLectureScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-

@@ -105,7 +105,7 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                                             ?.data
                                             ?.expireDate ??
                                         DateTime.now();
-                                    var diff = formatTimeDifference(expireDate);
+                                    // var diff = formatTimeDifference(expireDate);
                                     return Padding(
                                       padding: EdgeInsets.symmetric(
                                         vertical: 13.5.h,
@@ -127,9 +127,9 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                                             ),
                                             4.ph,
                                             TextedContainer(
-                                              width: 80.w,
+                                              width: 85.w,
                                               height: 26.h,
-                                              text: diff,
+                                              text: expireDate.toString(),
                                               containerColor:
                                                   MainColors.lightRed,
                                               textColor: MainColors.red,
@@ -153,7 +153,7 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                   constraints: BoxConstraints(
                     minHeight: 198.h,
                   ),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: MainColors.veryLightGrayFormField,
                   ),
                   child: Column(
@@ -229,7 +229,7 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                                   sessionDuration: session.duration ?? "",
                                   sessionTime:
                                       "${session.sessionTime?.substring(0, 5)} الي ${session.sessionTimeTo?.substring(0, 5)}",
-                                  status: session.status?.color ?? "",
+                                  status: session.status?.label ?? "",
                                 );
                               },
                               separatorBuilder: (context, index) => 8.ph,

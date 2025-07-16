@@ -197,7 +197,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                       duration: "${item.duration} دقيقة",
                       image: item.image ?? "",
                       nextLec: nextLec,
-                      status: item.currentSession?.status ?? "tt",
+                      status: item.currentSession?.status ?? "",
                       title: item.title ?? "",
                       isRejoin: started,
                       timeDiff: formattedTimeDiff,
@@ -219,7 +219,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                           : () async {
                               await cubit
                                   .getAssignedChildrenToProgram(
-                                      programId: item.id ?? -1)
+                                      programId: item.id ?? -1,)
                                   .then((value) {
                                 onMyProgramTap(
                                   context: context,
@@ -249,7 +249,6 @@ class _MyProgramsViewState extends State<MyProgramsView> {
               }
             },
           ),
-          20.ph,
           20.ph,
         ],
       ),

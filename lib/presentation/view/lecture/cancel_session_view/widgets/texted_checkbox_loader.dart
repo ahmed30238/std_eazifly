@@ -21,7 +21,7 @@ class TextedCheckboxLoader extends StatelessWidget {
             Container(
               width: 20.w, // Adjust to match your checkbox size
               height: 20.h,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: MainColors.white,
                 shape: BoxShape.circle,
               ),

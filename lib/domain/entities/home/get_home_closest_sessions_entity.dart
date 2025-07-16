@@ -86,8 +86,11 @@ class GetHomeClosestSessionStatus {
   String? label;
   @JsonKey(name: "color")
   String? color;
+  @JsonKey(name: "key")
+  String? key;
   GetHomeClosestSessionStatus({
     this.label,
     this.color,
+    this.key,
   });
 }

@@ -75,7 +75,7 @@ class _ConfirmPaymentViewState extends State<ConfirmLibraryPaymentView> {
                   ),
                 ),
                 3.ph,
-                const CustomHorizontalDivider(
+                 CustomHorizontalDivider(
                   color: MainColors.lightGray,
                 ),
                 ...List.generate(

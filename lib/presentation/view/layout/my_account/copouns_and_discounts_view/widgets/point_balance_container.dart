@@ -19,7 +19,7 @@ class PointsBalanceContainer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       height: 227.h,
       width: double.infinity,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: MainColors.veryLightGrayFormField,
       ),
       child: Column(
@@ -31,7 +31,7 @@ class PointsBalanceContainer extends StatelessWidget {
             style: MainTextStyle.boldTextStyle(fontSize: 14),
           ),
           8.ph,
-          const PointsBalanceDetailsContainer(
+          PointsBalanceDetailsContainer(
             date: "1 ديسمبر 2024",
             points: "+50 نقطة",
             pointsDetails: "تسجيل حساب جديد",
@@ -39,7 +39,7 @@ class PointsBalanceContainer extends StatelessWidget {
             pointsTextColor: MainColors.greenTeal,
           ),
           12.ph,
-          const PointsBalanceDetailsContainer(
+          PointsBalanceDetailsContainer(
             date: "1 ديسمبر 2024",
             points: "+50 نقطة",
             pointsDetails: "استبدال نقاط",

@@ -28,7 +28,7 @@ class ScheduleItem extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
       height: 74.h,
       width: double.infinity,
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         color: MainColors.veryLightGrayFormField,
       ),
       child: SizedBox(

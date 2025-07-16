@@ -19,7 +19,7 @@ class DownSideIconsRow extends StatelessWidget {
       children: [
         IconsContainer(
           containerColor: MainColors.black,
-          iconWidget: const Icon(
+          iconWidget: Icon(
             Icons.menu,
             color: MainColors.white,
           ),
@@ -30,7 +30,7 @@ class DownSideIconsRow extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 32.w),
           child: IconsContainer(
             containerColor: MainColors.black,
-            iconWidget: const Icon(
+            iconWidget:  Icon(
               Icons.mic_off_outlined,
               color: MainColors.white,
             ),
@@ -44,13 +44,13 @@ class DownSideIconsRow extends StatelessWidget {
             isFixedSize: true,
             minHeight: 175.h,
             maxHeight: 175.h,
-            widget: const LeaveLectureAlertBottomSheetDesign(),
+            widget:  const LeaveLectureAlertBottomSheetDesign(),
           ),
           child: Transform.rotate(
             angle: pi,
             child: IconsContainer(
               containerColor: MainColors.red,
-              iconWidget: const Icon(
+              iconWidget:  Icon(
                 Icons.logout,
                 color: MainColors.white,
               ),

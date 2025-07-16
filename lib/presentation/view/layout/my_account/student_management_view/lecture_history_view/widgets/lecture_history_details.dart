@@ -36,40 +36,50 @@ class LectureHistoryDetails extends StatelessWidget {
           16.ph,
           Row(
             children: [
-              Column(
-                children: [
-                  Text(
-                    "إسم المحاضرة",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 11,
-                      color: MainColors.grayTextColors,
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      "إسم المحاضرة",
+                      style: MainTextStyle.boldTextStyle(
+                        fontSize: 11,
+                        color: MainColors.grayTextColors,
+                      ),
                     ),
-                  ),
-                  8.ph,
-                  Text(
-                    title,
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 12,
-                      color: MainColors.blackText,
+                    8.ph,
+                    Text(
+                      title,
+                      style: MainTextStyle.boldTextStyle(
+                        fontSize: 12,
+                        color: MainColors.blackText,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              50.pw,
-              Column(
-                children: [
-                  Text(
-                    "حالة المحاضرة",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 11,
-                      color: MainColors.grayTextColors,
+              // 50.pw,
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      "حالة المحاضرة",
+                      style: MainTextStyle.boldTextStyle(
+                        fontSize: 11,
+                        color: MainColors.grayTextColors,
+                      ),
                     ),
-                  ),
-                  4.ph,
-                  SessionStatusArea(
-                    status: status,
-                  )
-                ],
+                    4.ph,
+                    TextedContainer(
+                      height: 26.h,
+                      radius: 32.r,
+                      width: 60.w,
+                      text: status,
+                    ),
+                    // SessionStatusArea(
+                    //   status: status,
+                    // )
+                  ],
+                ),
               ),
               const Spacer(),
               InkWell(
@@ -95,32 +105,27 @@ class LectureHistoryDetails extends StatelessWidget {
   }
 }
 
-class SessionStatusArea extends StatelessWidget {
-  final String status;
-  const SessionStatusArea({super.key, required this.status});
+// class SessionStatusArea extends StatelessWidget {
+//   final String status;
+//   const SessionStatusArea({super.key, required this.status});
 
-  @override
-  Widget build(BuildContext context) {
-    switch (status) {
-      case "pending":
-        return TextedContainer(
-          height: 26.h,
-          radius: 32.r,
-          width: 60.w,
-          text: "قادمة",
-        );
-      case "danger":
-        return TextedContainer(
-          height: 30.h,
-          radius: 32.r,
-          containerColor: MainColors.lightYellow,
-          textColor: MainColors.yellow,
-          width: 80.w,
-          text: "تم الغاؤها",
-        );
+//   @override
+//   Widget build(BuildContext context) {
+//     switch (status) {
+//       case "pending":
+//         return 
+//       case "danger":
+//         return TextedContainer(
+//           height: 30.h,
+//           radius: 32.r,
+//           containerColor: MainColors.lightYellow,
+//           textColor: MainColors.yellow,
+//           width: 80.w,
+//           text: label,
+//         );
 
-      default:
-        return TextedContainer(text: "غير محدد");
-    }
-  }
-}
+//       default:
+//         return TextedContainer(text: "غير محدد");
+//     }
+//   }
+// }

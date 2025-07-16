@@ -132,7 +132,7 @@ Widget _buildMessageContent(Message message) {
         ],
       );
     case MessageTypeEnum.voiceMessage:
-      return const VoiceMessageWidget(
+      return  VoiceMessageWidget(
         audioSource: "",
         duration: 30,
         isFile: false,

@@ -22,7 +22,7 @@ class ReportBodyView extends StatelessWidget {
         Expanded(
           child: Column(
             children: [
-              const Divider(
+               Divider(
                 thickness: 1,
                 color: MainColors.lightGray,
               ),

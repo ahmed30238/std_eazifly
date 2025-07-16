@@ -154,7 +154,7 @@ class CustomNotificationIcon extends StatelessWidget {
         ),
         onTap: () {},
         showBadge: showBadge,
-        badgeStyle: const BadgeStyle(
+        badgeStyle:  BadgeStyle(
           padding: EdgeInsets.zero,
           borderSide: BorderSide(
             color: MainColors.transparentColor,
@@ -163,7 +163,7 @@ class CustomNotificationIcon extends StatelessWidget {
         badgeAnimation: const BadgeAnimation.fade(
           curve: Curves.easeOut,
         ),
-        child: const Icon(
+        child:  Icon(
           Icons.notifications,
           color: MainColors.grayTextColors,
         ).center(),

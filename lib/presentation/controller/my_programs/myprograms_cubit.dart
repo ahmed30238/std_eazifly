@@ -12,7 +12,10 @@ import 'package:eazifly_student/domain/use_cases/get_my_programs_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_session_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/join_session_usecase.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
-import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart'
+    hide JoinSessionLoadingState
+    hide JoinSessionErrorState
+    hide JoinSessionSuccessState;
 
 class MyProgramsCubit extends Cubit<MyProgramsState> {
   MyProgramsCubit({

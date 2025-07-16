@@ -29,7 +29,7 @@ class CollectionSessionList extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => const SessionCollectionItem(),
-            separatorBuilder: (context, index) => const SeparatedWidget(
+            separatorBuilder: (context, index) =>  SeparatedWidget(
               dividerColor: MainColors.lightGray,
               verticalPadding: 0,
             ),

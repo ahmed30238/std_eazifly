@@ -55,7 +55,7 @@ class TeacherProgramDetailsItem extends StatelessWidget {
                     SvgPicture.asset(
                       model.icon,
                       fit: BoxFit.scaleDown,
-                      colorFilter: const ColorFilter.mode(
+                      colorFilter: ColorFilter.mode(
                         MainColors.blueTextColor,
                         BlendMode.srcIn,
                       ),

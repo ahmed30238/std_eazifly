@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/network/api_constances.dart';
@@ -5,7 +6,6 @@ import 'package:eazifly_student/core/network/handle_token.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/routes/router.dart';
 
-import 'package:quick_log/quick_log.dart';
 import 'package:requests_inspector/requests_inspector.dart';
 
 class NetworkCall {
@@ -19,7 +19,7 @@ class NetworkCall {
 
   factory NetworkCall() => _instance;
 
-  Logger logger = const Logger("Dio Logger");
+  // log const logDio log
 
   Future<Response?> get({
     required String path,
@@ -32,10 +32,10 @@ class NetworkCall {
     Response? response;
     try {
       _dio.options.baseUrl = ApiConstance.apiUrl;
-      logger.fine("your url is $path");
-      logger.fine("your url is ${_dio.options.baseUrl}");
+      log("your url is $path");
+      log("your url is ${_dio.options.baseUrl}");
       var tokenFromMemory = TokenUtil.getTokenFromMemory();
-      logger.debug(tokenFromMemory);
+      log(tokenFromMemory);
       var options = Options(
         headers: withHeaders
             ? {
@@ -58,7 +58,7 @@ class NetworkCall {
         queryParameters: queryParameters,
       );
     } on DioException catch (e) {
-      logger.error('Error is : ${e.message}');
+      log('Error is : ${e.message}');
       response = e.response;
     }
     return response == null ? null : handleResponse(response: response);
@@ -95,12 +95,12 @@ class NetworkCall {
         options: options,
         data: data,
       );
-      logger.debug("token from put  $tokenFromMemory");
+      log("token from put  $tokenFromMemory");
     } on DioException catch (e) {
-      logger.debug("token from put  $tokenFromMemory");
+      log("token from put  $tokenFromMemory");
 
-      logger.error("put error ${e.message}");
-      logger.info("put error res ${e.response}");
+      log("put error ${e.message}");
+      log("put error res ${e.response}");
       response = e.response;
     }
     return response == null ? null : handleResponse(response: response);
@@ -121,7 +121,7 @@ class NetworkCall {
         _dio.options.baseUrl = ApiConstance.apiUrl;
       }
       var tokenFromMemory = TokenUtil.getTokenFromMemory();
-      logger.debug(tokenFromMemory);
+      log(tokenFromMemory);
       var options = Options(
         headers: withHeaders
             ? {
@@ -139,7 +139,7 @@ class NetworkCall {
       response = await _dio.delete(path,
           options: options, queryParameters: queryParameters);
     } on DioException catch (e) {
-      logger.error('Error is : ${e.message}');
+      log('Error is : ${e.message}');
       response = e.response;
     }
     return response == null ? null : handleResponse(response: response);
@@ -158,7 +158,7 @@ class NetworkCall {
     _dio.options.baseUrl = ApiConstance.apiUrl;
     var tokenFromMemory = TokenUtil.getTokenFromMemory();
     try {
-      logger.fine('your url is $path');
+      log('your url is $path');
       var options = Options(
         headers: withHeaders
             ? {
@@ -183,14 +183,14 @@ class NetworkCall {
       );
     } on DioException catch (e) {
       response = e.response;
-      logger.error(response);
+      log("$response");
     }
 
     return response == null ? null : handleResponse(response: response);
   }
 
   Future<Response?> handleResponse({required Response response}) async {
-    logger.fine(response.data);
+    log("${response.data}");
     
     // التحقق من الـ HTTP status code الأساسي
     if (response.statusCode == 200) {
@@ -201,7 +201,7 @@ class NetworkCall {
         
         // لو الـ status جوا الـ response هو 401، يبقى المستخدم مش مصرح له
         if (innerStatus == 401) {
-          logger.warning('Unauthenticated user detected from response body');
+          log('Unauthenticated user detected from response body');
           await TokenUtil.clearToken();
           navKey.currentState
               ?.pushNamedAndRemoveUntil(RoutePaths.loginPath, (route) => false);

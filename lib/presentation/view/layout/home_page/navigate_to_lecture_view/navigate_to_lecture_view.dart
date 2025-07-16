@@ -94,7 +94,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                 var item = cubit.getSessionDetailsEntity?.data;
                 return LectureStats(
                   horizontalPadding: 0,
-                  state: item?.status == "started"
+                  status: item?.status == "started"
                       ? LectureStatesEnum.ongoing
                       : item?.status == "finished"
                           ? LectureStatesEnum.finished

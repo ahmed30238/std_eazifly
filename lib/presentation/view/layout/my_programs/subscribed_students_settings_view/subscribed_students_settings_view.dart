@@ -60,7 +60,7 @@ class _SubscribedStudentsSettingsViewState
                     borderRadius: 12.cr,
                     color: MainColors.veryLightGrayFormField,
                   ),
-                  child: const Center(
+                  child:  Center(
                     child: CircularProgressIndicator(
                       color: MainColors.blueTextColor,
                     ),
@@ -137,7 +137,7 @@ class _SubscribedStudentsSettingsViewState
                                 child: SizedBox(
                                   height: 20.h,
                                   width: 20.w,
-                                  child: const CircularProgressIndicator(
+                                  child:  CircularProgressIndicator(
                                     color: MainColors.blueTextColor,
                                     strokeWidth: 2,
                                   ),
@@ -201,7 +201,7 @@ class _SubscribedStudentsSettingsViewState
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const CircularProgressIndicator(
+                         CircularProgressIndicator(
                           color: MainColors.blueTextColor,
                         ),
                         16.ph,

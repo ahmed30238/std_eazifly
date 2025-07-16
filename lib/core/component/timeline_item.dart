@@ -37,10 +37,8 @@ class TimlineItem extends StatelessWidget {
       ),
       lineXY: lineXY ?? .1,
       alignment: TimelineAlign.manual,
-      afterLineStyle:
-          const LineStyle(thickness: 2, color: MainColors.timeLineColor),
-      beforeLineStyle:
-          const LineStyle(thickness: 2, color: MainColors.timeLineColor),
+      afterLineStyle: LineStyle(thickness: 2, color: MainColors.timeLineColor),
+      beforeLineStyle: LineStyle(thickness: 2, color: MainColors.timeLineColor),
       endChild: child,
     );
   }

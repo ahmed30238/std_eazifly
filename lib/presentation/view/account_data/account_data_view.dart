@@ -101,7 +101,7 @@ class _AccountDataState extends State<AccountData> {
                   titleText: "البريد الالكتروني",
                   formfieldHintText: "",
                   formfieldEnText: "${loginData?.email}",
-                  iconWidget: const Icon(
+                  iconWidget: Icon(
                     Icons.done_all_outlined,
                     color: MainColors.blueMoreTextColor,
                   ),

@@ -29,6 +29,7 @@ GetHomeCurrentSessionDataModel _$GetHomeCurrentSessionDataModelFromJson(
     GetHomeCurrentSessionDataModel()
       ..id = (json['id'] as num?)?.toInt()
       ..instructor = json['instructor'] as String?
+      ..instructorId = json['instructor_id'] as String?
       ..users = (json['users'] as List<dynamic>?)
           ?.map((e) => GetHomeCurrentSessionUserModel.fromJson(
               e as Map<String, dynamic>))
@@ -58,6 +59,7 @@ Map<String, dynamic> _$GetHomeCurrentSessionDataModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'instructor': instance.instructor,
+      'instructor_id': instance.instructorId,
       'users': instance.users?.map((e) => e.toJson()).toList(),
       'meeting_url': instance.meetingUrl,
       'day': instance.day,
@@ -77,24 +79,28 @@ GetHomeCurrentSessionUserModel _$GetHomeCurrentSessionUserModelFromJson(
         Map<String, dynamic> json) =>
     GetHomeCurrentSessionUserModel()
       ..id = (json['id'] as num?)?.toInt()
-      ..userName = json['user_name'] as String?;
+      ..userName = json['user_name'] as String?
+      ..userImage = json['user_image'] as String?;
 
 Map<String, dynamic> _$GetHomeCurrentSessionUserModelToJson(
         GetHomeCurrentSessionUserModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'user_name': instance.userName,
+      'user_image': instance.userImage,
     };
 
 GetHomeCurrentSessionStatusModel _$GetHomeCurrentSessionStatusModelFromJson(
         Map<String, dynamic> json) =>
     GetHomeCurrentSessionStatusModel()
       ..label = json['label'] as String?
-      ..color = json['color'] as String?;
+      ..color = json['color'] as String?
+      ..key = json['key'] as String?;
 
 Map<String, dynamic> _$GetHomeCurrentSessionStatusModelToJson(
         GetHomeCurrentSessionStatusModel instance) =>
     <String, dynamic>{
       'label': instance.label,
       'color': instance.color,
+      'key': instance.key,
     };

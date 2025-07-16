@@ -55,7 +55,7 @@ class _LectureReportViewState extends State<LectureReportView> {
             BlocBuilder<LectureCubit, LectureState>(
               builder: (context, state) {
                 if (cubit.getReportQuestionsLoader) {
-                  return const Center(
+                  return  Center(
                     child: CircularProgressIndicator(
                       color: MainColors.blueTextColor,
                     ),
@@ -74,7 +74,7 @@ class _LectureReportViewState extends State<LectureReportView> {
               bloc: cubit,
               builder: (context, state) {
                 if (cubit.getReportQuestionsLoader) {
-                  return const Expanded(
+                  return  Expanded(
                     child: Center(
                       child: CircularProgressIndicator(
                         color: MainColors.blueTextColor,

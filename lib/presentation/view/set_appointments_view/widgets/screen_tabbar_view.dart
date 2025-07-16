@@ -17,7 +17,7 @@ class ScreenTabbarView extends StatelessWidget {
     return BlocBuilder(
       bloc: cubit,
       builder: (context, state) => SizedBox(
-        height: 345.h,
+        height: 600.h,
         child: TabBarView(
           physics: const NeverScrollableScrollPhysics(),
           controller: cubit.controller,

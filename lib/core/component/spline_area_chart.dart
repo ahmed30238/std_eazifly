@@ -43,7 +43,7 @@ class SplineAreaChart extends StatelessWidget {
                         xValueMapper: (SplieChartData data, _) => data.x,
                         yValueMapper: (SplieChartData data, _) => data.y,
                         color: MainColors.greenTeal,
-                        markerSettings: const MarkerSettings(
+                        markerSettings:  MarkerSettings(
                           isVisible: true,
                           shape: DataMarkerType.circle,
                           color: MainColors.greenTeal,
@@ -61,7 +61,7 @@ class SplineAreaChart extends StatelessWidget {
   }
 }
 
-LinearGradient gradientColors = const LinearGradient(
+LinearGradient gradientColors =  LinearGradient(
   colors: [
     MainColors.gradientTealColor,
     MainColors.white,

@@ -96,7 +96,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                   value: programsubscriptionplanCubit.startDate.text,
                 ),
                 3.ph,
-                const CustomHorizontalDivider(
+                 CustomHorizontalDivider(
                   color: MainColors.lightGray,
                 ),
                 ...List.generate(
@@ -156,7 +156,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                 Container(
                   width: 24.w,
                   height: 24.h,
-                  decoration: const BoxDecoration(
+                  decoration:  BoxDecoration(
                     shape: BoxShape.circle,
                     color: MainColors.blueTextColor,
                   ),

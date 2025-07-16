@@ -29,6 +29,7 @@ class FixedDatesBody extends StatelessWidget {
         Expanded(
           // height: 270.h,
           child: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
             controller: cubit.fixedDateController,
             children: cubit.subTabbarBody(
               context: context,

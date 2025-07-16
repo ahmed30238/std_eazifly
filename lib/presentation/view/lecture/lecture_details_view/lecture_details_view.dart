@@ -23,7 +23,7 @@ class LectureDetailsView extends StatelessWidget {
         children: [
           24.ph,
           const LectureStats(
-            state: LectureStatesEnum.ongoing,
+            status: LectureStatesEnum.ongoing,
           ),
           12.ph,
           const LectureDataPlusLinkRow(),

@@ -29,7 +29,7 @@ class PossibleFavItemsContainer extends StatelessWidget {
               shape: BoxShape.rectangle,
             ),
             SvgPicture.asset(
-              colorFilter: const ColorFilter.mode(
+              colorFilter:  ColorFilter.mode(
                 MainColors.white,
                 BlendMode.srcIn,
               ),
@@ -49,7 +49,7 @@ class PossibleFavItemsContainer extends StatelessWidget {
               backgroundColor: MainColors.lightblue,
               iconColor: MainColors.blueTextColor,
               iconWidget: isAlreadyAdded
-                  ? const Icon(
+                  ?  Icon(
                       Icons.remove,
                       color: MainColors.blueTextColor,
                     )

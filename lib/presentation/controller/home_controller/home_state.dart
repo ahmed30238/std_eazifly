@@ -95,3 +95,12 @@ class FindInstructorErrorState extends HomeState {
 }
 
 class FindInstructorLoadingState extends HomeState {}
+
+class JoinSessionSuccessState extends HomeState {}
+
+class JoinSessionLoadingState extends HomeState {}
+
+class JoinSessionErrorState extends HomeState {
+  final String errorMessage;
+  JoinSessionErrorState(this.errorMessage);
+}

@@ -24,7 +24,7 @@ class AddNewStudentArea extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              const Icon(
+               Icon(
                 Icons.add,
                 size: 20,
                 color: MainColors.blueTextColor,
@@ -64,7 +64,7 @@ class AddNewStudentArea extends StatelessWidget {
                 "أختر الطلاب الذي تود إشراكهم في البرنامج",
                 style: MainTextStyle.mediumTextStyle(
                   fontSize: 11,
-                  color: MainColors.checkBoxBorderGray,
+                  color: MainColors.formFieldgrayTextColor,
                 ),
               ),
             ],

@@ -64,15 +64,6 @@ class _GoalsViewState extends State<GoalsView> {
                           ),
                         ),
                         8.ph,
-                        Text(
-                          "تحقق من الاتصال بالإنترنت وحاول مرة أخرى",
-                          style: MainTextStyle.regularTextStyle(
-                            fontSize: 14,
-                            color: MainColors.grayTextColors,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        20.ph,
                         CustomElevatedButton(
                           text: "إعادة المحاولة",
                           textStyle: MainTextStyle.mediumTextStyle(
@@ -157,31 +148,31 @@ class _GoalsViewState extends State<GoalsView> {
           ),
           8.ph,
           // زر قائمة المتصدرين يكون مخفي أثناء التحميل
-          BlocBuilder<LectureCubit, LectureState>(
-            builder: (context, state) {
-              if (cubit.getContentChaptersLoader) {
-                return const SizedBox.shrink();
-              }
+          // BlocBuilder<LectureCubit, LectureState>(
+          //   builder: (context, state) {
+          //     if (cubit.getContentChaptersLoader) {
+          //       return const SizedBox.shrink();
+          //     }
 
-              return CustomElevatedButton(
-                text: "قائمة المتصدرين",
-                textStyle: MainTextStyle.mediumTextStyle(
-                  fontSize: 16,
-                  color: MainColors.white,
-                ),
-                color: MainColors.blueTextColor,
-                width: 147.w,
-                height: 40.h,
-                radius: 12.r,
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    RoutePaths.leaderBoardView,
-                  );
-                },
-              );
-            },
-          ),
+          //     return CustomElevatedButton(
+          //       text: "قائمة المتصدرين",
+          //       textStyle: MainTextStyle.mediumTextStyle(
+          //         fontSize: 16,
+          //         color: MainColors.white,
+          //       ),
+          //       color: MainColors.blueTextColor,
+          //       width: 147.w,
+          //       height: 40.h,
+          //       radius: 12.r,
+          //       onPressed: () {
+          //         Navigator.pushNamed(
+          //           context,
+          //           RoutePaths.leaderBoardView,
+          //         );
+          //       },
+          //     );
+          //   },
+          // ),
           32.ph,
         ],
       ),
@@ -201,11 +192,11 @@ class CustomBadge extends StatelessWidget {
       child: Container(
         width: 80.w,
         height: 80.h,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           // color: MainColors.white
           color: MainColors.red,
           // borderRadius: 48.cr,
-          image: DecorationImage(
+          image: const DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
               Assets.imagesPersona,

@@ -247,6 +247,7 @@ class ServiceLocator {
         updateFcmTokenUsecase: sl(),
         checkChatUsecase: sl(),
         requestToFindInstructorUsecase: sl(),
+        joinSessionUsecase: sl(),
       ),
     );
     sl.registerLazySingleton<AddNewStudentDataToProgramCubit>(

@@ -144,21 +144,21 @@ class LectureCubit extends Cubit<LectureState> {
           userId: userId,
         );
         break;
-      case 1: // الإحصائيات
-        _loadStatisticsData();
-        break;
-      case 2: // الإمتحانات
+      // case 1: // الإحصائيات
+      //   _loadStatisticsData();
+        // break;
+      case 1: // الإمتحانات
         getUserQuizzes(programId: currentProgramId);
         break;
-      case 3: // التسليمات
+      case 2: // التسليمات
         getProgramAssignments(programId: currentProgramId, userId: userId);
         break;
-      case 4: // التقارير
+      case 3: // التقارير
         getUserReports(
           userId: userId,
         );
         break;
-      case 5: // الملاحظات
+      case 4: // الملاحظات
         getUserFeedbacks(userId: userId);
         break;
     }
@@ -360,7 +360,7 @@ class LectureCubit extends Cubit<LectureState> {
 
   var tabs = [
     "المواعيد",
-    "الإحصائيات",
+    // "الإحصائيات",
     "الإمتحانات",
     "التسليمات",
     "التقارير",

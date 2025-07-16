@@ -192,13 +192,6 @@ class ChatsCubit extends Cubit<ChatsState> {
     );
   }
 
-  GetMessagesEntities? getMessagesEntities;
-  GetMessagesUsecase getMessagesUsecase;
-  int _offset = 0;
-  final int _limit = 20;
-  bool hasMore = true;
-  bool _isFetching = false;
-
   final ScrollController _scrollController = ScrollController();
   ScrollController get scrollController => _scrollController;
   //
@@ -213,14 +206,24 @@ class ChatsCubit extends Cubit<ChatsState> {
     );
   }
 
+  GetMessagesEntities? getMessagesEntities;
+  GetMessagesUsecase getMessagesUsecase;
+  int _offset = 0;
+  final int _limit = 20;
+  bool hasMore = true;
+  bool _isFetching = false;
+  bool getMessagesLoader = false;
   Future<void> getMessages(
       {bool isInitial = false,
       required String chatId,
       bool showLoader = true}) async {
+    log("fetch $_isFetching");
+    log("has more $hasMore");
+    log("initial $isInitial");
     if (_isFetching || !hasMore) return;
+    // log("started messages");
 
     _isFetching = true;
-
     if (isInitial) {
       if (showLoader) emit(GetMesssagesLoadingState());
       uiMessages.clear();
@@ -247,11 +250,8 @@ class ChatsCubit extends Cubit<ChatsState> {
         if (isInitial) {
           log("is init");
           uiMessages.clear();
-          uiMessages = newMessages
-              .map(
-                (e) => MessageUIModel(message: e),
-              )
-              .toList();
+          uiMessages =
+              newMessages.map((e) => MessageUIModel(message: e)).toList();
           emit(GetMesssagesSuccesState(uiMessages: uiMessages));
         } else {
           final newUiMessages = r.data
@@ -282,14 +282,12 @@ class ChatsCubit extends Cubit<ChatsState> {
   // List<GetMessagesDatumModel>? messages = [];
 
   Future<void> sendMessages({int? userId, required String receiverId}) async {
-
-
     final String textToSend = messageController.text;
     messageController.clear();
 
     final tempMessage = SendMessagesTojson(
       message: textToSend,
-      senderId: loginData?.id.toString()??"",
+      senderId: loginData?.id.toString() ?? "",
       senderType: "User",
       receiverId: receiverId,
       receiverType: "Instructor",

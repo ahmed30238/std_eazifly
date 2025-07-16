@@ -27,7 +27,7 @@ class DmBody extends StatelessWidget {
         Expanded(
           child: Column(
             children: [
-              const Divider(
+              Divider(
                 thickness: 1,
                 color: MainColors.lightGray,
               ),
@@ -35,6 +35,7 @@ class DmBody extends StatelessWidget {
               Expanded(
                 child: BlocBuilder<ChatsCubit, ChatsState>(
                   builder: (context, state) {
+                    log("state is $state");
                     if (state is GetMesssagesLoadingState &&
                         (cubit.uiMessages.isEmpty)) {
                       return const Center(child: CircularProgressIndicator());
@@ -53,6 +54,17 @@ class DmBody extends StatelessWidget {
                               child: const Text("Retry"),
                             ),
                           ],
+                        ),
+                      );
+                    }
+                    if (cubit.uiMessages.isEmpty) {
+                      return Center(
+                        child: Text(
+                          "No messages yet",
+                          style: MainTextStyle.mediumTextStyle(
+                            color: MainColors.grayTextColors,
+                            fontSize: 16.sp,
+                          ),
                         ),
                       );
                     }
@@ -76,7 +88,7 @@ class DmBody extends StatelessWidget {
                         bool isLastElement = index == messages.length - 1;
                         final message = messages[index];
                         log("building message: ${message.message.message}");
-                       
+
                         return TextMessageItem(
                           isLastMesage: isLastElement,
                           messageModel: Message(

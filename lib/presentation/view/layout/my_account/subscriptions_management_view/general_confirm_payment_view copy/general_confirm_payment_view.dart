@@ -109,7 +109,7 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
                   value: "",
                 ),
                 3.ph,
-                const CustomHorizontalDivider(
+                 CustomHorizontalDivider(
                   color: MainColors.lightGray,
                 ),
                 ...List.generate(

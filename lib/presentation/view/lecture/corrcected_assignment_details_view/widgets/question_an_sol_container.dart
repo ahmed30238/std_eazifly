@@ -43,7 +43,7 @@ class QuestionAndSolutionContainer extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         constraints: BoxConstraints(minHeight: 355.h),
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: MainColors.veryLightGrayFormField,
         ),
         child: Column(

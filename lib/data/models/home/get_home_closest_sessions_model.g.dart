@@ -90,11 +90,13 @@ GetHomeClosestSessionStatusModel _$GetHomeClosestSessionStatusModelFromJson(
         Map<String, dynamic> json) =>
     GetHomeClosestSessionStatusModel()
       ..label = json['label'] as String?
-      ..color = json['color'] as String?;
+      ..color = json['color'] as String?
+      ..key = json['key'] as String?;
 
 Map<String, dynamic> _$GetHomeClosestSessionStatusModelToJson(
         GetHomeClosestSessionStatusModel instance) =>
     <String, dynamic>{
       'label': instance.label,
       'color': instance.color,
+      'key': instance.key,
     };

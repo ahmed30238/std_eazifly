@@ -106,7 +106,7 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
                           child: StudentDataItem(
                             onChildTap: () {},
                             age: child?.age.toString() ?? "",
-                            image: child?.image ?? Assets.imagesEditedPersona,
+                            image: child?.image ?? "",
                             name: child?.firstName ?? "غير معروف",
                             phoneNumber: child?.phone ?? "غير معروف",
                             width: 311.w,
@@ -163,6 +163,7 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
               //   },
               ),
         ),
+        16.ph,
       ],
     );
   }

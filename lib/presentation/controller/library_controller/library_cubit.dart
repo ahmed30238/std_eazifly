@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
+import 'package:eazifly_student/core/component/audio_player_bottom_sheet.dart';
+import 'package:eazifly_student/core/component/library_subscribe_modal_sheet.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/add_single_item_to_fav_tojson.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/get_favourite_list_model.dart';
 import 'package:eazifly_student/data/models/library/favourite_list/store_favourite_list_model.dart';
@@ -65,7 +67,7 @@ class LibraryCubit extends Cubit<LibraryState> {
               break;
             // case 1:
             //   getLibraryCategories(type: "visuals");
-              // break;
+            // break;
             case 1:
               getAllLibraryLists();
             case 2:
@@ -372,56 +374,7 @@ class LibraryCubit extends Cubit<LibraryState> {
         emit(GetLibraryItemsSuccessState());
         if (success.status != 201) {
           delightfulToast(message: "${success.message}", context: context);
-          showModalSheet(
-              isFixedSize: true,
-              maxHeight: 120.h,
-              minHeight: 120.h,
-              context,
-              widget: Column(
-                children: [
-                  24.ph,
-                  Text(
-                    "هل تود الاشتراك",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  16.ph,
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: CustomElevatedButton(
-                            radius: 16.r,
-                            height: 40.h,
-                            text: "نعم",
-                            color: MainColors.greenTeal,
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                RoutePaths.addToLibraryPackageDetailsView,
-                              );
-                            },
-                          ),
-                        ),
-                        10.pw,
-                        Expanded(
-                          child: CustomElevatedButton(
-                            radius: 16.r,
-                            height: 40.h,
-                            color: MainColors.red,
-                            text: "لا",
-                            onPressed: () {
-                              back(context);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ));
+          librarySubscribeModalSheet(context);
         } else {
           await openFile(
             fileUrl: success.data?.file ?? "",
@@ -434,6 +387,8 @@ class LibraryCubit extends Cubit<LibraryState> {
     );
     getLibraryItemsLoader = false;
   }
+
+
 
   bool likeItemLoader = false;
   LikeItemUsecase likeItemUsecase;
@@ -471,7 +426,7 @@ class LibraryCubit extends Cubit<LibraryState> {
 
   @override
   Future<void> close() {
-    _audioPlayer.dispose();
+    audioPlayer.dispose();
     favouriteListController.dispose();
     return super.close();
   }
@@ -497,7 +452,7 @@ class LibraryCubit extends Cubit<LibraryState> {
 
   // دالة لفتح الملفات حسب النوع (زي تيليجرام)
   // إضافة AudioPlayer للتحكم في الصوت
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioPlayer audioPlayer = AudioPlayer();
   bool isPlaying = false;
   Duration currentPosition = Duration.zero;
   Duration totalDuration = Duration.zero;
@@ -563,172 +518,75 @@ class LibraryCubit extends Cubit<LibraryState> {
     try {
       // إيقاف أي صوت يتم تشغيله حالياً
       if (isPlaying && currentPlayingUrl != fileUrl) {
-        await _audioPlayer.stop();
+        await audioPlayer.stop();
       }
 
       currentPlayingUrl = fileUrl;
 
       // تشغيل الملف الصوتي من الرابط مباشرة
-      await _audioPlayer.play(UrlSource(fileUrl));
+      await audioPlayer.play(UrlSource(fileUrl));
       isPlaying = true;
       emit(AudioPlayingState());
 
       // الاستماع لتغييرات حالة التشغيل
-      _audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
+      audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
         isPlaying = state == PlayerState.playing;
         emit(AudioStateChangedState());
       });
 
       // الاستماع لموضع التشغيل
-      _audioPlayer.onPositionChanged.listen((Duration position) {
+      audioPlayer.onPositionChanged.listen((Duration position) {
         currentPosition = position;
         emit(AudioPositionChangedState());
       });
 
       // الاستماع لمدة الملف الكاملة
-      _audioPlayer.onDurationChanged.listen((Duration duration) {
+      audioPlayer.onDurationChanged.listen((Duration duration) {
         totalDuration = duration;
         emit(AudioDurationChangedState());
       });
 
       // عرض مشغل الصوت في Bottom Sheet
-      _showAudioPlayerBottomSheet(context, title);
+      showAudioPlayerBottomSheet(context, title, this);
     } catch (e) {
       showErrorSnackBar('فشل في تشغيل الملف الصوتي: $e', context);
     }
   }
 
   // عرض مشغل الصوت في Bottom Sheet
-  void _showAudioPlayerBottomSheet(BuildContext context, String title) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-      ),
-      builder: (context) => BlocProvider.value(
-        value: this,
-        // create: (context) => SubjectCubit(),
-        child: Container(
-          padding: EdgeInsets.all(20.w),
-          height: 250.h,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // عنوان الملف
-              Text(
-                title,
-                style: MainTextStyle.boldTextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              20.ph,
 
-              // شريط التقدم
-              BlocBuilder<LibraryCubit, LibraryState>(
-                builder: (context, state) {
-                  return Column(
-                    children: [
-                      Slider(
-                        value: totalDuration.inSeconds > 0
-                            ? currentPosition.inSeconds.toDouble()
-                            : 0.0,
-                        max: totalDuration.inSeconds.toDouble(),
-                        onChanged: (value) {
-                          _audioPlayer.seek(Duration(seconds: value.toInt()));
-                        },
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(formatDuration(currentPosition)),
-                          Text(formatDuration(totalDuration)),
-                        ],
-                      ),
-                    ],
-                  );
-                },
-              ),
-
-              20.ph,
-
-              // أزرار التحكم
-              BlocBuilder<LibraryCubit, LibraryState>(
-                builder: (context, state) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // زر الترجيع 10 ثواني
-                      IconButton(
-                        onPressed: () => _seekBackward(),
-                        icon: Icon(Icons.replay_10, size: 30.w),
-                      ),
-
-                      // زر التشغيل/الإيقاف
-                      Container(
-                        decoration: const BoxDecoration(
-                          color: MainColors.greenTeal,
-                          shape: BoxShape.circle,
-                        ),
-                        child: IconButton(
-                          onPressed: () => _togglePlayPause(),
-                          icon: Icon(
-                            isPlaying ? Icons.pause : Icons.play_arrow,
-                            color: Colors.white,
-                            size: 35.w,
-                          ),
-                        ),
-                      ),
-
-                      // زر التقديم 10 ثواني
-                      IconButton(
-                        onPressed: () => _seekForward(),
-                        icon: Icon(Icons.forward_10, size: 30.w),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<void> _togglePlayPause() async {
+  Future<void> togglePlayPause() async {
     if (isPlaying) {
-      await _audioPlayer.pause();
+      await audioPlayer.pause();
     } else {
       // التحقق من حالة الـ player
-      final playerState = _audioPlayer.state;
+      final playerState = audioPlayer.state;
 
       if (playerState == PlayerState.completed) {
         // لو الصوت خلص، إعادة تشغيل من الأول
-        await _audioPlayer.seek(Duration.zero);
-        await _audioPlayer.resume();
+        await audioPlayer.seek(Duration.zero);
+        await audioPlayer.resume();
       } else {
         // تكملة التشغيل العادي
-        await _audioPlayer.resume();
+        await audioPlayer.resume();
       }
     }
     emit(AudioStateChangedState());
   }
 
-  Future<void> _seekForward() async {
+  Future<void> seekForward() async {
     final newPosition = currentPosition + const Duration(seconds: 10);
     if (newPosition < totalDuration) {
-      await _audioPlayer.seek(newPosition);
+      await audioPlayer.seek(newPosition);
     }
   }
 
-  Future<void> _seekBackward() async {
+  Future<void> seekBackward() async {
     final newPosition = currentPosition - const Duration(seconds: 10);
     if (newPosition > Duration.zero) {
-      await _audioPlayer.seek(newPosition);
+      await audioPlayer.seek(newPosition);
     } else {
-      await _audioPlayer.seek(Duration.zero);
+      await audioPlayer.seek(Duration.zero);
     }
   }
 

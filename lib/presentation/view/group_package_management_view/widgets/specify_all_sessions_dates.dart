@@ -137,7 +137,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                 suffixIconWidget: Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 16.w),
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.access_time,
                                     color: MainColors.grayTextColors,
                                   ),
@@ -171,7 +171,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                 suffixIconWidget: Padding(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 16.w),
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.access_time,
                                     color: MainColors.grayTextColors,
                                   ),

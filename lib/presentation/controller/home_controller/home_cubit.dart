@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/data/models/chat_model/check_chat_tojson.dart';
 import 'package:eazifly_student/data/models/find_instructor/request_to_find_instructor_tojson.dart';
+import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
 import 'package:eazifly_student/domain/entities/chat/check_chat_entity.dart';
 import 'package:eazifly_student/domain/entities/find_instructor/request_to_find_instructor_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_assigments_entity.dart';
@@ -9,6 +10,7 @@ import 'package:eazifly_student/domain/entities/home/get_home_closest_sessions_e
 import 'package:eazifly_student/domain/entities/home/get_home_current_session_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_library_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_quizzes_entity.dart';
+import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
 import 'package:eazifly_student/domain/entities/update_fcm_token_entity.dart';
 import 'package:eazifly_student/domain/use_cases/check_chat_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_assignments_usecase.dart';
@@ -16,6 +18,7 @@ import 'package:eazifly_student/domain/use_cases/get_home_closest_sessions_useca
 import 'package:eazifly_student/domain/use_cases/get_home_current_session_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_library_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_quizzes_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/join_session_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/request_to_find_instructor_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/update_fcm_token_usecase.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
@@ -33,6 +36,7 @@ class HomeCubit extends Cubit<HomeState> {
     required this.updateFcmTokenUsecase,
     required this.checkChatUsecase,
     required this.requestToFindInstructorUsecase,
+    required this.joinSessionUsecase,
   }) : super(HomeInitial()) {
     // _initializeUser();
   }
@@ -40,7 +44,37 @@ class HomeCubit extends Cubit<HomeState> {
   static HomeCubit get(context) => BlocProvider.of(context);
   CarouselSliderController carouselSliderController =
       CarouselSliderController();
+  bool joinSessionLoader = false;
+  JoinSessionEntity? joinSessionEntity;
+  JoinSessionUsecase joinSessionUsecase;
 
+  Future<void> joinSession({
+    required int sessionId,
+  }) async {
+    joinSessionLoader = true;
+    emit(JoinSessionLoadingState());
+
+    final result = await joinSessionUsecase.call(
+      parameter: JoinSessionParatmeters(
+        data: JoinSessionTojson(
+          meetingSessionId: sessionId,
+          status: "started", // in this case status always status started
+        ),
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        joinSessionLoader = false;
+        emit(JoinSessionErrorState(failure.message));
+      },
+      (data) {
+        joinSessionLoader = false;
+        joinSessionEntity = data;
+        emit(JoinSessionSuccessState());
+      },
+    );
+  }
   int userId = -1;
   bool isGuest = true;
 
@@ -255,8 +289,7 @@ class HomeCubit extends Cubit<HomeState> {
         data: CheckChatTojson(
           senderType: "User",
           senderId: loginData?.id.toString() ?? "",
-          receiverId:
-              "2", //getHomeCurrentSessionEntity?.data?.instructor ?? "", // TODO actual instrucor id
+          receiverId: getHomeCurrentSessionEntity?.data?.instructorId ?? "",
           receiverType: "Instructor",
         ),
       ),

@@ -21,6 +21,8 @@ class GetHomeCurrentSessionData {
   int? id;
   @JsonKey(name: "instructor")
   String? instructor;
+  @JsonKey(name: "instructor_id")
+  String? instructorId;
   @JsonKey(name: "users")
   List<GetHomeCurrentSessionUserModel>? users;
   @JsonKey(name: "meeting_url")
@@ -72,9 +74,12 @@ class GetHomeCurrentSessionUser {
   int? id;
   @JsonKey(name: "user_name")
   String? userName;
+  @JsonKey(name: "user_image")
+  String? userImage;
 
   GetHomeCurrentSessionUser({
     this.id,
     this.userName,
+    this.userImage,
   });
 }

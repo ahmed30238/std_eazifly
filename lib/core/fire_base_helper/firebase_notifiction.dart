@@ -273,7 +273,7 @@ class NotificationService {
       log("Get message From Notif Service");
       final chatId = message.data[NotificationConstants.chatIdKey];
       log("id in notif ${message.data[NotificationConstants.chatIdKey]}");
-
+      _chatsCubit?.hasMore = true;
       _chatsCubit?.getMessages(
           chatId: chatId, isInitial: true, showLoader: false);
     }

@@ -5,24 +5,30 @@ class LectureStats extends StatelessWidget {
   final double? horizontalPadding;
   final List<String>? titleText;
   final List<String>? subtitleText; // البيانات الفعلية من السيرفر
-  final LectureStatesEnum state;
+  final LectureStatesEnum status;
   final bool? reJoin;
   final VoidCallback? onRejoinTap;
   final String? timeDiff; // الوقت المتبقي أو المنقضي
   final String? nextLecture; // موعد المحاضرة التالية
   final String? duration; // مدة المحاضرة
+  final Color? statusContainerColor;
+  final Color? statusTextColor;
+  final String? statusLabel;
 
   const LectureStats({
     super.key,
     this.horizontalPadding,
     this.onRejoinTap,
-    required this.state,
+    required this.status,
     this.titleText,
     this.subtitleText,
     this.reJoin = false,
     this.timeDiff,
     this.nextLecture,
     this.duration,
+    this.statusContainerColor,
+    this.statusTextColor,
+    this.statusLabel,
   });
 
   // دالة لتنسيق عرض الوقت المتبقي
@@ -123,8 +129,10 @@ class LectureStats extends StatelessWidget {
                       )
                     } else ...{
                       LectureStates(
-                        state: state,
-                        customText: formatTimeDifference(timeDiff),
+                        state: status,
+                        customText: statusLabel,
+                        containerColor: statusContainerColor,
+                        textColor: statusTextColor,
                       )
                     },
                   } else ...{
@@ -150,20 +158,26 @@ class LectureStats extends StatelessWidget {
 }
 
 enum LectureStatesEnum {
-  finished, // انتهت
-  ongoing, // جارية الآن
-  dated, // مجدولة (لم تبدأ بعد)
-  pending, // في انتظار (يمكن استخدامها بدلاً من dated)
+  finished,
+  ongoing,
+  dated,
+  pending,
 }
 
 class LectureStates extends StatelessWidget {
   final LectureStatesEnum state;
-  final String? customText; // نص مخصص للعرض
+  final String? customText;
+  final String? text;
+  final Color? containerColor;
+  final Color? textColor;
 
   const LectureStates({
     super.key,
     required this.state,
     this.customText,
+    this.text,
+    this.containerColor,
+    this.textColor,
   });
 
   String getStateText() {
@@ -193,6 +207,8 @@ class LectureStates extends StatelessWidget {
         return MainColors.lightblue;
       case LectureStatesEnum.finished:
         return MainColors.lightRed;
+      case LectureStatesEnum.pending:
+        return MainColors.blueTextColor;
       default:
         return MainColors.lightRed;
     }
@@ -206,6 +222,8 @@ class LectureStates extends StatelessWidget {
         return MainColors.blueTextColor;
       case LectureStatesEnum.finished:
         return MainColors.red;
+      case LectureStatesEnum.pending:
+        return MainColors.blueTextColor;
       default:
         return MainColors.red;
     }
@@ -214,13 +232,13 @@ class LectureStates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextedContainer(
-      text: getStateText(),
+      text: text ?? getStateText(),
       height: 28.h,
       width: 83.w,
       fontSize: 12,
       radius: 16.r,
-      containerColor: getContainerColor(),
-      textColor: getTextColor(),
+      containerColor: containerColor ?? getContainerColor(),
+      textColor: textColor ?? getTextColor(),
     );
   }
 }

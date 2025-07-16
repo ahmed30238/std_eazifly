@@ -118,7 +118,7 @@ class _ChatsViewState extends State<ChatsView>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(
+                               Icon(
                                 Icons.error_outline,
                                 size: 64,
                                 color: MainColors.lightGray,
@@ -151,7 +151,7 @@ class _ChatsViewState extends State<ChatsView>
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(
+                                 Icon(
                                   Icons.chat_bubble_outline,
                                   size: 64,
                                   color: MainColors.lightGray,
@@ -189,6 +189,7 @@ class _ChatsViewState extends State<ChatsView>
                               ).substring(0, 10),
                               onTap: () {
                                 cubit.fillCurrentInstructor(index);
+                                cubit.hasMore = true;
                                 Navigator.pushNamed(
                                   context,
                                   RoutePaths.dmViewPath,
@@ -210,7 +211,15 @@ class _ChatsViewState extends State<ChatsView>
                     },
                     bloc: cubit,
                   ),
-                  const Text("data"),
+                   Center(
+                    child: Text(
+                      "قريبا",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: MainColors.grayTextColors,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

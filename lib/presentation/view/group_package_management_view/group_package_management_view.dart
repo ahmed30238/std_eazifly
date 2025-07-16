@@ -69,7 +69,6 @@ class _GroupPackageManagementViewState
                     ),
                   ),
                 ),
-                // 24.ph,
                 24.ph,
                 Expanded(
                   child: BlocBuilder(

@@ -43,30 +43,49 @@ class _DmViewState extends State<DmView> {
 
   CreateOrderDataEntity? myOrder;
   late ChatsCubit cubit;
+  
   @override
   void initState() {
-    ChatsCubit.get(context).initializeRecordVars();
-    log("orderId id ${widget.orderId}");
-
-    log('Report Order ID: ${widget.orderId}');
-    log('Chat ID: ${widget.chatId}');
-
-    var programCubit = context.read<ProgramsUnderReviewCubit>();
+    super.initState();
+    
+    // Initialize the cubit
     cubit = context.read<ChatsCubit>();
-    cubit.getMessages(chatId: widget.chatId, isInitial: true, showLoader: true);
+    
+    // Initialize record variables
+    cubit.initializeRecordVars();
+    
+    // Initialize scroll controller
     cubit.initScorllController(widget.chatId);
+    
+    // استدعاء getMessages عند دخول الشاشة
+    _loadMessages();
+    
+    // إذا كان isReport = true، نحتاج لتحميل الـ order
+    if (widget.isReport && widget.orderId != null) {
+      _loadOrderData();
+    }
+  }
 
-    // تحميل الـ orders الأول
+  // دالة منفصلة لتحميل الرسائل
+  void _loadMessages() {
+    log('Loading messages for chat ID: ${widget.chatId}');
+    cubit.getMessages(
+      chatId: widget.chatId, 
+      isInitial: true, 
+      showLoader: true
+    );
+  }
+
+  // دالة منفصلة لتحميل بيانات الطلب (للتقارير)
+  void _loadOrderData() {
+    log('Loading order data for order ID: ${widget.orderId}');
+    var programCubit = context.read<ProgramsUnderReviewCubit>();
     programCubit.specificOrder(orderId: widget.orderId!);
     myOrder = programCubit.myOrder;
-
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // var cubit = .get(context);
-
     return Scaffold(
       appBar: widget.isReport
           ? CustomAppBar(
@@ -107,8 +126,7 @@ class _DmViewState extends State<DmView> {
               isDmView: true,
               isCenterTitle: true,
               mainTitle: "",
-              dmTitle:
-                  "${cubit.currentInstructor?.name} ${cubit.currentInstructor?.type}",
+              dmTitle: "${cubit.currentInstructor?.name}",
               dmImageUrl: cubit.currentInstructor?.image,
               leadingText: "الرسائل",
               leadingIcon: Icons.arrow_back_ios,
