@@ -92,10 +92,15 @@ class ChildrenModalSheet extends StatelessWidget {
                           context
                               .read<LectureCubit>()
                               .fillUserId(child.id ?? -1);
-                          Navigator.pushNamed(
-                            context,
-                            arguments: {"programId": programId},
-                            RoutePaths.lectureView,
+                          Future.delayed(
+                            const Duration(milliseconds: 100),
+                            () {
+                              Navigator.pushNamed(
+                                context,
+                                arguments: {"programId": programId},
+                                RoutePaths.lectureView,
+                              );
+                            },
                           );
                         },
                         age: child.age?.toString() ?? "غير محدد",
