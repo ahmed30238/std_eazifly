@@ -69,6 +69,8 @@ class _ChosenLecturerState extends State<ChosenLecturer>
                           8.pw,
                           Expanded(
                             child: CustomizedDropdownWidget(
+                               validator: (val) =>
+                            val == null ? "من فضلك اختر الهدف" : null,
                               hintText: "الهدف",
                               items: cubit.getProgramContentEntity?.data
                                   ?.map(

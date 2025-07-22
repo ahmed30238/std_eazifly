@@ -165,27 +165,27 @@ class LectureCubit extends Cubit<LectureState> {
     emit(TabIndexState());
   }
 
-  Future<void> _loadStatisticsData() async {
-    tabLoadingStates[1] = true;
-    tabErrorStates[1] = null;
-    tabData[1] = null;
-    emit(TabLoadingState(tabIndex: 1));
+  // Future<void> _loadStatisticsData() async {
+  //   tabLoadingStates[1] = true;
+  //   tabErrorStates[1] = null;
+  //   tabData[1] = null;
+  //   emit(TabLoadingState(tabIndex: 1));
 
-    try {
-      // هنا ضع استدعاء API للإحصائيات
-      await Future.delayed(
-          const Duration(milliseconds: 500)); // محاكاة API call
+  //   try {
+  //     // هنا ضع استدعاء API للإحصائيات
+  //     await Future.delayed(
+  //         const Duration(milliseconds: 500)); // محاكاة API call
 
-      tabLoadingStates[1] = false;
-      tabData[1] = "statistics_data"; // ضع البيانات الحقيقية هنا
+  //     tabLoadingStates[1] = false;
+  //     tabData[1] = "statistics_data"; // ضع البيانات الحقيقية هنا
 
-      emit(TabLoadedState(tabIndex: 1));
-    } catch (e) {
-      tabLoadingStates[1] = false;
-      tabErrorStates[1] = e.toString();
-      emit(TabErrorState(tabIndex: 1, errorMessage: e.toString()));
-    }
-  }
+  //     emit(TabLoadedState(tabIndex: 1));
+  //   } catch (e) {
+  //     tabLoadingStates[1] = false;
+  //     tabErrorStates[1] = e.toString();
+  //     emit(TabErrorState(tabIndex: 1, errorMessage: e.toString()));
+  //   }
+  // }
 
   // دالة للحصول على حالة التحميل للـ tab الحالي
   bool get isCurrentTabLoading => tabLoadingStates[controller.index] ?? false;
@@ -198,7 +198,7 @@ class LectureCubit extends Cubit<LectureState> {
 
   List<Widget> get screens => [
         _buildSchedulesBody(),
-        _buildStatsBody(),
+        // _buildStatsBody(),
         _buildExamBody(),
         _buildDeliveriesBody(),
         _buildReportBody(),
@@ -228,31 +228,31 @@ class LectureCubit extends Cubit<LectureState> {
     return const SchedulesBody();
   }
 
-  Widget _buildStatsBody() {
+  // Widget _buildStatsBody() {
+  //   if (tabLoadingStates[1] == true) {
+  //     return const Center(child: CircularProgressIndicator());
+  //   }
+
+  //   if (tabErrorStates[1] != null) {
+  //     return _buildErrorWidget(1, () => _loadStatisticsData());
+  //   }
+
+  //   if (tabData[1] == null) {
+  //     return _buildEmptyWidget("لا توجد إحصائيات متاحة");
+  //   }
+
+  //   return StatsArea(
+  //     chartData: chartData,
+  //     gradientColors: gradientColors,
+  //   );
+  // }
+
+  Widget _buildExamBody() {
     if (tabLoadingStates[1] == true) {
       return const Center(child: CircularProgressIndicator());
     }
 
     if (tabErrorStates[1] != null) {
-      return _buildErrorWidget(1, () => _loadStatisticsData());
-    }
-
-    if (tabData[1] == null) {
-      return _buildEmptyWidget("لا توجد إحصائيات متاحة");
-    }
-
-    return StatsArea(
-      chartData: chartData,
-      gradientColors: gradientColors,
-    );
-  }
-
-  Widget _buildExamBody() {
-    if (tabLoadingStates[2] == true) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
-    if (tabErrorStates[2] != null) {
       return _buildErrorWidget(
           2,
           () => getUserQuizzes(
@@ -260,7 +260,7 @@ class LectureCubit extends Cubit<LectureState> {
               ));
     }
 
-    if (tabData[2] == null || (getUserQuizzesEntity?.data?.isEmpty ?? true)) {
+    if (tabData[1] == null || (getUserQuizzesEntity?.data?.isEmpty ?? true)) {
       return _buildEmptyWidget("لا توجد امتحانات متاحة");
     }
 
@@ -268,20 +268,20 @@ class LectureCubit extends Cubit<LectureState> {
   }
 
   Widget _buildDeliveriesBody() {
-    if (tabLoadingStates[3] == true) {
+    if (tabLoadingStates[2] == true) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    if (tabErrorStates[3] != null) {
+    if (tabErrorStates[2] != null) {
       return _buildErrorWidget(
-          3,
+          2,
           () => getProgramAssignments(
                 programId: currentProgramId,
                 userId: userId,
               ));
     }
 
-    if (tabData[3] == null ||
+    if (tabData[2] == null ||
         (getProgramAssignmentsEntity?.data?.isEmpty ?? true)) {
       return _buildEmptyWidget("لا توجد تسليمات متاحة");
     }
@@ -290,19 +290,19 @@ class LectureCubit extends Cubit<LectureState> {
   }
 
   Widget _buildReportBody() {
-    if (tabLoadingStates[4] == true) {
+    if (tabLoadingStates[3] == true) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    if (tabErrorStates[4] != null) {
+    if (tabErrorStates[3] != null) {
       return _buildErrorWidget(
-          4,
+          3,
           () => getUserReports(
                 userId: userId,
               ));
     }
 
-    if (tabData[4] == null || (getUserReportsEntity?.data?.isEmpty ?? true)) {
+    if (tabData[3] == null || (getUserReportsEntity?.data?.isEmpty ?? true)) {
       return _buildEmptyWidget("لا توجد تقارير متاحة");
     }
 
@@ -310,19 +310,19 @@ class LectureCubit extends Cubit<LectureState> {
   }
 
   Widget _buildNotesBody() {
-    if (tabLoadingStates[5] == true) {
+    if (tabLoadingStates[4] == true) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    if (tabErrorStates[5] != null) {
+    if (tabErrorStates[4] != null) {
       return _buildErrorWidget(
-          5,
+          4,
           () => getUserFeedbacks(
                 userId: userId,
               ));
     }
 
-    if (tabData[5] == null || (getUserFeedbacksEntity?.data?.isEmpty ?? true)) {
+    if (tabData[4] == null || (getUserFeedbacksEntity?.data?.isEmpty ?? true)) {
       return _buildEmptyWidget("لا توجد ملاحظات متاحة");
     }
 
