@@ -133,9 +133,9 @@ Widget _buildMessageContent(Message message) {
       );
     case MessageTypeEnum.voiceMessage:
       return  VoiceMessageWidget(
-        audioSource: "",
-        duration: 30,
-        isFile: false,
+        audioUrl: "",
+        // duration: 30,
+        // isFile: false,
         backgroundColor: MainColors.transparentColor,
       );
     default:

@@ -30,81 +30,80 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
   Widget build(BuildContext context) {
     // var lang = context.loc!;
     return Scaffold(
-        appBar: CustomAppBar(
-          context,
-          mainTitle: widget.assignmentTitle,
-          leadingText: "الاختبارات",
-          isCenterTitle: true,
-        ),
-        body: ListView(
-          children: [
-            16.ph,
-            BlocBuilder(
-              bloc: cubit,
-              builder: (context, state) {
-                var assignmentDetails = cubit.getAssignmentDetailsEntity?.data;
-                return StudentStats(
-                  horizontalPadding: 0,
-                  titleText: const [
-                    "تاريخ التسليم",
-                    "درجة التسليم",
-                    "حالة التسليم",
-                  ],
-                  downSideWidgets: [
-                    Text(
-                      assignmentDetails?.createdAt
-                              .toString()
-                              .substring(0, 10) ??
-                          "",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                        color: MainColors.blackText,
-                      ),
+      appBar: CustomAppBar(
+        context,
+        mainTitle: widget.assignmentTitle,
+        leadingText: "الاختبارات",
+        isCenterTitle: true,
+      ),
+      body: ListView(
+        children: [
+          16.ph,
+          BlocBuilder(
+            bloc: cubit,
+            builder: (context, state) {
+              var assignmentDetails = cubit.getAssignmentDetailsEntity?.data;
+              return StudentStats(
+                horizontalPadding: 0,
+                titleText: const [
+                  "تاريخ التسليم",
+                  "درجة التسليم",
+                  "حالة التسليم",
+                ],
+                downSideWidgets: [
+                  Text(
+                    assignmentDetails?.createdAt.toString().substring(0, 10) ??
+                        "",
+                    style: MainTextStyle.boldTextStyle(
+                      fontSize: 12,
+                      color: MainColors.blackText,
                     ),
-                    Text(
-                      "${assignmentDetails?.mark ?? "0"} / ...",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                        color: MainColors.blackText,
-                      ),
+                  ),
+                  Text(
+                    "${assignmentDetails?.mark ?? "0"} / ...",
+                    style: MainTextStyle.boldTextStyle(
+                      fontSize: 12,
+                      color: MainColors.blackText,
                     ),
-                    TextedContainer(
-                      width: 81.w,
-                      text: "جاري التسليم",
-                      containerColor: MainColors.lightYellow,
-                      textColor: MainColors.yellow,
-                    ),
-                  ],
-                );
-              },
-            ),
-            12.ph,
-            BlocBuilder(
-              bloc: cubit,
-              builder: (context, state) {
-                var assignmentDetails = cubit.getAssignmentDetailsEntity?.data;
-                return AssigmentItemContainer(
-                  question: assignmentDetails?.title ?? "",
-                  attachements: [cubit.selectedFile?.path ?? ""],
-                );
-              },
-            ),
-            // const Spacer(),
-            48.ph,
-            CustomElevatedButton(
-              text: "تسليم الإجابات",
-              width: 343.w,
-              color: MainColors.blueTextColor,
-              radius: 16.r,
-              onPressed: () {
-                cubit.postAssignment(
-                  sessionAssignmentId: widget.assignmentId.toString(),
-                );
-              },
-            ).center(),
-            32.ph,
-          ],
-        ));
+                  ),
+                  TextedContainer(
+                    width: 81.w,
+                    text: "جاري التسليم",
+                    containerColor: MainColors.lightYellow,
+                    textColor: MainColors.yellow,
+                  ),
+                ],
+              );
+            },
+          ),
+          12.ph,
+          BlocBuilder(
+            bloc: cubit,
+            builder: (context, state) {
+              var assignmentDetails = cubit.getAssignmentDetailsEntity?.data;
+              return AssigmentItemContainer(
+                question: assignmentDetails?.title ?? "",
+                attachements: [cubit.selectedFile?.path ?? ""],
+              );
+            },
+          ),
+          // const Spacer(),
+          48.ph,
+          CustomElevatedButton(
+            text: "تسليم الإجابات",
+            width: 343.w,
+            color: MainColors.blueTextColor,
+            radius: 16.r,
+            onPressed: () {
+              cubit.postAssignment(
+                sessionAssignmentId: widget.assignmentId.toString(),
+              );
+            },
+          ).center(),
+          32.ph,
+        ],
+      ),
+    );
   }
 }
 
@@ -193,6 +192,7 @@ class AssigmentItemContainer extends StatelessWidget {
                       vPadding: 0,
                       borderRadius: 0.cr,
                       borderColor: MainColors.white,
+                      validator: customValidation,
                       hintText: "   أدخل الإجابة هنا............",
                       controller: cubit.assignmentAnswerController,
                       filledColor: MainColors.white,
@@ -201,8 +201,11 @@ class AssigmentItemContainer extends StatelessWidget {
                 ),
                 8.pw,
                 GestureDetector(
-                    onTap: () => cubit.pickFile(),
-                    child: SvgPicture.asset(Assets.iconsGallery)),
+                  onTap: () => cubit.pickFile(),
+                  child: SvgPicture.asset(
+                    Assets.iconsGallery,
+                  ),
+                ),
               ],
             )
           ],
