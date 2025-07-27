@@ -4,8 +4,6 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
-import 'package:eazifly_student/core/component/spline_area_chart.dart';
-import 'package:eazifly_student/core/component/stats_area.dart';
 import 'package:eazifly_student/core/enums/student_success_status.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/data/models/my_programs/post_assignment_tojson.dart';
@@ -892,7 +890,7 @@ class LectureCubit extends Cubit<LectureState> {
         (success) {
           postAssignmentLoader = false;
           postAssignmentEntity = success;
-          emit(PostAssignmentSuccessState()); // أو ابعت الـ entity هنا
+          emit(PostAssignmentSuccessState()); 
         },
       );
     } catch (error) {
