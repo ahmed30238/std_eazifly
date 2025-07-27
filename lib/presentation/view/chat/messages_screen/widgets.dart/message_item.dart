@@ -10,11 +10,21 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// إضافة enum لحالة الرسالة
+enum MessageStatus {
+  sending, // جاري الإرسال
+  sent, // تم الإرسال
+  delivered, // تم التوصيل
+  read, // تم القراءة
+  failed // فشل الإرسال
+}
+
 class TextMessageItem extends StatelessWidget {
   final bool isLastMesage;
   final bool? isThereImages;
   final String messageSenderAvatar;
   final Message messageModel;
+  final MessageStatus? messageStatus; // إضافة حالة الرسالة
 
   const TextMessageItem({
     super.key,
@@ -22,6 +32,7 @@ class TextMessageItem extends StatelessWidget {
     this.isThereImages = false,
     required this.messageModel,
     required this.messageSenderAvatar,
+    this.messageStatus, // إضافة المعامل الجديد
   });
 
   @override
@@ -68,7 +79,7 @@ class TextMessageItem extends StatelessWidget {
                       bottomRight: Radius.circular(16.r),
                     ),
                   ),
-                  child: _buildMessageContent(messageModel),
+                  child: _buildMessageContent(messageModel, messageStatus),
                 ),
                 8.ph,
                 if (isThereImages == true) ...{
@@ -94,7 +105,50 @@ class TextMessageItem extends StatelessWidget {
   }
 }
 
-Widget _buildMessageContent(Message message) {
+// دالة لبناء أيقونة حالة الرسالة
+Widget _buildMessageStatusIcon(MessageStatus? status) {
+  if (status == null) return const SizedBox.shrink();
+
+  switch (status) {
+    case MessageStatus.sending:
+      return SizedBox(
+        width: 12.w,
+        height: 12.h,
+        child: CircularProgressIndicator(
+          strokeWidth: 1.5,
+          valueColor: AlwaysStoppedAnimation<Color>(MainColors.grayTextColors),
+        ),
+      );
+    case MessageStatus.sent:
+      return Icon(
+        Icons.check,
+        size: 14.sp,
+        color: MainColors.grayTextColors,
+      );
+    case MessageStatus.delivered:
+      return Icon(
+        Icons.done_all,
+        size: 14.sp,
+        color: MainColors.grayTextColors,
+      );
+    case MessageStatus.read:
+      return Icon(
+        Icons.done_all,
+        size: 14.sp,
+        color: MainColors.greenTeal,
+      );
+    case MessageStatus.failed:
+      return Icon(
+        Icons.error_outline,
+        size: 14.sp,
+        color: Colors.red,
+      );
+    default:
+      return const SizedBox.shrink();
+  }
+}
+
+Widget _buildMessageContent(Message message, MessageStatus? messageStatus) {
   switch (message.type) {
     case MessageTypeEnum.text:
       return IntrinsicWidth(
@@ -107,12 +161,22 @@ Widget _buildMessageContent(Message message) {
               child: _buildTextWithLinks(message),
             ),
             8.pw,
-            Text(
-              message.createdAt,
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 11,
-                color: MainColors.black,
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  message.createdAt,
+                  style: MainTextStyle.boldTextStyle(
+                    fontSize: 11,
+                    color: MainColors.black,
+                  ),
+                ),
+                // إضافة أيقونة حالة الرسالة للمرسل فقط
+                if (message.isSender && messageStatus != null) ...[
+                  4.pw,
+                  _buildMessageStatusIcon(messageStatus),
+                ],
+              ],
             ),
           ],
         ),
@@ -129,10 +193,31 @@ Widget _buildMessageContent(Message message) {
             width: 200.w,
             height: 200.h,
           ),
+          // إضافة حالة الرسالة للصور أيضاً
+          if (message.isSender && messageStatus != null) ...[
+            4.ph,
+            Align(
+              alignment: Alignment.centerRight,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    message.createdAt,
+                    style: MainTextStyle.boldTextStyle(
+                      fontSize: 11,
+                      color: MainColors.black,
+                    ),
+                  ),
+                  4.pw,
+                  _buildMessageStatusIcon(messageStatus),
+                ],
+              ),
+            ),
+          ],
         ],
       );
     case MessageTypeEnum.voiceMessage:
-      return  VoiceMessageWidget(
+      return VoiceMessageWidget(
         audioUrl: "",
         // duration: 30,
         // isFile: false,

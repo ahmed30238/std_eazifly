@@ -1,5 +1,3 @@
-import 'package:dio/dio.dart';
-
 class UpdateProfileTojson {
   final String age;
   final String whatsApp;
@@ -9,11 +7,13 @@ class UpdateProfileTojson {
   final String userName;
   final String firstName;
   final String lastName;
+  final String parentId;
   final String? image; // للمسار
-  final MultipartFile? imageFile; // للـ MultipartFile المباشر
+  // final MultipartFile? imageFile; // للـ MultipartFile المباشر
 
   UpdateProfileTojson({
     required this.age,
+    required this.parentId,
     required this.whatsApp,
     required this.gender,
     required this.email,
@@ -22,7 +22,7 @@ class UpdateProfileTojson {
     required this.firstName,
     required this.lastName,
     this.image,
-    this.imageFile,
+    // this.imageFile,
   });
   Map<String, dynamic> toJson() {
     return {
@@ -35,6 +35,7 @@ class UpdateProfileTojson {
       'fist_name': firstName,
       'last_name': lastName,
       'image': image,
+      "parent_id": parentId,
     };
   }
 }

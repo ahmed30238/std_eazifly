@@ -17,31 +17,82 @@ class UpdateProfileEntity {
 }
 
 class UpdateProfileDataEntity {
+  static int? customInt(val) => int.tryParse(val?.toString() ?? "");
+
+  @JsonKey(name: "id")
   int? id;
+
+  @JsonKey(name: "first_name")
   String? firstName;
+
+  @JsonKey(name: "last_name")
   String? lastName;
+
+  @JsonKey(name: "user_name")
   String? userName;
+
+  @JsonKey(name: "email")
   String? email;
-  String? parentId;
+
+  @JsonKey(name: "parent_id",fromJson: customInt)
+  int? parentId;
+
+  @JsonKey(name: "phone")
   String? phone;
+
+  @JsonKey(name: "whats_app")
   String? whatsApp;
+
+  @JsonKey(name: "image")
   String? image;
+
+  @JsonKey(name: "gender")
   String? gender;
+
+  @JsonKey(name: "parent_name")
   String? parentName;
+
+  @JsonKey(name: "user_coupon")
   String? userCoupon;
-  String? bonus;
+
+  @JsonKey(name: "bonus", fromJson: customInt)
+  int? bonus;
+
+  @JsonKey(name: "childrens")
   List<UpdateProfileDataModel>? childrens;
-  String? age;
+
+  @JsonKey(name: "age", fromJson: customInt)
+  int? age;
+
+  @JsonKey(name: "token")
   dynamic token;
+
+  @JsonKey(name: "is_guest")
   dynamic isGuest;
+
+  @JsonKey(name: "fcm_token")
   dynamic fcmToken;
+
+  @JsonKey(name: "created_at")
   DateTime? createdAt;
+
+  @JsonKey(name: "last_active_at")
   DateTime? lastActiveAt;
+
+  @JsonKey(name: "renew_data")
   DateTime? renewData;
+
+  @JsonKey(name: "instructor_assigned_data")
   dynamic instructorAssiignedData;
+
+  @JsonKey(name: "status_label")
   UpdateProfileStatusLabelModel? statusLabel;
+
+  @JsonKey(name: "programs")
   List<UpdateProfileProgramModel>? programs;
-  dynamic chatId;
+
+  @JsonKey(name: "chat_id", fromJson: customInt)
+  int? chatId;
 
   UpdateProfileDataEntity({
     this.id,

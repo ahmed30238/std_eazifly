@@ -90,10 +90,22 @@ class DmBody extends StatelessWidget {
                         log("building message: ${message.message.message}");
 
                         return TextMessageItem(
+                          messageStatus: message.isSending
+                              ? MessageStatus.sending
+                              : message.isFailed
+                                  ? MessageStatus.failed
+                                  : MessageStatus.sent,
                           isLastMesage: isLastElement,
                           messageModel: Message(
-                            createdAt: formatMessageTime(
-                                context, message.message.createdAt.toString()),
+                            createdAt: message.message.createdAt == null
+                                ? formatMessageTime(
+                                    context,
+                                    DateTime.now().toString(),
+                                  )
+                                : formatMessageTime(
+                                    context,
+                                    message.message.createdAt.toString(),
+                                  ),
                             type: MessageTypeEnum.text,
                             content: message.message.message ?? "",
                             isSender: message.message.senderType == "User",

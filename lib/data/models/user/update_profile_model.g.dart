@@ -26,74 +26,74 @@ UpdateProfileDataModel _$UpdateProfileDataModelFromJson(
         Map<String, dynamic> json) =>
     UpdateProfileDataModel()
       ..id = (json['id'] as num?)?.toInt()
-      ..firstName = json['firstName'] as String?
-      ..lastName = json['lastName'] as String?
-      ..userName = json['userName'] as String?
+      ..firstName = json['first_name'] as String?
+      ..lastName = json['last_name'] as String?
+      ..userName = json['user_name'] as String?
       ..email = json['email'] as String?
-      ..parentId = json['parentId'] as String?
+      ..parentId = UpdateProfileDataEntity.customInt(json['parent_id'])
       ..phone = json['phone'] as String?
-      ..whatsApp = json['whatsApp'] as String?
+      ..whatsApp = json['whats_app'] as String?
       ..image = json['image'] as String?
       ..gender = json['gender'] as String?
-      ..parentName = json['parentName'] as String?
-      ..userCoupon = json['userCoupon'] as String?
-      ..bonus = json['bonus'] as String?
+      ..parentName = json['parent_name'] as String?
+      ..userCoupon = json['user_coupon'] as String?
+      ..bonus = UpdateProfileDataEntity.customInt(json['bonus'])
       ..childrens = (json['childrens'] as List<dynamic>?)
           ?.map(
               (e) => UpdateProfileDataModel.fromJson(e as Map<String, dynamic>))
           .toList()
-      ..age = json['age'] as String?
+      ..age = UpdateProfileDataEntity.customInt(json['age'])
       ..token = json['token']
-      ..isGuest = json['isGuest']
-      ..fcmToken = json['fcmToken']
-      ..createdAt = json['createdAt'] == null
+      ..isGuest = json['is_guest']
+      ..fcmToken = json['fcm_token']
+      ..createdAt = json['created_at'] == null
           ? null
-          : DateTime.parse(json['createdAt'] as String)
-      ..lastActiveAt = json['lastActiveAt'] == null
+          : DateTime.parse(json['created_at'] as String)
+      ..lastActiveAt = json['last_active_at'] == null
           ? null
-          : DateTime.parse(json['lastActiveAt'] as String)
-      ..renewData = json['renewData'] == null
+          : DateTime.parse(json['last_active_at'] as String)
+      ..renewData = json['renew_data'] == null
           ? null
-          : DateTime.parse(json['renewData'] as String)
-      ..instructorAssiignedData = json['instructorAssiignedData']
-      ..statusLabel = json['statusLabel'] == null
+          : DateTime.parse(json['renew_data'] as String)
+      ..instructorAssiignedData = json['instructor_assigned_data']
+      ..statusLabel = json['status_label'] == null
           ? null
           : UpdateProfileStatusLabelModel.fromJson(
-              json['statusLabel'] as Map<String, dynamic>)
+              json['status_label'] as Map<String, dynamic>)
       ..programs = (json['programs'] as List<dynamic>?)
           ?.map((e) =>
               UpdateProfileProgramModel.fromJson(e as Map<String, dynamic>))
           .toList()
-      ..chatId = json['chatId'];
+      ..chatId = UpdateProfileDataEntity.customInt(json['chat_id']);
 
 Map<String, dynamic> _$UpdateProfileDataModelToJson(
         UpdateProfileDataModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
-      'userName': instance.userName,
+      'first_name': instance.firstName,
+      'last_name': instance.lastName,
+      'user_name': instance.userName,
       'email': instance.email,
-      'parentId': instance.parentId,
+      'parent_id': instance.parentId,
       'phone': instance.phone,
-      'whatsApp': instance.whatsApp,
+      'whats_app': instance.whatsApp,
       'image': instance.image,
       'gender': instance.gender,
-      'parentName': instance.parentName,
-      'userCoupon': instance.userCoupon,
+      'parent_name': instance.parentName,
+      'user_coupon': instance.userCoupon,
       'bonus': instance.bonus,
       'childrens': instance.childrens?.map((e) => e.toJson()).toList(),
       'age': instance.age,
       'token': instance.token,
-      'isGuest': instance.isGuest,
-      'fcmToken': instance.fcmToken,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'lastActiveAt': instance.lastActiveAt?.toIso8601String(),
-      'renewData': instance.renewData?.toIso8601String(),
-      'instructorAssiignedData': instance.instructorAssiignedData,
-      'statusLabel': instance.statusLabel?.toJson(),
+      'is_guest': instance.isGuest,
+      'fcm_token': instance.fcmToken,
+      'created_at': instance.createdAt?.toIso8601String(),
+      'last_active_at': instance.lastActiveAt?.toIso8601String(),
+      'renew_data': instance.renewData?.toIso8601String(),
+      'instructor_assigned_data': instance.instructorAssiignedData,
+      'status_label': instance.statusLabel?.toJson(),
       'programs': instance.programs?.map((e) => e.toJson()).toList(),
-      'chatId': instance.chatId,
+      'chat_id': instance.chatId,
     };
 
 UpdateProfileProgramModel _$UpdateProfileProgramModelFromJson(

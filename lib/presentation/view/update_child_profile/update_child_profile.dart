@@ -26,7 +26,9 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
     );
     cubit.fillData(
       firstName: childData?.firstName ?? "",
+      // avatar: childData?.image ?? "",
       lastName: childData?.lastName ?? "",
+      gender: childData?.gender ?? "",
       age: childData?.age ?? "",
       whatsApp: childData?.whatsApp ?? "",
       phone: childData?.phone ?? "",
@@ -155,9 +157,6 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
                     iconWidget: 0.ph,
                   ),
                   16.ph,
-                  // في EditProfile Widget - تعديل جزء الـ Gender Dropdown
-
-// استبدل هذا الجزء في build method:
                   Text(
                     "النوع",
                     style: MainTextStyle.boldTextStyle(
@@ -197,9 +196,10 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
               onPressed: cubit.updateProfileLoader
                   ? () {}
                   : () {
-                      log("userid is ${widget.userId}");
+                      log("user id is ${widget.userId}");
                       cubit.updateProfile(
                         userId: widget.userId,
+                        context: context,
                       );
                     },
               color: MainColors.blueTextColor,

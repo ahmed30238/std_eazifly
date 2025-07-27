@@ -37,54 +37,57 @@ class _ChildrenNavigatorState extends State<ChildrenNavigator> {
           );
         }
 
-        return StudentsChangeItem(
-          studentName: isParent
-              ? "${loginData?.firstName} ${loginData?.lastName}"
-              : "${currentChild?.firstName ?? ""} ${currentChild?.lastName ?? ""}",
-          onBackTap: () {
-            cubit.controller.animateTo(0);
-            cubit.updateChildIndex(false, children.length);
+        return BlocBuilder(
+          bloc: cubit,
+          builder: (context, state) => StudentsChangeItem(
+            studentName: isParent
+                ? "${loginData?.firstName} ${loginData?.lastName}"
+                : "${currentChild?.firstName ?? ""} ${currentChild?.lastName ?? ""}",
+            onBackTap: () {
+              cubit.controller.animateTo(0);
+              cubit.updateChildIndex(false, children.length);
 
-            if (cubit.currentChildIndex == -1) {
-              // عرض الأب
-              cubit.fillUserId(loginData?.id ?? -1);
-              cubit.showProgramDetails(programId: widget.programId);
-              cubit.getProgramSessions(
-                programId: widget.programId,
-                userId: loginData?.id ?? -1,
-              );
-            } else {
-              final newChild = children[cubit.currentChildIndex];
-              cubit.fillUserId(newChild.id ?? -1);
-              cubit.showProgramDetails(programId: widget.programId);
-              cubit.getProgramSessions(
-                programId: widget.programId,
-                userId: newChild.id ?? -1,
-              );
-            }
-          },
-          onNextTap: () {
-            cubit.controller.animateTo(0);
-            cubit.updateChildIndex(true, children.length);
+              if (cubit.currentChildIndex == -1) {
+                // عرض الأب
+                cubit.fillUserId(loginData?.id ?? -1);
+                cubit.showProgramDetails(programId: widget.programId);
+                cubit.getProgramSessions(
+                  programId: widget.programId,
+                  userId: loginData?.id ?? -1,
+                );
+              } else {
+                final newChild = children[cubit.currentChildIndex];
+                cubit.fillUserId(newChild.id ?? -1);
+                cubit.showProgramDetails(programId: widget.programId);
+                cubit.getProgramSessions(
+                  programId: widget.programId,
+                  userId: newChild.id ?? -1,
+                );
+              }
+            },
+            onNextTap: () {
+              cubit.controller.animateTo(0);
+              cubit.updateChildIndex(true, children.length);
 
-            if (cubit.currentChildIndex == -1) {
-              // عرض الأب
-              cubit.fillUserId(loginData?.id ?? -1);
-              cubit.showProgramDetails(programId: widget.programId);
-              cubit.getProgramSessions(
-                programId: widget.programId,
-                userId: loginData?.id ?? -1,
-              );
-            } else {
-              final newChild = children[cubit.currentChildIndex];
-              cubit.fillUserId(newChild.id ?? -1);
-              cubit.showProgramDetails(programId: widget.programId);
-              cubit.getProgramSessions(
-                programId: widget.programId,
-                userId: newChild.id ?? -1,
-              );
-            }
-          },
+              if (cubit.currentChildIndex == -1) {
+                // عرض الأب
+                cubit.fillUserId(loginData?.id ?? -1);
+                cubit.showProgramDetails(programId: widget.programId);
+                cubit.getProgramSessions(
+                  programId: widget.programId,
+                  userId: loginData?.id ?? -1,
+                );
+              } else {
+                final newChild = children[cubit.currentChildIndex];
+                cubit.fillUserId(newChild.id ?? -1);
+                cubit.showProgramDetails(programId: widget.programId);
+                cubit.getProgramSessions(
+                  programId: widget.programId,
+                  userId: newChild.id ?? -1,
+                );
+              }
+            },
+          ),
         );
       },
     );

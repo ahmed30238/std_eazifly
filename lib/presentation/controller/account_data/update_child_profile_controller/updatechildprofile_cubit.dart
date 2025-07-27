@@ -1,15 +1,20 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:eazifly_student/core/enums/gender_enum.dart';
+import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
+import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/remove_assigned_student_entity.dart';
 import 'package:eazifly_student/domain/entities/user/update_profile_entity.dart';
 import 'package:eazifly_student/domain/use_cases/remove_assigned_student_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/update_profile_usecase.dart';
 import 'package:eazifly_student/presentation/controller/account_data/update_child_profile_controller/updatechildprofile_state.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
 
 class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
   UpdatechildprofileCubit({
@@ -26,6 +31,7 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
   TextEditingController ageController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   File? profileImage;
+
   Future<void> pickProfileImageFroGallery() async {
     final response = await pickImageFromGallery();
     if (response != null) {
@@ -44,7 +50,10 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
     log(gender.requestValue);
   }
 
-  Future<void> updateProfile({required int userId}) async {
+  Future<void> updateProfile({
+    required int userId,
+    required BuildContext context,
+  }) async {
     if (!formKey.currentState!.validate()) {
       return;
     }
@@ -69,6 +78,7 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
         parameter: UpdateProfileParameters(
           userId: userId,
           data: UpdateProfileTojson(
+            parentId: loginData?.id.toString() ?? "0",
             age: ageController.text,
             whatsApp: whatsAppController.text,
             gender: gender.requestValue,
@@ -77,7 +87,7 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
             userName: userNameController.text,
             firstName: firstNameController.text,
             lastName: lastNameController.text,
-            image: imagePath, // أرسل المسار كـ String
+            image: imagePath,
           ),
         ),
       );
@@ -88,10 +98,20 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
           emit(UpdateProfileErrorState(errorMessage: l.message));
         },
         (r) {
+          _updateChildInCache(userId, r);
           updateProfileLoader = false;
           updateProfileEntity = r;
-          // loginData?.age = r.data?.age;
           emit(UpdateProfileSuccessState());
+
+          Future.delayed(
+            const Duration(milliseconds: 100),
+            () {
+              Navigator.pushReplacementNamed(
+                context,
+                RoutePaths.subscribedStudentsSettingsView,
+              );
+            },
+          );
         },
       );
     } catch (e) {
@@ -101,12 +121,62 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
     }
   }
 
-// Variables
+  // دالة لتحديث بيانات الطالب في الكاش
+  void _updateChildInCache(int userId, UpdateProfileEntity updatedData) {
+    try {
+      // جلب البيانات الحالية من الكاش
+      final storage = GetStorage();
+      final cachedLoginData = storage.read(StorageEnum.loginModel.name);
+
+      if (cachedLoginData != null) {
+        // تحويل البيانات من String لـ Map
+        Map<String, dynamic> loginDataMap = jsonDecode(cachedLoginData);
+
+        // التأكد من وجود childrens array
+        if (loginDataMap['childrens'] != null &&
+            loginDataMap['childrens'] is List) {
+          List<dynamic> children = loginDataMap['childrens'];
+
+          // البحث عن الطالب المطلوب تحديثه
+          for (int i = 0; i < children.length; i++) {
+            if (children[i]['id'] == userId) {
+              // تحديث بيانات الطالب
+              children[i]['first_name'] = firstNameController.text;
+              children[i]['last_name'] = lastNameController.text;
+              children[i]['user_name'] = userNameController.text;
+              children[i]['email'] = emailController.text;
+              children[i]['phone'] = phoneController.text;
+              children[i]['whats_app'] = whatsAppController.text;
+              children[i]['age'] = ageController.text;
+              children[i]['gender'] = gender.requestValue;
+
+              if (profileImage?.path != null) {
+                children[i]['image'] = profileImage?.path;
+              }
+
+              break;
+            }
+          }
+
+          storage.write(
+            StorageEnum.loginModel.name,
+            jsonEncode(loginDataMap),
+          );
+
+          log("Child data updated successfully in cache for user ID: $userId");
+        }
+      }
+    } catch (e) {
+      log("Error updating child data in cache: $e");
+    }
+  }
+
+  // Variables
   bool removeAssignedStudentLoader = false;
   RemoveAssignedStudentEntity? removeAssignedStudentEntity;
   RemoveAssignedStudentUsecase removeAssignedStudentUsecase;
 
-// Method
+  // Method
   Future<void> removeAssignedStudent({
     required int programId,
     required int userId,
@@ -150,6 +220,7 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
     required String firstName,
     required String lastName,
     required String age,
+    required String gender,
     required String whatsApp,
     required String phone,
     required String userName,
@@ -158,6 +229,7 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
     lastNameController.text = lastName;
     firstNameController.text = firstName;
     phoneController.text = phone;
+    this.gender = gender == "ذكر" ? GenderEnum.male : GenderEnum.female;
     whatsAppController.text = whatsApp;
     emailController.text = email;
     userNameController.text = userName;

@@ -93,6 +93,7 @@ class AccountdataCubit extends Cubit<AccountdataState> {
           userId: loginData?.id ?? 0,
           data: UpdateProfileTojson(
             age: ageController.text,
+            parentId: loginData?.parentId ?? "",
             whatsApp: whatsAppController.text,
             gender: gender.requestValue,
             email: emailController.text,
@@ -100,7 +101,7 @@ class AccountdataCubit extends Cubit<AccountdataState> {
             userName: userNameController.text,
             firstName: firstNameController.text,
             lastName: lastNameController.text,
-            image: imagePath, // أرسل المسار كـ String
+            image: imagePath,
           ),
         ),
       );

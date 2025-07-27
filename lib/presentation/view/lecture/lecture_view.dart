@@ -35,9 +35,10 @@ class _LectureViewState extends State<LectureView>
   late TutorialCoachMark tutorialCoachMark;
   List<TargetFocus> targets = [];
   GlobalKey btnKey = GlobalKey();
-  
+
   // Key for storing tutorial completion status
-  static const String _lectureTutorialCompletedKey = 'lecture_tutorial_completed';
+  static const String _lectureTutorialCompletedKey =
+      'lecture_tutorial_completed';
 
   @override
   void initState() {
@@ -83,11 +84,9 @@ class _LectureViewState extends State<LectureView>
       paddingFocus: 8,
       colorShadow: Colors.black.withOpacity(0.8),
       onFinish: () {
-        print("تم الانتهاء من الشرح");
         _markTutorialCompleted(); // Mark as completed when finished
       },
       onSkip: () {
-        print("تم تخطي الشرح");
         _markTutorialCompleted(); // Mark as completed when skipped
         return true;
       },
@@ -109,9 +108,7 @@ class _LectureViewState extends State<LectureView>
               style: MainTextStyle.boldTextStyle(
                 fontSize: 14,
                 color: MainColors.white,
-              ).copyWith(
-                
-              ),
+              ).copyWith(),
             ),
           ),
         ],
@@ -171,7 +168,9 @@ class _LectureViewState extends State<LectureView>
           return Column(
             children: [
               10.ph,
-              buildLectureStatsWithLoading(cubit,),
+              buildLectureStatsWithLoading(
+                cubit,
+              ),
               24.ph,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

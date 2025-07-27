@@ -284,14 +284,13 @@ class ChatsCubit extends Cubit<ChatsState> {
   Future<void> sendMessages({int? userId, required String receiverId}) async {
     final String textToSend = messageController.text;
     messageController.clear();
-
     final tempMessage = SendMessagesTojson(
       message: textToSend,
       senderId: loginData?.id.toString() ?? "",
       senderType: "User",
       receiverId: receiverId,
       receiverType: "Instructor",
-      // createdAt: DateTime.now().toIso8601String(),
+      createdAt: DateTime.now().toIso8601String(),
     );
 
     // 2. ضفها للواجهة كـ isSending
@@ -308,7 +307,7 @@ class ChatsCubit extends Cubit<ChatsState> {
         data: tempMessage,
       ),
     );
-    log("$result");
+    // log("$result");
 
     result.fold(
       (l) {
@@ -381,6 +380,11 @@ class ChatsCubit extends Cubit<ChatsState> {
   // filled when the user click on the student item in the chat screen
   GetMyChatsParticipantModel? currentInstructor;
   fillCurrentInstructor(int index) {
-    currentInstructor = getMyChatsEntity?.data?[index].participant1;
+    // currentInstructor = getMyChatsEntity?.data?[index].participant1;
+    if (getMyChatsEntity?.data?[index].participant1?.type == "Instructor") {
+      currentInstructor = getMyChatsEntity?.data?[index].participant1;
+    } else {
+      currentInstructor = getMyChatsEntity?.data?[index].participant2;
+    }
   }
 }

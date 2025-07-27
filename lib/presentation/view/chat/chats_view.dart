@@ -118,7 +118,7 @@ class _ChatsViewState extends State<ChatsView>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                               Icon(
+                              Icon(
                                 Icons.error_outline,
                                 size: 64,
                                 color: MainColors.lightGray,
@@ -151,7 +151,7 @@ class _ChatsViewState extends State<ChatsView>
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                 Icon(
+                                Icon(
                                   Icons.chat_bubble_outline,
                                   size: 64,
                                   color: MainColors.lightGray,
@@ -177,13 +177,16 @@ class _ChatsViewState extends State<ChatsView>
                             verticalPadding: 8.h,
                           ),
                           itemBuilder: (context, index) {
-                            var user = chats[index].participant1;
+                            var instructors =
+                                chats[index].participant1?.type == "User"
+                                    ? chats[index].participant2
+                                    : chats[index].participant1;
                             return ChatItem(
                               isFirstChat: true,
                               lastMessageContent:
                                   chats[index].latestMessage?.message ?? "",
-                              profileAvatar: user?.image ?? "",
-                              name: "${user?.name}",
+                              profileAvatar: instructors?.image ?? "",
+                              name: "${instructors?.name}",
                               time: formatDate(
                                 chats[index].createdAt ?? DateTime.now(),
                               ).substring(0, 10),
@@ -211,7 +214,7 @@ class _ChatsViewState extends State<ChatsView>
                     },
                     bloc: cubit,
                   ),
-                   Center(
+                  Center(
                     child: Text(
                       "قريبا",
                       style: TextStyle(

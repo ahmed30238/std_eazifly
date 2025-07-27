@@ -1855,6 +1855,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
         MapEntry("gender", data.gender),
         MapEntry("email", data.email),
         MapEntry("phone", data.phone),
+        MapEntry("parent_id", data.parentId),
         MapEntry("user_name", data.userName),
         MapEntry("first_name", data.firstName),
         MapEntry("last_name", data.lastName),
@@ -1884,9 +1885,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       log('UpdateProfile FormData files: ${formData.files.length}');
 
       var response = await NetworkCall().post(
-        path: EndPoints.updateProfile(
-          userId: userId,
-        ),
+        path: EndPoints.updateProfile(userId: userId),
         data: formData,
         isMultipart: true,
       );
