@@ -97,6 +97,7 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
             onPressed: () {
               cubit.postAssignment(
                 sessionAssignmentId: widget.assignmentId.toString(),
+                context: context,
               );
             },
           ).center(),

@@ -55,14 +55,14 @@ class _LectureReportViewState extends State<LectureReportView> {
             BlocBuilder<LectureCubit, LectureState>(
               builder: (context, state) {
                 if (cubit.getReportQuestionsLoader) {
-                  return  Center(
+                  return Center(
                     child: CircularProgressIndicator(
                       color: MainColors.blueTextColor,
                     ),
                   );
                 }
                 return Text(
-                  cubit.reportQuestionsEntity?.data?[0].program ?? "",
+                  cubit.reportQuestionsEntity?.data?.first.program ?? "",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
                   ),
@@ -74,7 +74,7 @@ class _LectureReportViewState extends State<LectureReportView> {
               bloc: cubit,
               builder: (context, state) {
                 if (cubit.getReportQuestionsLoader) {
-                  return  Expanded(
+                  return Expanded(
                     child: Center(
                       child: CircularProgressIndicator(
                         color: MainColors.blueTextColor,
@@ -152,7 +152,8 @@ class EssayReportQuestion extends StatelessWidget {
               int.tryParse(
                 question?.reportQuestionAnswerId ?? "",
               ),
-          // orElse: () => ReportQuestionOption(id: -1, title: "لا توجد إجابة"),
+          orElse: () =>
+              GetReportQuestionsOptionModel(), // أو يمكنك إنشاء object فارغ
         )
         .title;
     return Container(

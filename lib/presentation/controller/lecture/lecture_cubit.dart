@@ -38,6 +38,7 @@ import 'package:eazifly_student/presentation/view/lecture/widgets/exam_body.dart
 import 'package:eazifly_student/presentation/view/lecture/widgets/notes_body.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/report_body.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/schedules_body.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -144,7 +145,7 @@ class LectureCubit extends Cubit<LectureState> {
         break;
       // case 1: // الإحصائيات
       //   _loadStatisticsData();
-        // break;
+      // break;
       case 1: // الإمتحانات
         getUserQuizzes(programId: currentProgramId);
         break;
@@ -517,12 +518,6 @@ class LectureCubit extends Cubit<LectureState> {
   }
 
   int currentChildIndex = -1; // -1 يعني المستخدم الأب
-
-  void showParent() {
-    currentChildIndex = -1;
-    emit(ChildIndexChanged());
-  }
-
   void updateChildIndex(bool next, int totalChildren) {
     if (totalChildren == 0) return;
 
@@ -537,7 +532,6 @@ class LectureCubit extends Cubit<LectureState> {
             currentChildIndex > 0 ? currentChildIndex - 1 : -1; // نرجع للأب
       }
     }
-
     emit(ChildIndexChanged());
   }
 
@@ -867,6 +861,7 @@ class LectureCubit extends Cubit<LectureState> {
 
   Future<void> postAssignment({
     required String sessionAssignmentId,
+    required BuildContext context,
   }) async {
     try {
       postAssignmentLoader = true;
@@ -890,7 +885,14 @@ class LectureCubit extends Cubit<LectureState> {
         (success) {
           postAssignmentLoader = false;
           postAssignmentEntity = success;
-          emit(PostAssignmentSuccessState()); 
+          emit(PostAssignmentSuccessState());
+          Navigator.pushReplacementNamed(
+            context,
+            RoutePaths.lectureView,
+            arguments: {
+              "programId": currentProgramId,
+            },
+          );
         },
       );
     } catch (error) {

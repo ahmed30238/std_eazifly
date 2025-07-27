@@ -12,19 +12,13 @@ onMyProgramTap({
   required int noOfChildren,
   required int programId,
 }) {
-  // تحديد نوع المستخدم
   bool isParent = loginData.parentId == null;
-
-  // حالة المحاضرة
   String? sessionStatus = item.currentSession?.status;
 
-  // إذا كان هناك جلسة حالية
   if (sessionStatus != null) {
     if (sessionStatus == "started") {
-      // المحاضرة بدأت - انتقال لتفاصيل المحاضرة
       _navigateToLectureDetails(context, cubit, item);
     } else {
-      // المحاضرة لم تبدأ
       _handleNotStartedLecture(
         context: context,
         isParent: isParent,

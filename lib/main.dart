@@ -13,7 +13,6 @@ import 'package:requests_inspector/requests_inspector.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Logger logger = const Logger("Main Logger");
-
   await Future.wait<void>([
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp

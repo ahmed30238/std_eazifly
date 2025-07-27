@@ -89,9 +89,10 @@ class ChildrenModalSheet extends StatelessWidget {
                           "${child.firstName ?? ""} ${child.lastName ?? ""}";
                       return StudentDataItem(
                         onChildTap: () {
-                          context
-                              .read<LectureCubit>()
-                              .fillUserId(child.id ?? -1);
+                          var read = context.read<LectureCubit>();
+                          read.fillUserId(child.id ?? -1);
+                          read.updateChildIndex(false, children.length);
+                          back(context);
                           Future.delayed(
                             const Duration(milliseconds: 100),
                             () {
