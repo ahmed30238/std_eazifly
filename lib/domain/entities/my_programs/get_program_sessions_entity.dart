@@ -92,15 +92,18 @@ class UserEntity {
     this.userName,
   });
 }
+
 class GetProgramSessionsStatus {
-    @JsonKey(name: "label")
-    String? label;
-    @JsonKey(name: "color")
-    String? color;
+  @JsonKey(name: "label")
+  String? label;
+  @JsonKey(name: "color")
+  String? color;
+  @JsonKey(name: "key")
+  String? key;
 
-    GetProgramSessionsStatus({
-        this.label,
-        this.color,
-    });
-
+  GetProgramSessionsStatus({
+    this.label,
+    this.color,
+    this.key,
+  });
 }

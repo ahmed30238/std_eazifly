@@ -86,7 +86,7 @@ class ChooseDatesTypeBody extends StatelessWidget {
                     }
                   },
             child: cubit.getInstructorsLoader
-                ? CircularProgressIndicator.adaptive()
+                ? const CircularProgressIndicator.adaptive()
                 : null,
           ),
         ),

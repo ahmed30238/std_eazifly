@@ -11,6 +11,7 @@ class ScheduleItem extends StatelessWidget {
   final String to;
   final int sessionId;
   final String state;
+  final String statusLabel;
 
   const ScheduleItem({
     super.key,
@@ -20,6 +21,7 @@ class ScheduleItem extends StatelessWidget {
     required this.to,
     required this.sessionId,
     required this.state,
+    required this.statusLabel,
   });
 
   @override
@@ -28,7 +30,7 @@ class ScheduleItem extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
       height: 74.h,
       width: double.infinity,
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         color: MainColors.veryLightGrayFormField,
       ),
       child: SizedBox(
@@ -81,9 +83,9 @@ class ScheduleItem extends StatelessWidget {
               ),
             ),
             27.pw,
-            state == "danger"
+            state != "pending"
                 ? Text(
-                    "ملغية",
+                    statusLabel,
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
                       color: MainColors.red,

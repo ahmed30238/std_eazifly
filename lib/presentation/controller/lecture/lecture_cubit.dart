@@ -5,7 +5,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/core/enums/student_success_status.dart';
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/data/models/my_programs/post_assignment_tojson.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/complete_chapter_lesson_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/get_chapter_lessons_entity.dart';
@@ -40,10 +39,7 @@ import 'package:eazifly_student/presentation/view/lecture/widgets/report_body.da
 import 'package:eazifly_student/presentation/view/lecture/widgets/schedules_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
@@ -89,31 +85,31 @@ class LectureCubit extends Cubit<LectureState> {
   // حالات التحميل لكل tab
   Map<int, bool> tabLoadingStates = {
     0: false, // المواعيد
-    // 1: false, // الإحصائيات
-    1: false, // الإمتحانات
-    2: false, // التسليمات
-    3: false, // التقارير
-    4: false, // الملاحظات
+    1: false, // المواعيد المنتهية
+    2: false, // الإمتحانات
+    3: false, // التسليمات
+    4: false, // التقارير
+    5: false, // الملاحظات
   };
 
   // بيانات كل tab
   Map<int, dynamic> tabData = {
     0: null, // بيانات المواعيد
-    // 1: null, // بيانات الإحصائيات
-    1: null, // بيانات الإمتحانات
-    2: null, // بيانات التسليمات
-    3: null, // بيانات التقارير
-    4: null, // بيانات الملاحظات
+    1: null, // بيانات المواعيد المنتهية
+    2: null, // بيانات الإمتحانات
+    3: null, // بيانات التسليمات
+    4: null, // بيانات التقارير
+    5: null, // بيانات الملاحظات
   };
 
   // حالات الأخطاء لكل tab
   Map<int, String?> tabErrorStates = {
     0: null,
-    // 1: null,
     1: null,
     2: null,
     3: null,
     4: null,
+    5: null,
   };
 
   void initController(TickerProvider vsync, int programId) {
@@ -137,27 +133,30 @@ class LectureCubit extends Cubit<LectureState> {
 
     // استدعاء البيانات دائماً عند الضغط على التاب
     switch (tabIndex) {
-      case 0: // المواعيد
+      case 0: //القادمة المواعيد
         getProgramSessions(
           programId: currentProgramId,
           userId: userId,
         );
         break;
-      // case 1: // الإحصائيات
-      //   _loadStatisticsData();
-      // break;
-      case 1: // الإمتحانات
+      case 1: // المواعيد المنتهة
+        getProgramSessions(
+          programId: currentProgramId,
+          userId: userId,
+        );
+        break;
+      case 2: // الإمتحانات
         getUserQuizzes(programId: currentProgramId);
         break;
-      case 2: // التسليمات
+      case 3: // التسليمات
         getProgramAssignments(programId: currentProgramId, userId: userId);
         break;
-      case 3: // التقارير
+      case 4: // التقارير
         getUserReports(
           userId: userId,
         );
         break;
-      case 4: // الملاحظات
+      case 5: // الملاحظات
         getUserFeedbacks(userId: userId);
         break;
     }
@@ -197,6 +196,7 @@ class LectureCubit extends Cubit<LectureState> {
 
   List<Widget> get screens => [
         _buildSchedulesBody(),
+        _buildFinishedSchedulesBody(),
         // _buildStatsBody(),
         _buildExamBody(),
         _buildDeliveriesBody(),
@@ -219,12 +219,36 @@ class LectureCubit extends Cubit<LectureState> {
               ));
     }
 
-    if (tabData[0] == null ||
-        (getProgramSessionsEntity?.data?.isEmpty ?? true)) {
+    if (tabData[0] == null || (nextSessions.isEmpty)) {
       return _buildEmptyWidget("لا توجد مواعيد متاحة");
     }
 
-    return const SchedulesBody();
+    return const SchedulesBody(
+      isFinished: false,
+    );
+  }
+
+  Widget _buildFinishedSchedulesBody() {
+    if (tabLoadingStates[0] == true) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (tabErrorStates[0] != null) {
+      return _buildErrorWidget(
+          0,
+          () => getProgramSessions(
+                programId: currentProgramId,
+                userId: userId,
+              ));
+    }
+
+    if (tabData[0] == null || (finishedSession.isEmpty)) {
+      return _buildEmptyWidget("لا توجد مواعيد متاحة");
+    }
+
+    return const SchedulesBody(
+      isFinished: true,
+    );
   }
 
   // Widget _buildStatsBody() {
@@ -247,18 +271,18 @@ class LectureCubit extends Cubit<LectureState> {
   // }
 
   Widget _buildExamBody() {
-    if (tabLoadingStates[1] == true) {
+    if (tabLoadingStates[2] == true) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    if (tabErrorStates[1] != null) {
+    if (tabErrorStates[2] != null) {
       return _buildErrorWidget(
-        1,
+        2,
         () => getUserQuizzes(programId: currentProgramId),
       );
     }
 
-    if (tabData[1] == null || (getUserQuizzesEntity?.data?.isEmpty ?? true)) {
+    if (tabData[2] == null || (getUserQuizzesEntity?.data?.isEmpty ?? true)) {
       return _buildEmptyWidget("لا توجد امتحانات متاحة");
     }
 
@@ -266,20 +290,20 @@ class LectureCubit extends Cubit<LectureState> {
   }
 
   Widget _buildDeliveriesBody() {
-    if (tabLoadingStates[2] == true) {
+    if (tabLoadingStates[3] == true) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    if (tabErrorStates[2] != null) {
+    if (tabErrorStates[3] != null) {
       return _buildErrorWidget(
-          2,
+          3,
           () => getProgramAssignments(
                 programId: currentProgramId,
                 userId: userId,
               ));
     }
 
-    if (tabData[2] == null ||
+    if (tabData[3] == null ||
         (getProgramAssignmentsEntity?.data?.isEmpty ?? true)) {
       return _buildEmptyWidget("لا توجد تسليمات متاحة");
     }
@@ -288,26 +312,6 @@ class LectureCubit extends Cubit<LectureState> {
   }
 
   Widget _buildReportBody() {
-    if (tabLoadingStates[3] == true) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
-    if (tabErrorStates[3] != null) {
-      return _buildErrorWidget(
-          3,
-          () => getUserReports(
-                userId: userId,
-              ));
-    }
-
-    if (tabData[3] == null || (getUserReportsEntity?.data?.isEmpty ?? true)) {
-      return _buildEmptyWidget("لا توجد تقارير متاحة");
-    }
-
-    return const ReportBody();
-  }
-
-  Widget _buildNotesBody() {
     if (tabLoadingStates[4] == true) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -315,12 +319,32 @@ class LectureCubit extends Cubit<LectureState> {
     if (tabErrorStates[4] != null) {
       return _buildErrorWidget(
           4,
+          () => getUserReports(
+                userId: userId,
+              ));
+    }
+
+    if (tabData[4] == null || (getUserReportsEntity?.data?.isEmpty ?? true)) {
+      return _buildEmptyWidget("لا توجد تقارير متاحة");
+    }
+
+    return const ReportBody();
+  }
+
+  Widget _buildNotesBody() {
+    if (tabLoadingStates[5] == true) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (tabErrorStates[5] != null) {
+      return _buildErrorWidget(
+          5,
           () => getUserFeedbacks(
                 userId: userId,
               ));
     }
 
-    if (tabData[4] == null || (getUserFeedbacksEntity?.data?.isEmpty ?? true)) {
+    if (tabData[5] == null || (getUserFeedbacksEntity?.data?.isEmpty ?? true)) {
       return _buildEmptyWidget("لا توجد ملاحظات متاحة");
     }
 
@@ -357,8 +381,8 @@ class LectureCubit extends Cubit<LectureState> {
   }
 
   var tabs = [
-    "المواعيد",
-    // "الإحصائيات",
+    "المواعيد القادمة",
+    "المواعيد المنتهية",
     "الإمتحانات",
     "التسليمات",
     "التقارير",
@@ -408,10 +432,15 @@ class LectureCubit extends Cubit<LectureState> {
   GetProgramSessionsEntity? getProgramSessionsEntity;
   GetProgramSessionsUsecase getProgramSessionsUsecase;
 
+  List<ProgramSessionEntity> nextSessions = [];
+  List<ProgramSessionEntity> finishedSession = [];
+
   Future<void> getProgramSessions({
     required int programId,
     required int userId,
   }) async {
+    nextSessions = [];
+    finishedSession = [];
     tabLoadingStates[0] = true;
     tabErrorStates[0] = null;
     getProgramSessionsLoader = true;
@@ -437,6 +466,21 @@ class LectureCubit extends Cubit<LectureState> {
         getProgramSessionsLoader = false;
         getProgramSessionsEntity = data;
         tabData[0] = data;
+        nextSessions.addAll(
+          (data.data?.where(
+                    (element) => element.status?.key == "pending",
+                  ) ??
+                  [])
+              .toList(),
+        );
+        print("next ${nextSessions.length}");
+        finishedSession.addAll(
+          (data.data?.where(
+                    (element) => element.status?.key != "pending",
+                  ) ??
+                  [])
+              .toList(),
+        );
         emit(GetProgramSessionsSuccessState());
       },
     );
@@ -450,8 +494,8 @@ class LectureCubit extends Cubit<LectureState> {
     required int programId,
     required int userId,
   }) async {
-    tabLoadingStates[2] = true;
-    tabErrorStates[2] = null;
+    tabLoadingStates[3] = true;
+    tabErrorStates[3] = null;
     getProgramAssignmentsLoader = true;
     emit(GetProgramAssignmentsLoadingState());
 
@@ -464,17 +508,17 @@ class LectureCubit extends Cubit<LectureState> {
 
     result.fold(
       (failure) {
-        tabLoadingStates[2] = false;
-        tabErrorStates[2] = failure.message;
+        tabLoadingStates[3] = false;
+        tabErrorStates[3] = failure.message;
         getProgramAssignmentsLoader = false;
         emit(GetProgramAssignmentsErrorState(errorMessage: failure.message));
       },
       (data) {
-        tabLoadingStates[2] = false;
-        tabErrorStates[2] = null;
+        tabLoadingStates[3] = false;
+        tabErrorStates[3] = null;
         getProgramAssignmentsLoader = false;
         getProgramAssignmentsEntity = data;
-        tabData[2] = data;
+        tabData[3] = data;
         emit(GetProgramAssignmentsSuccessState());
       },
     );
@@ -487,8 +531,8 @@ class LectureCubit extends Cubit<LectureState> {
   Future<void> getUserReports({
     required int userId,
   }) async {
-    tabLoadingStates[3] = true;
-    tabErrorStates[3] = null;
+    tabLoadingStates[4] = true;
+    tabErrorStates[4] = null;
     getUserReportsLoader = true;
     emit(GetUserReportsLoadingState());
 
@@ -500,17 +544,17 @@ class LectureCubit extends Cubit<LectureState> {
 
     result.fold(
       (failure) {
-        tabLoadingStates[3] = false;
-        tabErrorStates[3] = failure.message;
+        tabLoadingStates[4] = false;
+        tabErrorStates[4] = failure.message;
         getUserReportsLoader = false;
         emit(GetUserReportsErrorState(errorMessage: failure.message));
       },
       (data) {
-        tabLoadingStates[3] = false;
-        tabErrorStates[3] = null;
+        tabLoadingStates[4] = false;
+        tabErrorStates[4] = null;
         getUserReportsLoader = false;
         getUserReportsEntity = data;
-        tabData[3] = data;
+        tabData[4] = data;
         emit(GetUserReportsSuccessState());
       },
     );
@@ -713,7 +757,7 @@ class LectureCubit extends Cubit<LectureState> {
     required int programId,
   }) async {
     getUserQuizzesLoader = true;
-    tabLoadingStates[1] = true;
+    tabLoadingStates[2] = true;
     emit(GetUserQuizzesLoadingState());
 
     final result = await getUserQuizzesUsecase.call(
@@ -726,15 +770,15 @@ class LectureCubit extends Cubit<LectureState> {
     result.fold(
       (failure) {
         getUserQuizzesLoader = false;
-        tabLoadingStates[1] = false;
-        tabErrorStates[1] = failure.message;
+        tabLoadingStates[2] = false;
+        tabErrorStates[2] = failure.message;
 
         emit(GetUserQuizzesErrorState(errorMessage: failure.message));
       },
       (data) {
-        tabLoadingStates[1] = false;
-        tabErrorStates[1] = null;
-        tabData[1] = data;
+        tabLoadingStates[2] = false;
+        tabErrorStates[2] = null;
+        tabData[2] = data;
         getUserQuizzesLoader = false;
         getUserQuizzesEntity = data;
         log("${getUserQuizzesEntity?.data?.length}");
@@ -747,7 +791,7 @@ class LectureCubit extends Cubit<LectureState> {
     required dynamic totalMark,
     required dynamic fullMark,
     String? quizStatus,
-    double passPercentage = 60.0, // النسبة المطلوبة للنجاح
+    double passPercentage = 50.0, // النسبة المطلوبة للنجاح
     double excellentPercentage = 85.0, // النسبة المطلوبة للامتياز
   }) {
     // إذا كان الامتحان في حالة انتظار أو لم يتم حله بعد

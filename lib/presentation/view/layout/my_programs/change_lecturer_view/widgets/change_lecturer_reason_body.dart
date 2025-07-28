@@ -43,11 +43,11 @@ class ChangeLecturerReasonBody extends StatelessWidget {
                   );
                 }
 
-                var children =
-                    programCubit.getAssignedChildrenToProgramEntity?.data;
+                var children = programCubit.students;
+                // programCubit.getAssignedChildrenToProgramEntity?.data;
 
                 // Handle empty state
-                if (children == null || children.isEmpty) {
+                if (children.isEmpty) {
                   return SizedBox(
                     height: 98.h,
                     child: const Center(
@@ -89,16 +89,20 @@ class ChangeLecturerReasonBody extends StatelessWidget {
             fontSize: 14,
           ),
         ),
-        if (cubit.selectedStudent != -1)
-          BlocBuilder(
-            bloc: cubit,
-            builder: (context, state) => Text(
-              "${programCubit.getAssignedChildrenToProgramEntity?.data?[cubit.selectedStudent].firstName} للطالب",
+        BlocBuilder(
+          bloc: cubit,
+          builder: (context, state) {
+            if (cubit.selectedStudent == -1) {
+              return const SizedBox.shrink();
+            }
+            return Text(
+              "${programCubit.students[cubit.selectedStudent].firstName} للطالب",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 14,
               ),
-            ),
-          ),
+            );
+          },
+        ),
         20.ph,
         Expanded(
           child: BlocBuilder(

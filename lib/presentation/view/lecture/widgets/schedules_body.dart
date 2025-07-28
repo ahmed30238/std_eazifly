@@ -4,32 +4,34 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 import 'package:intl/intl.dart';
 
 class SchedulesBody extends StatelessWidget {
-  const SchedulesBody({super.key});
+  final bool isFinished;
+  const SchedulesBody({super.key, required this.isFinished});
 
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<LectureCubit>();
-    var sessions = cubit.getProgramSessionsEntity?.data;
+    var sessions = isFinished ? cubit.finishedSession : cubit.nextSessions;
     return ListView.separated(
       padding: EdgeInsets.symmetric(vertical: 16.h),
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
-        var session = sessions?[index];
+        var session = sessions[index];
         final days = sessions
-            ?.map((session) => DateFormat('EEEE', 'ar')
+            .map((session) => DateFormat('EEEE', 'ar')
                 .format(session.sessionDate ?? DateTime.now()))
             .toList();
         return ScheduleItem(
-          date: session?.sessionDate?.toIso8601String().substring(0, 10) ?? "",
-          day: days?[index] ?? "",
-          state: session?.status?.color ?? "",
-          from: session?.sessionTime?.substring(0, 5) ?? "",
-          to: session?.sessionTimeTo?.substring(0, 5) ?? "",
-          sessionId: session?.id ?? -1,
+          date: session.sessionDate?.toIso8601String().substring(0, 10) ?? "",
+          day: days[index],
+          state: session.status?.key ?? "",
+          statusLabel: session.status?.label ?? "",
+          from: session.sessionTime?.substring(0, 5) ?? "",
+          to: session.sessionTimeTo?.substring(0, 5) ?? "",
+          sessionId: session.id ?? -1,
         );
       },
       separatorBuilder: (context, index) => 8.ph,
-      itemCount: sessions?.length ?? 0,
+      itemCount: sessions.length,
     );
   }
 }

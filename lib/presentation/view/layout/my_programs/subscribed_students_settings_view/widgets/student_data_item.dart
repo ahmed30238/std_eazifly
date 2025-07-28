@@ -1,5 +1,5 @@
 import 'package:eazifly_student/core/component/avatar_image.dart';
-import 'package:eazifly_student/data/models/my_programs/get_assigned_children_to_program_model.dart';
+import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:eazifly_student/presentation/controller/account_data/update_child_profile_controller/updatechildprofile_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/subscribed_students_settings_view/widgets/student_more_bottom_sheet.dart';
@@ -12,7 +12,7 @@ class StudentDataItem extends StatelessWidget {
     required this.programId,
   });
 
-  final GetAssignedChildrenToProgramDatumModel student;
+  final GetAssignedChildrenToProgramDatumEntity student;
   final int programId;
 
   @override
