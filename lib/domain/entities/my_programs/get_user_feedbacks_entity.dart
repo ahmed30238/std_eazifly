@@ -26,7 +26,7 @@ class UserFeedbackEntity {
   String? instructor;
 
   @JsonKey(name: "client")
-  dynamic client;
+  String? client;
 
   @JsonKey(name: "user")
   String? user;
@@ -39,6 +39,11 @@ class UserFeedbackEntity {
 
   @JsonKey(name: "is_read")
   bool? isRead;
+
+  @JsonKey(name: "maker")
+  String? maker;
+  @JsonKey(name: "image")
+  String? image;
 
   UserFeedbackEntity({
     this.id,

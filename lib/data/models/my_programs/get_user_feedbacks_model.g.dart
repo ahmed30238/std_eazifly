@@ -27,12 +27,14 @@ UserFeedbackModel _$UserFeedbackModelFromJson(Map<String, dynamic> json) =>
     UserFeedbackModel()
       ..id = (json['id'] as num?)?.toInt()
       ..instructor = json['instructor'] as String?
-      ..client = json['client']
+      ..client = json['client'] as String?
       ..user = json['user'] as String?
       ..feedback = json['feedback'] as String?
       ..date =
           json['date'] == null ? null : DateTime.parse(json['date'] as String)
-      ..isRead = json['is_read'] as bool?;
+      ..isRead = json['is_read'] as bool?
+      ..maker = json['maker'] as String?
+      ..image = json['image'] as String?;
 
 Map<String, dynamic> _$UserFeedbackModelToJson(UserFeedbackModel instance) =>
     <String, dynamic>{
@@ -43,4 +45,6 @@ Map<String, dynamic> _$UserFeedbackModelToJson(UserFeedbackModel instance) =>
       'feedback': instance.feedback,
       'date': instance.date?.toIso8601String(),
       'is_read': instance.isRead,
+      'maker': instance.maker,
+      'image': instance.image,
     };

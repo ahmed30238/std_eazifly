@@ -19,10 +19,10 @@ class NotesBodyWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         var feedback = feedbacks?[index];
         return NotesItem(
-          index: index,
+          image: feedback?.image??"",
           date: formatDateWithAmPm(feedback?.date.toString() ?? ""),
           feedback: feedback?.feedback ?? "",
-          instructorName: feedback?.instructor ?? "",
+          maker: feedback?.maker ?? "",
           onTap: () {
             isRead = !isRead;
           },

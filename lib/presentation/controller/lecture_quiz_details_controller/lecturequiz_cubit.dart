@@ -3,6 +3,7 @@ import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_quiz_que
 import 'package:eazifly_student/domain/entities/my_programs/quizzes/submit_quiz_entity.dart';
 import 'package:eazifly_student/domain/use_cases/get_quiz_qustions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/submit_quiz_usecase.dart';
+import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture_quiz_details_controller/lecturequiz_state.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -13,7 +14,7 @@ class LecturequizCubit extends Cubit<LecturequizState> {
   }) : super(LecturequizInitial());
   static LecturequizCubit get(context) => BlocProvider.of(context);
   List<int> trueFalseIndex = [];
-  void changeTrueFalse(int index,int qIndex) {
+  void changeTrueFalse(int index, int qIndex) {
     trueFalseIndex[qIndex] = index;
     emit(ChangeTrueFalseIndexState());
   }
@@ -67,38 +68,42 @@ class LecturequizCubit extends Cubit<LecturequizState> {
   Future<void> submitQuiz({
     required int quizId,
     required int qIndex,
+    required BuildContext context,
   }) async {
-    int questionOptionId = -1;
-
     List<QuizAnswer> quizAnswer = List.generate(
       getQuizQuestionsEntity?.data?.questions?.length ?? 0,
       (index) {
         var question = getQuizQuestionsEntity?.data?.questions?[index];
+        int? questionOptionId;
+        String? answer;
+
         switch (question?.type) {
           case "true_false":
-            questionOptionId = question?.options?[trueFalseIndex[qIndex]].id ?? -1;
+            questionOptionId = question?.options?[trueFalseIndex[index]].id;
             break;
           case "text":
+            answer = essayAnswerController?.text;
             break;
           case "multiple_choice":
             questionOptionId =
-                question?.options?[mulipleChoiceOptionIndex[qIndex]].id ?? -1;
-
+                question?.options?[mulipleChoiceOptionIndex[index]].id;
             break;
           default:
         }
 
         return QuizAnswer(
           questionId: question?.id ?? -1,
-          answer: essayAnswerController?.text, // في حالة ان السؤال مقالي
-          questionOptionId: questionOptionId,
+          answer: answer, // فقط للأسئلة المقالية
+          questionOptionId: questionOptionId, // فقط للأسئلة الاختيارية
         );
       },
     );
+
     SubmitQuizTojson data = SubmitQuizTojson(
       quizId: quizId,
       answers: quizAnswer,
     );
+
     submitQuizLoader = true;
     emit(SubmitQuizLoadingState());
 
@@ -118,6 +123,11 @@ class LecturequizCubit extends Cubit<LecturequizState> {
         submitQuizEntity = data;
         clearAfterSubmit();
         emit(SubmitQuizSuccessState());
+        delightfulToast(message: "تم رفع الاجابات بنجاح", context: context);
+        Navigator.pushReplacementNamed(context, RoutePaths.lectureView,
+            arguments: {
+              "programId": context.read<LectureCubit>().currentProgramId
+            });
       },
     );
   }

@@ -177,6 +177,7 @@ class NotCorrectedQuizBody extends StatelessWidget {
                                         cubit.submitQuiz(
                                           quizId: widget.quizId,
                                           qIndex: index,
+                                          context: context,
                                         );
                                       },
                                 radius: 16.r,

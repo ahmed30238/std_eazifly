@@ -1,7 +1,7 @@
 import 'package:eazifly_student/presentation/controller/lecture_quiz_details_controller/lecturequiz_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class AnswerFieldArea extends StatelessWidget {
+class AnswerFieldArea extends StatefulWidget {
   final String type;
   final List<String>? choicesText;
   final int optionsLength;
@@ -15,20 +15,48 @@ class AnswerFieldArea extends StatelessWidget {
     required this.qIndex,
   });
 
+  @override
+  State<AnswerFieldArea> createState() => _AnswerFieldAreaState();
+}
+
+class _AnswerFieldAreaState extends State<AnswerFieldArea> {
   static const Map<String, String> _normalizedTypes = {
     "مقالي": "text",
     "text": "text",
     "صح وخطأ": "true_false",
     "true_false": "true_false",
     "أختيار من متعدد": "multiple_choice",
-    "اختيار من متعدد": "multiple_choice", // بدون همزة
+    "اختيار من متعدد": "multiple_choice",
     "multiple_choice": "multiple_choice",
   };
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeAnswerArrays();
+    });
+  }
+
+  void _initializeAnswerArrays() {
+    LecturequizCubit cubit = LecturequizCubit.get(context);
+    
+    // تأكد من أن المصفوفات مُهيأة بالحجم الصحيح
+    while (cubit.trueFalseIndex.length <= widget.qIndex) {
+      cubit.trueFalseIndex.add(0);
+    }
+    
+    while (cubit.mulipleChoiceOptionIndex.length <= widget.qIndex) {
+      cubit.mulipleChoiceOptionIndex.add(0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     LecturequizCubit cubit = LecturequizCubit.get(context);
     final normalizedType =
-        _normalizedTypes[type.trim().toLowerCase()] ?? "unknown";
+        _normalizedTypes[widget.type.trim().toLowerCase()] ?? "unknown";
+        
     switch (normalizedType) {
       case "text":
         return Material(
@@ -47,6 +75,7 @@ class AnswerFieldArea extends StatelessWidget {
             ),
           ),
         );
+        
       case "true_false":
         return BlocBuilder(
           bloc: cubit,
@@ -59,12 +88,10 @@ class AnswerFieldArea extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    for (var i = 0; i < optionsLength; i++) {
-                      cubit.trueFalseIndex.add(0);
-                    }
-                    bool isSelected = index == cubit.trueFalseIndex[qIndex];
+                    bool isSelected = cubit.trueFalseIndex.length > widget.qIndex &&
+                        index == cubit.trueFalseIndex[widget.qIndex];
                     return InkWell(
-                      onTap: () => cubit.changeTrueFalse(index, qIndex),
+                      onTap: () => cubit.changeTrueFalse(index, widget.qIndex),
                       child: Container(
                         width: 165.w,
                         height: 44.h,
@@ -110,6 +137,7 @@ class AnswerFieldArea extends StatelessWidget {
             ],
           ),
         );
+        
       case "multiple_choice":
         return BlocBuilder(
           bloc: cubit,
@@ -121,13 +149,10 @@ class AnswerFieldArea extends StatelessWidget {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    for (var i = 0; i < optionsLength; i++) {
-                      cubit.mulipleChoiceOptionIndex.add(0);
-                    }
-                    bool isSelected =
-                        index == cubit.mulipleChoiceOptionIndex[qIndex];
+                    bool isSelected = cubit.mulipleChoiceOptionIndex.length > widget.qIndex &&
+                        index == cubit.mulipleChoiceOptionIndex[widget.qIndex];
                     return InkWell(
-                      onTap: () => cubit.changeMulipleChoice(index, qIndex),
+                      onTap: () => cubit.changeMulipleChoice(index, widget.qIndex),
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.w),
                         width: 76.75.w,
@@ -145,7 +170,7 @@ class AnswerFieldArea extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          choicesText?[index] ?? "",
+                          widget.choicesText?[index] ?? "",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: isSelected
@@ -157,7 +182,7 @@ class AnswerFieldArea extends StatelessWidget {
                     );
                   },
                   separatorBuilder: (context, index) => 12.pw,
-                  itemCount: optionsLength,
+                  itemCount: widget.optionsLength,
                 ),
               ),
               12.ph,
@@ -174,6 +199,7 @@ class AnswerFieldArea extends StatelessWidget {
             ],
           ),
         );
+        
       default:
         return TextedContainer(
           width: 117.w,

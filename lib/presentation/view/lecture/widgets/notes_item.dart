@@ -1,5 +1,4 @@
 import 'package:eazifly_student/core/component/avatar_image.dart';
-import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -7,19 +6,19 @@ class NotesItem extends StatelessWidget {
   final int? id;
   final bool? isRead;
   final VoidCallback onTap;
-  final String instructorName;
+  final String maker;
   final String feedback;
   final String date;
   // final GetUserFeedbackEntities model;
-  final int index;
+  final String image;
   const NotesItem({
     super.key,
     this.isRead = false,
     required this.onTap,
     this.id,
-    required this.index,
+    required this.image,
     required this.date,
-    required this.instructorName,
+    required this.maker,
     required this.feedback,
     // required this.model,
   });
@@ -61,13 +60,13 @@ class NotesItem extends StatelessWidget {
                     children: [
                       AvatarImage(
                         shape: BoxShape.circle,
-                        imageUrl: loginData?.image,
+                        imageUrl: image,
                         height: 20.h,
                         width: 20.w,
                       ),
                       4.pw,
                       Text(
-                        "أ/$instructorName",
+                        "أ/$maker",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
                           color: MainColors.grayTextColors,

@@ -89,31 +89,31 @@ class LectureCubit extends Cubit<LectureState> {
   // حالات التحميل لكل tab
   Map<int, bool> tabLoadingStates = {
     0: false, // المواعيد
-    1: false, // الإحصائيات
-    2: false, // الإمتحانات
-    3: false, // التسليمات
-    4: false, // التقارير
-    5: false, // الملاحظات
+    // 1: false, // الإحصائيات
+    1: false, // الإمتحانات
+    2: false, // التسليمات
+    3: false, // التقارير
+    4: false, // الملاحظات
   };
 
   // بيانات كل tab
   Map<int, dynamic> tabData = {
     0: null, // بيانات المواعيد
-    1: null, // بيانات الإحصائيات
-    2: null, // بيانات الإمتحانات
-    3: null, // بيانات التسليمات
-    4: null, // بيانات التقارير
-    5: null, // بيانات الملاحظات
+    // 1: null, // بيانات الإحصائيات
+    1: null, // بيانات الإمتحانات
+    2: null, // بيانات التسليمات
+    3: null, // بيانات التقارير
+    4: null, // بيانات الملاحظات
   };
 
   // حالات الأخطاء لكل tab
   Map<int, String?> tabErrorStates = {
     0: null,
+    // 1: null,
     1: null,
     2: null,
     3: null,
     4: null,
-    5: null,
   };
 
   void initController(TickerProvider vsync, int programId) {
@@ -253,10 +253,9 @@ class LectureCubit extends Cubit<LectureState> {
 
     if (tabErrorStates[1] != null) {
       return _buildErrorWidget(
-          2,
-          () => getUserQuizzes(
-                programId: currentProgramId,
-              ));
+        1,
+        () => getUserQuizzes(programId: currentProgramId),
+      );
     }
 
     if (tabData[1] == null || (getUserQuizzesEntity?.data?.isEmpty ?? true)) {
@@ -451,8 +450,8 @@ class LectureCubit extends Cubit<LectureState> {
     required int programId,
     required int userId,
   }) async {
-    tabLoadingStates[3] = true;
-    tabErrorStates[3] = null;
+    tabLoadingStates[2] = true;
+    tabErrorStates[2] = null;
     getProgramAssignmentsLoader = true;
     emit(GetProgramAssignmentsLoadingState());
 
@@ -465,17 +464,17 @@ class LectureCubit extends Cubit<LectureState> {
 
     result.fold(
       (failure) {
-        tabLoadingStates[3] = false;
-        tabErrorStates[3] = failure.message;
+        tabLoadingStates[2] = false;
+        tabErrorStates[2] = failure.message;
         getProgramAssignmentsLoader = false;
         emit(GetProgramAssignmentsErrorState(errorMessage: failure.message));
       },
       (data) {
-        tabLoadingStates[3] = false;
-        tabErrorStates[3] = null;
+        tabLoadingStates[2] = false;
+        tabErrorStates[2] = null;
         getProgramAssignmentsLoader = false;
         getProgramAssignmentsEntity = data;
-        tabData[3] = data;
+        tabData[2] = data;
         emit(GetProgramAssignmentsSuccessState());
       },
     );
@@ -488,8 +487,8 @@ class LectureCubit extends Cubit<LectureState> {
   Future<void> getUserReports({
     required int userId,
   }) async {
-    tabLoadingStates[4] = true;
-    tabErrorStates[4] = null;
+    tabLoadingStates[3] = true;
+    tabErrorStates[3] = null;
     getUserReportsLoader = true;
     emit(GetUserReportsLoadingState());
 
@@ -501,17 +500,17 @@ class LectureCubit extends Cubit<LectureState> {
 
     result.fold(
       (failure) {
-        tabLoadingStates[4] = false;
-        tabErrorStates[4] = failure.message;
+        tabLoadingStates[3] = false;
+        tabErrorStates[3] = failure.message;
         getUserReportsLoader = false;
         emit(GetUserReportsErrorState(errorMessage: failure.message));
       },
       (data) {
-        tabLoadingStates[4] = false;
-        tabErrorStates[4] = null;
+        tabLoadingStates[3] = false;
+        tabErrorStates[3] = null;
         getUserReportsLoader = false;
         getUserReportsEntity = data;
-        tabData[4] = data;
+        tabData[3] = data;
         emit(GetUserReportsSuccessState());
       },
     );
@@ -542,8 +541,8 @@ class LectureCubit extends Cubit<LectureState> {
   Future<void> getUserFeedbacks({
     required int userId,
   }) async {
-    tabLoadingStates[5] = true;
-    tabErrorStates[5] = null;
+    tabLoadingStates[4] = true;
+    tabErrorStates[4] = null;
     getUserFeedbacksLoader = true;
     emit(GetUserFeedbacksLoadingState());
 
@@ -555,17 +554,17 @@ class LectureCubit extends Cubit<LectureState> {
 
     result.fold(
       (failure) {
-        tabLoadingStates[5] = false;
-        tabErrorStates[5] = failure.message;
+        tabLoadingStates[4] = false;
+        tabErrorStates[4] = failure.message;
         getUserFeedbacksLoader = false;
         emit(GetUserFeedbacksErrorState(errorMessage: failure.message));
       },
       (data) {
-        tabLoadingStates[5] = false;
-        tabErrorStates[5] = null;
+        tabLoadingStates[4] = false;
+        tabErrorStates[4] = null;
         getUserFeedbacksLoader = false;
         getUserFeedbacksEntity = data;
-        tabData[5] = data;
+        tabData[4] = data;
         emit(GetUserFeedbacksSuccessState());
       },
     );
@@ -714,7 +713,7 @@ class LectureCubit extends Cubit<LectureState> {
     required int programId,
   }) async {
     getUserQuizzesLoader = true;
-    tabLoadingStates[2] = true;
+    tabLoadingStates[1] = true;
     emit(GetUserQuizzesLoadingState());
 
     final result = await getUserQuizzesUsecase.call(
@@ -727,15 +726,15 @@ class LectureCubit extends Cubit<LectureState> {
     result.fold(
       (failure) {
         getUserQuizzesLoader = false;
-        tabLoadingStates[2] = false;
-        tabErrorStates[2] = failure.message;
+        tabLoadingStates[1] = false;
+        tabErrorStates[1] = failure.message;
 
         emit(GetUserQuizzesErrorState(errorMessage: failure.message));
       },
       (data) {
-        tabLoadingStates[2] = false;
-        tabErrorStates[2] = null;
-        tabData[2] = data;
+        tabLoadingStates[1] = false;
+        tabErrorStates[1] = null;
+        tabData[1] = data;
         getUserQuizzesLoader = false;
         getUserQuizzesEntity = data;
         log("${getUserQuizzesEntity?.data?.length}");
