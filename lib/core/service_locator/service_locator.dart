@@ -12,6 +12,7 @@ import 'package:eazifly_student/domain/use_cases/change_session_status_usecase.d
 import 'package:eazifly_student/domain/use_cases/check_chat_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/complete_chapter_lesson_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/copoun_history_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_meeting_assignment_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_new_child_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_order_usecase.dart';
@@ -130,6 +131,7 @@ class ServiceLocator {
     sl.registerLazySingleton(
         () => GetListItemsUsingListIdUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => LikeItemUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => CopounHistoryUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetChildrenUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => CreateNewChildUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
@@ -246,7 +248,7 @@ class ServiceLocator {
         getHomeQuizzesUsecase: sl(),
         updateFcmTokenUsecase: sl(),
         checkChatUsecase: sl(),
-        requestToFindInstructorUsecase: sl(),
+        // requestToFindInstructorUsecase: sl(),
         joinSessionUsecase: sl(),
       ),
     );

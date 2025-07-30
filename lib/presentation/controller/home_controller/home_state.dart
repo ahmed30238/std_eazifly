@@ -86,16 +86,6 @@ class CheckChatErrorState extends HomeState {
 
 class CheckChatLoadingState extends HomeState {}
 
-class FindInstructorSuccessState extends HomeState {}
-
-class FindInstructorErrorState extends HomeState {
-  final String errorMessage;
-
-  FindInstructorErrorState({required this.errorMessage});
-}
-
-class FindInstructorLoadingState extends HomeState {}
-
 class JoinSessionSuccessState extends HomeState {}
 
 class JoinSessionLoadingState extends HomeState {}

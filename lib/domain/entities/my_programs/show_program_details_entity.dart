@@ -51,6 +51,8 @@ class ShowProgramDataEntity {
   String? planPage;
   @JsonKey(name: "next_session")
   NextSessionModel? nextSession;
+  @JsonKey(name: "current_instructor_id")
+  int? currentInstructorId;
   @JsonKey(name: "host")
   String? host;
   @JsonKey(name: "goals_percentage")
@@ -76,6 +78,7 @@ class ShowProgramDataEntity {
     this.advantages,
     this.planPage,
     this.nextSession,
+    this.currentInstructorId,
     this.host,
     this.goalsPercentage,
     this.contentId,

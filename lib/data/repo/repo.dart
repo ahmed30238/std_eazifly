@@ -77,6 +77,7 @@ import 'package:eazifly_student/data/models/subscription_management/renew_subscr
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/upgrade_order_model.dart';
+import 'package:eazifly_student/data/models/user/copoun_history_model.dart';
 import 'package:eazifly_student/data/models/user/delete_account_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
@@ -901,10 +902,15 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, ChangeInstructorModel>> changeInstructor(
-      {required ChangeInstructorTojson data}) async {
+  Future<Either<Failure, ChangeInstructorModel>> changeInstructor({
+    required ChangeInstructorTojson data,
+    bool isNewDates = false,
+  }) async {
     try {
-      final result = await baseRemoteDataSource.changeInstructor(data: data);
+      final result = await baseRemoteDataSource.changeInstructor(
+        data: data,
+        isNewDates: isNewDates,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -1125,6 +1131,16 @@ class Repository extends BaseRepository {
   Future<Either<Failure, RequestToFindInstructorModel>> findInstructor(
       {required RequestToFindInstructorTojson data}) async {
     final result = await baseRemoteDataSource.findInstructor(data: data);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CopounHistoryModel>> copounHistory() async {
+    final result = await baseRemoteDataSource.copounHistory();
     try {
       return Right(result);
     } on ServerException catch (e) {

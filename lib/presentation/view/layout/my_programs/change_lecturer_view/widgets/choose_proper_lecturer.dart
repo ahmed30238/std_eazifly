@@ -62,7 +62,7 @@ class ChooseProperLecturerBody extends StatelessWidget {
                 // cubit.getInstructorsEntity == null
                 ) {
               return SizedBox(
-                height: 48.h,
+                height: 130.h,
                 child: buildShimmerLoader(),
               );
             }
@@ -70,7 +70,7 @@ class ChooseProperLecturerBody extends StatelessWidget {
             // Handle error state (optional)
             if (state is GetInstructorsErrorState) {
               return SizedBox(
-                height: 48.h,
+                height: 130.h,
                 child: const Center(
                   child: Text(
                     'Error loading instructors',
@@ -85,8 +85,11 @@ class ChooseProperLecturerBody extends StatelessWidget {
 
             // Handle empty data
             if (instructors == null || instructors.isEmpty) {
+              if (cubit.requestTofindInstructorLoader) {
+                return const CircularProgressIndicator.adaptive();
+              }
               return SizedBox(
-                height: 48.h,
+                height: 130.h,
                 child: Center(
                   child: CustomRichText(
                     text1Style: MainTextStyle.boldTextStyle(
@@ -101,7 +104,9 @@ class ChooseProperLecturerBody extends StatelessWidget {
                       fontSize: 14,
                       color: MainColors.blueTextColor,
                     ),
-                    onText2Tap: () {},
+                    onText2Tap: () {
+                      cubit.findInstructor(context: context);
+                    },
                   ),
                   // Text(
 
@@ -109,15 +114,40 @@ class ChooseProperLecturerBody extends StatelessWidget {
                 ),
               );
             }
+            if (instructors.length == 1) {
+              var instructor = instructors.first;
+              return SuggestedTeachersItem(
+                specializations: instructor.specializations
+                        ?.map(
+                          (e) => e.name ?? "",
+                        )
+                        .toList() ??
+                    [],
+                onTap: () {
+                  cubit.changeLecturerIndex(0);
+                },
+                isSelected: true,
+                image: instructor.image ?? "",
+                instructorName: instructor.nameAr ?? "",
+                blured: false,
+              );
+            }
 
             return SizedBox(
-              height: 48.h,
+              height: 130.h,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   bool isSelected = cubit.selectedLecturerIndex == index;
                   var instructor = instructors[index];
+
                   return SuggestedTeachersItem(
+                    specializations: instructor.specializations
+                            ?.map(
+                              (e) => e.name ?? "",
+                            )
+                            .toList() ??
+                        [],
                     onTap: () {
                       cubit.changeLecturerIndex(index);
                     },

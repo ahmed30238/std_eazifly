@@ -9,6 +9,7 @@ class EndPoints {
   static const getUserOrders = "orders";
   static const storeFavouriteList = "store/favorite/list";
   static const addNote = "order/add/note";
+  static const copounHistory = "coupon/history";
   static const getRemainingProgramSessions = "program/sessions/date";
   static const removeAssignedStudent = "remove/user/from/program";
   static const logout = "logout";
@@ -32,6 +33,8 @@ class EndPoints {
           {required int userId, required int programId}) =>
       "subscription/data?program_id=$programId&user_id=$userId";
   static const changeInstructor = "change/instructor";
+  static const changeInstructorWithNewDates =
+      "change/instructor/with/new/dates";
   static String getOrderDetails({required int orderId}) =>
       "order/details/$orderId";
   static String getHomeQuizzes({required int userId}) =>

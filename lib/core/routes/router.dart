@@ -8,6 +8,7 @@ import 'package:eazifly_student/presentation/controller/cancel_session_controlle
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/children_controller/children_cubit.dart';
+import 'package:eazifly_student/presentation/controller/copoun_history/copounhistory_cubit.dart';
 import 'package:eazifly_student/presentation/controller/goal_details_controller/goal_details_cubit.dart';
 import 'package:eazifly_student/presentation/controller/group_program_management_controller/grouppackagemanagement_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_program_details_controller/programdetails_cubit.dart';
@@ -170,7 +171,12 @@ class AppRouter {
         );
       case RoutePaths.copounsAndDiscountsViewPath:
         return createRoute(
-          const CopounsAndDiscountsView(),
+          BlocProvider(
+            create: (context) => CopounHistoryCubit(
+              copounHistoryUsecase: sl(),
+            ),
+            child: const CopounsAndDiscountsView(),
+          ),
         );
       case RoutePaths.reportsAndComplaintsViewPath:
         return createRoute(
@@ -373,6 +379,7 @@ class AppRouter {
                   getRemainingProgramSessionsUsecase: sl(),
                   getUserSubscriptionDataUsecase: sl(),
                   getInstructorsUsecase: sl(),
+                  requestToFindInstructorUsecase: sl(),
                 ),
               ),
               BlocProvider(

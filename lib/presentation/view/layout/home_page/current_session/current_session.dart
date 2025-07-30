@@ -202,16 +202,37 @@ class _CurrentSessionState extends State<CurrentSession> {
                                             color: MainColors.blackText,
                                           ),
                                         )
-                                      : Text(
-                                          "Zoom Link",
-                                          style: GoogleFonts.inter(
-                                              color: MainColors.blueTextColor,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              decorationColor:
-                                                  MainColors.blueTextColor,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600),
+                                      : GestureDetector(
+                                          onTap: () {
+                                            if (item?.status?.key ==
+                                                "started") {
+                                              cubit
+                                                  .joinSession(
+                                                      sessionId: item?.id ?? 0)
+                                                  .then(
+                                                (value) {
+                                                  openUrl(
+                                                      item?.meetingUrl ?? "");
+                                                },
+                                              );
+                                            } else {
+                                              delightfulToast(
+                                                  message:
+                                                      "لم يحن موعد المحاضرة بعد",
+                                                  context: context);
+                                            }
+                                          },
+                                          child: Text(
+                                            "Zoom Link",
+                                            style: GoogleFonts.inter(
+                                                color: MainColors.blueTextColor,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                decorationColor:
+                                                    MainColors.blueTextColor,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                         ),
                             ],
                           ),
@@ -274,6 +295,10 @@ class _CurrentSessionState extends State<CurrentSession> {
                               openUrl(item?.meetingUrl ?? "");
                             },
                           );
+                        } else {
+                          delightfulToast(
+                              message: "لم يحن موعد المحاضرة بعد",
+                              context: context);
                         }
                       },
                     ),

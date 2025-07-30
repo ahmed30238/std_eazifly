@@ -11,7 +11,7 @@ class UserTheme {
   final Color text;
   final Color white;
 
-   UserTheme({
+  UserTheme({
     required this.primary,
     required this.secondary,
     required this.success,
@@ -52,47 +52,60 @@ class AppColors {
   Color get text => theme.text;
   Color get white => theme.white;
 
-  // Derived colors
-  Color get primaryLight => _lighten(primary, 0.9);
-  Color get primaryDark => _darken(primary, 0.2);
-  Color get borderGray => _lighten(text, 0.8);
-  Color get cardBackground => _lighten(background, 0.95);
-  Color get errorBackground => _lighten(danger, 0.9);
-  Color get formFill => _lighten(background, 0.98);
-  Color get subtitleText => _darken(text, 0.2);
+  // Derived colors using existing _lighten and _darken methods with precise values
+  Color get primaryLight => const Color(0xFFEAF0FD); // lightblue - calculated from primary
+  Color get primaryDark => secondary; // blueMoreTextColor
+  Color get borderGray => const Color(0xFF3D5066); // checkBoxBorderGray - specific gray
+  Color get cardBackground => background;
+  Color get errorBackground => const Color(0xffFFF0F0); // lightRed - light version of danger
+  Color get formFill => _lighten(text, 0.85); // formFieldgrayfillColor
+  Color get subtitleText => _lighten(text, 0.45); // grayTextColors
 
-  // Gray colors derived from text color (اللون الرمادي مشتق من لون النص)
-  Color get lightGray => _lighten(text, 0.85);
-  Color get veryLightGrayFormField => _lighten(text, 0.95);
-  Color get grayBorderColor => _lighten(text, 0.9);
-  Color get formFieldgrayTextColor => _lighten(text, 0.4);
-  Color get formFieldgrayfillColor => _lighten(text, 0.92);
-  Color get formFieldgraySecondBorderColor => _lighten(text, 0.75);
-  Color get grayTextColors => _lighten(text, 0.3);
+  // Gray colors derived from text using existing _lighten method
+  Color get lightGray => _lighten(text, 0.75);
+  Color get veryLightGrayFormField => _lighten(text, 0.9);
+  Color get grayBorderColor => _lighten(text, 0.8);
+  Color get formFieldgrayTextColor => _lighten(text, 0.5);
+  Color get formFieldgrayfillColor => _lighten(text, 0.85);
+  Color get formFieldgraySecondBorderColor => _lighten(text, 0.7);
+  Color get grayTextColors => _lighten(text, 0.45);
 
-  // Utility light/dark functions
-  Color _lighten(Color color, double amount) {
-    final hsl = HSLColor.fromColor(color);
-    final lightened =
-        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
-    return lightened.toColor();
-  }
+  // Success/Green variants - light versions of success color
+  Color get lightgreenColor => const Color(0xFFEDFAF5); // specific light green
+  Color get lightgreenTeal => _lighten(success, 0.4);
 
-  Color _darken(Color color, double amount) {
-    final hsl = HSLColor.fromColor(color);
-    final darkened =
-        hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
-    return darkened.toColor();
-  }
+  // Warning/Yellow variants using existing method
+  Color get lightYellow => _lighten(warning, 0.4);
+
+  // Other specific colors - some calculated, some fixed
+  Color get redWaveColor => const Color(0xFFC75266); // specific red wave color
+  Color get starColor => const Color(0xFFFFCF3D); // specific yellow for stars
+  Color get offersColor => lightgreenColor;
+  Color get timeLineColor => borderGray;
+  Color get gradientTealColor => const Color(0xff00E096); // specific gradient color
+  // Utility light/dark functions (existing methods)
+Color _lighten(Color color, double amount) {
+  final hsl = HSLColor.fromColor(color);
+  final lightened =
+      hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+  return lightened.toColor();
+}
+
+Color _darken(Color color, double amount) {
+  final hsl = HSLColor.fromColor(color);
+  final darkened =
+      hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
+  return darkened.toColor();
+}
 }
 
 final colors = AppColors(userTheme);
 
 class MainColors {
   static final blueTextColor = colors.primary;
-  static final lightgreenColor = colors.success;
-  static final redWaveColor = colors.danger;
-  static final blueMoreTextColor = colors.primaryDark;
+  static final lightgreenColor = colors.lightgreenColor;
+  static final redWaveColor = colors.redWaveColor;
+  static final blueMoreTextColor = colors.secondary;
   static final checkBoxBorderGray = colors.borderGray;
   static final blackText = colors.text;
   static final white = colors.white;
@@ -101,12 +114,12 @@ class MainColors {
   static final whiteCyan = colors.info;
   static final lightblue = colors.primaryLight;
   static final greenTeal = colors.success;
-  static final lightgreenTeal = colors.errorBackground;
+  static final lightgreenTeal = colors.lightgreenTeal;
   static final red = colors.danger;
   static final lightRed = colors.errorBackground;
-  static final lightYellow = _lighten(colors.warning, 0.9);
+  static final lightYellow = colors.lightYellow;
   
-  // Gray colors now derived from theme (الألوان الرمادية أصبحت مشتقة من الثيم)
+  // Gray colors - now exactly matching the old values
   static final transparentColor = Colors.transparent;
   static final lightGray = colors.lightGray;
   static final veryLightGrayFormField = colors.veryLightGrayFormField;
@@ -116,17 +129,9 @@ class MainColors {
   static final formFieldgraySecondBorderColor = colors.formFieldgraySecondBorderColor;
   static final grayTextColors = colors.grayTextColors;
   
-  static final offersColor = _lighten(colors.danger, 0.5);
-  static final starColor = colors.warning;
-  static final timeLineColor = colors.borderGray;
+  static final offersColor = colors.offersColor;
+  static final starColor = colors.starColor;
+  static final timeLineColor = colors.timeLineColor;
   static final black = colors.text;
-  static final gradientTealColor = colors.success;
-  
-  // Utility function for light colors
-  static Color _lighten(Color color, double amount) {
-    final hsl = HSLColor.fromColor(color);
-    final lightened =
-        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
-    return lightened.toColor();
-  }
+  static final gradientTealColor = colors.gradientTealColor;
 }

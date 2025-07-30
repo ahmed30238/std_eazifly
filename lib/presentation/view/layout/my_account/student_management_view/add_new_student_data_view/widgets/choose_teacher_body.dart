@@ -95,7 +95,8 @@ class ChooseTeacherBody extends StatelessWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => SuggestedTeachersItem(
-                onTap: (){},
+                specializations: [],
+                onTap: () {},
                 image: "",
                 instructorName: "name",
                 isSelected: index == 0,
@@ -151,6 +152,7 @@ class SuggestedTeachersItem extends StatelessWidget {
   final String instructorName;
   final bool isSelected;
   final VoidCallback onTap;
+  final List<String> specializations;
 
   final bool blured;
   const SuggestedTeachersItem({
@@ -160,6 +162,7 @@ class SuggestedTeachersItem extends StatelessWidget {
     required this.instructorName,
     required this.isSelected,
     required this.onTap,
+    required this.specializations,
   });
 
   @override
@@ -198,31 +201,32 @@ class SuggestedTeachersItem extends StatelessWidget {
                 ),
               ),
               12.ph,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomLowSizeButton(
-                    btnColor: MainColors.white,
-                    width: 62.w,
-                    text: "قران",
-                    onTap: () {},
+              if (specializations.length > 1) ...{
+                SizedBox(
+                  height: 30.h,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 2.h),
+                    itemBuilder: (context, index) {
+                      return CustomLowSizeButton(
+                        btnColor: MainColors.white,
+                        // width: 69.w,
+                        text: specializations[index],
+                        onTap: () {},
+                      );
+                    },
+                    separatorBuilder: (context, index) => 8.pw,
+                    itemCount: specializations.length,
                   ),
-                  8.pw,
-                  CustomLowSizeButton(
-                    btnColor: MainColors.white,
-                    width: 69.w,
-                    text: "تجويد",
-                    onTap: () {},
-                  ),
-                  8.pw,
-                  CustomLowSizeButton(
-                    btnColor: MainColors.white,
-                    width: 64.w,
-                    text: "حفظ",
-                    onTap: () {},
-                  ),
-                ],
-              )
+                ),
+              } else ...{
+                CustomLowSizeButton(
+                  btnColor: MainColors.white,
+                  text: specializations.first,
+                  onTap: () {},
+                ),
+              }
             ],
           ),
         ),

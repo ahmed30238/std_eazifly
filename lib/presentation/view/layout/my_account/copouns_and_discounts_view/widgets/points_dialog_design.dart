@@ -2,8 +2,10 @@ import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class PointsDialogDesign extends StatelessWidget {
+  final String points;
   const PointsDialogDesign({
     super.key,
+    required this.points,
   });
 
   @override
@@ -26,7 +28,7 @@ class PointsDialogDesign extends StatelessWidget {
               SvgPicture.asset(Assets.iconsCelebrate),
               8.pw,
               Text(
-                "لديك 120 نقطة",
+                "لديك $points نقطة",
                 style: MainTextStyle.boldTextStyle(fontSize: 16),
               ),
               8.pw,

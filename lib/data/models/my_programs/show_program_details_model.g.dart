@@ -45,6 +45,7 @@ ShowProgramDataModel _$ShowProgramDataModelFromJson(
           ? null
           : NextSessionModel.fromJson(
               json['next_session'] as Map<String, dynamic>)
+      ..currentInstructorId = (json['current_instructor_id'] as num?)?.toInt()
       ..host = json['host'] as String?
       ..goalsPercentage = (json['goals_percentage'] as num?)?.toInt()
       ..contentId = json['content_id'] as String?
@@ -71,6 +72,7 @@ Map<String, dynamic> _$ShowProgramDataModelToJson(
       'advantages': instance.advantages,
       'plan_page': instance.planPage,
       'next_session': instance.nextSession?.toJson(),
+      'current_instructor_id': instance.currentInstructorId,
       'host': instance.host,
       'goals_percentage': instance.goalsPercentage,
       'content_id': instance.contentId,

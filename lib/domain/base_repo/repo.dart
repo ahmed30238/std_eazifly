@@ -105,6 +105,7 @@ import 'package:eazifly_student/domain/entities/subscription_management/renew_su
 import 'package:eazifly_student/domain/entities/subscription_management/show_plan_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/upgrade_order_entity.dart';
 import 'package:eazifly_student/domain/entities/update_fcm_token_entity.dart';
+import 'package:eazifly_student/domain/entities/user/copoun_history_entity.dart';
 import 'package:eazifly_student/domain/entities/user/delete_account_entity.dart';
 import 'package:eazifly_student/domain/entities/user/update_profile_entity.dart';
 
@@ -284,6 +285,7 @@ abstract class BaseRepository {
   });
   Future<Either<Failure, ChangeInstructorEntity>> changeInstructor({
     required ChangeInstructorTojson data,
+    required bool isNewDates,
   });
   Future<Either<Failure, GetUserSubscriptionDataEntity>>
       getUserSubscriptionData({
@@ -328,4 +330,5 @@ abstract class BaseRepository {
       {required CheckChatTojson data});
   Future<Either<Failure, RequestToFindInstructorEntity>> findInstructor(
       {required RequestToFindInstructorTojson data});
+  Future<Either<Failure, CopounHistoryEntity>> copounHistory();
 }

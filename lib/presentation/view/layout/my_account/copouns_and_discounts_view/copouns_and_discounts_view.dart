@@ -1,23 +1,27 @@
 import 'package:eazifly_student/core/component/avatar_image.dart';
-import 'package:eazifly_student/core/component/custom_appbar.dart';
-import 'package:eazifly_student/core/component/texted_container.dart';
-import 'package:eazifly_student/core/extensions/context.dart';
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
-import 'package:eazifly_student/core/images/my_images.dart';
-import 'package:eazifly_student/core/routes/paths.dart';
-import 'package:eazifly_student/core/theme/colors/main_colors.dart';
-import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
+import 'package:eazifly_student/presentation/controller/copoun_history/copounhistory_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/widgets/code_details.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/widgets/point_balance_container.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/copouns_and_discounts_view/widgets/points_dialog_design.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-class CopounsAndDiscountsView extends StatelessWidget {
+class CopounsAndDiscountsView extends StatefulWidget {
   const CopounsAndDiscountsView({super.key});
+
+  @override
+  State<CopounsAndDiscountsView> createState() =>
+      _CopounsAndDiscountsViewState();
+}
+
+class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
+  late CopounHistoryCubit cubit;
+  @override
+  void initState() {
+    cubit = context.read<CopounHistoryCubit>();
+    super.initState();
+    cubit.getCopounHistory();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,9 @@ class CopounsAndDiscountsView extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 Navigator.pushNamed(
-                    context, RoutePaths.explainPointsSystemView);
+                  context,
+                  RoutePaths.explainPointsSystemView,
+                );
               },
               child: TextedContainer(
                 text: "شرح",
@@ -106,13 +112,15 @@ class CopounsAndDiscountsView extends StatelessWidget {
                   child: InkWell(
                     onTap: () => customAdaptiveDialog(
                       context,
-                      child: const PointsDialogDesign(),
+                      child: PointsDialogDesign(
+                        points: loginData?.bonus ?? "",
+                      ),
                     ),
                     child: Container(
                       height: 98.h,
                       decoration: BoxDecoration(
                         color: MainColors.veryLightGrayFormField,
-                        borderRadius: BorderRadius.circular(10.r),
+                        borderRadius: 10.cr,
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -132,7 +140,9 @@ class CopounsAndDiscountsView extends StatelessWidget {
             ),
           ),
           16.ph,
-          const PointsBalanceContainer()
+          PointsBalanceContainer(
+            cubit: cubit,
+          )
         ],
       ),
     );

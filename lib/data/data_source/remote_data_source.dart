@@ -110,6 +110,7 @@ import 'package:eazifly_student/data/models/subscription_management/renew_subscr
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/upgrade_order_model.dart';
+import 'package:eazifly_student/data/models/user/copoun_history_model.dart';
 import 'package:eazifly_student/data/models/user/delete_account_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
@@ -289,6 +290,7 @@ abstract class BaseRemoteDataSource {
   });
   Future<ChangeInstructorModel> changeInstructor({
     required ChangeInstructorTojson data,
+    required bool isNewDates,
   });
   Future<GetChangeInstructorReasonsModel> getChangeInstructorReasons();
   Future<UpdateProfileModel> updateProfile({
@@ -311,6 +313,7 @@ abstract class BaseRemoteDataSource {
   Future<CheckChatModel> checkChat({required CheckChatTojson data});
   Future<RequestToFindInstructorModel> findInstructor(
       {required RequestToFindInstructorTojson data});
+  Future<CopounHistoryModel> copounHistory();
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -1765,11 +1768,16 @@ class RemoteDataSource extends BaseRemoteDataSource {
   }
 
   @override
-  Future<ChangeInstructorModel> changeInstructor(
-      {required ChangeInstructorTojson data}) async {
+  Future<ChangeInstructorModel> changeInstructor({
+    required ChangeInstructorTojson data,
+    required bool isNewDates,
+  }) async {
+    log("isNewDates $isNewDates");
     var response = await NetworkCall().post(
       data: data.toJson(),
-      path: EndPoints.changeInstructor,
+      path: isNewDates
+          ? EndPoints.changeInstructorWithNewDates
+          : EndPoints.changeInstructor,
     );
     if (response?.statusCode == 200) {
       log("${response?.data}");
@@ -2144,6 +2152,21 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return RequestToFindInstructorModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<CopounHistoryModel> copounHistory() async {
+    var response = await NetworkCall().get(path: EndPoints.copounHistory);
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return CopounHistoryModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

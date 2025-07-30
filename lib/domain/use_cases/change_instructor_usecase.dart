@@ -6,10 +6,10 @@ import 'package:eazifly_student/data/models/change_instructor/change_instructor_
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/change_instructor_entity.dart';
 
-class ChangeInstructorUsecase extends BaseUsecase<ChangeInstructorEntity,
-    ChangeInstructorParameters> {
+class ChangeInstructorUsecase
+    extends BaseUsecase<ChangeInstructorEntity, ChangeInstructorParameters> {
   final BaseRepository baseRepository;
-  
+
   ChangeInstructorUsecase({required this.baseRepository});
 
   @override
@@ -17,12 +17,17 @@ class ChangeInstructorUsecase extends BaseUsecase<ChangeInstructorEntity,
       {required ChangeInstructorParameters parameter}) async {
     return await baseRepository.changeInstructor(
       data: parameter.data,
+      isNewDates: parameter.isNewDate,
     );
   }
 }
 
 class ChangeInstructorParameters {
   final ChangeInstructorTojson data;
-  
-  ChangeInstructorParameters({required this.data});
+  final bool isNewDate;
+
+  ChangeInstructorParameters({
+    required this.data,
+    required this.isNewDate,
+  });
 }

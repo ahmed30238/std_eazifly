@@ -22,3 +22,16 @@ class GetInstructorsInstructorModel extends GetInstructorsInstructorEntity {
 
   Map<String, dynamic> toJson() => _$GetInstructorsInstructorModelToJson(this);
 }
+
+@JsonSerializable(explicitToJson: true)
+class GetInstructorsInstructorSpecializationsModel
+    extends GetInstructorsInstructorSpecializationsEntity {
+  GetInstructorsInstructorSpecializationsModel();
+
+  factory GetInstructorsInstructorSpecializationsModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetInstructorsInstructorSpecializationsModelFromJson(json);
+
+  Map<String, dynamic> toJson() =>
+      _$GetInstructorsInstructorSpecializationsModelToJson(this);
+}

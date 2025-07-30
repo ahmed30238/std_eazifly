@@ -34,7 +34,11 @@ GetInstructorsInstructorModel _$GetInstructorsInstructorModelFromJson(
       ..address = json['address'] as String?
       ..age = GetInstructorsInstructorEntity.customInt(json['age'])
       ..gender = json['gender'] as String?
-      ..image = json['image'] as String?;
+      ..image = json['image'] as String?
+      ..specializations = (json['specializations'] as List<dynamic>?)
+          ?.map((e) => GetInstructorsInstructorSpecializationsModel.fromJson(
+              e as Map<String, dynamic>))
+          .toList();
 
 Map<String, dynamic> _$GetInstructorsInstructorModelToJson(
         GetInstructorsInstructorModel instance) =>
@@ -48,4 +52,20 @@ Map<String, dynamic> _$GetInstructorsInstructorModelToJson(
       'age': instance.age,
       'gender': instance.gender,
       'image': instance.image,
+      'specializations':
+          instance.specializations?.map((e) => e.toJson()).toList(),
+    };
+
+GetInstructorsInstructorSpecializationsModel
+    _$GetInstructorsInstructorSpecializationsModelFromJson(
+            Map<String, dynamic> json) =>
+        GetInstructorsInstructorSpecializationsModel()
+          ..id = (json['id'] as num?)?.toInt()
+          ..name = json['name'] as String?;
+
+Map<String, dynamic> _$GetInstructorsInstructorSpecializationsModelToJson(
+        GetInstructorsInstructorSpecializationsModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
     };

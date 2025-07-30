@@ -1,10 +1,8 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/data/models/chat_model/check_chat_tojson.dart';
-import 'package:eazifly_student/data/models/find_instructor/request_to_find_instructor_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
 import 'package:eazifly_student/domain/entities/chat/check_chat_entity.dart';
-import 'package:eazifly_student/domain/entities/find_instructor/request_to_find_instructor_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_assigments_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_closest_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_current_session_entity.dart';
@@ -19,7 +17,6 @@ import 'package:eazifly_student/domain/use_cases/get_home_current_session_usecas
 import 'package:eazifly_student/domain/use_cases/get_home_library_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_quizzes_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/join_session_usecase.dart';
-import 'package:eazifly_student/domain/use_cases/request_to_find_instructor_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/update_fcm_token_usecase.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
@@ -35,7 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
     required this.getHomeAssignmentsUsecase,
     required this.updateFcmTokenUsecase,
     required this.checkChatUsecase,
-    required this.requestToFindInstructorUsecase,
+    // required this.requestToFindInstructorUsecase,
     required this.joinSessionUsecase,
   }) : super(HomeInitial()) {
     // _initializeUser();
@@ -306,35 +303,5 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  RequestToFindInstructorUsecase requestToFindInstructorUsecase;
-  RequestToFindInstructorEntity? requestToFindInstructorEntity;
-  Future<void> findInstructor() async {
-    if (isGuest) return;
 
-    emit(FindInstructorLoadingState());
-
-    final result = await requestToFindInstructorUsecase.call(
-      parameter: RequestToFindInstructorParameters(
-        // Adjust these parameters according to your actual use case
-        data: RequestToFindInstructorTojson(
-          day: loginData?.id.toString() ?? "",
-          startTime: "",
-          contentId: "",
-          endTime: "",
-          programId: "",
-          // Add any other required parameters here
-        ),
-      ),
-    );
-
-    result.fold(
-      (l) {
-        emit(FindInstructorErrorState(errorMessage: l.message));
-      },
-      (r) {
-        requestToFindInstructorEntity = r;
-        emit(FindInstructorSuccessState());
-      },
-    );
-  }
 }

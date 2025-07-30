@@ -1,31 +1,32 @@
+import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
+import 'package:eazifly_student/domain/entities/change_instructor/get_remaining_program_sessions_entity.dart';
+
 class RequestToFindInstructorTojson {
-  final String startTime;
-  final String endTime;
-  final String contentId;
   final String programId;
-  final String day;
+  final String contentId;
+  final String userId;
+  final List<GetRemainigProgramSessionsDatumEntity> sessions;
 
   RequestToFindInstructorTojson({
-    required this.day,
-    required this.startTime,
-    required this.endTime,
+    required this.sessions,
+    required this.userId,
     required this.contentId,
     required this.programId,
   });
   Map<String, dynamic> toJson() {
     return {
+      'user_id': userId,
       'program_id': programId,
       'content_id': contentId,
-      'end_time': endTime,
-      'start_time': startTime,
-      'day': day,
+      'sessions': sessions
+          .map((session) => {
+                "start": session.start != null
+                    ? formatter.format(session.start!)
+                    : null,
+                "end":
+                    session.end != null ? formatter.format(session.end!) : null,
+              })
+          .toList(),
     };
   }
 }
-/*
-program_id,
-content_id,
-end_time,
-start_time,
-day,
- */

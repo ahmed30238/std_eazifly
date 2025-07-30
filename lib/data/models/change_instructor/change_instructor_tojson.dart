@@ -1,25 +1,5 @@
 import 'package:eazifly_student/domain/entities/change_instructor/get_remaining_program_sessions_entity.dart';
-
-class Session {
-  final int id;
-  final String start;
-  final String end;
-
-  Session({
-    required this.id,
-    required this.start,
-    required this.end,
-  });
-
-  // تحويل إلى JSON
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'start': start,
-      'end': end,
-    };
-  }
-}
+import 'package:intl/intl.dart';
 
 // النموذج الرئيسي لطلب تغيير المدرب
 class ChangeInstructorTojson {
@@ -38,8 +18,26 @@ class ChangeInstructorTojson {
     required this.userId,
     required this.sessions,
   });
+  /*
+
+    return {
+      'program_id': programId,
+      'instructor_id': instructorId,
+      'appointments': appointments
+          .map((appointment) => {
+                "start": appointment.start != null
+                    ? formatter.format(appointment.start!)
+                    : null,
+                "end": appointment.end != null
+                    ? formatter.format(appointment.end!)
+                    : null,
+              })
+          .toList(),
+    };
+   */
 
   Map<String, dynamic> toJson() {
+
     return {
       'reason_to_change_instructor_ids': reasonToChangeInstructorIds,
       'instructor_id': instructorId,
@@ -48,11 +46,14 @@ class ChangeInstructorTojson {
       'user_id': userId,
       'sessions': sessions
           .map((session) => {
-                "id": session.id,
-                "start": session.start,
-                "end": session.end,
+                "start": session.start != null
+                    ? formatter.format(session.start!)
+                    : null,
+                "end":
+                    session.end != null ? formatter.format(session.end!) : null,
               })
           .toList(),
     };
   }
 }
+    final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss');

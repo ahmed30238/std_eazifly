@@ -1,19 +1,23 @@
 import 'dart:developer';
+
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/core/enums/week_days.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
+import 'package:eazifly_student/data/models/find_instructor/request_to_find_instructor_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/get_instructors_tojson.dart';
 import 'package:eazifly_student/domain/entities/add_weekly_appointments_entity.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/change_instructor_entity.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/get_change_instructor_reasons_entity.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/get_remaining_program_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/change_instructor/get_user_subscription_data_entity.dart';
+import 'package:eazifly_student/domain/entities/find_instructor/request_to_find_instructor_entity.dart';
 import 'package:eazifly_student/domain/entities/get_instructors_entity.dart';
 import 'package:eazifly_student/domain/use_cases/change_instructor_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_change_instructor_reasons.dart';
 import 'package:eazifly_student/domain/use_cases/get_instructors_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_remaining_program_sessions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_user_subscription_data_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/request_to_find_instructor_usecase.dart';
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_state.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/change_lecturer_reason_body.dart';
@@ -32,6 +36,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     required this.changeInstructorUsecase,
     required this.getInstructorsUsecase,
     required this.getChangeInstructorReasonsUsecase,
+    required this.requestToFindInstructorUsecase,
   }) : super(ChangelecturerInitial());
 
   static ChangelecturerCubit get(context) => BlocProvider.of(context);
@@ -78,10 +83,18 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
       return;
     }
     log("error");
+    var oldInstructorId = context
+        .read<LectureCubit>()
+        .showProgramDetailsEntity
+        ?.data
+        ?.currentInstructorId;
+
+    log("$oldInstructorId is inst id");
 
     final result = await getInstructorsUsecase.call(
       parameter: GetInstructorsParameters(
         data: GetInstructorsTojson(
+          instructorId: oldInstructorId,
           appointments: appointments,
           programId: context.read<LectureCubit>().currentProgramId,
         ),
@@ -253,7 +266,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
           // إضافة الموعد إلى القائمة
           specifiedDates.add(
             GetRemainigProgramSessionsDatumEntity(
-              id: getRemainingProgramSessionsEntity?.data?[i].id ?? -1,
+              // id: getRemainingProgramSessionsEntity?.data?[i].id ?? -1,
               start: startDateTime,
               end: endDateTime,
             ),
@@ -457,22 +470,6 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     }
   }
 
-// method للتحقق من صحة الأوقات المدخلة
-  bool _isValidTimeRange(DateTime start, DateTime end) {
-    // التأكد من أن وقت النهاية بعد وقت البداية
-    if (end.isBefore(start) || end.isAtSameMomentAs(start)) {
-      return false;
-    }
-
-    // التأكد من أن الفرق لا يقل عن 15 دقيقة
-    Duration difference = end.difference(start);
-    if (difference.inMinutes < 15) {
-      return false;
-    }
-
-    return true;
-  }
-
 // method لاقتراح أوقات صحيحة
   List<TimeOfDay> getSuggestedTimes() {
     List<TimeOfDay> suggestedTimes = [];
@@ -493,9 +490,8 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     emit(ChangeInstructorLoadingState());
 
     LectureCubit lectureCubit = context.read<LectureCubit>();
-    var oldInstructorId = int.tryParse(lectureCubit
-            .showProgramDetailsEntity?.data?.nextSession?.instructorId ??
-        "-1");
+    var oldInstructorId =
+        lectureCubit.showProgramDetailsEntity?.data?.currentInstructorId;
 
     // تحديد المواعيد المناسبة بناءً على اختيار المستخدم
     List<GetRemainigProgramSessionsDatumEntity> sessionsToSend = [];
@@ -524,12 +520,16 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     if (instructorId == -1) {
       delightfulToast(message: "لم يتم اختيار معلم محدد", context: context);
       changeInstructorLoader = false;
-      emit(ChangeInstructorErrorState(errorMessage: "لم يتم اختيار معلم محدد"),);
+      emit(
+        ChangeInstructorErrorState(errorMessage: "لم يتم اختيار معلم محدد"),
+      );
       return;
     }
+    log("is new dates $newDates");
 
     final result = await changeInstructorUsecase.call(
       parameter: ChangeInstructorParameters(
+        isNewDate: newDates,
         data: ChangeInstructorTojson(
           reasonToChangeInstructorIds: getSelectedReasonIds(),
           instructorId: instructorId,
@@ -547,11 +547,12 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
         emit(ChangeInstructorErrorState(
           errorMessage: failure.message,
         ));
+        delightfulToast(message: failure.message, context: context);
       },
       (data) {
         changeInstructorLoader = false;
         changeInstructorEntity = data;
-        Navigator.pushNamed(
+        Navigator.pushReplacementNamed(
           context,
           RoutePaths.lectureView,
           arguments: {
@@ -559,6 +560,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
           },
         );
         emit(ChangeInstructorSuccessState());
+        delightfulToast(message: "تم تغيير المعلم بجاح", context: context);
       },
     );
   }
@@ -568,34 +570,10 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     List<int> selectedReasons = [];
     for (int i = 0; i < changeLecturerReason.length; i++) {
       if (changeLecturerReason[i] == true) {
-        selectedReasons.add(i + 1); // افتراض أن الـ IDs تبدأ من 1
+        selectedReasons.add(i + 1);
       }
     }
-    return selectedReasons.isEmpty
-        ? [1]
-        : selectedReasons; // إرجاع سبب افتراضي إذا لم يتم اختيار أي سبب
-  }
-
-// method مساعدة لطباعة معلومات debug
-  void debugPrintSessionInfo() {
-    log("=== Debug Session Info ===");
-    log("sameDates: $sameDates");
-    log("newDates: $newDates");
-
-    if (sameDates) {
-      log("Using getRemainingProgramSessionsEntity sessions:");
-      log("Sessions count: ${getRemainingProgramSessionsEntity?.data?.length ?? 0}");
-      getRemainingProgramSessionsEntity?.data?.forEach((session) {
-        log("Session: ${session.start} - ${session.end}");
-      });
-    } else if (newDates) {
-      log("Using specifiedDates sessions:");
-      log("Sessions count: ${specifiedDates.length}");
-      specifiedDates.forEach((session) {
-        log("Session: ${session.start} - ${session.end}");
-      });
-    }
-    log("=== End Debug Session Info ===");
+    return selectedReasons.isEmpty ? [1] : selectedReasons;
   }
 
 // تعديل method incrementBodyIndex
@@ -1108,4 +1086,60 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
   bool getInstructorsLoader = false;
   GetInstructorsEntity? getInstructorsEntity;
   GetInstructorsUsecase getInstructorsUsecase;
+  RequestToFindInstructorUsecase requestToFindInstructorUsecase;
+  RequestToFindInstructorEntity? requestToFindInstructorEntity;
+  bool requestTofindInstructorLoader = false;
+  Future<void> findInstructor({required BuildContext context}) async {
+    requestTofindInstructorLoader = true;
+    List<GetRemainigProgramSessionsDatumEntity> sessionsToSend = [];
+
+    if (sameDates) {
+      sessionsToSend = getRemainingProgramSessionsEntity?.data ?? [];
+    } else if (newDates) {
+      sessionsToSend = specifiedDates;
+    }
+
+    if (sessionsToSend.isEmpty) {
+      requestTofindInstructorLoader = false;
+      emit(ChangeInstructorErrorState(
+        errorMessage: "لا توجد مواعيد محددة لتغيير المحاضر",
+      ));
+      delightfulToast(
+          message: "لا يوجد مواعيد محددة لتغيير المحاضر", context: context);
+      return;
+    }
+    emit(FindInstructorLoadingState());
+    log("sessions $sessionsToSend");
+    log("user id $selectedStudentId");
+    log("p id ${context.read<LectureCubit>().currentProgramId.toString()}");
+    var contentId =
+        context.read<LectureCubit>().showProgramDetailsEntity?.data?.contentId;
+
+    final result = await requestToFindInstructorUsecase.call(
+      parameter: RequestToFindInstructorParameters(
+        data: RequestToFindInstructorTojson(
+          sessions: sessionsToSend,
+          userId: selectedStudentId.toString(),
+          contentId: contentId ?? "0",
+          programId: context.read<LectureCubit>().currentProgramId.toString(),
+        ),
+      ),
+    );
+
+    result.fold(
+      (l) {
+        requestTofindInstructorLoader = false;
+        emit(FindInstructorErrorState(errorMessage: l.message));
+      },
+      (r) {
+        requestTofindInstructorLoader = false;
+        requestToFindInstructorEntity = r;
+        emit(FindInstructorSuccessState());
+        delightfulToast(message: "تم ارسال الطلب بنجاح", context: context);
+        Navigator.pushNamed(context, RoutePaths.lectureView, arguments: {
+          "programId": context.read<LectureCubit>().currentProgramId
+        });
+      },
+    );
+  }
 }

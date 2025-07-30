@@ -49,6 +49,8 @@ class GetInstructorsInstructorEntity {
 
   @JsonKey(name: "image")
   String? image;
+  @JsonKey(name: "specializations")
+  List<GetInstructorsInstructorSpecializationsModel>? specializations;
 
   GetInstructorsInstructorEntity({
     this.id,
@@ -60,5 +62,17 @@ class GetInstructorsInstructorEntity {
     this.age,
     this.gender,
     this.image,
+    this.specializations,
+  });
+}
+
+class GetInstructorsInstructorSpecializationsEntity {
+  @JsonKey(name: "id")
+  int? id;
+  @JsonKey(name: "name")
+  String? name;
+  GetInstructorsInstructorSpecializationsEntity({
+    this.id,
+    this.name,
   });
 }
