@@ -58,5 +58,6 @@
     "packageDetails": "تفاصيل المجموعة",
     "completePaymentProcess": "اتمام عملية الدفع",
     "confirmPaymentProcess": "تأكيد عملية الدفع",
-    "cancelSession": "الغاء المحاضرة"
+    "cancelSession": "الغاء المحاضرة",
+    "my_name": "m name"
 }

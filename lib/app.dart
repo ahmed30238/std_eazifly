@@ -1,3 +1,4 @@
+import 'package:eazifly_student/core/lang/app_localizations.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/routes/router.dart';
 import 'package:eazifly_student/core/service_locator/service_locator.dart';
@@ -15,7 +16,6 @@ import 'package:eazifly_student/presentation/controller/payment_controller/payme
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyApp extends StatelessWidget {

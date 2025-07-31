@@ -14,9 +14,7 @@ import 'package:eazifly_student/domain/use_cases/join_session_usecase.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart'
-    hide JoinSessionLoadingState
-    hide JoinSessionErrorState
-    hide JoinSessionSuccessState;
+    hide JoinSessionLoadingState, JoinSessionErrorState, JoinSessionSuccessState;
 
 class MyProgramsCubit extends Cubit<MyProgramsState> {
   MyProgramsCubit({

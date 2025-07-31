@@ -15,8 +15,7 @@ import 'package:eazifly_student/domain/use_cases/get_plan_subscription_period_us
 import 'package:eazifly_student/domain/use_cases/library_order_and_subscription_usecase.dart';
 import 'package:eazifly_student/presentation/controller/add_to_library_package_details_controller/addtolibrarypackagedetails_state.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart'
-    hide TypeControllerIndexState
-    hide InitTabBarControllerState;
+    hide TypeControllerIndexState, InitTabBarControllerState;
 
 class AddtolibrarypackagedetailsCubit
     extends Cubit<AddtolibrarypackagedetailsState> {

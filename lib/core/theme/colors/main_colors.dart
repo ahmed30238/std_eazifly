@@ -91,12 +91,6 @@ Color _lighten(Color color, double amount) {
   return lightened.toColor();
 }
 
-Color _darken(Color color, double amount) {
-  final hsl = HSLColor.fromColor(color);
-  final darkened =
-      hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
-  return darkened.toColor();
-}
 }
 
 final colors = AppColors(userTheme);

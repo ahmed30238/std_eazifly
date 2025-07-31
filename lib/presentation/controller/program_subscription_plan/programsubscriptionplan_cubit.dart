@@ -24,8 +24,7 @@ import 'package:eazifly_student/domain/use_cases/get_plans_usecase.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_state.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/program_subscription_plan_view/program_subscription_plan_view.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart'
-    hide InitTabBarControllerState
-    hide TypeControllerIndexState;
+    hide InitTabBarControllerState, TypeControllerIndexState;
 
 class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
   ProgramsubscriptionplanCubit({

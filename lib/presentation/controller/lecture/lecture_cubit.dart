@@ -39,10 +39,12 @@ import 'package:eazifly_student/presentation/view/lecture/widgets/report_body.da
 import 'package:eazifly_student/presentation/view/lecture/widgets/schedules_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
+// import 'package:record/record.dart';
 
 class LectureCubit extends Cubit<LectureState> {
   LectureCubit({
@@ -965,7 +967,7 @@ class LectureCubit extends Cubit<LectureState> {
 // دالة تهيئة التسجيل
   void initializeRecordVars() {
     audioPlayer = AudioPlayer();
-    audioRecord = AudioRecorder();
+    // audioRecord = AudioRecorder();
 
     audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
       if (state == PlayerState.completed) {

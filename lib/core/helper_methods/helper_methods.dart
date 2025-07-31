@@ -9,7 +9,6 @@ import 'package:eazifly_student/core/enums/week_days.dart';
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/bottom_sheet_day_controller.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/dummy_data.dart';
-import 'package:flash/flash.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
@@ -188,13 +187,7 @@ DeliverStatusModel deliveryState(DeliverStatus state) {
         textColor: MainColors.blueTextColor,
       );
 
-    default:
-      return DeliverStatusModel(
-        text: "error",
-        color: Colors.red,
-        textColor: Colors.white,
-      );
-  }
+    }
 }
 
 void back(context) => Navigator.pop(context);
@@ -206,35 +199,6 @@ Future<List<XFile>?> pickMultiImageFromGallery() async {
   return images;
 }
 
-void showFlashBar({required BuildContext context, required String message}) {
-  showFlash(
-    context: context,
-    duration: const Duration(seconds: 2),
-    builder: (_, controller) {
-      return Flash(
-        controller: controller,
-
-        position: FlashPosition.bottom,
-        // margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        // borderRadius: BorderRadius.circular(10),
-        child: FlashBar(
-          controller: controller,
-          content: Text(
-            message,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-          ),
-          showProgressIndicator: false,
-          progressIndicatorBackgroundColor: Colors.transparent,
-          progressIndicatorValueColor: AlwaysStoppedAnimation<Color>(
-              Theme.of(context).colorScheme.primary),
-        ),
-      );
-    },
-  );
-}
 String convertTo12HourFormat(int hour, int minute) {
   String period = hour >= 12 ? 'PM' : 'AM';
   int displayHour = hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour);

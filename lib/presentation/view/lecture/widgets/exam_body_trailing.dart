@@ -64,9 +64,7 @@ class ExamBodyCustomTrailing extends StatelessWidget {
       case StudentStatus.pending:
       case StudentStatus.newStudent:
         return MainColors.grayTextColors;
-      default:
-        return MainColors.grayTextColors;
-    }
+      }
   }
 }
 
@@ -98,11 +96,5 @@ BtnColors studentStatus(StudentStatus state) {
           textColor: MainColors.yellow,
           containerColor: MainColors.lightYellow,
           text: "جديد");
-    default:
-      return BtnColors(
-        textColor: MainColors.yellow,
-        containerColor: MainColors.lightYellow,
-        text: "غير محدد",
-      );
-  }
+    }
 }

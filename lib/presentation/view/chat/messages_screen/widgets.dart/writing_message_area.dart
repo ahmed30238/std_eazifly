@@ -51,9 +51,9 @@ class _WritingMessageAreaState extends State<WritingMessageArea> {
                           // }
                         }
                       : () {
-                          cubit.isRecording
-                              ? cubit.stopRecording()
-                              : cubit.startRecording();
+                          // cubit.isRecording
+                          //     ? cubit.stopRecording()
+                          //     : cubit.startRecording();
                         },
                   child: SizedBox(
                     height: 40.h,

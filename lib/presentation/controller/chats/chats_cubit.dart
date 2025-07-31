@@ -20,7 +20,7 @@ import 'package:eazifly_student/presentation/controller/chats/message_ui_model.d
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:record/record.dart';
+// import 'package:record/record.dart';
 
 class ChatsCubit extends Cubit<ChatsState> {
   ChatsCubit({
@@ -77,7 +77,7 @@ class ChatsCubit extends Cubit<ChatsState> {
     return tabs;
   }
 
-  late AudioRecorder audioRecord;
+  // late AudioRecorder audioRecord;
   late AudioPlayer audioPlayer;
   bool isRecording = false;
   bool isPlaying = false;
@@ -85,7 +85,7 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   initializeRecordVars() {
     audioPlayer = AudioPlayer();
-    audioRecord = AudioRecorder();
+    // audioRecord = AudioRecorder();
 
     // Listen to player state changes
     audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
@@ -107,25 +107,25 @@ class ChatsCubit extends Cubit<ChatsState> {
     return '${directory.path}/recording.wav';
   }
 
-  Future<void> startRecording() async {
-    String recordPath = await getRecordPath();
-    if (await audioRecord.hasPermission()) {
-      await audioRecord.start(
-        const RecordConfig(
-            androidConfig: AndroidRecordConfig(
-          audioSource: AndroidAudioSource.mic,
-        )),
-        path: recordPath,
-      );
-      isRecording = true;
-      emit(StartRecordState());
-    }
-  }
+  // Future<void> startRecording() async {
+  //   String recordPath = await getRecordPath();
+  //   if (await audioRecord.hasPermission()) {
+  //     await audioRecord.start(
+  //       const RecordConfig(
+  //           androidConfig: AndroidRecordConfig(
+  //         audioSource: AndroidAudioSource.mic,
+  //       )),
+  //       path: recordPath,
+  //     );
+  //     isRecording = true;
+  //     emit(StartRecordState());
+  //   }
+  // }
 
   Future<void> stopRecording() async {
-    String? path = await audioRecord.stop();
+    // String? path = await audioRecord.stop();
     isRecording = false;
-    recordPath = path!;
+    // recordPath = path!;
     emit(StopRecordState());
   }
 
@@ -370,7 +370,7 @@ class ChatsCubit extends Cubit<ChatsState> {
   Future<void> close() {
     // _messagesStreamController.close();
     audioPlayer.dispose();
-    audioRecord.dispose();
+    // audioRecord.dispose();
     controller?.dispose();
     messageController.dispose();
     return super.close();

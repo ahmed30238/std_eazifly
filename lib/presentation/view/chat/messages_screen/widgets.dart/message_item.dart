@@ -143,9 +143,7 @@ Widget _buildMessageStatusIcon(MessageStatus? status) {
         size: 14.sp,
         color: Colors.red,
       );
-    default:
-      return const SizedBox.shrink();
-  }
+    }
 }
 
 Widget _buildMessageContent(Message message, MessageStatus? messageStatus) {
@@ -223,9 +221,7 @@ Widget _buildMessageContent(Message message, MessageStatus? messageStatus) {
         // isFile: false,
         backgroundColor: MainColors.transparentColor,
       );
-    default:
-      return const SizedBox.shrink();
-  }
+    }
 }
 
 // الدالة الجديدة لبناء النص مع دعم الروابط

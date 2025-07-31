@@ -194,9 +194,7 @@ class LectureStates extends StatelessWidget {
         return "انتهت";
       case LectureStatesEnum.pending:
         return "قادمة";
-      default:
-        return "غير محدد";
-    }
+      }
   }
 
   Color getContainerColor() {
@@ -209,9 +207,7 @@ class LectureStates extends StatelessWidget {
         return MainColors.lightRed;
       case LectureStatesEnum.pending:
         return MainColors.blueTextColor;
-      default:
-        return MainColors.lightRed;
-    }
+      }
   }
 
   Color getTextColor() {
@@ -224,9 +220,7 @@ class LectureStates extends StatelessWidget {
         return MainColors.red;
       case LectureStatesEnum.pending:
         return MainColors.blueTextColor;
-      default:
-        return MainColors.red;
-    }
+      }
   }
 
   @override
