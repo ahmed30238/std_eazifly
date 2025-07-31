@@ -516,6 +516,7 @@ class AppRouter {
             providers: [
               BlocProvider(
                 create: (context) => GrouppackagemanagementCubit(
+                  requestToFindInstructorUsecase: sl(),
                   getChildrenUsecase: sl(),
                   addWeeklyAppointmentsUsecase: sl(),
                   createMeetingSessionsUsecase: sl(),

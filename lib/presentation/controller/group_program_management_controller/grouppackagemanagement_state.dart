@@ -96,3 +96,12 @@ class GetProgramContentErrorState extends GrouppackagemanagementState {
     required this.errorMessage,
   });
 }
+class FindInstructorSuccessState extends GrouppackagemanagementState {}
+
+class FindInstructorErrorState extends GrouppackagemanagementState {
+  final String errorMessage;
+
+  FindInstructorErrorState({required this.errorMessage});
+}
+
+class FindInstructorLoadingState extends GrouppackagemanagementState {}

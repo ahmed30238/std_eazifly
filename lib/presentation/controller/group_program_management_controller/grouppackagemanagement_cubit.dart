@@ -2,12 +2,15 @@ import 'dart:developer';
 
 import 'package:eazifly_student/core/enums/week_days.dart';
 import 'package:eazifly_student/core/service_locator/service_locator.dart';
+import 'package:eazifly_student/data/models/find_instructor/request_to_find_instructor_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/add_weekly_appointments_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/create_meeting_sessions_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointments/get_instructors_tojson.dart';
 import 'package:eazifly_student/domain/entities/add_weekly_appointments_entity.dart';
+import 'package:eazifly_student/domain/entities/change_instructor/get_remaining_program_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/children_entities/get_my_children_entity.dart';
 import 'package:eazifly_student/domain/entities/create_meeting_sessions_entity.dart';
+import 'package:eazifly_student/domain/entities/find_instructor/request_to_find_instructor_entity.dart';
 import 'package:eazifly_student/domain/entities/get_instructors_entity.dart';
 import 'package:eazifly_student/domain/entities/get_order_details_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/get_program_content_entity.dart';
@@ -17,6 +20,7 @@ import 'package:eazifly_student/domain/use_cases/get_children_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_instructors_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_order_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_program_content_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/request_to_find_instructor_usecase.dart';
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/chosen_lecturer.dart';
@@ -29,14 +33,15 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 part 'grouppackagemanagement_state.dart';
 
 class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
-  GrouppackagemanagementCubit(
-      {required this.getChildrenUsecase,
-      required this.addWeeklyAppointmentsUsecase,
-      required this.createMeetingSessionsUsecase,
-      required this.getOrderDetailsUsecase,
-      required this.getInstructorsUsecase,
-      required this.getProgramContentUsecase})
-      : super(GrouppackagemanagementInitial());
+  GrouppackagemanagementCubit({
+    required this.getChildrenUsecase,
+    required this.addWeeklyAppointmentsUsecase,
+    required this.createMeetingSessionsUsecase,
+    required this.getOrderDetailsUsecase,
+    required this.getInstructorsUsecase,
+    required this.getProgramContentUsecase,
+    required this.requestToFindInstructorUsecase,
+  }) : super(GrouppackagemanagementInitial());
   //! ui
   TabController? fixedDateController;
   void initFixedDateTabBarController(TickerProvider vsync) {
@@ -1041,5 +1046,64 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   GlobalKey<FormState> repeatedFormKey = GlobalKey<FormState>();
   void fillOrderId(int val) {
     orderId = val;
+  }
+
+  RequestToFindInstructorUsecase requestToFindInstructorUsecase;
+  RequestToFindInstructorEntity? requestToFindInstructorEntity;
+  bool requestTofindInstructorLoader = false;
+  Future<void> findInstructor(
+      {required BuildContext context, required String programId}) async {
+    requestTofindInstructorLoader = true;
+    List<AddWeeklyAppontmentsDatumEntity> currentSessions = [];
+
+    currentSessions = addWeeklyAppontmentsEntity?.data ?? specifiedDates;
+
+    List<GetRemainigProgramSessionsDatumEntity> sessionsToSend = [];
+    currentSessions
+        .map(
+          (e) => AddWeeklyAppontmentsDatumEntity(start: e.start, end: e.end),
+        )
+        .toList();
+    if (sessionsToSend.isEmpty) {
+      requestTofindInstructorLoader = false;
+      emit(FindInstructorErrorState(
+        errorMessage: "لا توجد مواعيد محددة لتغيير المحاضر",
+      ));
+      delightfulToast(
+          message: "لا يوجد مواعيد محددة لتغيير المحاضر", context: context);
+      return;
+    }
+    emit(FindInstructorLoadingState());
+    final result = await requestToFindInstructorUsecase.call(
+      parameter: RequestToFindInstructorParameters(
+        data: RequestToFindInstructorTojson(
+          sessions: sessionsToSend,
+          userId: addedUsersIds[selectedStudentIndex].toString(),
+          contentId: programContentId.toString(),
+          programId: programId,
+        ),
+      ),
+    );
+
+    result.fold(
+      (l) {
+        requestTofindInstructorLoader = false;
+        emit(FindInstructorErrorState(errorMessage: l.message));
+      },
+      (r) {
+        requestTofindInstructorLoader = false;
+        requestToFindInstructorEntity = r;
+        emit(FindInstructorSuccessState());
+        delightfulToast(message: "تم ارسال الطلب بنجاح", context: context);
+        incrementSelectedStudentIndex(context);
+        // Navigator.pushNamed(
+        //   context,
+        //   RoutePaths.lectureView,
+        //   arguments: {
+        //     "programId": context.read<LectureCubit>().currentProgramId
+        //   },
+        // );
+      },
+    );
   }
 }

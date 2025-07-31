@@ -182,6 +182,9 @@ class RepeatedWeeklySession extends StatelessWidget {
 
               // Handle empty data
               if (instructors == null || instructors.isEmpty) {
+                if (cubit.requestTofindInstructorLoader) {
+                  return const CircularProgressIndicator.adaptive();
+                }
                 return SizedBox(
                   height: 48.h,
                   child: Center(
@@ -198,11 +201,13 @@ class RepeatedWeeklySession extends StatelessWidget {
                         fontSize: 14,
                         color: MainColors.blueTextColor,
                       ),
-                      onText2Tap: () {},
+                      onText2Tap: () {
+                        cubit.findInstructor(
+                          context: context,
+                          programId: programId.toString(),
+                        );
+                      },
                     ),
-                    // Text(
-
-                    // ),
                   ),
                 );
               }
