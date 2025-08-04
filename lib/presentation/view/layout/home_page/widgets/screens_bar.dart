@@ -4,9 +4,7 @@ import 'package:eazifly_student/presentation/view/layout/home_page/widgets/dummy
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ScreensBar extends StatelessWidget {
-  const ScreensBar({
-    super.key,
-  });
+  const ScreensBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +13,23 @@ class ScreensBar extends StatelessWidget {
       children: List.generate(
         4,
         (index) => InkWell(
-          onTap: () => Navigator.pushNamed(
-            arguments: index == 0
-                ? {
-                    "cubit": context.read<MyProgramsCubit>(),
-                    "sessionId": 1,
-                  }
-                : false,
-            context,
-            paths[index],
-          ),
+          onTap: () {
+            if (index != 3) {
+              Navigator.pushNamed(
+                arguments: index == 0
+                    ? {
+                        "cubit": context.read<MyProgramsCubit>(),
+                        "sessionId": 1,
+                      }
+                    : false,
+                context,
+                paths[index],
+              );
+            } else {
+              delightfulToast(
+                  message: "سيتم تفعيل هذه الخدمة لاحقا", context: context);
+            }
+          },
           child: Column(
             children: [
               IconsContainer(

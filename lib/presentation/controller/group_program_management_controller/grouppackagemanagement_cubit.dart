@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:developer';
 
 import 'package:eazifly_student/core/enums/week_days.dart';
@@ -193,6 +195,11 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
       isDoneAdded = List.filled(addedUsersIds.length, false);
     }
     log("l ${isDoneAdded.length}");
+  }
+
+  void changeIsDoneAdded(int index) {
+    isDoneAdded[index] = true;
+    emit(ChangeIsDoneAddedState());
   }
 
   TabController? controller;
@@ -861,7 +868,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
 
         // التحقق من صحة isDoneAdded قبل الوصول إليها
         if (isDoneAdded.length > selectedStudentIndex) {
-          isDoneAdded[selectedStudentIndex] = true;
+          changeIsDoneAdded(selectedStudentIndex);
           log("isDoneAdded[$selectedStudentIndex] = ${isDoneAdded[selectedStudentIndex]}");
         } else {
           log("Warning: isDoneAdded length (${isDoneAdded.length}) is less than selectedStudentIndex ($selectedStudentIndex)");
@@ -978,31 +985,69 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     return '';
   }
 
-  void clearData() {
-    // TODO في مشكلة هنا
-    // for (var controller in hoursControllers) {
-    //   controller.clear();
-    // }
-
-    // for (var controller in fromControllers) {
-    //   controller.clear();
-    // }
-
-    // for (var controller in toControllers) {
-    //   controller.clear();
-    // }
-    // for (var controller in dayController) {
-    //   controller.clear();
-    // }
-    // for (var controller in specifyAlldayController) {
-    //   controller.clear();
-    // }
-    // مسح الأوقات المحفوظة
-    // selectedFromTimes.clear();
-    // selectedFromTimesDisplay.clear();
-    // selectedToTimes.clear();
-    // selectedToTimesDisplay.clear();
+void clearData() {
+  // مسح hoursControllers إذا لم تكن فارغة
+  if (hoursControllers != null && hoursControllers.isNotEmpty) {
+    for (var controller in hoursControllers) {
+      if (controller.text.isNotEmpty) {
+        controller.clear();
+      }
+    }
   }
+
+  // مسح fromControllers إذا لم تكن فارغة
+  if (fromControllers != null && fromControllers.isNotEmpty) {
+    for (var controller in fromControllers) {
+      if (controller.text.isNotEmpty) {
+        controller.clear();
+      }
+    }
+  }
+
+  // مسح toControllers إذا لم تكن فارغة
+  if (toControllers != null && toControllers.isNotEmpty) {
+    for (var controller in toControllers) {
+      if (controller.text.isNotEmpty) {
+        controller.clear();
+      }
+    }
+  }
+
+  // مسح dayController إذا لم تكن فارغة
+  if (dayController != null && dayController.isNotEmpty) {
+    for (var controller in dayController) {
+      if (controller.text.isNotEmpty) {
+        controller.clear();
+      }
+    }
+  }
+
+  // مسح specifyAlldayController إذا لم تكن فارغة
+  if (specifyAlldayController != null && specifyAlldayController.isNotEmpty) {
+    for (var controller in specifyAlldayController) {
+      if (controller.text.isNotEmpty) {
+        controller.clear();
+      }
+    }
+  }
+
+  // مسح الأوقات المحفوظة إذا لم تكن فارغة
+  if (selectedFromTimes != null && selectedFromTimes.isNotEmpty) {
+    selectedFromTimes.clear();
+  }
+  
+  if (selectedFromTimesDisplay != null && selectedFromTimesDisplay.isNotEmpty) {
+    selectedFromTimesDisplay.clear();
+  }
+  
+  if (selectedToTimes != null && selectedToTimes.isNotEmpty) {
+    selectedToTimes.clear();
+  }
+  
+  if (selectedToTimesDisplay != null && selectedToTimesDisplay.isNotEmpty) {
+    selectedToTimesDisplay.clear();
+  }
+}
 
   @override
   Future<void> close() {
@@ -1059,11 +1104,13 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     currentSessions = addWeeklyAppontmentsEntity?.data ?? specifiedDates;
 
     List<GetRemainigProgramSessionsDatumEntity> sessionsToSend = [];
-    currentSessions
-        .map(
-          (e) => AddWeeklyAppontmentsDatumEntity(start: e.start, end: e.end),
-        )
-        .toList();
+    currentSessions.map(
+      (e) {
+        sessionsToSend.add(
+            GetRemainigProgramSessionsDatumEntity(end: e.end, start: e.start));
+        sessionsToSend;
+      },
+    ).toList();
     if (sessionsToSend.isEmpty) {
       requestTofindInstructorLoader = false;
       emit(FindInstructorErrorState(
@@ -1095,6 +1142,13 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
         requestToFindInstructorEntity = r;
         emit(FindInstructorSuccessState());
         delightfulToast(message: "تم ارسال الطلب بنجاح", context: context);
+        // التحقق من صحة isDoneAdded قبل الوصول إليها
+        if (isDoneAdded.length > selectedStudentIndex) {
+          changeIsDoneAdded(selectedStudentIndex);
+          log("isDoneAdded[$selectedStudentIndex] = ${isDoneAdded[selectedStudentIndex]}");
+        } else {
+          log("Warning: isDoneAdded length (${isDoneAdded.length}) is less than selectedStudentIndex ($selectedStudentIndex)");
+        }
         incrementSelectedStudentIndex(context);
         // Navigator.pushNamed(
         //   context,

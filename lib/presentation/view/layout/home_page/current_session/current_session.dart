@@ -2,11 +2,10 @@
 
 import 'dart:developer';
 
-import 'package:eazifly_student/core/component/nested_avatar_container.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
+import 'package:eazifly_student/presentation/view/layout/home_page/current_session/widgets/session_cards_widget.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_stats_row.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CurrentSession extends StatefulWidget {
   const CurrentSession({super.key});
@@ -123,125 +122,9 @@ class _CurrentSessionState extends State<CurrentSession> {
               },
             ),
             8.ph,
-            BlocBuilder(
-              bloc: cubit,
-              builder: (context, state) {
-                if (cubit.getHomeCurrentSessionLoader ||
-                    cubit.getHomeCurrentSessionEntity == null) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                var item = cubit.getHomeCurrentSessionEntity?.data;
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    3,
-                    (index) => Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: index == 1 ? 7.w : 0),
-                      child: InkWell(
-                        onTap: () {},
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: index == 2 ? 12.w : 0,
-                          ),
-                          height: 78.h,
-                          width: 109.w,
-                          decoration: BoxDecoration(
-                            borderRadius: 10.cr,
-                            color: MainColors.veryLightGrayFormField,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: index == 2
-                                ? CrossAxisAlignment.start
-                                : CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                stdTitleList[index],
-                                style: MainTextStyle.boldTextStyle(
-                                  fontSize: 12,
-                                  color: MainColors.grayTextColors,
-                                ),
-                              ),
-                              index == 0
-                                  ? (item!.users!.length != 1)
-                                      ? NestedAvatarContainer(
-                                          noOfItems: item.users!.length,
-                                          alignment: MainAxisAlignment.center,
-                                          image: (item.users
-                                                  ?.map(
-                                                      (e) => e.userImage ?? "")
-                                                  .toList()) ??
-                                              [],
-                                          number:
-                                              item.users?.length.toString() ??
-                                                  "0",
-                                          textColors: MainColors.blackText,
-                                          areaHeigt: 26.h,
-                                          areaWidth: 52.w,
-                                          avatarHeigt: 24.h,
-                                          avatarWidth: 24.w,
-                                        )
-                                      : SizedBox(
-                                          width: 100.w,
-                                          child: Text(
-                                            "${item.users?.first.userName}",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.visible,
-                                            style: MainTextStyle.boldTextStyle(
-                                              fontSize: 10,
-                                              plusJakartaSans: true,
-                                            ),
-                                          ),
-                                        )
-                                  : index == 1
-                                      ? Text(
-                                          "عبر تطبيق زوم",
-                                          style: MainTextStyle.boldTextStyle(
-                                            fontSize: 12,
-                                            color: MainColors.blackText,
-                                          ),
-                                        )
-                                      : GestureDetector(
-                                          onTap: () {
-                                            if (item?.status?.key ==
-                                                "started") {
-                                              cubit
-                                                  .joinSession(
-                                                      sessionId: item?.id ?? 0)
-                                                  .then(
-                                                (value) {
-                                                  openUrl(
-                                                      item?.meetingUrl ?? "");
-                                                },
-                                              );
-                                            } else {
-                                              delightfulToast(
-                                                  message:
-                                                      "لم يحن موعد المحاضرة بعد",
-                                                  context: context);
-                                            }
-                                          },
-                                          child: Text(
-                                            "Zoom Link",
-                                            style: GoogleFonts.inter(
-                                                color: MainColors.blueTextColor,
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                decorationColor:
-                                                    MainColors.blueTextColor,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
+            SessionCardsWidget(
+              cubit: cubit,
+              stdTitleList: stdTitleList,
             ),
             24.ph,
             BlocBuilder(

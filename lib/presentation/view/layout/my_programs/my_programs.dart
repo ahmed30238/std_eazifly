@@ -1,5 +1,6 @@
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
+import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
@@ -151,8 +152,17 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         message: "ليس لديك اشتراكات",
                       ),
                       24.ph,
-                      const Text(
-                        "اشترك الان",
+                      GestureDetector(
+                        onTap: () {
+                          context.read<LayoutCubit>().changeIndex(1);
+                        },
+                        child: Text(
+                          "اشترك الان",
+                          style: MainTextStyle.boldTextStyle(
+                            fontSize: 12,
+                            color: MainColors.blueTextColor,
+                          ),
+                        ),
                       ),
                     ],
                   );
@@ -219,7 +229,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                           : () async {
                               await cubit
                                   .getAssignedChildrenToProgram(
-                                      programId: item.id ?? -1,)
+                                programId: item.id ?? -1,
+                              )
                                   .then((value) {
                                 onMyProgramTap(
                                   context: context,

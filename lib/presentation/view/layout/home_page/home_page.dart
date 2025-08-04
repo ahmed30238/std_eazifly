@@ -94,10 +94,27 @@ class _HomePageState extends State<HomePage> {
                     32.ph,
                     CategoryRowWidget(
                       title: "المحاضرات القادمة",
-                      onViewAllTap: () => Navigator.pushNamed(
-                        context,
-                        RoutePaths.viewAllNextSessions,
-                      ),
+                      onViewAllTap: () {
+                        if (cubit.getHomeClosestSessionsEntity?.data?.isEmpty ==
+                            true) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                "لا محاضرات قادمة",
+                                style: MainTextStyle.boldTextStyle(
+                                  fontSize: 12,
+                                  color: MainColors.white,
+                                ),
+                              ),
+                            ),
+                          );
+                          return;
+                        }
+                        Navigator.pushNamed(
+                          context,
+                          RoutePaths.viewAllNextSessions,
+                        );
+                      },
                     ),
                     12.ph,
                     // Next Lectures Section with loader

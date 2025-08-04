@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:audioplayers/audioplayers.dart';
 import 'package:eazifly_student/data/models/chat_model/get_messages_model.dart';
 import 'package:eazifly_student/data/models/chat_model/get_my_chats_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
@@ -19,7 +17,9 @@ import 'package:eazifly_student/presentation/controller/chats/chats_state.dart';
 import 'package:eazifly_student/presentation/controller/chats/message_ui_model.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:record/record.dart';
 // import 'package:record/record.dart';
 
 class ChatsCubit extends Cubit<ChatsState> {
@@ -77,7 +77,7 @@ class ChatsCubit extends Cubit<ChatsState> {
     return tabs;
   }
 
-  // late AudioRecorder audioRecord;
+  late AudioRecorder audioRecord;
   late AudioPlayer audioPlayer;
   bool isRecording = false;
   bool isPlaying = false;
@@ -85,20 +85,14 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   initializeRecordVars() {
     audioPlayer = AudioPlayer();
-    // audioRecord = AudioRecorder();
+    audioRecord = AudioRecorder(); // تم إضافة التهيئة
 
     // Listen to player state changes
-    audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
-      if (state == PlayerState.completed) {
+    audioPlayer.playerStateStream.listen((PlayerState state) {
+      if (state.processingState == ProcessingState.completed) {
         isPlaying = false;
         emit(StopPlayingRecordState());
       }
-    });
-
-    // Listen to player completion
-    audioPlayer.onPlayerComplete.listen((event) {
-      isPlaying = false;
-      emit(StopPlayingRecordState());
     });
   }
 
@@ -107,35 +101,48 @@ class ChatsCubit extends Cubit<ChatsState> {
     return '${directory.path}/recording.wav';
   }
 
-  // Future<void> startRecording() async {
-  //   String recordPath = await getRecordPath();
-  //   if (await audioRecord.hasPermission()) {
-  //     await audioRecord.start(
-  //       const RecordConfig(
-  //           androidConfig: AndroidRecordConfig(
-  //         audioSource: AndroidAudioSource.mic,
-  //       )),
-  //       path: recordPath,
-  //     );
-  //     isRecording = true;
-  //     emit(StartRecordState());
-  //   }
-  // }
+  Future<void> startRecording() async {
+    recordPath = await getRecordPath(); // تم إضافة تحديث recordPath
+
+    if (await audioRecord.hasPermission()) {
+      await audioRecord.start(
+        const RecordConfig(
+          encoder: AudioEncoder.wav, // تحديد نوع الترميز
+          androidConfig: AndroidRecordConfig(
+            audioSource: AndroidAudioSource.mic,
+          ),
+        ),
+        path: recordPath,
+      );
+      isRecording = true;
+      emit(StartRecordState());
+    }
+  }
 
   Future<void> stopRecording() async {
-    // String? path = await audioRecord.stop();
+    String? path = await audioRecord.stop(); // تم إلغاء التعليق
     isRecording = false;
-    // recordPath = path!;
+    if (path != null) {
+      recordPath = path; // تم إلغاء التعليق وإضافة null check
+    }
     emit(StopRecordState());
   }
 
   Future<void> playAudio() async {
-    if (recordPath != "") {
-      await audioPlayer.play(DeviceFileSource(recordPath));
-      isPlaying = true;
-      emit(PlayRecordState());
+    if (recordPath.isNotEmpty && File(recordPath).existsSync()) {
+      try {
+        await audioPlayer
+            .setFilePath(recordPath); // استخدام setFilePath بدلاً من play
+        await audioPlayer.play();
+        isPlaying = true;
+        emit(PlayRecordState());
+      } catch (e) {
+        print('Error playing audio: $e');
+        isPlaying = false;
+      }
     } else {
       isPlaying = false;
+      print('No recording found to play');
     }
   }
 
@@ -146,7 +153,6 @@ class ChatsCubit extends Cubit<ChatsState> {
       emit(StopPlayingRecordState());
     }
   }
-
 //! ###################### API #######################
 
   AddNoteEntity? addNoteEntity;
@@ -367,7 +373,9 @@ class ChatsCubit extends Cubit<ChatsState> {
   }
 
   @override
-  Future<void> close() {
+  Future<void> close() async {
+    await audioPlayer.dispose();
+    await audioRecord.dispose();
     // _messagesStreamController.close();
     audioPlayer.dispose();
     // audioRecord.dispose();

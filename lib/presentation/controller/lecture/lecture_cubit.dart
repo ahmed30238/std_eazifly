@@ -1,7 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/core/enums/student_success_status.dart';
@@ -41,6 +39,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 import 'package:file_picker/file_picker.dart';
 // import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
@@ -964,75 +963,79 @@ class LectureCubit extends Cubit<LectureState> {
   late AudioRecorder audioRecord;
   late AudioPlayer audioPlayer;
 
-// دالة تهيئة التسجيل
-  void initializeRecordVars() {
+  initializeRecordVars() {
     audioPlayer = AudioPlayer();
-    // audioRecord = AudioRecorder();
+    audioRecord = AudioRecorder(); // تم إضافة التهيئة
 
-    audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
-      if (state == PlayerState.completed) {
+    // Listen to player state changes
+    audioPlayer.playerStateStream.listen((PlayerState state) {
+      if (state.processingState == ProcessingState.completed) {
         isPlaying = false;
         emit(StopPlayingRecordState());
       }
     });
   }
 
-// دالة للحصول على مسار الحفظ
   Future<String> getRecordPath() async {
     final directory = await getApplicationDocumentsDirectory();
-    return '${directory.path}/recording_${DateTime.now().millisecondsSinceEpoch}.m4a';
+    return '${directory.path}/recording.wav';
   }
 
-// بدء التسجيل
   Future<void> startRecording() async {
-    try {
-      if (await audioRecord.hasPermission()) {
-        recordPath = await getRecordPath();
-        await audioRecord.start(
-          const RecordConfig(
-            encoder: AudioEncoder.aacLc,
-            androidConfig: AndroidRecordConfig(
-              audioSource: AndroidAudioSource.mic,
-              // sampleRate: 44100,
-            ),
+    recordPath = await getRecordPath(); // تم إضافة تحديث recordPath
+
+    if (await audioRecord.hasPermission()) {
+      await audioRecord.start(
+        const RecordConfig(
+          encoder: AudioEncoder.wav, // تحديد نوع الترميز
+          androidConfig: AndroidRecordConfig(
+            audioSource: AndroidAudioSource.mic,
           ),
-          path: recordPath,
-        );
-        isRecording = true;
-        emit(StartRecordState());
-      }
-    } catch (e) {
-      log("Error starting recording: $e");
-      emit(RecordErrorState());
+        ),
+        path: recordPath,
+      );
+      isRecording = true;
+      emit(StartRecordState());
     }
   }
 
-// إيقاف التسجيل
   Future<void> stopRecording() async {
-    try {
-      final path = await audioRecord.stop();
-      isRecording = false;
-      if (path != null) {
-        voiceNote = File(path);
-        emit(StopRecordState());
+    String? path = await audioRecord.stop(); // تم إلغاء التعليق
+    isRecording = false;
+    if (path != null) {
+      recordPath = path; // تم إلغاء التعليق وإضافة null check
+    }
+    emit(StopRecordState());
+  }
+
+  Future<void> playAudio() async {
+    if (recordPath.isNotEmpty && File(recordPath).existsSync()) {
+      try {
+        await audioPlayer
+            .setFilePath(recordPath); // استخدام setFilePath بدلاً من play
+        await audioPlayer.play();
+        isPlaying = true;
+        emit(PlayRecordState());
+      } catch (e) {
+        print('Error playing audio: $e');
+        isPlaying = false;
       }
-    } catch (e) {
-      log("Error stopping recording: $e");
-      emit(RecordErrorState());
+    } else {
+      isPlaying = false;
+      print('No recording found to play');
     }
   }
 
-// تشغيل التسجيل
-  Future<void> playRecording() async {
-    if (voiceNote != null) {
-      await audioPlayer.play(DeviceFileSource(voiceNote!.path));
-      isPlaying = true;
-      emit(PlayRecordState());
+  Future<void> stopAudio() async {
+    if (isPlaying) {
+      await audioPlayer.pause();
+      isPlaying = false;
+      emit(StopPlayingRecordState());
     }
   }
 
   /// تشغيل تسجيل صوتي من URL خارجي
-  Future<void> playExternalSourceAudio(String audioUrl) async {
+ Future<void> playExternalSourceAudio(String audioUrl) async {
     try {
       // إذا كان هناك تسجيل مشغّل حالياً، أوقفه أولاً
       if (isPlaying) {
@@ -1045,24 +1048,13 @@ class LectureCubit extends Cubit<LectureState> {
       }
 
       // بدء التشغيل من المصدر الخارجي
-      await audioPlayer.play(UrlSource(audioUrl));
+      await audioPlayer.setUrl(audioUrl);  // استخدام setUrl بدلاً من play(UrlSource)
+      await audioPlayer.play();
       isPlaying = true;
       emit(PlayExternalAudioState());
 
-      // إعداد مستمع لانتهاء التشغيل
-      audioPlayer.onPlayerComplete.listen((_) {
-        isPlaying = false;
-        emit(StopExternalAudioState());
-      });
-
-      // إعداد مستمع للأخطاء
-      // audioPlayer.onPlayerError.listen((error) {
-      //   log('Error playing external audio: $error');
-      //   isPlaying = false;
-      //   emit(AudioErrorState(error: 'فشل تشغيل التسجيل'));
-      // });
     } catch (e) {
-      log('Exception in playExternalSourceAudio: $e');
+      print('Exception in playExternalSourceAudio: $e');
       isPlaying = false;
       emit(AudioErrorState());
     }

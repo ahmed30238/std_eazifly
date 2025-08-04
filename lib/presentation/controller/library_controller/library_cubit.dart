@@ -1,7 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/core/component/audio_player_bottom_sheet.dart';
@@ -35,6 +33,7 @@ import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_
 import 'package:eazifly_student/presentation/view/layout/library/widgets/favourite_body.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/menu_list_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:just_audio/just_audio.dart';
 // import 'package:just_audio/just_audio.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -388,8 +387,6 @@ class LibraryCubit extends Cubit<LibraryState> {
     getLibraryItemsLoader = false;
   }
 
-
-
   bool likeItemLoader = false;
   LikeItemUsecase likeItemUsecase;
   LikeItemEntity? likeItemEntity;
@@ -509,7 +506,6 @@ class LibraryCubit extends Cubit<LibraryState> {
     }
   }
 
-  // دالة تشغيل الملفات الصوتية
   Future<void> _playAudioFile({
     required String fileUrl,
     required String title,
@@ -524,27 +520,11 @@ class LibraryCubit extends Cubit<LibraryState> {
       currentPlayingUrl = fileUrl;
 
       // تشغيل الملف الصوتي من الرابط مباشرة
-      await audioPlayer.play(UrlSource(fileUrl));
+      await audioPlayer
+          .setUrl(fileUrl); // استخدام setUrl بدلاً من play(UrlSource)
+      await audioPlayer.play();
       isPlaying = true;
       emit(AudioPlayingState());
-
-      // الاستماع لتغييرات حالة التشغيل
-      audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
-        isPlaying = state == PlayerState.playing;
-        emit(AudioStateChangedState());
-      });
-
-      // الاستماع لموضع التشغيل
-      audioPlayer.onPositionChanged.listen((Duration position) {
-        currentPosition = position;
-        emit(AudioPositionChangedState());
-      });
-
-      // الاستماع لمدة الملف الكاملة
-      audioPlayer.onDurationChanged.listen((Duration duration) {
-        totalDuration = duration;
-        emit(AudioDurationChangedState());
-      });
 
       // عرض مشغل الصوت في Bottom Sheet
       showAudioPlayerBottomSheet(context, title, this);
@@ -553,25 +533,29 @@ class LibraryCubit extends Cubit<LibraryState> {
     }
   }
 
-  // عرض مشغل الصوت في Bottom Sheet
-
   Future<void> togglePlayPause() async {
-    if (isPlaying) {
-      await audioPlayer.pause();
-    } else {
-      // التحقق من حالة الـ player
-      final playerState = audioPlayer.state;
-
-      if (playerState == PlayerState.completed) {
-        // لو الصوت خلص، إعادة تشغيل من الأول
-        await audioPlayer.seek(Duration.zero);
-        await audioPlayer.resume();
+    try {
+      if (isPlaying) {
+        await audioPlayer.pause();
+        isPlaying = false;
       } else {
-        // تكملة التشغيل العادي
-        await audioPlayer.resume();
+        // التحقق من حالة الـ player
+        final playerState = audioPlayer.playerState;
+
+        if (playerState.processingState == ProcessingState.completed) {
+          // لو الصوت خلص، إعادة تشغيل من الأول
+          await audioPlayer.seek(Duration.zero);
+          await audioPlayer.play();
+        } else {
+          // تكملة التشغيل العادي
+          await audioPlayer.play();
+        }
+        isPlaying = true;
       }
+      emit(AudioStateChangedState());
+    } catch (e) {
+      print('Error in togglePlayPause: $e');
     }
-    emit(AudioStateChangedState());
   }
 
   Future<void> seekForward() async {

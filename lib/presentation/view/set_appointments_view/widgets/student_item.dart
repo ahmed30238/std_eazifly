@@ -79,32 +79,30 @@ class StudentItem extends StatelessWidget {
                 ),
               ),
             ),
-          } else ...{
-            if (isDoneAdded) ...{
-              // علامة الصح في أعلى الشمال
-              Positioned(
-                top: -2.h,
-                left: -2.w,
-                child: Container(
-                  width: 20.w,
-                  height: 20.h,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 2.w,
-                    ),
-                  ),
-                  child: Icon(
-                    Icons.check,
+          },
+          if (isDoneAdded)
+            // علامة الصح في أعلى الشمال
+            Positioned(
+              top: -2.h,
+              left: -2.w,
+              child: Container(
+                width: 20.w,
+                height: 20.h,
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  shape: BoxShape.circle,
+                  border: Border.all(
                     color: Colors.white,
-                    size: 12.sp,
+                    width: 2.w,
                   ),
                 ),
+                child: Icon(
+                  Icons.check,
+                  color: Colors.white,
+                  size: 12.sp,
+                ),
               ),
-            }
-          }
+            ),
         ],
       ),
     );

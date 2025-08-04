@@ -13,6 +13,16 @@ class PreviousReviewsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (programEntity.reviews?.isEmpty == true) {
+      return Center(
+        child: Text(
+          "لا تقييمات سابقة",
+          style: MainTextStyle.boldTextStyle(
+            fontSize: 12,
+          ),
+        ),
+      );
+    }
     return ListView.builder(
       padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h),
       physics: const NeverScrollableScrollPhysics(),

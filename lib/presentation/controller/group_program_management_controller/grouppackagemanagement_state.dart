@@ -55,8 +55,7 @@ class CreateMeetingSessionsErrorState extends GrouppackagemanagementState {
 // GetInstructors States
 class GetInstructorsLoadingState extends GrouppackagemanagementState {}
 
-class GetInstructorsSuccessState extends GrouppackagemanagementState {
-}
+class GetInstructorsSuccessState extends GrouppackagemanagementState {}
 
 class GetInstructorsErrorState extends GrouppackagemanagementState {
   final String message;
@@ -96,6 +95,7 @@ class GetProgramContentErrorState extends GrouppackagemanagementState {
     required this.errorMessage,
   });
 }
+
 class FindInstructorSuccessState extends GrouppackagemanagementState {}
 
 class FindInstructorErrorState extends GrouppackagemanagementState {
@@ -105,3 +105,5 @@ class FindInstructorErrorState extends GrouppackagemanagementState {
 }
 
 class FindInstructorLoadingState extends GrouppackagemanagementState {}
+
+class ChangeIsDoneAddedState extends GrouppackagemanagementState {}

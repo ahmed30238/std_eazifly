@@ -9,6 +9,16 @@ class LecturerDataTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (programEntity.instructors?.isEmpty == true) {
+      return Center(
+        child: Text(
+          "لا بيانات عن المعلم",
+          style: MainTextStyle.boldTextStyle(
+            fontSize: 12,
+          ),
+        ),
+      );
+    }
     return ListView.separated(
       itemBuilder: (context, index) {
         var instructor = programEntity.instructors?[index];
