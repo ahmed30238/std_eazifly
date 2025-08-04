@@ -4,6 +4,7 @@ import 'package:eazifly_student/core/enums/mesage_type_enum.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_state.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
+import 'package:eazifly_student/presentation/view/chat/messages_screen/report_body.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/widgets.dart/message_item.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/widgets.dart/writing_message_area.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
@@ -88,7 +89,22 @@ class DmBody extends StatelessWidget {
                         bool isLastElement = index == messages.length - 1;
                         final message = messages[index];
                         log("building message: ${message.message.message}");
-
+                        String type = ""; // voice_message,image,text
+                        switch (message.message.fileType) {
+                          case "jpg":
+                            type = "image";
+                            break;
+                          case "png":
+                            type = "image";
+                            break;
+                          case "wav":
+                            type = "voice_message";
+                            break;
+                          case "":
+                            type = "text";
+                            break;
+                          default:
+                        }
                         return TextMessageItem(
                           messageStatus: message.isSending
                               ? MessageStatus.sending
@@ -96,6 +112,7 @@ class DmBody extends StatelessWidget {
                                   ? MessageStatus.failed
                                   : MessageStatus.sent,
                           isLastMesage: isLastElement,
+                          file: message.message.file ?? "",
                           messageModel: Message(
                             createdAt: message.message.createdAt == null
                                 ? formatMessageTime(
@@ -106,7 +123,7 @@ class DmBody extends StatelessWidget {
                                     context,
                                     message.message.createdAt.toString(),
                                   ),
-                            type: MessageTypeEnum.text,
+                            type: getMessageType(type),
                             content: message.message.message ?? "",
                             isSender: message.message.senderType == "User",
                           ),

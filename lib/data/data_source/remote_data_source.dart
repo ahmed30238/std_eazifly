@@ -1276,8 +1276,37 @@ class RemoteDataSource extends BaseRemoteDataSource {
   @override
   Future<SendMessagesModel> sendMessages(
       {required SendMessagesTojson data}) async {
+    FormData formData = FormData();
+    formData.fields.addAll([
+      MapEntry("message", data.message),
+      MapEntry("receiver_id", data.receiverId),
+      MapEntry("receiver_type", data.receiverType),
+      MapEntry("sender_id", data.senderId),
+      MapEntry("sender_type", data.senderType),
+    ]);
+    if (data.file != null) {
+      if (data.file!.isNotEmpty) {
+        final File fileFile = File(data.file ?? "");
+        if (await fileFile.exists()) {
+          formData.files.add(
+            MapEntry(
+              "file",
+              await MultipartFile.fromFile(
+                data.file ?? "",
+                filename: data.file?.split('/').last,
+              ),
+            ),
+          );
+          log('file added to FormData: ${data.file?.split('/').last}');
+        } else {
+          throw Exception('file file does not exist at path: ${data.file}');
+        }
+      }
+    }
+    log('FormData fields: ${formData.fields.length}');
+    log('FormData files: ${formData.files.length}');
     var response = await NetworkCall().post(
-      data: FormData.fromMap(data.toJson()),
+      data: formData,
       path: EndPoints.sendMessages,
     );
     if (response?.statusCode == 200) {

@@ -6,6 +6,7 @@ import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/widgets.dart/images_area.dart';
+import 'package:eazifly_student/presentation/view/lecture/corrcected_assignment_details_view/widgets/question_an_sol_container.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,14 +26,15 @@ class TextMessageItem extends StatelessWidget {
   final String messageSenderAvatar;
   final Message messageModel;
   final MessageStatus? messageStatus; // إضافة حالة الرسالة
-
+  final String file;
   const TextMessageItem({
     super.key,
     this.isLastMesage = true,
     this.isThereImages = false,
     required this.messageModel,
     required this.messageSenderAvatar,
-    this.messageStatus, // إضافة المعامل الجديد
+    this.messageStatus,
+    required this.file, // إضافة المعامل الجديد
   });
 
   @override
@@ -79,7 +81,12 @@ class TextMessageItem extends StatelessWidget {
                       bottomRight: Radius.circular(16.r),
                     ),
                   ),
-                  child: _buildMessageContent(messageModel, messageStatus),
+                  child: _buildMessageContent(
+                    context,
+                    messageModel,
+                    messageStatus,
+                    file,
+                  ),
                 ),
                 8.ph,
                 if (isThereImages == true) ...{
@@ -143,10 +150,15 @@ Widget _buildMessageStatusIcon(MessageStatus? status) {
         size: 14.sp,
         color: Colors.red,
       );
-    }
+  }
 }
 
-Widget _buildMessageContent(Message message, MessageStatus? messageStatus) {
+Widget _buildMessageContent(
+  BuildContext context,
+  Message message,
+  MessageStatus? messageStatus,
+  String file,
+) {
   switch (message.type) {
     case MessageTypeEnum.text:
       return IntrinsicWidth(
@@ -186,10 +198,15 @@ Widget _buildMessageContent(Message message, MessageStatus? messageStatus) {
         children: [
           _buildTextWithLinks(message),
           8.ph,
-          AvatarImage(
-            imageUrl: message.content,
-            width: 200.w,
-            height: 200.h,
+          GestureDetector(
+            onTap: () {
+              showFullScreenImage(context, file);
+            },
+            child: AvatarImage(
+              imageUrl: file,
+              width: 200.w,
+              height: 200.h,
+            ),
           ),
           // إضافة حالة الرسالة للصور أيضاً
           if (message.isSender && messageStatus != null) ...[
@@ -216,12 +233,11 @@ Widget _buildMessageContent(Message message, MessageStatus? messageStatus) {
       );
     case MessageTypeEnum.voiceMessage:
       return VoiceMessageWidget(
-        audioUrl: "",
-        // duration: 30,
-        // isFile: false,
+        width: 200.w,
+        audioUrl: file,
         backgroundColor: MainColors.transparentColor,
       );
-    }
+  }
 }
 
 // الدالة الجديدة لبناء النص مع دعم الروابط

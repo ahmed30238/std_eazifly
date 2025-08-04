@@ -1,4 +1,5 @@
 import 'package:eazifly_student/core/component/avatar_image.dart';
+import 'package:eazifly_student/core/component/fullscreen_image.dart';
 import 'package:eazifly_student/core/component/voice_message_widget.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
@@ -82,11 +83,8 @@ class QuestionAndSolutionContainer extends StatelessWidget {
 
             // مرفقات الطالب
             if (studentAttachments.isNotEmpty)
-              _buildAttachments(
-                studentAttachments,
-                isStudent: true,
-                cubit: cubit
-              ),
+              _buildAttachments(studentAttachments,
+                  isStudent: true, cubit: cubit),
 
             // تسجيل صوتي للطالب
             if (studentVoiceNote != null && studentVoiceNote!.isNotEmpty)
@@ -290,12 +288,17 @@ class QuestionAndSolutionContainer extends StatelessWidget {
   }) {
     if (fileUrl.toLowerCase().endsWith('.pdf')) {
       cubit.openFile(
-          fileUrl: fileUrl, fileType: fileType, context: context, title: title);
+        fileUrl: fileUrl,
+        fileType: fileType,
+        context: context,
+        title: title,
+      );
 
       // افتح ملف PDF باستخدام PDF viewer
       // يمكن استخدام حزمة مثل: flutter_pdfview
       // PdfViewer.openFile(fileUrl);
     } else {
+      showFullScreenImage(context, fileUrl);
       // عرض الصورة في وضع ملء الشاشة
       // يمكن استخدام حزمة مثل: photo_view
       // Navigator.push(context, MaterialPageRoute(
@@ -308,4 +311,12 @@ class QuestionAndSolutionContainer extends StatelessWidget {
       // ));
     }
   }
+}
+void showFullScreenImage(BuildContext context, String imageUrl) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => FullScreenImageView(imageUrl: imageUrl),
+    ),
+  );
 }

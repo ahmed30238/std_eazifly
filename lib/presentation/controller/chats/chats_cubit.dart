@@ -58,14 +58,14 @@ class ChatsCubit extends Cubit<ChatsState> {
           );
   }
 
-  List<File> images = [];
+  File? image;
 
-  Future<void> pickImages() async {
-    final response = await pickMultiImageFromGallery();
+  Future<void> pickImageFroGallery() async {
+    final response = await pickImageFromGallery();
     if (response != null) {
-      images = List.from(response.map((e) => File(e.path)));
+      image = File(response.path);
     }
-    emit(GetGalleryImagesState());
+    emit(PickImageFromGallerySuccessState());
   }
 
   List<String> tabs({required BuildContext context}) {
@@ -158,12 +158,14 @@ class ChatsCubit extends Cubit<ChatsState> {
   AddNoteEntity? addNoteEntity;
   AddNoteUsecase addNoteUsecase;
   bool addNoteLoader = false;
-  Future<void> addNote(
-      {required String orderId, required BuildContext context}) async {
+  Future<void> addNote({
+    required String orderId,
+    required BuildContext context,
+  }) async {
     String? imagePath;
     // إذا كان في صورة جديدة
-    if (images.isNotEmpty) {
-      final File file = images.last;
+    if (image != null) {
+      final File file = image!;
 
       if (!await file.exists()) {
         throw Exception('Profile image file does not exist');
@@ -287,7 +289,24 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   // List<GetMessagesDatumModel>? messages = [];
 
-  Future<void> sendMessages({int? userId, required String receiverId}) async {
+  Future<void> sendMessages({
+    int? userId,
+    required String receiverId,
+  }) async {
+    if (isRecording) {
+      await stopRecording();
+    }
+    String? imagePath;
+    // إذا كان في صورة جديدة
+    if (image != null) {
+      final File file = image!;
+
+      if (!await file.exists()) {
+        throw Exception('Profile image file does not exist');
+      }
+
+      imagePath = file.path;
+    }
     final String textToSend = messageController.text;
     messageController.clear();
     final tempMessage = SendMessagesTojson(
@@ -297,6 +316,7 @@ class ChatsCubit extends Cubit<ChatsState> {
       receiverId: receiverId,
       receiverType: "Instructor",
       createdAt: DateTime.now().toIso8601String(),
+      file: imagePath ?? recordPath,
     );
 
     // 2. ضفها للواجهة كـ isSending
@@ -337,6 +357,8 @@ class ChatsCubit extends Cubit<ChatsState> {
           uiMessages[0] = uiMessages[0].copyWith(isSending: false);
         }
         sendMessagesEntities = r;
+        image = null;
+        recordPath = "";
         emit(SendMesssagesSuccesState());
         // emit(GetUiMesssagesSuccesState(uiMessages: uiMessages));
         // _updateMessagesStream(); // تحديث الـ Stream

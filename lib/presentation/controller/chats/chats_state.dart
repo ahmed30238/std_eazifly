@@ -4,6 +4,8 @@ abstract class ChatsState {}
 
 class ChatsInitial extends ChatsState {}
 
+class PickImageFromGallerySuccessState extends ChatsState {}
+
 class ChangeTapbarState extends ChatsState {}
 
 class GetGalleryImagesState extends ChatsState {}

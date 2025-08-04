@@ -1,4 +1,5 @@
-enum MessageTypeEnum {
+ 
+ enum MessageTypeEnum {
   text,
   image,
   voiceMessage,

@@ -43,23 +43,23 @@ class _DmViewState extends State<DmView> {
 
   CreateOrderDataEntity? myOrder;
   late ChatsCubit cubit;
-  
+
   @override
   void initState() {
     super.initState();
-    
+
     // Initialize the cubit
     cubit = context.read<ChatsCubit>();
-    
+
     // Initialize record variables
     cubit.initializeRecordVars();
-    
+
     // Initialize scroll controller
     cubit.initScorllController(widget.chatId);
-    
+
     // استدعاء getMessages عند دخول الشاشة
     _loadMessages();
-    
+
     // إذا كان isReport = true، نحتاج لتحميل الـ order
     if (widget.isReport && widget.orderId != null) {
       _loadOrderData();
@@ -69,11 +69,7 @@ class _DmViewState extends State<DmView> {
   // دالة منفصلة لتحميل الرسائل
   void _loadMessages() {
     log('Loading messages for chat ID: ${widget.chatId}');
-    cubit.getMessages(
-      chatId: widget.chatId, 
-      isInitial: true, 
-      showLoader: true
-    );
+    cubit.getMessages(chatId: widget.chatId, isInitial: true, showLoader: true);
   }
 
   // دالة منفصلة لتحميل بيانات الطلب (للتقارير)
@@ -134,12 +130,13 @@ class _DmViewState extends State<DmView> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: IconsContainer(
-                      width: 48.w,
-                      containerColor: MainColors.white,
-                      iconWidget: SvgPicture.asset(
-                        Assets.iconsVerticalDots,
-                        fit: BoxFit.scaleDown,
-                      )),
+                    width: 48.w,
+                    containerColor: MainColors.white,
+                    iconWidget: SvgPicture.asset(
+                      Assets.iconsVerticalDots,
+                      fit: BoxFit.scaleDown,
+                    ),
+                  ),
                 )
               ],
             ),

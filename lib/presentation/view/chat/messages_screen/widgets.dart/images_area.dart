@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/service_locator/service_locator.dart';
@@ -19,7 +20,7 @@ class ImagesArea extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          var pickedFile = (cubit.images)[index];
+          var pickedFile = (cubit.image);
           return Container(
             height: 84.h,
             width: 104.w,
@@ -28,7 +29,7 @@ class ImagesArea extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Image.file(
-              pickedFile,
+              pickedFile ?? File("path"),
               height: 84.h,
               width: 104.w,
               fit: BoxFit.cover,
@@ -36,7 +37,7 @@ class ImagesArea extends StatelessWidget {
           );
         },
         separatorBuilder: (context, index) => 8.pw,
-        itemCount: cubit.images.length,
+        itemCount: 1,
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:eazifly_student/core/component/shimmer_widget.dart';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
+import 'package:eazifly_student/core/geidea_payment_service/geidea_payment_service.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_library_model.dart';
 import 'package:eazifly_student/presentation/controller/home_notification/home_notification_cubit.dart';
@@ -11,6 +12,8 @@ import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.da
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_loader.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:geideapay/common/geidea.dart';
+import 'package:geideapay/geideapay.dart';
 import 'package:get_storage/get_storage.dart';
 
 DataModel? loginData;
@@ -23,6 +26,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final plugin = GeideapayPlugin();
+
   // late DataModel loginData;
   late bool isGuest;
   late HomeCubit cubit;
@@ -30,6 +35,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    plugin.initialize(
+      serverEnvironment: ServerEnvironmentModel(
+        "title",
+        "apiBaseUrl",
+        "hppBaseUrl",
+      ),
+      publicKey: "<YOUR MERCHANT KEY>",
+      apiPassword: "<YOUR MERCHANT PASSWORD>",
+    );
     cubit = context.read<HomeCubit>();
     loginData = DataModel.fromJson(
       jsonDecode(
@@ -76,6 +90,29 @@ class _HomePageState extends State<HomePage> {
         },
         child: Column(
           children: [
+            GestureDetector(
+              onTap: () async {
+                try {
+                  OrderApiResponse response = await plugin.checkout(
+                    context: context,
+                    checkoutOptions: GeideaService().checkoutOptions,
+                  );
+                  debugPrint('Response = $response');
+
+                  // Payment successful, order returned in response
+                  // _updateStatus(response.detailedResponseMessage,
+                  //     truncate(response.toString()));
+                } catch (e) {
+                  debugPrint("OrderApiResponse Error: $e");
+                  // An unexpected error due to improper SDK
+                  // integration or Plugin internal bug
+                  // _showMessage(e.toString());
+                }
+              },
+              child: const Text(
+                "geidea",
+              ),
+            ),
             Expanded(
               child: ListView(
                 physics: const BouncingScrollPhysics(),

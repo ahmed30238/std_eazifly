@@ -36,7 +36,9 @@ class _WritingMessageAreaState extends State<WritingMessageArea> {
             child: Row(
               children: [
                 InkWell(
-                  onTap: cubit.isMessageNotEmpty
+                  onTap: cubit.isMessageNotEmpty ||
+                          // cubit.recordPath.isNotEmpty ||
+                          cubit.image != null
                       ? () {
                           if (widget.isReport) {
                             cubit.addNote(
@@ -45,24 +47,35 @@ class _WritingMessageAreaState extends State<WritingMessageArea> {
                             );
                           } else {
                             cubit.sendMessages(
-                                receiverId: cubit.currentInstructor?.id ?? "");
+                              receiverId: cubit.currentInstructor?.id ?? "",
+                            );
                           }
                           // if (cubit.messageController.text.isNotEmpty) {
                           // }
                         }
                       : () {
-                          // cubit.isRecording
-                          //     ? cubit.stopRecording()
-                          //     : cubit.startRecording();
+                          cubit.isRecording
+                              ? cubit.stopRecording()
+                              : cubit.startRecording();
                         },
                   child: SizedBox(
                     height: 40.h,
                     width: 40.w,
                     child: SvgPicture.asset(
-                      cubit.isMessageNotEmpty
+                      cubit.isMessageNotEmpty ||
+                              // cubit.recordPath.isNotEmpty ||
+                              cubit.image != null
                           ? Assets.iconsSend2
-                          : Assets.iconsMicrophone,
+                          : cubit.isRecording
+                              ? Assets.iconsMicrophone
+                              : Assets.iconsMicrophone,
                       fit: BoxFit.scaleDown,
+                      colorFilter: cubit.isRecording
+                          ? ColorFilter.mode(
+                              MainColors.red,
+                              BlendMode.srcIn,
+                            )
+                          : null,
                     ),
                   ),
                 ),
@@ -73,8 +86,14 @@ class _WritingMessageAreaState extends State<WritingMessageArea> {
                     hintText: "أكتب رسالتك",
                   ),
                 ),
+                if (cubit.image != null)
+                  Image.file(
+                    height: 20.h,
+                    width: 20.w,
+                    cubit.image!,
+                  ),
                 InkWell(
-                  onTap: () => cubit.pickImages(),
+                  onTap: () => cubit.pickImageFroGallery(),
                   child: SizedBox(
                     height: 40.h,
                     width: 40.w,

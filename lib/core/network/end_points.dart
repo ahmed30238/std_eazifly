@@ -33,6 +33,7 @@ class EndPoints {
           {required int userId, required int programId}) =>
       "subscription/data?program_id=$programId&user_id=$userId";
   static const changeInstructor = "change/instructor";
+  static const forgotPassword = "forgot-password";
   static const changeInstructorWithNewDates =
       "change/instructor/with/new/dates";
   static String getOrderDetails({required int orderId}) =>

@@ -53,6 +53,7 @@ class ReportBodyView extends StatelessWidget {
 
                         return TextMessageItem(
                           // messageStatus: ,
+                          file: "",
                           isLastMesage: isLastElement,
                           messageModel: Message(
                             type: getMessageType(
@@ -90,7 +91,7 @@ MessageTypeEnum getMessageType(String type) {
       return MessageTypeEnum.image;
 
     case "voice_message":
-      return MessageTypeEnum.text;
+      return MessageTypeEnum.voiceMessage;
 
     default:
       return MessageTypeEnum.text;

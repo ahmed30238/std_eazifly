@@ -5,6 +5,7 @@ class SendMessagesTojson {
   final String senderType;
   final String senderId;
   final String? createdAt;
+  final String? file;
 
   SendMessagesTojson({
     required this.message,
@@ -12,7 +13,8 @@ class SendMessagesTojson {
     required this.receiverType,
     required this.senderType,
     required this.senderId,
-    this.createdAt
+    required this.createdAt,
+    required this.file,
   });
   Map<String, dynamic> toJson() {
     return {
@@ -21,6 +23,7 @@ class SendMessagesTojson {
       "receiver_type": receiverType,
       "sender_type": senderType,
       "sender_id": senderId,
+      "file": file,
     };
   }
 }

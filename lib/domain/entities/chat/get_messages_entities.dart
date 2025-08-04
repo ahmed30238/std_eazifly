@@ -21,11 +21,18 @@ class GetMessagesDatumEntities {
   String? message;
   @JsonKey(name: "created_at")
   DateTime? createdAt;
+  @JsonKey(name: "file_type")
+  String? fileType;
+  @JsonKey(name: "file")
+  String? file;
+  
   GetMessagesDatumEntities({
     this.id,
     this.chatId,
     this.senderType,
     this.message,
     this.createdAt,
+    this.file,
+    this.fileType,
   });
 }
