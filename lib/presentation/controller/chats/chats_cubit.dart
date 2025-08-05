@@ -296,17 +296,23 @@ class ChatsCubit extends Cubit<ChatsState> {
     if (isRecording) {
       await stopRecording();
     }
+
     String? imagePath;
+    String currentRecordPath = recordPath;
+    String messageType = "text"; // default
+
     // إذا كان في صورة جديدة
     if (image != null) {
       final File file = image!;
-
       if (!await file.exists()) {
         throw Exception('Profile image file does not exist');
       }
-
       imagePath = file.path;
+      messageType = "image";
+    } else if (currentRecordPath.isNotEmpty) {
+      messageType = "voice_message";
     }
+
     final String textToSend = messageController.text;
     messageController.clear();
     final tempMessage = SendMessagesTojson(
@@ -316,24 +322,29 @@ class ChatsCubit extends Cubit<ChatsState> {
       receiverId: receiverId,
       receiverType: "Instructor",
       createdAt: DateTime.now().toIso8601String(),
-      file: imagePath ?? recordPath,
+      file: imagePath ?? currentRecordPath,
     );
 
-    // 2. ضفها للواجهة كـ isSending
+    // 2. ضفها للواجهة كـ isSending مع النوع
     uiMessages.insert(
       0,
       MessageUIModel(
         message: GetMessagesDatumModel.fromJson(tempMessage.toJson()),
         isSending: true,
+        messageType: messageType, // حفظ النوع
       ),
     );
+
+    // امسح المتغيرات دلوقتي
+    image = null;
+    recordPath = "";
+
     emit(SendMesssagesLoadingState());
     final result = await sendMessagesUsecase.call(
       parameter: SendMessagesParameters(
         data: tempMessage,
       ),
     );
-    // log("$result");
 
     result.fold(
       (l) {
@@ -343,12 +354,10 @@ class ChatsCubit extends Cubit<ChatsState> {
           isFailed: true,
         );
         uiMessages[0] = failed;
-
         emit(SendMessagesErrorState(errorMessage: l.message));
-        // emit(GetUiMesssagesSuccesState(uiMessages: uiMessages));
       },
       (r) {
-        // نجح الإرسال، استبدل الرسالة المؤقتة باللي جاية من السيرفر
+        // نجح الإرسال
         if (r.data != null) {
           final serverMessage =
               GetMessagesDatumModel.fromJson(r.data!.toJson());
@@ -357,11 +366,7 @@ class ChatsCubit extends Cubit<ChatsState> {
           uiMessages[0] = uiMessages[0].copyWith(isSending: false);
         }
         sendMessagesEntities = r;
-        image = null;
-        recordPath = "";
         emit(SendMesssagesSuccesState());
-        // emit(GetUiMesssagesSuccesState(uiMessages: uiMessages));
-        // _updateMessagesStream(); // تحديث الـ Stream
       },
     );
   }

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:eazifly_student/core/enums/mesage_type_enum.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_state.dart';
+import 'package:eazifly_student/presentation/controller/chats/message_ui_model.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/report_body.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/widgets.dart/message_item.dart';
@@ -79,7 +80,6 @@ class DmBody extends StatelessWidget {
                       itemCount: messages.length + (cubit.hasMore ? 1 : 0),
                       itemBuilder: (context, index) {
                         if (index == messages.length) {
-                          // Show bottom loader when more data is available
                           return Padding(
                             padding: EdgeInsets.all(8.0.r),
                             child: const Center(
@@ -89,22 +89,39 @@ class DmBody extends StatelessWidget {
                         bool isLastElement = index == messages.length - 1;
                         final message = messages[index];
                         log("building message: ${message.message.message}");
-                        String type = ""; // voice_message,image,text
-                        switch (message.message.fileType) {
-                          case "jpg":
-                            type = "image";
-                            break;
-                          case "png":
-                            type = "image";
-                            break;
-                          case "wav":
-                            type = "voice_message";
-                            break;
-                          case "":
-                            type = "text";
-                            break;
-                          default:
+                        String type = "text"; // default
+
+                        // لو في messageType محفوظ، استخدمه
+                        if (message.messageType != null) {
+                          type = message.messageType!;
+                        } else {
+                          // لو مفيش، استخدم المنطق القديم
+                          switch (message.message.fileType) {
+                            case "jpg" || "png":
+                              type = "image";
+                              break;
+                            case "wav" || "mp3" || "m4a":
+                              type = "voice_message";
+                              break;
+                            default:
+                              // شوف لو في file path
+                              if (message.message.file != null &&
+                                  message.message.file!.isNotEmpty) {
+                                String filePath =
+                                    message.message.file!.toLowerCase();
+                                if (filePath.endsWith('.jpg') ||
+                                    filePath.endsWith('.png') ||
+                                    filePath.endsWith('.jpeg')) {
+                                  type = "image";
+                                } else if (filePath.endsWith('.wav') ||
+                                    filePath.endsWith('.mp3') ||
+                                    filePath.endsWith('.m4a')) {
+                                  type = "voice_message";
+                                }
+                              }
+                          }
                         }
+
                         return TextMessageItem(
                           messageStatus: message.isSending
                               ? MessageStatus.sending
@@ -116,14 +133,10 @@ class DmBody extends StatelessWidget {
                           messageModel: Message(
                             createdAt: message.message.createdAt == null
                                 ? formatMessageTime(
-                                    context,
-                                    DateTime.now().toString(),
-                                  )
-                                : formatMessageTime(
-                                    context,
-                                    message.message.createdAt.toString(),
-                                  ),
-                            type: getMessageType(type),
+                                    context, DateTime.now().toString())
+                                : formatMessageTime(context,
+                                    message.message.createdAt.toString()),
+                            type: getMessageType(message.messageType ?? type),
                             content: message.message.message ?? "",
                             isSender: message.message.senderType == "User",
                           ),

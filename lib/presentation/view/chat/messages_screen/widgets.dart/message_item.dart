@@ -34,7 +34,7 @@ class TextMessageItem extends StatelessWidget {
     required this.messageModel,
     required this.messageSenderAvatar,
     this.messageStatus,
-    required this.file, // إضافة المعامل الجديد
+    required this.file,
   });
 
   @override
