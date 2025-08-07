@@ -83,7 +83,7 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
       0,
       GetAssignedChildrenToProgramDatumEntity(
         id: loginData?.id,
-        age: loginData?.age,
+        age: loginData?.age.toString(),
         firstName: loginData?.firstName,
         image: loginData?.image,
       ),

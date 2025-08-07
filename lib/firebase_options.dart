@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBvMoDWLtIq7fVZ4L_nDVsD_9rYhYwykZk',
-    appId: '1:960255976764:android:71997a992b1201bf152a39',
+    appId: '1:960255976764:android:3ca76e8fd129a0a4152a39',
     messagingSenderId: '960255976764',
     projectId: 'eazifly-instructor',
     storageBucket: 'eazifly-instructor.firebasestorage.app',
@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'eazifly-instructor.firebasestorage.app',
     iosBundleId: 'com.example.eaziflyStudent',
   );
+
 }

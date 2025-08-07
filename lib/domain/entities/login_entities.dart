@@ -19,6 +19,7 @@ class LoginEntity {
 }
 
 class DataEntity {
+  static int? customInt(val) => int.tryParse(val?.toString() ?? "");
   @JsonKey(name: "id")
   int? id;
 
@@ -61,8 +62,8 @@ class DataEntity {
   @JsonKey(name: "childrens")
   List<DataModel>? childrens;
 
-  @JsonKey(name: "age")
-  String? age;
+  @JsonKey(name: "age", fromJson: customInt)
+  int? age;
 
   @JsonKey(name: "token")
   String? token;

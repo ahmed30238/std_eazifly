@@ -23,7 +23,7 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	
 	<key>CFBundleDisplayName</key>
-	<string>Eazifly Student</string>
+	<string>هدي للناس</string>
 	
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>

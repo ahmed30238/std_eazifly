@@ -29,7 +29,7 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
       // avatar: childData?.image ?? "",
       lastName: childData?.lastName ?? "",
       gender: childData?.gender ?? "",
-      age: childData?.age ?? "",
+      age: childData?.age.toString() ?? "0",
       whatsApp: childData?.whatsApp ?? "",
       phone: childData?.phone ?? "",
       userName: childData?.userName ?? "",

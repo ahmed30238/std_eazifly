@@ -37,7 +37,7 @@ DataModel _$DataModelFromJson(Map<String, dynamic> json) => DataModel()
   ..childrens = (json['childrens'] as List<dynamic>?)
       ?.map((e) => DataModel.fromJson(e as Map<String, dynamic>))
       .toList()
-  ..age = json['age'] as String?
+  ..age = DataEntity.customInt(json['age'])
   ..token = json['token'] as String?
   ..isGuest = json['is_guest'] as bool?
   ..fcmToken = json['fcm_token']

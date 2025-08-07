@@ -31,7 +31,7 @@ class AccountdataCubit extends Cubit<AccountdataState> {
       whatsAppController.text = loginData?.whatsApp ?? "no name";
       emailController.text = loginData?.email ?? "no email"; // تم تصحيح هذا
       userNameController.text = loginData?.userName ?? "";
-      ageController.text = loginData?.age ?? "no age";
+      ageController.text = loginData?.age.toString() ?? "no age";
 
       // تحديد الجنس من البيانات المحفوظة
       if (loginData?.gender != null) {

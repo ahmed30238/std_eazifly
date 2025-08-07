@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:960255976764:android:74faf7f7f8fe062b152a39",
+        "mobilesdk_app_id": "1:960255976764:android:3ca76e8fd129a0a4152a39",
         "android_client_info": {
-          "package_name": "com.example.eazifly"
+          "package_name": "com.example.HodaElnas"
         }
       },
       "oauth_client": [],

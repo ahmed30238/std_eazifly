@@ -438,6 +438,14 @@ class Assets {
   /// assets/images/about_app.svg
   static const String imagesAboutApp = "assets/images/about_app.svg";
 
+  /// Assets for imagesAppIcon
+  /// assets/images/app_icon.png
+  static const String imagesAppIcon = "assets/images/app_icon.png";
+
+  /// Assets for imagesAppLogo
+  /// assets/images/app_logo.png
+  static const String imagesAppLogo = "assets/images/app_logo.png";
+
   /// Assets for imagesEditedPersona
   /// assets/images/edited_persona.png
   static const String imagesEditedPersona = "assets/images/edited_persona.png";
