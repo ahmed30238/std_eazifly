@@ -91,7 +91,7 @@ class _StudentManagementViewState extends State<StudentManagementView> {
           CustomElevatedButton(
             text: "إضافة طالب جديد",
             radius: 12.r,
-            color: MainColors.blueTextColor,
+            color: MainColors.primary,
             width: 181.w,
             height: 40.h,
             onPressed: () {

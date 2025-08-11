@@ -94,7 +94,7 @@ class ChooseProperLecturerBody extends StatelessWidget {
                   child: CustomRichText(
                     text1Style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
-                      color: MainColors.red,
+                      color: MainColors.onError,
                     ),
                     spaceText: "   ",
                     text1:
@@ -102,7 +102,7 @@ class ChooseProperLecturerBody extends StatelessWidget {
                     text2: "ارسال طلب ",
                     text2Style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
-                      color: MainColors.blueTextColor,
+                      color: MainColors.primary,
                     ),
                     onText2Tap: () {
                       cubit.findInstructor(context: context);
@@ -190,7 +190,7 @@ class ChooseProperLecturerBody extends StatelessWidget {
             radius: 16.r,
             width: 343.w,
             height: 48.w,
-            color: MainColors.blueTextColor,
+            color: MainColors.primary,
             text: "التالي",
             onPressed: cubit.changeInstructorLoader
                 ? () {}

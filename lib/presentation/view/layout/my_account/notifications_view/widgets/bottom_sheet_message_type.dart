@@ -33,7 +33,7 @@ class BottomSheetMessageTypeRow extends StatelessWidget {
                 messageType,
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 15,
-                  color: MainColors.blackText,
+                  color: MainColors.onSecondary,
                 ),
               ),
               4.ph,
@@ -41,7 +41,7 @@ class BottomSheetMessageTypeRow extends StatelessWidget {
                 messageData,
                 style: MainTextStyle.regularTextStyle(
                   fontSize: 12,
-                  color: MainColors.grayTextColors,
+                  color: MainColors.onSurfaceSecondary,
                 ),
               ),
             ],

@@ -28,7 +28,7 @@ class HomeNotificationItem extends StatelessWidget {
           if (!isRead)
             Container(
               height: 84.h,
-              color: MainColors.lightGray,
+              color: MainColors.surfaceVariant,
               width: double.infinity,
             ),
           Column(
@@ -71,7 +71,7 @@ class HomeNotificationItem extends StatelessWidget {
                                     createdAt,
                                     style: MainTextStyle.mediumTextStyle(
                                       fontSize: 12,
-                                      color: MainColors.blueTextColor,
+                                      color: MainColors.primary,
                                     ),
                                   ),
                                 ],
@@ -83,7 +83,7 @@ class HomeNotificationItem extends StatelessWidget {
                               message,
                               style: MainTextStyle.mediumTextStyle(
                                 fontSize: 12,
-                                color: MainColors.grayTextColors,
+                                color: MainColors.onSurfaceSecondary,
                               ),
                             ),
                           ],

@@ -73,7 +73,7 @@ class PersonaListTile extends StatelessWidget {
           title,
           style: MainTextStyle.boldTextStyle(
             fontSize: titleFontSize ?? 12,
-            color: MainColors.blackText,
+            color: MainColors.onSecondary,
           ),
         ),
       ),
@@ -85,7 +85,7 @@ class PersonaListTile extends StatelessWidget {
             style: subTitleTextStyle ??
                 MainTextStyle.boldTextStyle(
                   fontSize: subTitleFontSize ?? 14,
-                  color: MainColors.grayTextColors,
+                  color: MainColors.onSurfaceSecondary,
                 ),
           ),
       minTileHeight: 0.h,

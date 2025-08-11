@@ -23,12 +23,12 @@ class LecturerItem extends StatelessWidget {
         border: Border.all(
           width: 1.5.w,
           color: isSelected
-              ? MainColors.blueTextColor
-              : MainColors.formFieldgrayfillColor,
+              ? MainColors.primary
+              : MainColors.surfaceContainerHighest,
         ),
         color: isSelected
-            ? MainColors.lightblue
-            : MainColors.veryLightGrayFormField,
+            ? MainColors.surface
+            : MainColors.inputFill,
         borderRadius: 12.cr,
       ),
       height: 48.h,

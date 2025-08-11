@@ -41,7 +41,7 @@ class SelectionProgramItemDetailsView extends StatelessWidget {
                 "ورش عمل في الخط العربي",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 14,
-                  color: MainColors.black,
+                  color: MainColors.onPrimary,
                 ),
               ),
               4.ph,
@@ -49,7 +49,7 @@ class SelectionProgramItemDetailsView extends StatelessWidget {
                 "إكتشفوا جمال تعلم القرآن من خلال دروسنا المصممة خصيصًا لقادة المستقبل",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 12,
-                  color: MainColors.grayTextColors,
+                  color: MainColors.onSurfaceSecondary,
                 ),
               ),
               16.ph,
@@ -82,7 +82,7 @@ class ProgramDataContainer extends StatelessWidget {
       height: 143.h,
       padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
         borderRadius: 8.cr,
       ),
       child: Column(
@@ -122,7 +122,7 @@ class LectureDates extends StatelessWidget {
           "المواعيد",
           style: MainTextStyle.boldTextStyle(
             fontSize: 12,
-            color: MainColors.blueTextColor,
+            color: MainColors.primary,
           ),
         ),
         51.pw,
@@ -139,7 +139,7 @@ class LectureDates extends StatelessWidget {
                 Text(
                   "السبت",
                   style: MainTextStyle.boldTextStyle(
-                      fontSize: 12, color: MainColors.grayTextColors),
+                      fontSize: 12, color: MainColors.onSurfaceSecondary),
                 ),
                 Expanded(
                   child: FittedBox(
@@ -234,7 +234,7 @@ class StudentData extends StatelessWidget {
                     "61 عام",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.grayTextColors,
+                      color: MainColors.onSurfaceSecondary,
                     ),
                   ),
                 ],

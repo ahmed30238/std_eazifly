@@ -12,7 +12,7 @@ class PointsDialogDesign extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: MainColors.white,
+        color: MainColors.background,
         borderRadius: 16.cr,
       ),
       padding: EdgeInsets.symmetric(
@@ -54,9 +54,9 @@ class PointsDialogDesign extends StatelessWidget {
             },
             width: 134.w,
             height: 37.h,
-            btnColor: MainColors.blueMoreTextColor,
+            btnColor: MainColors.secondaryDark,
             borderRadius: 12.cr,
-            textColor: MainColors.white,
+            textColor: MainColors.background,
           ),
         ],
       ),

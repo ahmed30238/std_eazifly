@@ -78,7 +78,7 @@ class _SetAppointmentsViewState extends State<SetAppointmentsView>
           ),
           CustomElevatedButton(
             width: 343.w,
-            color: MainColors.blueTextColor,
+            color: MainColors.primary,
             radius: 16.r,
             text: lang.next,
             onPressed: () {},

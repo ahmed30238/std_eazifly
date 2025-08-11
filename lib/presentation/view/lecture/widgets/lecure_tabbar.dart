@@ -46,8 +46,8 @@ final Function(int)? onTabTap;
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
                     color: isSelected
-                        ? MainColors.blueTextColor
-                        : MainColors.grayTextColors,
+                        ? MainColors.primary
+                        : MainColors.onSurfaceSecondary,
                   ),
                 );
         },

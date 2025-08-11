@@ -39,7 +39,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                         "حصة ${sessionIndex + 1}",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 14,
-                          color: MainColors.blueTextColor,
+                          color: MainColors.primary,
                         ),
                       ),
                       Row(
@@ -139,7 +139,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                       EdgeInsets.symmetric(horizontal: 16.w),
                                   child: Icon(
                                     Icons.access_time,
-                                    color: MainColors.grayTextColors,
+                                    color: MainColors.onSurfaceSecondary,
                                   ),
                                 ),
                               ),
@@ -173,7 +173,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                       EdgeInsets.symmetric(horizontal: 16.w),
                                   child: Icon(
                                     Icons.access_time,
-                                    color: MainColors.grayTextColors,
+                                    color: MainColors.onSurfaceSecondary,
                                   ),
                                 ),
                               ),

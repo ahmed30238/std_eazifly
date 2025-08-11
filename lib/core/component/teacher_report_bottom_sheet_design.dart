@@ -35,7 +35,7 @@ class TeacherReportBottomSheetDesign extends StatelessWidget {
                       "تقرير المعلم عن المحاضرة",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 15,
-                        color: MainColors.blackText,
+                        color: MainColors.onSecondary,
                       ),
                     ),
                   ),
@@ -60,7 +60,7 @@ class TeacherReportBottomSheetDesign extends StatelessWidget {
             child: CustomElevatedButton(
               width: 311.w,
               height: 48.h,
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
               textSize: 16,
               radius: 16.r,
               text: "إرسال",

@@ -30,7 +30,7 @@ class DmBody extends StatelessWidget {
             children: [
               Divider(
                 thickness: 1,
-                color: MainColors.lightGray,
+                color: MainColors.surfaceVariant,
               ),
               40.ph,
               Expanded(
@@ -63,7 +63,7 @@ class DmBody extends StatelessWidget {
                         child: Text(
                           "No messages yet",
                           style: MainTextStyle.mediumTextStyle(
-                            color: MainColors.grayTextColors,
+                            color: MainColors.onSurfaceSecondary,
                             fontSize: 16.sp,
                           ),
                         ),

@@ -58,11 +58,11 @@ class _SubscribedStudentsSettingsViewState
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: 12.cr,
-                    color: MainColors.veryLightGrayFormField,
+                    color: MainColors.inputFill,
                   ),
                   child:  Center(
                     child: CircularProgressIndicator(
-                      color: MainColors.blueTextColor,
+                      color: MainColors.primary,
                     ),
                   ),
                 );
@@ -74,7 +74,7 @@ class _SubscribedStudentsSettingsViewState
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: 12.cr,
-                  color: MainColors.veryLightGrayFormField,
+                  color: MainColors.inputFill,
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 12.h),
@@ -86,14 +86,14 @@ class _SubscribedStudentsSettingsViewState
                         Text(
                           "إسم البرنامج",
                           style: MainTextStyle.boldTextStyle(
-                              fontSize: 11, color: MainColors.grayTextColors),
+                              fontSize: 11, color: MainColors.onSurfaceSecondary),
                         ),
                         10.5.ph,
                         Text(
                           lectureCubit.showProgramDetailsEntity?.data?.title ??
                               "",
                           style: MainTextStyle.boldTextStyle(
-                              fontSize: 12, color: MainColors.blackText),
+                              fontSize: 12, color: MainColors.onSecondary),
                         ),
                       ],
                     ),
@@ -114,7 +114,7 @@ class _SubscribedStudentsSettingsViewState
                       EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
                   decoration: BoxDecoration(
                     borderRadius: 16.cr,
-                    color: MainColors.veryLightGrayFormField,
+                    color: MainColors.inputFill,
                   ),
                   height: 78.h,
                   width: 176.w,
@@ -125,7 +125,7 @@ class _SubscribedStudentsSettingsViewState
                         "عدد الطلاب المضافين",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
-                          color: MainColors.grayTextColors,
+                          color: MainColors.onSurfaceSecondary,
                         ),
                       ),
                       BlocBuilder(
@@ -138,7 +138,7 @@ class _SubscribedStudentsSettingsViewState
                                   height: 20.h,
                                   width: 20.w,
                                   child:  CircularProgressIndicator(
-                                    color: MainColors.blueTextColor,
+                                    color: MainColors.primary,
                                     strokeWidth: 2,
                                   ),
                                 ),
@@ -164,7 +164,7 @@ class _SubscribedStudentsSettingsViewState
                             areaWidth: studentCount < 4 ? 40.w : 68.w,
                             areaHeigt: 26.h,
                             avatarHeigt: 24.h,
-                            textColors: MainColors.blackText,
+                            textColors: MainColors.onSecondary,
                           );
                         },
                       ),
@@ -176,8 +176,8 @@ class _SubscribedStudentsSettingsViewState
                   height: 29.h,
                   width: 133.w,
                   text: "إضافة طالب",
-                  textColor: MainColors.white,
-                  btnColor: MainColors.blueTextColor,
+                  textColor: MainColors.background,
+                  btnColor: MainColors.primary,
                   borderRadius: 16.cr,
                   onTap: () {
                     Navigator.pushNamed(
@@ -202,14 +202,14 @@ class _SubscribedStudentsSettingsViewState
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                          CircularProgressIndicator(
-                          color: MainColors.blueTextColor,
+                          color: MainColors.primary,
                         ),
                         16.ph,
                         Text(
                           "جاري تحميل بيانات الطلاب...",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 14,
-                            color: MainColors.grayTextColors,
+                            color: MainColors.onSurfaceSecondary,
                           ),
                         ),
                       ],
@@ -252,13 +252,13 @@ class _SubscribedStudentsSettingsViewState
                             ),
                             decoration: BoxDecoration(
                               borderRadius: 8.cr,
-                              color: MainColors.blueTextColor,
+                              color: MainColors.primary,
                             ),
                             child: Text(
                               "إعادة المحاولة",
                               style: MainTextStyle.boldTextStyle(
                                 fontSize: 12,
-                                color: MainColors.white,
+                                color: MainColors.background,
                               ),
                             ),
                           ),
@@ -280,7 +280,7 @@ class _SubscribedStudentsSettingsViewState
                       children: [
                         Icon(
                           Icons.person_outline,
-                          color: MainColors.grayTextColors,
+                          color: MainColors.onSurfaceSecondary,
                           size: 48.h,
                         ),
                         16.ph,
@@ -288,7 +288,7 @@ class _SubscribedStudentsSettingsViewState
                           "لا يوجد طلاب مضافين للبرنامج",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 14,
-                            color: MainColors.grayTextColors,
+                            color: MainColors.onSurfaceSecondary,
                           ),
                         ),
                       ],

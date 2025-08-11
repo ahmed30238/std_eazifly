@@ -28,14 +28,14 @@ class GoalDataWidget extends StatelessWidget {
               lang.goals,
               style: MainTextStyle.boldTextStyle(
                 fontSize: 11,
-                color: MainColors.grayTextColors,
+                color: MainColors.onSurfaceSecondary,
               ),
             ),
             Text(
               lang.pointsBalance.substring(5, 11),
               style: MainTextStyle.boldTextStyle(
                 fontSize: 11,
-                color: MainColors.grayTextColors,
+                color: MainColors.onSurfaceSecondary,
               ),
             ),
           ],

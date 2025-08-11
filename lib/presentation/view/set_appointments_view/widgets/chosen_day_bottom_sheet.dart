@@ -35,7 +35,7 @@ class ChosenDaysBottomSheet extends StatelessWidget {
                 "اختر 3 ايام",
                 style: MainTextStyle.mediumTextStyle(
                   fontSize: 12,
-                  color: MainColors.grayTextColors,
+                  color: MainColors.onSurfaceSecondary,
                 ),
               ),
             ),
@@ -63,7 +63,7 @@ class ChosenDaysBottomSheet extends StatelessWidget {
               child: CustomElevatedButton(
                 radius: 16.r,
                 text: lang.choose,
-                color: MainColors.blueTextColor,
+                color: MainColors.primary,
                 onPressed: () {
                   log("${cubit.chosenDays[0]}");
                 },

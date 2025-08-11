@@ -47,7 +47,7 @@ class _AddSingleIemBottomSheetState extends State<AddSingleIemBottomSheet> {
               "اختر المقاطع الصوتية",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 12,
-                color: MainColors.grayTextColors,
+                color: MainColors.onSurfaceSecondary,
               ),
             ),
           ),
@@ -125,7 +125,7 @@ class _AddSingleIemBottomSheetState extends State<AddSingleIemBottomSheet> {
             builder: (context, state) => CustomElevatedButton(
               text: "تخطي",
               radius: 16.r,
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
               width: 127.w,
               onPressed: cubit.storeFavouriteListLoader
                   ? () {}

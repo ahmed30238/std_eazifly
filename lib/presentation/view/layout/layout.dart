@@ -18,15 +18,15 @@ class Layout extends StatelessWidget {
           body: cubit.screens[cubit.index],
           bottomNavigationBar: BottomNavigationBar(
             elevation: 0,
-            backgroundColor: MainColors.veryLightGrayFormField,
-            unselectedItemColor: MainColors.grayTextColors,
+            backgroundColor: MainColors.inputFill,
+            unselectedItemColor: MainColors.onSurfaceSecondary,
             currentIndex: cubit.index,
             type: BottomNavigationBarType.fixed,
             onTap: cubit.changeIndex,
             selectedLabelStyle: MainTextStyle.mediumTextStyle(
               fontSize: 12,
             ),
-            selectedItemColor: MainColors.blueTextColor,
+            selectedItemColor: MainColors.primary,
             unselectedLabelStyle: MainTextStyle.mediumTextStyle(
               fontSize: 12,
             ),
@@ -41,7 +41,7 @@ class Layout extends StatelessWidget {
                             isActive: isSelected)[index]
                         .icon,
                     colorFilter: ColorFilter.mode(
-                      isSelected ? MainColors.blueTextColor : Colors.black,
+                      isSelected ? MainColors.primary : Colors.black,
                       BlendMode.srcIn,
                     ),
                   ),

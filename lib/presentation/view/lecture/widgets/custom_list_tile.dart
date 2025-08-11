@@ -53,7 +53,7 @@ class CustomListTile extends StatelessWidget {
                 width: iconWidth ?? 40.w,
                 icon ?? "",
               ),
-              containerColor: iconContainerColor ?? MainColors.lightblue,
+              containerColor: iconContainerColor ?? MainColors.surface,
             ),
             16.pw,
             Expanded(
@@ -90,7 +90,7 @@ class CustomListTile extends StatelessWidget {
                         subTitle ?? "",
                         style: MainTextStyle.mediumTextStyle(
                           fontSize: 12,
-                          color: MainColors.grayTextColors,
+                          color: MainColors.onSurfaceSecondary,
                         ),
                       ),
                       8.pw,
@@ -99,7 +99,7 @@ class CustomListTile extends StatelessWidget {
                           secondSubTitle ?? "",
                           style: MainTextStyle.mediumTextStyle(
                             fontSize: 12,
-                            color: MainColors.grayTextColors,
+                            color: MainColors.onSurfaceSecondary,
                           ),
                         ),
                     ],

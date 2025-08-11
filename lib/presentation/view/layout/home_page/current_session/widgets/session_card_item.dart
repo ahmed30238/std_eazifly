@@ -42,7 +42,7 @@ class SessionCardItem extends StatelessWidget {
           width: 109.w,
           decoration: BoxDecoration(
             borderRadius: 10.cr,
-            color: MainColors.veryLightGrayFormField,
+            color: MainColors.inputFill,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -55,7 +55,7 @@ class SessionCardItem extends StatelessWidget {
                 title,
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 12,
-                  color: MainColors.grayTextColors,
+                  color: MainColors.onSurfaceSecondary,
                 ),
               ),
               

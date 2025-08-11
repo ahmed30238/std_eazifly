@@ -55,7 +55,7 @@ class ChatItem extends StatelessWidget {
                         child: Text(
                           name,
                           style: MainTextStyle.boldTextStyle(
-                            color: MainColors.blackText,
+                            color: MainColors.onSecondary,
                             fontSize: 16,
                           ),
                           overflow: TextOverflow.ellipsis,
@@ -67,8 +67,8 @@ class ChatItem extends StatelessWidget {
                         time,
                         style: MainTextStyle.regularTextStyle(
                           color: unreadCount != null && unreadCount! > 0
-                              ? MainColors.lightGray // لون مختلف للرسائل غير المقروءة
-                              : MainColors.grayTextColors,
+                              ? MainColors.surfaceVariant // لون مختلف للرسائل غير المقروءة
+                              : MainColors.onSurfaceSecondary,
                           fontSize: 12,
                         ),
                       ),
@@ -87,8 +87,8 @@ class ChatItem extends StatelessWidget {
                           lastMessageContent,
                           style: MainTextStyle.regularTextStyle(
                             color: unreadCount != null && unreadCount! > 0
-                                ? MainColors.blackText // نص أغمق للرسائل غير المقروءة
-                                : MainColors.grayTextColors,
+                                ? MainColors.onSecondary // نص أغمق للرسائل غير المقروءة
+                                : MainColors.onSurfaceSecondary,
                             fontSize: 14,
                             // fontWeight: unreadCount != null && unreadCount! > 0
                             //     ? FontWeight.w500 // خط أثقل للرسائل غير المقروءة
@@ -108,7 +108,7 @@ class ChatItem extends StatelessWidget {
                             vertical: 4.h,
                           ),
                           decoration: BoxDecoration(
-                            color: MainColors.greenTeal,
+                            color: MainColors.success,
                             borderRadius: BorderRadius.circular(12.r),
                           ),
                           constraints: BoxConstraints(

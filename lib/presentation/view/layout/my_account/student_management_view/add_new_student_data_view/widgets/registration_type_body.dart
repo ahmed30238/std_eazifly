@@ -26,7 +26,7 @@ class RegistrationTypeBody extends StatelessWidget {
               width: 248.w,
               decoration: BoxDecoration(
                 borderRadius: 24.cr,
-                color: MainColors.formFieldgrayfillColor,
+                color: MainColors.surfaceContainerHighest,
               ),
               child: Column(
                 children: [
@@ -49,7 +49,7 @@ class RegistrationTypeBody extends StatelessWidget {
             width: 248.w,
             decoration: BoxDecoration(
               borderRadius: 24.cr,
-              color: MainColors.formFieldgrayfillColor,
+              color: MainColors.surfaceContainerHighest,
             ),
             child: Column(
               children: [

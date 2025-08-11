@@ -39,7 +39,7 @@ class TextedContainer extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius:
             customBorderRadius ?? BorderRadius.circular(radius ?? 8.r),
-        color: containerColor ?? MainColors.lightblue,
+        color: containerColor ?? MainColors.surface,
         border: Border.all(
           color: borderColor ?? Colors.transparent,
           width: borderWidth ?? 0,
@@ -50,7 +50,7 @@ class TextedContainer extends StatelessWidget {
           text,
           style: MainTextStyle.boldTextStyle(
             fontSize: fontSize ?? 14,
-            color: textColor ?? MainColors.blueTextColor,
+            color: textColor ?? MainColors.primary,
           ),
         ),
       ),

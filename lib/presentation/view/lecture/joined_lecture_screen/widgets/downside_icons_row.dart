@@ -18,10 +18,10 @@ class DownSideIconsRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconsContainer(
-          containerColor: MainColors.black,
+          containerColor: MainColors.onPrimary,
           iconWidget: Icon(
             Icons.menu,
-            color: MainColors.white,
+            color: MainColors.background,
           ),
           height: 38.h,
           width: 38.w,
@@ -29,10 +29,10 @@ class DownSideIconsRow extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 32.w),
           child: IconsContainer(
-            containerColor: MainColors.black,
+            containerColor: MainColors.onPrimary,
             iconWidget:  Icon(
               Icons.mic_off_outlined,
-              color: MainColors.white,
+              color: MainColors.background,
             ),
             height: 38.h,
             width: 38.w,
@@ -49,10 +49,10 @@ class DownSideIconsRow extends StatelessWidget {
           child: Transform.rotate(
             angle: pi,
             child: IconsContainer(
-              containerColor: MainColors.red,
+              containerColor: MainColors.onError,
               iconWidget:  Icon(
                 Icons.logout,
-                color: MainColors.white,
+                color: MainColors.background,
               ),
               height: 38.h,
               width: 38.w,

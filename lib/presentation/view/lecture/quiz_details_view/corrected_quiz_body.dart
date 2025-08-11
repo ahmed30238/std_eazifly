@@ -64,14 +64,14 @@ class CorrectedQuizBody extends StatelessWidget {
                             .substring(0, 10),
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
-                          color: MainColors.blackText,
+                          color: MainColors.onSecondary,
                         ),
                       ),
                       Text(
                         "${totalMark.toStringAsFixed(0)} / ${fullMark.toStringAsFixed(0)}",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
-                          color: MainColors.blackText,
+                          color: MainColors.onSecondary,
                         ),
                       ),
                       TextedContainer(
@@ -79,10 +79,10 @@ class CorrectedQuizBody extends StatelessWidget {
                         height: 26.h,
                         text: isPassed ? "ناجح" : "راسب",
                         textColor:
-                            isPassed ? MainColors.greenTeal : MainColors.red,
+                            isPassed ? MainColors.success : MainColors.onError,
                         containerColor: isPassed
-                            ? MainColors.lightgreenColor
-                            : MainColors.lightRed,
+                            ? MainColors.primaryLight
+                            : MainColors.error,
                         radius: 16.r,
                       ),
                     ],

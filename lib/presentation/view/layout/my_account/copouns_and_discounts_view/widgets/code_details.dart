@@ -29,7 +29,7 @@ class CodeDetails extends StatelessWidget {
           width: double.infinity,
           height: 68.h,
           decoration: BoxDecoration(
-            color: MainColors.veryLightGrayFormField,
+            color: MainColors.inputFill,
             borderRadius: 10.cr,
           ),
           child: Row(
@@ -63,7 +63,7 @@ class CodeDetails extends StatelessWidget {
                       code,
                       style: MainTextStyle.mediumTextStyle(
                         fontSize: 14,
-                        color: MainColors.blueTextColor,
+                        color: MainColors.primary,
                       ),
                     ),
                   ),
@@ -72,7 +72,7 @@ class CodeDetails extends StatelessWidget {
               SvgPicture.asset(
                 Assets.iconsSend2,
                 colorFilter: const ColorFilter.mode(
-                  MainColors.blueTextColor,
+                  MainColors.primary,
                   BlendMode.srcIn,
                 ),
               )

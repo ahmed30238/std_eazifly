@@ -59,7 +59,7 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: 12.cr,
-                        color: MainColors.veryLightGrayFormField,
+                        color: MainColors.inputFill,
                       ),
                       child: isLoadingProgramDetails
                           ? const Center(
@@ -79,7 +79,7 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                                           "إسم البرنامج",
                                           style: MainTextStyle.boldTextStyle(
                                               fontSize: 11,
-                                              color: MainColors.grayTextColors),
+                                              color: MainColors.onSurfaceSecondary),
                                         ),
                                         10.5.ph,
                                         Text(
@@ -88,7 +88,7 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                                               "",
                                           style: MainTextStyle.boldTextStyle(
                                             fontSize: 12,
-                                            color: MainColors.blackText,
+                                            color: MainColors.onSecondary,
                                           ),
                                         ),
                                       ],
@@ -122,7 +122,7 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                                                   MainTextStyle.boldTextStyle(
                                                 fontSize: 11,
                                                 color:
-                                                    MainColors.grayTextColors,
+                                                    MainColors.onSurfaceSecondary,
                                               ),
                                             ),
                                             4.ph,
@@ -131,8 +131,8 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                                               height: 26.h,
                                               text: expireDate.toString(),
                                               containerColor:
-                                                  MainColors.lightRed,
-                                              textColor: MainColors.red,
+                                                  MainColors.error,
+                                              textColor: MainColors.onError,
                                             ),
                                           ],
                                         ),
@@ -154,7 +154,7 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                     minHeight: 198.h,
                   ),
                   decoration: BoxDecoration(
-                    color: MainColors.veryLightGrayFormField,
+                    color: MainColors.inputFill,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,14 +196,14 @@ class _LecturehistoryviewState extends State<Lecturehistoryview> {
                                     Icon(
                                       Icons.event_note,
                                       size: 48.sp,
-                                      color: MainColors.grayTextColors,
+                                      color: MainColors.onSurfaceSecondary,
                                     ),
                                     16.ph,
                                     Text(
                                       "لا توجد محاضرات متاحة",
                                       style: MainTextStyle.boldTextStyle(
                                         fontSize: 14,
-                                        color: MainColors.grayTextColors,
+                                        color: MainColors.onSurfaceSecondary,
                                       ),
                                     ),
                                   ],

@@ -36,8 +36,8 @@ class StudentAnswerWidget extends StatelessWidget {
           width: 117.w,
           height: 28.h,
           text: "نوع غير معرف",
-          textColor: MainColors.red,
-          containerColor: MainColors.lightRed,
+          textColor: MainColors.onError,
+          containerColor: MainColors.error,
           radius: 16.r,
         );
     }

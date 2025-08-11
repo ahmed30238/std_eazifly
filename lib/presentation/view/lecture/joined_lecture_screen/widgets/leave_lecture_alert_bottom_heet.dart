@@ -41,7 +41,7 @@ class LeaveLectureAlertBottomSheetDesign extends StatelessWidget {
                   "إنهاء المحاضرة",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 18,
-                    color: MainColors.red,
+                    color: MainColors.onError,
                   ),
                 ),
                 const Spacer(),
@@ -66,8 +66,8 @@ class LeaveLectureAlertBottomSheetDesign extends StatelessWidget {
               width: double.infinity,
               radius: 16.r,
               height: 48.h,
-              textColor: MainColors.white,
-              color: MainColors.red,
+              textColor: MainColors.background,
+              color: MainColors.onError,
               onPressed: () {
                 Navigator.pushNamed(
                   context,

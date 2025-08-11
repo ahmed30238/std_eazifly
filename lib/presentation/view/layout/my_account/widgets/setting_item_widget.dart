@@ -30,7 +30,7 @@ class SettingItemWidget extends StatelessWidget {
               model.label,
               style: MainTextStyle.mediumTextStyle(
                 fontSize: 14,
-                color: MainColors.blackText,
+                color: MainColors.onSecondary,
               ),
             ),
             const Spacer(),

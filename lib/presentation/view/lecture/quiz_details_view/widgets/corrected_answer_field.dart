@@ -42,18 +42,18 @@ class CorrectedAnswerField extends StatelessWidget {
           padding: EdgeInsets.all(12.r),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: isMultiTrue ? MainColors.lightgreenTeal : MainColors.lightRed,
+            color: isMultiTrue ? MainColors.onSuccess : MainColors.error,
             borderRadius: 8.cr,
             border: Border.all(
               width: 1.w,
-              color: isMultiTrue ? MainColors.greenTeal : MainColors.red,
+              color: isMultiTrue ? MainColors.success : MainColors.onError,
             ),
           ),
           child: Text(
             essayAnswer.isEmpty ? "لم يتم الإجابة" : essayAnswer,
             style: MainTextStyle.mediumTextStyle(
               fontSize: 12,
-              color: isMultiTrue ? MainColors.greenTeal : MainColors.red,
+              color: isMultiTrue ? MainColors.success : MainColors.onError,
             ),
           ),
         );
@@ -78,19 +78,19 @@ class CorrectedAnswerField extends StatelessWidget {
                   
                   if (isUserSelected) {
                     // الخيار اللي اختاره المستخدم
-                    backgroundColor = isCorrectOption ? MainColors.lightgreenTeal : MainColors.lightRed;
-                    borderColor = isCorrectOption ? MainColors.greenTeal : MainColors.red;
-                    textColor = isCorrectOption ? MainColors.greenTeal : MainColors.red;
+                    backgroundColor = isCorrectOption ? MainColors.onSuccess : MainColors.error;
+                    borderColor = isCorrectOption ? MainColors.success : MainColors.onError;
+                    textColor = isCorrectOption ? MainColors.success : MainColors.onError;
                   } else if (isCorrectOption) {
                     // الإجابة الصحيحة (لو المستخدم ماختارهاش)
-                    backgroundColor = MainColors.lightgreenTeal;
-                    borderColor = MainColors.greenTeal;
-                    textColor = MainColors.greenTeal;
+                    backgroundColor = MainColors.onSuccess;
+                    borderColor = MainColors.success;
+                    textColor = MainColors.success;
                   } else {
                     // خيار عادي مش مختار ومش صحيح
-                    backgroundColor = MainColors.white;
-                    borderColor = MainColors.grayBorderColor;
-                    textColor = MainColors.black;
+                    backgroundColor = MainColors.background;
+                    borderColor = MainColors.outline;
+                    textColor = MainColors.onPrimary;
                   }
                   
                   return Container(
@@ -136,19 +136,19 @@ class CorrectedAnswerField extends StatelessWidget {
                   
                   if (isUserSelected) {
                     // الخيار اللي اختاره المستخدم
-                    backgroundColor = isCorrectOption ? MainColors.lightgreenTeal : MainColors.lightRed;
-                    borderColor = isCorrectOption ? MainColors.greenTeal : MainColors.red;
-                    textColor = isCorrectOption ? MainColors.greenTeal : MainColors.red;
+                    backgroundColor = isCorrectOption ? MainColors.onSuccess : MainColors.error;
+                    borderColor = isCorrectOption ? MainColors.success : MainColors.onError;
+                    textColor = isCorrectOption ? MainColors.success : MainColors.onError;
                   } else if (isCorrectOption) {
                     // الإجابة الصحيحة (لو المستخدم ماختارهاش)
-                    backgroundColor = MainColors.lightgreenTeal;
-                    borderColor = MainColors.greenTeal;
-                    textColor = MainColors.greenTeal;
+                    backgroundColor = MainColors.onSuccess;
+                    borderColor = MainColors.success;
+                    textColor = MainColors.success;
                   } else {
                     // خيار عادي مش مختار ومش صحيح
-                    backgroundColor = MainColors.white;
-                    borderColor = MainColors.grayBorderColor;
-                    textColor = MainColors.black;
+                    backgroundColor = MainColors.background;
+                    borderColor = MainColors.outline;
+                    textColor = MainColors.onPrimary;
                   }
                   
                   return Container(
@@ -181,8 +181,8 @@ class CorrectedAnswerField extends StatelessWidget {
           width: 117.w,
           height: 28.h,
           text: "نوع غير معرف",
-          textColor: MainColors.red,
-          containerColor: MainColors.lightRed,
+          textColor: MainColors.onError,
+          containerColor: MainColors.error,
           radius: 16.r,
         );
     }

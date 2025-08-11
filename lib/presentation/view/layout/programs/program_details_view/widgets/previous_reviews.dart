@@ -62,7 +62,7 @@ class PreviousReviewsTab extends StatelessWidget {
                 review?.review ?? "",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 11,
-                  color: MainColors.grayTextColors,
+                  color: MainColors.onSurfaceSecondary,
                 ),
               )
             ],

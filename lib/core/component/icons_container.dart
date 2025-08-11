@@ -21,7 +21,7 @@ class IconsContainer extends StatelessWidget {
       width: width ?? 40.w,
       height: height ?? 40.h,
       decoration: BoxDecoration(
-        color: containerColor ?? MainColors.veryLightGrayFormField,
+        color: containerColor ?? MainColors.inputFill,
         borderRadius: BorderRadius.circular(
           10.r,
         ),

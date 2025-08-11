@@ -82,7 +82,7 @@ Future<dynamic> lectureAppBarModalSheet(BuildContext context, int programId) {
                                 radius: 16.r,
                                 width: 343.w,
                                 height: 48.w,
-                                color: MainColors.blueTextColor,
+                                color: MainColors.primary,
                                 text: "اختيار",
                                 onPressed: () {
                                   back(context);

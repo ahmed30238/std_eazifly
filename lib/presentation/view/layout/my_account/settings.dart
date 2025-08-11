@@ -52,7 +52,7 @@ class _MyAccountViewState extends State<MyAccountView> {
           24.ph,
           PersonaListTile(
             subTitleTextStyle: MainTextStyle.regularTextStyle(
-                fontSize: 12, color: MainColors.grayTextColors),
+                fontSize: 12, color: MainColors.onSurfaceSecondary),
             imageContainerHeight: 48.h,
             imageContainerWidth: 48.w,
             titleFontSize: 16,

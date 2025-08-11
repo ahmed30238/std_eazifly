@@ -37,8 +37,8 @@ class NotesItem extends StatelessWidget {
           SlidableAction(
             autoClose: true,
             onPressed: (context) {},
-            backgroundColor: MainColors.white,
-            foregroundColor: MainColors.blueTextColor,
+            backgroundColor: MainColors.background,
+            foregroundColor: MainColors.primary,
             label: 'مقروءة',
           ),
         ],
@@ -48,7 +48,7 @@ class NotesItem extends StatelessWidget {
         child: Container(
           height: 80.h,
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
-          color: isRead! ? MainColors.lightRed : Colors.white,
+          color: isRead! ? MainColors.error : Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -69,7 +69,7 @@ class NotesItem extends StatelessWidget {
                         "أ/$maker",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
-                          color: MainColors.grayTextColors,
+                          color: MainColors.onSurfaceSecondary,
                         ),
                       )
                     ],
@@ -78,7 +78,7 @@ class NotesItem extends StatelessWidget {
                     date,
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.grayTextColors,
+                      color: MainColors.onSurfaceSecondary,
                     ),
                   ),
                 ],

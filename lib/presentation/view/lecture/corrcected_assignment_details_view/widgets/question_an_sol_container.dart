@@ -45,7 +45,7 @@ class QuestionAndSolutionContainer extends StatelessWidget {
         constraints: BoxConstraints(minHeight: 355.h),
         width: double.infinity,
         decoration: BoxDecoration(
-          color: MainColors.veryLightGrayFormField,
+          color: MainColors.inputFill,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +60,7 @@ class QuestionAndSolutionContainer extends StatelessWidget {
               "نص السؤال",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 12,
-                color: MainColors.checkBoxBorderGray,
+                color: MainColors.borderPrimary,
               ),
             ),
             10.ph,
@@ -175,7 +175,7 @@ class QuestionAndSolutionContainer extends StatelessWidget {
         title,
         style: MainTextStyle.boldTextStyle(
           fontSize: 12,
-          color: MainColors.checkBoxBorderGray,
+          color: MainColors.borderPrimary,
         ),
       ),
     );
@@ -211,7 +211,7 @@ class QuestionAndSolutionContainer extends StatelessWidget {
                   width: 104.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.r),
-                    color: MainColors.lightGray,
+                    color: MainColors.surfaceVariant,
                   ),
                   child: isPdf
                       ? Column(
@@ -259,7 +259,7 @@ class QuestionAndSolutionContainer extends StatelessWidget {
         8.ph,
         Container(
           decoration: BoxDecoration(
-            color: MainColors.lightGray,
+            color: MainColors.surfaceVariant,
             borderRadius: BorderRadius.circular(12.r),
           ),
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
@@ -269,7 +269,7 @@ class QuestionAndSolutionContainer extends StatelessWidget {
             audioUrl: audioUrl,
             // duration: duration,
             activeSliderColor:
-                isStudent ? MainColors.blueTextColor : MainColors.greenTeal,
+                isStudent ? MainColors.primary : MainColors.success,
             // showPlayButton: true,
             onPlaying: onPlayingAdio,
             // showCounter: true,

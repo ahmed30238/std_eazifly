@@ -55,7 +55,7 @@ class TitledFormFieldItem extends StatelessWidget {
               titleText,
               style: MainTextStyle.boldTextStyle(
                 fontSize: 14,
-                color: MainColors.blackText,
+                color: MainColors.onSecondary,
               ),
             ),
             8.pw,
@@ -64,7 +64,7 @@ class TitledFormFieldItem extends StatelessWidget {
                   height: 26.h,
                   width: 66.w,
                   decoration: BoxDecoration(
-                    color: MainColors.lightblue,
+                    color: MainColors.surface,
                     borderRadius: BorderRadius.circular(
                       8.r,
                     ),
@@ -74,7 +74,7 @@ class TitledFormFieldItem extends StatelessWidget {
                       "قيد المراجعة",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 11,
-                        color: MainColors.blueTextColor,
+                        color: MainColors.primary,
                       ),
                     ),
                   ),
@@ -102,7 +102,7 @@ class TitledFormFieldItem extends StatelessWidget {
                     formfieldEnText ?? '',
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: enTextColor ?? MainColors.formFieldgrayTextColor,
+                      color: enTextColor ?? MainColors.onSurfaceVariant,
                     ),
                   ),
                 ),

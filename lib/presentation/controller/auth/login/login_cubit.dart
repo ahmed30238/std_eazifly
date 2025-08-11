@@ -90,7 +90,7 @@ class LoginCubit extends Cubit<LoginState> {
           delightfulToast(
             message: r.message ?? "",
             context: context,
-            toastColor: MainColors.red,
+            toastColor: MainColors.onError,
           );
         }
       },

@@ -55,7 +55,7 @@ class _CompletePaymentProcessViewState
             "أختر عملية الدفع الأسهل بالنسبك اليك",
             style: MainTextStyle.boldTextStyle(
               fontSize: 14,
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
             ),
           ),
           24.ph,

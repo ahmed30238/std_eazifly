@@ -37,7 +37,7 @@ class AllBodyListItemWidget extends StatelessWidget {
         height: 154.h,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: MainColors.veryLightGrayFormField,
+          color: MainColors.inputFill,
           borderRadius: 10.cr,
         ),
         child: Column(
@@ -45,13 +45,13 @@ class AllBodyListItemWidget extends StatelessWidget {
             Container(
               height: 36.h,
               width: double.infinity,
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
               child: Center(
                 child: Text(
                   courseTitle,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 14,
-                    color: MainColors.white,
+                    color: MainColors.background,
                   ),
                 ),
               ),
@@ -73,13 +73,13 @@ class AllBodyListItemWidget extends StatelessWidget {
                         Text(
                           lang.studentNumberInCourse,
                           style: MainTextStyle.mediumTextStyle(
-                              fontSize: 12, color: MainColors.grayTextColors),
+                              fontSize: 12, color: MainColors.onSurfaceSecondary),
                         ),
                         4.ph,
                         Text(
                           "$noOfStudents طلاب",
                           style: MainTextStyle.boldTextStyle(
-                              fontSize: 14, color: MainColors.blackText),
+                              fontSize: 14, color: MainColors.onSecondary),
                         ),
                       ],
                     ),
@@ -89,13 +89,13 @@ class AllBodyListItemWidget extends StatelessWidget {
                         Text(
                           lang.coursePrice,
                           style: MainTextStyle.mediumTextStyle(
-                              fontSize: 12, color: MainColors.grayTextColors),
+                              fontSize: 12, color: MainColors.onSurfaceSecondary),
                         ),
                         4.ph,
                         Text(
                           "$subscriptionPrice $currency",
                           style: MainTextStyle.boldTextStyle(
-                              fontSize: 14, color: MainColors.blackText),
+                              fontSize: 14, color: MainColors.onSecondary),
                         ),
                       ],
                     ),
@@ -106,7 +106,7 @@ class AllBodyListItemWidget extends StatelessWidget {
                       radius: 8.r,
                       text: lang.renewNow,
                       onPressed: onRenewTap,
-                      color: MainColors.blueTextColor,
+                      color: MainColors.primary,
                     )
                   ],
                 ),
@@ -121,12 +121,12 @@ class AllBodyListItemWidget extends StatelessWidget {
                   Text(
                     "متبقي $daysLeft يوم",
                     style: MainTextStyle.boldTextStyle(
-                        fontSize: 10, color: MainColors.grayTextColors),
+                        fontSize: 10, color: MainColors.onSurfaceSecondary),
                   ),
                   Text(
                     expireDate,
                     style: MainTextStyle.boldTextStyle(
-                        fontSize: 10, color: MainColors.grayTextColors),
+                        fontSize: 10, color: MainColors.onSurfaceSecondary),
                   ),
                 ],
               ),

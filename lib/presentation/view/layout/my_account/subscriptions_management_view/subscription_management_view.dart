@@ -57,8 +57,8 @@ class _SubscriptionManagmentViewState extends State<SubscriptionManagmentView>
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 15,
                           color: cubit.controller.index == index
-                              ? MainColors.white
-                              : MainColors.blackText,
+                              ? MainColors.background
+                              : MainColors.onSecondary,
                         ),
                       );
                     },

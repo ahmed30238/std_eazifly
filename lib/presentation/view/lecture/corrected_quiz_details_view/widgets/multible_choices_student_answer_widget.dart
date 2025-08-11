@@ -33,17 +33,17 @@ class MultipleChoiceStudentAnswer extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isSelected
                         ? answerState
-                            ? MainColors.lightblue
-                            : MainColors.lightRed
-                        : MainColors.white,
+                            ? MainColors.surface
+                            : MainColors.error
+                        : MainColors.background,
                     borderRadius: 8.cr,
                     border: Border.all(
                       width: 2.w,
                       color: isSelected
                           ? answerState
-                              ? MainColors.lightblue
-                              : MainColors.red
-                          : MainColors.grayBorderColor,
+                              ? MainColors.surface
+                              : MainColors.onError
+                          : MainColors.outline,
                     ),
                   ),
                   child: Text(
@@ -52,9 +52,9 @@ class MultipleChoiceStudentAnswer extends StatelessWidget {
                       fontSize: 12,
                       color: isSelected
                           ? answerState
-                              ? MainColors.blueTextColor
-                              : MainColors.red
-                          : MainColors.black,
+                              ? MainColors.primary
+                              : MainColors.onError
+                          : MainColors.onPrimary,
                     ),
                   ).center(),
                 );
@@ -69,7 +69,7 @@ class MultipleChoiceStudentAnswer extends StatelessWidget {
               "الاجابة الصحيحة",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 14,
-                color: MainColors.checkBoxBorderGray,
+                color: MainColors.borderPrimary,
               ),
             ),
             12.ph,
@@ -77,18 +77,18 @@ class MultipleChoiceStudentAnswer extends StatelessWidget {
               width: 76.75.w,
               height: 44.h,
               decoration: BoxDecoration(
-                color: MainColors.lightgreenTeal,
+                color: MainColors.onSuccess,
                 borderRadius: 8.cr,
                 border: Border.all(
                   width: 2.w,
-                  color: MainColors.greenTeal,
+                  color: MainColors.success,
                 ),
               ),
               child: Text(
                 "المريخ",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 12,
-                  color: MainColors.greenTeal,
+                  color: MainColors.success,
                 ),
               ).center(),
             )

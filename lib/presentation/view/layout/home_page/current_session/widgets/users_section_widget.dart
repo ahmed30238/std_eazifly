@@ -32,7 +32,7 @@ class UsersSectionWidget extends StatelessWidget {
       alignment: MainAxisAlignment.center,
       image: users.map<String>((e) => e.userImage ?? "").toList(),
       number: users.length.toString(),
-      textColors: MainColors.blackText,
+      textColors: MainColors.onSecondary,
       areaHeigt: 26.h,
       areaWidth: 52.w,
       avatarHeigt: 24.h,

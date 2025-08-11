@@ -29,7 +29,7 @@ class PackageContentsItem extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border(
                 right: BorderSide(
-                  color: MainColors.blueTextColor,
+                  color: MainColors.primary,
                   width: 4.w,
                 ),
               ),
@@ -70,7 +70,7 @@ class PackageContentsItem extends StatelessWidget {
                   child: Text(
                     "احصلوا على استشارات تربوية متخصصة تساعدكم في توجيه أولادكم نحو التعلم الفعّال. نقدم نصائح حول كيفية دمج التعلم القرآني في الروتين اليومي.",
                     style: MainTextStyle.mediumTextStyle(
-                      color: MainColors.grayTextColors,
+                      color: MainColors.onSurfaceSecondary,
                       fontSize: 12,
                     ).copyWith(
                       height: 2.h,

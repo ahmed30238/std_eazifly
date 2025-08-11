@@ -56,7 +56,7 @@ class CacnelSessionsReasonsBody extends StatelessWidget {
           text: lang.next,
           width: 343.w,
           radius: 16.r,
-          color: MainColors.blueTextColor,
+          color: MainColors.primary,
           onPressed: () {
             if (cubit.noChosenReason()) {
               customAdaptiveDialog(
@@ -65,7 +65,7 @@ class CacnelSessionsReasonsBody extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   decoration: BoxDecoration(
                     borderRadius: 16.cr,
-                    color: MainColors.white,
+                    color: MainColors.background,
                   ),
                   height: 160.h,
                   width: double.infinity,
@@ -80,7 +80,7 @@ class CacnelSessionsReasonsBody extends StatelessWidget {
                         "برجاء اختيار سبب الالغاء",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 15,
-                          color: MainColors.red,
+                          color: MainColors.onError,
                         ),
                       ),
                     ],

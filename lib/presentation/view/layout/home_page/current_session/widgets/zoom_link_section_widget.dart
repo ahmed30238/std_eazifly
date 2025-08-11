@@ -23,9 +23,9 @@ class ZoomLinkSectionWidget extends StatelessWidget {
       child: Text(
         "Zoom Link",
         style: GoogleFonts.inter(
-          color: MainColors.blueTextColor,
+          color: MainColors.primary,
           decoration: TextDecoration.underline,
-          decorationColor: MainColors.blueTextColor,
+          decorationColor: MainColors.primary,
           fontSize: 14,
           fontWeight: FontWeight.w600,
         ),

@@ -38,7 +38,7 @@ class ProgramItem extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: 16.cr,
-          color: MainColors.veryLightGrayFormField,
+          color: MainColors.inputFill,
         ),
         constraints: BoxConstraints(
           minHeight: 300.h,
@@ -57,7 +57,7 @@ class ProgramItem extends StatelessWidget {
               title,
               style: MainTextStyle.boldTextStyle(
                 fontSize: 14,
-                color: MainColors.black,
+                color: MainColors.onPrimary,
               ),
             ),
             4.ph,

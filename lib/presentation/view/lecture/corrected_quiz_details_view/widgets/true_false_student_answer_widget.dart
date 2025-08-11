@@ -25,13 +25,13 @@ class TrueFalseStudentAnswer extends StatelessWidget {
               width: 165.w,
               height: 44.h,
               decoration: BoxDecoration(
-                color: isSelected ? MainColors.lightblue : MainColors.white,
+                color: isSelected ? MainColors.surface : MainColors.background,
                 borderRadius: 8.cr,
                 border: Border.all(
                   width: 2.w,
                   color: isSelected
-                      ? MainColors.blueTextColor
-                      : MainColors.grayBorderColor,
+                      ? MainColors.primary
+                      : MainColors.outline,
                 ),
               ),
               child: Text(
@@ -39,8 +39,8 @@ class TrueFalseStudentAnswer extends StatelessWidget {
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 12,
                   color: isSelected
-                      ? MainColors.blueTextColor
-                      : MainColors.black,
+                      ? MainColors.primary
+                      : MainColors.onPrimary,
                 ),
               ).center(),
             );

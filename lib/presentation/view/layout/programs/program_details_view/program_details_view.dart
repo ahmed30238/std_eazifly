@@ -55,14 +55,14 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                         Icon(
                           Icons.error_outline,
                           size: 80.r,
-                          color: MainColors.grayTextColors,
+                          color: MainColors.onSurfaceSecondary,
                         ),
                         16.ph,
                         Text(
                           "حدث خطأ في تحميل البيانات",
                           style: MainTextStyle.mediumTextStyle(
                             fontSize: 16,
-                            color: MainColors.grayTextColors,
+                            color: MainColors.onSurfaceSecondary,
                           ),
                         ),
                         8.ph,
@@ -70,7 +70,7 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                           "تحقق من الاتصال بالإنترنت وحاول مرة أخرى",
                           style: MainTextStyle.regularTextStyle(
                             fontSize: 14,
-                            color: MainColors.grayTextColors,
+                            color: MainColors.onSurfaceSecondary,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -79,9 +79,9 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                           text: "إعادة المحاولة",
                           textStyle: MainTextStyle.mediumTextStyle(
                             fontSize: 14,
-                            color: MainColors.white,
+                            color: MainColors.background,
                           ),
-                          color: MainColors.blueTextColor,
+                          color: MainColors.primary,
                           width: 120.w,
                           height: 36.h,
                           radius: 8.r,
@@ -142,8 +142,8 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                                 style: MainTextStyle.boldTextStyle(
                                   fontSize: 12,
                                   color: isSelected
-                                      ? MainColors.blueTextColor
-                                      : MainColors.grayTextColors,
+                                      ? MainColors.primary
+                                      : MainColors.onSurfaceSecondary,
                                 ),
                               );
                             },
@@ -177,7 +177,7 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
               
               return CustomElevatedButton(
                 text: "اشترك الآن",
-                color: MainColors.blueTextColor,
+                color: MainColors.primary,
                 radius: 16.r,
                 width: 343.w,
                 onPressed: () => Navigator.pushNamed(

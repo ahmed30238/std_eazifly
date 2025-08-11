@@ -22,11 +22,11 @@ class CustomLectureAppbarTitle extends StatelessWidget {
         4.pw,
         TextedContainer(
           text: "live",
-          containerColor: MainColors.red,
+          containerColor: MainColors.onError,
           width: 63.w,
           height: 24.h,
           radius: 4.r,
-          textColor: MainColors.white,
+          textColor: MainColors.background,
         ),
         15.pw,
       ],

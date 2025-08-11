@@ -32,13 +32,13 @@ class TimlineItem extends StatelessWidget {
         width: 32.w,
         height: 32.h,
         padding: padding ?? EdgeInsets.symmetric(vertical: 2.h),
-        color: MainColors.timeLineColor,
+        color: MainColors.muted,
         indicator: indicator,
       ),
       lineXY: lineXY ?? .1,
       alignment: TimelineAlign.manual,
-      afterLineStyle: LineStyle(thickness: 2, color: MainColors.timeLineColor),
-      beforeLineStyle: LineStyle(thickness: 2, color: MainColors.timeLineColor),
+      afterLineStyle: LineStyle(thickness: 2, color: MainColors.muted),
+      beforeLineStyle: LineStyle(thickness: 2, color: MainColors.muted),
       endChild: child,
     );
   }

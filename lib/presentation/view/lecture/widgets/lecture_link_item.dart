@@ -27,7 +27,7 @@ class LectureLink extends StatelessWidget {
       width: width ?? 127.w,
       height: 80.h,
       decoration: BoxDecoration(
-          color: MainColors.veryLightGrayFormField,
+          color: MainColors.inputFill,
           borderRadius: BorderRadius.circular(12.r)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +37,7 @@ class LectureLink extends StatelessWidget {
             "الرابط",
             style: MainTextStyle.boldTextStyle(
               fontSize: 12,
-              color: MainColors.grayTextColors,
+              color: MainColors.onSurfaceSecondary,
             ),
           ),
           8.ph,
@@ -51,13 +51,13 @@ class LectureLink extends StatelessWidget {
                   style: MainTextStyle.mediumTextStyle(
                     fontSize: 14,
                     color: state == LectureStatesEnum.finished
-                        ? MainColors.grayTextColors
-                        : MainColors.blueTextColor,
+                        ? MainColors.onSurfaceSecondary
+                        : MainColors.primary,
                   ).copyWith(
                     decoration: TextDecoration.underline,
                     decorationColor: state == LectureStatesEnum.finished
-                        ? MainColors.grayTextColors
-                        : MainColors.blueTextColor,
+                        ? MainColors.onSurfaceSecondary
+                        : MainColors.primary,
                   ),
                 ),
               ),

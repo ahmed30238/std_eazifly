@@ -40,7 +40,7 @@ class SessionCollectionItem extends StatelessWidget {
                   "مجموعة مختارة من الدورات التعليمية",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
-                    color: MainColors.black,
+                    color: MainColors.onPrimary,
                   ),
                 ),
                 4.ph,
@@ -48,7 +48,7 @@ class SessionCollectionItem extends StatelessWidget {
                   "إكتشفوا جمال تعلم القرآن من خلال دروسنا المصممة خصيصًا",
                   style: MainTextStyle.mediumTextStyle(
                     fontSize: 11,
-                    color: MainColors.grayTextColors,
+                    color: MainColors.onSurfaceSecondary,
                   ),
                 ),
               ],

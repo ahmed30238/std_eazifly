@@ -27,7 +27,7 @@ class AddNewStudentArea extends StatelessWidget {
                Icon(
                 Icons.add,
                 size: 20,
-                color: MainColors.blueTextColor,
+                color: MainColors.primary,
               ),
               4.pw,
               GestureDetector(
@@ -45,7 +45,7 @@ class AddNewStudentArea extends StatelessWidget {
                   "أضافة طالب جديد",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
-                    color: MainColors.blueTextColor,
+                    color: MainColors.primary,
                   ),
                 ),
               ),
@@ -64,7 +64,7 @@ class AddNewStudentArea extends StatelessWidget {
                 "أختر الطلاب الذي تود إشراكهم في البرنامج",
                 style: MainTextStyle.mediumTextStyle(
                   fontSize: 11,
-                  color: MainColors.formFieldgrayTextColor,
+                  color: MainColors.onSurfaceVariant,
                 ),
               ),
             ],

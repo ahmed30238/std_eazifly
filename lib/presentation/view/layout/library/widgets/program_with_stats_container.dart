@@ -34,7 +34,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
         height: 220.h,
         width: 197.w,
         decoration: BoxDecoration(
-          color: MainColors.veryLightGrayFormField,
+          color: MainColors.inputFill,
           borderRadius: 12.cr,
         ),
         child: Column(
@@ -71,7 +71,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
                     title,
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
                   12.ph,
@@ -89,7 +89,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
                               views,
                               style: MainTextStyle.boldTextStyle(
                                 fontSize: 14,
-                                color: MainColors.blackText,
+                                color: MainColors.onSecondary,
                               ),
                             ),
                           ],
@@ -106,7 +106,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
                               likes,
                               style: MainTextStyle.boldTextStyle(
                                 fontSize: 14,
-                                color: MainColors.blackText,
+                                color: MainColors.onSecondary,
                               ),
                             ),
                           ],
@@ -123,7 +123,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
                               noOfSubscription,
                               style: MainTextStyle.boldTextStyle(
                                 fontSize: 14,
-                                color: MainColors.blackText,
+                                color: MainColors.onSecondary,
                               ),
                             ),
                           ],

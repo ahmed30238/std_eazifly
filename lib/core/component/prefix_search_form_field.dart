@@ -21,7 +21,7 @@ class PrefixSearchFormField extends StatelessWidget {
       child: SvgPicture.asset(
         Assets.iconsSearchNormal,
         colorFilter:  ColorFilter.mode(
-          MainColors.formFieldgrayTextColor,
+          MainColors.onSurfaceVariant,
           BlendMode.srcIn,
         ),
       ),

@@ -20,7 +20,7 @@ class CollectionSessionList extends StatelessWidget {
         minHeight: 300.h,
       ),
       decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
         borderRadius: 16.cr,
       ),
       child: Column(
@@ -30,7 +30,7 @@ class CollectionSessionList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => const SessionCollectionItem(),
             separatorBuilder: (context, index) =>  SeparatedWidget(
-              dividerColor: MainColors.lightGray,
+              dividerColor: MainColors.surfaceVariant,
               verticalPadding: 0,
             ),
             itemCount: 4,

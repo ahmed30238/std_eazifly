@@ -224,7 +224,7 @@ class _ProgramSubscriptionPlanViewState
                     "عدد الحصص أسبوعيا",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
                   8.ph,
@@ -328,8 +328,8 @@ class _ProgramSubscriptionPlanViewState
                       CustomElevatedButton(
                         radius: 16.r,
                         height: 58.h,
-                        borderColor: MainColors.blueTextColor,
-                        textColor: MainColors.blueTextColor,
+                        borderColor: MainColors.primary,
+                        textColor: MainColors.primary,
                         text: "تأكيد",
                         onPressed: () {
                           if (cubit.copounController.text.isNotEmpty) {
@@ -427,7 +427,7 @@ class _ProgramSubscriptionPlanViewState
                 );
               }
             },
-            color: MainColors.blueTextColor,
+            color: MainColors.primary,
             width: 343.w,
             radius: 16.r,
           ),

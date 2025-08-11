@@ -9,7 +9,7 @@ class CustomHorizontalDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      color: color ?? MainColors.lightGray,
+      color: color ?? MainColors.surfaceVariant,
       thickness: thickness ?? 1.5,
     );
   }

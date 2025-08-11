@@ -74,8 +74,8 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                                   style: MainTextStyle.boldTextStyle(
                                     fontSize: 12,
                                     color: isSelected
-                                        ? MainColors.white
-                                        : MainColors.black,
+                                        ? MainColors.background
+                                        : MainColors.onPrimary,
                                   ),
                                 );
                               },
@@ -150,12 +150,12 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: isSelected
-                                        ? MainColors.blueTextColor
-                                        : MainColors.black,
+                                        ? MainColors.primary
+                                        : MainColors.onPrimary,
                                   ),
                                   color: isSelected
-                                      ? MainColors.lightblue
-                                      : MainColors.white,
+                                      ? MainColors.surface
+                                      : MainColors.background,
                                   borderRadius: 12.cr,
                                 ),
                                 child: Column(
@@ -179,7 +179,7 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                                           "${plan.price ?? 0} / شهريا",
                                           style: MainTextStyle.boldTextStyle(
                                               fontSize: 14,
-                                              color: MainColors.grayTextColors),
+                                              color: MainColors.onSurfaceSecondary),
                                         ),
                                       ],
                                     ),
@@ -207,7 +207,7 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                               textAlign: TextAlign.center,
                               style: MainTextStyle.boldTextStyle(
                                 fontSize: 14,
-                                color: MainColors.grayTextColors,
+                                color: MainColors.onSurfaceSecondary,
                               ),
                             ),
                             const Spacer(),
@@ -220,7 +220,7 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                                   height: 32.h,
                                   decoration: BoxDecoration(
                                     color: cubit.studentCount > 1
-                                        ? MainColors.lightblue
+                                        ? MainColors.surface
                                         : Colors.grey[100],
                                     borderRadius: 12.cr,
                                   ),
@@ -228,7 +228,7 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                                     Icons.remove,
                                     size: 20.r,
                                     color: cubit.studentCount > 1
-                                        ? MainColors.blueTextColor
+                                        ? MainColors.primary
                                         : Colors.grey[400],
                                   ).center(),
                                 ),
@@ -245,7 +245,7 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                                   textAlign: TextAlign.center,
                                   style: MainTextStyle.boldTextStyle(
                                     fontSize: 18,
-                                    color: MainColors.black,
+                                    color: MainColors.onPrimary,
                                   ),
                                 ),
                               ),
@@ -258,13 +258,13 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                                 width: 32.w,
                                 height: 32.h,
                                 decoration: BoxDecoration(
-                                  color: MainColors.lightblue,
+                                  color: MainColors.surface,
                                   borderRadius: 12.cr,
                                 ),
                                 child: Icon(
                                   size: 20.r,
                                   Icons.add,
-                                  color: MainColors.blueTextColor,
+                                  color: MainColors.primary,
                                 ).center(),
                               ),
                             ),
@@ -279,7 +279,7 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
             const Spacer(),
             CustomElevatedButton(
               text: "إشتراك",
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
               radius: 16.r,
               onPressed: () {
                 Navigator.pushNamed(

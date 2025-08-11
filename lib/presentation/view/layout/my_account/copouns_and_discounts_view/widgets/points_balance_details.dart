@@ -25,7 +25,7 @@ class PointsBalanceDetailsContainer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       height: 81.h,
       width: double.infinity,
-      color: MainColors.white,
+      color: MainColors.background,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +47,7 @@ class PointsBalanceDetailsContainer extends StatelessWidget {
                 date,
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 12,
-                  color: MainColors.black,
+                  color: MainColors.onPrimary,
                 ),
               )
             ],
@@ -57,7 +57,7 @@ class PointsBalanceDetailsContainer extends StatelessWidget {
             pointsDetails,
             style: MainTextStyle.mediumTextStyle(
               fontSize: 14,
-              color: MainColors.grayTextColors,
+              color: MainColors.onSurfaceSecondary,
             ),
           ),
         ],

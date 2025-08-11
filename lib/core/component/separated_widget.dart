@@ -28,7 +28,7 @@ class SeparatedWidget extends StatelessWidget {
           ),
         },
         CustomHorizontalDivider(
-          color: dividerColor ?? MainColors.veryLightGrayFormField,
+          color: dividerColor ?? MainColors.inputFill,
         ),
       ],
     );

@@ -13,7 +13,7 @@ handleTap({
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         decoration: BoxDecoration(
           borderRadius: 16.cr,
-          color: MainColors.white,
+          color: MainColors.background,
         ),
         height: 160.h,
         width: double.infinity,
@@ -28,7 +28,7 @@ handleTap({
               "برجاء اختيار سبب تغيير المعلم",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 15,
-                color: MainColors.red,
+                color: MainColors.onError,
               ),
             ),
           ],
@@ -42,7 +42,7 @@ handleTap({
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         decoration: BoxDecoration(
           borderRadius: 16.cr,
-          color: MainColors.white,
+          color: MainColors.background,
         ),
         height: 160.h,
         width: double.infinity,
@@ -57,7 +57,7 @@ handleTap({
               "برجاء اختيار الطالب الذي تود تغيير المعلم له",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 15,
-                color: MainColors.red,
+                color: MainColors.onError,
               ),
             ),
           ],

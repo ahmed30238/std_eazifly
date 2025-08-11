@@ -99,7 +99,7 @@ class _HomeQuizzesState extends State<HomeQuizzes> {
                       },
                       iconHeight: 24.h,
                       iconWidth: 24.w,
-                      iconContainerColor: MainColors.white,
+                      iconContainerColor: MainColors.background,
                       title: quiz.title ?? "null title",
                       subTitle: formatDateWithAmPm(quiz.createdAt.toString()),
                       trailing: ExamBodyCustomTrailing(

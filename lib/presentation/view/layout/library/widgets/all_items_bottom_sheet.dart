@@ -48,7 +48,7 @@ class _AllItemsBottomSheetState extends State<AllItemsBottomSheet> {
               "اختر المقاطع الصوتية",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 12,
-                color: MainColors.grayTextColors,
+                color: MainColors.onSurfaceSecondary,
               ),
             ),
           ),
@@ -104,7 +104,7 @@ class _AllItemsBottomSheetState extends State<AllItemsBottomSheet> {
             builder: (context, state) => CustomElevatedButton(
               text: "إنشاء",
               radius: 16.r,
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
               width: 127.w,
               onPressed: cubit.storeFavouriteListLoader
                   ? () {}

@@ -104,7 +104,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                                           radius: 16.r,
                                           width: 343.w,
                                           height: 48.w,
-                                          color: MainColors.blueTextColor,
+                                          color: MainColors.primary,
                                           text: "اختيار",
                                           onPressed: () {
                                             back(context);
@@ -166,14 +166,14 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                 "عائلي",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 12,
-                  color: MainColors.blackText,
+                  color: MainColors.onSecondary,
                 ),
               ),
               Text(
                 "4 طلاب",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 12,
-                  color: MainColors.blackText,
+                  color: MainColors.onSecondary,
                 ),
               ),
               NestedAvatarContainer(
@@ -196,7 +196,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
               minHeight: 316.h,
             ),
             decoration: BoxDecoration(
-              color: MainColors.veryLightGrayFormField,
+              color: MainColors.inputFill,
               borderRadius: 16.cr,
             ),
             child: Column(
@@ -243,7 +243,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                                   "مجموعة مختارة من الدورات التعليمية",
                                   style: MainTextStyle.boldTextStyle(
                                     fontSize: 12,
-                                    color: MainColors.black,
+                                    color: MainColors.onPrimary,
                                   ),
                                 ),
                                 4.ph,
@@ -251,7 +251,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                                   "إكتشفوا جمال تعلم القرآن من خلال دروسنا المصممة خصيصًا",
                                   style: MainTextStyle.mediumTextStyle(
                                     fontSize: 11,
-                                    color: MainColors.grayTextColors,
+                                    color: MainColors.onSurfaceSecondary,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),

@@ -13,7 +13,7 @@ class TextedCheckboxLoader extends StatelessWidget {
         width: 343.w,
         height: 45.h,
         decoration: BoxDecoration(
-          color: MainColors.white, // Use a solid color for shimmer
+          color: MainColors.background, // Use a solid color for shimmer
           borderRadius: BorderRadius.circular(8.r),
         ),
         child: Row(
@@ -22,7 +22,7 @@ class TextedCheckboxLoader extends StatelessWidget {
               width: 20.w, // Adjust to match your checkbox size
               height: 20.h,
               decoration: BoxDecoration(
-                color: MainColors.white,
+                color: MainColors.background,
                 shape: BoxShape.circle,
               ),
             ),
@@ -31,7 +31,7 @@ class TextedCheckboxLoader extends StatelessWidget {
               width: 150.w, // Adjust width as needed for your text
               height: 16.h,
               decoration: BoxDecoration(
-                color: MainColors.white,
+                color: MainColors.background,
                 borderRadius: BorderRadius.circular(4.r),
               ),
             ),

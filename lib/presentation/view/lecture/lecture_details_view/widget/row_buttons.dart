@@ -24,7 +24,7 @@ class RowButtons extends StatelessWidget {
               context,
               RoutePaths.joinedLectureScreen,
             ),
-            color: MainColors.yellow,
+            color: MainColors.tertiary,
             radius: 16.r,
           ),
         ),
@@ -33,8 +33,8 @@ class RowButtons extends StatelessWidget {
           child: CustomElevatedButton(
             text: "إنتهاء المحاضرة",
             textSize: 16,
-            textColor: MainColors.blueTextColor,
-            borderColor: MainColors.blueTextColor,
+            textColor: MainColors.primary,
+            borderColor: MainColors.primary,
             onPressed: () => Navigator.pushNamed(
               context,
               RoutePaths.lectureView,
@@ -42,7 +42,7 @@ class RowButtons extends StatelessWidget {
                 "programId": 1, // TODO
               },
             ),
-            color: MainColors.white,
+            color: MainColors.background,
             radius: 16.r,
           ),
         ),

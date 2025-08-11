@@ -68,7 +68,7 @@ class UpdateSessionDateBottomSheet extends StatelessWidget {
                   width: 291.w,
                   child: InkWell(
                     child: CustomTextFormField(
-                      filledColor: MainColors.lightGray,
+                      filledColor: MainColors.surfaceVariant,
                       enabled: false,
                       hintText: "السبت",
                     ),
@@ -99,7 +99,7 @@ class UpdateSessionDateBottomSheet extends StatelessWidget {
             40.ph,
             CustomElevatedButton(
               height: 48.h,
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
               text: "تحديد موعد جديد",
               radius: 16.r,
               onPressed: () {
@@ -124,7 +124,7 @@ class TimeSlot extends StatelessWidget {
       height: 54.h,
       width: 135.w,
       decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
         borderRadius: 8.cr,
       ),
       child: CustomRichText(

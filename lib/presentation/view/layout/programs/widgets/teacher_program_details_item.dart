@@ -25,7 +25,7 @@ class TeacherProgramDetailsItem extends StatelessWidget {
           Text(
             model.title,
             style: MainTextStyle.mediumTextStyle(
-              color: MainColors.grayTextColors,
+              color: MainColors.onSurfaceSecondary,
               fontSize: 12,
             ),
           ),
@@ -36,13 +36,13 @@ class TeacherProgramDetailsItem extends StatelessWidget {
                   width: 93.w,
                   decoration: BoxDecoration(
                     borderRadius: 55.cr,
-                    color: MainColors.lightYellow,
+                    color: MainColors.onTertiary,
                   ),
                   child: Text(
                     "12-2-2025",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.yellow,
+                      color: MainColors.tertiary,
                     ),
                   ).center(),
                 )
@@ -56,7 +56,7 @@ class TeacherProgramDetailsItem extends StatelessWidget {
                       model.icon,
                       fit: BoxFit.scaleDown,
                       colorFilter: ColorFilter.mode(
-                        MainColors.blueTextColor,
+                        MainColors.primary,
                         BlendMode.srcIn,
                       ),
                     ),
@@ -64,7 +64,7 @@ class TeacherProgramDetailsItem extends StatelessWidget {
                     Text(
                       model.subTitle,
                       style: MainTextStyle.boldTextStyle(
-                        color: MainColors.blackText,
+                        color: MainColors.onSecondary,
                         fontSize: 14,
                       ),
                     ),
@@ -91,8 +91,8 @@ class ProgramStatusWidget extends StatelessWidget {
           height: 26.h,
           radius: 55.r,
           text: "حاليا",
-          containerColor: MainColors.lightgreenColor,
-          textColor: MainColors.greenTeal,
+          containerColor: MainColors.primaryLight,
+          textColor: MainColors.success,
           fontSize: 12,
         );
       case "completed":
@@ -101,8 +101,8 @@ class ProgramStatusWidget extends StatelessWidget {
           height: 26.h,
           radius: 55.r,
           text: "مكتمل",
-          containerColor: MainColors.lightgreenColor,
-          textColor: MainColors.greenTeal,
+          containerColor: MainColors.primaryLight,
+          textColor: MainColors.success,
           fontSize: 12,
         );
 
@@ -112,8 +112,8 @@ class ProgramStatusWidget extends StatelessWidget {
           height: 26.h,
           radius: 55.r,
           text: "مشكلة",
-          containerColor: MainColors.lightgreenColor,
-          textColor: MainColors.greenTeal,
+          containerColor: MainColors.primaryLight,
+          textColor: MainColors.success,
           fontSize: 12,
         );
     }

@@ -13,7 +13,7 @@ class ChatItemShimmerList extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemCount: 8,
         separatorBuilder: (context, index) => SeparatedWidget(
-          dividerColor: MainColors.lightGray,
+          dividerColor: MainColors.surfaceVariant,
           verticalPadding: 8.h,
         ),
         itemBuilder: (context, index) {

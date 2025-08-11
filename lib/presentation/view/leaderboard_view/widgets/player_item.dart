@@ -21,7 +21,7 @@ class PlayerItem extends StatelessWidget {
       height: 64.h,
       width: 343.w,
       decoration: BoxDecoration(
-        color: MainColors.white,
+        color: MainColors.background,
         borderRadius: 12.cr,
       ),
       child: Row(

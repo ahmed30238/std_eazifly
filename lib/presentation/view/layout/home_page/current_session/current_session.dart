@@ -66,7 +66,7 @@ class _CurrentSessionState extends State<CurrentSession> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: 12.cr,
-                    color: MainColors.veryLightGrayFormField,
+                    color: MainColors.inputFill,
                   ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 12.h),
@@ -78,13 +78,13 @@ class _CurrentSessionState extends State<CurrentSession> {
                           Text(
                             "إسم البرنامج",
                             style: MainTextStyle.boldTextStyle(
-                                fontSize: 11, color: MainColors.grayTextColors),
+                                fontSize: 11, color: MainColors.onSurfaceSecondary),
                           ),
                           10.5.ph,
                           Text(
                             title,
                             style: MainTextStyle.boldTextStyle(
-                                fontSize: 12, color: MainColors.blackText),
+                                fontSize: 12, color: MainColors.onSecondary),
                           ),
                         ],
                       ),
@@ -108,8 +108,8 @@ class _CurrentSessionState extends State<CurrentSession> {
                   status: LectureStatesEnum.pending,
                   reJoin: item?.status?.key == "started",
                   statusLabel: item?.status?.label,
-                  statusContainerColor: MainColors.lightblue,
-                  statusTextColor: MainColors.blueTextColor,
+                  statusContainerColor: MainColors.surface,
+                  statusTextColor: MainColors.primary,
                   nextLecture: "${item?.sessionTime?.substring(0, 5)}",
                   onRejoinTap: () {},
                   duration: "${item?.duration} دقيقة",
@@ -146,7 +146,7 @@ class _CurrentSessionState extends State<CurrentSession> {
                           "انت متاخر  علي المحاضرة قم بالتوجة الي المحاضرة بالضغط علي الرابط المرفق",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
-                            color: MainColors.red,
+                            color: MainColors.onError,
                           ),
                         ),
                       )
@@ -168,7 +168,7 @@ class _CurrentSessionState extends State<CurrentSession> {
                     CustomElevatedButton(
                       height: 48.h,
                       width: 196.w,
-                      color: MainColors.blueTextColor,
+                      color: MainColors.primary,
                       radius: 16.r,
                       text: "التوجهة الي المحاضرة",
                       onPressed: () {
@@ -189,9 +189,9 @@ class _CurrentSessionState extends State<CurrentSession> {
                     CustomElevatedButton(
                       height: 45.h,
                       width: 138.w,
-                      color: MainColors.white,
-                      textColor: MainColors.blueTextColor,
-                      borderColor: MainColors.blueTextColor,
+                      color: MainColors.background,
+                      textColor: MainColors.primary,
+                      borderColor: MainColors.primary,
                       radius: 16.r,
                       text: "تواصل مع المعلم",
                       textSize: 14,

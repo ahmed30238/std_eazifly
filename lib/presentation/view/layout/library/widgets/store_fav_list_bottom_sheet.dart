@@ -48,7 +48,7 @@ class StoreFavouriteListBottomSheet extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         width: double.infinity,
         decoration: BoxDecoration(
-          color: MainColors.white,
+          color: MainColors.background,
           borderRadius: 16.cr,
         ),
         child: Form(
@@ -62,7 +62,7 @@ class StoreFavouriteListBottomSheet extends StatelessWidget {
                 width: 343.w,
                 decoration: BoxDecoration(
                   borderRadius: 8.cr,
-                  color: MainColors.lightGray,
+                  color: MainColors.surfaceVariant,
                 ),
                 child: cubit.favListImage != null
                     ? Stack(
@@ -77,7 +77,7 @@ class StoreFavouriteListBottomSheet extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                            color: MainColors.white,
+                            color: MainColors.background,
                             onPressed: () {
                               cubit.clearImages();
                             },
@@ -98,7 +98,7 @@ class StoreFavouriteListBottomSheet extends StatelessWidget {
                             Assets.iconsMusic,
                           ),
                           CustomLowSizeButton(
-                            btnColor: MainColors.white,
+                            btnColor: MainColors.background,
                             width: 127.w,
                             text: "اضغط لتحديد الصورة",
                             onTap: () {
@@ -126,7 +126,7 @@ class StoreFavouriteListBottomSheet extends StatelessWidget {
                 alignment: Alignment.center,
                 child: CustomElevatedButton(
                   text: "انشاء",
-                  color: MainColors.blueTextColor,
+                  color: MainColors.primary,
                   height: 48.h,
                   width: 241.w,
                   radius: 16.r,

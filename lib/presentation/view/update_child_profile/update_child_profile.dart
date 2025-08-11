@@ -161,7 +161,7 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
                     "النوع",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
                   8.ph,
@@ -202,7 +202,7 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
                         context: context,
                       );
                     },
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
               radius: 16.r,
               height: 48.h,
               width: 343.w,

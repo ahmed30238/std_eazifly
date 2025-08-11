@@ -29,12 +29,12 @@ class SchdeuleTypeRow extends StatelessWidget {
               height: 127.h,
               width: 130.w,
               decoration: BoxDecoration(
-                color: isSelected ? MainColors.lightblue : MainColors.white,
+                color: isSelected ? MainColors.surface : MainColors.background,
                 borderRadius: 16.cr,
                 border: Border.all(
                   color: isSelected
-                      ? MainColors.blueTextColor
-                      : MainColors.transparentColor,
+                      ? MainColors.primary
+                      : MainColors.transparent,
                 ),
               ),
               child: Column(

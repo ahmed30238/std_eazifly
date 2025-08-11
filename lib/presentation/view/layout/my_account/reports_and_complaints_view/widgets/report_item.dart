@@ -18,7 +18,7 @@ class ReportsAndComplaintsWidget extends StatelessWidget {
         if (state == "انتهت") ...{
           Container(
             height: 90.h,
-            color: MainColors.lightGray,
+            color: MainColors.surfaceVariant,
           ),
         },
         Container(
@@ -49,7 +49,7 @@ class ReportsAndComplaintsWidget extends StatelessWidget {
                           "9:00 AM",
                           style: MainTextStyle.mediumTextStyle(
                             fontSize: 12,
-                            color: MainColors.grayTextColors,
+                            color: MainColors.onSurfaceSecondary,
                           ),
                         ),
                       ],

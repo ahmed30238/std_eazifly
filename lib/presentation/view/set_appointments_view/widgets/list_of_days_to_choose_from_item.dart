@@ -25,7 +25,7 @@ class ListOfDaysToChooseFromItem extends StatelessWidget {
         children: [
           Checkbox.adaptive(
             value: value,
-            activeColor: MainColors.blueTextColor,
+            activeColor: MainColors.primary,
             onChanged: onChanged,
             visualDensity: const VisualDensity(
               horizontal: -4,
@@ -34,7 +34,7 @@ class ListOfDaysToChooseFromItem extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: 5.cr,
               side: BorderSide(
-                color: MainColors.grayBorderColor,
+                color: MainColors.outline,
                 style: BorderStyle.solid,
                 strokeAlign: 1,
                 width: 1.w,
@@ -45,7 +45,7 @@ class ListOfDaysToChooseFromItem extends StatelessWidget {
             day,
             style: MainTextStyle.boldTextStyle(
               fontSize: 12,
-              color: MainColors.black,
+              color: MainColors.onPrimary,
             ),
           ),
         ],

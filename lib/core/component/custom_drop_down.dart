@@ -76,17 +76,17 @@ class CustomizedDropdownWidget<T> extends StatelessWidget {
         hintText: hintText,
         hintStyle: MainTextStyle.boldTextStyle(
           fontSize: 12,
-          color: MainColors.formFieldgrayTextColor,
+          color: MainColors.onSurfaceVariant,
         ),
         suffixText: suffixText ?? "",
         suffixStyle: MainTextStyle.boldTextStyle(
           fontSize: 12,
-          color: MainColors.formFieldgrayTextColor,
+          color: MainColors.onSurfaceVariant,
         ),
         prefixText: prefixText ?? "",
         prefixStyle: MainTextStyle.boldTextStyle(
           fontSize: 12,
-          color: MainColors.formFieldgrayTextColor,
+          color: MainColors.onSurfaceVariant,
         ),
         suffixIconConstraints: BoxConstraints(
           minHeight: 2.h,
@@ -109,7 +109,7 @@ class CustomizedDropdownWidget<T> extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1.5.w,
-            color: MainColors.grayBorderColor,
+            color: MainColors.outline,
           ),
           borderRadius: BorderRadius.circular(
             12.r,
@@ -118,7 +118,7 @@ class CustomizedDropdownWidget<T> extends StatelessWidget {
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1.5.w,
-            color: MainColors.grayBorderColor,
+            color: MainColors.outline,
           ),
           borderRadius: BorderRadius.circular(
             12.r,
@@ -127,7 +127,7 @@ class CustomizedDropdownWidget<T> extends StatelessWidget {
 
         enabled: enabled,
         filled: filled ?? true,
-        fillColor: filledColor ?? MainColors.veryLightGrayFormField,
+        fillColor: filledColor ?? MainColors.inputFill,
         border: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1.5.w,
@@ -140,7 +140,7 @@ class CustomizedDropdownWidget<T> extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1.5.w,
-            color: borderColor ?? MainColors.lightGray,
+            color: borderColor ?? MainColors.surfaceVariant,
           ),
           borderRadius: BorderRadius.circular(
             12.r,

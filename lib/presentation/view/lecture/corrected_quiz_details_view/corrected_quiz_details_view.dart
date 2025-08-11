@@ -59,7 +59,7 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
                 state.errorMessage,
                 style: MainTextStyle.mediumTextStyle(
                   fontSize: 14,
-                  color: MainColors.red,
+                  color: MainColors.onError,
                 ),
               ),
             );
@@ -89,14 +89,14 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
                     _formatDate(quizData.createdAt),
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
                   Text(
                     "${userAnswer?.totalMark ?? "0"} / ${userAnswer?.fullMark ?? "100"}",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
                   TextedContainer(
@@ -173,12 +173,12 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
     switch (status?.toLowerCase()) {
       case 'pass':
       case 'passed':
-        return MainColors.greenTeal;
+        return MainColors.success;
       case 'fail':
       case 'failed':
-        return MainColors.red;
+        return MainColors.onError;
       default:
-        return MainColors.checkBoxBorderGray;
+        return MainColors.borderPrimary;
     }
   }
 
@@ -186,12 +186,12 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
     switch (status?.toLowerCase()) {
       case 'pass':
       case 'passed':
-        return MainColors.lightgreenTeal;
+        return MainColors.onSuccess;
       case 'fail':
       case 'failed':
-        return MainColors.lightRed;
+        return MainColors.error;
       default:
-        return MainColors.lightGray;
+        return MainColors.surfaceVariant;
     }
   }
 

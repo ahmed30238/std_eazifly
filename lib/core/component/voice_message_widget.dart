@@ -182,7 +182,7 @@ class _VoiceMessageWidgetState extends State<VoiceMessageWidget>
       width: widget.areaWidth ?? 258.w,
       height: 44.h,
       decoration: BoxDecoration(
-        color: widget.backgroundColor ?? MainColors.veryLightGrayFormField,
+        color: widget.backgroundColor ?? MainColors.inputFill,
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: isLoading
@@ -203,7 +203,7 @@ class _VoiceMessageWidgetState extends State<VoiceMessageWidget>
           child: CircularProgressIndicator(
             strokeWidth: 2,
             valueColor: AlwaysStoppedAnimation<Color>(
-              widget.activeSliderColor ?? MainColors.blueTextColor,
+              widget.activeSliderColor ?? MainColors.primary,
             ),
           ),
         ),
@@ -212,7 +212,7 @@ class _VoiceMessageWidgetState extends State<VoiceMessageWidget>
           "جاري التحميل...",
           style: MainTextStyle.regularTextStyle(
             fontSize: 11,
-            color: MainColors.grayTextColors,
+            color: MainColors.onSurfaceSecondary,
           ),
         ),
       ],
@@ -253,14 +253,14 @@ class _VoiceMessageWidgetState extends State<VoiceMessageWidget>
                 : _formatDuration(currentDuration),
             style: MainTextStyle.boldTextStyle(
               fontSize: 11,
-              color: MainColors.grayTextColors,
+              color: MainColors.onSurfaceSecondary,
             ),
           ),
           4.pw,
           GestureDetector(
             onTap: _togglePlayPause,
             child: isPlaying
-                ? Icon(Icons.pause, size: 20.w, color: MainColors.blueTextColor)
+                ? Icon(Icons.pause, size: 20.w, color: MainColors.primary)
                 : SvgPicture.asset(
                     Assets.iconsPlay,
                     width: 20.w,
@@ -279,8 +279,8 @@ class _VoiceMessageWidgetState extends State<VoiceMessageWidget>
               progress: currentPosition,
               isPlaying: isPlaying,
               onTap: _seekToPosition,
-              activeColor: widget.activeSliderColor ?? MainColors.blueTextColor,
-              inactiveColor: MainColors.grayTextColors,
+              activeColor: widget.activeSliderColor ?? MainColors.primary,
+              inactiveColor: MainColors.onSurfaceSecondary,
               animationController: animationController,
               barsCount: widget.noises ?? 45,
             ),

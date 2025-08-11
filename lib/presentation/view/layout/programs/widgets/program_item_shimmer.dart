@@ -8,7 +8,7 @@ class ProgramItemShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: MainColors.veryLightGrayFormField,
+      color: MainColors.inputFill,
       constraints: BoxConstraints(minHeight: 250.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

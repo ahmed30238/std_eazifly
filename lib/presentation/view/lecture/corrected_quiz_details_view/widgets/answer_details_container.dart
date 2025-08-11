@@ -36,7 +36,7 @@ class AnswerDetailsContainer extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: MainColors.lightGray,
+            color: MainColors.surfaceVariant,
           ),
         ),
       ),
@@ -53,7 +53,7 @@ class AnswerDetailsContainer extends StatelessWidget {
                 "السؤال ${index + 1}",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 14,
-                  color: MainColors.checkBoxBorderGray,
+                  color: MainColors.borderPrimary,
                 ),
               ),
               AnwerStateContainer(state: qState),
@@ -72,7 +72,7 @@ class AnswerDetailsContainer extends StatelessWidget {
             "إجابتك",
             style: MainTextStyle.boldTextStyle(
               fontSize: 14,
-              color: MainColors.checkBoxBorderGray,
+              color: MainColors.borderPrimary,
             ),
           ),
           12.ph,
@@ -140,8 +140,8 @@ class EnhancedStudentAnswerWidget extends StatelessWidget {
           width: 117.w,
           height: 28.h,
           text: "نوع غير معرف",
-          textColor: MainColors.red,
-          containerColor: MainColors.lightRed,
+          textColor: MainColors.onError,
+          containerColor: MainColors.error,
           radius: 16.r,
         );
     }
@@ -193,15 +193,15 @@ class EnhancedTrueFalseStudentAnswer extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: isSelected
                       ? (answerState
-                          ? MainColors.lightgreenTeal
-                          : MainColors.lightRed)
-                      : MainColors.white,
+                          ? MainColors.onSuccess
+                          : MainColors.error)
+                      : MainColors.background,
                   borderRadius: 8.cr,
                   border: Border.all(
                     width: 2.w,
                     color: isSelected
-                        ? (answerState ? MainColors.greenTeal : MainColors.red)
-                        : MainColors.grayBorderColor,
+                        ? (answerState ? MainColors.success : MainColors.onError)
+                        : MainColors.outline,
                   ),
                 ),
                 child: Text(
@@ -209,8 +209,8 @@ class EnhancedTrueFalseStudentAnswer extends StatelessWidget {
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
                     color: isSelected
-                        ? (answerState ? MainColors.greenTeal : MainColors.red)
-                        : MainColors.black,
+                        ? (answerState ? MainColors.success : MainColors.onError)
+                        : MainColors.onPrimary,
                   ),
                 ).center(),
               );
@@ -225,7 +225,7 @@ class EnhancedTrueFalseStudentAnswer extends StatelessWidget {
             "الاجابة الصحيحة",
             style: MainTextStyle.boldTextStyle(
               fontSize: 14,
-              color: MainColors.checkBoxBorderGray,
+              color: MainColors.borderPrimary,
             ),
           ),
           12.ph,
@@ -233,18 +233,18 @@ class EnhancedTrueFalseStudentAnswer extends StatelessWidget {
             width: 165.w,
             height: 44.h,
             decoration: BoxDecoration(
-              color: MainColors.lightgreenTeal,
+              color: MainColors.onSuccess,
               borderRadius: 8.cr,
               border: Border.all(
                 width: 2.w,
-                color: MainColors.greenTeal,
+                color: MainColors.success,
               ),
             ),
             child: Text(
               _getCorrectAnswer(),
               style: MainTextStyle.boldTextStyle(
                 fontSize: 12,
-                color: MainColors.greenTeal,
+                color: MainColors.success,
               ),
             ).center(),
           ),
@@ -301,15 +301,15 @@ class EnhancedMultipleChoiceStudentAnswer extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: isSelected
                       ? (answerState
-                          ? MainColors.lightgreenTeal
-                          : MainColors.lightRed)
-                      : MainColors.white,
+                          ? MainColors.onSuccess
+                          : MainColors.error)
+                      : MainColors.background,
                   borderRadius: 8.cr,
                   border: Border.all(
                     width: 2.w,
                     color: isSelected
-                        ? (answerState ? MainColors.greenTeal : MainColors.red)
-                        : MainColors.grayBorderColor,
+                        ? (answerState ? MainColors.success : MainColors.onError)
+                        : MainColors.outline,
                   ),
                 ),
                 child: Text(
@@ -317,8 +317,8 @@ class EnhancedMultipleChoiceStudentAnswer extends StatelessWidget {
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
                     color: isSelected
-                        ? (answerState ? MainColors.greenTeal : MainColors.red)
-                        : MainColors.black,
+                        ? (answerState ? MainColors.success : MainColors.onError)
+                        : MainColors.onPrimary,
                   ),
                 ).center(),
               );
@@ -334,7 +334,7 @@ class EnhancedMultipleChoiceStudentAnswer extends StatelessWidget {
             "الاجابة الصحيحة",
             style: MainTextStyle.boldTextStyle(
               fontSize: 14,
-              color: MainColors.checkBoxBorderGray,
+              color: MainColors.borderPrimary,
             ),
           ),
           12.ph,
@@ -342,18 +342,18 @@ class EnhancedMultipleChoiceStudentAnswer extends StatelessWidget {
             width: 76.75.w,
             height: 44.h,
             decoration: BoxDecoration(
-              color: MainColors.lightgreenTeal,
+              color: MainColors.onSuccess,
               borderRadius: 8.cr,
               border: Border.all(
                 width: 2.w,
-                color: MainColors.greenTeal,
+                color: MainColors.success,
               ),
             ),
             child: Text(
               _getCorrectAnswer(),
               style: MainTextStyle.boldTextStyle(
                 fontSize: 12,
-                color: MainColors.greenTeal,
+                color: MainColors.success,
               ),
             ).center(),
           ),
@@ -426,7 +426,7 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
                 state.errorMessage,
                 style: MainTextStyle.mediumTextStyle(
                   fontSize: 14,
-                  color: MainColors.red,
+                  color: MainColors.onError,
                 ),
               ),
             );
@@ -456,14 +456,14 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
                     _formatDate(quizData.createdAt),
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
                   Text(
                     "${userAnswer?.totalMark ?? "0"} / ${userAnswer?.fullMark ?? "100"}",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
                   TextedContainer(
@@ -546,21 +546,21 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
   // Updated method to calculate color based on marks
   Color _getStatusColor(int? totalMark, int? fullMark) {
     if (totalMark == null || fullMark == null || fullMark == 0) {
-      return MainColors.checkBoxBorderGray;
+      return MainColors.borderPrimary;
     }
     
     double percentage = (totalMark / fullMark) * 100;
-    return percentage >= 50 ? MainColors.greenTeal : MainColors.red;
+    return percentage >= 50 ? MainColors.success : MainColors.onError;
   }
 
   // Updated method to calculate background color based on marks
   Color _getStatusBackgroundColor(int? totalMark, int? fullMark) {
     if (totalMark == null || fullMark == null || fullMark == 0) {
-      return MainColors.lightGray;
+      return MainColors.surfaceVariant;
     }
     
     double percentage = (totalMark / fullMark) * 100;
-    return percentage >= 50 ? MainColors.lightgreenTeal : MainColors.lightRed;
+    return percentage >= 50 ? MainColors.onSuccess : MainColors.error;
   }
 
   String _getQuestionTypeInArabic(String? type) {

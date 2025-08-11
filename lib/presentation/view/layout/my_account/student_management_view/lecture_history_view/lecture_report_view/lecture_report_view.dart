@@ -47,7 +47,7 @@ class _LectureReportViewState extends State<LectureReportView> {
                 "إسم البرنامج",
                 style: MainTextStyle.mediumTextStyle(
                   fontSize: 12,
-                  color: MainColors.grayTextColors,
+                  color: MainColors.onSurfaceSecondary,
                 ),
               ),
             ),
@@ -57,7 +57,7 @@ class _LectureReportViewState extends State<LectureReportView> {
                 if (cubit.getReportQuestionsLoader) {
                   return Center(
                     child: CircularProgressIndicator(
-                      color: MainColors.blueTextColor,
+                      color: MainColors.primary,
                     ),
                   );
                 }
@@ -77,7 +77,7 @@ class _LectureReportViewState extends State<LectureReportView> {
                   return Expanded(
                     child: Center(
                       child: CircularProgressIndicator(
-                        color: MainColors.blueTextColor,
+                        color: MainColors.primary,
                       ),
                     ),
                   );
@@ -90,7 +90,7 @@ class _LectureReportViewState extends State<LectureReportView> {
                         "حدث خطأ في تحميل البيانات",
                         style: MainTextStyle.mediumTextStyle(
                           fontSize: 14,
-                          color: MainColors.red,
+                          color: MainColors.onError,
                         ),
                       ),
                     ),
@@ -105,7 +105,7 @@ class _LectureReportViewState extends State<LectureReportView> {
                         "لا توجد أسئلة متاحة",
                         style: MainTextStyle.mediumTextStyle(
                           fontSize: 14,
-                          color: MainColors.grayTextColors,
+                          color: MainColors.onSurfaceSecondary,
                         ),
                       ),
                     ),
@@ -160,7 +160,7 @@ class EssayReportQuestion extends StatelessWidget {
       padding: EdgeInsets.all(16.r),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Column(
@@ -171,7 +171,7 @@ class EssayReportQuestion extends StatelessWidget {
             question?.reportQuestion?.title ?? "",
             style: MainTextStyle.boldTextStyle(
               fontSize: 15,
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
             ),
           ),
           8.ph,
@@ -179,7 +179,7 @@ class EssayReportQuestion extends StatelessWidget {
             answer ?? rightMultiSelectTitle ?? "لا توجد إجابة",
             style: MainTextStyle.mediumTextStyle(
               fontSize: 12,
-              color: MainColors.grayTextColors,
+              color: MainColors.onSurfaceSecondary,
             ).copyWith(
               height: 1.5,
             ),
@@ -190,7 +190,7 @@ class EssayReportQuestion extends StatelessWidget {
               "ملحوظة: ${question?.note}",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 12,
-                color: MainColors.grayTextColors,
+                color: MainColors.onSurfaceSecondary,
               ),
             ),
           ],

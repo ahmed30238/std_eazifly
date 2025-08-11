@@ -136,7 +136,7 @@ class _GoalDetailsViewState extends State<GoalDetailsView> {
                 "الأهداف الفرعية",
                 style: MainTextStyle.regularTextStyle(
                   fontSize: 11,
-                  color: MainColors.grayTextColors,
+                  color: MainColors.onSurfaceSecondary,
                 ),
               ),
             ),
@@ -162,7 +162,7 @@ class _GoalDetailsViewState extends State<GoalDetailsView> {
                         "لا توجد أهداف فرعية",
                         style: MainTextStyle.regularTextStyle(
                           fontSize: 14,
-                          color: MainColors.grayTextColors,
+                          color: MainColors.onSurfaceSecondary,
                         ),
                       ),
                     ),

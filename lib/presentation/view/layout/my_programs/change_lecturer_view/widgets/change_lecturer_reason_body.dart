@@ -143,7 +143,7 @@ class ChangeLecturerReasonBody extends StatelessWidget {
             text: lang.next,
             width: 343.w,
             radius: 16.r,
-            color: MainColors.blueTextColor,
+            color: MainColors.primary,
             onPressed: cubit.getUserSubscriptionDataLoader
                 ? () {}
                 : () {

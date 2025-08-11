@@ -14,7 +14,7 @@ class ButtonWithPrice extends StatelessWidget {
       text: "اشتراك",
       height: 48.h,
       width: 343.w,
-      color: MainColors.blueTextColor,
+      color: MainColors.primary,
       onPressed: onPressed,
       radius: 16.r,
       child: Row(
@@ -30,7 +30,7 @@ class ButtonWithPrice extends StatelessWidget {
               "اشتراك",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 16,
-                color: MainColors.white,
+                color: MainColors.background,
               ),
             ).center(),
           ),
@@ -41,7 +41,7 @@ class ButtonWithPrice extends StatelessWidget {
                 margin: EdgeInsets.zero,
                 decoration: BoxDecoration(
                   borderRadius: 16.cr,
-                  color: MainColors.whiteCyan,
+                  color: MainColors.onSurface,
                 ),
                 height: 36.h,
                 width: 96.w,
@@ -49,7 +49,7 @@ class ButtonWithPrice extends StatelessWidget {
                   "1200 ج.م",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 14,
-                    color: MainColors.white,
+                    color: MainColors.background,
                   ),
                 ).center(),
               ),

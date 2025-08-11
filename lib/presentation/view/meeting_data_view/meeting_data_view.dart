@@ -48,7 +48,7 @@ class MeetingDataView extends StatelessWidget {
                       useSafeArea: true,
                       builder: (context) => Dialog(
                         insetPadding: EdgeInsets.symmetric(horizontal: 16.w),
-                        backgroundColor: MainColors.white,
+                        backgroundColor: MainColors.background,
                         shape: RoundedRectangleBorder(
                           borderRadius: 8.cr,
                         ),
@@ -88,7 +88,7 @@ class MeetingDataView extends StatelessWidget {
                                   text1: "بعد 2 يوم",
                                   text1Style: MainTextStyle.boldTextStyle(
                                     fontSize: 14,
-                                    color: MainColors.red,
+                                    color: MainColors.onError,
                                   ),
                                   spaceText: "  :  ",
                                   spaceStyle:
@@ -96,7 +96,7 @@ class MeetingDataView extends StatelessWidget {
                                   text2: "14 ساعة",
                                   text2Style: MainTextStyle.boldTextStyle(
                                     fontSize: 14,
-                                    color: MainColors.red,
+                                    color: MainColors.onError,
                                   ),
                                 ),
                               ),
@@ -114,9 +114,9 @@ class MeetingDataView extends StatelessWidget {
                                     RoutePaths.lectureView,
                                   );
                                 },
-                                textColor: MainColors.white,
+                                textColor: MainColors.background,
                                 radius: 12.r,
-                                color: MainColors.blueTextColor,
+                                color: MainColors.primary,
                               ),
                               const Spacer(),
                             ],
@@ -130,7 +130,7 @@ class MeetingDataView extends StatelessWidget {
                     width: 109.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.r),
-                      color: MainColors.veryLightGrayFormField,
+                      color: MainColors.inputFill,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -139,14 +139,14 @@ class MeetingDataView extends StatelessWidget {
                           "بيانات المحاضرة",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
-                            color: MainColors.grayTextColors,
+                            color: MainColors.onSurfaceSecondary,
                           ),
                         ),
                         Text(
                           "عبر تطبيق زوم",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
-                            color: MainColors.blackText,
+                            color: MainColors.onSecondary,
                           ),
                         ),
                       ],
@@ -160,7 +160,7 @@ class MeetingDataView extends StatelessWidget {
                   width: 226.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.r),
-                    color: MainColors.veryLightGrayFormField,
+                    color: MainColors.inputFill,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,7 +170,7 @@ class MeetingDataView extends StatelessWidget {
                         "الرابط",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
-                          color: MainColors.grayTextColors,
+                          color: MainColors.onSurfaceSecondary,
                         ),
                       ),
                       InkWell(
@@ -179,7 +179,7 @@ class MeetingDataView extends StatelessWidget {
                           "zoom link",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
-                            color: MainColors.blueTextColor,
+                            color: MainColors.primary,
                           ).copyWith(
                             decoration: TextDecoration.underline,
                           ),

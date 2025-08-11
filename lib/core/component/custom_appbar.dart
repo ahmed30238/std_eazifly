@@ -50,7 +50,7 @@ class CustomAppBar extends AppBar {
           elevation: customElevation,
           toolbarHeight: kToolbarHeight,
           leadingWidth: leadingCustomWidth ?? 100.w,
-          backgroundColor: MainColors.white,
+          backgroundColor: MainColors.background,
           centerTitle: isCenterTitle,
           title: onTitleTapped != null
               ? Row(
@@ -136,7 +136,7 @@ class CustomNotificationIcon extends StatelessWidget {
       width: 40.w,
       height: 40.h,
       decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: Badge(
@@ -144,7 +144,7 @@ class CustomNotificationIcon extends StatelessWidget {
           width: 5.w,
           height: 5.h,
           decoration: BoxDecoration(
-            color: MainColors.red,
+            color: MainColors.onError,
             borderRadius: BorderRadius.circular(4.r),
           ),
         ),
@@ -157,7 +157,7 @@ class CustomNotificationIcon extends StatelessWidget {
         badgeStyle:  BadgeStyle(
           padding: EdgeInsets.zero,
           borderSide: BorderSide(
-            color: MainColors.transparentColor,
+            color: MainColors.transparent,
           ),
         ),
         badgeAnimation: const BadgeAnimation.fade(
@@ -165,7 +165,7 @@ class CustomNotificationIcon extends StatelessWidget {
         ),
         child:  Icon(
           Icons.notifications,
-          color: MainColors.grayTextColors,
+          color: MainColors.onSurfaceSecondary,
         ).center(),
       ),
     );

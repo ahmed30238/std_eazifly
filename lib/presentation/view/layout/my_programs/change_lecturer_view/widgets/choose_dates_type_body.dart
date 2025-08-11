@@ -14,7 +14,7 @@ class ChooseDatesTypeBody extends StatelessWidget {
         Text(
           "أختر المواعيد المناسبة ",
           style: MainTextStyle.boldTextStyle(
-              fontSize: 14, color: MainColors.checkBoxBorderGray),
+              fontSize: 14, color: MainColors.borderPrimary),
         ),
         20.ph,
         Expanded(
@@ -48,7 +48,7 @@ class ChooseDatesTypeBody extends StatelessWidget {
             text: lang.next,
             width: 343.w,
             radius: 16.r,
-            color: MainColors.blueTextColor,
+            color: MainColors.primary,
             onPressed: cubit.getInstructorsLoader
                 ? () {}
                 : () {
@@ -59,7 +59,7 @@ class ChooseDatesTypeBody extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           decoration: BoxDecoration(
                             borderRadius: 16.cr,
-                            color: MainColors.white,
+                            color: MainColors.background,
                           ),
                           height: 160.h,
                           width: double.infinity,
@@ -74,7 +74,7 @@ class ChooseDatesTypeBody extends StatelessWidget {
                                 "برجاء اختيار المواعيد المناسبة",
                                 style: MainTextStyle.boldTextStyle(
                                   fontSize: 15,
-                                  color: MainColors.red,
+                                  color: MainColors.onError,
                                 ),
                               ),
                             ],

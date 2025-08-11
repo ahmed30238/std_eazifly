@@ -63,8 +63,8 @@ class _HomeMeetingsViewState extends State<HomeMeetingsView>
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
                       color: isSelected
-                          ? MainColors.blueTextColor
-                          : MainColors.black,
+                          ? MainColors.primary
+                          : MainColors.onPrimary,
                     ),
                   );
                 },

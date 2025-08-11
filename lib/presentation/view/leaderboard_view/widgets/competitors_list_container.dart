@@ -21,7 +21,7 @@ class CompetitorListContainer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       height: 564.h,
       width: double.infinity,
-      color: MainColors.veryLightGrayFormField,
+      color: MainColors.inputFill,
       child: ListView(
         physics: const BouncingScrollPhysics(),
         children: [

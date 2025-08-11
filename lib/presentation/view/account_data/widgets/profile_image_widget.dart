@@ -60,7 +60,7 @@ class ProfileImageWidget extends StatelessWidget {
             child: InkWell(
               onTap: onEditTap,
               child: CircleAvatar(
-                backgroundColor: MainColors.blueTextColor,
+                backgroundColor: MainColors.primary,
                 radius: 15.r,
                 child: Icon(
                   Icons.edit_calendar_rounded,

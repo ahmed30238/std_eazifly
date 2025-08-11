@@ -31,8 +31,8 @@ class CustomLinearPercentIndicator extends StatelessWidget {
       lineHeight:lineHeight?? 8.h,
       barRadius: Radius.circular(12.r),
       percent: percent,
-      backgroundColor: MainColors.lightGray,
-      progressColor: MainColors.blueTextColor,
+      backgroundColor: MainColors.surfaceVariant,
+      progressColor: MainColors.primary,
     );
   }
 }

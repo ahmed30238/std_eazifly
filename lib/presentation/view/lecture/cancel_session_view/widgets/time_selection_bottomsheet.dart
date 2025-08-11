@@ -156,7 +156,7 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
             child: CustomElevatedButton(
               radius: 16.r,
               text: "تحديد موعد جديد",
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
               onPressed: _canConfirmSelection()
                   ? () => _confirmSelection(context)
                   : () {

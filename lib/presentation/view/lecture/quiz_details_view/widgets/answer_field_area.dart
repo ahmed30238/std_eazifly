@@ -69,9 +69,9 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
               enabledBorder: InputBorder.none,
               vPadding: 0,
               borderRadius: 0.cr,
-              borderColor: MainColors.white,
+              borderColor: MainColors.background,
               hintText: "   أدخل الإجابة هنا............",
-              filledColor: MainColors.white,
+              filledColor: MainColors.background,
             ),
           ),
         );
@@ -97,14 +97,14 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
                         height: 44.h,
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? MainColors.lightblue
-                              : MainColors.white,
+                              ? MainColors.surface
+                              : MainColors.background,
                           borderRadius: 8.cr,
                           border: Border.all(
                             width: 2.w,
                             color: isSelected
-                                ? MainColors.blueTextColor
-                                : MainColors.grayBorderColor,
+                                ? MainColors.primary
+                                : MainColors.outline,
                           ),
                         ),
                         child: Text(
@@ -112,8 +112,8 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: isSelected
-                                ? MainColors.blueTextColor
-                                : MainColors.black,
+                                ? MainColors.primary
+                                : MainColors.onPrimary,
                           ),
                         ).center(),
                       ),
@@ -130,7 +130,7 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
                   "يمكن تعديل الاجابة بالضغط عليها",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 11,
-                    color: MainColors.blueTextColor,
+                    color: MainColors.primary,
                   ),
                 ),
               ),
@@ -159,14 +159,14 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
                         height: 44.h,
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? MainColors.lightblue
-                              : MainColors.white,
+                              ? MainColors.surface
+                              : MainColors.background,
                           borderRadius: 8.cr,
                           border: Border.all(
                             width: 2.w,
                             color: isSelected
-                                ? MainColors.blueTextColor
-                                : MainColors.grayBorderColor,
+                                ? MainColors.primary
+                                : MainColors.outline,
                           ),
                         ),
                         child: Text(
@@ -174,8 +174,8 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: isSelected
-                                ? MainColors.blueTextColor
-                                : MainColors.black,
+                                ? MainColors.primary
+                                : MainColors.onPrimary,
                           ),
                         ).center(),
                       ),
@@ -192,7 +192,7 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
                   "يمكن تعديل الاجابة بالضغط عليها",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 11,
-                    color: MainColors.blueTextColor,
+                    color: MainColors.primary,
                   ),
                 ),
               ),
@@ -205,8 +205,8 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
           width: 117.w,
           height: 28.h,
           text: "نوع غير معرف",
-          textColor: MainColors.red,
-          containerColor: MainColors.lightRed,
+          textColor: MainColors.onError,
+          containerColor: MainColors.error,
           radius: 16.r,
         );
     }

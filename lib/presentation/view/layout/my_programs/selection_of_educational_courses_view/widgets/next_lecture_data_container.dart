@@ -16,7 +16,7 @@ class NextLectureDataContainer extends StatelessWidget {
       height: 207.h,
       width: 343.w,
       decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
         borderRadius: 12.cr,
       ),
       child: Column(

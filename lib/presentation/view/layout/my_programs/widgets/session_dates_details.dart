@@ -45,7 +45,7 @@ class SessionDatesDetails extends StatelessWidget {
                   firstTitle,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 11,
-                    color: MainColors.grayTextColors,
+                    color: MainColors.onSurfaceSecondary,
                   ),
                 ),
                 fixedSpace ?? 12.ph,
@@ -53,7 +53,7 @@ class SessionDatesDetails extends StatelessWidget {
                   firstSubTitle,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: fixedFontSize ?? 14,
-                    color: MainColors.black,
+                    color: MainColors.onPrimary,
                   ),
                 ),
               ],
@@ -67,7 +67,7 @@ class SessionDatesDetails extends StatelessWidget {
                   secondTitle,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 11,
-                    color: MainColors.grayTextColors,
+                    color: MainColors.onSurfaceSecondary,
                   ),
                 ),
                 fixedSpace ?? 12.ph,
@@ -75,7 +75,7 @@ class SessionDatesDetails extends StatelessWidget {
                   secondSubTitle,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: fixedFontSize ?? 14,
-                    color: MainColors.black,
+                    color: MainColors.onPrimary,
                   ),
                 ),
               ],
@@ -89,7 +89,7 @@ class SessionDatesDetails extends StatelessWidget {
                   thirdTitle,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 11,
-                    color: MainColors.grayTextColors,
+                    color: MainColors.onSurfaceSecondary,
                   ),
                 ),
                 fixedSpace ?? 10.ph,
@@ -105,8 +105,8 @@ class SessionDatesDetails extends StatelessWidget {
                     fontSize: 10,
                     height: 26.h,
                     text: thirdSubTitle,
-                    btnColor: MainColors.lightRed,
-                    textColor: MainColors.red,
+                    btnColor: MainColors.error,
+                    textColor: MainColors.onError,
                   ).center(),
                   // Text(
                   //   thirdSubTitle,

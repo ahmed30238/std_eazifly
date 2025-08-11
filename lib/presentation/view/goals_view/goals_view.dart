@@ -53,14 +53,14 @@ class _GoalsViewState extends State<GoalsView> {
                         Icon(
                           Icons.track_changes_outlined,
                           size: 80.r,
-                          color: MainColors.grayTextColors,
+                          color: MainColors.onSurfaceSecondary,
                         ),
                         16.ph,
                         Text(
                           "لا توجد أهداف متاحة حالياً",
                           style: MainTextStyle.mediumTextStyle(
                             fontSize: 16,
-                            color: MainColors.grayTextColors,
+                            color: MainColors.onSurfaceSecondary,
                           ),
                         ),
                         8.ph,
@@ -68,9 +68,9 @@ class _GoalsViewState extends State<GoalsView> {
                           text: "إعادة المحاولة",
                           textStyle: MainTextStyle.mediumTextStyle(
                             fontSize: 14,
-                            color: MainColors.white,
+                            color: MainColors.background,
                           ),
-                          color: MainColors.blueTextColor,
+                          color: MainColors.primary,
                           width: 120.w,
                           height: 36.h,
                           radius: 8.r,
@@ -116,7 +116,7 @@ class _GoalsViewState extends State<GoalsView> {
                           lineXY: .01,
                           indicatorXY: .4.h,
                           indicator: Checkbox.adaptive(
-                            activeColor: MainColors.blueTextColor,
+                            activeColor: MainColors.primary,
                             value: isAllElementDone,
                             onChanged: (p) {},
                             shape: const CircleBorder(),
@@ -194,7 +194,7 @@ class CustomBadge extends StatelessWidget {
         height: 80.h,
         decoration: BoxDecoration(
           // color: MainColors.white
-          color: MainColors.red,
+          color: MainColors.onError,
           // borderRadius: 48.cr,
           image: const DecorationImage(
             fit: BoxFit.cover,

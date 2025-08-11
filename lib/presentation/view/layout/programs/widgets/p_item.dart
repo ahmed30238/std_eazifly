@@ -18,7 +18,7 @@ class ProgramItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
         constraints: BoxConstraints(minHeight: 250.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

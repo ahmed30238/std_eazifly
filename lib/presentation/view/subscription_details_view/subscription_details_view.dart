@@ -55,7 +55,7 @@ class _SubscriptionDetailsViewState extends State<SubscriptionDetailsView>
                   "يتم دفع قيمة البرنامج كامل لأول طالب فقط ثم تحصل علي 50 % لاي طالب أخر",
                   style: MainTextStyle.mediumTextStyle(
                     fontSize: 11,
-                    color: MainColors.checkBoxBorderGray,
+                    color: MainColors.borderPrimary,
                   ),
                 ),
               ),

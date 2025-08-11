@@ -29,7 +29,7 @@ class LectureHistoryDetails extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: 16.cr,
-        color: MainColors.white,
+        color: MainColors.background,
       ),
       child: Column(
         children: [
@@ -43,7 +43,7 @@ class LectureHistoryDetails extends StatelessWidget {
                       "إسم المحاضرة",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 11,
-                        color: MainColors.grayTextColors,
+                        color: MainColors.onSurfaceSecondary,
                       ),
                     ),
                     8.ph,
@@ -51,7 +51,7 @@ class LectureHistoryDetails extends StatelessWidget {
                       title,
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
-                        color: MainColors.blackText,
+                        color: MainColors.onSecondary,
                       ),
                     ),
                   ],
@@ -65,7 +65,7 @@ class LectureHistoryDetails extends StatelessWidget {
                       "حالة المحاضرة",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 11,
-                        color: MainColors.grayTextColors,
+                        color: MainColors.onSurfaceSecondary,
                       ),
                     ),
                     4.ph,

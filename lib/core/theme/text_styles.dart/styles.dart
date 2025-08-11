@@ -16,7 +16,7 @@ class MainTextStyle {
   }) =>
       _mainAppTextStyle(plusJakartaSans: plusJakartaSans ?? false).copyWith(
         fontSize: fontSize.sp,
-        color: color ?? MainColors.blackText,
+        color: color ?? MainColors.onSecondary,
         fontWeight: FontWeight.w700,
       );
   static TextStyle mediumTextStyle({
@@ -26,7 +26,7 @@ class MainTextStyle {
   }) =>
       _mainAppTextStyle(plusJakartaSans: plusJakartaSans ?? false).copyWith(
         fontSize: fontSize.sp,
-        color: color ?? MainColors.blackText,
+        color: color ?? MainColors.onSecondary,
         fontWeight: FontWeight.w600,
       );
   static TextStyle regularTextStyle({
@@ -35,7 +35,7 @@ class MainTextStyle {
   }) =>
       _mainAppTextStyle().copyWith(
         fontSize: fontSize.sp,
-        color: color ?? MainColors.blackText,
+        color: color ?? MainColors.onSecondary,
         fontWeight: FontWeight.w500,
       );
 }

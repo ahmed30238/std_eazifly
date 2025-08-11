@@ -31,7 +31,7 @@ class ScheduleItem extends StatelessWidget {
       height: 74.h,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
       ),
       child: SizedBox(
         height: 74.h,
@@ -45,7 +45,7 @@ class ScheduleItem extends StatelessWidget {
                     "تاريخ المحاضرة",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 11,
-                      color: MainColors.grayTextColors,
+                      color: MainColors.onSurfaceSecondary,
                     ),
                   ),
                   8.ph,
@@ -53,7 +53,7 @@ class ScheduleItem extends StatelessWidget {
                     "$day  $date",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.black,
+                      color: MainColors.onPrimary,
                     ),
                   ),
                 ],
@@ -66,7 +66,7 @@ class ScheduleItem extends StatelessWidget {
                     "وقت المحاضرة",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 11,
-                      color: MainColors.grayTextColors,
+                      color: MainColors.onSurfaceSecondary,
                     ),
                   ),
                   8.ph,
@@ -75,7 +75,7 @@ class ScheduleItem extends StatelessWidget {
                       "$from الي $to ",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
-                        color: MainColors.black,
+                        color: MainColors.onPrimary,
                       ),
                     ),
                   ),
@@ -88,7 +88,7 @@ class ScheduleItem extends StatelessWidget {
                     statusLabel,
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.red,
+                      color: MainColors.onError,
                     ),
                   )
                 : EditSessionDateArea(sessionId: sessionId),
@@ -149,7 +149,7 @@ class EditSessionDateArea extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               decoration: BoxDecoration(
                 borderRadius: 16.cr,
-                color: MainColors.white,
+                color: MainColors.background,
               ),
               height: 160.h,
               width: double.infinity,
@@ -164,7 +164,7 @@ class EditSessionDateArea extends StatelessWidget {
                     "لا توجد مواعيد متاحة حالياً",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 15,
-                      color: MainColors.red,
+                      color: MainColors.onError,
                     ),
                   ),
                 ],
@@ -207,7 +207,7 @@ class EditSessionDateArea extends StatelessWidget {
         "تعديل الموعد",
         style: MainTextStyle.boldTextStyle(
           fontSize: 12,
-          color: MainColors.blueTextColor,
+          color: MainColors.primary,
         ),
       ),
     );

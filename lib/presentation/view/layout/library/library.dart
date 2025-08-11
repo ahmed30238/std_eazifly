@@ -39,7 +39,7 @@ class _LibraryViewState extends State<LibraryView>
                   ? Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: AppbarIconWidget(
-                        iconColor: MainColors.blueTextColor,
+                        iconColor: MainColors.primary,
                         onTap: () => showModalSheet(
                           maxHeight: 609.h,
                           minHeight: 608.h,
@@ -81,8 +81,8 @@ class _LibraryViewState extends State<LibraryView>
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
                       color: isSelected
-                          ? MainColors.blueTextColor
-                          : MainColors.grayTextColors,
+                          ? MainColors.primary
+                          : MainColors.onSurfaceSecondary,
                     ),
                   );
                 },

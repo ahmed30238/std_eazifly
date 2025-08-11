@@ -14,7 +14,7 @@ class StudentDataItemShimmer extends StatelessWidget {
       width: width.w,
       decoration: BoxDecoration(
         borderRadius: 12.cr,
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
       ),
       child: Shimmer.fromColors(
         baseColor: Colors.grey[300]!,

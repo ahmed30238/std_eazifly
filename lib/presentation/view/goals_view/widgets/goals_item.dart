@@ -31,9 +31,9 @@ class GoalsItem extends StatelessWidget {
         height: 96.h,
         // Remove fixed width - let it expand to available space
         decoration: BoxDecoration(
-          color: MainColors.veryLightGrayFormField,
+          color: MainColors.inputFill,
           borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: MainColors.grayBorderColor, width: 2.w),
+          border: Border.all(color: MainColors.outline, width: 2.w),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +68,7 @@ class GoalsItem extends StatelessWidget {
                           points,
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 11,
-                            color: MainColors.grayTextColors,
+                            color: MainColors.onSurfaceSecondary,
                           ),
                         ),
                       ],

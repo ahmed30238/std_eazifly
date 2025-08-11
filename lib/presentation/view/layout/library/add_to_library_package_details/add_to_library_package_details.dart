@@ -74,8 +74,8 @@ class _AddToLibraryPackageDetailsViewState
                                   style: MainTextStyle.boldTextStyle(
                                     fontSize: 12,
                                     color: isSelected
-                                        ? MainColors.white
-                                        : MainColors.black,
+                                        ? MainColors.background
+                                        : MainColors.onPrimary,
                                   ),
                                 );
                               },
@@ -143,12 +143,12 @@ class _AddToLibraryPackageDetailsViewState
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: isSelected
-                                    ? MainColors.blueTextColor
-                                    : MainColors.black,
+                                    ? MainColors.primary
+                                    : MainColors.onPrimary,
                               ),
                               color: isSelected
-                                  ? MainColors.lightblue
-                                  : MainColors.white,
+                                  ? MainColors.surface
+                                  : MainColors.background,
                               borderRadius: 12.cr,
                             ),
                             child: Column(
@@ -172,7 +172,7 @@ class _AddToLibraryPackageDetailsViewState
                                       "${plan.price ?? 0} / شهريا",
                                       style: MainTextStyle.boldTextStyle(
                                           fontSize: 14,
-                                          color: MainColors.grayTextColors),
+                                          color: MainColors.onSurfaceSecondary),
                                     ),
                                   ],
                                 ),
@@ -196,7 +196,7 @@ class _AddToLibraryPackageDetailsViewState
             ),
             CustomElevatedButton(
               text: "إشتراك",
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
               radius: 16.r,
               onPressed: () {
                 // TODO add programId as arguments

@@ -42,7 +42,7 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
                 bloc: cubit,
                 builder: (context, state) {
                   return Checkbox.adaptive(
-                    activeColor: MainColors.blueTextColor,
+                    activeColor: MainColors.primary,
                     visualDensity: const VisualDensity(
                       horizontal: -4,
                       vertical: -4,
@@ -91,7 +91,7 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
                     return Row(
                       children: [
                         Checkbox.adaptive(
-                          activeColor: MainColors.blueTextColor,
+                          activeColor: MainColors.primary,
                           visualDensity: const VisualDensity(
                             horizontal: -4,
                             vertical: -4,
@@ -136,7 +136,7 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
           bloc: cubit,
           builder: (context, state) => CustomElevatedButton(
               text: lang.next,
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
               height: 48.h,
               width: 343.w,
               radius: 16.r,

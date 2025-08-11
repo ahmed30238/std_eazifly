@@ -12,7 +12,7 @@ class LectureDataContainer extends StatelessWidget {
       height: 149.h,
       width: 287.w,
       decoration: BoxDecoration(
-        color: MainColors.white,
+        color: MainColors.background,
         borderRadius: 12.cr,
       ),
       child: Column(
@@ -30,7 +30,7 @@ class LectureDataContainer extends StatelessWidget {
                       "اسم الطالب",
                       style: MainTextStyle.mediumTextStyle(
                         fontSize: 12,
-                        color: MainColors.grayTextColors,
+                        color: MainColors.onSurfaceSecondary,
                       ),
                     ),
                     8.ph,
@@ -58,7 +58,7 @@ class LectureDataContainer extends StatelessWidget {
                       "اسم المعلم",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
-                        color: MainColors.grayTextColors,
+                        color: MainColors.onSurfaceSecondary,
                       ),
                     ),
                     8.ph,
@@ -87,7 +87,7 @@ class LectureDataContainer extends StatelessWidget {
                       "موعد المحاضرة",
                       style: MainTextStyle.mediumTextStyle(
                         fontSize: 12,
-                        color: MainColors.grayTextColors,
+                        color: MainColors.onSurfaceSecondary,
                       ),
                     ),
                     8.ph,
@@ -111,7 +111,7 @@ class LectureDataContainer extends StatelessWidget {
                       "البرنامج",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
-                        color: MainColors.grayTextColors,
+                        color: MainColors.onSurfaceSecondary,
                       ),
                     ),
                     8.ph,

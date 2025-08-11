@@ -96,8 +96,8 @@ class _DmViewState extends State<DmView> {
                       ? TextedContainer(
                           text: "جاري",
                           radius: 12.r,
-                          containerColor: MainColors.lightgreenTeal,
-                          textColor: MainColors.greenTeal,
+                          containerColor: MainColors.onSuccess,
+                          textColor: MainColors.success,
                           width: 65.w,
                           height: 26.h,
                         )
@@ -105,8 +105,8 @@ class _DmViewState extends State<DmView> {
                           ? TextedContainer(
                               text: "انتهت",
                               radius: 12.r,
-                              containerColor: MainColors.lightRed,
-                              textColor: MainColors.red,
+                              containerColor: MainColors.error,
+                              textColor: MainColors.onError,
                               width: 65.w,
                               height: 26.h,
                             )
@@ -131,7 +131,7 @@ class _DmViewState extends State<DmView> {
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: IconsContainer(
                     width: 48.w,
-                    containerColor: MainColors.white,
+                    containerColor: MainColors.background,
                     iconWidget: SvgPicture.asset(
                       Assets.iconsVerticalDots,
                       fit: BoxFit.scaleDown,

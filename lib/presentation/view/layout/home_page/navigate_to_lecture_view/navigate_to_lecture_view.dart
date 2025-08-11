@@ -59,7 +59,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: 12.cr,
-                    color: MainColors.veryLightGrayFormField,
+                    color: MainColors.inputFill,
                   ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 12.h),
@@ -72,13 +72,13 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                           Text(
                             "إسم البرنامج",
                             style: MainTextStyle.boldTextStyle(
-                                fontSize: 11, color: MainColors.grayTextColors),
+                                fontSize: 11, color: MainColors.onSurfaceSecondary),
                           ),
                           10.5.ph,
                           Text(
                             title,
                             style: MainTextStyle.boldTextStyle(
-                                fontSize: 12, color: MainColors.blackText),
+                                fontSize: 12, color: MainColors.onSecondary),
                           ),
                         ],
                       ),
@@ -132,7 +132,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                       width: 109.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.r),
-                        color: MainColors.veryLightGrayFormField,
+                        color: MainColors.inputFill,
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -144,7 +144,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                             stdTitleList[index],
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 12,
-                              color: MainColors.grayTextColors,
+                              color: MainColors.onSurfaceSecondary,
                             ),
                           ),
                           index == 0
@@ -154,7 +154,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                                   image: [
                                   ],
                                   number: "9",
-                                  textColors: MainColors.blackText,
+                                  textColors: MainColors.onSecondary,
                                   areaHeigt: 26.h,
                                   areaWidth: 52.w,
                                   avatarHeigt: 24.h,
@@ -165,16 +165,16 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                                       "عبر تطبيق زوم",
                                       style: MainTextStyle.boldTextStyle(
                                         fontSize: 12,
-                                        color: MainColors.blackText,
+                                        color: MainColors.onSecondary,
                                       ),
                                     )
                                   : Text(
                                       "Zoom Link",
                                       style: GoogleFonts.inter(
-                                          color: MainColors.blueTextColor,
+                                          color: MainColors.primary,
                                           decoration: TextDecoration.underline,
                                           decorationColor:
-                                              MainColors.blueTextColor,
+                                              MainColors.primary,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600),
                                     ),
@@ -200,7 +200,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                     "انت متاخر  علي المحاضرة قم بالتوجة الي المحاضرة بالضغط علي الرابط المرفق",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.red,
+                      color: MainColors.onError,
                     ),
                   ),
                 )
@@ -212,7 +212,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                 CustomElevatedButton(
                   height: 48.h,
                   width: 197.w,
-                  color: MainColors.blueTextColor,
+                  color: MainColors.primary,
                   radius: 16.r,
                   text: "التوجهة الي المحاضرة",
                   onPressed: () {},
@@ -221,9 +221,9 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                 CustomElevatedButton(
                   height: 45.h,
                   width: 138.w,
-                  color: MainColors.white,
-                  textColor: MainColors.blueTextColor,
-                  borderColor: MainColors.blueTextColor,
+                  color: MainColors.background,
+                  textColor: MainColors.primary,
+                  borderColor: MainColors.primary,
                   radius: 16.r,
                   text: "تواصل مع المعلم",
                   textSize: 14,

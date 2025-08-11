@@ -29,8 +29,8 @@ class QTypeTextedContainer extends StatelessWidget {
           width: 65.w,
           height: 28.h,
           text: "مقالي",
-          textColor: MainColors.blueTextColor,
-          containerColor: MainColors.lightblue,
+          textColor: MainColors.primary,
+          containerColor: MainColors.surface,
           radius: 16.r,
         );
       case "true_false":
@@ -38,8 +38,8 @@ class QTypeTextedContainer extends StatelessWidget {
           width: 88.w,
           height: 28.h,
           text: "صح وخطأ",
-          textColor: MainColors.blueTextColor,
-          containerColor: MainColors.lightblue,
+          textColor: MainColors.primary,
+          containerColor: MainColors.surface,
           radius: 16.r,
         );
       case "multiple_choice":
@@ -47,8 +47,8 @@ class QTypeTextedContainer extends StatelessWidget {
           width: 117.w,
           height: 28.h,
           text: "أختيار من متعدد",
-          textColor: MainColors.blueTextColor,
-          containerColor: MainColors.lightblue,
+          textColor: MainColors.primary,
+          containerColor: MainColors.surface,
           radius: 16.r,
         );
       default:
@@ -56,8 +56,8 @@ class QTypeTextedContainer extends StatelessWidget {
           width: 117.w,
           height: 28.h,
           text: "نوع غير معرف",
-          textColor: MainColors.red,
-          containerColor: MainColors.lightRed,
+          textColor: MainColors.onError,
+          containerColor: MainColors.error,
           radius: 16.r,
         );
     }

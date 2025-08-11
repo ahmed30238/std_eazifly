@@ -32,13 +32,13 @@ class StudentItem extends StatelessWidget {
             height: 98.h,
             decoration: BoxDecoration(
               color: isSelected
-                  ? MainColors.lightblue
-                  : MainColors.veryLightGrayFormField,
+                  ? MainColors.surface
+                  : MainColors.inputFill,
               borderRadius: 8.cr,
               border: Border.all(
                 color: isSelected
-                    ? MainColors.blueTextColor
-                    : MainColors.grayBorderColor,
+                    ? MainColors.primary
+                    : MainColors.outline,
                 width: 2,
               ),
             ),
@@ -56,8 +56,8 @@ class StudentItem extends StatelessWidget {
                   name,
                   style: MainTextStyle.boldTextStyle(
                     color: isSelected
-                        ? MainColors.blueTextColor
-                        : MainColors.black,
+                        ? MainColors.primary
+                        : MainColors.onPrimary,
                     fontSize: 12,
                   ),
                 )
@@ -69,12 +69,12 @@ class StudentItem extends StatelessWidget {
               width: 80.w,
               height: 98.h,
               decoration: BoxDecoration(
-                color: MainColors.veryLightGrayFormField.withOpacity(.5),
+                color: MainColors.inputFill.withOpacity(.5),
                 borderRadius: 8.cr,
                 border: Border.all(
                   color: isSelected
-                      ? MainColors.blueTextColor
-                      : MainColors.grayBorderColor,
+                      ? MainColors.primary
+                      : MainColors.outline,
                   width: 2.w,
                 ),
               ),

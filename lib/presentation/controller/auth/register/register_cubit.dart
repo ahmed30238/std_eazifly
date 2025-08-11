@@ -127,7 +127,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         delightfulToast(
           message: "كلمة المرور غير متطابقة",
           context: context,
-          toastColor: MainColors.red,
+          toastColor: MainColors.onError,
         );
         return;
       }
@@ -171,7 +171,7 @@ class RegisterCubit extends Cubit<RegisterState> {
           delightfulToast(
             message: failure.message ?? "حدث خطأ أثناء التسجيل",
             context: context,
-            toastColor: MainColors.red,
+            toastColor: MainColors.onError,
           );
         },
         // في حالة النجاح
@@ -213,7 +213,7 @@ class RegisterCubit extends Cubit<RegisterState> {
             delightfulToast(
               message: response.message ?? "تم التسجيل بنجاح!",
               context: context,
-              toastColor: MainColors.greenTeal,
+              toastColor: MainColors.success,
             );
 
             // تنظيف الحقول
@@ -249,7 +249,7 @@ class RegisterCubit extends Cubit<RegisterState> {
             delightfulToast(
               message: response.message ?? "حدث خطأ غير متوقع",
               context: context,
-              toastColor: MainColors.offersColor,
+              toastColor: MainColors.accent,
             );
           }
         },
@@ -262,7 +262,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       delightfulToast(
         message: "حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى",
         context: context,
-        toastColor: MainColors.red,
+        toastColor: MainColors.onError,
       );
     }
   }

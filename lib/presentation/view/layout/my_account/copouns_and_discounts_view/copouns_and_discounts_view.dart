@@ -71,7 +71,7 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
           Text(
             "${loginData?.bonus ?? "0"} نقطة",
             style: MainTextStyle.boldTextStyle(
-                fontSize: 14, color: MainColors.blueTextColor),
+                fontSize: 14, color: MainColors.primary),
           ),
           24.ph,
           CodeDetails(
@@ -91,7 +91,7 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
                     child: Container(
                       height: 98.h,
                       decoration: BoxDecoration(
-                        color: MainColors.veryLightGrayFormField,
+                        color: MainColors.inputFill,
                         borderRadius: BorderRadius.circular(10.r),
                       ),
                       child: Column(
@@ -100,7 +100,7 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
                           SvgPicture.asset(
                             Assets.iconsShare,
                             colorFilter: const ColorFilter.mode(
-                              MainColors.blueTextColor,
+                              MainColors.primary,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -126,7 +126,7 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
                     child: Container(
                       height: 98.h,
                       decoration: BoxDecoration(
-                        color: MainColors.veryLightGrayFormField,
+                        color: MainColors.inputFill,
                         borderRadius: 10.cr,
                       ),
                       child: Column(
@@ -135,7 +135,7 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
                           SvgPicture.asset(
                             Assets.iconsTicketExpired,
                             colorFilter: const ColorFilter.mode(
-                              MainColors.blueTextColor,
+                              MainColors.primary,
                               BlendMode.srcIn,
                             ),
                           ),

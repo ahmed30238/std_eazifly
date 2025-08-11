@@ -19,7 +19,7 @@ class SubscriptionPlanCardItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ? MainColors.lightblue : MainColors.white,
+          color: isSelected ? MainColors.surface : MainColors.background,
           borderRadius: BorderRadius.circular(12.r),
         ),
         height: 69.h,
@@ -30,7 +30,7 @@ class SubscriptionPlanCardItem extends StatelessWidget {
             SvgPicture.asset(
               icons,
               colorFilter: ColorFilter.mode(
-                isSelected ? MainColors.blueTextColor : MainColors.black,
+                isSelected ? MainColors.primary : MainColors.onPrimary,
                 BlendMode.srcIn,
               ),
             ),
@@ -39,7 +39,7 @@ class SubscriptionPlanCardItem extends StatelessWidget {
               day,
               style: MainTextStyle.boldTextStyle(
                 fontSize: 12,
-                color: isSelected ? MainColors.blueTextColor : MainColors.black,
+                color: isSelected ? MainColors.primary : MainColors.onPrimary,
               ),
             ),
           ],

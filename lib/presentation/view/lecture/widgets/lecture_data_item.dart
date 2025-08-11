@@ -18,7 +18,7 @@ class LectureData extends StatelessWidget {
       width: 109.w,
       height: 80.h,
       decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
         borderRadius: 12.cr,
       ),
       child: Column(
@@ -30,7 +30,7 @@ class LectureData extends StatelessWidget {
             "بيانات المحاضرة",
             style: MainTextStyle.boldTextStyle(
               fontSize: 12,
-              color: MainColors.grayTextColors,
+              color: MainColors.onSurfaceSecondary,
             ),
           ),
           8.ph,

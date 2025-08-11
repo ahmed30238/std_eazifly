@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
                   navigatorObservers: [navigatorObservers],
                   navigatorKey: navKey,
                   theme: ThemeData(
-                    scaffoldBackgroundColor: MainColors.scaffoldWhite,
+                    scaffoldBackgroundColor: MainColors.surface2,
                   ),
                   onGenerateRoute: AppRouter.onGenerateRoutes,
                   initialRoute: RoutePaths.splashScreen,

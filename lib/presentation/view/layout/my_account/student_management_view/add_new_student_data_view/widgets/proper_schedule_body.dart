@@ -21,7 +21,7 @@ class ProperScheduleBody extends StatelessWidget {
                 "أختر نوع المواعيد المناسب",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 12,
-                  color: MainColors.checkBoxBorderGray,
+                  color: MainColors.borderPrimary,
                 ),
               ),
               4.ph,
@@ -67,7 +67,7 @@ class ProperScheduleBody extends StatelessWidget {
                             width: 343.w,
                             decoration: BoxDecoration(
                               borderRadius: 12.cr,
-                              color: MainColors.veryLightGrayFormField,
+                              color: MainColors.inputFill,
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -76,14 +76,14 @@ class ProperScheduleBody extends StatelessWidget {
                                   "عدد الحصص المتاحة",
                                   style: MainTextStyle.boldTextStyle(
                                     fontSize: 11,
-                                    color: MainColors.grayTextColors,
+                                    color: MainColors.onSurfaceSecondary,
                                   ),
                                 ),
                                 Text(
                                   "8",
                                   style: MainTextStyle.boldTextStyle(
                                     fontSize: 12,
-                                    color: MainColors.black,
+                                    color: MainColors.onPrimary,
                                   ),
                                 ),
                               ],
@@ -174,7 +174,7 @@ class ProperScheduleBody extends StatelessWidget {
                                   width: 343.w,
                                   decoration: BoxDecoration(
                                     borderRadius: 12.cr,
-                                    color: MainColors.veryLightGrayFormField,
+                                    color: MainColors.inputFill,
                                   ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -183,14 +183,14 @@ class ProperScheduleBody extends StatelessWidget {
                                         "عدد الحصص المتاحة",
                                         style: MainTextStyle.boldTextStyle(
                                           fontSize: 11,
-                                          color: MainColors.grayTextColors,
+                                          color: MainColors.onSurfaceSecondary,
                                         ),
                                       ),
                                       Text(
                                         "8",
                                         style: MainTextStyle.boldTextStyle(
                                           fontSize: 12,
-                                          color: MainColors.black,
+                                          color: MainColors.onPrimary,
                                         ),
                                       ),
                                     ],
@@ -229,7 +229,7 @@ class ProperScheduleBody extends StatelessWidget {
           onPressed: () {
             cubit.incrementScreenIndex();
           },
-          color: MainColors.blueTextColor,
+          color: MainColors.primary,
           radius: 16.r,
         ),
         32.ph,
@@ -254,7 +254,7 @@ class ClassSpecifyingTimeWidget extends StatelessWidget {
       ),
       height: 172.h,
       decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
         borderRadius: 12.cr,
       ),
       child: Column(
@@ -264,7 +264,7 @@ class ClassSpecifyingTimeWidget extends StatelessWidget {
             "حصة ${index + 1}",
             style: MainTextStyle.boldTextStyle(
               fontSize: 14,
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
             ),
           ),
           Row(

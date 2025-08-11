@@ -29,7 +29,7 @@ class AllMeetingItem extends StatelessWidget {
         height: 301.h,
         decoration: BoxDecoration(
           borderRadius: 12.cr,
-          color: MainColors.veryLightGrayFormField,
+          color: MainColors.inputFill,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,10 +67,10 @@ class AllMeetingItem extends StatelessWidget {
                         fontSize: 12,
                         radius: 32.r,
                         textColor:
-                            !isRecorded ? MainColors.red : MainColors.greenTeal,
+                            !isRecorded ? MainColors.onError : MainColors.success,
                         containerColor: !isRecorded
-                            ? MainColors.lightRed
-                            : MainColors.lightgreenTeal,
+                            ? MainColors.error
+                            : MainColors.onSuccess,
                       ),
                     ),
                   ],
@@ -88,7 +88,7 @@ class AllMeetingItem extends StatelessWidget {
                     "مراجع شاملة لدراسة العلوم للصف السادس الابتدائي",
                     style: MainTextStyle.mediumTextStyle(
                       fontSize: 12,
-                      color: MainColors.grayTextColors,
+                      color: MainColors.onSurfaceSecondary,
                     ),
                   ),
                 ),

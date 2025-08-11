@@ -18,7 +18,7 @@ class LectureDataPlusLinkRow extends StatelessWidget {
           width: 100.w,
           height: 72.h,
           decoration: BoxDecoration(
-              color: MainColors.veryLightGrayFormField,
+              color: MainColors.inputFill,
               borderRadius: BorderRadius.circular(12.r)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,7 +28,7 @@ class LectureDataPlusLinkRow extends StatelessWidget {
                 "بيانات المحاضرة",
                 style: MainTextStyle.mediumTextStyle(
                   fontSize: 12,
-                  color: MainColors.grayTextColors,
+                  color: MainColors.onSurfaceSecondary,
                 ),
               ),
               8.ph,
@@ -38,7 +38,7 @@ class LectureDataPlusLinkRow extends StatelessWidget {
                   "عبر تطبيق زوم",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 14,
-                    color: MainColors.blackText,
+                    color: MainColors.onSecondary,
                   ),
                 ),
               ),

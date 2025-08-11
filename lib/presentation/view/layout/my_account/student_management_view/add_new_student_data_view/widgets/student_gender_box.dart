@@ -27,8 +27,8 @@ class StudentGenderBox extends StatelessWidget {
             borderRadius: 8.cr,
             border: Border.all(
               color: isSelected
-                  ? MainColors.blueTextColor
-                  : MainColors.formFieldgraySecondBorderColor,
+                  ? MainColors.primary
+                  : MainColors.outlineVariant,
             ),
           ),
           child: Row(

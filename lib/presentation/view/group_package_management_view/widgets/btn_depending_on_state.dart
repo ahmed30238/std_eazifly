@@ -14,8 +14,8 @@ class ButtonDependingOnState extends StatelessWidget {
           height: 28.h,
           width: 71.w,
           text: "تم التعيين",
-          btnColor: MainColors.lightgreenTeal,
-          textColor: MainColors.greenTeal,
+          btnColor: MainColors.onSuccess,
+          textColor: MainColors.success,
           borderRadius: 8.cr,
           onTap: () {},
         );
@@ -24,8 +24,8 @@ class ButtonDependingOnState extends StatelessWidget {
           width: 90.w,
           height: 28.h,
           text: "أضغط للتعيين",
-          btnColor: MainColors.lightRed,
-          textColor: MainColors.red,
+          btnColor: MainColors.error,
+          textColor: MainColors.onError,
           borderRadius: 8.cr,
           onTap: () {},
         );

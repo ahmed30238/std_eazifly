@@ -20,7 +20,7 @@ class ProgressPercentContainer extends StatelessWidget {
       height: 66.h,
       decoration: BoxDecoration(
         borderRadius: 12.cr,
-        color: MainColors.lightblue,
+        color: MainColors.surface,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

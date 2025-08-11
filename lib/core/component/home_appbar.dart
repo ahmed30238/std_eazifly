@@ -119,7 +119,7 @@ class AppbarIconWidget extends StatelessWidget {
         width: width ?? 40.w,
         height: 40.h,
         decoration: BoxDecoration(
-          color: backgroundColor ?? MainColors.veryLightGrayFormField,
+          color: backgroundColor ?? MainColors.inputFill,
           borderRadius: BorderRadius.circular(15.r),
         ),
         child: iconWidget ??

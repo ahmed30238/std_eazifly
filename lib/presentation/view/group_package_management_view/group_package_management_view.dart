@@ -65,7 +65,7 @@ class _GroupPackageManagementViewState
                       icons: stepIcons,
                       width: MediaQuery.of(context).size.width,
                       curStep: cubit.stepperIndex,
-                      color: MainColors.blueTextColor,
+                      color: MainColors.primary,
                     ),
                   ),
                 ),

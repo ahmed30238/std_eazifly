@@ -29,7 +29,7 @@ class SubscriptionDurationTabs extends StatelessWidget {
                     cubit.subscriptionDurationTabs[index],
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: isSelected ? MainColors.white : MainColors.black,
+                      color: isSelected ? MainColors.background : MainColors.onPrimary,
                     ),
                   );
                 },

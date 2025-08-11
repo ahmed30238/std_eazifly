@@ -36,7 +36,7 @@ class FlexibleHourBody extends StatelessWidget {
           "سيتم توفير الخدمه في اقرب وقت",
           style: MainTextStyle.boldTextStyle(
             fontSize: 14,
-            color: MainColors.blueTextColor,
+            color: MainColors.primary,
           ),
         ),
         //   32.ph,

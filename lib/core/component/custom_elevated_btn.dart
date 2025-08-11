@@ -34,14 +34,14 @@ class CustomLowSizeButton extends StatelessWidget {
         width: width ?? 88.w,
         height: height ?? 26.h,
         decoration: BoxDecoration(
-          color: btnColor ?? MainColors.lightblue,
+          color: btnColor ?? MainColors.surface,
           borderRadius: borderRadius ?? 32.cr,
         ),
         child: Text(
           text,
           style: MainTextStyle.boldTextStyle(
             fontSize: fontSize ?? 14,
-            color: textColor ?? MainColors.blueTextColor,
+            color: textColor ?? MainColors.primary,
           ),
         ).center(),
       ),
@@ -83,7 +83,7 @@ class CustomMaterialButton extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 12.w),
       height: height ?? 28.h,
       elevation: elevation ?? 0,
-      color: color ?? MainColors.lightblue,
+      color: color ?? MainColors.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radius ?? 32.r),
         side: BorderSide(
@@ -97,7 +97,7 @@ class CustomMaterialButton extends StatelessWidget {
           child: Text(
             text,
             style: MainTextStyle.boldTextStyle(
-              color: textColor ?? MainColors.blueTextColor,
+              color: textColor ?? MainColors.primary,
               fontSize: textSize ?? 14,
             ),
           ),
@@ -148,10 +148,10 @@ class CustomElevatedButton extends StatelessWidget {
             radius ?? 0.r,
           ),
           side: BorderSide(
-              color: borderColor ?? MainColors.transparentColor,
+              color: borderColor ?? MainColors.transparent,
               width: borderWidth ?? 1.w),
         ),
-        backgroundColor: color ?? MainColors.veryLightGrayFormField,
+        backgroundColor: color ?? MainColors.inputFill,
         elevation: 0,
         fixedSize: Size(width ?? double.infinity,
             height ?? 47.h),

@@ -69,9 +69,9 @@ class TextMessageItem extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: messageModel.isSender
                         ? messageModel.type == MessageTypeEnum.voiceMessage
-                            ? MainColors.grayBorderColor
-                            : MainColors.greenTeal
-                        : MainColors.grayBorderColor,
+                            ? MainColors.outline
+                            : MainColors.success
+                        : MainColors.outline,
                     borderRadius: BorderRadius.only(
                       topLeft:
                           Radius.circular(messageModel.isSender ? 16.r : 0),
@@ -98,7 +98,7 @@ class TextMessageItem extends StatelessWidget {
                     '12/2/2024',
                     textAlign: TextAlign.center,
                     style: MainTextStyle.regularTextStyle(
-                      color: MainColors.grayTextColors,
+                      color: MainColors.onSurfaceSecondary,
                       fontSize: 11,
                     ),
                   )
@@ -123,26 +123,26 @@ Widget _buildMessageStatusIcon(MessageStatus? status) {
         height: 12.h,
         child: CircularProgressIndicator(
           strokeWidth: 1.5,
-          valueColor: AlwaysStoppedAnimation<Color>(MainColors.grayTextColors),
+          valueColor: AlwaysStoppedAnimation<Color>(MainColors.onSurfaceSecondary),
         ),
       );
     case MessageStatus.sent:
       return Icon(
         Icons.check,
         size: 14.sp,
-        color: MainColors.grayTextColors,
+        color: MainColors.onSurfaceSecondary,
       );
     case MessageStatus.delivered:
       return Icon(
         Icons.done_all,
         size: 14.sp,
-        color: MainColors.grayTextColors,
+        color: MainColors.onSurfaceSecondary,
       );
     case MessageStatus.read:
       return Icon(
         Icons.done_all,
         size: 14.sp,
-        color: MainColors.greenTeal,
+        color: MainColors.success,
       );
     case MessageStatus.failed:
       return Icon(
@@ -178,7 +178,7 @@ Widget _buildMessageContent(
                   message.createdAt,
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 11,
-                    color: MainColors.black,
+                    color: MainColors.onPrimary,
                   ),
                 ),
                 // إضافة أيقونة حالة الرسالة للمرسل فقط
@@ -220,7 +220,7 @@ Widget _buildMessageContent(
                     message.createdAt,
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 11,
-                      color: MainColors.black,
+                      color: MainColors.onPrimary,
                     ),
                   ),
                   4.pw,
@@ -235,7 +235,7 @@ Widget _buildMessageContent(
       return VoiceMessageWidget(
         width: 200.w,
         audioUrl: file,
-        backgroundColor: MainColors.transparentColor,
+        backgroundColor: MainColors.transparent,
       );
   }
 }
@@ -260,7 +260,7 @@ Widget _buildTextWithLinks(Message message) {
         text: text.substring(lastIndex, match.start),
         style: MainTextStyle.boldTextStyle(
           color:
-              message.isSender ? MainColors.white : MainColors.grayTextColors,
+              message.isSender ? MainColors.background : MainColors.onSurfaceSecondary,
           fontSize: 12,
         ),
       ));
@@ -272,7 +272,7 @@ Widget _buildTextWithLinks(Message message) {
       text: url,
       style: MainTextStyle.boldTextStyle(
         color: message.isSender
-            ? MainColors.white
+            ? MainColors.background
                 .withOpacity(0.8) // لون مختلف للروابط في رسائل المُرسل
             : Colors.blue, // لون أزرق للروابط في رسائل المُستقبل
         fontSize: 12,
@@ -290,7 +290,7 @@ Widget _buildTextWithLinks(Message message) {
     spans.add(TextSpan(
       text: text.substring(lastIndex),
       style: MainTextStyle.boldTextStyle(
-        color: message.isSender ? MainColors.white : MainColors.grayTextColors,
+        color: message.isSender ? MainColors.background : MainColors.onSurfaceSecondary,
         fontSize: 12,
       ),
     ));
@@ -301,7 +301,7 @@ Widget _buildTextWithLinks(Message message) {
     return Text(
       message.content,
       style: MainTextStyle.boldTextStyle(
-        color: message.isSender ? MainColors.white : MainColors.grayTextColors,
+        color: message.isSender ? MainColors.background : MainColors.onSurfaceSecondary,
         fontSize: 12,
       ),
       softWrap: true,

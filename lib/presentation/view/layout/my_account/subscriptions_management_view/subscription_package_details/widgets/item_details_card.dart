@@ -22,7 +22,7 @@ class ItemDetailsCard extends StatelessWidget {
                   titles[index],
                   style: MainTextStyle.mediumTextStyle(
                     fontSize: 12,
-                    color: MainColors.grayTextColors,
+                    color: MainColors.onSurfaceSecondary,
                   ),
                 ),
                 8.ph,
@@ -30,7 +30,7 @@ class ItemDetailsCard extends StatelessWidget {
                   values[index],
                   style: MainTextStyle.mediumTextStyle(
                     fontSize: 14,
-                    color: MainColors.black,
+                    color: MainColors.onPrimary,
                   ),
                 ),
               ],

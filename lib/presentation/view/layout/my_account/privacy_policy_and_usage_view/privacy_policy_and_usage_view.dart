@@ -45,7 +45,7 @@ class PrivacyPolicyAndUsageView extends StatelessWidget {
                     "مثال :هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد ",
                     style: MainTextStyle.mediumTextStyle(
                       fontSize: 12,
-                      color: MainColors.grayTextColors
+                      color: MainColors.onSurfaceSecondary
                     ),
                   ),
                 ],

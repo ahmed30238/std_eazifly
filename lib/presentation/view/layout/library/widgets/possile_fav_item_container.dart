@@ -30,7 +30,7 @@ class PossibleFavItemsContainer extends StatelessWidget {
             ),
             SvgPicture.asset(
               colorFilter:  ColorFilter.mode(
-                MainColors.white,
+                MainColors.background,
                 BlendMode.srcIn,
               ),
               Assets.iconsPlay,
@@ -46,12 +46,12 @@ class PossibleFavItemsContainer extends StatelessWidget {
         BlocBuilder<LibraryCubit, LibraryState>(
           builder: (context, state) {
             return AppbarIconWidget(
-              backgroundColor: MainColors.lightblue,
-              iconColor: MainColors.blueTextColor,
+              backgroundColor: MainColors.surface,
+              iconColor: MainColors.primary,
               iconWidget: isAlreadyAdded
                   ?  Icon(
                       Icons.remove,
-                      color: MainColors.blueTextColor,
+                      color: MainColors.primary,
                     )
                   : null,
               onTap: onAddTap,

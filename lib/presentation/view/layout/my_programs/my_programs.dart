@@ -168,7 +168,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                           "اشترك الان",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
-                            color: MainColors.blueTextColor,
+                            color: MainColors.primary,
                           ),
                         ),
                       ),
@@ -191,7 +191,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                             "لديك برامج في المراجعة!! اضغط لإضافة حصص",
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 16,
-                              color: MainColors.blueTextColor,
+                              color: MainColors.primary,
                             ),
                           ),
                         ),

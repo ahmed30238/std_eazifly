@@ -36,7 +36,7 @@ class ReportItem extends StatelessWidget {
                   createdAt,
                   style: MainTextStyle.mediumTextStyle(
                     fontSize: 11,
-                    color: MainColors.grayTextColors,
+                    color: MainColors.onSurfaceSecondary,
                   ),
                 ),
               ],
@@ -46,7 +46,7 @@ class ReportItem extends StatelessWidget {
              description,
               style: MainTextStyle.mediumTextStyle(
                 fontSize: 11,
-                color: MainColors.grayTextColors,
+                color: MainColors.onSurfaceSecondary,
               ),
             ),
             4.ph,

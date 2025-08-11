@@ -26,7 +26,7 @@ class StarsWidget extends StatelessWidget {
       // itemPadding: EdgeInsets.symmetric(horizontal: 2.0.h),
       itemBuilder: (context, _) => Icon(
         Icons.star,
-        color: MainColors.starColor,
+        color: MainColors.warning,
         size: 13.r,
       ),
       onRatingUpdate:

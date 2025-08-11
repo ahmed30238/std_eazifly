@@ -24,7 +24,7 @@ class ReportBodyView extends StatelessWidget {
             children: [
                Divider(
                 thickness: 1,
-                color: MainColors.lightGray,
+                color: MainColors.surfaceVariant,
               ),
               40.ph,
               Expanded(

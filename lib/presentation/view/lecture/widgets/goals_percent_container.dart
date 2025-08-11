@@ -18,7 +18,7 @@ class GoalsPercentContainer extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 16.w),
         height: 82.h,
         decoration: BoxDecoration(
-          color: MainColors.veryLightGrayFormField,
+          color: MainColors.inputFill,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +30,7 @@ class GoalsPercentContainer extends StatelessWidget {
                 "أهداف البرنامج",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 12,
-                  color: MainColors.grayTextColors,
+                  color: MainColors.onSurfaceSecondary,
                 ),
               ),
             ),

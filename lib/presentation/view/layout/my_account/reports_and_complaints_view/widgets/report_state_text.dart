@@ -16,7 +16,7 @@ class ProblemState extends StatelessWidget {
           "جاري",
           style: MainTextStyle.boldTextStyle(
             fontSize: 12,
-            color: MainColors.greenTeal,
+            color: MainColors.success,
           ),
         );
       case "انتهت":
@@ -24,7 +24,7 @@ class ProblemState extends StatelessWidget {
           "انتهت",
           style: MainTextStyle.boldTextStyle(
             fontSize: 12,
-            color: MainColors.red,
+            color: MainColors.onError,
           ),
         );
 

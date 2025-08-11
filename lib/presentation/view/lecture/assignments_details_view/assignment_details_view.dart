@@ -56,21 +56,21 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
                         "",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
                   Text(
                     "${assignmentDetails?.mark ?? "0"} / ...",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
                   TextedContainer(
                     width: 81.w,
                     text: "جاري التسليم",
-                    containerColor: MainColors.lightYellow,
-                    textColor: MainColors.yellow,
+                    containerColor: MainColors.onTertiary,
+                    textColor: MainColors.tertiary,
                   ),
                 ],
               );
@@ -92,7 +92,7 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
           CustomElevatedButton(
             text: "تسليم الإجابات",
             width: 343.w,
-            color: MainColors.blueTextColor,
+            color: MainColors.primary,
             radius: 16.r,
             onPressed: () {
               cubit.postAssignment(
@@ -123,7 +123,7 @@ class AssigmentItemContainer extends StatelessWidget {
     return Container(
       height: 450.h,
       width: double.infinity,
-      color: MainColors.veryLightGrayFormField,
+      color: MainColors.inputFill,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
@@ -161,7 +161,7 @@ class AssigmentItemContainer extends StatelessWidget {
               "الإجابة",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 12,
-                color: MainColors.checkBoxBorderGray,
+                color: MainColors.borderPrimary,
               ),
             ),
             Row(
@@ -192,11 +192,11 @@ class AssigmentItemContainer extends StatelessWidget {
                     child: CustomTextFormField(
                       vPadding: 0,
                       borderRadius: 0.cr,
-                      borderColor: MainColors.white,
+                      borderColor: MainColors.background,
                       validator: customValidation,
                       hintText: "   أدخل الإجابة هنا............",
                       controller: cubit.assignmentAnswerController,
-                      filledColor: MainColors.white,
+                      filledColor: MainColors.background,
                     ),
                   ),
                 ),
@@ -229,7 +229,7 @@ Widget _buildAttachments(
           "لا توجد مرفقات",
           style: MainTextStyle.regularTextStyle(
             fontSize: 12,
-            color: MainColors.grayTextColors,
+            color: MainColors.onSurfaceSecondary,
           ),
         ),
         8.ph,
@@ -267,7 +267,7 @@ Widget _buildAttachments(
                     width: 110.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.r),
-                      color: MainColors.lightGray,
+                      color: MainColors.surfaceVariant,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black12,
@@ -319,7 +319,7 @@ Widget _buildAttachments(
                             overflow: TextOverflow.ellipsis,
                             style: MainTextStyle.regularTextStyle(
                               fontSize: 10,
-                              color: MainColors.grayTextColors,
+                              color: MainColors.onSurfaceSecondary,
                             ),
                           ),
                         ),

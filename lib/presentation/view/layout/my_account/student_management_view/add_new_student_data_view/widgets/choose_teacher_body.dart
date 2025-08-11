@@ -33,7 +33,7 @@ class ChooseTeacherBody extends StatelessWidget {
                     lastDate: DateTime(2030),
                   ),
                   child: CustomTextFormField(
-                    filledColor: MainColors.grayBorderColor,
+                    filledColor: MainColors.outline,
                     enabled: false,
                     hintText: "اختر",
                     suffixIconWidget: Padding(
@@ -68,7 +68,7 @@ class ChooseTeacherBody extends StatelessWidget {
                     lastDate: DateTime(2030),
                   ),
                   child: CustomTextFormField(
-                    filledColor: MainColors.grayBorderColor,
+                    filledColor: MainColors.outline,
                     enabled: false,
                     hintText: "اختر",
                     suffixIconWidget: Padding(
@@ -137,7 +137,7 @@ class ChooseTeacherBody extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, RoutePaths.studentManagement);
             },
-            color: MainColors.blueTextColor,
+            color: MainColors.primary,
             radius: 16.r,
           ),
           32.ph,
@@ -177,11 +177,11 @@ class SuggestedTeachersItem extends StatelessWidget {
           width: 243.w,
           decoration: BoxDecoration(
             borderRadius: 12.cr,
-            color: isSelected ? MainColors.lightblue : MainColors.white,
+            color: isSelected ? MainColors.surface : MainColors.background,
             border: Border.all(
               color: isSelected
-                  ? MainColors.blueTextColor
-                  : MainColors.grayBorderColor,
+                  ? MainColors.primary
+                  : MainColors.outline,
             ),
           ),
           child: Column(
@@ -210,7 +210,7 @@ class SuggestedTeachersItem extends StatelessWidget {
                         EdgeInsets.symmetric(horizontal: 16.w, vertical: 2.h),
                     itemBuilder: (context, index) {
                       return CustomLowSizeButton(
-                        btnColor: MainColors.white,
+                        btnColor: MainColors.background,
                         // width: 69.w,
                         text: specializations[index],
                         onTap: () {},
@@ -222,7 +222,7 @@ class SuggestedTeachersItem extends StatelessWidget {
                 ),
               } else ...{
                 CustomLowSizeButton(
-                  btnColor: MainColors.white,
+                  btnColor: MainColors.background,
                   text: specializations.first,
                   onTap: () {},
                 ),

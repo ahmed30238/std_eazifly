@@ -16,7 +16,7 @@ class UserNameText extends StatelessWidget {
         name,
         style: MainTextStyle.boldTextStyle(
           fontSize: 16,
-          color: MainColors.blackText,
+          color: MainColors.onSecondary,
         ),
       ),
     );

@@ -31,9 +31,9 @@ class NextLectureItem extends StatelessWidget {
         width: 297.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.r),
-          color: MainColors.veryLightGrayFormField,
+          color: MainColors.inputFill,
           border: Border.all(
-            color: MainColors.grayBorderColor,
+            color: MainColors.outline,
           ),
         ),
         child: Column(

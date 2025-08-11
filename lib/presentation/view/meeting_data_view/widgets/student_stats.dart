@@ -50,7 +50,7 @@ class StudentStats extends StatelessWidget {
                 width: itemWidth ?? 109.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
-                  color: MainColors.veryLightGrayFormField,
+                  color: MainColors.inputFill,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -60,7 +60,7 @@ class StudentStats extends StatelessWidget {
                           dataList(context)[index].evaluationTitle,
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
-                        color: MainColors.grayTextColors,
+                        color: MainColors.onSurfaceSecondary,
                       ),
                     ),
                     downSideWidgets?[index] ??
@@ -69,7 +69,7 @@ class StudentStats extends StatelessWidget {
                               dataList(context)[index].percentage,
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
-                            color: MainColors.blackText,
+                            color: MainColors.onSecondary,
                           ),
                         ),
                   ],

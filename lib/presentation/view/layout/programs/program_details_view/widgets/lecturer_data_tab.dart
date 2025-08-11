@@ -72,7 +72,7 @@ class LecturerContainerWidget extends StatelessWidget {
                       "${instructorEntity.age} عام",
                       style: MainTextStyle.mediumTextStyle(
                         fontSize: 11,
-                        color: MainColors.grayTextColors,
+                        color: MainColors.onSurfaceSecondary,
                       ),
                     ),
                   ],

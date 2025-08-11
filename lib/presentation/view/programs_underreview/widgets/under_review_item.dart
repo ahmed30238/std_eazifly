@@ -41,7 +41,7 @@ class UnderReviewItem extends StatelessWidget {
                       height: 174.h,
                       width: 343.w,
                       decoration: BoxDecoration(
-                        color: MainColors.white,
+                        color: MainColors.background,
                         borderRadius: 20.cr,
                       ),
                       child: Column(
@@ -57,7 +57,7 @@ class UnderReviewItem extends StatelessWidget {
                             "تم رفض طلب التسجيل الخاص بك بسبب :هذا النص هو جزء من عملية تحسين تجربة المستخدم من خلال النص. ",
                             style: MainTextStyle.mediumTextStyle(
                               fontSize: 12,
-                              color: MainColors.grayTextColors,
+                              color: MainColors.onSurfaceSecondary,
                             ),
                           ),
                           24.ph,
@@ -65,10 +65,10 @@ class UnderReviewItem extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomLowSizeButton(
-                                textColor: MainColors.white,
+                                textColor: MainColors.background,
                                 height: 34.h,
                                 text: "إعادة المحاولة",
-                                btnColor: MainColors.blueTextColor,
+                                btnColor: MainColors.primary,
                                 borderRadius: 16.cr,
                                 width: 128.5.w,
                                 fontSize: 12,
@@ -83,9 +83,9 @@ class UnderReviewItem extends StatelessWidget {
                               16.pw,
                               CustomLowSizeButton(
                                 text: "التواصل مع الإدارة",
-                                textColor: MainColors.white,
+                                textColor: MainColors.background,
                                 height: 34.h,
-                                btnColor: MainColors.blueTextColor,
+                                btnColor: MainColors.primary,
                                 fontSize: 12,
                                 borderRadius: 16.cr,
                                 width: 128.5.w,
@@ -117,7 +117,7 @@ class UnderReviewItem extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           border: Border.all(
-            color: MainColors.lightGray,
+            color: MainColors.surfaceVariant,
           ),
           borderRadius: 8.cr,
         ),
@@ -162,7 +162,7 @@ class StackDesignState extends StatelessWidget {
         if (state != "success")
           Container(
             height: 160.h,
-            color: MainColors.white.withOpacity(.2),
+            color: MainColors.background.withOpacity(.2),
           ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -183,7 +183,7 @@ class StackDesignState extends StatelessWidget {
                       : "تم رفض الطلب",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 15,
-                color: state != "danger" ? MainColors.white : MainColors.red,
+                color: state != "danger" ? MainColors.background : MainColors.onError,
               ),
             ),
             4.ph,
@@ -195,7 +195,7 @@ class StackDesignState extends StatelessWidget {
                       : "برجاء التواصل مع الإدارة لاعادة الاشتراك في البرنامج",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 15,
-                color: state == "success" ? MainColors.black : MainColors.white,
+                color: state == "success" ? MainColors.onPrimary : MainColors.background,
               ),
             ),
             8.ph,
@@ -212,8 +212,8 @@ class StackDesignState extends StatelessWidget {
                     RoutePaths.groupPackageManagement,
                   );
                 },
-                textColor: MainColors.white,
-                btnColor: MainColors.blueTextColor,
+                textColor: MainColors.background,
+                btnColor: MainColors.primary,
                 width: 99.w,
                 height: 29.h,
               ),

@@ -29,7 +29,7 @@ class CustomCheckbox extends StatelessWidget {
         ),
       ),
       onChanged: onChanged,
-      activeColor: MainColors.blueTextColor,
+      activeColor: MainColors.primary,
     );
   }
 }

@@ -19,7 +19,7 @@ class PaymentMethodContainerShimmer extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: 16.cr,
-          border: Border.all(color: MainColors.lightGray),
+          border: Border.all(color: MainColors.surfaceVariant),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

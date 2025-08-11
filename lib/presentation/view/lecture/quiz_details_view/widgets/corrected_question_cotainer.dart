@@ -33,7 +33,7 @@ class CorrectedQuestionCotainer extends StatelessWidget {
       padding: EdgeInsets.all(16.r),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
         borderRadius: 8.cr,
       ),
       child: Column(
@@ -46,16 +46,16 @@ class CorrectedQuestionCotainer extends StatelessWidget {
                 "السؤال ${index + 1}",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 14,
-                  color: MainColors.checkBoxBorderGray,
+                  color: MainColors.borderPrimary,
                 ),
               ),
               TextedContainer(
                 width: 117.w,
                 height: 28.h,
                 text: isTrue ? "إجابة صحيحة" : "إجابة خطأ",
-                textColor: isTrue ? MainColors.greenTeal : MainColors.red,
+                textColor: isTrue ? MainColors.success : MainColors.onError,
                 containerColor:
-                    isTrue ? MainColors.lightgreenTeal : MainColors.lightRed,
+                    isTrue ? MainColors.onSuccess : MainColors.error,
                 radius: 16.r,
               ),
             ],
@@ -65,11 +65,11 @@ class CorrectedQuestionCotainer extends StatelessWidget {
             padding: EdgeInsets.all(12.r),
             width: double.infinity,
             decoration: BoxDecoration(
-              color: MainColors.white,
+              color: MainColors.background,
               borderRadius: 8.cr,
               border: Border.all(
                 width: 1.w,
-                color: MainColors.grayBorderColor,
+                color: MainColors.outline,
               ),
             ),
             child: Text(
@@ -82,7 +82,7 @@ class CorrectedQuestionCotainer extends StatelessWidget {
             "إجابتك",
             style: MainTextStyle.boldTextStyle(
               fontSize: 14,
-              color: MainColors.checkBoxBorderGray,
+              color: MainColors.borderPrimary,
             ),
           ),
           8.ph,

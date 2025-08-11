@@ -59,7 +59,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
             height: 402.h,
             decoration: BoxDecoration(
               borderRadius: 12.cr,
-              color: MainColors.veryLightGrayFormField,
+              color: MainColors.inputFill,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +97,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                 ),
                 3.ph,
                  CustomHorizontalDivider(
-                  color: MainColors.lightGray,
+                  color: MainColors.surfaceVariant,
                 ),
                 ...List.generate(
                   3,
@@ -124,7 +124,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                       textStyle: index == 2
                           ? MainTextStyle.boldTextStyle(
                               fontSize: 15,
-                              color: MainColors.blueTextColor,
+                              color: MainColors.primary,
                             )
                           : null,
                     );
@@ -139,7 +139,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
             "طريقة التحويل",
             style: MainTextStyle.boldTextStyle(
               fontSize: 12,
-              color: MainColors.checkBoxBorderGray,
+              color: MainColors.borderPrimary,
             ),
           ),
           8.ph,
@@ -149,7 +149,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: 12.cr,
-              color: MainColors.veryLightGrayFormField,
+              color: MainColors.inputFill,
             ),
             child: Row(
               children: [
@@ -158,7 +158,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                   height: 24.h,
                   decoration:  BoxDecoration(
                     shape: BoxShape.circle,
-                    color: MainColors.blueTextColor,
+                    color: MainColors.primary,
                   ),
                   child: Center(
                     child: Text(
@@ -192,7 +192,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                         overflow: TextOverflow.ellipsis,
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
-                          color: MainColors.blackText,
+                          color: MainColors.onSecondary,
                         ),
                       ),
                       8.ph,
@@ -202,7 +202,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                             'معلومات الدفع',
                         style: MainTextStyle.regularTextStyle(
                           fontSize: 10,
-                          color: MainColors.grayTextColors,
+                          color: MainColors.onSurfaceSecondary,
                         ),
                       ),
                     ],
@@ -220,7 +220,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: 12.cr,
-                color: MainColors.veryLightGrayFormField,
+                color: MainColors.inputFill,
               ),
               child: BlocBuilder(
                 bloc: programsubscriptionplanCubit,
@@ -233,7 +233,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                         "2",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
-                          color: MainColors.blackText,
+                          color: MainColors.onSecondary,
                         ),
                       ),
                       20.pw,
@@ -245,7 +245,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                             "قم برفع صورة  التحويل هنا",
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 12,
-                              color: MainColors.blackText,
+                              color: MainColors.onSecondary,
                             ),
                           ),
                           8.ph,
@@ -253,7 +253,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                             width: 68.w,
                             height: 34.h,
                             decoration: BoxDecoration(
-                              color: MainColors.lightblue,
+                              color: MainColors.surface,
                               borderRadius: 16.cr,
                             ),
                             child: SvgPicture.asset(
@@ -289,7 +289,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: 12.cr,
-              color: MainColors.veryLightGrayFormField,
+              color: MainColors.inputFill,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -299,7 +299,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                   "مثال لطريقة التحويل",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
-                    color: MainColors.blackText,
+                    color: MainColors.onSecondary,
                   ),
                 ),
                 8.ph,
@@ -307,7 +307,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                   "قم بأخد سكرين شوت من المبلغ المحول كما في المثال ",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
-                    color: MainColors.checkBoxBorderGray,
+                    color: MainColors.borderPrimary,
                   ),
                 ),
                 4.ph,
@@ -336,7 +336,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                         context: context,
                       );
                     },
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
               radius: 16.r,
               child: programsubscriptionplanCubit.createOrderLoader
                   ? const CircularProgressIndicator.adaptive()
@@ -389,7 +389,7 @@ class ProgramDetailsItem extends StatelessWidget {
               style: textStyle ??
                   MainTextStyle.boldTextStyle(
                     fontSize: 12,
-                    color: MainColors.checkBoxBorderGray,
+                    color: MainColors.borderPrimary,
                   ),
             ),
             Text(
@@ -397,7 +397,7 @@ class ProgramDetailsItem extends StatelessWidget {
               style: textStyle ??
                   MainTextStyle.boldTextStyle(
                     fontSize: 12,
-                    color: MainColors.checkBoxBorderGray,
+                    color: MainColors.borderPrimary,
                   ),
             ),
           ],

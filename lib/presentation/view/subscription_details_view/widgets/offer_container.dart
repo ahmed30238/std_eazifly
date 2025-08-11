@@ -18,13 +18,13 @@ class OfferContainer extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         borderRadius: 16.cr,
-        color: MainColors.offersColor,
+        color: MainColors.accent,
       ),
       child: Text(
         offerText,
         style: MainTextStyle.boldTextStyle(
           fontSize: 11,
-          color: MainColors.white,
+          color: MainColors.background,
         ),
       ).center(),
     );

@@ -76,7 +76,7 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
             width: 343.w,
             padding: EdgeInsets.all(8.r),
             decoration: BoxDecoration(
-              color: MainColors.lightGray,
+              color: MainColors.surfaceVariant,
               borderRadius: 8.cr,
             ),
             child: AvatarImage(
@@ -100,8 +100,8 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
                 CustomElevatedButton(
                   text: "إضافة",
                   textSize: 12,
-                  color: MainColors.lightblue,
-                  textColor: MainColors.blueTextColor,
+                  color: MainColors.surface,
+                  textColor: MainColors.primary,
                   height: 32.h,
                   radius: 8.r,
                   width: 99.w,
@@ -131,7 +131,7 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
                         "إضافة",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
-                          color: MainColors.blueTextColor,
+                          color: MainColors.primary,
                         ),
                       ),
                     ],
@@ -142,8 +142,8 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
                   text: "تعديل",
                   radius: 8.r,
                   textSize: 12,
-                  color: MainColors.lightblue,
-                  textColor: MainColors.blueTextColor,
+                  color: MainColors.surface,
+                  textColor: MainColors.primary,
                   height: 32.h,
                   width: 99.w,
                   onPressed: () {},
@@ -157,7 +157,7 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
                         "تعديل",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
-                          color: MainColors.blueTextColor,
+                          color: MainColors.primary,
                         ),
                       ),
                     ],

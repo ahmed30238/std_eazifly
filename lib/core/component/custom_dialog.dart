@@ -30,7 +30,7 @@ class CustomDialog extends StatelessWidget {
         height:height?? 220.h,
         width:width?? 298.w,
         decoration: BoxDecoration(
-            color: MainColors.white, borderRadius: BorderRadius.circular(20.r)),
+            color: MainColors.background, borderRadius: BorderRadius.circular(20.r)),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
@@ -46,7 +46,7 @@ class CustomDialog extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: MainTextStyle.mediumTextStyle(
                   fontSize: 12,
-                  color: MainColors.grayTextColors,
+                  color: MainColors.onSurfaceSecondary,
                 ),
               ),
               loader! ? const AnimatedLoader() : SvgPicture.asset(image ?? ""),

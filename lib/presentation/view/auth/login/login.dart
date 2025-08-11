@@ -78,7 +78,7 @@ class Login extends StatelessWidget {
                           "مرحبًا بك !",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 24,
-                            color: MainColors.blackText,
+                            color: MainColors.onSecondary,
                           ),
                         ),
                         8.ph,
@@ -86,7 +86,7 @@ class Login extends StatelessWidget {
                           "رحلتك التعليمية تبدأ هنا.",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
-                            color: MainColors.grayTextColors,
+                            color: MainColors.onSurfaceSecondary,
                           ),
                         ),
                         40.ph,
@@ -94,7 +94,7 @@ class Login extends StatelessWidget {
                           "البريد الإلكتروني أو رقم الهاتف",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
-                            color: MainColors.blackText,
+                            color: MainColors.onSecondary,
                           ),
                         ),
                         8.ph,
@@ -115,7 +115,7 @@ class Login extends StatelessWidget {
                           "كلمة المرور",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
-                            color: MainColors.blackText,
+                            color: MainColors.onSecondary,
                           ),
                         ),
                         8.ph,
@@ -177,7 +177,7 @@ class Login extends StatelessWidget {
                               },
                         height: 48.h,
                         width: 343.w,
-                        color: MainColors.blueTextColor,
+                        color: MainColors.primary,
                         radius: 16.r,
                         child: cubit.loginLoader
                             ? const CircularProgressIndicator.adaptive()
@@ -190,7 +190,7 @@ class Login extends StatelessWidget {
                           text: TextSpan(
                             text: "ليس لديك حساب..!  ",
                             style: MainTextStyle.mediumTextStyle(
-                              color: MainColors.grayTextColors,
+                              color: MainColors.onSurfaceSecondary,
                               fontSize: 12,
                             ),
                             children: [
@@ -198,7 +198,7 @@ class Login extends StatelessWidget {
                                 text: "إنشاء حساب جديد",
                                 style: MainTextStyle.boldTextStyle(
                                   fontSize: 12,
-                                  color: MainColors.blueTextColor,
+                                  color: MainColors.primary,
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {

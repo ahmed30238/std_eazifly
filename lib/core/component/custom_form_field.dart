@@ -75,17 +75,17 @@ class CustomTextFormField extends StatelessWidget {
         hintText: hintText,
         hintStyle: MainTextStyle.boldTextStyle(
           fontSize: 12,
-          color: MainColors.formFieldgrayTextColor,
+          color: MainColors.onSurfaceVariant,
         ),
         suffixText: suffixText ?? "",
         suffixStyle: MainTextStyle.boldTextStyle(
           fontSize: 12,
-          color: MainColors.formFieldgrayTextColor,
+          color: MainColors.onSurfaceVariant,
         ),
         prefixText: prefixText ?? "",
         prefixStyle: MainTextStyle.boldTextStyle(
           fontSize: 12,
-          color: MainColors.formFieldgrayTextColor,
+          color: MainColors.onSurfaceVariant,
         ),
         suffixIconConstraints: BoxConstraints(
           minHeight: 2.h,
@@ -99,7 +99,7 @@ class CustomTextFormField extends StatelessWidget {
             OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1.5.w,
-                color: MainColors.grayBorderColor,
+                color: MainColors.outline,
               ),
               borderRadius: 12.cr,
             ),
@@ -119,13 +119,13 @@ class CustomTextFormField extends StatelessWidget {
             OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1.5.w,
-                color: MainColors.grayBorderColor,
+                color: MainColors.outline,
               ),
               borderRadius: borderRadius ?? 12.cr,
             ),
         enabled: enabled ?? true,
         filled: filled ?? true,
-        fillColor: filledColor ?? MainColors.veryLightGrayFormField,
+        fillColor: filledColor ?? MainColors.inputFill,
         border: border ??
             OutlineInputBorder(
               borderSide: BorderSide(
@@ -137,7 +137,7 @@ class CustomTextFormField extends StatelessWidget {
             OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1.5.w,
-                color: borderColor ?? MainColors.lightGray,
+                color: borderColor ?? MainColors.surfaceVariant,
               ),
               borderRadius: borderRadius ?? 12.cr,
             ),

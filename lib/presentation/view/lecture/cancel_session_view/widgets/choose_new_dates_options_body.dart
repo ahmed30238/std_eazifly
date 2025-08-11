@@ -39,7 +39,7 @@ class ChooseNewDatesOptionsBody extends StatelessWidget {
                     text: lang.next,
                     width: 343.w,
                     radius: 16.r,
-                    color: MainColors.blueTextColor,
+                    color: MainColors.primary,
                     onPressed: () async {
                       if (!cubit.chooseNewDateOption && !cubit.cancelSession) {
                         customAdaptiveDialog(
@@ -48,7 +48,7 @@ class ChooseNewDatesOptionsBody extends StatelessWidget {
                             padding: EdgeInsets.symmetric(horizontal: 16.w),
                             decoration: BoxDecoration(
                               borderRadius: 16.cr,
-                              color: MainColors.white,
+                              color: MainColors.background,
                             ),
                             height: 160.h,
                             width: double.infinity,
@@ -63,7 +63,7 @@ class ChooseNewDatesOptionsBody extends StatelessWidget {
                                   "برجاء الاختيار احدي الخيارات المتاحة",
                                   style: MainTextStyle.boldTextStyle(
                                     fontSize: 15,
-                                    color: MainColors.red,
+                                    color: MainColors.onError,
                                   ),
                                 ),
                               ],
@@ -82,7 +82,7 @@ class ChooseNewDatesOptionsBody extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: 16.w),
                               decoration: BoxDecoration(
                                 borderRadius: 16.cr,
-                                color: MainColors.white,
+                                color: MainColors.background,
                               ),
                               height: 160.h,
                               width: double.infinity,
@@ -97,7 +97,7 @@ class ChooseNewDatesOptionsBody extends StatelessWidget {
                                     "لا توجد مواعيد متاحة حالياً",
                                     style: MainTextStyle.boldTextStyle(
                                       fontSize: 15,
-                                      color: MainColors.red,
+                                      color: MainColors.onError,
                                     ),
                                   ),
                                 ],
@@ -130,7 +130,7 @@ class ChooseNewDatesOptionsBody extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: 16.w),
                               decoration: BoxDecoration(
                                 borderRadius: 16.cr,
-                                color: MainColors.white,
+                                color: MainColors.background,
                               ),
                               height: 160.h,
                               width: double.infinity,
@@ -145,7 +145,7 @@ class ChooseNewDatesOptionsBody extends StatelessWidget {
                                     "لا توجد أيام متاحة للحجز",
                                     style: MainTextStyle.boldTextStyle(
                                       fontSize: 15,
-                                      color: MainColors.red,
+                                      color: MainColors.onError,
                                     ),
                                   ),
                                 ],

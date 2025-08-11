@@ -98,7 +98,7 @@ class _SubscriptiopnPackageDetailsState
                       "تفاصيل الاشتراك",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
-                        color: MainColors.checkBoxBorderGray,
+                        color: MainColors.borderPrimary,
                       ),
                     ),
                     8.ph,
@@ -124,7 +124,7 @@ class _SubscriptiopnPackageDetailsState
                       "مميزات الباقة",
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
-                        color: MainColors.checkBoxBorderGray,
+                        color: MainColors.borderPrimary,
                       ),
                     ),
                     8.ph,

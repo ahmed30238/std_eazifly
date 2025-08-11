@@ -63,7 +63,7 @@ class NestedAvatarContainer extends StatelessWidget {
           number,
           style: MainTextStyle.boldTextStyle(
             fontSize: 16,
-            color: textColors ?? MainColors.blueTextColor,
+            color: textColors ?? MainColors.primary,
           ),
         ),
       ],

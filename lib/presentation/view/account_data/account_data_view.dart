@@ -103,7 +103,7 @@ class _AccountDataState extends State<AccountData> {
                   formfieldEnText: "${loginData?.email}",
                   iconWidget: Icon(
                     Icons.done_all_outlined,
-                    color: MainColors.blueMoreTextColor,
+                    color: MainColors.secondaryDark,
                   ),
                 ),
                 // 16.ph,
@@ -131,7 +131,7 @@ class _AccountDataState extends State<AccountData> {
                                 builder: (context, state) =>
                                     CustomElevatedButton(
                                   text: "نعم",
-                                  color: MainColors.red,
+                                  color: MainColors.onError,
                                   width: 110.w,
                                   radius: 16.r,
                                   onPressed: cubit.deleteAccountLoader
@@ -150,7 +150,7 @@ class _AccountDataState extends State<AccountData> {
                                 radius: 16.r,
                                 text: "لا",
                                 width: 110.w,
-                                color: MainColors.greenTeal,
+                                color: MainColors.success,
                                 onPressed: () {
                                   back(context);
                                 },
@@ -166,7 +166,7 @@ class _AccountDataState extends State<AccountData> {
                           "سيتم حذف جميع بياناتك نهائياً ولا يمكن التراجع عن هذا الإجراء",
                           style: MainTextStyle.regularTextStyle(
                             fontSize: 14,
-                            color: MainColors.lightGray,
+                            color: MainColors.surfaceVariant,
                           ),
                         ),
                       ),
@@ -179,13 +179,17 @@ class _AccountDataState extends State<AccountData> {
                       children: [
                         SvgPicture.asset(
                           Assets.iconsDeleteBin,
+                          colorFilter: const ColorFilter.mode(
+                            MainColors.error,
+                            BlendMode.srcIn,
+                          ),
                         ),
                         4.pw,
                         Text(
                           "حذف الحساب",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
-                            color: MainColors.red,
+                            color: MainColors.error,
                           ),
                         ),
                       ],
@@ -210,7 +214,7 @@ class _AccountDataState extends State<AccountData> {
                           bloc: cubit,
                           builder: (context, state) => CustomElevatedButton(
                             text: "نعم",
-                            color: MainColors.red,
+                            color: MainColors.onError,
                             width: 110.w,
                             radius: 16.r,
                             onPressed: cubit.logoutLoader
@@ -227,7 +231,7 @@ class _AccountDataState extends State<AccountData> {
                           radius: 16.r,
                           text: "لا",
                           width: 110.w,
-                          color: MainColors.greenTeal,
+                          color: MainColors.success,
                           onPressed: () {
                             back(context);
                           },
@@ -242,7 +246,7 @@ class _AccountDataState extends State<AccountData> {
                 ),
               );
             },
-            color: MainColors.blueTextColor,
+            color: MainColors.primary,
             radius: 16.r,
             height: 48.h,
             width: 343.w,

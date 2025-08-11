@@ -27,7 +27,7 @@ class StudentsChangeItem extends StatelessWidget {
         width: double.infinity,
         height: height ?? 60.h,
         decoration: BoxDecoration(
-          color: containerColor ?? MainColors.veryLightGrayFormField,
+          color: containerColor ?? MainColors.inputFill,
         ),
         child: Row(
           mainAxisAlignment: alignment ?? MainAxisAlignment.center,
@@ -46,7 +46,7 @@ class StudentsChangeItem extends StatelessWidget {
                   "اسم الطالب",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 11,
-                    color: MainColors.grayTextColors,
+                    color: MainColors.onSurfaceSecondary,
                   ),
                 ),
                 Text(

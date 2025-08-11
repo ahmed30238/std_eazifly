@@ -112,22 +112,22 @@ class NotCorrectedQuizBody extends StatelessWidget {
                             .substring(0, 10),
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
-                          color: MainColors.blackText,
+                          color: MainColors.onSecondary,
                         ),
                       ),
                       Text(
                         "${totalPossibleMarks.toStringAsFixed(0)} / ....",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
-                          color: MainColors.blackText,
+                          color: MainColors.onSecondary,
                         ),
                       ),
                       TextedContainer(
                         width: 105.w,
                         height: 26.h,
                         text: quizData?.userAnswer != null ? "done" : "",
-                        textColor: MainColors.yellow,
-                        containerColor: MainColors.lightYellow,
+                        textColor: MainColors.tertiary,
+                        containerColor: MainColors.onTertiary,
                         radius: 16.r,
                       ),
                     ],
@@ -181,7 +181,7 @@ class NotCorrectedQuizBody extends StatelessWidget {
                                         );
                                       },
                                 radius: 16.r,
-                                color: MainColors.blueTextColor,
+                                color: MainColors.primary,
                                 child: cubit.submitQuizLoader
                                     ? const CircularProgressIndicator.adaptive()
                                     : null,

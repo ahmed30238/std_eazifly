@@ -171,20 +171,20 @@ DeliverStatusModel deliveryState(DeliverStatus state) {
     case DeliverStatus.deliverDone:
       return DeliverStatusModel(
         text: "تم التسليم",
-        color: MainColors.lightgreenTeal,
-        textColor: MainColors.greenTeal,
+        color: MainColors.onSuccess,
+        textColor: MainColors.success,
       );
     case DeliverStatus.notDelivered:
       return DeliverStatusModel(
         text: "لم يتم التسليم",
-        color: MainColors.lightRed,
-        textColor: MainColors.red,
+        color: MainColors.error,
+        textColor: MainColors.onError,
       );
     case DeliverStatus.deliverUnderReview:
       return DeliverStatusModel(
         text: "قيد المراجعة",
-        color: MainColors.lightblue,
-        textColor: MainColors.blueTextColor,
+        color: MainColors.surface,
+        textColor: MainColors.primary,
       );
 
     }

@@ -81,11 +81,11 @@ class _CorrcectedAssignmentDetailsViewState
                   ? (isPassed ? "ناجح" : "راسب")
                   : "لم يتم التصحيح بعد";
               final statusColor = isCorrected
-                  ? (isPassed ? MainColors.greenTeal : MainColors.red)
-                  : MainColors.grayTextColors;
+                  ? (isPassed ? MainColors.success : MainColors.onError)
+                  : MainColors.onSurfaceSecondary;
               final bgColor = isCorrected
-                  ? (isPassed ? MainColors.lightgreenTeal : MainColors.lightRed)
-                  : MainColors.lightGray;
+                  ? (isPassed ? MainColors.onSuccess : MainColors.error)
+                  : MainColors.surfaceVariant;
 
               return StudentStats(
                 horizontalPadding: 0,
@@ -100,7 +100,7 @@ class _CorrcectedAssignmentDetailsViewState
                     assignment.createdAt?.toString().substring(0, 10) ?? "-",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
 
@@ -109,7 +109,7 @@ class _CorrcectedAssignmentDetailsViewState
                     '${assignment.mark ?? "0"} / 10',
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
 

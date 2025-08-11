@@ -77,7 +77,7 @@ class VisualsBodyItem extends StatelessWidget {
       ),
       width: 343.w,
       decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
         borderRadius: 16.cr,
       ),
       child: Column(
@@ -94,7 +94,7 @@ class VisualsBodyItem extends StatelessWidget {
           Text(
             "مجموعة كتب مختارة لمذاكرة الرياضيات للصف السادس الابتدائي مثال :هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنكحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد ",
             style: MainTextStyle.boldTextStyle(
-                fontSize: 12, color: MainColors.grayTextColors),
+                fontSize: 12, color: MainColors.onSurfaceSecondary),
           ),
           16.ph,
           Row(
@@ -113,7 +113,7 @@ class VisualsBodyItem extends StatelessWidget {
                           "3566",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 14,
-                            color: MainColors.blackText,
+                            color: MainColors.onSecondary,
                           ),
                         ),
                       ],
@@ -129,7 +129,7 @@ class VisualsBodyItem extends StatelessWidget {
                           "153",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 14,
-                            color: MainColors.blackText,
+                            color: MainColors.onSecondary,
                           ),
                         ),
                       ],
@@ -145,7 +145,7 @@ class VisualsBodyItem extends StatelessWidget {
                           "344",
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 14,
-                            color: MainColors.blackText,
+                            color: MainColors.onSecondary,
                           ),
                         ),
                       ],
@@ -157,10 +157,10 @@ class VisualsBodyItem extends StatelessWidget {
                 width: 112.w,
                 fontSize: 12,
                 borderRadius: 12.cr,
-                btnColor: MainColors.lightblue,
+                btnColor: MainColors.surface,
                 height: 26.h,
                 // color:
-                textColor: MainColors.blueTextColor,
+                textColor: MainColors.primary,
                 text: "أضف إلى مكتبتك",
                 onTap: () {
                   Navigator.pushNamed(

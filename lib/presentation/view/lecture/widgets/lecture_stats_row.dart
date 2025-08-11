@@ -103,7 +103,7 @@ class LectureStats extends StatelessWidget {
               width: 108.w,
               decoration: BoxDecoration(
                 borderRadius: 10.cr,
-                color: MainColors.veryLightGrayFormField,
+                color: MainColors.inputFill,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -112,7 +112,7 @@ class LectureStats extends StatelessWidget {
                     titleText?[index] ?? lectureStatsTitle[index],
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.grayTextColors,
+                      color: MainColors.onSurfaceSecondary,
                     ),
                   ),
                   if (index == 2) ...{
@@ -121,10 +121,10 @@ class LectureStats extends StatelessWidget {
                         onTap: onRejoinTap,
                         child: TextedContainer(
                           text: "اعادة دخول",
-                          containerColor: MainColors.lightblue,
+                          containerColor: MainColors.surface,
                           width: 88.w,
                           height: 26.h,
-                          textColor: MainColors.blueTextColor,
+                          textColor: MainColors.primary,
                         ),
                       )
                     } else ...{
@@ -140,7 +140,7 @@ class LectureStats extends StatelessWidget {
                       subtitles[index],
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 14,
-                        color: MainColors.blackText,
+                        color: MainColors.onSecondary,
                       ),
                       textAlign: TextAlign.center,
                       maxLines: 2,
@@ -200,26 +200,26 @@ class LectureStates extends StatelessWidget {
   Color getContainerColor() {
     switch (state) {
       case LectureStatesEnum.ongoing:
-        return MainColors.lightgreenColor;
+        return MainColors.primaryLight;
       case LectureStatesEnum.dated:
-        return MainColors.lightblue;
+        return MainColors.surface;
       case LectureStatesEnum.finished:
-        return MainColors.lightRed;
+        return MainColors.error;
       case LectureStatesEnum.pending:
-        return MainColors.blueTextColor;
+        return MainColors.primary;
       }
   }
 
   Color getTextColor() {
     switch (state) {
       case LectureStatesEnum.ongoing:
-        return MainColors.greenTeal;
+        return MainColors.success;
       case LectureStatesEnum.dated:
-        return MainColors.blueTextColor;
+        return MainColors.primary;
       case LectureStatesEnum.finished:
-        return MainColors.red;
+        return MainColors.onError;
       case LectureStatesEnum.pending:
-        return MainColors.blueTextColor;
+        return MainColors.primary;
       }
   }
 

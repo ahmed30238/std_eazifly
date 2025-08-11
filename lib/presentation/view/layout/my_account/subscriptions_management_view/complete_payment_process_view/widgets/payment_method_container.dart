@@ -35,7 +35,7 @@ class PaymentMethodContainer extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: 16.cr,
-          border: Border.all(color: MainColors.lightGray),
+          border: Border.all(color: MainColors.surfaceVariant),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +55,7 @@ class PaymentMethodContainer extends StatelessWidget {
                     description,
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
-                      color: MainColors.grayTextColors,
+                      color: MainColors.onSurfaceSecondary,
                     ),
                   ),
                 ],

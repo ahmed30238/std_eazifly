@@ -21,8 +21,8 @@ class PlayingProgramContainer extends StatelessWidget {
         height: 100.h,
         width: 359.w,
         decoration: BoxDecoration(
-          color: MainColors.white,
-          border: Border.all(color: MainColors.lightGray, width: 1.w),
+          color: MainColors.background,
+          border: Border.all(color: MainColors.surfaceVariant, width: 1.w),
           borderRadius: 16.cr,
         ),
         child: Column(

@@ -29,7 +29,7 @@ class _WritingMessageAreaState extends State<WritingMessageArea> {
       bloc: cubit,
       builder: (context, state) {
         return Container(
-          color: MainColors.veryLightGrayFormField,
+          color: MainColors.inputFill,
           padding: EdgeInsets.only(bottom: 20.h, top: 8.h),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -72,7 +72,7 @@ class _WritingMessageAreaState extends State<WritingMessageArea> {
                       fit: BoxFit.scaleDown,
                       colorFilter: cubit.isRecording
                           ? ColorFilter.mode(
-                              MainColors.red,
+                              MainColors.onError,
                               BlendMode.srcIn,
                             )
                           : null,
@@ -81,7 +81,7 @@ class _WritingMessageAreaState extends State<WritingMessageArea> {
                 ),
                 Expanded(
                   child: CustomTextFormField(
-                    filledColor: MainColors.white,
+                    filledColor: MainColors.background,
                     controller: cubit.messageController,
                     hintText: "أكتب رسالتك",
                   ),

@@ -59,7 +59,7 @@ class _RegisterViewState extends State<RegisterView> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: MainColors.blueTextColor,
+                            color: MainColors.primary,
                             width: 2.w,
                           ),
                           color: Colors.grey.shade100,
@@ -67,7 +67,7 @@ class _RegisterViewState extends State<RegisterView> {
                         child: Icon(
                           Icons.person_add,
                           size: 40.sp,
-                          color: MainColors.blueTextColor,
+                          color: MainColors.primary,
                         ),
                       ),
                     ),
@@ -171,7 +171,7 @@ class _RegisterViewState extends State<RegisterView> {
                     "النوع *",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
                   8.ph,
@@ -295,7 +295,7 @@ class _RegisterViewState extends State<RegisterView> {
                               // بدء عملية التسجيل
                               cubit.register(context);
                             },
-                      color: MainColors.blueTextColor,
+                      color: MainColors.primary,
                       radius: 16.r,
                       height: 48.h,
                       width: double.infinity,
@@ -376,7 +376,7 @@ class _RegisterViewState extends State<RegisterView> {
                       "هل لديك حساب بالفعل؟ ",
                       style: MainTextStyle.regularTextStyle(
                         fontSize: 14,
-                        color: MainColors.grayBorderColor,
+                        color: MainColors.outline,
                       ),
                     ),
                     TextButton(
@@ -390,7 +390,7 @@ class _RegisterViewState extends State<RegisterView> {
                         "تسجيل الدخول",
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 14,
-                          color: MainColors.blueTextColor,
+                          color: MainColors.primary,
                         ),
                       ),
                     ),

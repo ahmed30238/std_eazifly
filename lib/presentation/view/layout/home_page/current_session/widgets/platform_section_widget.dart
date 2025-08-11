@@ -12,7 +12,7 @@ class PlatformSectionWidget extends StatelessWidget {
       "عبر تطبيق زوم",
       style: MainTextStyle.boldTextStyle(
         fontSize: 12,
-        color: MainColors.blackText,
+        color: MainColors.onSecondary,
       ),
     );
   }

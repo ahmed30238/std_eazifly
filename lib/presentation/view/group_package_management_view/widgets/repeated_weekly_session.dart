@@ -191,7 +191,7 @@ class RepeatedWeeklySession extends StatelessWidget {
                     child: CustomRichText(
                       text1Style: MainTextStyle.boldTextStyle(
                         fontSize: 14,
-                        color: MainColors.red,
+                        color: MainColors.onError,
                       ),
                       spaceText: "   ",
                       text1:
@@ -199,7 +199,7 @@ class RepeatedWeeklySession extends StatelessWidget {
                       text2: "ارسال طلب ",
                       text2Style: MainTextStyle.boldTextStyle(
                         fontSize: 14,
-                        color: MainColors.blueTextColor,
+                        color: MainColors.primary,
                       ),
                       onText2Tap: () {
                         cubit.findInstructor(
@@ -260,7 +260,7 @@ class RepeatedWeeklySession extends StatelessWidget {
           bloc: cubit,
           builder: (context, state) => CustomElevatedButton(
             text: "إضافة طالب للبرنامج",
-            color: MainColors.blueTextColor,
+            color: MainColors.primary,
             height: 48.h,
             width: 343.w,
             radius: 16.r,

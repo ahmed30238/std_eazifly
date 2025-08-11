@@ -40,7 +40,7 @@ class ExplainPointsSystemView extends StatelessWidget {
               "أتبع الخطوات التالية لإستخدام نقاطك والاستفاده منها والحصول علي خصومات ",
               style: MainTextStyle.mediumTextStyle(
                 fontSize: 14,
-                color: MainColors.grayTextColors,
+                color: MainColors.onSurfaceSecondary,
               ),
             ),
           ),

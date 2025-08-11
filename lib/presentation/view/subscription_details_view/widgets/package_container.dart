@@ -15,9 +15,9 @@ class PackageContainer extends StatelessWidget {
       width: 295.w,
       decoration: BoxDecoration(
         border: Border.all(
-          color: isSelected ? MainColors.blueTextColor : MainColors.black,
+          color: isSelected ? MainColors.primary : MainColors.onPrimary,
         ),
-        color: isSelected ? MainColors.lightblue : MainColors.white,
+        color: isSelected ? MainColors.surface : MainColors.background,
         borderRadius: 12.cr,
       ),
       child: Column(

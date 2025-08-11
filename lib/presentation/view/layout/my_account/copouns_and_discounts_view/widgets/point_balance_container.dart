@@ -24,7 +24,7 @@ class PointsBalanceContainer extends StatelessWidget {
       height: 227.h,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,8 +70,8 @@ class PointsBalanceContainer extends StatelessWidget {
                       pointsDetails: isIn ? "تسجيل حساب جديد" : "استبدال نقاط",
                       icon: isIn ? Assets.iconsPointsIn : Assets.iconsPointsOut,
                       pointsTextColor: isIn
-                          ? MainColors.greenTeal
-                          : MainColors.blueTextColor,
+                          ? MainColors.success
+                          : MainColors.primary,
                     );
                   },
                   separatorBuilder: (context, index) => 12.ph,

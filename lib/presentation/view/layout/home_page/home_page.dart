@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                                 "لا محاضرات قادمة",
                                 style: MainTextStyle.boldTextStyle(
                                   fontSize: 12,
-                                  color: MainColors.white,
+                                  color: MainColors.background,
                                 ),
                               ),
                             ),

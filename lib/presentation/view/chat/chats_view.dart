@@ -89,8 +89,8 @@ class _ChatsViewState extends State<ChatsView>
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
                         color: isSelected
-                            ? MainColors.blueTextColor
-                            : MainColors.grayTextColors,
+                            ? MainColors.primary
+                            : MainColors.onSurfaceSecondary,
                       ),
                     );
                   },
@@ -121,13 +121,13 @@ class _ChatsViewState extends State<ChatsView>
                               Icon(
                                 Icons.error_outline,
                                 size: 64,
-                                color: MainColors.lightGray,
+                                color: MainColors.surfaceVariant,
                               ),
                               SizedBox(height: 16.h),
                               Text(
                                 'Failed to load chats',
                                 style: TextStyle(
-                                  color: MainColors.lightGray,
+                                  color: MainColors.surfaceVariant,
                                   fontSize: 16.sp,
                                 ),
                               ),
@@ -154,13 +154,13 @@ class _ChatsViewState extends State<ChatsView>
                                 Icon(
                                   Icons.chat_bubble_outline,
                                   size: 64,
-                                  color: MainColors.lightGray,
+                                  color: MainColors.surfaceVariant,
                                 ),
                                 SizedBox(height: 16.h),
                                 Text(
                                   'No chats yet',
                                   style: TextStyle(
-                                    color: MainColors.lightGray,
+                                    color: MainColors.surfaceVariant,
                                     fontSize: 16.sp,
                                   ),
                                 ),
@@ -173,7 +173,7 @@ class _ChatsViewState extends State<ChatsView>
                           physics: const BouncingScrollPhysics(),
                           itemCount: chats.length,
                           separatorBuilder: (context, index) => SeparatedWidget(
-                            dividerColor: MainColors.lightGray,
+                            dividerColor: MainColors.surfaceVariant,
                             verticalPadding: 8.h,
                           ),
                           itemBuilder: (context, index) {
@@ -219,7 +219,7 @@ class _ChatsViewState extends State<ChatsView>
                       "قريبا",
                       style: TextStyle(
                         fontSize: 16,
-                        color: MainColors.grayTextColors,
+                        color: MainColors.onSurfaceSecondary,
                       ),
                     ),
                   ),

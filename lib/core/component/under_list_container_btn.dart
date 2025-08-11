@@ -12,7 +12,7 @@ class UnderListContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: MainColors.white,
+      color: MainColors.background,
       width: double.infinity,
       child: Padding(
         padding: EdgeInsets.only(
@@ -24,7 +24,7 @@ class UnderListContainer extends StatelessWidget {
         child: CustomElevatedButton(
           text: "إرسال رسالة",
           onPressed: () {},
-          color: MainColors.blueTextColor,
+          color: MainColors.primary,
           radius: 16.r,
         ),
       ),

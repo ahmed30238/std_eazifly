@@ -107,7 +107,7 @@ class _LectureViewState extends State<LectureView>
               "اضغط هنا لرؤية المزيد",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 14,
-                color: MainColors.white,
+                color: MainColors.background,
               ).copyWith(),
             ),
           ),

@@ -19,7 +19,7 @@ class TimeLineWidgets extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
-            color: MainColors.timeLineColor,
+            color: MainColors.muted,
           ),
         ),
         child: Text(
@@ -45,7 +45,7 @@ class TimeLineWidgets extends StatelessWidget {
                   spaceText: index == 2 ? " 15 نقطة" : "",
                   spaceStyle: MainTextStyle.mediumTextStyle(
                     fontSize: 12,
-                    color: MainColors.blueTextColor,
+                    color: MainColors.primary,
                   ),
                   text1: index == 0
                       ? "بمجرد إنشاء حساب جديد تحصل علي مكأفاه ترحيبية"
@@ -54,7 +54,7 @@ class TimeLineWidgets extends StatelessWidget {
                           : "عند مشاركة التطبيق تحصل علي",
                   text1Style: MainTextStyle.mediumTextStyle(
                     fontSize: 12,
-                    color: MainColors.grayTextColors,
+                    color: MainColors.onSurfaceSecondary,
                   ),
                   text2: index == 0
                       ? "\n 50 نقطة"
@@ -64,11 +64,11 @@ class TimeLineWidgets extends StatelessWidget {
                   text2Style: index == 0
                       ? MainTextStyle.mediumTextStyle(
                           fontSize: 12,
-                          color: MainColors.blueTextColor,
+                          color: MainColors.primary,
                         )
                       : MainTextStyle.mediumTextStyle(
                           fontSize: 12,
-                          color: MainColors.grayTextColors,
+                          color: MainColors.onSurfaceSecondary,
                         ),
                 ),
               ],

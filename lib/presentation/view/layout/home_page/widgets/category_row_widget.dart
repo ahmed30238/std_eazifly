@@ -28,7 +28,7 @@ class CategoryRowWidget extends StatelessWidget {
             "عرض الكل",
             style: MainTextStyle.boldTextStyle(
               fontSize: 12,
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
             ),
           ),
         ),

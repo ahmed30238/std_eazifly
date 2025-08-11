@@ -24,7 +24,7 @@ class QuestionContainer extends StatelessWidget {
       padding: EdgeInsets.all(16.r),
       height: qType == "مقالي" ? 186.h : 222.h,
       width: double.infinity,
-      color: MainColors.veryLightGrayFormField,
+      color: MainColors.inputFill,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -35,7 +35,7 @@ class QuestionContainer extends StatelessWidget {
                 "السؤال ${index + 1}",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 14,
-                  color: MainColors.checkBoxBorderGray,
+                  color: MainColors.borderPrimary,
                 ),
               ),
               QTypeTextedContainer(type: qType),
@@ -54,7 +54,7 @@ class QuestionContainer extends StatelessWidget {
             "الاجابة",
             style: MainTextStyle.boldTextStyle(
               fontSize: 14,
-              color: MainColors.checkBoxBorderGray,
+              color: MainColors.borderPrimary,
             ),
           ),
           8.ph,

@@ -45,7 +45,7 @@ class StudentDataItem extends StatelessWidget {
         width: width ?? 343.w,
         decoration: BoxDecoration(
           borderRadius: 12.cr,
-          color: MainColors.veryLightGrayFormField,
+          color: MainColors.inputFill,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,7 +77,7 @@ class StudentDataItem extends StatelessWidget {
                   "$age عام",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
-                    color: MainColors.grayTextColors,
+                    color: MainColors.onSurfaceSecondary,
                   ),
                 ),
               ],
@@ -96,7 +96,7 @@ class StudentDataItem extends StatelessWidget {
                   "رقم التواصل",
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
-                    color: MainColors.grayTextColors,
+                    color: MainColors.onSurfaceSecondary,
                   ),
                 ),
                 8.ph,

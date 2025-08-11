@@ -25,7 +25,7 @@ Future<dynamic> librarySubscribeModalSheet(BuildContext context) {
                   radius: 16.r,
                   height: 40.h,
                   text: "نعم",
-                  color: MainColors.greenTeal,
+                  color: MainColors.success,
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
@@ -39,7 +39,7 @@ Future<dynamic> librarySubscribeModalSheet(BuildContext context) {
                 child: CustomElevatedButton(
                   radius: 16.r,
                   height: 40.h,
-                  color: MainColors.red,
+                  color: MainColors.onError,
                   text: "لا",
                   onPressed: () {
                     back(context);

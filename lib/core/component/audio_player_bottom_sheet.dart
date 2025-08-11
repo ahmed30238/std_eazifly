@@ -75,7 +75,7 @@ void showAudioPlayerBottomSheet(
                     // زر التشغيل/الإيقاف
                     Container(
                       decoration: BoxDecoration(
-                        color: MainColors.greenTeal,
+                        color: MainColors.success,
                         shape: BoxShape.circle,
                       ),
                       child: IconButton(

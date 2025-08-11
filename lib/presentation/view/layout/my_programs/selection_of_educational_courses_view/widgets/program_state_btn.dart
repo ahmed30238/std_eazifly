@@ -16,8 +16,8 @@ class ProgramStateButton extends StatelessWidget {
         );
       case "dated":
         return CustomLowSizeButton(
-          btnColor: MainColors.lightgreenTeal,
-          textColor: MainColors.greenTeal,
+          btnColor: MainColors.onSuccess,
+          textColor: MainColors.success,
           height: 28.h,
           width: 96.w,
           text: "بعد  2 يوم",

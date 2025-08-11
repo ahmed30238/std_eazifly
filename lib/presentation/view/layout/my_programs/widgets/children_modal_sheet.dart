@@ -24,7 +24,7 @@ class ChildrenModalSheet extends StatelessWidget {
       value: cubit,
       child: Container(
         decoration: BoxDecoration(
-          color: MainColors.white,
+          color: MainColors.background,
           borderRadius: 16.cr,
         ),
         padding: EdgeInsets.all(16.r),
@@ -38,7 +38,7 @@ class ChildrenModalSheet extends StatelessWidget {
                 'انت مشترك في هذا البرنامج ب$noOfChildren طالب',
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 14,
-                  color: MainColors.blackText,
+                  color: MainColors.onSecondary,
                 ),
               ),
             ),
@@ -47,7 +47,7 @@ class ChildrenModalSheet extends StatelessWidget {
               "اختر الطالب الذي تود عرض بياناته",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 12,
-                color: MainColors.grayTextColors,
+                color: MainColors.onSurfaceSecondary,
               ),
             ),
             8.ph,
@@ -136,8 +136,8 @@ class ChildrenModalSheet extends StatelessWidget {
                 );
               },
               height: 35.h,
-              btnColor: MainColors.blueTextColor,
-              textColor: MainColors.white,
+              btnColor: MainColors.primary,
+              textColor: MainColors.background,
               width: 130.w,
             ),
           ],

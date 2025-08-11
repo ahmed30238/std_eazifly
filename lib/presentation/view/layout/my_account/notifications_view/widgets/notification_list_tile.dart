@@ -52,7 +52,7 @@ class CustomNotificationListTile extends StatelessWidget {
                 title,
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 15,
-                  color: MainColors.blackText,
+                  color: MainColors.onSecondary,
                 ),
               ),
               4.ph,
@@ -60,7 +60,7 @@ class CustomNotificationListTile extends StatelessWidget {
                 subTitle,
                 style: MainTextStyle.regularTextStyle(
                   fontSize: 12,
-                  color: MainColors.blackText,
+                  color: MainColors.onSecondary,
                 ),
               ),
 

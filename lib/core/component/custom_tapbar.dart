@@ -20,7 +20,7 @@ class CustomTabBar extends StatelessWidget {
       elevation: 1,
       child: Container(
         padding: EdgeInsets.only(right: 28.w),
-        color: MainColors.veryLightGrayFormField,
+        color: MainColors.inputFill,
         width: double.infinity,
         height: 52.h,
         child: TabBar(
@@ -28,7 +28,7 @@ class CustomTabBar extends StatelessWidget {
           indicatorSize: TabBarIndicatorSize.label,
           controller: controller,
           indicatorWeight: 1,
-          dividerColor: MainColors.transparentColor,
+          dividerColor: MainColors.transparent,
           tabAlignment: TabAlignment.start,
           // labelColor: Colors.red,
           isScrollable: true,
@@ -38,7 +38,7 @@ class CustomTabBar extends StatelessWidget {
             bottom: 16.h,
           ),
           // unselectedLabelColor: Colors.red,
-          indicatorColor: MainColors.blueTextColor,
+          indicatorColor: MainColors.primary,
           tabs: tabs,
         ),
       ),

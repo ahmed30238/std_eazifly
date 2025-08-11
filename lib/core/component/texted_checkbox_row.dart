@@ -20,7 +20,7 @@ class TextedCheckBoxRow extends StatelessWidget {
       width: 343.w,
       height: 45.h,
       decoration: BoxDecoration(
-        color: isSelcted ? MainColors.lightblue : MainColors.white,
+        color: isSelcted ? MainColors.surface : MainColors.background,
         borderRadius: 8.cr,
       ),
       child: Row(
@@ -34,7 +34,7 @@ class TextedCheckBoxRow extends StatelessWidget {
             text,
             style: MainTextStyle.boldTextStyle(
               fontSize: 14,
-              color: isSelcted ? MainColors.blueTextColor : null,
+              color: isSelcted ? MainColors.primary : null,
             ),
           ),
         ],

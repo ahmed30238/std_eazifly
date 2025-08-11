@@ -35,7 +35,7 @@ class CustomRichText extends StatelessWidget {
             style: text1Style ??
                 MainTextStyle.mediumTextStyle(
                   fontSize: 12,
-                  color: MainColors.grayTextColors,
+                  color: MainColors.onSurfaceSecondary,
                 ),
             recognizer: onText1Tap != null 
                 ? (TapGestureRecognizer()..onTap = onText1Tap)
@@ -50,7 +50,7 @@ class CustomRichText extends StatelessWidget {
             style: text2Style ??
                 MainTextStyle.mediumTextStyle(
                   fontSize: 11,
-                  color: MainColors.blackText,
+                  color: MainColors.onSecondary,
                 ),
             recognizer: onText2Tap != null 
                 ? (TapGestureRecognizer()..onTap = onText2Tap)

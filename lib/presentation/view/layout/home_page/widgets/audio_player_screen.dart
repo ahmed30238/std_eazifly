@@ -22,7 +22,7 @@ class AudioPlayerScreen extends StatelessWidget {
             height: 238.h,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: MainColors.white.withOpacity(.5),
+              color: MainColors.background.withOpacity(.5),
               borderRadius: 8.cr,
             ),
             child: Column(
@@ -85,7 +85,7 @@ class AudioPlayerScreen extends StatelessWidget {
                         onTap: () {},
                         child: SvgPicture.asset(Assets.iconsPlayNext)),
                     FloatingActionButton(
-                      backgroundColor: MainColors.white,
+                      backgroundColor: MainColors.background,
                       shape: const CircleBorder(),
                       onPressed: () {},
                       child: SvgPicture.asset(

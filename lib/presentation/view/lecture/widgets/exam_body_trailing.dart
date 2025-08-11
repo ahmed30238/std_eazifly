@@ -56,14 +56,14 @@ class ExamBodyCustomTrailing extends StatelessWidget {
   Color _getGradeTextColor() {
     switch (status) {
       case StudentStatus.successful:
-        return MainColors.greenTeal;
+        return MainColors.success;
       case StudentStatus.acceptable:
-        return MainColors.blueTextColor;
+        return MainColors.primary;
       case StudentStatus.failed:
-        return MainColors.red;
+        return MainColors.onError;
       case StudentStatus.pending:
       case StudentStatus.newStudent:
-        return MainColors.grayTextColors;
+        return MainColors.onSurfaceSecondary;
       }
   }
 }
@@ -73,28 +73,28 @@ BtnColors studentStatus(StudentStatus state) {
   switch (state) {
     case StudentStatus.successful:
       return BtnColors(
-          containerColor: MainColors.lightgreenTeal,
-          textColor: MainColors.greenTeal,
+          containerColor: MainColors.onSuccess,
+          textColor: MainColors.success,
           text: "ناجح");
     case StudentStatus.acceptable:
       return BtnColors(
-          textColor: MainColors.blueTextColor,
-          containerColor: MainColors.lightblue,
+          textColor: MainColors.primary,
+          containerColor: MainColors.surface,
           text: "مقبول");
     case StudentStatus.failed:
       return BtnColors(
-          textColor: MainColors.red,
-          containerColor: MainColors.lightRed,
+          textColor: MainColors.onError,
+          containerColor: MainColors.error,
           text: "راسب");
     case StudentStatus.pending:
       return BtnColors(
-          textColor: MainColors.yellow,
-          containerColor: MainColors.lightYellow,
+          textColor: MainColors.tertiary,
+          containerColor: MainColors.onTertiary,
           text: "جديد");
     case StudentStatus.newStudent:
       return BtnColors(
-          textColor: MainColors.yellow,
-          containerColor: MainColors.lightYellow,
+          textColor: MainColors.tertiary,
+          containerColor: MainColors.onTertiary,
           text: "جديد");
     }
 }

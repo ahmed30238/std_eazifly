@@ -43,7 +43,7 @@ class SubGoalsWidget extends StatelessWidget {
                 height: 178.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: MainColors.white,
+                  color: MainColors.background,
                   borderRadius: 20.cr,
                 ),
                 child: Column(
@@ -65,7 +65,7 @@ class SubGoalsWidget extends StatelessWidget {
                               width: 28.w,
                               decoration: BoxDecoration(
                                 borderRadius: 13.4.cr,
-                                color: MainColors.grayBorderColor,
+                                color: MainColors.outline,
                               ),
                               child: Icon(
                                 size: 20.r,
@@ -88,7 +88,7 @@ class SubGoalsWidget extends StatelessWidget {
             height: 53.h,
             width: 312.w,
             decoration: BoxDecoration(
-              color: MainColors.formFieldgrayfillColor,
+              color: MainColors.surfaceContainerHighest,
               borderRadius: 8.cr,
             ),
             child: Row(
@@ -99,7 +99,7 @@ class SubGoalsWidget extends StatelessWidget {
                   ),
                   // استخدام isDone بدلاً من cubit.isSelected[index]
                   value: isDone,
-                  activeColor: MainColors.blueTextColor,
+                  activeColor: MainColors.primary,
                   onChanged: (value) {
                     // إذا كان الدرس مكتمل، لا تسمح بإلغاء الاختيار
                     if (!isDone && value == true) {
@@ -119,8 +119,8 @@ class SubGoalsWidget extends StatelessWidget {
                       fontSize: 14,
                       // تغيير لون النص حسب حالة الإكمال
                       color: isDone 
-                        ? MainColors.grayTextColors 
-                        : MainColors.black,
+                        ? MainColors.onSurfaceSecondary
+                        : MainColors.onPrimary,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),

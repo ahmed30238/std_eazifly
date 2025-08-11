@@ -125,7 +125,7 @@ class _AddNewStudentDataViewState extends State<AddNewStudentDataView>
                     "النوع",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
-                      color: MainColors.blackText,
+                      color: MainColors.onSecondary,
                     ),
                   ),
                   8.ph,
@@ -236,7 +236,7 @@ class _AddNewStudentDataViewState extends State<AddNewStudentDataView>
             builder: (context, state) => CustomElevatedButton(
               text: "التالي",
               width: 343.w,
-              color: MainColors.blueTextColor,
+              color: MainColors.primary,
               radius: 16.w,
               onPressed: cubit.createNewChildLoader
                   ? () {}

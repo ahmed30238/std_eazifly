@@ -26,7 +26,7 @@ class CustomFilledTabBar extends StatelessWidget {
       margin: margin ?? EdgeInsets.symmetric(horizontal: 16.w),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       decoration: BoxDecoration(
-        color: MainColors.lightblue,
+        color: MainColors.surface,
         borderRadius: outerRadius ?? 25.cr,
       ),
       height: 44.h,

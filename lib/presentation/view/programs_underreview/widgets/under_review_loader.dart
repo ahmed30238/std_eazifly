@@ -13,7 +13,7 @@ class UnderReviewItemShimmer extends StatelessWidget {
         height: 300.h,
         width: double.infinity,
         decoration: BoxDecoration(
-          border: Border.all(color: MainColors.lightGray),
+          border: Border.all(color: MainColors.surfaceVariant),
           borderRadius: BorderRadius.circular(8.r),
           color: Colors.white,
         ),

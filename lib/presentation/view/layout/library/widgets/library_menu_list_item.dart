@@ -31,7 +31,7 @@ class LibraryMenuListItem extends StatelessWidget {
         width: 343.w,
         decoration: BoxDecoration(
           borderRadius: 16.cr,
-          color: MainColors.veryLightGrayFormField,
+          color: MainColors.inputFill,
         ),
         child: Row(
           children: [
@@ -62,7 +62,7 @@ class LibraryMenuListItem extends StatelessWidget {
                               "12 مقطع صوتي",
                               style: MainTextStyle.boldTextStyle(
                                 fontSize: 14,
-                                color: MainColors.blackText,
+                                color: MainColors.onSecondary,
                               ),
                             ),
                           ],
@@ -78,7 +78,7 @@ class LibraryMenuListItem extends StatelessWidget {
                               "153",
                               style: MainTextStyle.boldTextStyle(
                                 fontSize: 14,
-                                color: MainColors.blackText,
+                                color: MainColors.onSecondary,
                               ),
                             ),
                           ],

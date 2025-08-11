@@ -22,14 +22,14 @@ class ImagePart extends StatelessWidget {
           height: 40.h,
           width: 40.w,
           decoration: BoxDecoration(
-            color: MainColors.lightblue,
+            color: MainColors.surface,
             borderRadius: 12.cr,
           ),
           child: SvgPicture.asset(
             Assets.iconsSetting,
             fit: BoxFit.scaleDown,
             colorFilter: const ColorFilter.mode(
-              MainColors.blueTextColor,
+              MainColors.primary,
               BlendMode.srcIn,
             ),
           ),
