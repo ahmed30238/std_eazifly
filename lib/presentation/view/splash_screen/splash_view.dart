@@ -95,10 +95,10 @@ class _SplashScreenState extends State<SplashScreen>
               ),
               SizedBox(height: 20.h),
               Text(
-                'EaziFly Student',
+                'هدى للناس',
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 24,
-                  plusJakartaSans: true,
+                  // plusJakartaSans: true,
                 ),
               ),
             ],
