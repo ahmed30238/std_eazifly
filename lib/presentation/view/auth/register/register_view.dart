@@ -112,7 +112,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // رقم الهاتف
                   TitledFormFieldItem(
-                    titleText: "رقم الهاتف",
+                    titleText: "رقم الهاتف *",
                     controller: cubit.phoneController,
                     validator: (value) {
                       // الهاتف اختياري، لكن إذا تم إدخاله يجب أن يكون صحيحاً
@@ -128,13 +128,10 @@ class _RegisterViewState extends State<RegisterView> {
                     keyboardType: TextInputType.phone,
                   ),
                   16.ph,
-
-                  // واتساب
                   TitledFormFieldItem(
-                    titleText: "رقم واتساب",
+                    titleText: "رقم واتساب *",
                     controller: cubit.whatsAppController,
                     validator: (value) {
-                      // واتساب اختياري، لكن إذا تم إدخاله يجب أن يكون صحيحاً
                       if (value != null && value.isNotEmpty) {
                         if (value.length < 10) {
                           return "رقم واتساب غير صحيح";
@@ -147,8 +144,6 @@ class _RegisterViewState extends State<RegisterView> {
                     keyboardType: TextInputType.phone,
                   ),
                   16.ph,
-
-                  // اسم المستخدم
                   TitledFormFieldItem(
                     titleText: "اسم المستخدم *",
                     formfieldHintText: "username123",
@@ -233,38 +228,6 @@ class _RegisterViewState extends State<RegisterView> {
                     isPassword: true,
                   ),
                   16.ph,
-
-                  // ملاحظة الحقول المطلوبة
-                  Container(
-                    padding: EdgeInsets.all(12.w),
-                    decoration: BoxDecoration(
-                      color: Colors.blue.shade50,
-                      borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(color: Colors.blue.shade200),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.info_outline,
-                          color: Colors.blue.shade600,
-                          size: 16.sp,
-                        ),
-                        8.pw,
-                        Expanded(
-                          child: Text(
-                            "الحقول المميزة بعلامة (*) مطلوبة",
-                            style: MainTextStyle.regularTextStyle(
-                              fontSize: 12,
-                              color: Colors.blue.shade600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  24.ph,
-
-                  // زر ملء بيانات تجريبية (للتطوير فقط)
                 ],
               ),
             ),
@@ -376,7 +339,7 @@ class _RegisterViewState extends State<RegisterView> {
                       "هل لديك حساب بالفعل؟ ",
                       style: MainTextStyle.regularTextStyle(
                         fontSize: 14,
-                        color: MainColors.outline,
+                        color: MainColors.warning,
                       ),
                     ),
                     TextButton(

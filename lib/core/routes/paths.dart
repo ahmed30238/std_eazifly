@@ -13,6 +13,8 @@ class RoutePaths {
   static const editProfile = "editProfile";
   static const currentSession = "currentSesion";
   static const cancelSession = "cancelSession";
+  static const forgotPasswordView = "forgotPasswordView";
+  static const resetPasswordView = "resetPasswordView";
   static const updateChildProfile = "updateChildProfile";
   // static const allPossibleFavItems = "allPossibleFavItems";
   static const confirmPaymentView = "confirmPaymentView";

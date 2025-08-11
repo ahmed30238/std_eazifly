@@ -8,6 +8,8 @@ import 'package:eazifly_student/core/network/error_message_model.dart';
 import 'package:eazifly_student/core/network/networkcall.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/auth/logout_model.dart';
+import 'package:eazifly_student/data/models/auth/reset_password_model.dart';
+import 'package:eazifly_student/data/models/auth/reset_password_tojson.dart';
 import 'package:eazifly_student/data/models/auth/update_fcm_token_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
@@ -115,6 +117,7 @@ import 'package:eazifly_student/data/models/user/delete_account_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
 
+import '../models/auth/forgot_password_model.dart';
 import '../models/auth/register_model.dart';
 import '../models/auth/register_tojson.dart';
 
@@ -122,6 +125,10 @@ abstract class BaseRemoteDataSource {
   Future<LoginModel> login(String email, String password);
 
   Future<RegisterModel> register({required RegisterToJson data});
+
+  Future<ForgotPasswordModel> forgotPassword(String email);
+
+  Future<ResetPasswordModel> resetPassword({required ResetPasswordToJson data});
 
   Future<GetProgramsModel> getPrograms();
 
@@ -2294,13 +2301,50 @@ class RemoteDataSource extends BaseRemoteDataSource {
 
   @override
   Future<RegisterModel> register({required RegisterToJson data}) async {
-    var response = await NetworkCall().post(
-      path: EndPoints.register,
-      data: FormData.fromMap(data.toJson())
-    );
+    var response = await NetworkCall()
+        .post(path: EndPoints.register, data: FormData.fromMap(data.toJson()));
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return RegisterModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<ForgotPasswordModel> forgotPassword(String email) async {
+    var response = await NetworkCall().post(
+      path: EndPoints.forgotPassword,
+      data: FormData.fromMap(
+        {
+          "email": email,
+        },
+      ),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return ForgotPasswordModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<ResetPasswordModel> resetPassword(
+      {required ResetPasswordToJson data}) async {
+    var response = await NetworkCall().post(
+        path: EndPoints.resetPassword, data: FormData.fromMap(data.toJson()));
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return ResetPasswordModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

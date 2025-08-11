@@ -95,7 +95,9 @@ import 'package:eazifly_student/presentation/controller/payment_controller/payme
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../domain/use_cases/forgot_password_usecase.dart';
 import '../../domain/use_cases/register_usecase.dart';
+import '../../domain/use_cases/reset_password_usecase.dart';
 
 GetIt sl = GetIt.instance;
 
@@ -112,6 +114,8 @@ class ServiceLocator {
     sl.registerLazySingleton(() => RegisterUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => FilterPlansUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => CreateOrderUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => ResetPasswordUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => ForgotPasswordUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => CheckCopounUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => GetPaymentMethodDetailsUsecase(baseRepository: sl()));

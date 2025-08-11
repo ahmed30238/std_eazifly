@@ -5,6 +5,7 @@ import 'package:eazifly_student/data/data_source/remote_data_source.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/auth/register_model.dart';
 import 'package:eazifly_student/data/models/auth/register_tojson.dart';
+import 'package:eazifly_student/data/models/auth/reset_password_tojson.dart';
 import 'package:eazifly_student/data/models/auth/update_fcm_token_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
@@ -85,6 +86,8 @@ import 'package:eazifly_student/data/models/user/update_profile_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/add_note_entity.dart';
+import 'package:eazifly_student/domain/entities/auth/forgot_password_entity.dart';
+import 'package:eazifly_student/domain/entities/auth/reset_password_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/check_chat_entity.dart';
 import 'package:eazifly_student/domain/entities/chat/get_messages_entities.dart';
 import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart';
@@ -1155,6 +1158,28 @@ class Repository extends BaseRepository {
   Future<Either<Failure, RegisterModel>> register(
       {required RegisterToJson data}) async {
     final result = await baseRemoteDataSource.register(data: data);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ForgotPasswordEntity>> forgotPassword(
+      {required String email}) async {
+    final result = await baseRemoteDataSource.forgotPassword(email);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResetPasswordEntity>> resetPassword(
+      {required ResetPasswordToJson data}) async {
+    final result = await baseRemoteDataSource.resetPassword(data: data);
     try {
       return Right(result);
     } on ServerException catch (e) {

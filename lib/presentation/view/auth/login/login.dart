@@ -150,13 +150,33 @@ class Login extends StatelessWidget {
                                         ? Icons.visibility_off
                                         : Icons.visibility,
                                     color: Colors
-                                        .grey, // يمكنك تغيير اللون حسب احتياجاتك
+                                        .grey,
                                   ),
                                 ),
                               ),
                               validator: customValidation,
                             );
                           },
+                        ),
+                        16.ph,
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: TextButton(
+                            onPressed: () {
+                              // Navigate to forgot password screen
+                              Navigator.pushNamed(
+                                context,
+                                RoutePaths.forgotPasswordView,
+                              );
+                            },
+                            child: Text(
+                              "هل نسيت كلمة السر؟",
+                              style: MainTextStyle.mediumTextStyle(
+                                fontSize: 12,
+                                color: MainColors.primary,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -173,15 +193,15 @@ class Login extends StatelessWidget {
                         onPressed: cubit.loginLoader
                             ? () {}
                             : () {
-                                cubit.tryToLogin(context);
-                              },
+                          cubit.tryToLogin(context);
+                        },
                         height: 48.h,
                         width: 343.w,
                         color: MainColors.primary,
                         radius: 16.r,
                         child: cubit.loginLoader
                             ? const CircularProgressIndicator.adaptive()
-                                .center()
+                            .center()
                             : null,
                       ),
                       24.ph,

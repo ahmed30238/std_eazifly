@@ -2,12 +2,15 @@ import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final Widget? prefixIconWidget;
   final String hintText;
   final String? suffixText;
+  final String? initialValue;
+  final List<TextInputFormatter>? inputFormatter;
   final String? prefixText;
   final int? maxLines;
   final Widget? suffixIconWidget;
@@ -58,12 +61,16 @@ class CustomTextFormField extends StatelessWidget {
     this.controller,
     this.filledColor,
     super.key,
+    this.initialValue,
+    this.inputFormatter,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       focusNode: focusNode,
+      inputFormatters: inputFormatter,
       onFieldSubmitted: onFieldSubmitted,
       maxLines: maxLines,
       validator: validator,

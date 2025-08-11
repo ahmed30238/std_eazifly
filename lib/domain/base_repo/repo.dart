@@ -111,6 +111,9 @@ import 'package:eazifly_student/domain/entities/user/delete_account_entity.dart'
 import 'package:eazifly_student/domain/entities/user/update_profile_entity.dart';
 
 import '../../data/models/auth/register_tojson.dart';
+import '../../data/models/auth/reset_password_tojson.dart';
+import '../entities/auth/forgot_password_entity.dart';
+import '../entities/auth/reset_password_entity.dart';
 
 abstract class BaseRepository {
   Future<Either<Failure, LoginEntity>> login({
@@ -120,6 +123,12 @@ abstract class BaseRepository {
 
   Future<Either<Failure, RegisterEntity>> register(
       {required RegisterToJson data});
+
+  Future<Either<Failure, ForgotPasswordEntity>> forgotPassword(
+      {required String email});
+
+  Future<Either<Failure, ResetPasswordEntity>> resetPassword(
+      {required ResetPasswordToJson data});
 
   Future<Either<Failure, GetProgramsEntity>> getPrograms();
 

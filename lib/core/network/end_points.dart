@@ -7,6 +7,7 @@ class EndPoints {
   static const filterPlan = "program/plan";
   static const createOrder = "create/order";
   static const checkCopoun = "check-coupon";
+  static const resetPassword = "reset-password";
   static const getUserOrders = "orders";
   static const storeFavouriteList = "store/favorite/list";
   static const addNote = "order/add/note";

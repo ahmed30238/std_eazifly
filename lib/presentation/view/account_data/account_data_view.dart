@@ -214,7 +214,7 @@ class _AccountDataState extends State<AccountData> {
                           bloc: cubit,
                           builder: (context, state) => CustomElevatedButton(
                             text: "نعم",
-                            color: MainColors.onError,
+                            color: MainColors.error,
                             width: 110.w,
                             radius: 16.r,
                             onPressed: cubit.logoutLoader

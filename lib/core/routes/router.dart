@@ -25,8 +25,10 @@ import 'package:eazifly_student/presentation/controller/program_subscription_pla
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
 import 'package:eazifly_student/presentation/view/account_data/edit_profile_view/edit_profile_view.dart';
+import 'package:eazifly_student/presentation/view/auth/forgot_password/forgot_password.dart';
 import 'package:eazifly_student/presentation/view/auth/login/login.dart';
 import 'package:eazifly_student/presentation/view/auth/register/register_view.dart';
+import 'package:eazifly_student/presentation/view/auth/reset_password.dart';
 import 'package:eazifly_student/presentation/view/chat/chats_view.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
 import 'package:eazifly_student/presentation/view/goals_view/goal_details_view/goal_details_view.dart';
@@ -105,6 +107,15 @@ class AppRouter {
             ),
             child: const Login(),
           ),
+        );
+      case RoutePaths.forgotPasswordView:
+        return createRoute(
+          const ForgotPasswordScreen(),
+        );
+      case RoutePaths.resetPasswordView:
+        var email = settings.arguments as String;
+        return createRoute(
+          ResetPasswordScreen(email: email),
         );
       case RoutePaths.accountDataPath:
         return createRoute(
