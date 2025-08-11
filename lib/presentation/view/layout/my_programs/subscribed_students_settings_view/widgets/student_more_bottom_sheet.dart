@@ -20,7 +20,7 @@ Future<dynamic> studentMoreBottomSheet(
       width: 375.w,
       decoration: BoxDecoration(
         borderRadius: 12.cr,
-        color: MainColors.white,
+        color: MainColors.background,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +116,7 @@ void showDeleteConfirmationDialog(
           children: [
             Icon(
               Icons.warning_amber_rounded,
-              color: MainColors.yellow,
+              color: MainColors.tertiary,
               size: 24.w,
             ),
             SizedBox(width: 8.w),
@@ -182,7 +182,7 @@ void showDeleteConfirmationDialog(
                     "نعم، احذف",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
-                      color: MainColors.white,
+                      color: MainColors.background,
                     ),
                   ),
                 ),

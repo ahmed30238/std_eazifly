@@ -52,7 +52,7 @@ class DeliveriesBodyWidget extends StatelessWidget {
           },
           title: assignment?.title ?? "مهمة غير محددة",
           subTitle: formatDate(date?.toString()),
-          iconContainerColor: MainColors.white,
+          iconContainerColor: MainColors.background,
           trailing: DeliveriesBodyWidgetTrailing(
             state: deliverState,
             isDelivered: isDelivered,

@@ -12,7 +12,7 @@ Future<dynamic> childrenModalSheet(BuildContext context) {
       width: 375.w,
       decoration: BoxDecoration(
         borderRadius: 12.cr,
-        color: MainColors.white,
+        color: MainColors.background,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
