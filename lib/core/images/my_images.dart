@@ -68,7 +68,7 @@ class Assets {
 
   /// Assets for iconsAppLogo
   /// assets/icons/app_logo.svg
-  static const String iconsAppLogo = "assets/icons/app_logo.svg";
+  static const String iconsAppLogo = "assets/images/app_logo.png";
 
   /// Assets for iconsArrowDown
   /// assets/icons/arrow_down.svg

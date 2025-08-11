@@ -115,145 +115,212 @@ import 'package:eazifly_student/data/models/user/delete_account_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
 
+import '../models/auth/register_model.dart';
+import '../models/auth/register_tojson.dart';
+
 abstract class BaseRemoteDataSource {
   Future<LoginModel> login(String email, String password);
+
+  Future<RegisterModel> register({required RegisterToJson data});
+
   Future<GetProgramsModel> getPrograms();
+
   Future<GetProgramDetailsModel> getProgramDetails({required int programId});
+
   Future<AssignProgramReviewModel> assignProgramReview(
       {required AssignProgramReviewTojson data});
+
   Future<GetPlansWithDetailsModel> getPlansWithDetails({
     required int programId,
     required int days,
   });
+
   Future<GetPlansModel> getPlans({required int programId});
+
   Future<FilterPlansModel> filterPlans({required FilterPlansTojson data});
+
   Future<CreateOrderModel> createOrder({required CreateOrderTojson data});
+
   Future<CheckCopounModel> checkCopoun({required CheckCopounTojson data});
+
   Future<GetProgramPaymentMethodsModel> getProgramPaymentMethods(
       {required int programId});
+
   Future<GetPaymentMethodDetailsModel> getPaymentMethodDetails(
       {required int programId, required int methodId});
+
   Future<GetUserOrdersModel> getUserOrders();
+
   Future<GetLibraryCategoriesModel> getLibraryCategories({String? type});
+
   Future<GetAllLibraryListsModel> getAllLibraryLists();
+
   Future<StoreFavouriteListModel> storeFavouriteList(
       {required StoreFavouriteListTojson data});
+
   Future<GetFavouriteListModel> getFavouriteList();
+
   Future<GetFavouriteListItemsUsingListIdModel> getFavouriteListItemsUsinListId(
       {required int listId});
+
   Future<GetAllItemsModel> getAllItems();
+
   Future<AddSingleItemToFavListModel> addSingleItemToFavList({
     required AddSingleItemToFavListTojson data,
   });
+
   Future<GetListItemsUsingListIdModel> getListItemsUsingListId({
     required int listId,
   });
+
   Future<LikeItemModel> likeItem({
     required int itemId,
     required bool status,
   });
+
   Future<GetMyChildrenModel> getMyChildren({required bool childresStatus});
+
   Future<CreateNewChildModel> createNewChild(
       {required CreateNewChildTojson data});
+
   Future<ShowLibraryItemModel> showLibraryItem({required int itemId});
+
   Future<GetPlanSubscriptionPeriodModel> getPlanSubscriptionPeriod();
+
   Future<GetLibraryPlansModel> getLibraryPlans({required int days});
+
   Future<LibraryOrderAndSubscriptionModel> libraryOrderAndSubscription(
       {required LibraryOrderAndSubscribeTojson data});
+
   Future<GetMyProgramsModel> getMyPrograms();
+
   Future<GetSessionDetailsModel> getSessionDetails({required int sessionId});
+
   Future<JoinSessionModel> joinSession({required JoinSessionTojson data});
+
   Future<GetAssignedChildrenToProgramModel> getAssignedChildrenToProgram(
       {required int programId});
+
   Future<ChangeSessionStatusModel> changeSessionStatus(
       {required ChangeSessionStatusToJson data});
+
   Future<ShowProgramDetailsModel> showProgramDetails({required int programId});
+
   Future<GetProgramSessionsModel> getProgramSessions({
     required int programId,
     required int userId,
   });
+
   Future<GetProgramAssignmentsModel> getProgramAssignments({
     required int programId,
     required int userId,
   });
+
   Future<GetUserReportsModel> getUserReports({
     required int userId,
   });
+
   Future<GetUserFeedbacksModel> getUserFeedbacks({
     required int userId,
   });
+
   Future<GetContentChapterModel> getContentChapter({
     required int userId,
   });
+
   Future<GetHomeCurrentSessionModel> getHomeCurrentSession({
     required int userId,
   });
+
   Future<GetHomeClosestSessionsModel> getHomeClosestSessions({
     required int userId,
   });
+
   Future<GetHomeQuizzesModel> getHomeQuizzes({
     required int userId,
   });
+
   Future<GetHomeAssignmentsModel> getHomeAssignments({
     required int userId,
   });
+
   Future<GetHomeLibraryModel> getHomeLibrary();
+
   Future<GetChapterLessonsModel> getChapterLessons({
     required int chapterId,
   });
+
   Future<CompleteChapterLessonModel> completeChapterLesson({
     required int lessonId,
   });
+
   Future<SubmitQuizModel> submitQuiz({
     required SubmitQuizTojson data,
   });
+
   Future<GetQuizQuestionsModel> getQuizQuestions({
     required int userId,
     required int quizId,
     required int programId,
   });
+
   Future<GetUserQuizzesModel> getUserQuizzes({
     required int userId,
     required int programId,
   });
+
   Future<GetAssignmentDetailsModel> getAssignmentDetails({
     required int userId,
     required int assignmentId,
   });
+
   Future<GetMessagesModel> getMessages({
     required int chatId,
     required int offset,
   });
+
   Future<SendMessagesModel> sendMessages({
     required SendMessagesTojson data,
   });
+
   Future<PostAssignmentModel> postAssignment({
     required PostAssignmentTojson data,
   });
+
   Future<GetProgramSubscriptionModel> getProgramSubscriptions();
+
   Future<GetLibrarySubscriptionModel> getLibrarySubscription();
+
   Future<CancelSubscriptionModel> cancelSubscription({
     required int mainId,
   });
+
   Future<RenewSubscriptionModel> renewSubscription({
     required RenewSubscriptionTojson data,
   });
+
   Future<ShowPlanModel> showPlan({
     required int planId,
   });
+
   Future<UpgradeOrderModel> upgradeOrder({
     required RenewSubscriptionTojson data,
   });
+
   Future<CreateMeetingSessionsModel> createMeetingSessions({
     required CreateMeetingSessionsTojson data,
   });
+
   Future<GetOrderDetailsModel> getOrderDetails({required int orderId});
+
   Future<AddWeeklyAppontmentsModel> addWeeklyAppointments({
     required AddWeeklyAppointmentsTojson data,
   });
+
   Future<GetInstructorsModel> getInstructors({
     required GetInstructorsTojson data,
   });
+
   Future<GetProgramContentModel> getProgramContent({
     required int programId,
   });
@@ -265,54 +332,74 @@ abstract class BaseRemoteDataSource {
     required int reportForId,
     required int meetingSessionId,
   });
+
   Future<AddNoteModel> addNote({
     required AddNoteTojson data,
   });
+
   Future<GetCancelSessionReasonModel> getCancelSessionReasons();
+
   Future<GetInstructorAvailabilitiesModel> getInstructorAvailabilities({
     required int instructorId,
     required int duration,
   });
+
   Future<CancelSessionModel> cancelSession({
     required CancelSessionTojson data,
   });
+
   Future<ChangeSessionDateModel> changeSessionDate({
     required ChangeSessionDateTojson data,
     required int sessionId,
   });
+
   Future<GetRemainingProgramSessionsModel> getRemainingProgramSessions({
     required int programId,
     required int userId,
   });
+
   Future<GetUserSubscriptionDataModel> getUserSubscriptionData({
     required int programId,
     required int userId,
   });
+
   Future<ChangeInstructorModel> changeInstructor({
     required ChangeInstructorTojson data,
     required bool isNewDates,
   });
+
   Future<GetChangeInstructorReasonsModel> getChangeInstructorReasons();
+
   Future<UpdateProfileModel> updateProfile({
     required int userId,
     required UpdateProfileTojson data,
   });
+
   Future<RemoveAssignedStudentModel> removeAssignedStudent({
     required int userId,
     required int programId,
   });
+
   Future<GetMyChatsModel> getMyChats({
     required String type,
   });
+
   Future<UpdateFcmTokenModel> updateFcmToken({required String fcmToken});
+
   Future<GetLatestNotificationModel> getLatestNotification(
       {required int offset, required String type});
+
   Future<ReadNotificationModel> readNotification({required int notificationId});
+
   Future<LogoutModel> logout();
+
   Future<DeleteAccountModel> deleteAccount({required int userId});
+
   Future<CheckChatModel> checkChat({required CheckChatTojson data});
+
   Future<RequestToFindInstructorModel> findInstructor(
       {required RequestToFindInstructorTojson data});
+
   Future<CopounHistoryModel> copounHistory();
 }
 
@@ -2196,6 +2283,24 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return CopounHistoryModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<RegisterModel> register({required RegisterToJson data}) async {
+    var response = await NetworkCall().post(
+      path: EndPoints.register,
+      data: FormData.fromMap(data.toJson())
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return RegisterModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

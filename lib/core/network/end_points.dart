@@ -1,7 +1,8 @@
 class EndPoints {
   EndPoints._();
   static const login = "login";
-  static const getPrograms = "programs";
+  static const register = "register";
+  static const getPrograms = "programs?status=published";
   static const assignProgramReview = "add/program/review";
   static const filterPlan = "program/plan";
   static const createOrder = "create/order";

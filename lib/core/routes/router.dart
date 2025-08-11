@@ -4,6 +4,7 @@ import 'package:eazifly_student/presentation/controller/account_data/update_chil
 import 'package:eazifly_student/presentation/controller/add_new_student_data_to_program_controller/add_new_student_data_to_program_cubit.dart';
 import 'package:eazifly_student/presentation/controller/add_to_library_package_details_controller/addtolibrarypackagedetails_cubit.dart';
 import 'package:eazifly_student/presentation/controller/auth/login/login_cubit.dart';
+import 'package:eazifly_student/presentation/controller/auth/register/register_cubit.dart';
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
@@ -25,6 +26,7 @@ import 'package:eazifly_student/presentation/controller/programs_under_review/pr
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
 import 'package:eazifly_student/presentation/view/account_data/edit_profile_view/edit_profile_view.dart';
 import 'package:eazifly_student/presentation/view/auth/login/login.dart';
+import 'package:eazifly_student/presentation/view/auth/register/register_view.dart';
 import 'package:eazifly_student/presentation/view/chat/chats_view.dart';
 import 'package:eazifly_student/presentation/view/chat/messages_screen/dm_view.dart';
 import 'package:eazifly_student/presentation/view/goals_view/goal_details_view/goal_details_view.dart';
@@ -679,6 +681,17 @@ class AppRouter {
               // يمكنك إضافة المزيد من BlocProviders هنا إذا كنت بحاجة إليها
             ],
             child: const ProgramsUnderReviewView(),
+          ),
+        );
+      case RoutePaths.registerView:
+        return createRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => RegisterCubit(registerUsecase: sl()),
+              ),
+            ],
+            child: const RegisterView(),
           ),
         );
       case RoutePaths.libraryconfirmPaymentView:

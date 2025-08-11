@@ -6,6 +6,7 @@ import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/extensions/widgets_extensions.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
+import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/controller/auth/login/login_cubit.dart';
@@ -14,7 +15,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatelessWidget {
@@ -58,14 +58,18 @@ class Login extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Eazifly",
+                                "هدى للناس",
                                 style: GoogleFonts.plusJakartaSans().copyWith(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 25.69.sp,
                                     color: const Color(0xff07070D)),
                               ),
                               9.pw,
-                              SvgPicture.asset(Assets.iconsAppLogo),
+                              Image.asset(
+                                Assets.iconsAppLogo,
+                                height: 40.h,
+                                width: 40.w,
+                              ),
                             ],
                           ),
                         ),
@@ -176,7 +180,8 @@ class Login extends StatelessWidget {
                         color: MainColors.blueTextColor,
                         radius: 16.r,
                         child: cubit.loginLoader
-                            ? const CircularProgressIndicator.adaptive().center()
+                            ? const CircularProgressIndicator.adaptive()
+                                .center()
                             : null,
                       ),
                       24.ph,
@@ -195,7 +200,13 @@ class Login extends StatelessWidget {
                                   fontSize: 12,
                                   color: MainColors.blueTextColor,
                                 ),
-                                recognizer: TapGestureRecognizer()..onTap = () {},
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RoutePaths.registerView,
+                                    );
+                                  },
                               ),
                             ],
                           ),

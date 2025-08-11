@@ -1,131 +1,80 @@
+// import 'package:flutter/material.dart';
+//
+// class MainColors {
+//   // Primary Brand Colors
+//   static const primary = Color(0xFF84A63D);              // blueTextColor - main brand green
+//   static const primaryLight = Color(0xFFEDFAF5);         // lightgreenColor - keeping existing light green
+//   static const secondary = Color(0xFF305157);            // redWaveColor - brand teal
+//   static const secondaryDark = Color(0xFF192A2B);        // blueMoreTextColor - brand dark teal
+//
+//   // Border and Input Colors
+//   static const borderPrimary = Color(0xFFE8F1E4);        // checkBoxBorderGray - soft green-tinted borders
+//   static const accent = Color(0xFFA4C94F);               // offersColor - light brand green variation
+//   static const warning = Color(0xFFFFD130);              // starColor - keeping existing star/warning color
+//   static const muted = Color(0xFF5A6B5C);                // timeLineColor - muted brand green-gray
+//
+//   // Utility Colors
+//   static const transparent = Colors.transparent;          // transparentColor
+//   static const surface = Color(0xFFFAFCF8);              // lightblue - brand background with green undertone
+//   static const onSurface = Color(0xFF192A2B);            // whiteCyan - brand dark teal for text
+//   static const surfaceVariant = Color(0xFFF7F9F6);       // lightGray - subtle green-tinted background
+//   static const inputFill = Color(0xFFF4F7F2);            // veryLightGrayFormField - green-tinted input background
+//   static const outline = Color(0xFFE8F1E4);              // grayBorderColor - brand border color
+//   static const onSurfaceVariant = Color(0xFF5A6B5C);     // formFieldgrayTextColor - brand muted text
+//   static const surfaceContainerHighest = Color(0xFFF7F9F6); // formFieldgrayfillColor - brand muted background
+//   static const outlineVariant = Color(0xFFE8F1E4);       // formFieldgraySecondBorderColor - brand border
+//
+//   // Success and Status Colors
+//   static const success = Color(0xFF17B889);              // greenTeal - keeping existing success
+//   static const onSuccess = Color(0xFFE8F8F3);            // lightgreenTeal - keeping existing light success
+//   static const onSurfaceSecondary = Color(0xFF5A6B5C);   // grayTextColors - brand muted text
+//   static const error = Color(0xFFB91C1C);                // lightRed - luxury red for errors
+//   static const onError = Color(0xFFFFF0F0);              // red - keeping existing light red background
+//   static const onPrimary = Color(0xFF000000);            // black
+//   static const onSecondary = Color(0xFF192A2B);          // blackText - brand dark teal
+//   static const background = Color(0xFFFAFCF8);           // white - brand background
+//   static const surface2 = Color(0xFFFFFFFF);             // scaffoldWhite - pure white for cards
+//   static const tertiary = Color(0xFFE08420);             // yellow - keeping existing warning/tertiary
+//   static const onTertiary = Color(0xFFFFFCF0);           // lightYellow - keeping existing light yellow
+//   static const gradient = Color(0xFF84A63D);             // gradientTealColor - using brand green for gradients
+// }
 import 'package:flutter/material.dart';
 
-class UserTheme {
-  final Color primary;
-  final Color secondary;
-  final Color success;
-  final Color info;
-  final Color warning;
-  final Color danger;
-  final Color background;
-  final Color text;
-  final Color white;
-
-  UserTheme({
-    required this.primary,
-    required this.secondary,
-    required this.success,
-    required this.info,
-    required this.warning,
-    required this.danger,
-    required this.background,
-    required this.text,
-    required this.white,
-  });
-}
-
-final userTheme = UserTheme(
-  primary: const Color(0xFF2563EB),
-  secondary: const Color(0xFF0E49CA),
-  success: const Color(0xff17B889),
-  info: const Color(0xFF6792F1),
-  warning: const Color(0xFFE08420),
-  danger: const Color(0xffDC2626),
-  background: const Color(0xffFFFFFF),
-  text: const Color(0xff272727),
-  white: const Color(0xFFFFFFFF),
-);
-
-class AppColors {
-  final UserTheme theme;
-
-  AppColors(this.theme);
-
-  // Direct access
-  Color get primary => theme.primary;
-  Color get secondary => theme.secondary;
-  Color get success => theme.success;
-  Color get info => theme.info;
-  Color get warning => theme.warning;
-  Color get danger => theme.danger;
-  Color get background => theme.background;
-  Color get text => theme.text;
-  Color get white => theme.white;
-
-  // Derived colors using existing _lighten and _darken methods with precise values
-  Color get primaryLight => const Color(0xFFEAF0FD); // lightblue - calculated from primary
-  Color get primaryDark => secondary; // blueMoreTextColor
-  Color get borderGray => const Color(0xFF3D5066); // checkBoxBorderGray - specific gray
-  Color get cardBackground => background;
-  Color get errorBackground => const Color(0xffFFF0F0); // lightRed - light version of danger
-  Color get formFill => _lighten(text, 0.85); // formFieldgrayfillColor
-  Color get subtitleText => _lighten(text, 0.45); // grayTextColors
-
-  // Gray colors derived from text using existing _lighten method
-  Color get lightGray => _lighten(text, 0.75);
-  Color get veryLightGrayFormField => _lighten(text, 0.9);
-  Color get grayBorderColor => _lighten(text, 0.8);
-  Color get formFieldgrayTextColor => _lighten(text, 0.5);
-  Color get formFieldgrayfillColor => _lighten(text, 0.85);
-  Color get formFieldgraySecondBorderColor => _lighten(text, 0.7);
-  Color get grayTextColors => _lighten(text, 0.45);
-
-  // Success/Green variants - light versions of success color
-  Color get lightgreenColor => const Color(0xFFEDFAF5); // specific light green
-  Color get lightgreenTeal => _lighten(success, 0.4);
-
-  // Warning/Yellow variants using existing method
-  Color get lightYellow => _lighten(warning, 0.4);
-
-  // Other specific colors - some calculated, some fixed
-  Color get redWaveColor => const Color(0xFFC75266); // specific red wave color
-  Color get starColor => const Color(0xFFFFCF3D); // specific yellow for stars
-  Color get offersColor => lightgreenColor;
-  Color get timeLineColor => borderGray;
-  Color get gradientTealColor => const Color(0xff00E096); // specific gradient color
-  // Utility light/dark functions (existing methods)
-Color _lighten(Color color, double amount) {
-  final hsl = HSLColor.fromColor(color);
-  final lightened =
-      hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
-  return lightened.toColor();
-}
-
-}
-
-final colors = AppColors(userTheme);
-
 class MainColors {
-  static final blueTextColor = colors.primary;
-  static final lightgreenColor = colors.lightgreenColor;
-  static final redWaveColor = colors.redWaveColor;
-  static final blueMoreTextColor = colors.secondary;
-  static final checkBoxBorderGray = colors.borderGray;
-  static final blackText = colors.text;
-  static final white = colors.white;
-  static final scaffoldWhite = colors.background;
-  static final yellow = colors.warning;
-  static final whiteCyan = colors.info;
-  static final lightblue = colors.primaryLight;
-  static final greenTeal = colors.success;
-  static final lightgreenTeal = colors.lightgreenTeal;
-  static final red = colors.danger;
-  static final lightRed = colors.errorBackground;
-  static final lightYellow = colors.lightYellow;
-  
-  // Gray colors - now exactly matching the old values
-  static final transparentColor = Colors.transparent;
-  static final lightGray = colors.lightGray;
-  static final veryLightGrayFormField = colors.veryLightGrayFormField;
-  static final grayBorderColor = colors.grayBorderColor;
-  static final formFieldgrayTextColor = colors.formFieldgrayTextColor;
-  static final formFieldgrayfillColor = colors.formFieldgrayfillColor;
-  static final formFieldgraySecondBorderColor = colors.formFieldgraySecondBorderColor;
-  static final grayTextColors = colors.grayTextColors;
-  
-  static final offersColor = colors.offersColor;
-  static final starColor = colors.starColor;
-  static final timeLineColor = colors.timeLineColor;
-  static final black = colors.text;
-  static final gradientTealColor = colors.gradientTealColor;
+  // Primary Brand Colors
+  static const blueTextColor = Color(0xFF84A63D);
+  static const lightgreenColor = Color(0xFFEDFAF5);
+  static const redWaveColor = Color(0xFF305157);
+  static const blueMoreTextColor = Color(0xFF192A2B);
+
+  // Border and Input Colors
+  static const checkBoxBorderGray = Color(0xFFE8F1E4);
+  static const offersColor = Color(0xFFA4C94F);
+  static const starColor = Color(0xFFFFD130);
+  static const timeLineColor = Color(0xFF5A6B5C);
+
+  // Utility Colors
+  static const transparentColor = Colors.transparent;
+  static const lightblue = Color(0xFFFAFCF8);
+  static const whiteCyan = Color(0xFF192A2B);
+  static const lightGray = Color(0xFFF7F9F6);
+  static const veryLightGrayFormField = Color(0xFFF4F7F2);
+  static const grayBorderColor = Color(0xFFE8F1E4);
+  static const formFieldgrayTextColor = Color(0xFF5A6B5C);
+  static const formFieldgrayfillColor = Color(0xFFF7F9F6);
+  static const formFieldgraySecondBorderColor = Color(0xFFE8F1E4);
+
+  // Success and Status Colors
+  static const greenTeal = Color(0xFF17B889);
+  static const lightgreenTeal = Color(0xFFE8F8F3);
+  static const grayTextColors = Color(0xFF5A6B5C);
+  static const lightRed = Color(0xFFB91C1C);
+  static const red = Color(0xFFFFF0F0);
+  static const black = Color(0xFF000000);
+  static const blackText = Color(0xFF192A2B);
+  static const white = Color(0xFFFAFCF8);
+  static const scaffoldWhite = Color(0xFFFFFFFF);
+  static const yellow = Color(0xFFE08420);
+  static const lightYellow = Color(0xFFFFFCF0);
+  static const gradientTealColor = Color(0xFF84A63D);
 }

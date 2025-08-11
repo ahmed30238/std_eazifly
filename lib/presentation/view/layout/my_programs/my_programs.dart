@@ -3,6 +3,7 @@ import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
+import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/my_programs_loder.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/program_item.dart';
@@ -32,6 +33,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
   @override
   void initState() {
     cubit = context.read<MyProgramsCubit>();
+    context.read<ProgramsUnderReviewCubit>().getUserOrders();
     cubit.getMyPrograms();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -144,8 +146,14 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                 return const MyProgramsLoader();
               } else if (!cubit.getMyProgramsLoader) {
                 var myPrograms = cubit.getMyProgramsEntity?.data;
+                var programsUnderReview = context
+                    .read<ProgramsUnderReviewCubit>()
+                    .getUserOrdersEntity
+                    ?.data;
 
-                if (myPrograms == null || myPrograms.isEmpty) {
+                if (myPrograms == null ||
+                    myPrograms.isEmpty &&
+                        programsUnderReview?.isEmpty == true) {
                   return Column(
                     children: [
                       const NoDataAnimatedImageWidget(
@@ -161,6 +169,30 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: MainColors.blueTextColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else if (programsUnderReview?.isNotEmpty == true) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      270.ph,
+                      Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              RoutePaths.programsUnderReviewView,
+                            );
+                          },
+                          child: Text(
+                            "لديك برامج في المراجعة!! اضغط لإضافة حصص",
+                            style: MainTextStyle.boldTextStyle(
+                              fontSize: 16,
+                              color: MainColors.blueTextColor,
+                            ),
                           ),
                         ),
                       ),

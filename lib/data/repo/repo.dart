@@ -3,6 +3,8 @@ import 'package:eazifly_student/core/exceptions/exceptions.dart';
 import 'package:eazifly_student/core/general_failure/failure.dart';
 import 'package:eazifly_student/data/data_source/remote_data_source.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
+import 'package:eazifly_student/data/models/auth/register_model.dart';
+import 'package:eazifly_student/data/models/auth/register_tojson.dart';
 import 'package:eazifly_student/data/models/auth/update_fcm_token_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_model.dart';
 import 'package:eazifly_student/data/models/change_instructor/change_instructor_tojson.dart';
@@ -114,6 +116,7 @@ import 'package:eazifly_student/domain/entities/subscription_management/get_prog
 
 class Repository extends BaseRepository {
   BaseRemoteDataSource baseRemoteDataSource;
+
   Repository({
     required this.baseRemoteDataSource,
   });
@@ -1141,6 +1144,17 @@ class Repository extends BaseRepository {
   @override
   Future<Either<Failure, CopounHistoryModel>> copounHistory() async {
     final result = await baseRemoteDataSource.copounHistory();
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RegisterModel>> register(
+      {required RegisterToJson data}) async {
+    final result = await baseRemoteDataSource.register(data: data);
     try {
       return Right(result);
     } on ServerException catch (e) {
