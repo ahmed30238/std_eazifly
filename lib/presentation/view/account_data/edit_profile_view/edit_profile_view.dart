@@ -90,8 +90,10 @@ class _EditProfileState extends State<EditProfile> {
                   TitledFormFieldItem(
                     controller: cubit.firstNameController,
                     validator: customValidation,
+
                     formfieldHintText: "محمد عصام المليجي",
                     titleText: "الاسم الاول",
+                    iconWidget: 0.ph,
                   ),
                   16.ph,
                   TitledFormFieldItem(
@@ -100,6 +102,7 @@ class _EditProfileState extends State<EditProfile> {
                     formfieldHintText: "",
                     controller: cubit.lastNameController,
                     // formfieldEnText: loginData.nameEn,
+                    iconWidget: 12.ph,
                   ),
                   16.ph,
                   TitledFormFieldItem(

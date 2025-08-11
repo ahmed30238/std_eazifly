@@ -16,6 +16,7 @@ class CopounsAndDiscountsView extends StatefulWidget {
 
 class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
   late CopounHistoryCubit cubit;
+
   @override
   void initState() {
     cubit = context.read<CopounHistoryCubit>();
@@ -68,7 +69,7 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
           ),
           4.ph,
           Text(
-            "${loginData?.bonus} نقطة",
+            "${loginData?.bonus ?? "0"} نقطة",
             style: MainTextStyle.boldTextStyle(
                 fontSize: 14, color: MainColors.blueTextColor),
           ),
@@ -96,7 +97,13 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset(Assets.iconsShare),
+                          SvgPicture.asset(
+                            Assets.iconsShare,
+                            colorFilter: const ColorFilter.mode(
+                              MainColors.blueTextColor,
+                              BlendMode.srcIn,
+                            ),
+                          ),
                           8.ph,
                           Text(
                             lang.inviteFriends,
@@ -125,7 +132,13 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset(Assets.iconsTicketExpired),
+                          SvgPicture.asset(
+                            Assets.iconsTicketExpired,
+                            colorFilter: const ColorFilter.mode(
+                              MainColors.blueTextColor,
+                              BlendMode.srcIn,
+                            ),
+                          ),
                           8.ph,
                           Text(
                             lang.redeemPoints,

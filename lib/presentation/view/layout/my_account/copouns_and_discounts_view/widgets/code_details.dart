@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 
 class CodeDetails extends StatelessWidget {
   final String code;
+
   const CodeDetails({
     super.key,
     required this.code,
@@ -29,7 +30,7 @@ class CodeDetails extends StatelessWidget {
           height: 68.h,
           decoration: BoxDecoration(
             color: MainColors.veryLightGrayFormField,
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: 10.cr,
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,7 +48,7 @@ class CodeDetails extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       Clipboard.setData(
-                         ClipboardData(text: code),
+                        ClipboardData(text: code),
                       ).then(
                         (value) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -59,14 +60,22 @@ class CodeDetails extends StatelessWidget {
                       );
                     },
                     child: Text(
-                     code,
+                      code,
                       style: MainTextStyle.mediumTextStyle(
-                          fontSize: 14, color: MainColors.blueTextColor),
+                        fontSize: 14,
+                        color: MainColors.blueTextColor,
+                      ),
                     ),
                   ),
                 ],
               ),
-              SvgPicture.asset(Assets.iconsSend2)
+              SvgPicture.asset(
+                Assets.iconsSend2,
+                colorFilter: const ColorFilter.mode(
+                  MainColors.blueTextColor,
+                  BlendMode.srcIn,
+                ),
+              )
             ],
           ),
         ),

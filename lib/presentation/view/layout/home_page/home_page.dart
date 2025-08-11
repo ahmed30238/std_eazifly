@@ -90,29 +90,29 @@ class _HomePageState extends State<HomePage> {
         },
         child: Column(
           children: [
-            GestureDetector(
-              onTap: () async {
-                try {
-                  OrderApiResponse response = await plugin.checkout(
-                    context: context,
-                    checkoutOptions: GeideaService().checkoutOptions,
-                  );
-                  debugPrint('Response = $response');
-
-                  // Payment successful, order returned in response
-                  // _updateStatus(response.detailedResponseMessage,
-                  //     truncate(response.toString()));
-                } catch (e) {
-                  debugPrint("OrderApiResponse Error: $e");
-                  // An unexpected error due to improper SDK
-                  // integration or Plugin internal bug
-                  // _showMessage(e.toString());
-                }
-              },
-              child: const Text(
-                "geidea",
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () async {
+            //     try {
+            //       OrderApiResponse response = await plugin.checkout(
+            //         context: context,
+            //         checkoutOptions: GeideaService().checkoutOptions,
+            //       );
+            //       debugPrint('Response = $response');
+            //
+            //       // Payment successful, order returned in response
+            //       // _updateStatus(response.detailedResponseMessage,
+            //       //     truncate(response.toString()));
+            //     } catch (e) {
+            //       debugPrint("OrderApiResponse Error: $e");
+            //       // An unexpected error due to improper SDK
+            //       // integration or Plugin internal bug
+            //       // _showMessage(e.toString());
+            //     }
+            //   },
+            //   child: const Text(
+            //     "geidea",
+            //   ),
+            // ),
             Expanded(
               child: ListView(
                 physics: const BouncingScrollPhysics(),

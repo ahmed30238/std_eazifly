@@ -28,6 +28,10 @@ class ImagePart extends StatelessWidget {
           child: SvgPicture.asset(
             Assets.iconsSetting,
             fit: BoxFit.scaleDown,
+            colorFilter: const ColorFilter.mode(
+              MainColors.blueTextColor,
+              BlendMode.srcIn,
+            ),
           ),
         ),
         4.ph,

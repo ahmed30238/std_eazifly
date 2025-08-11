@@ -23,7 +23,7 @@ class ReportsAndComplaintsWidget extends StatelessWidget {
         },
         Container(
           height: 90.h,
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
