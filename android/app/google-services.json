@@ -26,6 +26,25 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:960255976764:android:fc652988c0a1e497152a39",
+        "android_client_info": {
+          "package_name": "com.example.HodaElnasInstructor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvMoDWLtIq7fVZ4L_nDVsD_9rYhYwykZk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:960255976764:android:71997a992b1201bf152a39",
         "android_client_info": {
           "package_name": "com.example.eazifly_student"

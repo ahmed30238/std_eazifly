@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDA_9_TSQs_OIMCqFSGRipuvwcxdPiqWFY',
-    appId: '1:960255976764:ios:c2024324028ecabe152a39',
+    appId: '1:960255976764:ios:5ab4b69b81e56a27152a39',
     messagingSenderId: '960255976764',
     projectId: 'eazifly-instructor',
     storageBucket: 'eazifly-instructor.firebasestorage.app',
-    iosBundleId: 'com.example.eaziflyStudent',
+    iosBundleId: 'com.example.HodaElnas',
   );
 
 }

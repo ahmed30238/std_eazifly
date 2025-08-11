@@ -167,9 +167,9 @@ class RegisterCubit extends Cubit<RegisterState> {
         (failure) {
           log("❌ فشل التسجيل: ${failure.toString()}");
           registerLoader = false;
-          emit(RegisterFailedState(failure.message ?? "حدث خطأ أثناء التسجيل"));
+          emit(RegisterFailedState(failure.message));
           delightfulToast(
-            message: failure.message ?? "حدث خطأ أثناء التسجيل",
+            message: failure.message,
             context: context,
             toastColor: MainColors.onError,
           );
@@ -224,20 +224,22 @@ class RegisterCubit extends Cubit<RegisterState> {
               Duration.zero,
               () {
                 if (context.mounted) {
-                  if (false/*response.data?.isEmailVerified == false*/) {
-                    // Navigator.pushNamedAndRemoveUntil(
-                    //   context,
-                    //   RoutePaths.emailVerificationPath,
-                    //   (route) => false,
-                    // );
-                  } else {
-                    context.read<LayoutCubit>().changeIndex(0);
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      RoutePaths.layoutPath,
-                      (route) => false,
-                    );
-                  }
+                  // if (false/*response.data?.isEmailVerified == false*/) {
+                  // Navigator.pushNamedAndRemoveUntil(
+                  //   context,
+                  //   RoutePaths.emailVerificationPath,
+                  //   (route) => false,
+                  // );
+                  // } else {
+
+                  context.read<LayoutCubit>().changeIndex(0);
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RoutePaths.layoutPath,
+                    (route) => false,
+                  );
+
+                  // }
                 }
               },
             );

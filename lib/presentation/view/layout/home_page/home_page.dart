@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:eazifly_student/core/component/shimmer_widget.dart';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
-import 'package:eazifly_student/core/geidea_payment_service/geidea_payment_service.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_library_model.dart';
 import 'package:eazifly_student/presentation/controller/home_notification/home_notification_cubit.dart';
@@ -12,7 +11,6 @@ import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.da
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_loader.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:geideapay/common/geidea.dart';
 import 'package:geideapay/geideapay.dart';
 import 'package:get_storage/get_storage.dart';
 
