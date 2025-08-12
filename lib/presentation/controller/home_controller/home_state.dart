@@ -94,3 +94,11 @@ class JoinSessionErrorState extends HomeState {
   final String errorMessage;
   JoinSessionErrorState(this.errorMessage);
 }
+class GetGeideaDataSuccessState extends HomeState {}
+
+class GetGeideaDataLoadingState extends HomeState {}
+
+class GetGeideaDataErrorState extends HomeState {
+  final String errorMessage;
+  GetGeideaDataErrorState(this.errorMessage);
+}

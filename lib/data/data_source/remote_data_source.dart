@@ -27,6 +27,7 @@ import 'package:eazifly_student/data/models/children/create_new_child_tojson.dar
 import 'package:eazifly_student/data/models/children/get_my_children_model.dart';
 import 'package:eazifly_student/data/models/find_instructor/request_to_find_instructor_model.dart';
 import 'package:eazifly_student/data/models/find_instructor/request_to_find_instructor_tojson.dart';
+import 'package:eazifly_student/data/models/geidea_settings_model/get_geidea_data_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_assigments_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_closest_sessions_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_current_session_model.dart';
@@ -143,6 +144,8 @@ abstract class BaseRemoteDataSource {
   });
 
   Future<GetPlansModel> getPlans({required int programId});
+
+  Future<GetGeideaDataModel> getGeideaData({required String key});
 
   Future<FilterPlansModel> filterPlans({required FilterPlansTojson data});
 
@@ -2345,6 +2348,22 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return ResetPasswordModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(
+          response?.data,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<GetGeideaDataModel> getGeideaData({required String key}) async {
+    var response =
+        await NetworkCall().get(path: EndPoints.geideaData(key: key));
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return GetGeideaDataModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(

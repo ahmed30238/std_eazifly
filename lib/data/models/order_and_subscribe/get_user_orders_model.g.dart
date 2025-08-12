@@ -52,7 +52,11 @@ UserOrderModel _$UserOrderModelFromJson(Map<String, dynamic> json) =>
       ..orderNotes = (json['order_notes'] as List<dynamic>?)
           ?.map((e) =>
               CreateOrderOrderNoteModel.fromJson(e as Map<String, dynamic>))
-          .toList();
+          .toList()
+      ..programData = json['program_data'] == null
+          ? null
+          : CreateOrderProgramDataModel.fromJson(
+              json['program_data'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$UserOrderModelToJson(UserOrderModel instance) =>
     <String, dynamic>{
@@ -69,6 +73,7 @@ Map<String, dynamic> _$UserOrderModelToJson(UserOrderModel instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
       'order_details': instance.orderDetails?.map((e) => e.toJson()).toList(),
       'order_notes': instance.orderNotes?.map((e) => e.toJson()).toList(),
+      'program_data': instance.programData?.toJson(),
     };
 
 OrderDetailModel _$OrderDetailModelFromJson(Map<String, dynamic> json) =>
@@ -102,11 +107,13 @@ Map<String, dynamic> _$OrderDetailModelToJson(OrderDetailModel instance) =>
 
 StatusModel _$StatusModelFromJson(Map<String, dynamic> json) => StatusModel()
   ..label = json['label'] as String?
+  ..key = json['key'] as String?
   ..color = json['color'] as String?;
 
 Map<String, dynamic> _$StatusModelToJson(StatusModel instance) =>
     <String, dynamic>{
       'label': instance.label,
+      'key': instance.key,
       'color': instance.color,
     };
 

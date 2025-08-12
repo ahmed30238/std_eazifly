@@ -96,7 +96,7 @@ class ResetPasswordScreen extends StatelessWidget {
             body: Container(
               width: double.infinity,
               height: double.infinity,
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.centerRight,

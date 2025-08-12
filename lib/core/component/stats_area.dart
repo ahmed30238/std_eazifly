@@ -2,7 +2,6 @@
 import 'package:eazifly_student/core/component/spline_area_chart.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/custom_list_tile.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class StatsArea extends StatelessWidget {

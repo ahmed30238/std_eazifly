@@ -29,6 +29,7 @@ import 'package:eazifly_student/domain/use_cases/get_children_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_content_chapter_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_item_using_list_id_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_favourite_list_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_geidea_data_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_assignments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_closest_sessions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_current_session_usecase.dart';
@@ -117,6 +118,7 @@ class ServiceLocator {
     sl.registerLazySingleton(() => ResetPasswordUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => ForgotPasswordUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => CheckCopounUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => GetGeideaDataUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
         () => GetPaymentMethodDetailsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
@@ -248,6 +250,7 @@ class ServiceLocator {
         ));
     sl.registerLazySingleton<HomeCubit>(
       () => HomeCubit(
+        getGeideaDataUsecase: sl(),
         getHomeClosestSessionsUsecase: sl(),
         getHomeCurrentSessionUsecase: sl(),
         getHomeLibraryUsecase: sl(),

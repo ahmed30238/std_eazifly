@@ -7,6 +7,7 @@ import 'package:shimmer/shimmer.dart';
 
 class RepeatedWeeklySession extends StatelessWidget {
   final int programId;
+
   const RepeatedWeeklySession({
     super.key,
     required this.programId,
@@ -264,17 +265,22 @@ class RepeatedWeeklySession extends StatelessWidget {
             height: 48.h,
             width: 343.w,
             radius: 16.r,
-            onPressed: () {
-              if (!cubit.repeatedFormKey.currentState!.validate()) {
-                return;
-              }
-              if (cubit.getInstructorsEntity?.data != null &&
-                  cubit.getInstructorsEntity!.data!.isNotEmpty) {
-                cubit.createMeetingSessions(context);
-              } else {
-                delightfulToast(message: "غير متوفر", context: context);
-              }
-            },
+            onPressed: cubit.createMeetingSessionsLoader
+                ? () {}
+                : () {
+                    if (!cubit.repeatedFormKey.currentState!.validate()) {
+                      return;
+                    }
+                    if (cubit.getInstructorsEntity?.data != null &&
+                        cubit.getInstructorsEntity!.data!.isNotEmpty) {
+                      cubit.createMeetingSessions(context);
+                    } else {
+                      delightfulToast(message: "غير متوفر", context: context);
+                    }
+                  },
+            child: cubit.createMeetingSessionsLoader
+                ? const CircularProgressIndicator.adaptive()
+                : null,
           ),
         ),
       ],

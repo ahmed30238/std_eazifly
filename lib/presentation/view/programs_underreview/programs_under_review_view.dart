@@ -16,6 +16,7 @@ class ProgramsUnderReviewView extends StatefulWidget {
 
 class _ProgramsUnderReviewViewState extends State<ProgramsUnderReviewView> {
   late ProgramsUnderReviewCubit cubit;
+
   @override
   void initState() {
     cubit = ProgramsUnderReviewCubit.get(context);
@@ -58,11 +59,12 @@ class _ProgramsUnderReviewViewState extends State<ProgramsUnderReviewView> {
               log("this is order id${order.id.toString()}");
               log("this is order program id${order.programId.toString()}");
 
-              // log("${order.orderDetails?[0].label}");
+              log(order.programData?.programImage ?? "");
               return UnderReviewItem(
+                programTitle: order.programData?.programTitle ?? "",
                 programId: order.programId ?? "",
                 orderId: order.id.toString(),
-                image: "",
+                image: order.programData?.programImage ?? "",
                 state: order.status?.color ?? "",
                 // state depends on the color because of the API response
               );

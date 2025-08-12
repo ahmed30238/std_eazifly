@@ -9,12 +9,15 @@ class UnderReviewItem extends StatelessWidget {
   final String image;
   final String orderId;
   final String programId;
+  final String programTitle;
+
   const UnderReviewItem({
     super.key,
     required this.state,
     required this.image,
     required this.orderId,
     required this.programId,
+    required this.programTitle,
   });
 
   @override
@@ -122,7 +125,19 @@ class UnderReviewItem extends StatelessWidget {
           borderRadius: 8.cr,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Text(
+                programTitle,
+                style: MainTextStyle.boldTextStyle(
+                  fontSize: 20,
+                  color: MainColors.primary,
+                ),
+              ),
+            ),
+            16.ph,
             StackDesignState(
               image: image,
               orderId: orderId,
@@ -141,6 +156,7 @@ class StackDesignState extends StatelessWidget {
   final String state;
   final String image;
   final String programId;
+
   const StackDesignState({
     super.key,
     required this.state,
@@ -158,6 +174,7 @@ class StackDesignState extends StatelessWidget {
           imageUrl: image,
           height: 160.h,
           width: double.infinity,
+
         ),
         if (state != "success")
           Container(
@@ -183,7 +200,9 @@ class StackDesignState extends StatelessWidget {
                       : "تم رفض الطلب",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 15,
-                color: state != "danger" ? MainColors.background : MainColors.onError,
+                color: state != "danger"
+                    ? MainColors.background
+                    : MainColors.onError,
               ),
             ),
             4.ph,
@@ -195,7 +214,9 @@ class StackDesignState extends StatelessWidget {
                       : "برجاء التواصل مع الإدارة لاعادة الاشتراك في البرنامج",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 15,
-                color: state == "success" ? MainColors.onPrimary : MainColors.background,
+                color: state == "success"
+                    ? MainColors.onPrimary
+                    : MainColors.background,
               ),
             ),
             8.ph,
@@ -208,7 +229,7 @@ class StackDesignState extends StatelessWidget {
                     arguments: {
                       "orderId": orderId,
                       "programId": programId,
-                    }, 
+                    },
                     RoutePaths.groupPackageManagement,
                   );
                 },

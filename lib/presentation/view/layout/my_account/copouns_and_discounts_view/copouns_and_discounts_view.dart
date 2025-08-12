@@ -99,7 +99,7 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
                         children: [
                           SvgPicture.asset(
                             Assets.iconsShare,
-                            colorFilter: const ColorFilter.mode(
+                            colorFilter: ColorFilter.mode(
                               MainColors.primary,
                               BlendMode.srcIn,
                             ),
@@ -134,7 +134,7 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
                         children: [
                           SvgPicture.asset(
                             Assets.iconsTicketExpired,
-                            colorFilter: const ColorFilter.mode(
+                            colorFilter: ColorFilter.mode(
                               MainColors.primary,
                               BlendMode.srcIn,
                             ),

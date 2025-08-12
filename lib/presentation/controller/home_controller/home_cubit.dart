@@ -3,6 +3,7 @@ import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/data/models/chat_model/check_chat_tojson.dart';
 import 'package:eazifly_student/data/models/my_programs/join_session_tojson.dart';
 import 'package:eazifly_student/domain/entities/chat/check_chat_entity.dart';
+import 'package:eazifly_student/domain/entities/get_geidea_settings/get_geidea_data_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_assigments_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_closest_sessions_entity.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_current_session_entity.dart';
@@ -11,6 +12,7 @@ import 'package:eazifly_student/domain/entities/home/get_home_quizzes_entity.dar
 import 'package:eazifly_student/domain/entities/my_programs/join_session_entity.dart';
 import 'package:eazifly_student/domain/entities/update_fcm_token_entity.dart';
 import 'package:eazifly_student/domain/use_cases/check_chat_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/get_geidea_data_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_assignments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_closest_sessions_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_home_current_session_usecase.dart';
@@ -32,6 +34,7 @@ class HomeCubit extends Cubit<HomeState> {
     required this.getHomeAssignmentsUsecase,
     required this.updateFcmTokenUsecase,
     required this.checkChatUsecase,
+    required this.getGeideaDataUsecase,
     // required this.requestToFindInstructorUsecase,
     required this.joinSessionUsecase,
   }) : super(HomeInitial()) {
@@ -72,6 +75,7 @@ class HomeCubit extends Cubit<HomeState> {
       },
     );
   }
+
   int userId = -1;
   bool isGuest = true;
 
@@ -257,6 +261,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   UpdateFcmTokenEntity? updateFcmTokenEntity;
   UpdateFcmTokenUsecase updateFcmTokenUsecase;
+
   void updateFcmToken({required String fcmToken}) async {
     emit(UpdateFcmTokenLoadingState());
     final res = await updateFcmTokenUsecase.call(
@@ -303,5 +308,31 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
+  GetGeideaDataEntity? getGeideaDataEntity;
+  GetGeideaDataUsecase getGeideaDataUsecase;
+  bool getGeideaDataLoader = false;
 
+  Future<void> getGeideaData({required String key}) async {
+    getGeideaDataLoader = true;
+    emit(GetGeideaDataLoadingState());
+
+    final result = await getGeideaDataUsecase.call(
+      parameter: GetGeideaDataParameters(
+        key: key,
+      ),
+    );
+
+    result.fold(
+      (l) {
+        getGeideaDataLoader = false;
+        emit(GetGeideaDataErrorState(l.message));
+      },
+      (r) {
+        getGeideaDataEntity = r;
+        // GetStorage().write(key, value)
+        getGeideaDataLoader = false;
+        emit(GetGeideaDataSuccessState());
+      },
+    );
+  }
 }

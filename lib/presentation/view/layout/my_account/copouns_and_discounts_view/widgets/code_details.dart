@@ -71,7 +71,7 @@ class CodeDetails extends StatelessWidget {
               ),
               SvgPicture.asset(
                 Assets.iconsSend2,
-                colorFilter: const ColorFilter.mode(
+                colorFilter: ColorFilter.mode(
                   MainColors.primary,
                   BlendMode.srcIn,
                 ),

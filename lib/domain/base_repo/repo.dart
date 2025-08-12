@@ -114,6 +114,7 @@ import '../../data/models/auth/register_tojson.dart';
 import '../../data/models/auth/reset_password_tojson.dart';
 import '../entities/auth/forgot_password_entity.dart';
 import '../entities/auth/reset_password_entity.dart';
+import '../entities/get_geidea_settings/get_geidea_data_entity.dart';
 
 abstract class BaseRepository {
   Future<Either<Failure, LoginEntity>> login({
@@ -131,6 +132,7 @@ abstract class BaseRepository {
       {required ResetPasswordToJson data});
 
   Future<Either<Failure, GetProgramsEntity>> getPrograms();
+  Future<Either<Failure, GetGeideaDataEntity>> geideaData({required String key});
 
   Future<Either<Failure, GetProgramDetailsEntity>> getProgramDetails(
       {required int programId});

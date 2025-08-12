@@ -49,6 +49,8 @@ class CreateOrderDataEntity {
   List<CreateOrderOrderDetail>? orderDetails;
   @JsonKey(name: "order_notes")
   List<CreateOrderOrderNoteModel>? orderNotes;
+  @JsonKey(name: "program_data")
+  CreateOrderProgramDataModel? programData;
 
   CreateOrderDataEntity({
     this.id,
@@ -64,6 +66,7 @@ class CreateOrderDataEntity {
     this.createdAt,
     this.orderDetails,
     this.orderNotes,
+    this.programData,
   });
 }
 
@@ -119,6 +122,8 @@ class CreateOrderDetailEntity {
 class CreateOrderStatusEntity {
   @JsonKey(name: "label")
   String? label;
+  @JsonKey(name: "key")
+  String? key;
 
   @JsonKey(name: "color")
   String? color;
@@ -126,6 +131,7 @@ class CreateOrderStatusEntity {
   CreateOrderStatusEntity({
     this.label,
     this.color,
+    this.key,
   });
 }
 
@@ -186,5 +192,20 @@ class CreateOrderMakerEntity {
   CreateOrderMakerEntity({
     this.name,
     this.image,
+  });
+}
+
+class CreateOrderProgramDataEntity {
+  @JsonKey(name: "program_id")
+  String? programId;
+  @JsonKey(name: "program_image")
+  String? programImage;
+  @JsonKey(name: "program_title")
+  String? programTitle;
+
+  CreateOrderProgramDataEntity({
+    this.programImage,
+    this.programId,
+    this.programTitle,
   });
 }

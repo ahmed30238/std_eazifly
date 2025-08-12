@@ -44,8 +44,10 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     required this.getProgramContentUsecase,
     required this.requestToFindInstructorUsecase,
   }) : super(GrouppackagemanagementInitial());
+
   //! ui
   TabController? fixedDateController;
+
   void initFixedDateTabBarController(TickerProvider vsync) {
     fixedDateController = TabController(length: tabs.length, vsync: vsync);
     fixedDateController?.addListener(() {
@@ -61,6 +63,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   List<TextEditingController> dayController = [];
+
   changeSpecifiedDay(String day, int sessionIndex) {
     dayController[sessionIndex].text = day;
     emit(ChangeSpecifiedDayState());
@@ -164,6 +167,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   List<TextEditingController> specifyAlldayController = [];
 
   int selectedLecturerIndex = 0;
+
   changeLecturerIndex(int index) {
     selectedLecturerIndex = index;
     emit(ChangeLecturerIndexState());
@@ -179,6 +183,10 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     log("${addedChildren?.length}");
     if (addedChildren != null &&
         selectedStudentIndex < addedChildren!.length - 1) {
+      delightfulToast(
+          message:
+              "تم إضافة الطالب ${addedChildren?[selectedStudentIndex].firstName}",
+          context: context);
       selectedStudentIndex++;
     } else {
       Navigator.pushNamed(context, RoutePaths.layoutPath);
@@ -188,6 +196,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   List<bool> isDoneAdded = [];
+
   initIsDoneAdded() {
     log("inited");
     isDoneAdded = [];
@@ -203,6 +212,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   TabController? controller;
+
   void initTabBarController(TickerProvider vsync) {
     controller = TabController(length: tabs.length, vsync: vsync);
     controller?.addListener(() {
@@ -226,6 +236,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
 
   List<bool> chosenDays = [];
   int limit = 3;
+
   void changeChosenDays(int index) {
     chosenDays[index] = !chosenDays[index];
     emit(ChangeChosenDaysState());
@@ -327,6 +338,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   static GrouppackagemanagementCubit get(context) => BlocProvider.of(context);
 
   int stepperIndex = 1;
+
   void incrementStepperIndex(BuildContext context, int programId) {
     if (stepperIndex < bodies(programId).length - 1) {
       stepperIndex++;
@@ -367,6 +379,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
 
   // DataModel? loginData;
   bool addMyself = false;
+
   toggleMyself() {
     addMyself = !addMyself;
 
@@ -413,6 +426,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   List<int> addedUsersIds = [];
+
   fillAddedUsersIds(int index) {
     if (chosen[index] &&
         !addedUsersIds.contains(getMyChildrenEntity?.data?[index].id ?? -1)) {
@@ -534,6 +548,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
       },
     );
   }
+
   // تعديل في method addWeeklyAppointments() لاستخدام الوقت المختار
 
 // تعديل دالة addWeeklyAppointments لإرسال كل يوم مع وقته
@@ -623,6 +638,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   int programContentId = -1;
+
   onGoalChanged(int val) {
     programContentId = val;
     log("this is p c id $programContentId");
@@ -800,6 +816,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   Future<void> createMeetingSessions(BuildContext context) async {
+    createMeetingSessionsLoader = true;
     log("started");
     log("addedUsersIds: $addedUsersIds");
     log("selectedStudentIndex: $selectedStudentIndex");
@@ -833,7 +850,6 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     log("Valid userId: $userId");
     log("programContentId: $programContentId");
 
-    createMeetingSessionsLoader = true;
     emit(CreateMeetingSessionsLoadingState());
 
     int instructorId =
@@ -861,6 +877,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
       (failure) {
         log("failed: ${failure.message}");
         createMeetingSessionsLoader = false;
+        delightfulToast(message: failure.message, context: context);
         emit(CreateMeetingSessionsErrorState(failure.message));
       },
       (data) {
@@ -880,6 +897,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
         emit(CreateMeetingSessionsSuccessState());
       },
     );
+    createMeetingSessionsLoader = false;
   }
 
   bool getInstructorsLoader = false;
@@ -985,69 +1003,70 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     return '';
   }
 
-void clearData() {
-  // مسح hoursControllers إذا لم تكن فارغة
-  if (hoursControllers != null && hoursControllers.isNotEmpty) {
-    for (var controller in hoursControllers) {
-      if (controller.text.isNotEmpty) {
-        controller.clear();
+  void clearData() {
+    // مسح hoursControllers إذا لم تكن فارغة
+    if (hoursControllers != null && hoursControllers.isNotEmpty) {
+      for (var controller in hoursControllers) {
+        if (controller.text.isNotEmpty) {
+          controller.clear();
+        }
       }
     }
-  }
 
-  // مسح fromControllers إذا لم تكن فارغة
-  if (fromControllers != null && fromControllers.isNotEmpty) {
-    for (var controller in fromControllers) {
-      if (controller.text.isNotEmpty) {
-        controller.clear();
+    // مسح fromControllers إذا لم تكن فارغة
+    if (fromControllers != null && fromControllers.isNotEmpty) {
+      for (var controller in fromControllers) {
+        if (controller.text.isNotEmpty) {
+          controller.clear();
+        }
       }
     }
-  }
 
-  // مسح toControllers إذا لم تكن فارغة
-  if (toControllers != null && toControllers.isNotEmpty) {
-    for (var controller in toControllers) {
-      if (controller.text.isNotEmpty) {
-        controller.clear();
+    // مسح toControllers إذا لم تكن فارغة
+    if (toControllers != null && toControllers.isNotEmpty) {
+      for (var controller in toControllers) {
+        if (controller.text.isNotEmpty) {
+          controller.clear();
+        }
       }
     }
-  }
 
-  // مسح dayController إذا لم تكن فارغة
-  if (dayController != null && dayController.isNotEmpty) {
-    for (var controller in dayController) {
-      if (controller.text.isNotEmpty) {
-        controller.clear();
+    // مسح dayController إذا لم تكن فارغة
+    if (dayController != null && dayController.isNotEmpty) {
+      for (var controller in dayController) {
+        if (controller.text.isNotEmpty) {
+          controller.clear();
+        }
       }
     }
-  }
 
-  // مسح specifyAlldayController إذا لم تكن فارغة
-  if (specifyAlldayController != null && specifyAlldayController.isNotEmpty) {
-    for (var controller in specifyAlldayController) {
-      if (controller.text.isNotEmpty) {
-        controller.clear();
+    // مسح specifyAlldayController إذا لم تكن فارغة
+    if (specifyAlldayController != null && specifyAlldayController.isNotEmpty) {
+      for (var controller in specifyAlldayController) {
+        if (controller.text.isNotEmpty) {
+          controller.clear();
+        }
       }
     }
-  }
 
-  // مسح الأوقات المحفوظة إذا لم تكن فارغة
-  if (selectedFromTimes != null && selectedFromTimes.isNotEmpty) {
-    selectedFromTimes.clear();
+    // مسح الأوقات المحفوظة إذا لم تكن فارغة
+    if (selectedFromTimes != null && selectedFromTimes.isNotEmpty) {
+      selectedFromTimes.clear();
+    }
+
+    if (selectedFromTimesDisplay != null &&
+        selectedFromTimesDisplay.isNotEmpty) {
+      selectedFromTimesDisplay.clear();
+    }
+
+    if (selectedToTimes != null && selectedToTimes.isNotEmpty) {
+      selectedToTimes.clear();
+    }
+
+    if (selectedToTimesDisplay != null && selectedToTimesDisplay.isNotEmpty) {
+      selectedToTimesDisplay.clear();
+    }
   }
-  
-  if (selectedFromTimesDisplay != null && selectedFromTimesDisplay.isNotEmpty) {
-    selectedFromTimesDisplay.clear();
-  }
-  
-  if (selectedToTimes != null && selectedToTimes.isNotEmpty) {
-    selectedToTimes.clear();
-  }
-  
-  if (selectedToTimesDisplay != null && selectedToTimesDisplay.isNotEmpty) {
-    selectedToTimesDisplay.clear();
-  }
-}
 
   @override
   Future<void> close() {
@@ -1089,6 +1108,7 @@ void clearData() {
   int orderId = -1;
 
   GlobalKey<FormState> repeatedFormKey = GlobalKey<FormState>();
+
   void fillOrderId(int val) {
     orderId = val;
   }
@@ -1096,6 +1116,7 @@ void clearData() {
   RequestToFindInstructorUsecase requestToFindInstructorUsecase;
   RequestToFindInstructorEntity? requestToFindInstructorEntity;
   bool requestTofindInstructorLoader = false;
+
   Future<void> findInstructor(
       {required BuildContext context, required String programId}) async {
     requestTofindInstructorLoader = true;

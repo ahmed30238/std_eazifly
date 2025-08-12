@@ -42,7 +42,7 @@ class CustomFilledTabBar extends StatelessWidget {
         indicatorColor: Colors.red,
         indicatorSize: TabBarIndicatorSize.tab,
         indicator: BoxDecoration(
-          color: const Color(0xff2563EB),
+          color: MainColors.primary,
           borderRadius: BorderRadius.circular(innerRadius ?? 25.r),
         ),
         tabs: tabs,

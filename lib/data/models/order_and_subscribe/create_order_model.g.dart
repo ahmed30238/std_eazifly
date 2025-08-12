@@ -52,7 +52,11 @@ CreateOrderDataModel _$CreateOrderDataModelFromJson(
       ..orderNotes = (json['order_notes'] as List<dynamic>?)
           ?.map((e) =>
               CreateOrderOrderNoteModel.fromJson(e as Map<String, dynamic>))
-          .toList();
+          .toList()
+      ..programData = json['program_data'] == null
+          ? null
+          : CreateOrderProgramDataModel.fromJson(
+              json['program_data'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$CreateOrderDataModelToJson(
         CreateOrderDataModel instance) =>
@@ -70,6 +74,7 @@ Map<String, dynamic> _$CreateOrderDataModelToJson(
       'created_at': instance.createdAt?.toIso8601String(),
       'order_details': instance.orderDetails?.map((e) => e.toJson()).toList(),
       'order_notes': instance.orderNotes?.map((e) => e.toJson()).toList(),
+      'program_data': instance.programData?.toJson(),
     };
 
 CreateOrderOrderDetail _$CreateOrderOrderDetailFromJson(
@@ -106,11 +111,13 @@ Map<String, dynamic> _$CreateOrderOrderDetailToJson(
 CreateOrderStatus _$CreateOrderStatusFromJson(Map<String, dynamic> json) =>
     CreateOrderStatus()
       ..label = json['label'] as String?
+      ..key = json['key'] as String?
       ..color = json['color'] as String?;
 
 Map<String, dynamic> _$CreateOrderStatusToJson(CreateOrderStatus instance) =>
     <String, dynamic>{
       'label': instance.label,
+      'key': instance.key,
       'color': instance.color,
     };
 
@@ -166,4 +173,19 @@ Map<String, dynamic> _$CreateOrderMakerModelToJson(
     <String, dynamic>{
       'name': instance.name,
       'image': instance.image,
+    };
+
+CreateOrderProgramDataModel _$CreateOrderProgramDataModelFromJson(
+        Map<String, dynamic> json) =>
+    CreateOrderProgramDataModel()
+      ..programId = json['program_id'] as String?
+      ..programImage = json['program_image'] as String?
+      ..programTitle = json['program_title'] as String?;
+
+Map<String, dynamic> _$CreateOrderProgramDataModelToJson(
+        CreateOrderProgramDataModel instance) =>
+    <String, dynamic>{
+      'program_id': instance.programId,
+      'program_image': instance.programImage,
+      'program_title': instance.programTitle,
     };
