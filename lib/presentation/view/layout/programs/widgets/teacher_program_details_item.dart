@@ -1,4 +1,3 @@
-import 'package:eazifly_student/core/component/texted_container.dart';
 import 'package:eazifly_student/presentation/view/layout/programs/widgets/dummy_data.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 

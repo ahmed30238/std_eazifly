@@ -1,4 +1,4 @@
-package com.example.HodaElnas
+package com.hodaelnas.hodaelnas
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,4 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:flutter/material.dart';
 
 class AudioWaveformWidget extends StatelessWidget {
   final bool isRecording;

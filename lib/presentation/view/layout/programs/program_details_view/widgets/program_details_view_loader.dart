@@ -1,6 +1,5 @@
 import 'package:eazifly_student/core/component/shimmer_widget.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:flutter/material.dart';
 
 class ProgramDetailsViewLoader extends StatelessWidget {
   const ProgramDetailsViewLoader({super.key});

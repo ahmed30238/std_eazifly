@@ -28,7 +28,7 @@ class LessonDurationCardItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "$duration",
+              duration,
               style: MainTextStyle.boldTextStyle(
                 fontSize: 12,
                 color: isSelected ? MainColors.primary : MainColors.onPrimary,

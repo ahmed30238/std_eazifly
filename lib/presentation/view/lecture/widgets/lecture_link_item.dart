@@ -1,10 +1,5 @@
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/theme/colors/main_colors.dart';
-import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_stats_row.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:flutter/material.dart' hide Badge;
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LectureLink extends StatelessWidget {
   final MainAxisAlignment? linkAlignment;

@@ -95,7 +95,7 @@ class ChooseTeacherBody extends StatelessWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => SuggestedTeachersItem(
-                specializations: [],
+                specializations: const [],
                 onTap: () {},
                 image: "",
                 instructorName: "name",

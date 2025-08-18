@@ -71,7 +71,7 @@ class _WritingMessageAreaState extends State<WritingMessageArea> {
                               : Assets.iconsMicrophone,
                       fit: BoxFit.scaleDown,
                       colorFilter: cubit.isRecording
-                          ? ColorFilter.mode(
+                          ? const ColorFilter.mode(
                               MainColors.onError,
                               BlendMode.srcIn,
                             )

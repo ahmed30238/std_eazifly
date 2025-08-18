@@ -27,7 +27,7 @@ class LectureViewAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainTitle: title,
           leadingText: "المواعيد",
           isCenterTitle: true,
-          leadingCustomWidth: 80.w,
+          leadingCustomWidth: 81.w,
           onLeadinTap: () => Navigator.pop(context),
           customAction: [
             InkWell(

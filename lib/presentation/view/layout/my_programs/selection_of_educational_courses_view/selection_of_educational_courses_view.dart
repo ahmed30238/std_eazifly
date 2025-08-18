@@ -177,7 +177,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                 ),
               ),
               NestedAvatarContainer(
-                image: [],
+                image: const [],
                 noOfItems: 4,
                 number: "",
                 alignment: MainAxisAlignment.center,

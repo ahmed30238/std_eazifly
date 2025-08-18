@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
@@ -62,13 +64,13 @@ class _MyProgramsViewState extends State<MyProgramsView> {
       targets: targets,
       textSkip: "تخطي",
       paddingFocus: 10,
-      colorShadow: Colors.black.withOpacity(0.8),
+      colorShadow: Colors.black.withValues(alpha: 0.8),
       onFinish: () {
-        print("تم الانتهاء من الشرح");
+        log("تم الانتهاء من الشرح");
         _markTutorialCompleted(); // Mark as completed when finished
       },
       onSkip: () {
-        print("تم تخطي الشرح");
+        log("تم تخطي الشرح");
         _markTutorialCompleted(); // Mark as completed when skipped
         return true;
       },
@@ -174,7 +176,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                       ),
                     ],
                   );
-                } else if (programsUnderReview?.isNotEmpty == true) {
+                } else if (programsUnderReview?.isNotEmpty == true &&
+                    myPrograms.isEmpty) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -263,20 +266,22 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                                   .getAssignedChildrenToProgram(
                                 programId: item.id ?? -1,
                               )
-                                  .then((value) {
-                                onMyProgramTap(
-                                  context: context,
-                                  cubit: cubit,
-                                  item: item,
-                                  loginData: loginData!,
-                                  programId: item.id ?? -1,
-                                  noOfChildren: cubit
-                                          .getAssignedChildrenToProgramEntity
-                                          ?.data
-                                          ?.length ??
-                                      0,
-                                );
-                              });
+                                  .then(
+                                (value) {
+                                  onMyProgramTap(
+                                    context: context,
+                                    cubit: cubit,
+                                    item: item,
+                                    loginData: loginData!,
+                                    programId: item.id ?? -1,
+                                    noOfChildren: cubit
+                                            .getAssignedChildrenToProgramEntity
+                                            ?.data
+                                            ?.length ??
+                                        0,
+                                  );
+                                },
+                              );
                             },
                     );
                   },

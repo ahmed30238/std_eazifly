@@ -192,11 +192,11 @@ class CustomBadge extends StatelessWidget {
       child: Container(
         width: 80.w,
         height: 80.h,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           // color: MainColors.white
           color: MainColors.onError,
           // borderRadius: 48.cr,
-          image: const DecorationImage(
+          image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
               Assets.imagesPersona,

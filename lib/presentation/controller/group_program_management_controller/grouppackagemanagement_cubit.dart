@@ -822,7 +822,6 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     log("selectedStudentIndex: $selectedStudentIndex");
     log("addedUsersIds.length: ${addedUsersIds.length}");
 
-    // التحقق من صحة البيانات قبل الوصول للقائمة
     if (addedUsersIds.isEmpty) {
       log("Error: addedUsersIds is empty");
       createMeetingSessionsLoader = false;
@@ -837,8 +836,14 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
       emit(CreateMeetingSessionsErrorState("فهرس الطالب غير صحيح"));
       return;
     }
+    if (programContentId == -1) {
+      createMeetingSessionsLoader = false;
+      delightfulToast(message: "اختر الهدف", context: context);
+      emit(CreateMeetingSessionsErrorState("لم يتم اختيار الهدف"));
+      return;
+    }
 
-    // التحقق من صحة userId
+
     int userId = addedUsersIds[selectedStudentIndex];
     if (userId == -1) {
       log("Error: Invalid userId: $userId");
@@ -969,7 +974,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     return '';
   }
 
-// دوال للتعامل مع toControllers
+  // دوال للتعامل مع toControllers
   List<TimeOfDay?> selectedToTimes = [];
   List<String> selectedToTimesDisplay = [];
 

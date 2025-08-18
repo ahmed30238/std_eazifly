@@ -37,6 +37,12 @@ class ScreensBar extends StatelessWidget {
                 height: 48.h,
                 iconWidget: SvgPicture.asset(
                   iconsList[index],
+                  colorFilter: index != 0
+                      ? ColorFilter.mode(
+                          MainColors.primary,
+                          BlendMode.srcIn,
+                        )
+                      : null,
                   fit: BoxFit.scaleDown,
                 ),
               ),

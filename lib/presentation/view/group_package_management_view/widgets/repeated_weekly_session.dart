@@ -17,132 +17,146 @@ class RepeatedWeeklySession extends StatelessWidget {
   Widget build(BuildContext context) {
     var cubit = context.read<GrouppackagemanagementCubit>();
     int numberOfSessionPerWeek = int.tryParse(
-          cubit.getOrderDetailsEntity?.data?.numberOfSessionPerWeek ?? "0",
-        ) ??
+      cubit.getOrderDetailsEntity?.data?.numberOfSessionPerWeek ?? "0",
+    ) ??
         0;
     var lang = context.loc!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Form(
-          key: cubit.repeatedFormKey,
-          child: Expanded(
-            child: ListView.separated(
-              itemBuilder: (context, sessionIndex) => Column(
-                children: [
-                  16.ph,
-                  Row(
-                    children: [
-                      Text(
-                        "اليوم",
-                        style: MainTextStyle.boldTextStyle(fontSize: 12),
-                      ),
-                      8.pw,
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            showModalSheet(
-                              isFixedSize: true,
-                              minHeight: 400.h,
-                              maxHeight: 401.h,
-                              context,
-                              widget: BlocProvider.value(
-                                value: cubit,
-                                child: CustomBottomSheetDesign(
-                                  radius: 16.r,
-                                  widget: Column(
-                                    children: [
-                                      24.ph,
-                                      ...List.generate(
-                                        7,
-                                        (index) => BottomSheetDayContainer(
-                                          onTap: () {
-                                            cubit.changeSpecifiedDay(
-                                              WeekDaysEnum.values[index].title,
-                                              sessionIndex,
-                                            );
-                                            back(context);
-                                          },
-                                          day: WeekDaysEnum.values[index].title,
+        // تأكد من وجود جلسات قبل إنشاء الـ Form
+        if (numberOfSessionPerWeek > 0) ...[
+          // استخدام Flexible بدلاً من Expanded
+          Flexible(
+            child: Form(
+              key: cubit.repeatedFormKey,
+              child: ListView.separated(
+                shrinkWrap: true, // مهم: للسماح للـ ListView بأخذ المساحة المطلوبة فقط
+                itemBuilder: (context, sessionIndex) => Column(
+                  children: [
+                    16.ph,
+                    Row(
+                      children: [
+                        Text(
+                          "اليوم",
+                          style: MainTextStyle.boldTextStyle(fontSize: 12),
+                        ),
+                        8.pw,
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              showModalSheet(
+                                isFixedSize: true,
+                                minHeight: 400.h,
+                                maxHeight: 401.h,
+                                context,
+                                widget: BlocProvider.value(
+                                  value: cubit,
+                                  child: CustomBottomSheetDesign(
+                                    radius: 16.r,
+                                    widget: Column(
+                                      children: [
+                                        24.ph,
+                                        ...List.generate(
+                                          7,
+                                              (index) => BottomSheetDayContainer(
+                                            onTap: () {
+                                              cubit.changeSpecifiedDay(
+                                                WeekDaysEnum.values[index].title,
+                                                sessionIndex,
+                                              );
+                                              Navigator.of(context).pop();
+                                            },
+                                            day: WeekDaysEnum.values[index].title,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
-                          child: CustomTextFormField(
-                            controller: cubit.dayController[sessionIndex],
-                            hintText: "اليوم",
-                            validator: customValidation,
-                            enabled: false,
+                              );
+                            },
+                            child: CustomTextFormField(
+                              controller: sessionIndex < cubit.dayController.length
+                                  ? cubit.dayController[sessionIndex]
+                                  : null,
+                              hintText: "اليوم",
+                              validator: customValidation,
+                              enabled: false,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  16.ph,
-                  BlocBuilder<GrouppackagemanagementCubit,
-                      GrouppackagemanagementState>(
-                    builder: (context, state) {
-                      final cubit = GrouppackagemanagementCubit.get(context);
+                      ],
+                    ),
+                    16.ph,
+                    BlocBuilder<GrouppackagemanagementCubit,
+                        GrouppackagemanagementState>(
+                      builder: (context, state) {
+                        final cubit = GrouppackagemanagementCubit.get(context);
 
-                      return Row(
-                        children: [
-                          Text(
-                            "الموعد",
-                            style: MainTextStyle.boldTextStyle(fontSize: 12),
-                          ),
-                          8.pw,
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                // إرسال الـ sessionIndex للدالة
-                                cubit.showTimePickerDialog(
-                                    context, sessionIndex, programId);
-                                // الدالة ستتنادى تلقائياً من الـ Cubit
-                              },
-                              child: AbsorbPointer(
-                                child: CustomTextFormField(
-                                  onFieldSubmitted: (p0) {
-                                    if (sessionIndex ==
-                                        numberOfSessionPerWeek) {
+                        return Row(
+                          children: [
+                            Text(
+                              "الموعد",
+                              style: MainTextStyle.boldTextStyle(fontSize: 12),
+                            ),
+                            8.pw,
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  cubit.showTimePickerDialog(
+                                      context, sessionIndex, programId);
+                                },
+                                child: AbsorbPointer(
+                                  child: CustomTextFormField(
+                                    onFieldSubmitted: (p0) {
                                       cubit.addWeeklyAppointments(context);
-                                    }
-                                  },
-                                  // عرض الوقت المحدد لهذا الـ session
-                                  hintText:
-                                      sessionIndex < cubit.selectedTimes.length
-                                          ? cubit.selectedTimes[sessionIndex]
-                                          : "24 ساعة",
-                                  enabled: false,
-                                  validator: customValidation,
-                                  controller:
-                                      cubit.hoursControllers[sessionIndex],
-                                  suffixIconWidget: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16.w),
-                                    child: const Icon(
-                                      Icons.access_time,
-                                      color: Colors.grey,
+                                    },
+                                    hintText:
+                                    sessionIndex < cubit.selectedTimes.length
+                                        ? cubit.selectedTimes[sessionIndex]
+                                        : "24 ساعة",
+                                    enabled: false,
+                                    validator: customValidation,
+                                    controller: sessionIndex < cubit.hoursControllers.length
+                                        ? cubit.hoursControllers[sessionIndex]
+                                        : null,
+                                    suffixIconWidget: Padding(
+                                      padding:
+                                      EdgeInsets.symmetric(horizontal: 16.w),
+                                      child: const Icon(
+                                        Icons.access_time,
+                                        color: Colors.grey,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ],
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                separatorBuilder: (context, index) => 16.ph,
+                itemCount: numberOfSessionPerWeek,
               ),
-              separatorBuilder: (context, index) => 16.ph,
-              itemCount: numberOfSessionPerWeek,
             ),
           ),
-        ),
+        ] else ...[
+          // في حالة عدم وجود جلسات
+          SizedBox(
+            height: 200.h, // إعطاء ارتفاع ثابت
+            child: const Center(
+              child: Text(
+                "لا توجد جلسات محددة",
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+            ),
+          ),
+        ],
         16.ph,
         if (cubit.addWeeklyAppontmentsEntity != null) ...[
           Text(
@@ -152,7 +166,7 @@ class RepeatedWeeklySession extends StatelessWidget {
             ),
           ),
           8.ph,
-          //! Instrcutors
+          //! Instructors
           BlocBuilder(
             bloc: cubit,
             builder: (context, state) {
@@ -165,7 +179,7 @@ class RepeatedWeeklySession extends StatelessWidget {
                 );
               }
 
-              // Handle error state (optional)
+              // Handle error state
               if (state is GetInstructorsErrorState) {
                 return SizedBox(
                   height: 48.h,
@@ -184,7 +198,12 @@ class RepeatedWeeklySession extends StatelessWidget {
               // Handle empty data
               if (instructors == null || instructors.isEmpty) {
                 if (cubit.requestTofindInstructorLoader) {
-                  return const CircularProgressIndicator.adaptive();
+                  return SizedBox(
+                    height: 48.h,
+                    child: const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    ),
+                  );
                 }
                 return SizedBox(
                   height: 48.h,
@@ -196,7 +215,7 @@ class RepeatedWeeklySession extends StatelessWidget {
                       ),
                       spaceText: "   ",
                       text1:
-                          "لا يوجد معلمين متوفرين في هذا الوقت برجاء اختيار مواعيد اخري او ارسال طلب لتوفير معلمين في هذا الوقت",
+                      "لا يوجد معلمين متوفرين في هذا الوقت برجاء اختيار مواعيد اخري او ارسال طلب لتوفير معلمين في هذا الوقت",
                       text2: "ارسال طلب ",
                       text2Style: MainTextStyle.boldTextStyle(
                         fontSize: 14,
@@ -237,26 +256,8 @@ class RepeatedWeeklySession extends StatelessWidget {
               );
             },
           ),
-
-          // BlocBuilder(
-          //   bloc: cubit,
-          //   builder: (context, state) => CustomElevatedButton(
-          //     text: cubit.stepperIndex == 1 ? lang.next : "بدء البرامج",
-          //     color: MainColors.blueTextColor,
-          //     height: 48.h,
-          //     width: 343.w,
-          //     radius: 16.r,
-          //     onPressed: cubit.stepperIndex == 1
-          //         ? () {
-          //             cubit.incrementStepperIndex(context);
-          //             cubit.fillAddedChildrenData();
-          //           }
-          //         : () {
-          //             cubit.createMeetingSessions();
-          //           },
-          //   ),
-          // ),
         ],
+        16.ph,
         BlocBuilder(
           bloc: cubit,
           builder: (context, state) => CustomElevatedButton(
@@ -266,18 +267,21 @@ class RepeatedWeeklySession extends StatelessWidget {
             width: 343.w,
             radius: 16.r,
             onPressed: cubit.createMeetingSessionsLoader
-                ? () {}
+                ? (){} // تعطيل الزر أثناء التحميل
                 : () {
-                    if (!cubit.repeatedFormKey.currentState!.validate()) {
-                      return;
-                    }
-                    if (cubit.getInstructorsEntity?.data != null &&
-                        cubit.getInstructorsEntity!.data!.isNotEmpty) {
-                      cubit.createMeetingSessions(context);
-                    } else {
-                      delightfulToast(message: "غير متوفر", context: context);
-                    }
-                  },
+              // التحقق من صحة النموذج فقط إذا كان هناك جلسات
+              if (numberOfSessionPerWeek > 0 &&
+                  !cubit.repeatedFormKey.currentState!.validate()) {
+                return;
+              }
+
+              if (cubit.getInstructorsEntity?.data != null &&
+                  cubit.getInstructorsEntity!.data!.isNotEmpty) {
+                cubit.createMeetingSessions(context);
+              } else {
+                delightfulToast(message: "غير متوفر", context: context);
+              }
+            },
             child: cubit.createMeetingSessionsLoader
                 ? const CircularProgressIndicator.adaptive()
                 : null,
@@ -286,26 +290,26 @@ class RepeatedWeeklySession extends StatelessWidget {
       ],
     );
   }
-}
 
-Widget buildShimmerLoader() {
-  return ListView.separated(
-    scrollDirection: Axis.horizontal,
-    itemBuilder: (context, index) {
-      return Shimmer.fromColors(
-        baseColor: Colors.grey[300]!,
-        highlightColor: Colors.grey[100]!,
-        child: Container(
-          width: 80.w,
-          height: 48.h,
-          decoration: BoxDecoration(
-            color: Colors.grey[300],
-            borderRadius: BorderRadius.circular(8.r),
-          ),
-        ),
-      );
-    },
-    separatorBuilder: (context, index) => 8.pw,
-    itemCount: 5, // Show 5 shimmer items
-  );
 }
+  Widget buildShimmerLoader() {
+    return ListView.separated(
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, index) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Container(
+            width: 80.w,
+            height: 48.h,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(8.r),
+            ),
+          ),
+        );
+      },
+      separatorBuilder: (context, index) => 8.pw,
+      itemCount: 5, // Show 5 shimmer items
+    );
+  }

@@ -35,6 +35,10 @@ class CategoryRowWidget extends StatelessWidget {
         4.pw,
         SvgPicture.asset(
           Assets.iconsViewAllArrow,
+          colorFilter: ColorFilter.mode(
+            MainColors.primary,
+            BlendMode.srcIn,
+          ),
         )
       ],
     );

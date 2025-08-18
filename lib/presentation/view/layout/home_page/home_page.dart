@@ -15,8 +15,6 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 import 'package:geideapay/geideapay.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../../core/geidea_payment_service/geidea_payment_service.dart';
-
 DataModel? loginData;
 String merchantKey = "";
 String merchantSecret = "";
@@ -123,31 +121,31 @@ class _HomePageState extends State<HomePage> {
         },
         child: Column(
           children: [
-            Text("$merchantSecret"),
-            Text("$merchantKey"),
-            GestureDetector(
-              onTap: () async {
-                try {
-                  OrderApiResponse response = await plugin.checkout(
-                    context: context,
-                    checkoutOptions: GeideaService().checkoutOptions,
-                  );
-                  debugPrint('Response = $response');
-
-                  // Payment successful, order returned in response
-                  // _updateStatus(response.detailedResponseMessage,
-                  //     truncate(response.toString()));
-                } catch (e) {
-                  debugPrint("OrderApiResponse Error: $e");
-                  // An unexpected error due to improper SDK
-                  // integration or Plugin internal bug
-                  // _showMessage(e.toString());
-                }
-              },
-              child: const Text(
-                "geidea",
-              ),
-            ),
+            // Text("$merchantSecret"),
+            // Text("$merchantKey"),
+            // GestureDetector(
+            //   onTap: () async {
+            //     try {
+            //       OrderApiResponse response = await plugin.checkout(
+            //         context: context,
+            //         checkoutOptions: GeideaService().checkoutOptions,
+            //       );
+            //       debugPrint('Response = $response');
+            //
+            //       // Payment successful, order returned in response
+            //       // _updateStatus(response.detailedResponseMessage,
+            //       //     truncate(response.toString()));
+            //     } catch (e) {
+            //       debugPrint("OrderApiResponse Error: $e");
+            //       // An unexpected error due to improper SDK
+            //       // integration or Plugin internal bug
+            //       // _showMessage(e.toString());
+            //     }
+            //   },
+            //   child: const Text(
+            //     "geidea",
+            //   ),
+            // ),
             Expanded(
               child: ListView(
                 physics: const BouncingScrollPhysics(),

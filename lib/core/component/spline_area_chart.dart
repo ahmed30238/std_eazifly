@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../presentation/view/subscription_details_view/widgets/imports.dart';
@@ -43,7 +41,7 @@ class SplineAreaChart extends StatelessWidget {
                         xValueMapper: (SplieChartData data, _) => data.x,
                         yValueMapper: (SplieChartData data, _) => data.y,
                         color: MainColors.success,
-                        markerSettings:  MarkerSettings(
+                        markerSettings:  const MarkerSettings(
                           isVisible: true,
                           shape: DataMarkerType.circle,
                           color: MainColors.success,

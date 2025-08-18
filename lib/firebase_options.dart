@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBvMoDWLtIq7fVZ4L_nDVsD_9rYhYwykZk',
-    appId: '1:960255976764:android:3ca76e8fd129a0a4152a39',
+    appId: '1:960255976764:android:c3b3d43374e77ab5152a39',
     messagingSenderId: '960255976764',
     projectId: 'eazifly-instructor',
     storageBucket: 'eazifly-instructor.firebasestorage.app',
@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDA_9_TSQs_OIMCqFSGRipuvwcxdPiqWFY',
-    appId: '1:960255976764:ios:5ab4b69b81e56a27152a39',
+    appId: '1:960255976764:ios:713c8d2e01e2bd4a152a39',
     messagingSenderId: '960255976764',
     projectId: 'eazifly-instructor',
     storageBucket: 'eazifly-instructor.firebasestorage.app',
-    iosBundleId: 'com.example.HodaElnas',
+    iosBundleId: 'com.hodaelnas.hodaelnas',
   );
 
 }
