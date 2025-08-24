@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
                       AppLocalizations.localizationsDelegates,
                   locale: Locale(langCubit.langKey),
                   debugShowCheckedModeBanner: false,
-                  title: 'Flutter Demo',
+                  title: 'هدى للناس',
                 );
               }
               return const SizedBox();
