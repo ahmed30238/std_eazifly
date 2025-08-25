@@ -65,14 +65,17 @@ class _HomePageState extends State<HomePage> {
   Future<void> _initializeGeideaKeys() async {
     try {
       // احصل على merchant key
-      await cubit.getGeideaData(key: GetGeideaValues.geideaApiMerchantKey.title);
-      if (cubit.getGeideaDataEntity?.data?.key == GetGeideaValues.geideaApiMerchantKey.title) {
+      await cubit.getGeideaData(
+          key: GetGeideaValues.geideaApiMerchantKey.title);
+      if (cubit.getGeideaDataEntity?.data?.key ==
+          GetGeideaValues.geideaApiMerchantKey.title) {
         merchantKey = cubit.getGeideaDataEntity?.data?.value ?? "";
       }
 
       // احصل على merchant secret
       await cubit.getGeideaData(key: GetGeideaValues.geideaApiSecret.title);
-      if (cubit.getGeideaDataEntity?.data?.key == GetGeideaValues.geideaApiSecret.title) {
+      if (cubit.getGeideaDataEntity?.data?.key ==
+          GetGeideaValues.geideaApiSecret.title) {
         merchantSecret = cubit.getGeideaDataEntity?.data?.value ?? "";
       }
 
@@ -89,7 +92,6 @@ class _HomePageState extends State<HomePage> {
         publicKey: merchantKey,
         apiPassword: merchantSecret,
       );
-
     } catch (e) {
       log("Error initializing Geidea keys: $e");
       // يمكنك استخدام قيم افتراضية أو إظهار رسالة خطأ
@@ -146,6 +148,13 @@ class _HomePageState extends State<HomePage> {
             //     "geidea",
             //   ),
             // ),
+            Text(
+              "add shorebird",
+              style: MainTextStyle.boldTextStyle(
+                fontSize: 14,
+                color: MainColors.primary,
+              ),
+            ),
             Expanded(
               child: ListView(
                 physics: const BouncingScrollPhysics(),
