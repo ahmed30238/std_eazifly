@@ -120,7 +120,7 @@ class DmBody extends StatelessWidget {
                               }
                           }
                         }
-
+                        bool isInstructor = cubit.controller?.index == 0;
                         return TextMessageItem(
                           messageStatus: message.isSending
                               ? MessageStatus.sending
@@ -142,7 +142,9 @@ class DmBody extends StatelessWidget {
                           messageSenderAvatar:
                               message.message.senderType == "User"
                                   ? loginData?.image ?? ""
-                                  : cubit.currentInstructor?.image ?? "",
+                                  : isInstructor
+                                      ? cubit.currentInstructor?.image ?? ""
+                                      : cubit.currentClient?.image ?? "",
                         );
                       },
                     );

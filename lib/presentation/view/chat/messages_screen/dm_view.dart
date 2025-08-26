@@ -82,6 +82,22 @@ class _DmViewState extends State<DmView> {
 
   @override
   Widget build(BuildContext context) {
+    String getTitle() {
+      if (cubit.controller?.index == 0) {
+        return cubit.currentInstructor?.name ?? "";
+      } else {
+        return cubit.currentClient?.name ?? "";
+      }
+    }
+
+    String getAvatar() {
+      if (cubit.controller?.index == 0) {
+        return cubit.currentInstructor?.image ?? "";
+      } else {
+        return cubit.currentClient?.image ?? "";
+      }
+    }
+
     return Scaffold(
       appBar: widget.isReport
           ? CustomAppBar(
@@ -122,8 +138,8 @@ class _DmViewState extends State<DmView> {
               isDmView: true,
               isCenterTitle: true,
               mainTitle: "",
-              dmTitle: "${cubit.currentInstructor?.name}",
-              dmImageUrl: cubit.currentInstructor?.image,
+              dmTitle: getTitle(),
+              dmImageUrl: getAvatar(),
               leadingText: "الرسائل",
               leadingIcon: Icons.arrow_back_ios,
               customAction: [

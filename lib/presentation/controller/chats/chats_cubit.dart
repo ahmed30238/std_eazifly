@@ -46,6 +46,7 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   TabController? controller;
   TextEditingController messageController = TextEditingController();
+
   void initController(TickerProvider vsync, BuildContext context) {
     controller =
         TabController(length: tabs(context: context).length, vsync: vsync)
@@ -85,7 +86,7 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   initializeRecordVars() {
     audioPlayer = AudioPlayer();
-    audioRecord = AudioRecorder(); // تم إضافة التهيئة
+    audioRecord = AudioRecorder();
 
     // Listen to player state changes
     audioPlayer.playerStateStream.listen((PlayerState state) {
@@ -102,12 +103,12 @@ class ChatsCubit extends Cubit<ChatsState> {
   }
 
   Future<void> startRecording() async {
-    recordPath = await getRecordPath(); // تم إضافة تحديث recordPath
+    recordPath = await getRecordPath();
 
     if (await audioRecord.hasPermission()) {
       await audioRecord.start(
         const RecordConfig(
-          encoder: AudioEncoder.wav, // تحديد نوع الترميز
+          encoder: AudioEncoder.wav,
           androidConfig: AndroidRecordConfig(
             audioSource: AndroidAudioSource.mic,
           ),
@@ -120,10 +121,10 @@ class ChatsCubit extends Cubit<ChatsState> {
   }
 
   Future<void> stopRecording() async {
-    String? path = await audioRecord.stop(); // تم إلغاء التعليق
+    String? path = await audioRecord.stop();
     isRecording = false;
     if (path != null) {
-      recordPath = path; // تم إلغاء التعليق وإضافة null check
+      recordPath = path;
     }
     emit(StopRecordState());
   }
@@ -131,8 +132,7 @@ class ChatsCubit extends Cubit<ChatsState> {
   Future<void> playAudio() async {
     if (recordPath.isNotEmpty && File(recordPath).existsSync()) {
       try {
-        await audioPlayer
-            .setFilePath(recordPath); // استخدام setFilePath بدلاً من play
+        await audioPlayer.setFilePath(recordPath);
         await audioPlayer.play();
         isPlaying = true;
         emit(PlayRecordState());
@@ -153,11 +153,13 @@ class ChatsCubit extends Cubit<ChatsState> {
       emit(StopPlayingRecordState());
     }
   }
+
 //! ###################### API #######################
 
   AddNoteEntity? addNoteEntity;
   AddNoteUsecase addNoteUsecase;
   bool addNoteLoader = false;
+
   Future<void> addNote({
     required String orderId,
     required BuildContext context,
@@ -201,7 +203,9 @@ class ChatsCubit extends Cubit<ChatsState> {
   }
 
   final ScrollController _scrollController = ScrollController();
+
   ScrollController get scrollController => _scrollController;
+
   //
   void initScorllController(String chatId) {
     _scrollController.addListener(
@@ -221,6 +225,7 @@ class ChatsCubit extends Cubit<ChatsState> {
   bool hasMore = true;
   bool _isFetching = false;
   bool getMessagesLoader = false;
+
   Future<void> getMessages(
       {bool isInitial = false,
       required String chatId,
@@ -414,12 +419,24 @@ class ChatsCubit extends Cubit<ChatsState> {
   // this is a variable to use in the dm screen to get student(user) data
   // filled when the user click on the student item in the chat screen
   GetMyChatsParticipantModel? currentInstructor;
+
   fillCurrentInstructor(int index) {
     // currentInstructor = getMyChatsEntity?.data?[index].participant1;
     if (getMyChatsEntity?.data?[index].participant1?.type == "Instructor") {
       currentInstructor = getMyChatsEntity?.data?[index].participant1;
     } else {
       currentInstructor = getMyChatsEntity?.data?[index].participant2;
+    }
+  }
+
+  GetMyChatsParticipantModel? currentClient;
+
+  fillCurrentClient(int index) {
+    // currentClient = getMyChatsEntity?.data?[index].participant1;
+    if (getMyChatsEntity?.data?[index].participant1?.type == "Client") {
+      currentClient = getMyChatsEntity?.data?[index].participant1;
+    } else {
+      currentClient = getMyChatsEntity?.data?[index].participant2;
     }
   }
 }
