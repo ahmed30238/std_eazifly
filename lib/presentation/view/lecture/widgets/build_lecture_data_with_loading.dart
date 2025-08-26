@@ -7,11 +7,11 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
   Widget buildLectureDataWithLoading(LectureCubit cubit, LectureState state) {
     var programData = cubit.showProgramDetailsEntity?.data;
 
-    if (programData == null) {
-      return buildLoadingContainer(width: 79.w, height: 80.h);
-    }
+    // if (programData == null) {
+    //   return buildLoadingContainer(width: 79.w, height: 80.h);
+    // }
 
     return LectureData(
-      host: programData.host ?? "غير محدد",
+      host: programData?.host ?? "غير محدد",
     );
   }

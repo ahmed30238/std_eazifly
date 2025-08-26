@@ -11,14 +11,14 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
   Widget buildLectureLinkWithLoading(BuildContext context,LectureCubit cubit, LectureState state,int programId) {
     var programData = cubit.showProgramDetailsEntity?.data;
 
-    if (programData == null) {
-      return buildLoadingContainer(width: 226.w, height: 80.h);
-    }
+    // if (programData == null) {
+    //   return buildLoadingContainer(width: 226.w, height: 80.h);
+    // }
 
     var lectureState = LectureStateHelper.getLectureState(
-      nextSession: programData.nextSession?.sessionDatetime?.toString(),
+      nextSession: programData?.nextSession?.sessionDatetime?.toString(),
       nextSessionDuration:
-          int.tryParse(programData.nextSession?.duration ?? "0"),
+          int.tryParse(programData?.nextSession?.duration ?? "0"),
     );
 
     return LectureLink(
@@ -28,7 +28,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
       onLinkTap: lectureState == LectureStatesEnum.ongoing
           ? () {
               // TODO call join session before this. in Program Cubit
-              final meetingUrl = programData.nextSession?.meetingUrl;
+              final meetingUrl = programData?.nextSession?.meetingUrl;
               if (meetingUrl != null && meetingUrl.isNotEmpty) {
                 openUrl(meetingUrl);
               } else {

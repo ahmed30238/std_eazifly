@@ -6,11 +6,11 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 Widget buildTabBarWithLoading(
     LectureCubit cubit, LectureState state, PageController pageController) {
-  var programData = cubit.showProgramDetailsEntity?.data;
+  // var programData = cubit.showProgramDetailsEntity?.data;
 
-  if (programData == null) {
-    return buildLoadingContainer(height: 50.h);
-  }
+  // if (programData == null) {
+  //   return buildLoadingContainer(height: 50.h);
+  // }
 
   return LectureTabBar(
     cubit: cubit,

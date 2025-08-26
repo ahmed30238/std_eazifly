@@ -7,22 +7,22 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
   Widget buildLectureStatsWithLoading(LectureCubit cubit) {
     var programData = cubit.showProgramDetailsEntity?.data;
 
-    if (programData == null) {
-      return buildLoadingContainer(height: 120.h);
-    }
+    // if (programData == null) {
+    //   return buildLoadingContainer(height: 120.h);
+    // }
 
     // تحديد حالة المحاضرة
     LectureStatesEnum lectureState = LectureStateHelper.getLectureState(
-      nextSession: programData.nextSession?.sessionDatetime.toString(),
+      nextSession: programData?.nextSession?.sessionDatetime.toString(),
       nextSessionDuration:
-          int.tryParse(programData.nextSession?.duration ?? "0"),
+          int.tryParse(programData?.nextSession?.duration ?? "0"),
     );
 
     // حساب الوقت المتبقي/المنقضي
     String timeDifference = LectureStateHelper.getTimeDifference(
-      nextSession: programData.nextSession?.sessionDatetime?.toString(),
+      nextSession: programData?.nextSession?.sessionDatetime?.toString(),
       nextSessionDuration:
-          int.tryParse(programData.nextSession?.duration ?? "0"),
+          int.tryParse(programData?.nextSession?.duration ?? "0"),
     );
 
     return LectureStats(
@@ -31,12 +31,12 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
       onRejoinTap: () {
         // كود إعادة الدخول
       },
-      nextLecture: programData.nextSession?.sessionDatetime
+      nextLecture: programData?.nextSession?.sessionDatetime
               ?.toString()
               .substring(0, 10) ??
           "غير محدد",
-      duration: programData.nextSession?.duration != null
-          ? "${programData.nextSession?.duration} دقيقة"
+      duration: programData?.nextSession?.duration != null
+          ? "${programData?.nextSession?.duration} دقيقة"
           : "غير محدد",
       timeDiff: timeDifference,
       titleText: const ["المحاضرة التالية", "مدة الجلسة", "حالة الجلسة"],

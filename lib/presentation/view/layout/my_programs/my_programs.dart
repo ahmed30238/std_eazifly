@@ -39,10 +39,14 @@ class _MyProgramsViewState extends State<MyProgramsView> {
     cubit.getMyPrograms();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Check if tutorial has been shown before
-      if (!_isTutorialCompleted()) {
-        showTutorial();
-      }
+      Future.delayed(
+        const Duration(milliseconds: 300),
+            () {
+          if (!_isTutorialCompleted()) {
+            showTutorial();
+          }
+        },
+      );
     });
 
     super.initState();

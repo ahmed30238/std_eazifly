@@ -5,11 +5,11 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 Widget buildPageViewWithLoading(
     LectureCubit cubit, LectureState state, PageController pageController) {
-  var programData = cubit.showProgramDetailsEntity?.data;
-
-  if (programData == null) {
-    return buildLoadingContainer(height: 100.h);
-  }
+  // var programData = cubit.showProgramDetailsEntity?.data;
+  //
+  // if (programData == null) {
+  //   return buildLoadingContainer(height: 100.h);
+  // }
 
   return Expanded(
     child: PageView.builder(
