@@ -507,7 +507,7 @@ class AppRouter {
             ),
           ),
         );
-      case RoutePaths.programDetailsView:
+      case RoutePaths.programPlansFilter:
         // var argument = settings.arguments as Map<String, dynamic>?;
         int programId = settings.arguments as int;
         return createRoute(
@@ -662,7 +662,7 @@ class AppRouter {
             child: const AddToLibraryPackageDetailsView(),
           ),
         );
-      case RoutePaths.programPlanFilter:
+      case RoutePaths.programPlanSelection:
         var programId = settings.arguments as int?;
         return createRoute(
           BlocProvider(

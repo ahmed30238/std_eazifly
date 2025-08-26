@@ -339,7 +339,7 @@ class _RegisterViewState extends State<RegisterView> {
                       "هل لديك حساب بالفعل؟ ",
                       style: MainTextStyle.regularTextStyle(
                         fontSize: 14,
-                        color: MainColors.warning,
+                        color: MainColors.onPrimary,
                       ),
                     ),
                     TextButton(

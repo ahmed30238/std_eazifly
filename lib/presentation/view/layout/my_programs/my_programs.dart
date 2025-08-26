@@ -41,7 +41,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(
         const Duration(milliseconds: 300),
-            () {
+        () {
           if (!_isTutorialCompleted()) {
             showTutorial();
           }
@@ -148,14 +148,16 @@ class _MyProgramsViewState extends State<MyProgramsView> {
           BlocBuilder(
             bloc: cubit,
             builder: (context, state) {
+              // مراقبة القيمة المطلوبة بس - أفضل أداء
+              final programsUnderReview =
+                  context.select<ProgramsUnderReviewCubit, List?>(
+                (cubit) => cubit.getUserOrdersEntity?.data,
+              );
+
               if (cubit.getMyProgramsLoader) {
                 return const MyProgramsLoader();
               } else if (!cubit.getMyProgramsLoader) {
                 var myPrograms = cubit.getMyProgramsEntity?.data;
-                var programsUnderReview = context
-                    .read<ProgramsUnderReviewCubit>()
-                    .getUserOrdersEntity
-                    ?.data;
 
                 if (myPrograms == null ||
                     myPrograms.isEmpty &&
@@ -182,28 +184,38 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                   );
                 } else if (programsUnderReview?.isNotEmpty == true &&
                     myPrograms.isEmpty) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      270.ph,
-                      Center(
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              RoutePaths.programsUnderReviewView,
-                            );
-                          },
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        RoutePaths.programsUnderReviewView,
+                      );
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        270.ph,
+                        Center(
                           child: Text(
-                            "لديك برامج في المراجعة!! اضغط لإضافة حصص",
+                            "لديك برامج في المراجعة",
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 16,
                               color: MainColors.primary,
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        8.ph,
+                        Center(
+                          child: Text(
+                            "اضغط لإضافة حصص",
+                            style: MainTextStyle.boldTextStyle(
+                              fontSize: 16,
+                              color: MainColors.primary,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 }
 

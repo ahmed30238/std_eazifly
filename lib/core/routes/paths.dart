@@ -57,7 +57,7 @@ class RoutePaths {
   static const completePaymentProcessScreen = "completePaymentProcessScreen";
   static const programsUnderReviewView = "programsUnderReviewView";
   static const registerView = "registerView";
-  static const programDetailsView = "programDetailsView";
+  static const programPlansFilter = "programDetailsView";
   static const programSubscriptionPlan = "programSubscriptionPlan";
   static const addNewStudentData = "addNewStudentData";
   static const lectureHistoryView = "lectureHistoryView";
@@ -77,7 +77,7 @@ class RoutePaths {
       "subscribedStudentsSettingsView";
   static const lectureQuizzDetailsView = "lectureQuizzDetailsView";
   static const correctedQuizDetailsView = "correctedQuizDetailsView";
-  static const programPlanFilter = "programPlanFilter";
+  static const programPlanSelection = "programPlanFilter";
   static const corrcectedAssignmentDetailsView =
       "corrcectedAssignmentDetailsView";
 }
