@@ -59,9 +59,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   GlobalKey<FormState> resetFormKey = GlobalKey<FormState>();
 
 
-  Future<void> forgetPassword({
-    required String email,
-  }) async {
+  Future<void> forgetPassword() async {
     forgotPasswordLoader = true;
     emit(ForgotPasswordLoadingState());
 

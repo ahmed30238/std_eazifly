@@ -182,10 +182,13 @@ class ForgotPasswordScreen extends StatelessWidget {
                                 }
                                 return null;
                               },
-                              prefixIconWidget: Icon(
-                                Icons.email_outlined,
-                                color: MainColors.muted,
-                                size: 20.sp,
+                              prefixIconWidget: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Icon(
+                                  Icons.email_outlined,
+                                  color: MainColors.muted,
+                                  size: 20.sp,
+                                ),
                               ),
                             ),
                             60.ph,
@@ -207,10 +210,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                     if (cubit
                                         .forgotPasswordFormKey.currentState!
                                         .validate()) {
-                                      cubit.forgetPassword(
-                                        email:
-                                            cubit.emailController.text.trim(),
-                                      );
+                                      cubit.forgetPassword();
                                     }
                                   },
                             height: 52.h,

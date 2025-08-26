@@ -320,7 +320,7 @@ class _ProgramSubscriptionPlanViewState
                           titleText: "كوبون خصم",
                           iconWidget: 0.ph,
                           formfieldHintText: "asd151",
-                          validator: customValidation,
+                          // validator: customValidation,
                           controller: cubit.copounController,
                         ),
                       ),

@@ -96,7 +96,7 @@ class ResetPasswordScreen extends StatelessWidget {
             body: Container(
               width: double.infinity,
               height: double.infinity,
-              decoration:  BoxDecoration(
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.centerRight,
@@ -178,10 +178,13 @@ class ResetPasswordScreen extends StatelessWidget {
                               initialValue: email,
                               enabled: false,
                               hintText: email,
-                              prefixIconWidget: Icon(
-                                Icons.email_outlined,
-                                color: MainColors.muted,
-                                size: 20.sp,
+                              prefixIconWidget: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Icon(
+                                  Icons.email_outlined,
+                                  color: MainColors.muted,
+                                  size: 20.sp,
+                                ),
                               ),
                             ),
                             24.ph,
@@ -211,10 +214,13 @@ class ResetPasswordScreen extends StatelessWidget {
                                 }
                                 return null;
                               },
-                              prefixIconWidget: Icon(
-                                Icons.verified_user_outlined,
-                                color: MainColors.muted,
-                                size: 20.sp,
+                              prefixIconWidget: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Icon(
+                                  Icons.verified_user_outlined,
+                                  color: MainColors.muted,
+                                  size: 20.sp,
+                                ),
                               ),
                             ),
                             24.ph,
@@ -241,10 +247,13 @@ class ResetPasswordScreen extends StatelessWidget {
                                 }
                                 return null;
                               },
-                              prefixIconWidget: Icon(
-                                Icons.lock_outline,
-                                color: MainColors.muted,
-                                size: 20.sp,
+                              prefixIconWidget: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Icon(
+                                  Icons.lock_outline,
+                                  color: MainColors.muted,
+                                  size: 20.sp,
+                                ),
                               ),
                               suffixIconWidget: IconButton(
                                 onPressed: () =>
@@ -282,10 +291,13 @@ class ResetPasswordScreen extends StatelessWidget {
                                 }
                                 return null;
                               },
-                              prefixIconWidget: Icon(
-                                Icons.lock_outline,
-                                color: MainColors.muted,
-                                size: 20.sp,
+                              prefixIconWidget: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Icon(
+                                  Icons.lock_outline,
+                                  color: MainColors.muted,
+                                  size: 20.sp,
+                                ),
                               ),
                               suffixIconWidget: IconButton(
                                 onPressed: () =>
@@ -342,7 +354,7 @@ class ResetPasswordScreen extends StatelessWidget {
                             onPressed: cubit.forgotPasswordLoader
                                 ? null
                                 : () {
-                                    cubit.forgetPassword(email: email);
+                                    cubit.forgetPassword();
                                   },
                             child: Text(
                               cubit.forgotPasswordLoader

@@ -1169,8 +1169,8 @@ class Repository extends BaseRepository {
   @override
   Future<Either<Failure, ForgotPasswordEntity>> forgotPassword(
       {required String email}) async {
-    final result = await baseRemoteDataSource.forgotPassword(email);
     try {
+      final result = await baseRemoteDataSource.forgotPassword(email);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

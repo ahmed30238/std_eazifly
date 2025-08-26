@@ -2331,10 +2331,16 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return ForgotPasswordModel.fromJson(response?.data);
+    } else if (response?.statusCode == 422) {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel(
+          statusMessage: _extractErrorMessage(response?.data['message']),
+        ),
+      );
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
+        errorMessageModel: ErrorMessageModel(
+          statusMessage: "حدث خطأ غير متوقع",
         ),
       );
     }
@@ -2372,4 +2378,22 @@ class RemoteDataSource extends BaseRemoteDataSource {
       );
     }
   }
+}
+
+String _extractErrorMessage(dynamic message) {
+  if (message == null) return "حدث خطأ غير متوقع";
+
+  if (message is String) return message;
+
+  if (message is Map<String, dynamic>) {
+    for (var value in message.values) {
+      if (value is List && value.isNotEmpty) {
+        return value.first.toString(); // أول خطأ في أول قائمة
+      } else if (value is String) {
+        return value;
+      }
+    }
+  }
+
+  return "حدث خطأ غير متوقع";
 }

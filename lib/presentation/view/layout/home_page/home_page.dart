@@ -148,13 +148,6 @@ class _HomePageState extends State<HomePage> {
             //     "geidea",
             //   ),
             // ),
-            Text(
-              "add shorebird",
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 14,
-                color: MainColors.primary,
-              ),
-            ),
             Expanded(
               child: ListView(
                 physics: const BouncingScrollPhysics(),
