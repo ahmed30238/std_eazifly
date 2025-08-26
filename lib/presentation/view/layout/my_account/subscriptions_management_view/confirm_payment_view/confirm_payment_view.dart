@@ -7,6 +7,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class ConfirmPaymentView extends StatefulWidget {
   final int methodId;
+
   const ConfirmPaymentView({
     super.key,
     required this.methodId,
@@ -18,6 +19,7 @@ class ConfirmPaymentView extends StatefulWidget {
 
 class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
   late ProgramsubscriptionplanCubit programsubscriptionplanCubit;
+
   @override
   void initState() {
     programsubscriptionplanCubit = ProgramsubscriptionplanCubit.get(context);
@@ -96,7 +98,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                   value: programsubscriptionplanCubit.startDate.text,
                 ),
                 3.ph,
-                 CustomHorizontalDivider(
+                CustomHorizontalDivider(
                   color: MainColors.surfaceVariant,
                 ),
                 ...List.generate(
@@ -118,9 +120,30 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                           ? price
                           : index == 1
                               ? discountValue.toInt().toString()
-                              : orderData?.discountPrice ??
-                                  filteredOrderData?.discountPrice ??
-                                  "",
+                              : () {
+                                  String? discount = orderData?.discountPrice ??
+                                      filteredOrderData?.discountPrice;
+                                  if (discount != null && discount.isNotEmpty) {
+                                    int parsedValue =
+                                        int.tryParse(discount) ?? 0;
+                                    int studentCount =
+                                        programsubscriptionplanCubit
+                                                .studentNumberController
+                                                .text
+                                                .isEmpty
+                                            ? programsubscriptionplanCubit
+                                                .studentCount
+                                            : int.tryParse(
+                                                    programsubscriptionplanCubit
+                                                        .studentNumberController
+                                                        .text) ??
+                                                1;
+
+                                    return (parsedValue * studentCount)
+                                        .toString();
+                                  }
+                                  return "0";
+                                }(),
                       textStyle: index == 2
                           ? MainTextStyle.boldTextStyle(
                               fontSize: 15,
@@ -139,7 +162,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
             "طريقة التحويل",
             style: MainTextStyle.boldTextStyle(
               fontSize: 12,
-              color: MainColors.borderPrimary,
+              color: MainColors.primary,
             ),
           ),
           8.ph,
@@ -156,7 +179,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                 Container(
                   width: 24.w,
                   height: 24.h,
-                  decoration:  BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: MainColors.primary,
                   ),
@@ -181,12 +204,23 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                           currency: orderData?.currency ?? "ج.م",
                           programsubscriptionplanCubit
                               .getPaymentMethodDetailsEntity?.data?.title,
-                          double.tryParse(
-                                orderData?.discountPrice ??
-                                    filteredOrderData?.discountPrice ??
-                                    "",
-                              ) ??
-                              0.0,
+                          () {
+                            String? discount = orderData?.discountPrice ??
+                                filteredOrderData?.discountPrice;
+                            if (discount != null && discount.isNotEmpty) {
+                              double parsedValue =
+                                  double.tryParse(discount) ?? 0.0;
+                              int studentCount = programsubscriptionplanCubit
+                                      .studentNumberController.text.isEmpty
+                                  ? programsubscriptionplanCubit.studentCount
+                                  : int.tryParse(programsubscriptionplanCubit
+                                          .studentNumberController.text) ??
+                                      1;
+
+                              return parsedValue * studentCount;
+                            }
+                            return 0.0;
+                          }(),
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -367,6 +401,7 @@ class ProgramDetailsItem extends StatelessWidget {
   final TextStyle? textStyle;
   final String title;
   final String value;
+
   const ProgramDetailsItem({
     required this.title,
     required this.value,
@@ -389,7 +424,7 @@ class ProgramDetailsItem extends StatelessWidget {
               style: textStyle ??
                   MainTextStyle.boldTextStyle(
                     fontSize: 12,
-                    color: MainColors.borderPrimary,
+                    color: MainColors.primary,
                   ),
             ),
             Text(
@@ -397,7 +432,7 @@ class ProgramDetailsItem extends StatelessWidget {
               style: textStyle ??
                   MainTextStyle.boldTextStyle(
                     fontSize: 12,
-                    color: MainColors.borderPrimary,
+                    color: MainColors.primary,
                   ),
             ),
           ],
