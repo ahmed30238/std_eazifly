@@ -1,5 +1,5 @@
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
-import 'package:eazifly_student/core/component/custom_form_field.dart';
+import 'package:eazifly_student/core/component/titled_form_field.dart';
 import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
@@ -47,7 +47,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               context,
               RoutePaths.resetPasswordView,
               arguments:
-              context.read<ForgotPasswordCubit>().emailController.text,
+                  context.read<ForgotPasswordCubit>().emailController.text,
             );
           } else if (state is ForgotPasswordErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -159,20 +159,19 @@ class ForgotPasswordScreen extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                             48.ph,
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                lang.email,
-                                style: MainTextStyle.boldTextStyle(
-                                  fontSize: 14,
-                                  color: MainColors.onSecondary,
-                                ),
-                              ),
-                            ),
+                            //   Align(
+                            //     child: Text(
+                            //     ,
+                            //     style: MainTextStyle.boldTextStyle(
+                            //     fontSize: 14,
+                            //     color: MainColors.onSecondary,
+                            //     ),
+                            //   ),
+                            // ),
                             8.ph,
-                            CustomTextFormField(
+                            TitledFormFieldItem(
+                              iconWidget: 0.ph,
                               controller: cubit.emailController,
-                              hintText: lang.emailHint,
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -184,7 +183,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                 }
                                 return null;
                               },
-                              prefixIconWidget: Padding(
+                              suffIcon: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                                 child: Icon(
                                   Icons.email_outlined,
@@ -192,6 +191,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                                   size: 20.sp,
                                 ),
                               ),
+                              titleText: lang.email,
+                              formfieldHintText: lang.emailHint,
                             ),
                             60.ph,
                           ],
@@ -209,27 +210,28 @@ class ForgotPasswordScreen extends StatelessWidget {
                             onPressed: cubit.forgotPasswordLoader
                                 ? () {}
                                 : () {
-                              if (cubit
-                                  .forgotPasswordFormKey.currentState!
-                                  .validate()) {
-                                cubit.forgetPassword();
-                              }
-                            },
+                                    if (cubit
+                                        .forgotPasswordFormKey.currentState!
+                                        .validate()) {
+                                      cubit.forgetPassword();
+                                    }
+                                  },
                             height: 52.h,
                             width: double.infinity,
                             color: MainColors.primary,
                             radius: 16.r,
                             child: cubit.forgotPasswordLoader
                                 ? SizedBox(
-                              height: 20.h,
-                              width: 20.w,
-                              child: const CircularProgressIndicator.adaptive(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.white,
-                                ),
-                              ),
-                            )
+                                    height: 20.h,
+                                    width: 20.w,
+                                    child: const CircularProgressIndicator
+                                        .adaptive(
+                                      strokeWidth: 2,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
+                                    ),
+                                  )
                                 : null,
                           ),
                           24.ph,
