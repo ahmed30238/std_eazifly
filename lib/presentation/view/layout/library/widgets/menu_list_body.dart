@@ -13,6 +13,7 @@ class MenuListBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<LibraryCubit>();
+    var lang = context.loc!;
     return BlocBuilder<LibraryCubit, LibraryState>(
       builder: (context, state) {
         if (state is AllLibraryListsErrorState) {
@@ -26,8 +27,8 @@ class MenuListBody extends StatelessWidget {
           log("empty state");
           return Padding(
             padding: EdgeInsets.only(top: 48.h),
-            child: const NoDataAnimatedImageWidget(
-              message: "لا يوجد قوائم متاحة",
+            child: NoDataAnimatedImageWidget(
+              message: lang.noMenus,
             ).center(),
           );
         }

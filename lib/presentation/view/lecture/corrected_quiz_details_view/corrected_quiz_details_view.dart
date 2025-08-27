@@ -176,7 +176,7 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
         return MainColors.success;
       case 'fail':
       case 'failed':
-        return MainColors.onError;
+        return MainColors.error;
       default:
         return MainColors.borderPrimary;
     }

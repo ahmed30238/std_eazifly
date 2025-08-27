@@ -10,20 +10,28 @@ import 'package:eazifly_student/presentation/view/layout/my_account/subscription
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SubscriptionManagmentView extends StatefulWidget {
-  const SubscriptionManagmentView({super.key});
+class SubscriptionManagementView extends StatefulWidget {
+  const SubscriptionManagementView({super.key});
 
   @override
-  State<SubscriptionManagmentView> createState() =>
-      _SubscriptionManagmentViewState();
+  State<SubscriptionManagementView> createState() =>
+      _SubscriptionManagementViewState();
 }
 
-class _SubscriptionManagmentViewState extends State<SubscriptionManagmentView>
+class _SubscriptionManagementViewState extends State<SubscriptionManagementView>
     with SingleTickerProviderStateMixin {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   SubscriptionmanagementCubit.get(context)
+  //       .initTabBarController(this, context);
+  // }
+
   @override
-  void initState() {
-    SubscriptionmanagementCubit.get(context).initTabBarController(this);
-    super.initState();
+  void didChangeDependencies() {
+    SubscriptionmanagementCubit.get(context)
+        .initTabBarController(this, context);
+    super.didChangeDependencies();
   }
 
   @override
@@ -50,10 +58,10 @@ class _SubscriptionManagmentViewState extends State<SubscriptionManagmentView>
                     cubit.changeTapbarIndex(value);
                   },
                   tabs: List.generate(
-                    cubit.tabs.length,
+                    cubit.tabs(context).length,
                     (index) {
                       return Text(
-                        cubit.tabs[index],
+                        cubit.tabs(context)[index],
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 15,
                           color: cubit.controller.index == index
@@ -75,11 +83,11 @@ class _SubscriptionManagmentViewState extends State<SubscriptionManagmentView>
                   child: Column(
                     children: [
                       Text(
-                          "خطأ في تحميل اشتراكات البرامج: ${state.errorMessage}"),
+                          "${lang.programSubscriptionLoadError}: ${state.errorMessage}"),
                       ElevatedButton(
                         onPressed: () =>
                             cubit.changeTapbarIndex(cubit.tapbarIndex),
-                        child: const Text("إعادة المحاولة"),
+                        child: Text(lang.retry),
                       ),
                     ],
                   ),
@@ -91,11 +99,11 @@ class _SubscriptionManagmentViewState extends State<SubscriptionManagmentView>
                   child: Column(
                     children: [
                       Text(
-                          "خطأ في تحميل اشتراكات المكتبة: ${state.errorMessage}"),
+                          "${lang.librarySubscriptionLoadError}: ${state.errorMessage}"),
                       ElevatedButton(
                         onPressed: () =>
                             cubit.changeTapbarIndex(cubit.tapbarIndex),
-                        child: const Text("إعادة المحاولة"),
+                        child: Text(lang.retry),
                       ),
                     ],
                   ),

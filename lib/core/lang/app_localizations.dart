@@ -155,7 +155,7 @@ abstract class AppLocalizations {
   /// No description provided for @thePrograms.
   ///
   /// In en, this message translates to:
-  /// **'The Programs'**
+  /// **'Programs'**
   String get thePrograms;
 
   /// No description provided for @mostPopular.
@@ -769,6 +769,438 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resending code...'**
   String get resendingCode;
+
+  /// No description provided for @ourCommunity.
+  ///
+  /// In en, this message translates to:
+  /// **'Our Community'**
+  String get ourCommunity;
+
+  /// No description provided for @failedToLoadMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load messages'**
+  String get failedToLoadMessages;
+
+  /// No description provided for @noMessagesWithInstructors.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages with instructors'**
+  String get noMessagesWithInstructors;
+
+  /// No description provided for @startConversationWithInstructors.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a conversation with your instructors to ask questions'**
+  String get startConversationWithInstructors;
+
+  /// No description provided for @noMessagesWithClients.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages with clients'**
+  String get noMessagesWithClients;
+
+  /// No description provided for @startConversationWithClients.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a conversation with clients to follow up on their inquiries'**
+  String get startConversationWithClients;
+
+  /// No description provided for @age.
+  ///
+  /// In en, this message translates to:
+  /// **'age'**
+  String get age;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password'**
+  String get forgotPassword;
+
+  /// No description provided for @verificationCodeSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code has been sent to your email'**
+  String get verificationCodeSent;
+
+  /// No description provided for @forgotPasswordQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get forgotPasswordQuestion;
+
+  /// No description provided for @forgotPasswordDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t worry! Enter your email and we\'ll send you a verification code to reset your password'**
+  String get forgotPasswordDescription;
+
+  /// No description provided for @pleaseEnterEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email'**
+  String get pleaseEnterEmail;
+
+  /// No description provided for @pleaseEnterValidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email'**
+  String get pleaseEnterValidEmail;
+
+  /// No description provided for @sendVerificationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Verification Code'**
+  String get sendVerificationCode;
+
+  /// No description provided for @backToLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Login'**
+  String get backToLogin;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// No description provided for @tutorialFinished.
+  ///
+  /// In en, this message translates to:
+  /// **'Tutorial finished'**
+  String get tutorialFinished;
+
+  /// No description provided for @tutorialSkipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Tutorial skipped'**
+  String get tutorialSkipped;
+
+  /// No description provided for @reviewProgramsTutorial.
+  ///
+  /// In en, this message translates to:
+  /// **'Click here to view programs under review'**
+  String get reviewProgramsTutorial;
+
+  /// No description provided for @noSubscriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no subscriptions'**
+  String get noSubscriptions;
+
+  /// No description provided for @subscribeNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe now'**
+  String get subscribeNow;
+
+  /// No description provided for @programsUnderReview.
+  ///
+  /// In en, this message translates to:
+  /// **'You have programs under review'**
+  String get programsUnderReview;
+
+  /// No description provided for @tapToAddSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to add sessions'**
+  String get tapToAddSessions;
+
+  /// No description provided for @alreadyStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Already started'**
+  String get alreadyStarted;
+
+  /// No description provided for @ongoingNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Ongoing now'**
+  String get ongoingNow;
+
+  /// No description provided for @notSpecified.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified'**
+  String get notSpecified;
+
+  /// No description provided for @noDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'No description'**
+  String get noDescription;
+
+  /// No description provided for @minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'minutes'**
+  String get minutes;
+
+  /// No description provided for @audios.
+  ///
+  /// In en, this message translates to:
+  /// **'Audios'**
+  String get audios;
+
+  /// No description provided for @menus.
+  ///
+  /// In en, this message translates to:
+  /// **'Menus'**
+  String get menus;
+
+  /// No description provided for @favourite.
+  ///
+  /// In en, this message translates to:
+  /// **'Favourite'**
+  String get favourite;
+
+  /// No description provided for @noAudios.
+  ///
+  /// In en, this message translates to:
+  /// **'No available audios'**
+  String get noAudios;
+
+  /// No description provided for @noMenus.
+  ///
+  /// In en, this message translates to:
+  /// **'No Available Menus'**
+  String get noMenus;
+
+  /// No description provided for @noFavs.
+  ///
+  /// In en, this message translates to:
+  /// **'No Available Favourites'**
+  String get noFavs;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @arabic.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get arabic;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// No description provided for @upcomingLectures.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming Lectures'**
+  String get upcomingLectures;
+
+  /// No description provided for @noUpcomingLectures.
+  ///
+  /// In en, this message translates to:
+  /// **'No upcoming lectures'**
+  String get noUpcomingLectures;
+
+  /// No description provided for @noAudioContentAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No audio content available'**
+  String get noAudioContentAvailable;
+
+  /// No description provided for @noItemsInThisList.
+  ///
+  /// In en, this message translates to:
+  /// **'No items in this list'**
+  String get noItemsInThisList;
+
+  /// No description provided for @noNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications'**
+  String get noNotifications;
+
+  /// No description provided for @noNotificationsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications found yet'**
+  String get noNotificationsFound;
+
+  /// No description provided for @refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
+
+  /// No description provided for @programDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Program Details'**
+  String get programDetails;
+
+  /// No description provided for @programs.
+  ///
+  /// In en, this message translates to:
+  /// **'Programs'**
+  String get programs;
+
+  /// No description provided for @dataLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while loading data'**
+  String get dataLoadError;
+
+  /// No description provided for @checkInternetConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your internet connection and try again'**
+  String get checkInternetConnection;
+
+  /// No description provided for @subscribeNowButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe Now'**
+  String get subscribeNowButton;
+
+  /// No description provided for @choosePlanDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from a variety of packages and enjoy exclusive benefits'**
+  String get choosePlanDescription;
+
+  /// No description provided for @saveDiscount.
+  ///
+  /// In en, this message translates to:
+  /// **'Save 20%'**
+  String get saveDiscount;
+
+  /// No description provided for @noAvailablePlans.
+  ///
+  /// In en, this message translates to:
+  /// **'No available plans'**
+  String get noAvailablePlans;
+
+  /// No description provided for @planName.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan Name'**
+  String get planName;
+
+  /// No description provided for @monthly.
+  ///
+  /// In en, this message translates to:
+  /// **'monthly'**
+  String get monthly;
+
+  /// No description provided for @studentsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of Students'**
+  String get studentsCount;
+
+  /// No description provided for @subscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe'**
+  String get subscribe;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get startDate;
+
+  /// No description provided for @startDateHint.
+  ///
+  /// In en, this message translates to:
+  /// **'2025-05-15'**
+  String get startDateHint;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @confirmLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to log out?'**
+  String get confirmLogout;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get logout;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get deleteAccount;
+
+  /// No description provided for @confirmDeleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete your account?'**
+  String get confirmDeleteAccount;
+
+  /// No description provided for @deleteAccountWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'All your data will be permanently deleted and this action cannot be undone.'**
+  String get deleteAccountWarning;
+
+  /// No description provided for @programSubscriptionLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading program subscriptions'**
+  String get programSubscriptionLoadError;
+
+  /// No description provided for @librarySubscriptionLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading library subscriptions'**
+  String get librarySubscriptionLoadError;
+
+  /// No description provided for @noProgramSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'No program subscriptions'**
+  String get noProgramSubscription;
+
+  /// No description provided for @noLibrarySubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'No library subscriptions'**
+  String get noLibrarySubscription;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @remain.
+  ///
+  /// In en, this message translates to:
+  /// **'remain'**
+  String get remain;
 }
 
 class _AppLocalizationsDelegate

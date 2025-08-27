@@ -1,4 +1,5 @@
 import 'package:eazifly_student/core/component/custom_appbar.dart';
+import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/presentation/controller/home_notification/home_notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_notification/home_notification_state.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_notification_view.dart/widgets.dart/home_notification_item.dart';
@@ -26,12 +27,14 @@ class _HomeNotificationViewState extends State<HomeNotificationView> {
   @override
   Widget build(BuildContext context) {
     var cubit = HomeNotificationCubit.get(context);
+    var lang = context.loc!; // إضافة متغير الترجمة
+
     return Scaffold(
       appBar: CustomAppBar(
         context,
         isCenterTitle: true,
-        mainTitle: "الاشعارات",
-        leadingText: "عودة",
+        mainTitle: lang.notifications, // استخدام النص من الترجمة
+        leadingText: lang.back, // استخدام النص من الترجمة
         // onLeadinTap: () => back(context),
       ),
       body: BlocBuilder(
@@ -55,7 +58,7 @@ class _HomeNotificationViewState extends State<HomeNotificationView> {
 
           // Handle empty state
           if (cubit.notifications.isEmpty) {
-            return _buildEmptyState();
+            return _buildEmptyState(lang);
           }
 
           return ListView.builder(
@@ -94,7 +97,7 @@ class _HomeNotificationViewState extends State<HomeNotificationView> {
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(var lang) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +109,7 @@ class _HomeNotificationViewState extends State<HomeNotificationView> {
           ),
           SizedBox(height: 20.h),
           Text(
-            "لا توجد إشعارات",
+            lang.noNotifications, // استخدام النص من الترجمة
             style: TextStyle(
               fontSize: 20.sp,
               fontWeight: FontWeight.bold,
@@ -115,7 +118,7 @@ class _HomeNotificationViewState extends State<HomeNotificationView> {
           ),
           SizedBox(height: 8.h),
           Text(
-            "لم يتم العثور على أي إشعارات حتى الآن",
+            lang.noNotificationsFound, // استخدام النص من الترجمة
             style: TextStyle(
               fontSize: 14.sp,
               color: Colors.grey[500],
@@ -135,7 +138,7 @@ class _HomeNotificationViewState extends State<HomeNotificationView> {
               ),
             ),
             child: Text(
-              "تحديث",
+              lang.refresh, // استخدام النص من الترجمة
               style: TextStyle(fontSize: 16.sp),
             ),
           ),
@@ -147,6 +150,6 @@ class _HomeNotificationViewState extends State<HomeNotificationView> {
 
 String formatDateTime(DateTime dateTime) {
   final dateFormat =
-      DateFormat('yyyy/MM/dd hh:mm a'); // مثال: 2025/05/25 03:45 PM
+  DateFormat('yyyy/MM/dd hh:mm a'); // مثال: 2025/05/25 03:45 PM
   return dateFormat.format(dateTime);
 }

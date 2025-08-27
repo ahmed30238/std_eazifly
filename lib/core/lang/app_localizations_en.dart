@@ -36,7 +36,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get myPrograms => 'My Programs';
 
   @override
-  String get thePrograms => 'The Programs';
+  String get thePrograms => 'Programs';
 
   @override
   String get mostPopular => 'Most Popular';
@@ -344,4 +344,231 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resendingCode => 'Resending code...';
+
+  @override
+  String get ourCommunity => 'Our Community';
+
+  @override
+  String get failedToLoadMessages => 'Failed to load messages';
+
+  @override
+  String get noMessagesWithInstructors => 'No messages with instructors';
+
+  @override
+  String get startConversationWithInstructors =>
+      'Start a conversation with your instructors to ask questions';
+
+  @override
+  String get noMessagesWithClients => 'No messages with clients';
+
+  @override
+  String get startConversationWithClients =>
+      'Start a conversation with clients to follow up on their inquiries';
+
+  @override
+  String get age => 'age';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get forgotPassword => 'Forgot Password';
+
+  @override
+  String get verificationCodeSent =>
+      'Verification code has been sent to your email';
+
+  @override
+  String get forgotPasswordQuestion => 'Forgot Password?';
+
+  @override
+  String get forgotPasswordDescription =>
+      'Don\'t worry! Enter your email and we\'ll send you a verification code to reset your password';
+
+  @override
+  String get pleaseEnterEmail => 'Please enter your email';
+
+  @override
+  String get pleaseEnterValidEmail => 'Please enter a valid email';
+
+  @override
+  String get sendVerificationCode => 'Send Verification Code';
+
+  @override
+  String get backToLogin => 'Back to Login';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get tutorialFinished => 'Tutorial finished';
+
+  @override
+  String get tutorialSkipped => 'Tutorial skipped';
+
+  @override
+  String get reviewProgramsTutorial =>
+      'Click here to view programs under review';
+
+  @override
+  String get noSubscriptions => 'You have no subscriptions';
+
+  @override
+  String get subscribeNow => 'Subscribe now';
+
+  @override
+  String get programsUnderReview => 'You have programs under review';
+
+  @override
+  String get tapToAddSessions => 'Tap to add sessions';
+
+  @override
+  String get alreadyStarted => 'Already started';
+
+  @override
+  String get ongoingNow => 'Ongoing now';
+
+  @override
+  String get notSpecified => 'Not specified';
+
+  @override
+  String get noDescription => 'No description';
+
+  @override
+  String get minutes => 'minutes';
+
+  @override
+  String get audios => 'Audios';
+
+  @override
+  String get menus => 'Menus';
+
+  @override
+  String get favourite => 'Favourite';
+
+  @override
+  String get noAudios => 'No available audios';
+
+  @override
+  String get noMenus => 'No Available Menus';
+
+  @override
+  String get noFavs => 'No Available Favourites';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get arabic => 'Arabic';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get upcomingLectures => 'Upcoming Lectures';
+
+  @override
+  String get noUpcomingLectures => 'No upcoming lectures';
+
+  @override
+  String get noAudioContentAvailable => 'No audio content available';
+
+  @override
+  String get noItemsInThisList => 'No items in this list';
+
+  @override
+  String get noNotifications => 'No notifications';
+
+  @override
+  String get noNotificationsFound => 'No notifications found yet';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get programDetails => 'Program Details';
+
+  @override
+  String get programs => 'Programs';
+
+  @override
+  String get dataLoadError => 'An error occurred while loading data';
+
+  @override
+  String get checkInternetConnection =>
+      'Check your internet connection and try again';
+
+  @override
+  String get subscribeNowButton => 'Subscribe Now';
+
+  @override
+  String get choosePlanDescription =>
+      'Choose from a variety of packages and enjoy exclusive benefits';
+
+  @override
+  String get saveDiscount => 'Save 20%';
+
+  @override
+  String get noAvailablePlans => 'No available plans';
+
+  @override
+  String get planName => 'Plan Name';
+
+  @override
+  String get monthly => 'monthly';
+
+  @override
+  String get studentsCount => 'Number of Students';
+
+  @override
+  String get subscribe => 'Subscribe';
+
+  @override
+  String get startDate => 'Start Date';
+
+  @override
+  String get startDateHint => '2025-05-15';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get confirmLogout => 'Are you sure you want to log out?';
+
+  @override
+  String get logout => 'Log out';
+
+  @override
+  String get deleteAccount => 'Delete account';
+
+  @override
+  String get confirmDeleteAccount =>
+      'Are you sure you want to delete your account?';
+
+  @override
+  String get deleteAccountWarning =>
+      'All your data will be permanently deleted and this action cannot be undone.';
+
+  @override
+  String get programSubscriptionLoadError =>
+      'Error loading program subscriptions';
+
+  @override
+  String get librarySubscriptionLoadError =>
+      'Error loading library subscriptions';
+
+  @override
+  String get noProgramSubscription => 'No program subscriptions';
+
+  @override
+  String get noLibrarySubscription => 'No library subscriptions';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get remain => 'remain';
 }

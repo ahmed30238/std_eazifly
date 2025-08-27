@@ -1,5 +1,6 @@
-// sub_programs_body.dart
+import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
+import 'package:eazifly_student/core/extensions/widgets_extensions.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/subscriptions_management_view/widgets/all_body_list_item_widget.dart';
@@ -13,19 +14,20 @@ class SubProgramsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = SubscriptionmanagementCubit.get(context);
-
+    final lang = context.loc!;
     return BlocBuilder(
       bloc: cubit,
       builder: (context, state) {
         if (cubit.getProgramSubscriptionLoader) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator.adaptive(),
           );
         }
 
         if (cubit.getProgramSubscriptionEntity?.data?.isEmpty ?? true) {
-          return const Center(
-            child: Text("لا توجد اشتراكات برامج"),
+          return Padding(
+            padding: EdgeInsets.only(top: 300.h),
+            child: Text(lang.noProgramSubscription).center(),
           );
         }
 

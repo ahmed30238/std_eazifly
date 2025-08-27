@@ -47,7 +47,7 @@ class AllMeetingItem extends StatelessWidget {
               height: 26.h,
               child: Padding(
                 padding: EdgeInsets.only(
-                  right: ApplanuageCubit.isArabic(context) ? 16.w : 0.w,
+                  right: AppLanguageCubit.isArabic(context) ? 16.w : 0.w,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -40,7 +40,7 @@ class JoinedLectureScreen extends StatelessWidget {
                 width: 27.w,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(7.r),
-                    color: MainColors.onPrimary.withOpacity(.5)),
+                    color: MainColors.onPrimary.withValues(alpha: .5)),
                 child: SvgPicture.asset(
                   Assets.iconsVerticalDots,
                   fit: BoxFit.scaleDown,

@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/core/component/custom_dialog.dart';
+import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
@@ -70,11 +71,15 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
 
   late TabController controller;
 
-  final List<String> tabs = [
-    "الكل",
-    'البرامج',
-    'المكتبة',
-  ];
+  List<String> tabs(BuildContext context) {
+    var lang = context.loc!;
+    return [
+      lang.all,
+      lang.programs,
+      lang.library,
+    ];
+  }
+
   // int programId = -1;
   // void initProgramId(int programId) {
   //   this.programId = programId;
@@ -82,6 +87,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   bool getPaymentMethodDetailsLoader = false;
   GetPaymentMethodDetailsEntity? getPaymentMethodDetailsEntity;
   GetPaymentMethodDetailsUsecase getPaymentMethodDetailsUsecase;
+
   Future<void> getPamyentMethodDetails({required int methodId}) async {
     getPaymentMethodDetailsLoader = true;
     emit(GetProgramPaymentMethodDetailsLoadingState());
@@ -103,14 +109,15 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   }
 
   int studentNumber = -1;
+
   void fillProgramStudentNumber(int studentNumber) {
     log("Started");
     this.studentNumber = studentNumber;
     log("filled student number: ${this.studentNumber}");
   }
 
-  void initTabBarController(TickerProvider vsync) {
-    controller = TabController(length: tabs.length, vsync: vsync);
+  void initTabBarController(TickerProvider vsync,BuildContext context) {
+    controller = TabController(length: tabs(context).length, vsync: vsync);
     controller.addListener(() {
       if (controller.indexIsChanging) {
         controller.animateTo(
@@ -207,6 +214,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   }
 
   File? renewOrderImage;
+
   Future<void> pickOrderImageFromGallery() async {
     final response = await pickImageFromGallery();
     if (response != null) {
@@ -261,7 +269,8 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
       final renewData = RenewSubscriptionTojson(
         code: codeController.text,
         image: imagePath,
-        planId: [planDetailsEntity!.data!.id!], // استخدام القيمة الصحيحة
+        planId: [planDetailsEntity!.data!.id!],
+        // استخدام القيمة الصحيحة
         // startDate: [DateTime.now().toString()],
         programId: [programId],
         studentNumber: [studentNumber],
@@ -295,6 +304,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   @override
   final TextEditingController studentNumberController = TextEditingController();
   File? upgradeOrderImage;
+
   Future<void> pickupgradeOrderImageFroGallery() async {
     final response = await pickImageFromGallery();
     if (response != null) {
@@ -597,6 +607,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   }
 
   int programId = -1;
+
   void fillProgramId(int value) {
     programId = value;
     log("programid filled $programId");

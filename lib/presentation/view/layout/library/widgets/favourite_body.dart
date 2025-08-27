@@ -11,6 +11,7 @@ class FavouriteBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<LibraryCubit>();
+    var lang = context.loc!;
     return BlocBuilder<LibraryCubit, LibraryState>(
       builder: (context, state) {
         if (cubit.getFavouriteListLoader) {
@@ -29,7 +30,7 @@ class FavouriteBody extends StatelessWidget {
           return Column(
             children: [
               50.ph,
-              const NoDataAnimatedImageWidget(message: "ليس لديك مفضلات").center(),
+              NoDataAnimatedImageWidget(message: lang.noFavs).center(),
             ],
           );
         }

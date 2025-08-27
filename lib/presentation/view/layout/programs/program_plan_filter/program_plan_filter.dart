@@ -32,7 +32,7 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
     return Scaffold(
       appBar: CustomAppBar(
         context,
-        mainTitle: "تفاصيل الباقات",
+        mainTitle: lang.packageDetails,
         leadingText: lang.back,
         isCenterTitle: true,
       ),
@@ -42,7 +42,7 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
           children: [
             16.ph,
             Text(
-              "اختر بين مجموعة من الباقات و إستمتع بالمزايا الحصرية",
+              lang.choosePlanDescription,
               style: MainTextStyle.boldTextStyle(fontSize: 14),
             ),
             19.ph,
@@ -55,32 +55,32 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                   children: [
                     cubit.getPlanSubscriptionLoader || cubit.controller == null
                         ? const Center(
-                            child: CircularProgressIndicator.adaptive())
+                        child: CircularProgressIndicator.adaptive())
                         : CustomFilledTabBar(
-                            margin: EdgeInsets.zero,
-                            innerRadius: 12.r,
-                            outerRadius: 12.cr,
-                            controller: cubit.controller!,
-                            onTap: (v) {
-                              // Tab change is handled in controller listener
-                            },
-                            tabs: List.generate(
-                              cubit.subscriptionTypeTabs.length,
-                              (index) {
-                                bool isSelected =
-                                    cubit.controller!.index == index;
-                                return Text(
-                                  cubit.subscriptionTypeTabs[index],
-                                  style: MainTextStyle.boldTextStyle(
-                                    fontSize: 12,
-                                    color: isSelected
-                                        ? MainColors.background
-                                        : MainColors.onPrimary,
-                                  ),
-                                );
-                              },
+                      margin: EdgeInsets.zero,
+                      innerRadius: 12.r,
+                      outerRadius: 12.cr,
+                      controller: cubit.controller!,
+                      onTap: (v) {
+                        // Tab change is handled in controller listener
+                      },
+                      tabs: List.generate(
+                        cubit.subscriptionTypeTabs.length,
+                            (index) {
+                          bool isSelected =
+                              cubit.controller!.index == index;
+                          return Text(
+                            cubit.subscriptionTypeTabs[index],
+                            style: MainTextStyle.boldTextStyle(
+                              fontSize: 12,
+                              color: isSelected
+                                  ? MainColors.background
+                                  : MainColors.onPrimary,
                             ),
-                          ),
+                          );
+                        },
+                      ),
+                    ),
                     if (!cubit.getPlanSubscriptionLoader &&
                         cubit.controller != null)
                       Positioned(
@@ -89,7 +89,7 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                         child: OfferContainer(
                           height: 25.h,
                           width: 73.w,
-                          offerText: "وفر 20%",
+                          offerText: lang.saveDiscount,
                         ),
                       ),
                   ],
@@ -107,8 +107,8 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                 }
 
                 if (cubit.getPlansWithDetailsEntity?.data?.isEmpty ?? true) {
-                  return const Center(
-                    child: Text("لا توجد باقات متاحة"),
+                  return Center(
+                    child: Text(lang.noAvailablePlans),
                   );
                 }
 
@@ -122,12 +122,12 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemCount:
-                              cubit.getPlansWithDetailsEntity?.data?.length ??
-                                  0,
+                          cubit.getPlansWithDetailsEntity?.data?.length ??
+                              0,
                           separatorBuilder: (context, index) => 16.pw,
                           itemBuilder: (context, index) {
                             final plan =
-                                cubit.getPlansWithDetailsEntity!.data![index];
+                            cubit.getPlansWithDetailsEntity!.data![index];
                             bool isSelected = index == cubit.packageIndex;
 
                             return InkWell(
@@ -164,11 +164,11 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                                     16.ph,
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            plan.title ?? "إسم الباقة",
+                                            plan.title ?? lang.planName,
                                             style: MainTextStyle.boldTextStyle(
                                               fontSize: 14,
                                             ),
@@ -176,7 +176,7 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                                           ),
                                         ),
                                         Text(
-                                          "${plan.price ?? 0} / شهريا",
+                                          "${plan.price ?? 0} / ${lang.monthly}",
                                           style: MainTextStyle.boldTextStyle(
                                               fontSize: 14,
                                               color: MainColors.onSurfaceSecondary),
@@ -203,7 +203,7 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              'عدد الطلاب',
+                              lang.studentsCount,
                               textAlign: TextAlign.center,
                               style: MainTextStyle.boldTextStyle(
                                 fontSize: 14,
@@ -278,7 +278,7 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
             ),
             const Spacer(),
             CustomElevatedButton(
-              text: "إشتراك",
+              text: lang.subscribe,
               color: MainColors.primary,
               radius: 16.r,
               onPressed: () {
@@ -310,6 +310,7 @@ class StartDateField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lang = context.loc!;
     return GestureDetector(
       onTap: () async {
         DateTime? selectedDate = await showDatePicker(
@@ -331,15 +332,15 @@ class StartDateField extends StatelessWidget {
             );
           },
         );
-    
+
         if (selectedDate != null) {
           cubit.updateStartDate(selectedDate);
         }
       },
       child: TitledFormFieldItem(
-        titleText: "تاريخ البدء",
+        titleText: lang.startDate,
         iconWidget: 0.ph,
-        formfieldHintText: "2025-05-15",
+        formfieldHintText: lang.startDateHint,
         controller: cubit.startDate,
         validator: customValidation,
         enabled: false,

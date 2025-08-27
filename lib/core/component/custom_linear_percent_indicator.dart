@@ -26,7 +26,7 @@ class CustomLinearPercentIndicator extends StatelessWidget {
       animation: true,
       progressBorderColor: Colors.red,
       alignment: alignment ?? MainAxisAlignment.end,
-      isRTL: ApplanuageCubit.isArabic(context),
+      isRTL: AppLanguageCubit.isArabic(context),
       width: width ?? 343.w,
       lineHeight:lineHeight?? 8.h,
       barRadius: Radius.circular(12.r),

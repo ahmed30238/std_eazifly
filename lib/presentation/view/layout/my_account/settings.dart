@@ -1,5 +1,6 @@
 import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/component/persona_list_tile.dart';
+import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
@@ -31,7 +32,7 @@ class _MyAccountViewState extends State<MyAccountView> {
       appBar: CustomAppBar(
         context,
         // onLeadinTap: () => Navigator.pop(context),
-        mainTitle: "الإعدادات",
+        mainTitle: context.loc!.settings,
         mainTitleFontSize: 18,
         leadingText: "",
         // customLeading: Padding(

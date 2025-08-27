@@ -82,7 +82,7 @@ class _LectureViewState extends State<LectureView>
       targets: targets,
       textSkip: "تخطي",
       paddingFocus: 8,
-      colorShadow: Colors.black.withOpacity(0.8),
+      colorShadow: Colors.black.withValues(alpha: 0.8),
       onFinish: () {
         _markTutorialCompleted(); // Mark as completed when finished
       },

@@ -179,7 +179,7 @@ class StackDesignState extends StatelessWidget {
         if (state != "success")
           Container(
             height: 160.h,
-            color: MainColors.background.withOpacity(.2),
+            color: MainColors.background.withValues(alpha: .2),
           ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,

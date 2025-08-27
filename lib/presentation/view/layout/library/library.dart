@@ -15,7 +15,7 @@ class _LibraryViewState extends State<LibraryView>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    LibraryCubit.get(context).initTabController(this);
+    LibraryCubit.get(context).initTabController(this, context);
     LibraryCubit.get(context).getLibraryCategories();
     super.initState();
   }
@@ -77,7 +77,7 @@ class _LibraryViewState extends State<LibraryView>
                 (index) {
                   bool isSelected = index == cubit.tabController.index;
                   return Text(
-                    cubit.tabTexts[index],
+                    cubit.tabTexts(context)[index],
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 12,
                       color: isSelected

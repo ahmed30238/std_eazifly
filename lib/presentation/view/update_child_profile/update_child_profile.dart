@@ -20,6 +20,7 @@ class UpdateChildProfile extends StatefulWidget {
 class _UpdateChildProfileState extends State<UpdateChildProfile> {
   @override
   Widget build(BuildContext context) {
+    var lang = context.loc!;
     var cubit = context.read<UpdatechildprofileCubit>();
     var childData = loginData?.childrens?.firstWhere(
       (element) => element.id == widget.userId,
@@ -41,8 +42,8 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
       appBar: CustomAppBar(
         context,
         onLeadinTap: () => Navigator.pop(context),
-        mainTitle: "معلومات الحساب",
-        leadingText: "الاعدادات",
+        mainTitle: lang.accountData,
+        leadingText: lang.settings,
         isCenterTitle: true,
         leadingIcon: Icons.arrow_back_ios,
       ),
@@ -101,39 +102,39 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
                   TitledFormFieldItem(
                     controller: cubit.firstNameController,
                     validator: customValidation,
-                    formfieldHintText: "أحمد سلامة",
-                    titleText: "الاسم الاول",
+                    formfieldHintText: lang.firstNameHint,
+                    titleText: lang.firstName,
                     iconWidget: 0.ph,
                   ),
                   16.ph,
                   TitledFormFieldItem(
-                    titleText: "إسم العائلة",
+                    titleText: lang.lastName,
                     validator: customValidation,
-                    formfieldHintText: "",
+                    formfieldHintText: lang.lastNameHint,
                     controller: cubit.lastNameController,
                     iconWidget: 0.ph,
                   ),
                   16.ph,
                   TitledFormFieldItem(
-                    titleText: "رقم التليفون",
+                    titleText: lang.phoneNumber,
                     controller: cubit.phoneController,
                     validator: customValidation,
-                    formfieldHintText: "",
+                    formfieldHintText: lang.phoneHint,
                     // formfieldEnText: "${loginData.phone}",
                     iconWidget: 0.ph,
                   ),
                   16.ph,
                   TitledFormFieldItem(
-                    titleText: "whats app",
+                    titleText: lang.whatsappNumber,
                     controller: cubit.whatsAppController,
                     validator: customValidation,
-                    formfieldHintText: "",
+                    formfieldHintText: lang.whatsappHint,
                     // formfieldEnText: "${loginData.phone}",
                     iconWidget: 0.ph,
                   ),
                   16.ph,
                   TitledFormFieldItem(
-                    titleText: "age",
+                    titleText: lang.age,
                     formfieldHintText: "",
                     controller: cubit.ageController,
                     validator: customValidation,
@@ -142,23 +143,23 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
                   ),
                   16.ph,
                   TitledFormFieldItem(
-                    titleText: "email",
-                    formfieldHintText: "",
+                    titleText: lang.email,
+                    formfieldHintText: lang.emailHint,
                     controller: cubit.emailController,
                     validator: customValidation,
                     iconWidget: 0.ph,
                   ),
                   16.ph,
                   TitledFormFieldItem(
-                    titleText: "اسم المستخدم",
-                    formfieldHintText: "",
+                    titleText: lang.username,
+                    formfieldHintText: lang.usernameHint,
                     controller: cubit.userNameController,
                     validator: customValidation,
                     iconWidget: 0.ph,
                   ),
                   16.ph,
                   Text(
-                    "النوع",
+                    lang.gender,
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
                       color: MainColors.onSecondary,
@@ -171,7 +172,7 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
                       cubit.onGenderChange(val ?? GenderEnum.male);
                       log("Selected gender: $val");
                     },
-                    hintText: "اختر النوع",
+                    hintText: lang.chooseGender,
                     items: GenderEnum.values
                         .map(
                           (e) => DropdownMenuItem<GenderEnum>(
@@ -192,7 +193,7 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
           BlocBuilder(
             bloc: cubit,
             builder: (context, state) => CustomElevatedButton(
-              text: "تعديل",
+              text: lang.edit,
               onPressed: cubit.updateProfileLoader
                   ? () {}
                   : () {

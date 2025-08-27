@@ -59,8 +59,8 @@ class AllBodyListItemWidget extends StatelessWidget {
             16.ph,
             Padding(
               padding: EdgeInsets.only(
-                right: ApplanuageCubit.isArabic(context) ? 16.w : 8.w,
-                left: ApplanuageCubit.isArabic(context) ? 8.w : 16.w,
+                right: AppLanguageCubit.isArabic(context) ? 16.w : 8.w,
+                left: AppLanguageCubit.isArabic(context) ? 8.w : 16.w,
               ),
               child: SizedBox(
                 height: 46.h,
@@ -77,7 +77,7 @@ class AllBodyListItemWidget extends StatelessWidget {
                         ),
                         4.ph,
                         Text(
-                          "$noOfStudents طلاب",
+                          "$noOfStudents ${lang.students}",
                           style: MainTextStyle.boldTextStyle(
                               fontSize: 14, color: MainColors.onSecondary),
                         ),
@@ -119,7 +119,7 @@ class AllBodyListItemWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "متبقي $daysLeft يوم",
+                    "${lang.remain} $daysLeft ${lang.days}",
                     style: MainTextStyle.boldTextStyle(
                         fontSize: 10, color: MainColors.onSurfaceSecondary),
                   ),

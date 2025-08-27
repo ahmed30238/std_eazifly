@@ -11,7 +11,7 @@ class AllSubBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = SubscriptionmanagementCubit.get(context);
-
+    final lang = context.loc!;
     return BlocBuilder(
       bloc: cubit,
       builder: (context, state) {
@@ -147,8 +147,11 @@ class AllSubBody extends StatelessWidget {
         }
 
         if (allSubscriptions.isEmpty) {
-          return const Center(
-            child: Text("لا توجد اشتراكات"),
+          return Padding(
+            padding: EdgeInsets.only(top: 300.h),
+            child: Center(
+              child: Text(lang.noSubscriptions),
+            ),
           );
         }
 

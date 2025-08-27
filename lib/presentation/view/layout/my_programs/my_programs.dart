@@ -41,7 +41,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(
         const Duration(milliseconds: 300),
-        () {
+            () {
           if (!_isTutorialCompleted()) {
             showTutorial();
           }
@@ -62,28 +62,32 @@ class _MyProgramsViewState extends State<MyProgramsView> {
     storage.write(_tutorialCompletedKey, true);
   }
 
+
   void showTutorial() {
+    var lang =context.loc!;
     initTargets();
     tutorialCoachMark = TutorialCoachMark(
       targets: targets,
-      textSkip: "تخطي",
+      textSkip: lang.skip, // استخدام النص من الترجمة
       paddingFocus: 10,
       colorShadow: Colors.black.withValues(alpha: 0.8),
       onFinish: () {
-        log("تم الانتهاء من الشرح");
+        log(lang.tutorialFinished); // استخدام النص من الترجمة
         _markTutorialCompleted(); // Mark as completed when finished
       },
       onSkip: () {
-        log("تم تخطي الشرح");
+        log(lang.tutorialSkipped); // استخدام النص من الترجمة
         _markTutorialCompleted(); // Mark as completed when skipped
         return true;
       },
     )..show(
-        context: context,
-      );
+      context: context,
+    );
   }
 
   void initTargets() {
+    var lang =context.loc!;
+
     targets.clear();
     targets.add(
       TargetFocus(
@@ -92,8 +96,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
-            child: const Text(
-              "اضغط هنا لرؤية البرامج تحت المراجعة",
+            child: Text(
+              lang.reviewProgramsTutorial, // استخدام النص من الترجمة
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -150,8 +154,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
             builder: (context, state) {
               // مراقبة القيمة المطلوبة بس - أفضل أداء
               final programsUnderReview =
-                  context.select<ProgramsUnderReviewCubit, List?>(
-                (cubit) => cubit.getUserOrdersEntity?.data,
+              context.select<ProgramsUnderReviewCubit, List?>(
+                    (cubit) => cubit.getUserOrdersEntity?.data,
               );
 
               if (cubit.getMyProgramsLoader) {
@@ -164,8 +168,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         programsUnderReview?.isEmpty == true) {
                   return Column(
                     children: [
-                      const NoDataAnimatedImageWidget(
-                        message: "ليس لديك اشتراكات",
+                      NoDataAnimatedImageWidget(
+                        message: lang.noSubscriptions, // استخدام النص من الترجمة
                       ),
                       24.ph,
                       GestureDetector(
@@ -173,7 +177,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                           context.read<LayoutCubit>().changeIndex(1);
                         },
                         child: Text(
-                          "اشترك الان",
+                          lang.subscribeNow, // استخدام النص من الترجمة
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: MainColors.primary,
@@ -197,7 +201,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         270.ph,
                         Center(
                           child: Text(
-                            "لديك برامج في المراجعة",
+                            lang.programsUnderReview, // استخدام النص من الترجمة
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 16,
                               color: MainColors.primary,
@@ -207,7 +211,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         8.ph,
                         Center(
                           child: Text(
-                            "اضغط لإضافة حصص",
+                            lang.tapToAddSessions, // استخدام النص من الترجمة
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 16,
                               color: MainColors.primary,
@@ -237,8 +241,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         formattedTimeDiff =
                             formatTimeDifference(item.nextSession);
                       } else {
-                        nextLec = "بدأت بالفعل";
-                        formattedTimeDiff = "جارية الآن";
+                        nextLec = lang.alreadyStarted; // استخدام النص من الترجمة
+                        formattedTimeDiff = lang.ongoingNow; // استخدام النص من الترجمة
                       }
                     } else {
                       if (item.nextSession != null) {
@@ -248,14 +252,14 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         formattedTimeDiff =
                             formatTimeDifference(item.nextSession);
                       } else {
-                        nextLec = "غير محدد";
-                        formattedTimeDiff = "غير محدد";
+                        nextLec = lang.notSpecified; // استخدام النص من الترجمة
+                        formattedTimeDiff = lang.notSpecified; // استخدام النص من الترجمة
                       }
                     }
 
                     return ProgramItem(
-                      desc: item.description ?? "no desc",
-                      duration: "${item.duration} دقيقة",
+                      desc: item.description ?? lang.noDescription, // استخدام النص من الترجمة
+                      duration: "${item.duration} ${lang.minutes}", // استخدام النص من الترجمة
                       image: item.image ?? "",
                       nextLec: nextLec,
                       status: item.currentSession?.status ?? "",
@@ -278,27 +282,27 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                       onTap: cubit.getAssignedChildrenLoader
                           ? () {}
                           : () async {
-                              await cubit
-                                  .getAssignedChildrenToProgram(
-                                programId: item.id ?? -1,
-                              )
-                                  .then(
-                                (value) {
-                                  onMyProgramTap(
-                                    context: context,
-                                    cubit: cubit,
-                                    item: item,
-                                    loginData: loginData!,
-                                    programId: item.id ?? -1,
-                                    noOfChildren: cubit
-                                            .getAssignedChildrenToProgramEntity
-                                            ?.data
-                                            ?.length ??
-                                        0,
-                                  );
-                                },
-                              );
-                            },
+                        await cubit
+                            .getAssignedChildrenToProgram(
+                          programId: item.id ?? -1,
+                        )
+                            .then(
+                              (value) {
+                            onMyProgramTap(
+                              context: context,
+                              cubit: cubit,
+                              item: item,
+                              loginData: loginData!,
+                              programId: item.id ?? -1,
+                              noOfChildren: cubit
+                                  .getAssignedChildrenToProgramEntity
+                                  ?.data
+                                  ?.length ??
+                                  0,
+                            );
+                          },
+                        );
+                      },
                     );
                   },
                   separatorBuilder: (context, index) => 20.ph,

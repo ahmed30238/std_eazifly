@@ -1,8 +1,11 @@
-import 'package:eazifly_student/core/lang/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-extension Ctx on BuildContext {
+import '../lang/app_localizations.dart';
+
+extension LocalizationExtensions on BuildContext {
   AppLocalizations? get loc => AppLocalizations.of(this);
+
+  String get languageCode => Localizations.localeOf(this).languageCode;
+
+  bool get isArabicLanguage => languageCode == 'ar';
 }
-
-

@@ -5,8 +5,11 @@ import 'package:eazifly_student/core/network/api_constances.dart';
 import 'package:eazifly_student/core/network/handle_token.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/routes/router.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:requests_inspector/requests_inspector.dart';
+
+import '../enums/storage_enum.dart';
 
 class NetworkCall {
   final Dio _dio = Dio();
@@ -46,7 +49,10 @@ class NetworkCall {
                 // HttpHeaders.authorizationHeader: tokenFromMemory,
                 HttpHeaders.acceptHeader: 'application/json',
                 HttpHeaders.contentTypeHeader: 'application/json',
-                HttpHeaders.acceptLanguageHeader: "ar",
+                HttpHeaders.acceptLanguageHeader:
+                GetStorage().hasData(StorageEnum.lang.name)
+                    ? GetStorage().read(StorageEnum.lang.name)
+                    : "ar",
               }
             : headers,
         responseType: responseType,
@@ -83,7 +89,10 @@ class NetworkCall {
               },
               HttpHeaders.acceptHeader: 'application/json',
               HttpHeaders.contentTypeHeader: 'application/json',
-              HttpHeaders.acceptLanguageHeader: "ar",
+              HttpHeaders.acceptLanguageHeader:
+              GetStorage().hasData(StorageEnum.lang.name)
+                  ? GetStorage().read(StorageEnum.lang.name)
+                  : "ar",
             }
           : headers,
       contentType: contentType ?? Headers.formUrlEncodedContentType,
@@ -130,7 +139,10 @@ class NetworkCall {
                 },
                 HttpHeaders.acceptHeader: 'application/json',
                 HttpHeaders.contentTypeHeader: 'application/json',
-                HttpHeaders.acceptLanguageHeader: "ar",
+                HttpHeaders.acceptLanguageHeader:
+                GetStorage().hasData(StorageEnum.lang.name)
+                    ? GetStorage().read(StorageEnum.lang.name)
+                    : "ar",
               }
             : headers,
         responseType: responseType,
@@ -168,7 +180,10 @@ class NetworkCall {
                   HttpHeaders.authorizationHeader: 'Bearer $tokenFromMemory',
                 },
                 HttpHeaders.acceptHeader: 'application/json',
-                HttpHeaders.acceptLanguageHeader: "ar",
+                HttpHeaders.acceptLanguageHeader:
+                GetStorage().hasData(StorageEnum.lang.name)
+                    ? GetStorage().read(StorageEnum.lang.name)
+                    : "ar",
                 if (!isMultipart)
                   HttpHeaders.contentTypeHeader: 'application/json',
               }

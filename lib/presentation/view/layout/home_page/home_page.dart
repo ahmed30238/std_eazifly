@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:eazifly_student/core/component/shimmer_widget.dart';
 import 'package:eazifly_student/core/enums/geidea_keys.dart';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
@@ -14,6 +13,8 @@ import 'package:eazifly_student/presentation/view/layout/library/widgets/audios_
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:geideapay/geideapay.dart';
 import 'package:get_storage/get_storage.dart';
+
+import '../../../controller/language/applanuage_state.dart';
 
 DataModel? loginData;
 String merchantKey = "";
@@ -123,6 +124,106 @@ class _HomePageState extends State<HomePage> {
         },
         child: Column(
           children: [
+            BlocBuilder<AppLanguageCubit, ApplanuageState>(
+              builder: (context, state) {
+                return GestureDetector(
+                  child: Text(lang.language), // استخدام النص من الترجمة
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) =>
+                          BlocBuilder<AppLanguageCubit, ApplanuageState>(
+                            builder: (context, state) {
+                              var appLangCubit = context.read<AppLanguageCubit>();
+                              if (state is! AppLanguageCurrentState) {
+                                return const SizedBox();
+                              }
+                              return AlertDialog(
+                                content: Container(
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  height: 130.h,
+                                  width: 150.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            appLangCubit.storeLanguage(
+                                                languageCode: 'ar');
+                                            Navigator.pop(context);
+                                          },
+                                          child: IgnorePointer(
+                                            child: Row(
+                                              children: [
+                                                Checkbox(
+                                                  autofocus: true,
+                                                  splashRadius: 20,
+                                                  tristate: true,
+                                                  shape: const CircleBorder(
+                                                      side: BorderSide(width: 2)),
+                                                  value: context.isArabicLanguage,
+                                                  activeColor: MainColors.primary,
+                                                  onChanged: (value) {},
+                                                ),
+                                                Text(
+                                                  lang.arabic, // استخدام النص من الترجمة
+                                                  style:
+                                                  MainTextStyle.boldTextStyle(
+                                                      fontSize: 20,
+                                                      color:
+                                                      MainColors.primary),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      // const HorizontalDivider(),
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            appLangCubit.storeLanguage(
+                                                languageCode: 'en');
+                                            Navigator.pop(context);
+                                          },
+                                          child: IgnorePointer(
+                                            child: Row(
+                                              children: [
+                                                Checkbox(
+                                                  tristate: true,
+                                                  shape: const CircleBorder(
+                                                      eccentricity: 0),
+                                                  value: !context.isArabicLanguage,
+                                                  onChanged: (value) {},
+                                                ),
+                                                Text(
+                                                  lang.english, // استخدام النص من الترجمة
+                                                  style:
+                                                  MainTextStyle.boldTextStyle(
+                                                      fontSize: 20,
+                                                      color:
+                                                      MainColors.primary),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                    );
+                  },
+                );
+              },
+            ),
             // Text("$merchantSecret"),
             // Text("$merchantKey"),
             // GestureDetector(
@@ -165,14 +266,14 @@ class _HomePageState extends State<HomePage> {
                     const ScreensBar(),
                     32.ph,
                     CategoryRowWidget(
-                      title: "المحاضرات القادمة",
+                      title: lang.upcomingLectures, // استخدام النص من الترجمة
                       onViewAllTap: () {
                         if (cubit.getHomeClosestSessionsEntity?.data?.isEmpty ==
                             true) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                "لا محاضرات قادمة",
+                                lang.noUpcomingLectures, // استخدام النص من الترجمة
                                 style: MainTextStyle.boldTextStyle(
                                   fontSize: 12,
                                   color: MainColors.background,
@@ -207,6 +308,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildNextLecturesSection() {
+    var lang = context.loc!;
     return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (previous, current) {
         return current is GetHomeClosestSessionsLoadingState ||
@@ -228,7 +330,7 @@ class _HomePageState extends State<HomePage> {
         // Check if there's data to show
         if (cubit.getHomeClosestSessionsEntity?.data == null ||
             cubit.getHomeClosestSessionsEntity!.data!.isEmpty) {
-          return _buildEmptyWidget(message: "لا توجد محاضرات قادمة");
+          return _buildEmptyWidget(message: lang.noUpcomingLectures); // استخدام النص من الترجمة
         }
 
         return const Hero(
@@ -243,6 +345,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildHomeLibrarySection() {
+    var lang = context.loc!;
     return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (previous, current) {
         return current is GetHomeLibraryLoadingState ||
@@ -268,7 +371,7 @@ class _HomePageState extends State<HomePage> {
         log("$voiceListCategories ${voiceListCategories?.length}");
 
         if (voiceListCategories == null || voiceListCategories.isEmpty) {
-          return _buildEmptyWidget(message: "لا توجد محتويات صوتية متاحة");
+          return _buildEmptyWidget(message: lang.noAudioContentAvailable); // استخدام النص من الترجمة
         }
 
         return ListView.separated(
@@ -288,10 +391,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildCategoryItem(
-    GetHomeLibraryDatumModel category,
-    int catIndex,
-    List<GetHomeLibraryDatumModel> voiceListCategories,
-  ) {
+      GetHomeLibraryDatumModel category,
+      int catIndex,
+      List<GetHomeLibraryDatumModel> voiceListCategories,
+      ) {
+    var lang = context.loc!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -304,42 +408,42 @@ class _HomePageState extends State<HomePage> {
         ),
         8.ph,
         (voiceListCategories[catIndex].items?.data == null ||
-                voiceListCategories[catIndex].items!.data!.isEmpty)
+            voiceListCategories[catIndex].items!.data!.isEmpty)
             ? Text(
-                "لا يوجد عناصر في هذه القائمة",
-                style: MainTextStyle.boldTextStyle(fontSize: 12),
-              )
+          lang.noItemsInThisList, // استخدام النص من الترجمة
+          style: MainTextStyle.boldTextStyle(fontSize: 12),
+        )
             : SizedBox(
-                height: 220.h,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    var libraryCubit = context.read<LibraryCubit>();
-                    var listItem = voiceListCategories[catIndex];
-                    var item = listItem.items?.data?[index];
+          height: 220.h,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) {
+              var libraryCubit = context.read<LibraryCubit>();
+              var listItem = voiceListCategories[catIndex];
+              var item = listItem.items?.data?[index];
 
-                    return ProgramWithStatsContainer(
-                      onTap: libraryCubit.getLibraryItemsLoader
-                          ? () {}
-                          : () {
-                              libraryCubit.showLibraryItem(
-                                itemId: item?.id ?? 0,
-                                context: context,
-                              );
-                            },
-                      image: item?.image ?? "",
-                      likes: "2",
-                      noOfSubscription: "1",
-                      title: item?.title ?? "",
-                      views: "3",
-                    );
-                  },
-                  separatorBuilder: (context, index) => 12.pw,
-                  itemCount:
-                      voiceListCategories[catIndex].items?.data?.length ?? 0,
-                ),
-              ),
+              return ProgramWithStatsContainer(
+                onTap: libraryCubit.getLibraryItemsLoader
+                    ? () {}
+                    : () {
+                  libraryCubit.showLibraryItem(
+                    itemId: item?.id ?? 0,
+                    context: context,
+                  );
+                },
+                image: item?.image ?? "",
+                likes: "2",
+                noOfSubscription: "1",
+                title: item?.title ?? "",
+                views: "3",
+              );
+            },
+            separatorBuilder: (context, index) => 12.pw,
+            itemCount:
+            voiceListCategories[catIndex].items?.data?.length ?? 0,
+          ),
+        ),
       ],
     );
   }
@@ -380,6 +484,7 @@ class _HomePageState extends State<HomePage> {
     required String message,
     required VoidCallback onRetry,
   }) {
+    var lang = context.loc!;
     return Container(
       padding: EdgeInsets.all(16.w),
       child: Column(
@@ -399,7 +504,7 @@ class _HomePageState extends State<HomePage> {
           8.ph,
           ElevatedButton(
             onPressed: onRetry,
-            child: const Text("إعادة المحاولة"),
+            child: Text(lang.retry), // استخدام النص من الترجمة
           ),
         ],
       ),

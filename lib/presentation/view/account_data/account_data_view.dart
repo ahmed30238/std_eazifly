@@ -2,6 +2,7 @@ import 'package:eazifly_student/core/component/custom_appbar.dart';
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
 import 'package:eazifly_student/core/component/home_appbar.dart';
 import 'package:eazifly_student/core/component/titled_form_field.dart';
+import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
 import 'package:eazifly_student/core/images/my_images.dart';
@@ -27,14 +28,15 @@ class AccountData extends StatefulWidget {
 class _AccountDataState extends State<AccountData> {
   @override
   Widget build(BuildContext context) {
+    var lang  = context.loc!;
     AccountdataCubit cubit = AccountdataCubit.get(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
         context,
         // onLeadinTap: () => Navigator.pop(context),
-        mainTitle: "معلومات الحساب",
-        leadingText: "الاعدادات",
+        mainTitle: lang.accountData,
+        leadingText: lang.settings,
         isCenterTitle: true,
         customAction: [
           Padding(
@@ -83,13 +85,13 @@ class _AccountDataState extends State<AccountData> {
                   controller:
                       TextEditingController(text: "${loginData?.userName}"),
                   formfieldHintText: "",
-                  titleText: "اسم المستخدم",
+                  titleText: lang.username,
                 ),
                 16.ph,
                 TitledFormFieldItem(
                   iconWidget: 0.ph,
                   enabled: false,
-                  titleText: "الهاتف",
+                  titleText: lang.phoneNumber,
                   formfieldHintText: "",
                   controller: TextEditingController(
                       text: loginData?.phone ?? "No Address"),
@@ -98,7 +100,7 @@ class _AccountDataState extends State<AccountData> {
                 16.ph,
                 TitledFormFieldItem(
                   enabled: false,
-                  titleText: "البريد الالكتروني",
+                  titleText: lang.email,
                   formfieldHintText: "",
                   formfieldEnText: "${loginData?.email}",
                   iconWidget: Icon(
@@ -130,8 +132,8 @@ class _AccountDataState extends State<AccountData> {
                                 bloc: cubit,
                                 builder: (context, state) =>
                                     CustomElevatedButton(
-                                  text: "نعم",
-                                  color: MainColors.onError,
+                                  text: lang.yes,
+                                  color: MainColors.error,
                                   width: 110.w,
                                   radius: 16.r,
                                   onPressed: cubit.deleteAccountLoader
@@ -148,7 +150,7 @@ class _AccountDataState extends State<AccountData> {
                               ),
                               CustomElevatedButton(
                                 radius: 16.r,
-                                text: "لا",
+                                text: lang.no,
                                 width: 110.w,
                                 color: MainColors.success,
                                 onPressed: () {
@@ -159,14 +161,14 @@ class _AccountDataState extends State<AccountData> {
                           ),
                         ],
                         title: Text(
-                          "هل أنت متأكد من حذف الحساب؟",
+                          lang.confirmDeleteAccount,
                           style: MainTextStyle.boldTextStyle(fontSize: 18),
                         ),
                         content: Text(
-                          "سيتم حذف جميع بياناتك نهائياً ولا يمكن التراجع عن هذا الإجراء",
+                          lang.deleteAccountWarning,
                           style: MainTextStyle.regularTextStyle(
                             fontSize: 14,
-                            color: MainColors.surfaceVariant,
+                            color: MainColors.error,
                           ),
                         ),
                       ),
@@ -186,7 +188,7 @@ class _AccountDataState extends State<AccountData> {
                         ),
                         4.pw,
                         Text(
-                          "حذف الحساب",
+                          lang.deleteAccount,
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: MainColors.error,
@@ -201,7 +203,7 @@ class _AccountDataState extends State<AccountData> {
           ),
           8.ph,
           CustomElevatedButton(
-            text: "تسجيل خروج",
+            text: lang.logout,
             onPressed: () async {
               showDialog(
                 context: context,
@@ -213,7 +215,7 @@ class _AccountDataState extends State<AccountData> {
                         BlocBuilder(
                           bloc: cubit,
                           builder: (context, state) => CustomElevatedButton(
-                            text: "نعم",
+                            text: lang.yes,
                             color: MainColors.error,
                             width: 110.w,
                             radius: 16.r,
@@ -229,7 +231,7 @@ class _AccountDataState extends State<AccountData> {
                         ),
                         CustomElevatedButton(
                           radius: 16.r,
-                          text: "لا",
+                          text: lang.no,
                           width: 110.w,
                           color: MainColors.success,
                           onPressed: () {
@@ -240,7 +242,7 @@ class _AccountDataState extends State<AccountData> {
                     ),
                   ],
                   title: Text(
-                    "هل انت متاكد من تسجيل الخروج",
+                    lang.confirmLogout,
                     style: MainTextStyle.boldTextStyle(fontSize: 18),
                   ),
                 ),

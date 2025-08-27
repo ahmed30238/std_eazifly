@@ -177,23 +177,23 @@ String formatMessageTime(BuildContext context, String createdAt) {
     // إذا كان نفس اليوم، اعرض الوقت فقط
     if (difference.inDays == 0) {
       return DateFormat(
-              'hh:mm a', ApplanuageCubit.isArabic(context) ? "ar" : "en")
+              'hh:mm a', AppLanguageCubit.isArabic(context) ? "ar" : "en")
           .format(localDateTime);
     }
     // إذا كان أمس
     else if (difference.inDays == 1) {
-      return 'أمس ${DateFormat('hh:mm a', ApplanuageCubit.isArabic(context) ? "ar" : "en").format(localDateTime)}';
+      return 'أمس ${DateFormat('hh:mm a', AppLanguageCubit.isArabic(context) ? "ar" : "en").format(localDateTime)}';
     }
     // إذا كان خلال الأسبوع الماضي
     else if (difference.inDays < 7) {
       return DateFormat(
-              'EEEE hh:mm a', ApplanuageCubit.isArabic(context) ? "ar" : "en")
+              'EEEE hh:mm a', AppLanguageCubit.isArabic(context) ? "ar" : "en")
           .format(localDateTime);
     }
     // إذا كان أقدم من أسبوع
     else {
       return DateFormat('dd/MM/yyyy hh:mm a',
-              ApplanuageCubit.isArabic(context) ? "ar" : "en")
+              AppLanguageCubit.isArabic(context) ? "ar" : "en")
           .format(localDateTime);
     }
   } catch (e) {

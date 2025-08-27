@@ -31,8 +31,10 @@ class _RegisterViewState extends State<RegisterView> {
       appBar: CustomAppBar(
         context,
         onLeadinTap: () => Navigator.pop(context),
-        mainTitle: lang.createNewAccount, // استخدام النص من ملف الترجمة
-        leadingText: lang.back, // استخدام النص من ملف الترجمة
+        mainTitle: lang.createNewAccount,
+        // استخدام النص من ملف الترجمة
+        leadingText: lang.back,
+        // استخدام النص من ملف الترجمة
         isCenterTitle: true,
         leadingIcon: Icons.arrow_back_ios,
       ),
@@ -106,9 +108,8 @@ class _RegisterViewState extends State<RegisterView> {
                     titleText: "${lang.email} *",
                     formfieldHintText: lang.emailHint,
                     controller: cubit.emailController,
-                    validator: (value) => cubit.validateField(
-                        value, lang.email,
-                        isEmail: true),
+                    validator: (value) =>
+                        cubit.validateField(value, lang.email, isEmail: true),
                     iconWidget: 0.ph,
                     keyboardType: TextInputType.emailAddress,
                   ),
@@ -182,7 +183,7 @@ class _RegisterViewState extends State<RegisterView> {
                   8.ph,
                   BlocBuilder<RegisterCubit, RegisterState>(
                     buildWhen: (previous, current) =>
-                    current is GenderChangedState,
+                        current is GenderChangedState,
                     builder: (context, state) {
                       return CustomizedDropdownWidget<String>(
                         initialValue: cubit.selectedGender,
@@ -238,139 +239,139 @@ class _RegisterViewState extends State<RegisterView> {
                     isPassword: true,
                   ),
                   16.ph,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Column(
+                      children: [
+                        // زر التسجيل
+                        BlocBuilder<RegisterCubit, RegisterState>(
+                          buildWhen: (previous, current) =>
+                          current is RegisterLoadingState ||
+                              current is RegisterSuccessState ||
+                              current is RegisterFailedState,
+                          builder: (context, state) {
+                            return CustomElevatedButton(
+                              text: lang.createAccount,
+                              onPressed: cubit.registerLoader
+                                  ? () {}
+                                  : () {
+                                // إخفاء لوحة المفاتيح
+                                FocusScope.of(context).unfocus();
+
+                                // بدء عملية التسجيل
+                                cubit.register(context);
+                              },
+                              color: MainColors.primary,
+                              radius: 16.r,
+                              height: 48.h,
+                              width: double.infinity,
+                              child: cubit.registerLoader
+                                  ? SizedBox(
+                                width: 20.w,
+                                height: 20.h,
+                                child: const CircularProgressIndicator.adaptive(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                                  : null,
+                            );
+                          },
+                        ),
+                        16.ph,
+
+                        // زر التسجيل مع إعادة المحاولة (للحالات الخاصة)
+                        BlocBuilder<RegisterCubit, RegisterState>(
+                          buildWhen: (previous, current) =>
+                          current is RegisterFailedState,
+                          builder: (context, state) {
+                            if (state is RegisterFailedState) {
+                              return Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(12.w),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red.shade50,
+                                      borderRadius: BorderRadius.circular(8.r),
+                                      border: Border.all(color: Colors.red.shade200),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.error_outline,
+                                          color: Colors.red.shade600,
+                                          size: 16.sp,
+                                        ),
+                                        8.pw,
+                                        Expanded(
+                                          child: Text(
+                                            state.message,
+                                            style: MainTextStyle.regularTextStyle(
+                                              fontSize: 12,
+                                              color: Colors.red.shade600,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  12.ph,
+                                  CustomElevatedButton(
+                                    text: lang.retry,
+                                    onPressed: () {
+                                      cubit.registerWithRetry(context);
+                                    },
+                                    color: Colors.orange,
+                                    radius: 16.r,
+                                    height: 40.h,
+                                    width: double.infinity,
+                                  ),
+                                  8.ph,
+                                ],
+                              );
+                            }
+                            return const SizedBox.shrink();
+                          },
+                        ),
+
+                        // رابط تسجيل الدخول
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              lang.alreadyHaveAccount,
+                              style: MainTextStyle.regularTextStyle(
+                                fontSize: 14,
+                                color: MainColors.onPrimary,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  RoutePaths.loginPath,
+                                );
+                              },
+                              child: Text(
+                                lang.login,
+                                style: MainTextStyle.boldTextStyle(
+                                  fontSize: 14,
+                                  color: MainColors.primary,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        32.ph,
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
 
           // أزرار التحكم
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Column(
-              children: [
-                // زر التسجيل
-                BlocBuilder<RegisterCubit, RegisterState>(
-                  buildWhen: (previous, current) =>
-                  current is RegisterLoadingState ||
-                      current is RegisterSuccessState ||
-                      current is RegisterFailedState,
-                  builder: (context, state) {
-                    return CustomElevatedButton(
-                      text: lang.createAccount,
-                      onPressed: cubit.registerLoader
-                          ? () {}
-                          : () {
-                        // إخفاء لوحة المفاتيح
-                        FocusScope.of(context).unfocus();
 
-                        // بدء عملية التسجيل
-                        cubit.register(context);
-                      },
-                      color: MainColors.primary,
-                      radius: 16.r,
-                      height: 48.h,
-                      width: double.infinity,
-                      child: cubit.registerLoader
-                          ? SizedBox(
-                        width: 20.w,
-                        height: 20.h,
-                        child: const CircularProgressIndicator(
-                          color: Colors.white,
-                          strokeWidth: 2,
-                        ),
-                      )
-                          : null,
-                    );
-                  },
-                ),
-                16.ph,
-
-                // زر التسجيل مع إعادة المحاولة (للحالات الخاصة)
-                BlocBuilder<RegisterCubit, RegisterState>(
-                  buildWhen: (previous, current) =>
-                  current is RegisterFailedState,
-                  builder: (context, state) {
-                    if (state is RegisterFailedState) {
-                      return Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(12.w),
-                            decoration: BoxDecoration(
-                              color: Colors.red.shade50,
-                              borderRadius: BorderRadius.circular(8.r),
-                              border: Border.all(color: Colors.red.shade200),
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.error_outline,
-                                  color: Colors.red.shade600,
-                                  size: 16.sp,
-                                ),
-                                8.pw,
-                                Expanded(
-                                  child: Text(
-                                    state.message,
-                                    style: MainTextStyle.regularTextStyle(
-                                      fontSize: 12,
-                                      color: Colors.red.shade600,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          12.ph,
-                          CustomElevatedButton(
-                            text: lang.retry,
-                            onPressed: () {
-                              cubit.registerWithRetry(context);
-                            },
-                            color: Colors.orange,
-                            radius: 16.r,
-                            height: 40.h,
-                            width: double.infinity,
-                          ),
-                          8.ph,
-                        ],
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  },
-                ),
-
-                // رابط تسجيل الدخول
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      lang.alreadyHaveAccount,
-                      style: MainTextStyle.regularTextStyle(
-                        fontSize: 14,
-                        color: MainColors.onPrimary,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          RoutePaths.loginPath,
-                        );
-                      },
-                      child: Text(
-                        lang.login,
-                        style: MainTextStyle.boldTextStyle(
-                          fontSize: 14,
-                          color: MainColors.primary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                32.ph,
-              ],
-            ),
-          ),
         ],
       ),
     );

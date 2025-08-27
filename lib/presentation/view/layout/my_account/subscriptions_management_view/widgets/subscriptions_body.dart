@@ -43,19 +43,24 @@ class SubscriptionsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = SubscriptionmanagementCubit.get(context);
+    final lang = context.loc!;
+
 
     return BlocBuilder(
       bloc: cubit,
       builder: (context, state) {
         if (cubit.getLibrarySubscriptionLoader) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator.adaptive(),
           );
         }
 
         if (cubit.getLibrarySubscriptionEntity?.data == null) {
-          return const Center(
-            child: Text("لا توجد اشتراكات مكتبة"),
+          return Padding(
+            padding: EdgeInsets.only(top: 300.h),
+            child: Center(
+              child: Text(lang.noLibrarySubscription),
+            ),
           );
         }
 

@@ -32,7 +32,6 @@ class _ChatsViewState extends State<ChatsView>
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_isInitialized) {
-      // هنا يمكن الوصول للـ context بأمان
       cubit.initController(this, context);
       _isInitialized = true;
     }
@@ -40,14 +39,14 @@ class _ChatsViewState extends State<ChatsView>
 
   @override
   Widget build(BuildContext context) {
-    // تحديد الـ tabs هنا في الـ build method
     final tabsList = _getTabs(context);
+    var lang = context.loc!;
 
     return Scaffold(
       appBar: CustomAppBar(
         context,
-        mainTitle: "الرسائل",
-        leadingText: "مجتمعنا",
+        mainTitle: lang.messages, // استخدام النص من الترجمة
+        leadingText: lang.ourCommunity, // استخدام النص من الترجمة
         leadingIcon: Icons.arrow_back_ios,
         onLeadinTap: () => Navigator.pop(context),
         isCenterTitle: true,
@@ -69,8 +68,8 @@ class _ChatsViewState extends State<ChatsView>
           16.ph,
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: const CustomTextFormField(
-              hintText: "أكتب للبحث",
+            child: CustomTextFormField(
+              hintText: lang.search, // استخدام النص من الترجمة
               prefixIconWidget: PrefixSearchFormField(),
               suffixIconWidget: SuffixMenuFormField(),
             ),
@@ -82,7 +81,7 @@ class _ChatsViewState extends State<ChatsView>
                 controller: cubit.controller!,
                 tabs: List.generate(
                   tabsList.length,
-                  (index) {
+                      (index) {
                     bool isSelected = index == cubit.controller?.index;
                     return Text(
                       tabsList[index],
@@ -109,7 +108,6 @@ class _ChatsViewState extends State<ChatsView>
                   // Instructors Tab
                   BlocBuilder(
                     builder: (context, state) {
-                      // تبسيط الشروط وإزالة التعقيد
 
                       // Handle loading state
                       if (cubit.getMyChatsLoader) {
@@ -129,7 +127,7 @@ class _ChatsViewState extends State<ChatsView>
                               ),
                               SizedBox(height: 16.h),
                               Text(
-                                'فشل في تحميل الرسائل',
+                                lang.failedToLoadMessages, // استخدام النص من الترجمة
                                 style: TextStyle(
                                   color: MainColors.surfaceVariant,
                                   fontSize: 16.sp,
@@ -138,7 +136,7 @@ class _ChatsViewState extends State<ChatsView>
                               SizedBox(height: 8.h),
                               ElevatedButton(
                                 onPressed: () => cubit.getMyChats(),
-                                child: const Text('إعادة المحاولة'),
+                                child: Text(lang.retry), // استخدام النص من الترجمة
                               ),
                             ],
                           ),
@@ -152,9 +150,9 @@ class _ChatsViewState extends State<ChatsView>
                       List instructorList = chats
                           .where(
                             (element) =>
-                                element.participant1?.type == "Instructor" ||
-                                element.participant2?.type == "Instructor",
-                          )
+                        element.participant1?.type == "Instructor" ||
+                            element.participant2?.type == "Instructor",
+                      )
                           .toList();
 
                       // Show empty state for instructors
@@ -170,7 +168,7 @@ class _ChatsViewState extends State<ChatsView>
                               ),
                               SizedBox(height: 16.h),
                               Text(
-                                'لا توجد رسائل مع الأساتذة',
+                                lang.noMessagesWithInstructors, // استخدام النص من الترجمة
                                 style: TextStyle(
                                   color: MainColors.primary,
                                   fontSize: 16.sp,
@@ -179,7 +177,7 @@ class _ChatsViewState extends State<ChatsView>
                               ),
                               SizedBox(height: 8.h),
                               Text(
-                                'ابدأ محادثة مع أساتذتك لطرح أسئلتك',
+                                lang.startConversationWithInstructors, // استخدام النص من الترجمة
                                 style: TextStyle(
                                   color: MainColors.surfaceVariant
                                       .withValues(alpha: 0.7),
@@ -205,13 +203,13 @@ class _ChatsViewState extends State<ChatsView>
                         itemBuilder: (context, index) {
                           var chatItem = instructorList[index];
                           var instructors =
-                              chatItem.participant1?.type == "User"
-                                  ? chatItem.participant2
-                                  : chatItem.participant1;
+                          chatItem.participant1?.type == "User"
+                              ? chatItem.participant2
+                              : chatItem.participant1;
                           return ChatItem(
                             isFirstChat: true,
                             lastMessageContent:
-                                chatItem.latestMessage?.message ?? "",
+                            chatItem.latestMessage?.message ?? "",
                             profileAvatar: instructors?.image ?? "",
                             name: "${instructors?.name}",
                             time: formatDate(
@@ -257,7 +255,7 @@ class _ChatsViewState extends State<ChatsView>
                               ),
                               SizedBox(height: 16.h),
                               Text(
-                                'فشل في تحميل الرسائل',
+                                lang.failedToLoadMessages, // استخدام النص من الترجمة
                                 style: TextStyle(
                                   color: MainColors.surfaceVariant,
                                   fontSize: 16.sp,
@@ -266,7 +264,7 @@ class _ChatsViewState extends State<ChatsView>
                               SizedBox(height: 8.h),
                               ElevatedButton(
                                 onPressed: () => cubit.getMyChats(),
-                                child: const Text('إعادة المحاولة'),
+                                child: Text(lang.retry), // استخدام النص من الترجمة
                               ),
                             ],
                           ),
@@ -280,9 +278,9 @@ class _ChatsViewState extends State<ChatsView>
                       List clientList = chats
                           .where(
                             (element) =>
-                                element.participant1?.type == "Client" ||
-                                element.participant2?.type == "Client",
-                          )
+                        element.participant1?.type == "Client" ||
+                            element.participant2?.type == "Client",
+                      )
                           .toList();
 
                       // Show empty state for clients
@@ -298,7 +296,7 @@ class _ChatsViewState extends State<ChatsView>
                               ),
                               SizedBox(height: 16.h),
                               Text(
-                                'لا توجد رسائل مع العملاء',
+                                lang.noMessagesWithClients, // استخدام النص من الترجمة
                                 style: MainTextStyle.boldTextStyle(
                                   color: MainColors.primary,
                                   fontSize: 16,
@@ -306,7 +304,7 @@ class _ChatsViewState extends State<ChatsView>
                               ),
                               SizedBox(height: 8.h),
                               Text(
-                                'ابدأ محادثة مع العملاء لمتابعة استفساراتهم',
+                                lang.startConversationWithClients, // استخدام النص من الترجمة
                                 style: TextStyle(
                                   color: MainColors.surfaceVariant
                                       .withValues(alpha: 0.7),
@@ -337,7 +335,7 @@ class _ChatsViewState extends State<ChatsView>
                           return ChatItem(
                             isFirstChat: true,
                             lastMessageContent:
-                                chatItem.latestMessage?.message ?? "",
+                            chatItem.latestMessage?.message ?? "",
                             profileAvatar: clients?.image ?? "",
                             name: "${clients?.name}",
                             time: formatDate(
@@ -370,7 +368,6 @@ class _ChatsViewState extends State<ChatsView>
     );
   }
 
-  // دالة منفصلة لتحديد الـ tabs
   List<String> _getTabs(BuildContext context) {
     var lang = context.loc!;
     return [

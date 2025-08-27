@@ -474,7 +474,7 @@ class LectureCubit extends Cubit<LectureState> {
                   [])
               .toList(),
         );
-        print("next ${nextSessions.length}");
+        log("next ${nextSessions.length}");
         finishedSession.addAll(
           (data.data?.where(
                     (element) => element.status?.key != "pending",
@@ -1017,12 +1017,12 @@ class LectureCubit extends Cubit<LectureState> {
         isPlaying = true;
         emit(PlayRecordState());
       } catch (e) {
-        print('Error playing audio: $e');
+        log('Error playing audio: $e');
         isPlaying = false;
       }
     } else {
       isPlaying = false;
-      print('No recording found to play');
+      log('No recording found to play');
     }
   }
 
@@ -1054,7 +1054,7 @@ class LectureCubit extends Cubit<LectureState> {
       emit(PlayExternalAudioState());
 
     } catch (e) {
-      print('Exception in playExternalSourceAudio: $e');
+      log('Exception in playExternalSourceAudio: $e');
       isPlaying = false;
       emit(AudioErrorState());
     }

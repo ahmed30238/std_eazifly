@@ -273,28 +273,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String get login => 'تسجيل الدخول';
 
   @override
-  String get profileImageOptional => 'Profile Image (Optional)';
+  String get profileImageOptional => 'صورة الملف الشخصي (اختياري)';
 
   @override
-  String get tapToUpload => 'Tap to upload image';
+  String get tapToUpload => 'انقر لتحميل الصورة';
 
   @override
-  String get registrationSuccess => 'Registration Successful';
+  String get registrationSuccess => 'تم التسجيل بنجاح';
 
   @override
-  String get registrationFailed => 'Registration Failed';
+  String get registrationFailed => 'فشل التسجيل';
 
   @override
-  String get pleaseWait => 'Please wait...';
+  String get pleaseWait => 'يرجى الانتظار...';
 
   @override
-  String get continueToLogin => 'Continue to Login';
+  String get continueToLogin => 'المتابعة لتسجيل الدخول';
 
   @override
-  String get acceptTerms => 'I accept the terms and conditions';
+  String get acceptTerms => 'أوافق على الشروط والأحكام';
 
   @override
-  String get termsError => 'You must accept the terms and conditions';
+  String get termsError => 'يجب أن توافق على الشروط والأحكام';
 
   @override
   String get resetPassword => 'إعادة تعيين كلمة السر';
@@ -344,4 +344,226 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get resendingCode => 'جاري إعادة الإرسال...';
+
+  @override
+  String get ourCommunity => 'مجتمعنا';
+
+  @override
+  String get failedToLoadMessages => 'فشل في تحميل الرسائل';
+
+  @override
+  String get noMessagesWithInstructors => 'لا توجد رسائل مع الأساتذة';
+
+  @override
+  String get startConversationWithInstructors =>
+      'ابدأ محادثة مع أساتذتك لطرح أسئلتك';
+
+  @override
+  String get noMessagesWithClients => 'لا توجد رسائل مع العملاء';
+
+  @override
+  String get startConversationWithClients =>
+      'ابدأ محادثة مع العملاء لمتابعة استفساراتهم';
+
+  @override
+  String get age => 'العمر';
+
+  @override
+  String get edit => 'تعديل';
+
+  @override
+  String get forgotPassword => 'نسيت كلمة السر';
+
+  @override
+  String get verificationCodeSent => 'تم إرسال رمز التحقق إلى بريدك الإلكتروني';
+
+  @override
+  String get forgotPasswordQuestion => 'نسيت كلمة السر؟';
+
+  @override
+  String get forgotPasswordDescription =>
+      'لا تقلق! أدخل بريدك الإلكتروني وسنرسل لك رمز التحقق لإعادة تعيين كلمة السر';
+
+  @override
+  String get pleaseEnterEmail => 'يرجى إدخال البريد الإلكتروني';
+
+  @override
+  String get pleaseEnterValidEmail => 'يرجى إدخال بريد إلكتروني صحيح';
+
+  @override
+  String get sendVerificationCode => 'إرسال رمز التحقق';
+
+  @override
+  String get backToLogin => 'العودة لتسجيل الدخول';
+
+  @override
+  String get skip => 'تخطي';
+
+  @override
+  String get tutorialFinished => 'تم الانتهاء من الشرح';
+
+  @override
+  String get tutorialSkipped => 'تم تخطي الشرح';
+
+  @override
+  String get reviewProgramsTutorial => 'اضغط هنا لرؤية البرامج تحت المراجعة';
+
+  @override
+  String get noSubscriptions => 'ليس لديك اشتراكات';
+
+  @override
+  String get subscribeNow => 'اشترك الان';
+
+  @override
+  String get programsUnderReview => 'لديك برامج في المراجعة';
+
+  @override
+  String get tapToAddSessions => 'اضغط لإضافة حصص';
+
+  @override
+  String get alreadyStarted => 'بدأت بالفعل';
+
+  @override
+  String get ongoingNow => 'جارية الآن';
+
+  @override
+  String get notSpecified => 'غير محدد';
+
+  @override
+  String get noDescription => 'لا يوجد وصف';
+
+  @override
+  String get minutes => 'دقيقة';
+
+  @override
+  String get audios => 'صوتيات';
+
+  @override
+  String get menus => 'القوائم';
+
+  @override
+  String get favourite => 'المفضلة';
+
+  @override
+  String get noAudios => 'لا يوجد صوتيات متاحة';
+
+  @override
+  String get noMenus => 'لا يوجد قوائم متاحة';
+
+  @override
+  String get noFavs => 'ليس لديك مفضلات';
+
+  @override
+  String get language => 'اللغة';
+
+  @override
+  String get arabic => 'عربي';
+
+  @override
+  String get english => 'الإنجليزية';
+
+  @override
+  String get upcomingLectures => 'المحاضرات القادمة';
+
+  @override
+  String get noUpcomingLectures => 'لا محاضرات قادمة';
+
+  @override
+  String get noAudioContentAvailable => 'لا توجد محتويات صوتية متاحة';
+
+  @override
+  String get noItemsInThisList => 'لا يوجد عناصر في هذه القائمة';
+
+  @override
+  String get noNotifications => 'لا توجد إشعارات';
+
+  @override
+  String get noNotificationsFound => 'لم يتم العثور على أي إشعارات حتى الآن';
+
+  @override
+  String get refresh => 'تحديث';
+
+  @override
+  String get programDetails => 'تفاصيل البرنامج';
+
+  @override
+  String get programs => 'البرامج';
+
+  @override
+  String get dataLoadError => 'حدث خطأ في تحميل البيانات';
+
+  @override
+  String get checkInternetConnection =>
+      'تحقق من الاتصال بالإنترنت وحاول مرة أخرى';
+
+  @override
+  String get subscribeNowButton => 'اشترك الآن';
+
+  @override
+  String get choosePlanDescription =>
+      'اختر بين مجموعة من الباقات و إستمتع بالمزايا الحصرية';
+
+  @override
+  String get saveDiscount => 'وفر 20%';
+
+  @override
+  String get noAvailablePlans => 'لا توجد باقات متاحة';
+
+  @override
+  String get planName => 'إسم الباقة';
+
+  @override
+  String get monthly => 'شهريا';
+
+  @override
+  String get studentsCount => 'عدد الطلاب';
+
+  @override
+  String get subscribe => 'إشتراك';
+
+  @override
+  String get startDate => 'تاريخ البدء';
+
+  @override
+  String get startDateHint => '2025-05-15';
+
+  @override
+  String get yes => 'نعم';
+
+  @override
+  String get no => 'لا';
+
+  @override
+  String get confirmLogout => 'هل انت متاكد من تسجيل الخروج';
+
+  @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get deleteAccount => 'حذف الحساب';
+
+  @override
+  String get confirmDeleteAccount => 'هل أنت متأكد من حذف الحساب؟';
+
+  @override
+  String get deleteAccountWarning =>
+      'سيتم حذف جميع بياناتك نهائياً ولا يمكن التراجع عن هذا الإجراء';
+
+  @override
+  String get programSubscriptionLoadError => 'خطأ في تحميل اشتراكات البرامج';
+
+  @override
+  String get librarySubscriptionLoadError => 'خطأ في تحميل اشتراكات المكتبة';
+
+  @override
+  String get noProgramSubscription => 'لا توجد اشتراكات برامج';
+
+  @override
+  String get noLibrarySubscription => 'لا توجد اشتراكات مكتبة';
+
+  @override
+  String get all => 'الكل';
+
+  @override
+  String get remain => 'متبقي';
 }

@@ -179,7 +179,7 @@ class AppRouter {
               createOrderUsecase: sl(),
               getPaymentMethodDetailsUsecase: sl(),
             ),
-            child: const SubscriptionManagmentView(),
+            child: const SubscriptionManagementView(),
           ),
         );
       case RoutePaths.copounsAndDiscountsViewPath:

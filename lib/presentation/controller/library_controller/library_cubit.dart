@@ -34,6 +34,7 @@ import 'package:eazifly_student/presentation/view/layout/library/widgets/favouri
 import 'package:eazifly_student/presentation/view/layout/library/widgets/menu_list_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:just_audio/just_audio.dart';
+
 // import 'package:just_audio/just_audio.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -52,9 +53,11 @@ class LibraryCubit extends Cubit<LibraryState> {
     required this.getLibraryItemsUsecase,
     // required this.getPaymentMethodDetailsUsecase,
   }) : super(LibraryInitial());
+
   static LibraryCubit get(context) => BlocProvider.of(context);
-  initTabController(TickerProvider vsync) {
-    tabController = TabController(length: tabTexts.length, vsync: vsync)
+
+  initTabController(TickerProvider vsync,BuildContext context) {
+    tabController = TabController(length: tabTexts(context).length, vsync: vsync)
       ..addListener(() {
         if (tabController.indexIsChanging) {
           tabController.animateTo(tabController.index,
@@ -82,12 +85,16 @@ class LibraryCubit extends Cubit<LibraryState> {
   late TabController tabController;
 
   // stop visuals temporarily
-  List<String> tabTexts = [
-    'صوتيات',
-    // 'مرئيات',
-    'القوائم',
-    'المفضلة',
-  ];
+  List<String> tabTexts(BuildContext context) {
+    var lang = context.loc!;
+    return [
+      lang.audios,
+      // 'مرئيات',
+      lang.menus,
+      lang.favourite,
+    ];
+  }
+
   List<Widget> libraryBodies = [
     const AudiosBody(),
     // const VisualsBody(),
@@ -122,6 +129,7 @@ class LibraryCubit extends Cubit<LibraryState> {
   }
 
   File? favListImage;
+
   Future<void> pickFavImageImageFroGallery() async {
     final response = await pickImageFromGallery();
     if (response != null) {
@@ -134,6 +142,7 @@ class LibraryCubit extends Cubit<LibraryState> {
   bool storeFavouriteListLoader = false;
   StoreFavouriteListEntity? storeFavouriteListEntity;
   StoreFavouriteListUsecase storeFavouriteListUsecase;
+
   Future<void> storeFavouriteList() async {
     storeFavouriteListLoader = true;
     emit(StoreFavouriteListLoadingState());
@@ -214,6 +223,7 @@ class LibraryCubit extends Cubit<LibraryState> {
   GetFavouriteListEntity? getFavouriteListEntity;
   GetFavouriteListUsecase getFavouriteListUsecase;
   List<FavouriteDatumEntity> allFavourites = [];
+
   Future<void> getFavouriteList() async {
     allFavourites = [];
     getFavouriteListLoader = true;
@@ -390,6 +400,7 @@ class LibraryCubit extends Cubit<LibraryState> {
   bool likeItemLoader = false;
   LikeItemUsecase likeItemUsecase;
   LikeItemEntity? likeItemEntity;
+
   Future<void> likeItem(int itemId, bool status) async {
     likeItemLoader = true;
     emit(LikeItemLoadingState());
@@ -443,8 +454,10 @@ class LibraryCubit extends Cubit<LibraryState> {
       {}; // key: fileUrl, value: local path
 
   Map<String, bool> get isDownloading => Map.unmodifiable(_isDownloading);
+
   Map<String, double> get downloadingProgress =>
       Map.unmodifiable(_downloadingProgress);
+
   Map<String, String> get downloadedFiles => Map.unmodifiable(_downloadedFiles);
 
   // دالة لفتح الملفات حسب النوع (زي تيليجرام)
@@ -554,7 +567,7 @@ class LibraryCubit extends Cubit<LibraryState> {
       }
       emit(AudioStateChangedState());
     } catch (e) {
-      print('Error in togglePlayPause: $e');
+      log('Error in togglePlayPause: $e');
     }
   }
 
@@ -683,5 +696,5 @@ class LibraryCubit extends Cubit<LibraryState> {
       onError?.call('فشل في تحميل الملف النصي: $e');
     }
   }
-  //! end of files methods
+//! end of files methods
 }

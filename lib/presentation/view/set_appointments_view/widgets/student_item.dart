@@ -69,7 +69,7 @@ class StudentItem extends StatelessWidget {
               width: 80.w,
               height: 98.h,
               decoration: BoxDecoration(
-                color: MainColors.inputFill.withOpacity(.5),
+                color: MainColors.inputFill.withValues(alpha: .5),
                 borderRadius: 8.cr,
                 border: Border.all(
                   color: isSelected

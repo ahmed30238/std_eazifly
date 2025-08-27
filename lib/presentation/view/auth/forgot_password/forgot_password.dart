@@ -1,5 +1,6 @@
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
 import 'package:eazifly_student/core/component/custom_form_field.dart';
+import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/routes/paths.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -17,6 +18,7 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lang = context.loc!;
     return BlocProvider(
       create: (context) => ForgotPasswordCubit(
         forgotPasswordUsecase: sl(),
@@ -28,7 +30,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  'تم إرسال رمز التحقق إلى بريدك الإلكتروني',
+                  lang.verificationCodeSent,
                   style: MainTextStyle.mediumTextStyle(
                     fontSize: 14,
                     color: Colors.white,
@@ -45,7 +47,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               context,
               RoutePaths.resetPasswordView,
               arguments:
-                  context.read<ForgotPasswordCubit>().emailController.text,
+              context.read<ForgotPasswordCubit>().emailController.text,
             );
           } else if (state is ForgotPasswordErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -83,7 +85,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 ),
               ),
               title: Text(
-                'نسيت كلمة السر',
+                lang.forgotPassword,
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 18,
                   color: MainColors.onSecondary,
@@ -140,7 +142,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                             ),
                             32.ph,
                             Text(
-                              "نسيت كلمة السر؟",
+                              lang.forgotPasswordQuestion,
                               style: MainTextStyle.boldTextStyle(
                                 fontSize: 28,
                                 color: MainColors.onSecondary,
@@ -149,7 +151,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                             ),
                             16.ph,
                             Text(
-                              "لا تقلق! أدخل بريدك الإلكتروني وسنرسل لك رمز التحقق لإعادة تعيين كلمة السر",
+                              lang.forgotPasswordDescription,
                               style: MainTextStyle.mediumTextStyle(
                                 fontSize: 14,
                                 color: MainColors.onSurfaceSecondary,
@@ -160,7 +162,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                             Align(
                               alignment: Alignment.centerRight,
                               child: Text(
-                                "البريد الإلكتروني",
+                                lang.email,
                                 style: MainTextStyle.boldTextStyle(
                                   fontSize: 14,
                                   color: MainColors.onSecondary,
@@ -170,15 +172,15 @@ class ForgotPasswordScreen extends StatelessWidget {
                             8.ph,
                             CustomTextFormField(
                               controller: cubit.emailController,
-                              hintText: "example@gmail.com",
+                              hintText: lang.emailHint,
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'يرجى إدخال البريد الإلكتروني';
+                                  return lang.pleaseEnterEmail;
                                 }
                                 if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                                     .hasMatch(value)) {
-                                  return 'يرجى إدخال بريد إلكتروني صحيح';
+                                  return lang.pleaseEnterValidEmail;
                                 }
                                 return null;
                               },
@@ -203,38 +205,38 @@ class ForgotPasswordScreen extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           CustomElevatedButton(
-                            text: "إرسال رمز التحقق",
+                            text: lang.sendVerificationCode,
                             onPressed: cubit.forgotPasswordLoader
                                 ? () {}
                                 : () {
-                                    if (cubit
-                                        .forgotPasswordFormKey.currentState!
-                                        .validate()) {
-                                      cubit.forgetPassword();
-                                    }
-                                  },
+                              if (cubit
+                                  .forgotPasswordFormKey.currentState!
+                                  .validate()) {
+                                cubit.forgetPassword();
+                              }
+                            },
                             height: 52.h,
                             width: double.infinity,
                             color: MainColors.primary,
                             radius: 16.r,
                             child: cubit.forgotPasswordLoader
                                 ? SizedBox(
-                                    height: 20.h,
-                                    width: 20.w,
-                                    child: const CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white,
-                                      ),
-                                    ),
-                                  )
+                              height: 20.h,
+                              width: 20.w,
+                              child: const CircularProgressIndicator.adaptive(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.white,
+                                ),
+                              ),
+                            )
                                 : null,
                           ),
                           24.ph,
                           TextButton(
                             onPressed: () => Navigator.pop(context),
                             child: Text(
-                              "العودة لتسجيل الدخول",
+                              lang.backToLogin,
                               style: MainTextStyle.mediumTextStyle(
                                 fontSize: 14,
                                 color: MainColors.primary,

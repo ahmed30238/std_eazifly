@@ -8,11 +8,10 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _SplashScreenState createState() => _SplashScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
@@ -34,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
 
     // الانتقال للشاشة التالية بعد انتهاء المؤقت
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 1), () {
       final String token = TokenUtil.getTokenFromMemory();
       if (token.isEmpty) {
         Navigator.pushNamedAndRemoveUntil(
@@ -81,7 +80,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MainColors.background, // استخدم لونك الأساسي
+      backgroundColor: MainColors.background,
       body: Center(
         child: ScaleTransition(
           scale: _animation,

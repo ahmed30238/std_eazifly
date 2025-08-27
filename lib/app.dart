@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ApplanuageCubit()..getAppLang()),
+        BlocProvider(create: (context) => AppLanguageCubit()..getAppLang()),
         BlocProvider(create: (context) => LayoutCubit()),
         BlocProvider.value(value: sl<ProgramsUnderReviewCubit>()),
         BlocProvider.value(value: sl<HomeCubit>()),
@@ -41,10 +41,9 @@ class MyApp extends StatelessWidget {
         useInheritedMediaQuery: true,
         builder: (context, child) => GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
-          child: BlocBuilder<ApplanuageCubit, ApplanuageState>(
+          child: BlocBuilder<AppLanguageCubit, ApplanuageState>(
             builder: (context, state) {
               if (state is AppLanguageCurrentState) {
-                var langCubit = ApplanuageCubit().get(context);
                 return MaterialApp(
                   navigatorObservers: [navigatorObservers],
                   navigatorKey: navKey,
@@ -56,7 +55,7 @@ class MyApp extends StatelessWidget {
                   supportedLocales: AppLocalizations.supportedLocales,
                   localizationsDelegates:
                       AppLocalizations.localizationsDelegates,
-                  locale: Locale(langCubit.langKey),
+                  locale: Locale(state.locale),
                   debugShowCheckedModeBanner: false,
                   title: 'هدى للناس',
                 );

@@ -28,11 +28,12 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
 
   @override
   Widget build(BuildContext context) {
+    var lang = context.loc!;
     return Scaffold(
       appBar: CustomAppBar(
         context,
-        mainTitle: "تفاصيل البرنامج",
-        leadingText: "البرامج",
+        mainTitle: lang.programDetails,
+        leadingText: lang.programs,
         isCenterTitle: true,
       ),
       body: Column(
@@ -59,7 +60,7 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                         ),
                         16.ph,
                         Text(
-                          "حدث خطأ في تحميل البيانات",
+                          lang.dataLoadError,
                           style: MainTextStyle.mediumTextStyle(
                             fontSize: 16,
                             color: MainColors.onSurfaceSecondary,
@@ -176,7 +177,7 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
               }
               
               return CustomElevatedButton(
-                text: "اشترك الآن",
+                text: lang.subscribeNowButton,
                 color: MainColors.primary,
                 radius: 16.r,
                 width: 343.w,
