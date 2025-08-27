@@ -1201,6 +1201,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'remain'**
   String get remain;
+
+  /// No description provided for @welcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Back!'**
+  String get welcomeBack;
+
+  /// No description provided for @educationJourneyStartsHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Your educational journey starts here.'**
+  String get educationJourneyStartsHere;
+
+  /// No description provided for @emailOrPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Email or Phone Number'**
+  String get emailOrPhone;
+
+  /// No description provided for @example.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: '**
+  String get example;
+
+  /// No description provided for @getStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
+  /// No description provided for @noAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account..!  '**
+  String get noAccount;
 }
 
 class _AppLocalizationsDelegate

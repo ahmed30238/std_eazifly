@@ -63,7 +63,7 @@ class CustomizedDropdownWidget<T> extends StatelessWidget {
       // isExpanded: false,
       // hint: Text(hintText),
       elevation: 3,
-      value: initialValue,
+      initialValue: initialValue,
       onChanged: onChanged,
       icon: Icon(
         Icons.keyboard_arrow_down,

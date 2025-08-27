@@ -571,4 +571,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get remain => 'remain';
+
+  @override
+  String get welcomeBack => 'Welcome Back!';
+
+  @override
+  String get educationJourneyStartsHere =>
+      'Your educational journey starts here.';
+
+  @override
+  String get emailOrPhone => 'Email or Phone Number';
+
+  @override
+  String get example => 'Example: ';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
+  String get noAccount => 'Don\'t have an account..!  ';
 }

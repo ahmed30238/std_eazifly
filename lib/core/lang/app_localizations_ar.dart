@@ -566,4 +566,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get remain => 'متبقي';
+
+  @override
+  String get welcomeBack => 'مرحبًا بك !';
+
+  @override
+  String get educationJourneyStartsHere => 'رحلتك التعليمية تبدأ هنا.';
+
+  @override
+  String get emailOrPhone => 'البريد الإلكتروني أو رقم الهاتف';
+
+  @override
+  String get example => 'مثال : ';
+
+  @override
+  String get getStarted => 'بدأ الإستخدام';
+
+  @override
+  String get noAccount => 'ليس لديك حساب..!  ';
 }

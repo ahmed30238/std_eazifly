@@ -183,5 +183,11 @@
   "noProgramSubscription" : "لا توجد اشتراكات برامج",
   "noLibrarySubscription": "لا توجد اشتراكات مكتبة",
   "all": "الكل",
-  "remain" : "متبقي"
+  "remain" : "متبقي",
+  "welcomeBack": "مرحبًا بك !",
+  "educationJourneyStartsHere": "رحلتك التعليمية تبدأ هنا.",
+  "emailOrPhone": "البريد الإلكتروني أو رقم الهاتف",
+  "example": "مثال : ",
+  "getStarted": "بدأ الإستخدام",
+  "noAccount": "ليس لديك حساب..!  "
 }

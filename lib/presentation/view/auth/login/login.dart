@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
 import 'package:eazifly_student/core/component/custom_form_field.dart';
+import 'package:eazifly_student/core/extensions/context.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/extensions/widgets_extensions.dart';
 import 'package:eazifly_student/core/helper_methods/helper_methods.dart';
@@ -23,6 +24,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = LoginCubit.get(context);
+    var lang = context.loc!;
 
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) => Scaffold(
@@ -75,7 +77,7 @@ class Login extends StatelessWidget {
                         ),
                         100.ph,
                         Text(
-                          "مرحبًا بك !",
+                          lang.welcomeBack,
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 24,
                             color: MainColors.onSecondary,
@@ -83,7 +85,7 @@ class Login extends StatelessWidget {
                         ),
                         8.ph,
                         Text(
-                          "رحلتك التعليمية تبدأ هنا.",
+                          lang.educationJourneyStartsHere,
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: MainColors.onSurfaceSecondary,
@@ -91,7 +93,7 @@ class Login extends StatelessWidget {
                         ),
                         40.ph,
                         Text(
-                          "البريد الإلكتروني أو رقم الهاتف",
+                          lang.emailOrPhone,
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: MainColors.onSecondary,
@@ -100,7 +102,7 @@ class Login extends StatelessWidget {
                         8.ph,
                         CustomTextFormField(
                           focusNode: cubit.emailFocusNode,
-                          hintText: "مثال : ",
+                          hintText: lang.example,
                           maxLines: 1,
                           controller: cubit.emailController,
                           onFieldSubmitted: (value) {
@@ -112,7 +114,7 @@ class Login extends StatelessWidget {
                         ),
                         24.ph,
                         Text(
-                          "كلمة المرور",
+                          lang.password,
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: MainColors.onSecondary,
@@ -137,7 +139,7 @@ class Login extends StatelessWidget {
                                 }
                               },
                               controller: cubit.passwordController,
-                              hintText: "مثال : ",
+                              hintText: lang.example,
                               suffixIconWidget: Padding(
                                 padding: EdgeInsets.symmetric(
                                   horizontal: 12.w,
@@ -149,8 +151,7 @@ class Login extends StatelessWidget {
                                     cubit.isVisible
                                         ? Icons.visibility_off
                                         : Icons.visibility,
-                                    color: Colors
-                                        .grey,
+                                    color: Colors.grey,
                                   ),
                                 ),
                               ),
@@ -170,7 +171,7 @@ class Login extends StatelessWidget {
                               );
                             },
                             child: Text(
-                              "هل نسيت كلمة السر؟",
+                              lang.forgotPassword,
                               style: MainTextStyle.mediumTextStyle(
                                 fontSize: 12,
                                 color: MainColors.primary,
@@ -189,7 +190,7 @@ class Login extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       CustomElevatedButton(
-                        text: "بدأ الإستخدام",
+                        text: lang.getStarted,
                         onPressed: cubit.loginLoader
                             ? () {}
                             : () {
@@ -200,22 +201,21 @@ class Login extends StatelessWidget {
                         color: MainColors.primary,
                         radius: 16.r,
                         child: cubit.loginLoader
-                            ? const CircularProgressIndicator.adaptive()
-                            .center()
+                            ? const CircularProgressIndicator.adaptive().center()
                             : null,
                       ),
                       24.ph,
                       Center(
                         child: RichText(
                           text: TextSpan(
-                            text: "ليس لديك حساب..!  ",
+                            text: lang.noAccount,
                             style: MainTextStyle.mediumTextStyle(
                               color: MainColors.onSurfaceSecondary,
                               fontSize: 12,
                             ),
                             children: [
                               TextSpan(
-                                text: "إنشاء حساب جديد",
+                                text: lang.createNewAccount,
                                 style: MainTextStyle.boldTextStyle(
                                   fontSize: 12,
                                   color: MainColors.primary,

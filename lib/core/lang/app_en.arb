@@ -183,5 +183,11 @@
     "noProgramSubscription": "No program subscriptions",
     "noLibrarySubscription": "No library subscriptions",
     "all": "All",
-    "remain" : "remain"
+    "remain" : "remain",
+    "welcomeBack": "Welcome Back!",
+    "educationJourneyStartsHere": "Your educational journey starts here.",
+    "emailOrPhone": "Email or Phone Number",
+    "example": "Example: ",
+    "getStarted": "Get Started",
+    "noAccount": "Don't have an account..!  "
 }
