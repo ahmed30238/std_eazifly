@@ -106,13 +106,17 @@ class _ChatsViewState extends State<ChatsView>
               child: TabBarView(
                 controller: cubit.controller,
                 children: [
+                  // Instructors Tab
                   BlocBuilder(
                     builder: (context, state) {
-                      // Handle different states explicitly
+                      // تبسيط الشروط وإزالة التعقيد
+
+                      // Handle loading state
                       if (cubit.getMyChatsLoader) {
                         return const ChatItemShimmerList();
                       }
 
+                      // Handle error state
                       if (state is GetMyChatsErrorState) {
                         return Center(
                           child: Column(
@@ -125,7 +129,7 @@ class _ChatsViewState extends State<ChatsView>
                               ),
                               SizedBox(height: 16.h),
                               Text(
-                                'Failed to load chats',
+                                'فشل في تحميل الرسائل',
                                 style: TextStyle(
                                   color: MainColors.surfaceVariant,
                                   fontSize: 16.sp,
@@ -134,107 +138,113 @@ class _ChatsViewState extends State<ChatsView>
                               SizedBox(height: 8.h),
                               ElevatedButton(
                                 onPressed: () => cubit.getMyChats(),
-                                child: const Text('Retry'),
+                                child: const Text('إعادة المحاولة'),
                               ),
                             ],
                           ),
                         );
                       }
 
-                      // Handle success state
-                      if (!cubit.getMyChatsLoader &&
-                          cubit.getMyChatsEntity != null) {
-                        final chats = cubit.getMyChatsEntity?.data ?? [];
+                      // Get chats data - سواء كان فيه entity أو لأ
+                      final chats = cubit.getMyChatsEntity?.data ?? [];
 
-                        if (chats.isEmpty) {
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.chat_bubble_outline,
-                                  size: 64,
-                                  color: MainColors.surfaceVariant,
+                      // Filter instructor chats
+                      List instructorList = chats
+                          .where(
+                            (element) =>
+                                element.participant1?.type == "Instructor" ||
+                                element.participant2?.type == "Instructor",
+                          )
+                          .toList();
+
+                      // Show empty state for instructors
+                      if (instructorList.isEmpty) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.school_outlined,
+                                size: 64,
+                                color: MainColors.surfaceVariant,
+                              ),
+                              SizedBox(height: 16.h),
+                              Text(
+                                'لا توجد رسائل مع الأساتذة',
+                                style: TextStyle(
+                                  color: MainColors.primary,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                SizedBox(height: 16.h),
-                                Text(
-                                  'No chats yet',
-                                  style: TextStyle(
-                                    color: MainColors.surfaceVariant,
-                                    fontSize: 16.sp,
-                                  ),
+                              ),
+                              SizedBox(height: 8.h),
+                              Text(
+                                'ابدأ محادثة مع أساتذتك لطرح أسئلتك',
+                                style: TextStyle(
+                                  color: MainColors.surfaceVariant
+                                      .withValues(alpha: 0.7),
+                                  fontSize: 14.sp,
                                 ),
-                              ],
-                            ),
-                          );
-                        }
-                        List instructorList = [];
-
-                        if (cubit.controller?.index == 0) {
-                          instructorList.addAll(
-                            chats.where(
-                              (element) =>
-                                  element.participant1?.type == "Instructor" ||
-                                  element.participant2?.type == "Instructor",
-                            ),
-                          );
-                        }
-
-                        return ListView.separated(
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: instructorList.length,
-                          separatorBuilder: (context, index) {
-                            return SeparatedWidget(
-                              dividerColor: MainColors.surfaceVariant,
-                              verticalPadding: 8.h,
-                            );
-                          },
-                          itemBuilder: (context, index) {
-                            var chatItem = instructorList[index];
-                            var instructors =
-                                chatItem.participant1?.type == "User"
-                                    ? chatItem.participant2
-                                    : chatItem.participant1;
-                            return ChatItem(
-                              isFirstChat: true,
-                              lastMessageContent:
-                                  chatItem.latestMessage?.message ?? "",
-                              profileAvatar: instructors?.image ?? "",
-                              name: "${instructors?.name}",
-                              time: formatDate(
-                                chatItem.createdAt ?? DateTime.now(),
-                              ).substring(0, 10),
-                              onTap: () {
-                                cubit.fillCurrentInstructor(index);
-                                cubit.hasMore = true;
-                                Navigator.pushNamed(
-                                  context,
-                                  RoutePaths.dmViewPath,
-                                  arguments: {
-                                    "chatId": chatItem.latestMessage?.chatId
-                                        ?.toString(),
-                                  },
-                                );
-                              },
-                            );
-                          },
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         );
                       }
 
-                      // Default loading state
-                      return const ChatItemShimmerList();
+                      // Show instructor chats
+                      return ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: instructorList.length,
+                        separatorBuilder: (context, index) {
+                          return SeparatedWidget(
+                            dividerColor: MainColors.surfaceVariant,
+                            verticalPadding: 8.h,
+                          );
+                        },
+                        itemBuilder: (context, index) {
+                          var chatItem = instructorList[index];
+                          var instructors =
+                              chatItem.participant1?.type == "User"
+                                  ? chatItem.participant2
+                                  : chatItem.participant1;
+                          return ChatItem(
+                            isFirstChat: true,
+                            lastMessageContent:
+                                chatItem.latestMessage?.message ?? "",
+                            profileAvatar: instructors?.image ?? "",
+                            name: "${instructors?.name}",
+                            time: formatDate(
+                              chatItem.createdAt ?? DateTime.now(),
+                            ).substring(0, 10),
+                            onTap: () {
+                              cubit.fillCurrentInstructor(index);
+                              cubit.hasMore = true;
+                              Navigator.pushNamed(
+                                context,
+                                RoutePaths.dmViewPath,
+                                arguments: {
+                                  "chatId": chatItem.latestMessage?.chatId
+                                      ?.toString(),
+                                },
+                              );
+                            },
+                          );
+                        },
+                      );
                     },
                     bloc: cubit,
                   ), // end of instructors
 
-                  // clients
+                  // Clients Tab
                   BlocBuilder(
                     builder: (context, state) {
-                      // Handle different states explicitly
+                      // Handle loading state
                       if (cubit.getMyChatsLoader) {
                         return const ChatItemShimmerList();
                       }
 
+                      // Handle error state
                       if (state is GetMyChatsErrorState) {
                         return Center(
                           child: Column(
@@ -247,7 +257,7 @@ class _ChatsViewState extends State<ChatsView>
                               ),
                               SizedBox(height: 16.h),
                               Text(
-                                'Failed to load chats',
+                                'فشل في تحميل الرسائل',
                                 style: TextStyle(
                                   color: MainColors.surfaceVariant,
                                   fontSize: 16.sp,
@@ -256,96 +266,98 @@ class _ChatsViewState extends State<ChatsView>
                               SizedBox(height: 8.h),
                               ElevatedButton(
                                 onPressed: () => cubit.getMyChats(),
-                                child: const Text('Retry'),
+                                child: const Text('إعادة المحاولة'),
                               ),
                             ],
                           ),
                         );
                       }
 
-                      // Handle success state
-                      if (!cubit.getMyChatsLoader &&
-                          cubit.getMyChatsEntity != null) {
-                        final chats = cubit.getMyChatsEntity?.data ?? [];
+                      // Get chats data
+                      final chats = cubit.getMyChatsEntity?.data ?? [];
 
-                        if (chats.isEmpty) {
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.chat_bubble_outline,
-                                  size: 64,
-                                  color: MainColors.surfaceVariant,
+                      // Filter client chats
+                      List clientList = chats
+                          .where(
+                            (element) =>
+                                element.participant1?.type == "Client" ||
+                                element.participant2?.type == "Client",
+                          )
+                          .toList();
+
+                      // Show empty state for clients
+                      if (clientList.isEmpty) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.people_outline,
+                                size: 64,
+                                color: MainColors.surfaceVariant,
+                              ),
+                              SizedBox(height: 16.h),
+                              Text(
+                                'لا توجد رسائل مع العملاء',
+                                style: MainTextStyle.boldTextStyle(
+                                  color: MainColors.primary,
+                                  fontSize: 16,
                                 ),
-                                SizedBox(height: 16.h),
-                                Text(
-                                  'No chats yet',
-                                  style: TextStyle(
-                                    color: MainColors.surfaceVariant,
-                                    fontSize: 16.sp,
-                                  ),
+                              ),
+                              SizedBox(height: 8.h),
+                              Text(
+                                'ابدأ محادثة مع العملاء لمتابعة استفساراتهم',
+                                style: TextStyle(
+                                  color: MainColors.surfaceVariant
+                                      .withValues(alpha: 0.7),
+                                  fontSize: 14.sp,
                                 ),
-                              ],
-                            ),
-                          );
-                        }
-                        List clientList = [];
-
-                        if (cubit.controller?.index == 1) {
-                          clientList = [];
-                          clientList.addAll(
-                            chats.where(
-                                  (element) =>
-                              element.participant1?.type == "Client" ||
-                                  element.participant2?.type == "Client",
-                            ),
-                          );
-                        }
-
-                        return ListView.separated(
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: clientList.length,
-                          separatorBuilder: (context, index) {
-                            return SeparatedWidget(
-                              dividerColor: MainColors.surfaceVariant,
-                              verticalPadding: 8.h,
-                            );
-                          },
-                          itemBuilder: (context, index) {
-                            var chatItem = clientList[index];
-                            var clients =
-                                chatItem.participant1?.type == "Client"
-                                    ? chatItem.participant1
-                                    : chatItem.participant2;
-                            return ChatItem(
-                              isFirstChat: true,
-                              lastMessageContent:
-                                  chatItem.latestMessage?.message ?? "",
-                              profileAvatar: clients?.image ?? "",
-                              name: "${clients?.name}",
-                              time: formatDate(
-                                chatItem.createdAt ?? DateTime.now(),
-                              ).substring(0, 10),
-                              onTap: () {
-                                cubit.fillCurrentClient(index);
-                                cubit.hasMore = true;
-                                Navigator.pushNamed(
-                                  context,
-                                  RoutePaths.dmViewPath,
-                                  arguments: {
-                                    "chatId": chatItem.latestMessage?.chatId
-                                        ?.toString(),
-                                  },
-                                );
-                              },
-                            );
-                          },
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         );
                       }
 
-                      // Default loading state
-                      return const ChatItemShimmerList();
+                      // Show client chats
+                      return ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: clientList.length,
+                        separatorBuilder: (context, index) {
+                          return SeparatedWidget(
+                            dividerColor: MainColors.surfaceVariant,
+                            verticalPadding: 8.h,
+                          );
+                        },
+                        itemBuilder: (context, index) {
+                          var chatItem = clientList[index];
+                          var clients = chatItem.participant1?.type == "Client"
+                              ? chatItem.participant1
+                              : chatItem.participant2;
+                          return ChatItem(
+                            isFirstChat: true,
+                            lastMessageContent:
+                                chatItem.latestMessage?.message ?? "",
+                            profileAvatar: clients?.image ?? "",
+                            name: "${clients?.name}",
+                            time: formatDate(
+                              chatItem.createdAt ?? DateTime.now(),
+                            ).substring(0, 10),
+                            onTap: () {
+                              cubit.fillCurrentClient(index);
+                              cubit.hasMore = true;
+                              Navigator.pushNamed(
+                                context,
+                                RoutePaths.dmViewPath,
+                                arguments: {
+                                  "chatId": chatItem.latestMessage?.chatId
+                                      ?.toString(),
+                                },
+                              );
+                            },
+                          );
+                        },
+                      );
                     },
                     bloc: cubit,
                   ),

@@ -187,4 +187,161 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get my_name => 'اسمي';
+
+  @override
+  String get createNewAccount => 'إنشاء حساب جديد';
+
+  @override
+  String get firstName => 'الاسم الأول';
+
+  @override
+  String get firstNameHint => 'مصطفى';
+
+  @override
+  String get lastName => 'الاسم الأخير';
+
+  @override
+  String get lastNameHint => 'سلامة';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get emailHint => 'example@email.com';
+
+  @override
+  String get phoneNumber => 'رقم الهاتف';
+
+  @override
+  String get phoneHint => '01012345678';
+
+  @override
+  String get invalidPhone => 'رقم الهاتف غير صحيح';
+
+  @override
+  String get whatsappNumber => 'رقم واتساب';
+
+  @override
+  String get whatsappHint => '01012345678';
+
+  @override
+  String get invalidWhatsapp => 'رقم واتساب غير صحيح';
+
+  @override
+  String get username => 'اسم المستخدم';
+
+  @override
+  String get usernameHint => 'username123';
+
+  @override
+  String get usernameRequired => 'اسم المستخدم مطلوب';
+
+  @override
+  String get usernameMinLength => 'اسم المستخدم يجب أن يكون 3 أحرف على الأقل';
+
+  @override
+  String get gender => 'النوع';
+
+  @override
+  String get chooseGender => 'اختر النوع';
+
+  @override
+  String get male => 'ذكر';
+
+  @override
+  String get female => 'أنثى';
+
+  @override
+  String get password => 'كلمة المرور';
+
+  @override
+  String get passwordHint => '••••••••';
+
+  @override
+  String get confirmPassword => 'تأكيد كلمة المرور';
+
+  @override
+  String get createAccount => 'إنشاء الحساب';
+
+  @override
+  String get retry => 'إعادة المحاولة';
+
+  @override
+  String get alreadyHaveAccount => 'هل لديك حساب بالفعل؟ ';
+
+  @override
+  String get login => 'تسجيل الدخول';
+
+  @override
+  String get profileImageOptional => 'Profile Image (Optional)';
+
+  @override
+  String get tapToUpload => 'Tap to upload image';
+
+  @override
+  String get registrationSuccess => 'Registration Successful';
+
+  @override
+  String get registrationFailed => 'Registration Failed';
+
+  @override
+  String get pleaseWait => 'Please wait...';
+
+  @override
+  String get continueToLogin => 'Continue to Login';
+
+  @override
+  String get acceptTerms => 'I accept the terms and conditions';
+
+  @override
+  String get termsError => 'You must accept the terms and conditions';
+
+  @override
+  String get resetPassword => 'إعادة تعيين كلمة السر';
+
+  @override
+  String get passwordResetSuccess => 'تم تغيير كلمة السر بنجاح';
+
+  @override
+  String get verificationCodeSentTo => 'تم إرسال رمز التحقق إلى';
+
+  @override
+  String get verificationCode => 'رمز التحقق';
+
+  @override
+  String get enterVerificationCode => 'أدخل رمز التحقق';
+
+  @override
+  String get pleaseEnterVerificationCode => 'يرجى إدخال رمز التحقق';
+
+  @override
+  String get verificationCodeMinLength =>
+      'رمز التحقق يجب أن يكون على الأقل 4 أرقام';
+
+  @override
+  String get newPassword => 'كلمة السر الجديدة';
+
+  @override
+  String get enterNewPassword => 'أدخل كلمة السر الجديدة';
+
+  @override
+  String get pleaseEnterNewPassword => 'يرجى إدخال كلمة السر الجديدة';
+
+  @override
+  String get passwordMinLength => 'كلمة السر يجب أن تكون على الأقل 6 أحرف';
+
+  @override
+  String get confirmNewPassword => 'أكد كلمة السر الجديدة';
+
+  @override
+  String get pleaseConfirmPassword => 'يرجى تأكيد كلمة السر';
+
+  @override
+  String get passwordsDoNotMatch => 'كلمة السر غير متطابقة';
+
+  @override
+  String get resendVerificationCode => 'إعادة إرسال رمز التحقق';
+
+  @override
+  String get resendingCode => 'جاري إعادة الإرسال...';
 }

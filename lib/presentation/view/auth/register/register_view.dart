@@ -25,13 +25,14 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
+    var lang = context.loc!;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
         context,
         onLeadinTap: () => Navigator.pop(context),
-        mainTitle: "إنشاء حساب جديد",
-        leadingText: "العودة",
+        mainTitle: lang.createNewAccount, // استخدام النص من ملف الترجمة
+        leadingText: lang.back, // استخدام النص من ملف الترجمة
         isCenterTitle: true,
         leadingIcon: Icons.arrow_back_ios,
       ),
@@ -77,21 +78,23 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // الاسم الأول
                   TitledFormFieldItem(
+                    maxLines: 1,
                     controller: cubit.firstNameController,
                     validator: (value) =>
-                        cubit.validateField(value, "الاسم الأول"),
-                    formfieldHintText: "مصطفى",
-                    titleText: "الاسم الأول *",
+                        cubit.validateField(value, lang.firstName),
+                    formfieldHintText: lang.firstNameHint,
+                    titleText: "${lang.firstName} *",
                     iconWidget: 0.ph,
                   ),
                   16.ph,
 
                   // الاسم الأخير
                   TitledFormFieldItem(
-                    titleText: "الاسم الأخير *",
+                    maxLines: 1,
+                    titleText: "${lang.lastName} *",
                     validator: (value) =>
-                        cubit.validateField(value, "الاسم الأخير"),
-                    formfieldHintText: "سلامة",
+                        cubit.validateField(value, lang.lastName),
+                    formfieldHintText: lang.lastNameHint,
                     controller: cubit.lastNameController,
                     iconWidget: 0.ph,
                   ),
@@ -99,11 +102,12 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // البريد الإلكتروني
                   TitledFormFieldItem(
-                    titleText: "البريد الإلكتروني *",
-                    formfieldHintText: "example@email.com",
+                    maxLines: 1,
+                    titleText: "${lang.email} *",
+                    formfieldHintText: lang.emailHint,
                     controller: cubit.emailController,
                     validator: (value) => cubit.validateField(
-                        value, "البريد الإلكتروني",
+                        value, lang.email,
                         isEmail: true),
                     iconWidget: 0.ph,
                     keyboardType: TextInputType.emailAddress,
@@ -112,48 +116,54 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // رقم الهاتف
                   TitledFormFieldItem(
-                    titleText: "رقم الهاتف *",
+                    maxLines: 1,
+                    titleText: "${lang.phoneNumber} *",
                     controller: cubit.phoneController,
                     validator: (value) {
-                      // الهاتف اختياري، لكن إذا تم إدخاله يجب أن يكون صحيحاً
                       if (value != null && value.isNotEmpty) {
                         if (value.length < 10) {
-                          return "رقم الهاتف غير صحيح";
+                          return lang.invalidPhone;
                         }
                       }
                       return null;
                     },
-                    formfieldHintText: "01012345678",
+                    formfieldHintText: lang.phoneHint,
                     iconWidget: 0.ph,
                     keyboardType: TextInputType.phone,
                   ),
                   16.ph,
+
+                  // رقم واتساب
                   TitledFormFieldItem(
-                    titleText: "رقم واتساب *",
+                    maxLines: 1,
+                    titleText: "${lang.whatsappNumber} *",
                     controller: cubit.whatsAppController,
                     validator: (value) {
                       if (value != null && value.isNotEmpty) {
                         if (value.length < 10) {
-                          return "رقم واتساب غير صحيح";
+                          return lang.invalidWhatsapp;
                         }
                       }
                       return null;
                     },
-                    formfieldHintText: "01012345678",
+                    formfieldHintText: lang.whatsappHint,
                     iconWidget: 0.ph,
                     keyboardType: TextInputType.phone,
                   ),
                   16.ph,
+
+                  // اسم المستخدم
                   TitledFormFieldItem(
-                    titleText: "اسم المستخدم *",
-                    formfieldHintText: "username123",
+                    maxLines: 1,
+                    titleText: "${lang.username} *",
+                    formfieldHintText: lang.usernameHint,
                     controller: cubit.userNameController,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return "اسم المستخدم مطلوب";
+                        return lang.usernameRequired;
                       }
                       if (value.length < 3) {
-                        return "اسم المستخدم يجب أن يكون 3 أحرف على الأقل";
+                        return lang.usernameMinLength;
                       }
                       return null;
                     },
@@ -163,7 +173,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // النوع
                   Text(
-                    "النوع *",
+                    "${lang.gender} *",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
                       color: MainColors.onSecondary,
@@ -172,7 +182,7 @@ class _RegisterViewState extends State<RegisterView> {
                   8.ph,
                   BlocBuilder<RegisterCubit, RegisterState>(
                     buildWhen: (previous, current) =>
-                        current is GenderChangedState,
+                    current is GenderChangedState,
                     builder: (context, state) {
                       return CustomizedDropdownWidget<String>(
                         initialValue: cubit.selectedGender,
@@ -182,19 +192,19 @@ class _RegisterViewState extends State<RegisterView> {
                             log("Selected gender: $val");
                           }
                         },
-                        hintText: "اختر النوع",
+                        hintText: lang.chooseGender,
                         items: [
                           DropdownMenuItem<String>(
                             value: "male",
                             child: Text(
-                              "ذكر",
+                              lang.male,
                               style: MainTextStyle.boldTextStyle(fontSize: 14),
                             ),
                           ),
                           DropdownMenuItem<String>(
                             value: "female",
                             child: Text(
-                              "أنثى",
+                              lang.female,
                               style: MainTextStyle.boldTextStyle(fontSize: 14),
                             ),
                           ),
@@ -206,8 +216,8 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // كلمة المرور
                   TitledFormFieldItem(
-                    titleText: "كلمة المرور *",
-                    formfieldHintText: "••••••••",
+                    titleText: "${lang.password} *",
+                    formfieldHintText: lang.passwordHint,
                     controller: cubit.passwordController,
                     validator: (value) => cubit.validatePassword(value),
                     iconWidget: 0.ph,
@@ -219,8 +229,8 @@ class _RegisterViewState extends State<RegisterView> {
                   // تأكيد كلمة المرور
                   TitledFormFieldItem(
                     maxLines: 1,
-                    titleText: "تأكيد كلمة المرور *",
-                    formfieldHintText: "••••••••",
+                    titleText: "${lang.confirmPassword} *",
+                    formfieldHintText: lang.passwordHint,
                     controller: cubit.passwordConfirmationController,
                     validator: (value) =>
                         cubit.validatePasswordConfirmation(value),
@@ -241,36 +251,34 @@ class _RegisterViewState extends State<RegisterView> {
                 // زر التسجيل
                 BlocBuilder<RegisterCubit, RegisterState>(
                   buildWhen: (previous, current) =>
-                      current is RegisterLoadingState ||
+                  current is RegisterLoadingState ||
                       current is RegisterSuccessState ||
                       current is RegisterFailedState,
                   builder: (context, state) {
-                    final isLoading = state is RegisterLoadingState;
-
                     return CustomElevatedButton(
-                      text: "إنشاء الحساب",
-                      onPressed: isLoading
+                      text: lang.createAccount,
+                      onPressed: cubit.registerLoader
                           ? () {}
                           : () {
-                              // إخفاء لوحة المفاتيح
-                              FocusScope.of(context).unfocus();
+                        // إخفاء لوحة المفاتيح
+                        FocusScope.of(context).unfocus();
 
-                              // بدء عملية التسجيل
-                              cubit.register(context);
-                            },
+                        // بدء عملية التسجيل
+                        cubit.register(context);
+                      },
                       color: MainColors.primary,
                       radius: 16.r,
                       height: 48.h,
                       width: double.infinity,
-                      child: isLoading
+                      child: cubit.registerLoader
                           ? SizedBox(
-                              width: 20.w,
-                              height: 20.h,
-                              child: const CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 2,
-                              ),
-                            )
+                        width: 20.w,
+                        height: 20.h,
+                        child: const CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
                           : null,
                     );
                   },
@@ -280,7 +288,7 @@ class _RegisterViewState extends State<RegisterView> {
                 // زر التسجيل مع إعادة المحاولة (للحالات الخاصة)
                 BlocBuilder<RegisterCubit, RegisterState>(
                   buildWhen: (previous, current) =>
-                      current is RegisterFailedState,
+                  current is RegisterFailedState,
                   builder: (context, state) {
                     if (state is RegisterFailedState) {
                       return Column(
@@ -314,7 +322,7 @@ class _RegisterViewState extends State<RegisterView> {
                           ),
                           12.ph,
                           CustomElevatedButton(
-                            text: "إعادة المحاولة",
+                            text: lang.retry,
                             onPressed: () {
                               cubit.registerWithRetry(context);
                             },
@@ -336,7 +344,7 @@ class _RegisterViewState extends State<RegisterView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "هل لديك حساب بالفعل؟ ",
+                      lang.alreadyHaveAccount,
                       style: MainTextStyle.regularTextStyle(
                         fontSize: 14,
                         color: MainColors.onPrimary,
@@ -350,7 +358,7 @@ class _RegisterViewState extends State<RegisterView> {
                         );
                       },
                       child: Text(
-                        "تسجيل الدخول",
+                        lang.login,
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 14,
                           color: MainColors.primary,

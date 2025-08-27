@@ -335,128 +335,440 @@ abstract class AppLocalizations {
   /// No description provided for @nextLecture.
   ///
   /// In en, this message translates to:
-  /// **'المحاضرة القادمة'**
+  /// **'Next Lecture'**
   String get nextLecture;
 
   /// No description provided for @goals.
   ///
   /// In en, this message translates to:
-  /// **'الاهداف'**
+  /// **'Goals'**
   String get goals;
 
   /// No description provided for @competitorsMenu.
   ///
   /// In en, this message translates to:
-  /// **'قائمة المنافسين'**
+  /// **'Competitors Menu'**
   String get competitorsMenu;
 
   /// No description provided for @myStudent.
   ///
   /// In en, this message translates to:
-  /// **'طلابي'**
+  /// **'My Students'**
   String get myStudent;
 
   /// No description provided for @programLeader.
   ///
   /// In en, this message translates to:
-  /// **'المتصدرين بالبرنامج'**
+  /// **'Program Leaders'**
   String get programLeader;
 
   /// No description provided for @leaderboardMenu.
   ///
   /// In en, this message translates to:
-  /// **'قائمة المتصدرين'**
+  /// **'Leaderboard Menu'**
   String get leaderboardMenu;
 
   /// No description provided for @setAppointmenta.
   ///
   /// In en, this message translates to:
-  /// **'تعيين المواعيد'**
+  /// **'Set Appointments'**
   String get setAppointmenta;
 
   /// No description provided for @frommHour.
   ///
   /// In en, this message translates to:
-  /// **'من الساعة'**
+  /// **'From Hour'**
   String get frommHour;
 
   /// No description provided for @toHour.
   ///
   /// In en, this message translates to:
-  /// **'إلى الساعة'**
+  /// **'To Hour'**
   String get toHour;
 
   /// No description provided for @students.
   ///
   /// In en, this message translates to:
-  /// **'الطلاب'**
+  /// **'Students'**
   String get students;
 
   /// No description provided for @days.
   ///
   /// In en, this message translates to:
-  /// **'الأيام'**
+  /// **'Days'**
   String get days;
 
   /// No description provided for @chooseAppropriateLecturer.
   ///
   /// In en, this message translates to:
-  /// **'اختر المعلم المناسب'**
+  /// **'Choose Appropriate Lecturer'**
   String get chooseAppropriateLecturer;
 
   /// No description provided for @choose.
   ///
   /// In en, this message translates to:
-  /// **'اختر'**
+  /// **'Choose'**
   String get choose;
 
   /// No description provided for @studentSchedules.
   ///
   /// In en, this message translates to:
-  /// **'مواعيد الطلاب'**
+  /// **'Student Schedules'**
   String get studentSchedules;
 
   /// No description provided for @next.
   ///
   /// In en, this message translates to:
-  /// **'التالي'**
+  /// **'Next'**
   String get next;
 
   /// No description provided for @subscriptionDetails.
   ///
   /// In en, this message translates to:
-  /// **'تفاصيل الاشتراك'**
+  /// **'Subscription Details'**
   String get subscriptionDetails;
 
   /// No description provided for @packageDetails.
   ///
   /// In en, this message translates to:
-  /// **'تفاصيل المجموعة'**
+  /// **'Package Details'**
   String get packageDetails;
 
   /// No description provided for @completePaymentProcess.
   ///
   /// In en, this message translates to:
-  /// **'اتمام عملية الدفع'**
+  /// **'Complete Payment Process'**
   String get completePaymentProcess;
 
   /// No description provided for @confirmPaymentProcess.
   ///
   /// In en, this message translates to:
-  /// **'تأكيد عملية الدفع'**
+  /// **'Confirm Payment Process'**
   String get confirmPaymentProcess;
 
   /// No description provided for @cancelSession.
   ///
   /// In en, this message translates to:
-  /// **'الغاء المحاضرة'**
+  /// **'Cancel Session'**
   String get cancelSession;
 
   /// No description provided for @my_name.
   ///
   /// In en, this message translates to:
-  /// **'m name'**
+  /// **'My Name'**
   String get my_name;
+
+  /// No description provided for @createNewAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create New Account'**
+  String get createNewAccount;
+
+  /// No description provided for @firstName.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name'**
+  String get firstName;
+
+  /// No description provided for @firstNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Mohamed'**
+  String get firstNameHint;
+
+  /// No description provided for @lastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Name'**
+  String get lastName;
+
+  /// No description provided for @lastNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Ahmed'**
+  String get lastNameHint;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get email;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'example@email.com'**
+  String get emailHint;
+
+  /// No description provided for @phoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phoneNumber;
+
+  /// No description provided for @phoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 0123456789'**
+  String get phoneHint;
+
+  /// No description provided for @invalidPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid phone number'**
+  String get invalidPhone;
+
+  /// No description provided for @whatsappNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'WhatsApp Number'**
+  String get whatsappNumber;
+
+  /// No description provided for @whatsappHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 0123456789'**
+  String get whatsappHint;
+
+  /// No description provided for @invalidWhatsapp.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid WhatsApp number'**
+  String get invalidWhatsapp;
+
+  /// No description provided for @username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// No description provided for @usernameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. username123'**
+  String get usernameHint;
+
+  /// No description provided for @usernameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Username is required'**
+  String get usernameRequired;
+
+  /// No description provided for @usernameMinLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Username must be at least 3 characters'**
+  String get usernameMinLength;
+
+  /// No description provided for @gender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get gender;
+
+  /// No description provided for @chooseGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Gender'**
+  String get chooseGender;
+
+  /// No description provided for @male.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get female;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @passwordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'••••••••'**
+  String get passwordHint;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @createAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccount;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? '**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @profileImageOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Image (Optional)'**
+  String get profileImageOptional;
+
+  /// No description provided for @tapToUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to upload image'**
+  String get tapToUpload;
+
+  /// No description provided for @registrationSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration Successful'**
+  String get registrationSuccess;
+
+  /// No description provided for @registrationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration Failed'**
+  String get registrationFailed;
+
+  /// No description provided for @pleaseWait.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait...'**
+  String get pleaseWait;
+
+  /// No description provided for @continueToLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Login'**
+  String get continueToLogin;
+
+  /// No description provided for @acceptTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'I accept the terms and conditions'**
+  String get acceptTerms;
+
+  /// No description provided for @termsError.
+  ///
+  /// In en, this message translates to:
+  /// **'You must accept the terms and conditions'**
+  String get termsError;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPassword;
+
+  /// No description provided for @passwordResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password changed successfully'**
+  String get passwordResetSuccess;
+
+  /// No description provided for @verificationCodeSentTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code sent to'**
+  String get verificationCodeSentTo;
+
+  /// No description provided for @verificationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification Code'**
+  String get verificationCode;
+
+  /// No description provided for @enterVerificationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter verification code'**
+  String get enterVerificationCode;
+
+  /// No description provided for @pleaseEnterVerificationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter verification code'**
+  String get pleaseEnterVerificationCode;
+
+  /// No description provided for @verificationCodeMinLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code must be at least 4 digits'**
+  String get verificationCodeMinLength;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
+  /// No description provided for @enterNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter new password'**
+  String get enterNewPassword;
+
+  /// No description provided for @pleaseEnterNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter new password'**
+  String get pleaseEnterNewPassword;
+
+  /// No description provided for @passwordMinLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get passwordMinLength;
+
+  /// No description provided for @confirmNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm new password'**
+  String get confirmNewPassword;
+
+  /// No description provided for @pleaseConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please confirm password'**
+  String get pleaseConfirmPassword;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
+
+  /// No description provided for @resendVerificationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend verification code'**
+  String get resendVerificationCode;
+
+  /// No description provided for @resendingCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Resending code...'**
+  String get resendingCode;
 }
 
 class _AppLocalizationsDelegate

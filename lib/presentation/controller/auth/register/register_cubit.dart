@@ -89,23 +89,23 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   /// إنشاء UserRegistrationToJson من البيانات المدخلة
-  RegisterToJson createRegistrationData() {
-    return RegisterToJson(
-      firstName: firstNameController.text.trim(),
-      lastName: lastNameController.text.trim(),
-      email: emailController.text.trim(),
-      phone: phoneController.text.trim().isEmpty
-          ? null
-          : phoneController.text.trim(),
-      whatsApp: whatsAppController.text.trim().isEmpty
-          ? null
-          : whatsAppController.text.trim(),
-      gender: selectedGender,
-      password: passwordController.text,
-      userName: userNameController.text.trim(),
-      passwordConfirmation: passwordConfirmationController.text,
-    );
-  }
+  // RegisterToJson createRegistrationData() {
+  //   return RegisterToJson(
+  //     firstName: firstNameController.text.trim(),
+  //     lastName: lastNameController.text.trim(),
+  //     email: emailController.text.trim(),
+  //     phone: phoneController.text.trim().isEmpty
+  //         ? null
+  //         : phoneController.text.trim(),
+  //     whatsApp: whatsAppController.text.trim().isEmpty
+  //         ? null
+  //         : whatsAppController.text.trim(),
+  //     gender: selectedGender,
+  //     password: passwordController.text,
+  //     userName: userNameController.text.trim(),
+  //     passwordConfirmation: passwordConfirmationController.text,
+  //   );
+  // }
 
   /// دالة التسجيل الرئيسية
   Future<void> register(BuildContext context) async {

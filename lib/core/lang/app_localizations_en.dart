@@ -126,65 +126,222 @@ class AppLocalizationsEn extends AppLocalizations {
   String get meetings => 'Meetings';
 
   @override
-  String get nextLecture => 'المحاضرة القادمة';
+  String get nextLecture => 'Next Lecture';
 
   @override
-  String get goals => 'الاهداف';
+  String get goals => 'Goals';
 
   @override
-  String get competitorsMenu => 'قائمة المنافسين';
+  String get competitorsMenu => 'Competitors Menu';
 
   @override
-  String get myStudent => 'طلابي';
+  String get myStudent => 'My Students';
 
   @override
-  String get programLeader => 'المتصدرين بالبرنامج';
+  String get programLeader => 'Program Leaders';
 
   @override
-  String get leaderboardMenu => 'قائمة المتصدرين';
+  String get leaderboardMenu => 'Leaderboard Menu';
 
   @override
-  String get setAppointmenta => 'تعيين المواعيد';
+  String get setAppointmenta => 'Set Appointments';
 
   @override
-  String get frommHour => 'من الساعة';
+  String get frommHour => 'From Hour';
 
   @override
-  String get toHour => 'إلى الساعة';
+  String get toHour => 'To Hour';
 
   @override
-  String get students => 'الطلاب';
+  String get students => 'Students';
 
   @override
-  String get days => 'الأيام';
+  String get days => 'Days';
 
   @override
-  String get chooseAppropriateLecturer => 'اختر المعلم المناسب';
+  String get chooseAppropriateLecturer => 'Choose Appropriate Lecturer';
 
   @override
-  String get choose => 'اختر';
+  String get choose => 'Choose';
 
   @override
-  String get studentSchedules => 'مواعيد الطلاب';
+  String get studentSchedules => 'Student Schedules';
 
   @override
-  String get next => 'التالي';
+  String get next => 'Next';
 
   @override
-  String get subscriptionDetails => 'تفاصيل الاشتراك';
+  String get subscriptionDetails => 'Subscription Details';
 
   @override
-  String get packageDetails => 'تفاصيل المجموعة';
+  String get packageDetails => 'Package Details';
 
   @override
-  String get completePaymentProcess => 'اتمام عملية الدفع';
+  String get completePaymentProcess => 'Complete Payment Process';
 
   @override
-  String get confirmPaymentProcess => 'تأكيد عملية الدفع';
+  String get confirmPaymentProcess => 'Confirm Payment Process';
 
   @override
-  String get cancelSession => 'الغاء المحاضرة';
+  String get cancelSession => 'Cancel Session';
 
   @override
-  String get my_name => 'm name';
+  String get my_name => 'My Name';
+
+  @override
+  String get createNewAccount => 'Create New Account';
+
+  @override
+  String get firstName => 'First Name';
+
+  @override
+  String get firstNameHint => 'e.g. Mohamed';
+
+  @override
+  String get lastName => 'Last Name';
+
+  @override
+  String get lastNameHint => 'e.g. Ahmed';
+
+  @override
+  String get email => 'Email Address';
+
+  @override
+  String get emailHint => 'example@email.com';
+
+  @override
+  String get phoneNumber => 'Phone Number';
+
+  @override
+  String get phoneHint => 'e.g. 0123456789';
+
+  @override
+  String get invalidPhone => 'Invalid phone number';
+
+  @override
+  String get whatsappNumber => 'WhatsApp Number';
+
+  @override
+  String get whatsappHint => 'e.g. 0123456789';
+
+  @override
+  String get invalidWhatsapp => 'Invalid WhatsApp number';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get usernameHint => 'e.g. username123';
+
+  @override
+  String get usernameRequired => 'Username is required';
+
+  @override
+  String get usernameMinLength => 'Username must be at least 3 characters';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get chooseGender => 'Choose Gender';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get passwordHint => '••••••••';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get createAccount => 'Create Account';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account? ';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get profileImageOptional => 'Profile Image (Optional)';
+
+  @override
+  String get tapToUpload => 'Tap to upload image';
+
+  @override
+  String get registrationSuccess => 'Registration Successful';
+
+  @override
+  String get registrationFailed => 'Registration Failed';
+
+  @override
+  String get pleaseWait => 'Please wait...';
+
+  @override
+  String get continueToLogin => 'Continue to Login';
+
+  @override
+  String get acceptTerms => 'I accept the terms and conditions';
+
+  @override
+  String get termsError => 'You must accept the terms and conditions';
+
+  @override
+  String get resetPassword => 'Reset Password';
+
+  @override
+  String get passwordResetSuccess => 'Password changed successfully';
+
+  @override
+  String get verificationCodeSentTo => 'Verification code sent to';
+
+  @override
+  String get verificationCode => 'Verification Code';
+
+  @override
+  String get enterVerificationCode => 'Enter verification code';
+
+  @override
+  String get pleaseEnterVerificationCode => 'Please enter verification code';
+
+  @override
+  String get verificationCodeMinLength =>
+      'Verification code must be at least 4 digits';
+
+  @override
+  String get newPassword => 'New Password';
+
+  @override
+  String get enterNewPassword => 'Enter new password';
+
+  @override
+  String get pleaseEnterNewPassword => 'Please enter new password';
+
+  @override
+  String get passwordMinLength => 'Password must be at least 6 characters';
+
+  @override
+  String get confirmNewPassword => 'Confirm new password';
+
+  @override
+  String get pleaseConfirmPassword => 'Please confirm password';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get resendVerificationCode => 'Resend verification code';
+
+  @override
+  String get resendingCode => 'Resending code...';
 }
