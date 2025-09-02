@@ -61,7 +61,7 @@ class AvatarImage extends StatelessWidget {
     }
 
     final url = imageUrl ?? "https://hossam.mallahsoft.com/storage/client/instructor/1742280038.png";
-        
+
     // Check if it's an asset path
     if (url.startsWith('assets/') || url.startsWith('asset/')) {
       if (_isSvgImage(url)) {

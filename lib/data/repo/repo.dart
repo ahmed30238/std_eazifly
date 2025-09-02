@@ -118,6 +118,8 @@ import 'package:eazifly_student/domain/entities/sessions/get_cancel_session_reas
 import 'package:eazifly_student/domain/entities/sessions/get_instructor_availabilities_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_program_subscription_entity.dart';
 
+import '../models/auth/login_tojson.dart';
+
 class Repository extends BaseRepository {
   BaseRemoteDataSource baseRemoteDataSource;
 
@@ -127,11 +129,10 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, LoginModel>> login({
-    required String email,
-    required String password,
+    required LoginToJson data
   }) async {
     try {
-      final result = await baseRemoteDataSource.login(email, password);
+      final result = await baseRemoteDataSource.login(data:data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));

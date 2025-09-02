@@ -262,7 +262,7 @@ class HomeCubit extends Cubit<HomeState> {
   UpdateFcmTokenEntity? updateFcmTokenEntity;
   UpdateFcmTokenUsecase updateFcmTokenUsecase;
 
-  void updateFcmToken({required String fcmToken}) async {
+  Future<void> updateFcmToken({required String fcmToken}) async {
     emit(UpdateFcmTokenLoadingState());
     final res = await updateFcmTokenUsecase.call(
       parameter: UpdateFcmTokenParameter(fcmToken: fcmToken),

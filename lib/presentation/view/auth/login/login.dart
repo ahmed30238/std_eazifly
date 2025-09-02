@@ -102,9 +102,9 @@ class Login extends StatelessWidget {
                         8.ph,
                         CustomTextFormField(
                           focusNode: cubit.emailFocusNode,
-                          hintText: lang.example,
+                          hintText: cubit.getInputTypeDisplayText(),
                           maxLines: 1,
-                          controller: cubit.emailController,
+                          controller: cubit.loginController,
                           onFieldSubmitted: (value) {
                             FocusScope.of(context)
                                 .requestFocus(cubit.passwordFocusNode);
@@ -129,7 +129,7 @@ class Login extends StatelessWidget {
                               maxLines: 1,
                               enabled: !cubit.loginLoader,
                               onFieldSubmitted: (value) {
-                                if (cubit.emailController.text.isNotEmpty &&
+                                if (cubit.loginController.text.isNotEmpty &&
                                     cubit.passwordController.text.isNotEmpty) {
                                   cubit.tryToLogin(context);
                                 } else {

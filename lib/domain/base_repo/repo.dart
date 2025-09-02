@@ -110,6 +110,7 @@ import 'package:eazifly_student/domain/entities/user/copoun_history_entity.dart'
 import 'package:eazifly_student/domain/entities/user/delete_account_entity.dart';
 import 'package:eazifly_student/domain/entities/user/update_profile_entity.dart';
 
+import '../../data/models/auth/login_tojson.dart';
 import '../../data/models/auth/register_tojson.dart';
 import '../../data/models/auth/reset_password_tojson.dart';
 import '../entities/auth/forgot_password_entity.dart';
@@ -118,8 +119,7 @@ import '../entities/get_geidea_settings/get_geidea_data_entity.dart';
 
 abstract class BaseRepository {
   Future<Either<Failure, LoginEntity>> login({
-    required String email,
-    required String password,
+    required LoginToJson data,
   });
 
   Future<Either<Failure, RegisterEntity>> register(

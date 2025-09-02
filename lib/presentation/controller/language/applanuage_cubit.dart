@@ -12,7 +12,7 @@ class AppLanguageCubit extends Cubit<ApplanuageState> {
   String langKey = "code";
   void getAppLang() async {
     var hasStoredData = GetStorage().hasData(langKey);
-    String localeCode = "en";
+    String localeCode = "ar";
     if (hasStoredData) {
       localeCode = GetStorage().read(langKey);
     }

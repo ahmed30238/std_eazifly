@@ -14,8 +14,6 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 import 'package:geideapay/geideapay.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../controller/language/applanuage_state.dart';
-
 DataModel? loginData;
 String merchantKey = "";
 String merchantSecret = "";
@@ -108,7 +106,8 @@ class _HomePageState extends State<HomePage> {
         preferredSize: Size.fromHeight(kToolbarHeight.h),
         child: BlocBuilder<HomeNotificationCubit, HomeNotificationState>(
           builder: (context, state) {
-            bool allNotificationsRead = HomeNotificationCubit.get(context)
+            bool allNotificationsRead = HomeNotificationCubit
+                .get(context)
                 .isRead
                 .every((element) => element);
             return HomeAppbar(
@@ -124,106 +123,113 @@ class _HomePageState extends State<HomePage> {
         },
         child: Column(
           children: [
-            BlocBuilder<AppLanguageCubit, ApplanuageState>(
-              builder: (context, state) {
-                return GestureDetector(
-                  child: Text(lang.language), // استخدام النص من الترجمة
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) =>
-                          BlocBuilder<AppLanguageCubit, ApplanuageState>(
-                            builder: (context, state) {
-                              var appLangCubit = context.read<AppLanguageCubit>();
-                              if (state is! AppLanguageCurrentState) {
-                                return const SizedBox();
-                              }
-                              return AlertDialog(
-                                content: Container(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  height: 130.h,
-                                  width: 150.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Expanded(
-                                        child: InkWell(
-                                          onTap: () {
-                                            appLangCubit.storeLanguage(
-                                                languageCode: 'ar');
-                                            Navigator.pop(context);
-                                          },
-                                          child: IgnorePointer(
-                                            child: Row(
-                                              children: [
-                                                Checkbox(
-                                                  autofocus: true,
-                                                  splashRadius: 20,
-                                                  tristate: true,
-                                                  shape: const CircleBorder(
-                                                      side: BorderSide(width: 2)),
-                                                  value: context.isArabicLanguage,
-                                                  activeColor: MainColors.primary,
-                                                  onChanged: (value) {},
-                                                ),
-                                                Text(
-                                                  lang.arabic, // استخدام النص من الترجمة
-                                                  style:
-                                                  MainTextStyle.boldTextStyle(
-                                                      fontSize: 20,
-                                                      color:
-                                                      MainColors.primary),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      // const HorizontalDivider(),
-                                      Expanded(
-                                        child: InkWell(
-                                          onTap: () {
-                                            appLangCubit.storeLanguage(
-                                                languageCode: 'en');
-                                            Navigator.pop(context);
-                                          },
-                                          child: IgnorePointer(
-                                            child: Row(
-                                              children: [
-                                                Checkbox(
-                                                  tristate: true,
-                                                  shape: const CircleBorder(
-                                                      eccentricity: 0),
-                                                  value: !context.isArabicLanguage,
-                                                  onChanged: (value) {},
-                                                ),
-                                                Text(
-                                                  lang.english, // استخدام النص من الترجمة
-                                                  style:
-                                                  MainTextStyle.boldTextStyle(
-                                                      fontSize: 20,
-                                                      color:
-                                                      MainColors.primary),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                    );
-                  },
-                );
-              },
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     cubit.updateFcmToken(
+            //         fcmToken: GetStorage().read(StorageEnum.fcmToken.name));
+            //   },
+            //   child: Text("data"),
+            // ),
+            // BlocBuilder<AppLanguageCubit, ApplanuageState>(
+            //   builder: (context, state) {
+            //     return GestureDetector(
+            //       child: Text(lang.language), // استخدام النص من الترجمة
+            //       onTap: () {
+            //         showDialog(
+            //           context: context,
+            //           builder: (context) =>
+            //               BlocBuilder<AppLanguageCubit, ApplanuageState>(
+            //                 builder: (context, state) {
+            //                   var appLangCubit = context.read<AppLanguageCubit>();
+            //                   if (state is! AppLanguageCurrentState) {
+            //                     return const SizedBox();
+            //                   }
+            //                   return AlertDialog(
+            //                     content: Container(
+            //                       clipBehavior: Clip.antiAliasWithSaveLayer,
+            //                       height: 130.h,
+            //                       width: 150.w,
+            //                       decoration: BoxDecoration(
+            //                         borderRadius: BorderRadius.circular(25),
+            //                       ),
+            //                       child: Column(
+            //                         mainAxisSize: MainAxisSize.min,
+            //                         children: [
+            //                           Expanded(
+            //                             child: InkWell(
+            //                               onTap: () {
+            //                                 appLangCubit.storeLanguage(
+            //                                     languageCode: 'ar');
+            //                                 Navigator.pop(context);
+            //                               },
+            //                               child: IgnorePointer(
+            //                                 child: Row(
+            //                                   children: [
+            //                                     Checkbox(
+            //                                       autofocus: true,
+            //                                       splashRadius: 20,
+            //                                       tristate: true,
+            //                                       shape: const CircleBorder(
+            //                                           side: BorderSide(width: 2)),
+            //                                       value: context.isArabicLanguage,
+            //                                       activeColor: MainColors.primary,
+            //                                       onChanged: (value) {},
+            //                                     ),
+            //                                     Text(
+            //                                       lang.arabic, // استخدام النص من الترجمة
+            //                                       style:
+            //                                       MainTextStyle.boldTextStyle(
+            //                                           fontSize: 20,
+            //                                           color:
+            //                                           MainColors.primary),
+            //                                     ),
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                             ),
+            //                           ),
+            //                           // const HorizontalDivider(),
+            //                           Expanded(
+            //                             child: InkWell(
+            //                               onTap: () {
+            //                                 appLangCubit.storeLanguage(
+            //                                     languageCode: 'en');
+            //                                 Navigator.pop(context);
+            //                               },
+            //                               child: IgnorePointer(
+            //                                 child: Row(
+            //                                   children: [
+            //                                     Checkbox(
+            //                                       tristate: true,
+            //                                       shape: const CircleBorder(
+            //                                           eccentricity: 0),
+            //                                       value: !context.isArabicLanguage,
+            //                                       onChanged: (value) {},
+            //                                     ),
+            //                                     Text(
+            //                                       lang.english, // استخدام النص من الترجمة
+            //                                       style:
+            //                                       MainTextStyle.boldTextStyle(
+            //                                           fontSize: 20,
+            //                                           color:
+            //                                           MainColors.primary),
+            //                                     ),
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                             ),
+            //                           ),
+            //                         ],
+            //                       ),
+            //                     ),
+            //                   );
+            //                 },
+            //               ),
+            //         );
+            //       },
+            //     );
+            //   },
+            // ),
             // Text("$merchantSecret"),
             // Text("$merchantKey"),
             // GestureDetector(
@@ -273,7 +279,8 @@ class _HomePageState extends State<HomePage> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                lang.noUpcomingLectures, // استخدام النص من الترجمة
+                                lang.noUpcomingLectures,
+                                // استخدام النص من الترجمة
                                 style: MainTextStyle.boldTextStyle(
                                   fontSize: 12,
                                   color: MainColors.background,
@@ -330,7 +337,8 @@ class _HomePageState extends State<HomePage> {
         // Check if there's data to show
         if (cubit.getHomeClosestSessionsEntity?.data == null ||
             cubit.getHomeClosestSessionsEntity!.data!.isEmpty) {
-          return _buildEmptyWidget(message: lang.noUpcomingLectures); // استخدام النص من الترجمة
+          return _buildEmptyWidget(
+              message: lang.noUpcomingLectures); // استخدام النص من الترجمة
         }
 
         return const Hero(
@@ -371,18 +379,20 @@ class _HomePageState extends State<HomePage> {
         log("$voiceListCategories ${voiceListCategories?.length}");
 
         if (voiceListCategories == null || voiceListCategories.isEmpty) {
-          return _buildEmptyWidget(message: lang.noAudioContentAvailable); // استخدام النص من الترجمة
+          return _buildEmptyWidget(
+              message: lang.noAudioContentAvailable); // استخدام النص من الترجمة
         }
 
         return ListView.separated(
           padding: EdgeInsets.symmetric(vertical: 24.h),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, catIndex) => _buildCategoryItem(
-            voiceListCategories[catIndex],
-            catIndex,
-            voiceListCategories,
-          ),
+          itemBuilder: (context, catIndex) =>
+              _buildCategoryItem(
+                voiceListCategories[catIndex],
+                catIndex,
+                voiceListCategories,
+              ),
           separatorBuilder: (context, index) => 24.ph,
           itemCount: voiceListCategories.length,
         );
@@ -390,11 +400,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildCategoryItem(
-      GetHomeLibraryDatumModel category,
+  Widget _buildCategoryItem(GetHomeLibraryDatumModel category,
       int catIndex,
-      List<GetHomeLibraryDatumModel> voiceListCategories,
-      ) {
+      List<GetHomeLibraryDatumModel> voiceListCategories,) {
     var lang = context.loc!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

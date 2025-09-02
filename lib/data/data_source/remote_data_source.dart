@@ -119,11 +119,12 @@ import 'package:eazifly_student/data/models/user/update_profile_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_tojson.dart';
 
 import '../models/auth/forgot_password_model.dart';
+import '../models/auth/login_tojson.dart';
 import '../models/auth/register_model.dart';
 import '../models/auth/register_tojson.dart';
 
 abstract class BaseRemoteDataSource {
-  Future<LoginModel> login(String email, String password);
+  Future<LoginModel> login({required LoginToJson data});
 
   Future<RegisterModel> register({required RegisterToJson data});
 
@@ -415,14 +416,10 @@ abstract class BaseRemoteDataSource {
 
 class RemoteDataSource extends BaseRemoteDataSource {
   @override
-  Future<LoginModel> login(String email, String password) async {
-    var response = await NetworkCall().post(
-        path: EndPoints.login,
-        data: FormData.fromMap({
-          "user_name": email,
-          "password": password,
-        }));
-    log("$response $email $password");
+  Future<LoginModel> login({required LoginToJson data}) async {
+    var response = await NetworkCall()
+        .post(path: EndPoints.login, data: FormData.fromMap(data.toJson()));
+    log("$response ${data.loginCredential?.key} ${data.loginCredential?.value}");
     if (response?.statusCode == 200) {
       return LoginModel.fromJson(response?.data);
     } else {

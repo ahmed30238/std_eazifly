@@ -7,6 +7,8 @@ import 'package:eazifly_student/domain/entities/login_entities.dart';
 
 import 'package:equatable/equatable.dart';
 
+import '../../data/models/auth/login_tojson.dart';
+
 
 class LoginUsecase extends BaseUsecase<LoginEntity, LoginParameter> {
   final BaseRepository baseRepository;
@@ -18,18 +20,15 @@ class LoginUsecase extends BaseUsecase<LoginEntity, LoginParameter> {
   Future<Either<Failure, LoginEntity>> call(
       {required LoginParameter parameter}) async {
     return await baseRepository.login(
-      email: parameter.email,
-      password: parameter.password,
-    );
+      data: parameter.data,    );
   }
 }
 
 class LoginParameter extends Equatable {
-  final String email;
-  final String password;
+  final LoginToJson data;
 
-  const LoginParameter({required this.email, required this.password});
+  const LoginParameter({required this.data});
 
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [data];
 }
