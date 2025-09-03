@@ -85,12 +85,12 @@ class ScheduleItem extends StatelessWidget {
             27.pw,
             state != "pending"
                 ? Text(
-                    statusLabel,
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 12,
-                      color: MainColors.onError,
-                    ),
-                  )
+              statusLabel,
+              style: MainTextStyle.boldTextStyle(
+                fontSize: 12,
+                color: MainColors.onError,
+              ),
+            )
                 : EditSessionDateArea(sessionId: sessionId),
           ],
         ),
@@ -116,24 +116,24 @@ class EditSessionDateArea extends StatelessWidget {
 
         await read.getInstructorAvailabilities(
           instructorId: (int.tryParse(
-                context
-                        .read<LectureCubit>()
-                        .showProgramDetailsEntity
-                        ?.data
-                        ?.nextSession
-                        ?.instructorId ??
-                    "",
-              )) ??
+            context
+                .read<LectureCubit>()
+                .showProgramDetailsEntity
+                ?.data
+                ?.nextSession
+                ?.instructorId ??
+                "",
+          )) ??
               -1,
           duration: (int.tryParse(
-                context
-                        .read<LectureCubit>()
-                        .showProgramDetailsEntity
-                        ?.data
-                        ?.nextSession
-                        ?.duration ??
-                    "",
-              )) ??
+            context
+                .read<LectureCubit>()
+                .showProgramDetailsEntity
+                ?.data
+                ?.nextSession
+                ?.duration ??
+                "",
+          )) ??
               -1,
         );
         final availabilityData = context
@@ -164,7 +164,7 @@ class EditSessionDateArea extends StatelessWidget {
                     "لا توجد مواعيد متاحة حالياً",
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 15,
-                      color: MainColors.onError,
+                      color: MainColors.error,
                     ),
                   ),
                 ],

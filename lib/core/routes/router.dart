@@ -235,7 +235,7 @@ class AppRouter {
         );
       case RoutePaths.lectureHistoryView:
         return createRoute(
-          const Lecturehistoryview(),
+          const LectureHistoryView(),
         );
       case RoutePaths.goalsScreen:
         return createRoute(

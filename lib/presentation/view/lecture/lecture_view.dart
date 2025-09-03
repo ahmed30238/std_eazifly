@@ -168,9 +168,7 @@ class _LectureViewState extends State<LectureView>
           return Column(
             children: [
               10.ph,
-              buildLectureStatsWithLoading(
-                cubit,
-              ),
+              buildLectureStatsWithLoading(cubit),
               24.ph,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

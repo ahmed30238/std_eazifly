@@ -174,13 +174,12 @@ class StackDesignState extends StatelessWidget {
           imageUrl: image,
           height: 160.h,
           width: double.infinity,
-
         ),
-        if (state != "success")
-          Container(
-            height: 160.h,
-            color: MainColors.background.withValues(alpha: .2),
-          ),
+        // if (state != "success")
+        Container(
+          height: 160.h,
+          color: MainColors.onPrimary.withValues(alpha: .5),
+        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -202,7 +201,7 @@ class StackDesignState extends StatelessWidget {
                 fontSize: 15,
                 color: state != "danger"
                     ? MainColors.background
-                    : MainColors.onError,
+                    : MainColors.error,
               ),
             ),
             4.ph,
@@ -214,9 +213,7 @@ class StackDesignState extends StatelessWidget {
                       : "برجاء التواصل مع الإدارة لاعادة الاشتراك في البرنامج",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 15,
-                color: state == "success"
-                    ? MainColors.onPrimary
-                    : MainColors.background,
+                color: MainColors.background,
               ),
             ),
             8.ph,

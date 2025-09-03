@@ -37,6 +37,7 @@ import 'package:eazifly_student/presentation/view/lecture/widgets/report_body.da
 import 'package:eazifly_student/presentation/view/lecture/widgets/schedules_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:file_picker/file_picker.dart';
+
 // import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
@@ -64,8 +65,10 @@ class LectureCubit extends Cubit<LectureState> {
     // userId =
     log("$userId");
   }
+
   // DataModel? loginData;
   File? profileImage;
+
   Future<void> pickProfileImageFroGallery() async {
     final response = await pickImageFromGallery();
     if (response != null) {
@@ -77,6 +80,7 @@ class LectureCubit extends Cubit<LectureState> {
   static LectureCubit get(context) => BlocProvider.of(context);
   late TabController controller;
   int userId = -1;
+
   void fillUserId(int value) {
     userId = value;
   }
@@ -213,11 +217,12 @@ class LectureCubit extends Cubit<LectureState> {
 
     if (tabErrorStates[0] != null) {
       return _buildErrorWidget(
-          0,
-          () => getProgramSessions(
-                programId: currentProgramId,
-                userId: userId,
-              ));
+        0,
+        () => getProgramSessions(
+          programId: currentProgramId,
+          userId: userId,
+        ),
+      );
     }
 
     if (tabData[0] == null || (nextSessions.isEmpty)) {
@@ -391,6 +396,7 @@ class LectureCubit extends Cubit<LectureState> {
   ];
 
   List<bool> isSelected = [];
+
   void changeSelected(int index) {
     isSelected[index] = !isSelected[index];
     emit(ChangeSelectedState());
@@ -1035,7 +1041,7 @@ class LectureCubit extends Cubit<LectureState> {
   }
 
   /// تشغيل تسجيل صوتي من URL خارجي
- Future<void> playExternalSourceAudio(String audioUrl) async {
+  Future<void> playExternalSourceAudio(String audioUrl) async {
     try {
       // إذا كان هناك تسجيل مشغّل حالياً، أوقفه أولاً
       if (isPlaying) {
@@ -1048,11 +1054,11 @@ class LectureCubit extends Cubit<LectureState> {
       }
 
       // بدء التشغيل من المصدر الخارجي
-      await audioPlayer.setUrl(audioUrl);  // استخدام setUrl بدلاً من play(UrlSource)
+      await audioPlayer
+          .setUrl(audioUrl); // استخدام setUrl بدلاً من play(UrlSource)
       await audioPlayer.play();
       isPlaying = true;
       emit(PlayExternalAudioState());
-
     } catch (e) {
       log('Exception in playExternalSourceAudio: $e');
       isPlaying = false;
