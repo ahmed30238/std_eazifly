@@ -6,13 +6,12 @@ import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
-import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/my_programs_loder.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/program_item.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/program_navigation.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class MyProgramsView extends StatefulWidget {
   const MyProgramsView({super.key});
@@ -98,7 +97,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
             align: ContentAlign.bottom,
             child: Text(
               lang.reviewProgramsTutorial, // استخدام النص من الترجمة
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
               ),
@@ -290,9 +289,9 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                               (value) {
                             onMyProgramTap(
                               context: context,
-                              cubit: cubit,
+                              // cubit: cubit,
                               item: item,
-                              loginData: loginData!,
+                              // loginData: loginData!,
                               programId: item.id ?? -1,
                               noOfChildren: cubit
                                   .getAssignedChildrenToProgramEntity

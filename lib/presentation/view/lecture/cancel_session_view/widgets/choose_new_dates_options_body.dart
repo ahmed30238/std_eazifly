@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
-import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/widgets/time_selection_bottomsheet.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -40,145 +40,158 @@ class ChooseNewDatesOptionsBody extends StatelessWidget {
                     width: 343.w,
                     radius: 16.r,
                     color: MainColors.primary,
-                    onPressed: () async {
-                      if (!cubit.chooseNewDateOption && !cubit.cancelSession) {
-                        customAdaptiveDialog(
-                          context,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w),
-                            decoration: BoxDecoration(
-                              borderRadius: 16.cr,
-                              color: MainColors.background,
-                            ),
-                            height: 160.h,
-                            width: double.infinity,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(
-                                  Assets.iconsRejectRequest,
-                                ),
-                                8.ph,
-                                Text(
-                                  "برجاء الاختيار احدي الخيارات المتاحة",
-                                  style: MainTextStyle.boldTextStyle(
-                                    fontSize: 15,
-                                    color: MainColors.onError,
+                    onPressed: cubit.postCancelSessionLoader
+                        ? () {}
+                        : () async {
+                            if (!cubit.chooseNewDateOption &&
+                                !cubit.cancelSession) {
+                              customAdaptiveDialog(
+                                context,
+                                child: Container(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 16.w),
+                                  decoration: BoxDecoration(
+                                    borderRadius: 16.cr,
+                                    color: MainColors.background,
+                                  ),
+                                  height: 160.h,
+                                  width: double.infinity,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        Assets.iconsRejectRequest,
+                                      ),
+                                      8.ph,
+                                      Text(
+                                        "برجاء الاختيار احدي الخيارات المتاحة",
+                                        style: MainTextStyle.boldTextStyle(
+                                          fontSize: 15,
+                                          color: MainColors.error,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        );
-                      } else if (cubit.chooseNewDateOption) {
-                        final availabilityData =
-                            cubit.getInstructorAvailabilitiesEntity?.data;
+                              );
+                            } else if (cubit.chooseNewDateOption) {
+                              final availabilityData =
+                                  cubit.getInstructorAvailabilitiesEntity?.data;
 
-                        if (availabilityData == null) {
-                          // إظهار رسالة خطأ إذا لم تكن البيانات محملة
-                          customAdaptiveDialog(
-                            context,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w),
-                              decoration: BoxDecoration(
-                                borderRadius: 16.cr,
-                                color: MainColors.background,
-                              ),
-                              height: 160.h,
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    Assets.iconsRejectRequest,
-                                  ),
-                                  8.ph,
-                                  Text(
-                                    "لا توجد مواعيد متاحة حالياً",
-                                    style: MainTextStyle.boldTextStyle(
-                                      fontSize: 15,
-                                      color: MainColors.onError,
+                              if (availabilityData == null) {
+                                customAdaptiveDialog(
+                                  context,
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.w),
+                                    decoration: BoxDecoration(
+                                      borderRadius: 16.cr,
+                                      color: MainColors.background,
+                                    ),
+                                    height: 160.h,
+                                    width: double.infinity,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                          Assets.iconsRejectRequest,
+                                        ),
+                                        8.ph,
+                                        Text(
+                                          "لا توجد مواعيد متاحة حالياً",
+                                          style: MainTextStyle.boldTextStyle(
+                                            fontSize: 15,
+                                            color: MainColors.error,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                          );
-                          return;
-                        }
+                                );
+                                return;
+                              }
 
-                        final daysMap = {
-                          "Saturday": availabilityData.saturday,
-                          "Sunday": availabilityData.sunday,
-                          "Monday": availabilityData.monday,
-                          "Tuesday": availabilityData.tuesday,
-                          "Wednesday": availabilityData.wednesday,
-                          "Thursday": availabilityData.thursday,
-                          "Friday": availabilityData.friday,
-                        };
+                              final daysMap = {
+                                "Saturday": availabilityData.saturday,
+                                "Sunday": availabilityData.sunday,
+                                "Monday": availabilityData.monday,
+                                "Tuesday": availabilityData.tuesday,
+                                "Wednesday": availabilityData.wednesday,
+                                "Thursday": availabilityData.thursday,
+                                "Friday": availabilityData.friday,
+                              };
 
-                        // تصفية الأيام التي تحتوي على بيانات فقط
-                        final filteredDaysMap = Map.fromEntries(
-                          daysMap.entries.where((entry) =>
-                              entry.value != null && entry.value!.isNotEmpty),
-                        );
+                              // تصفية الأيام التي تحتوي على بيانات فقط
+                              final filteredDaysMap = Map.fromEntries(
+                                daysMap.entries.where((entry) =>
+                                    entry.value != null &&
+                                    entry.value!.isNotEmpty),
+                              );
 
-                        if (filteredDaysMap.isEmpty) {
-                          customAdaptiveDialog(
-                            context,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w),
-                              decoration: BoxDecoration(
-                                borderRadius: 16.cr,
-                                color: MainColors.background,
-                              ),
-                              height: 160.h,
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    Assets.iconsRejectRequest,
-                                  ),
-                                  8.ph,
-                                  Text(
-                                    "لا توجد أيام متاحة للحجز",
-                                    style: MainTextStyle.boldTextStyle(
-                                      fontSize: 15,
-                                      color: MainColors.onError,
+                              if (filteredDaysMap.isEmpty) {
+                                customAdaptiveDialog(
+                                  context,
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.w),
+                                    decoration: BoxDecoration(
+                                      borderRadius: 16.cr,
+                                      color: MainColors.background,
+                                    ),
+                                    height: 160.h,
+                                    width: double.infinity,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                          Assets.iconsRejectRequest,
+                                        ),
+                                        8.ph,
+                                        Text(
+                                          "لا توجد أيام متاحة للحجز",
+                                          style: MainTextStyle.boldTextStyle(
+                                            fontSize: 15,
+                                            color: MainColors.onError,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                          );
-                          return;
-                        }
+                                );
+                                return;
+                              }
 
-                        final daysList = filteredDaysMap.entries.toList();
+                              final daysList = filteredDaysMap.entries.toList();
+                              final sessionId = context
+                                      .read<MyProgramsCubit>()
+                                      .getAssignedChildrenToProgramEntity
+                                      ?.data
+                                      ?.first // TODO replace with Index
+                                      .nextSession
+                                      ?.id ??
+                                  -1;
 
-                        showModalSheet(
-                          context,
-                          isFixedSize: true,
-                          maxHeight: 314.h,
-                          minHeight: 312.h,
-                          widget: TimeSelectionBottomSheet(
-                            daysList: daysList,
-                            cubit: cubit,
-                            sessionId: context
-                                    .read<LectureCubit>()
-                                    .showProgramDetailsEntity
-                                    ?.data
-                                    ?.nextSession
-                                    ?.id ??
-                                -1,
-                          ),
-                        );
-                      } else {
-                        cubit.postCancelSession(context);
-                        log("Cancel Session");
-                      }
-                    },
+                              showModalSheet(
+                                context,
+                                isFixedSize: true,
+                                maxHeight: 314.h,
+                                minHeight: 312.h,
+                                widget: TimeSelectionBottomSheet(
+                                  daysList: daysList,
+                                  cubit: cubit,
+                                  sessionId: sessionId,
+                                ),
+                              );
+                            } else {
+                              cubit.postCancelSession(context);
+                              log("Cancel Session");
+                            }
+                          },
+                    child: cubit.postCancelSessionLoader
+                        ? const CircularProgressIndicator.adaptive()
+                        : null,
                   ),
                   32.ph,
                 ],

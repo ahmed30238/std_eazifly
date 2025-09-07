@@ -7,16 +7,16 @@ part of 'create_meeting_sessions_model.dart';
 // **************************************************************************
 
 CreateMeetingSessionsModel _$CreateMeetingSessionsModelFromJson(
-        Map<String, dynamic> json) =>
-    CreateMeetingSessionsModel()
-      ..data = json['data']
-      ..status = (json['status'] as num?)?.toInt()
-      ..message = json['message'] as String?;
+  Map<String, dynamic> json,
+) => CreateMeetingSessionsModel()
+  ..data = json['data']
+  ..status = (json['status'] as num?)?.toInt()
+  ..message = json['message'] as String?;
 
 Map<String, dynamic> _$CreateMeetingSessionsModelToJson(
-        CreateMeetingSessionsModel instance) =>
-    <String, dynamic>{
-      'data': instance.data,
-      'status': instance.status,
-      'message': instance.message,
-    };
+  CreateMeetingSessionsModel instance,
+) => <String, dynamic>{
+  'data': instance.data,
+  'status': instance.status,
+  'message': instance.message,
+};

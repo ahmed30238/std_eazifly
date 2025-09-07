@@ -12,7 +12,8 @@ class LectureTabBar extends StatelessWidget {
   });
 
   final LectureCubit cubit;
-final Function(int)? onTabTap;
+  final Function(int)? onTabTap;
+
   @override
   Widget build(BuildContext context) {
     return CustomTabBar(
@@ -22,34 +23,34 @@ final Function(int)? onTabTap;
         cubit.tabs.length,
         (index) {
           bool isSelected = cubit.controller.index == index;
-          return 
-          // index == 5
-          //     ? Badge(
-          //         showBadge: true,
-          //         position: BadgePosition.topEnd(
-          //           top: -10.h,
-          //           end: -2.w,
-          //         ),
-          //         child: Text(
-          //           cubit.tabs[index],
-          //           style: MainTextStyle.boldTextStyle(
-          //             fontSize: 12,
-          //             color: isSelected
-          //                 ? MainColors.blueTextColor
-          //                 : MainColors.grayTextColors,
-          //           ),
-          //         ),
-          //       )
-          //     : 
+          return
+              // index == 5
+              //     ? Badge(
+              //         showBadge: true,
+              //         position: BadgePosition.topEnd(
+              //           top: -10.h,
+              //           end: -2.w,
+              //         ),
+              //         child: Text(
+              //           cubit.tabs[index],
+              //           style: MainTextStyle.boldTextStyle(
+              //             fontSize: 12,
+              //             color: isSelected
+              //                 ? MainColors.blueTextColor
+              //                 : MainColors.grayTextColors,
+              //           ),
+              //         ),
+              //       )
+              //     :
               Text(
-                  cubit.tabs[index],
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 12,
-                    color: isSelected
-                        ? MainColors.primary
-                        : MainColors.onSurfaceSecondary,
-                  ),
-                );
+            cubit.tabs[index],
+            style: MainTextStyle.boldTextStyle(
+              fontSize: 12,
+              color: isSelected
+                  ? MainColors.primary
+                  : MainColors.onSurfaceSecondary,
+            ),
+          );
         },
       ),
     );

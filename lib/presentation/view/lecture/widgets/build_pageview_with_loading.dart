@@ -1,9 +1,8 @@
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
-import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 Widget buildPageViewWithLoading(
-    LectureCubit cubit, LectureState state, PageController pageController) {
+    LectureCubit cubit, PageController pageController) {
   // var programData = cubit.showProgramDetailsEntity?.data;
   //
   // if (programData == null) {

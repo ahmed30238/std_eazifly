@@ -20,6 +20,7 @@ import 'package:eazifly_student/domain/use_cases/get_user_subscription_data_usec
 import 'package:eazifly_student/domain/use_cases/request_to_find_instructor_usecase.dart';
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_state.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/change_lecturer_reason_body.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/choose_dates_type_body.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/change_lecturer_view/widgets/choose_proper_lecturer.dart';
@@ -84,10 +85,10 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     }
     log("error");
     var oldInstructorId = context
-        .read<LectureCubit>()
-        .showProgramDetailsEntity
-        ?.data
-        ?.currentInstructorId;
+        .read<MyProgramsCubit>()
+        .getAssignedChildrenToProgramEntity
+        ?.data?.first
+        .currentInstructorId;
 
     log("$oldInstructorId is inst id");
 
@@ -489,9 +490,9 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     changeInstructorLoader = true;
     emit(ChangeInstructorLoadingState());
 
-    LectureCubit lectureCubit = context.read<LectureCubit>();
+    MyProgramsCubit myProgramsCubit = context.read<MyProgramsCubit>();
     var oldInstructorId =
-        lectureCubit.showProgramDetailsEntity?.data?.currentInstructorId;
+        myProgramsCubit.getAssignedChildrenToProgramEntity?.data?.first.currentInstructorId; // TODO
 
     // تحديد المواعيد المناسبة بناءً على اختيار المستخدم
     List<GetRemainigProgramSessionsDatumEntity> sessionsToSend = [];
@@ -533,7 +534,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
         data: ChangeInstructorTojson(
           reasonToChangeInstructorIds: getSelectedReasonIds(),
           instructorId: instructorId,
-          programId: lectureCubit.currentProgramId,
+          programId: context.read<LectureCubit>().currentProgramId,
           oldInstructorId: oldInstructorId ?? -1,
           userId: selectedStudentId,
           sessions: sessionsToSend,
@@ -1113,7 +1114,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     log("user id $selectedStudentId");
     log("p id ${context.read<LectureCubit>().currentProgramId.toString()}");
     var contentId =
-        context.read<LectureCubit>().showProgramDetailsEntity?.data?.contentId;
+        context.read<MyProgramsCubit>().getAssignedChildrenToProgramEntity?.data?.first.contentId;
 
     final result = await requestToFindInstructorUsecase.call(
       parameter: RequestToFindInstructorParameters(

@@ -1,5 +1,6 @@
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class CancelSessionView extends StatefulWidget {
@@ -14,28 +15,31 @@ class CancelSessionView extends StatefulWidget {
 
 class _CancelSessionViewState extends State<CancelSessionView> {
   late CancelSessionCubit cubit;
+
   @override
   void initState() {
     cubit = context.read<CancelSessionCubit>();
+    context.read<MyProgramsCubit>().getAssignedChildrenToProgram(
+        programId: context.read<LectureCubit>().currentProgramId);
     super.initState();
     cubit.getCancelReasons();
     cubit.getInstructorAvailabilities(
       instructorId: (int.tryParse(
             context
-                    .read<LectureCubit>()
-                    .showProgramDetailsEntity
-                    ?.data
-                    ?.nextSession
+                    .read<MyProgramsCubit>()
+                    .getAssignedChildrenToProgramEntity
+                    ?.data?[context.read<LectureCubit>().currentUserIndex]
+                    .nextSession
                     ?.instructorId ??
                 "",
           )) ??
           -1,
       duration: (int.tryParse(
             context
-                    .read<LectureCubit>()
-                    .showProgramDetailsEntity
-                    ?.data
-                    ?.nextSession
+                    .read<MyProgramsCubit>()
+                    .getAssignedChildrenToProgramEntity
+                    ?.data?[context.read<LectureCubit>().currentUserIndex]
+                    .nextSession
                     ?.duration ??
                 "",
           )) ??

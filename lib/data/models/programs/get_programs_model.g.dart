@@ -86,23 +86,23 @@ InstructorModel _$InstructorModelFromJson(Map<String, dynamic> json) =>
           (json['instructor_payment_method_id'] as num?)?.toInt()
       ..token = json['token'] as String?;
 
-Map<String, dynamic> _$InstructorModelToJson(InstructorModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name_en': instance.nameEn,
-      'name_ar': instance.nameAr,
-      'phone': instance.phone,
-      'whats_app': instance.whatsApp,
-      'address': instance.address,
-      'age': instance.age,
-      'gender': instance.gender,
-      'can_approve_question': instance.canApproveQuestion,
-      'image': instance.image,
-      'specializations':
-          instance.specializations?.map((e) => e.toJson()).toList(),
-      'instructor_payment_method_id': instance.instructorPaymentMethodId,
-      'token': instance.token,
-    };
+Map<String, dynamic> _$InstructorModelToJson(
+  InstructorModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name_en': instance.nameEn,
+  'name_ar': instance.nameAr,
+  'phone': instance.phone,
+  'whats_app': instance.whatsApp,
+  'address': instance.address,
+  'age': instance.age,
+  'gender': instance.gender,
+  'can_approve_question': instance.canApproveQuestion,
+  'image': instance.image,
+  'specializations': instance.specializations?.map((e) => e.toJson()).toList(),
+  'instructor_payment_method_id': instance.instructorPaymentMethodId,
+  'token': instance.token,
+};
 
 SpecializationModel _$SpecializationModelFromJson(Map<String, dynamic> json) =>
     SpecializationModel()
@@ -110,11 +110,8 @@ SpecializationModel _$SpecializationModelFromJson(Map<String, dynamic> json) =>
       ..title = json['title'] as String?;
 
 Map<String, dynamic> _$SpecializationModelToJson(
-        SpecializationModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-    };
+  SpecializationModel instance,
+) => <String, dynamic>{'id': instance.id, 'title': instance.title};
 
 ReviewModel _$ReviewModelFromJson(Map<String, dynamic> json) => ReviewModel()
   ..id = (json['id'] as num?)?.toInt()

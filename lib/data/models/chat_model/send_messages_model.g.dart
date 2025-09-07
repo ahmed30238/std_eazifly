@@ -22,18 +22,18 @@ Map<String, dynamic> _$SendMessagesModelToJson(SendMessagesModel instance) =>
     };
 
 SendMessagesDataModel _$SendMessagesDataModelFromJson(
-        Map<String, dynamic> json) =>
-    SendMessagesDataModel()
-      ..id = (json['id'] as num?)?.toInt()
-      ..chatId = (json['chat_id'] as num?)?.toInt()
-      ..senderType = json['sender_type'] as String?
-      ..message = json['message'] as String?;
+  Map<String, dynamic> json,
+) => SendMessagesDataModel()
+  ..id = (json['id'] as num?)?.toInt()
+  ..chatId = (json['chat_id'] as num?)?.toInt()
+  ..senderType = json['sender_type'] as String?
+  ..message = json['message'] as String?;
 
 Map<String, dynamic> _$SendMessagesDataModelToJson(
-        SendMessagesDataModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'chat_id': instance.chatId,
-      'sender_type': instance.senderType,
-      'message': instance.message,
-    };
+  SendMessagesDataModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'chat_id': instance.chatId,
+  'sender_type': instance.senderType,
+  'message': instance.message,
+};

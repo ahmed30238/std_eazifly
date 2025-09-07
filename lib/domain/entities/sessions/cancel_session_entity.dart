@@ -46,7 +46,7 @@ class CancelSessionDataEntity {
   @JsonKey(name: "program_id")
   String? programId;
   @JsonKey(name: "status")
-  String? status;
+  CancelSessionStatusModel? status;
 
   CancelSessionDataEntity({
     this.id,

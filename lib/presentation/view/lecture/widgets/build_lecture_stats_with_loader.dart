@@ -1,10 +1,10 @@
- import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_state_helper.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_stats_row.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-  Widget buildLectureStatsWithLoading(LectureCubit cubit) {
-    var programData = cubit.showProgramDetailsEntity?.data;
+  Widget buildLectureStatsWithLoading(MyProgramsCubit cubit,int index) {
+    var programData = cubit.getAssignedChildrenToProgramEntity?.data?[index];
 
     // if (programData == null) {
     //   return buildLoadingContainer(height: 120.h);

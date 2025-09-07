@@ -1,3 +1,4 @@
+import 'package:eazifly_student/domain/entities/children_entities/get_my_children_entity.dart';
 import 'package:eazifly_student/domain/entities/sessions/cancel_session_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -32,4 +33,13 @@ class CancelSessionUserModel extends CancelSessionUserEntity {
       _$CancelSessionUserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CancelSessionUserModelToJson(this);
+}
+@JsonSerializable(explicitToJson: true)
+class CancelSessionStatusModel extends StatusLabelEntity {
+  CancelSessionStatusModel();
+
+  factory CancelSessionStatusModel.fromJson(Map<String, dynamic> json) =>
+      _$CancelSessionStatusModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CancelSessionStatusModelToJson(this);
 }

@@ -50,7 +50,8 @@ RegisterDataModel _$RegisterDataModelFromJson(Map<String, dynamic> json) =>
       ..statusLabel = json['status_label'] == null
           ? null
           : RegisterStatusLabelModel.fromJson(
-              json['status_label'] as Map<String, dynamic>)
+              json['status_label'] as Map<String, dynamic>,
+            )
       ..programs = json['programs'] as List<dynamic>?
       ..chatId = RegisterDataEntity.customInt(json['chat_id']);
 
@@ -84,16 +85,16 @@ Map<String, dynamic> _$RegisterDataModelToJson(RegisterDataModel instance) =>
     };
 
 RegisterStatusLabelModel _$RegisterStatusLabelModelFromJson(
-        Map<String, dynamic> json) =>
-    RegisterStatusLabelModel()
-      ..label = json['label'] as String?
-      ..color = json['color'] as String?
-      ..key = json['key'] as String?;
+  Map<String, dynamic> json,
+) => RegisterStatusLabelModel()
+  ..label = json['label'] as String?
+  ..color = json['color'] as String?
+  ..key = json['key'] as String?;
 
 Map<String, dynamic> _$RegisterStatusLabelModelToJson(
-        RegisterStatusLabelModel instance) =>
-    <String, dynamic>{
-      'label': instance.label,
-      'color': instance.color,
-      'key': instance.key,
-    };
+  RegisterStatusLabelModel instance,
+) => <String, dynamic>{
+  'label': instance.label,
+  'color': instance.color,
+  'key': instance.key,
+};

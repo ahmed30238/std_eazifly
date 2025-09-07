@@ -8,6 +8,8 @@ class NextLectureItem extends StatelessWidget {
   final VoidCallback onRejoinTap;
   final bool isRejoin;
   final String sessionState;
+  final bool oneItem;
+
   const NextLectureItem({
     super.key,
     required this.onTap,
@@ -17,6 +19,7 @@ class NextLectureItem extends StatelessWidget {
     required this.onRejoinTap,
     required this.isRejoin,
     required this.sessionState,
+    required this.oneItem,
   });
 
   @override
@@ -28,7 +31,7 @@ class NextLectureItem extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         height: 127.h,
-        width: 297.w,
+        width: oneItem ? 315.w : 297.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.r),
           color: MainColors.inputFill,

@@ -33,7 +33,8 @@ MyProgramModel _$MyProgramModelFromJson(Map<String, dynamic> json) =>
       ..currentSession = json['current_session'] == null
           ? null
           : ProgramSessionModel.fromJson(
-              json['current_session'] as Map<String, dynamic>)
+              json['current_session'] as Map<String, dynamic>,
+            )
       ..duration = json['duration'] as String?
       ..numberOfSessionsPerWeek = json['number_of_sessions_per_week'] as String?
       ..numberOfStudents = (json['number_of_students'] as num?)?.toInt()
@@ -67,8 +68,5 @@ ProgramSessionModel _$ProgramSessionModelFromJson(Map<String, dynamic> json) =>
       ..status = json['status'] as String?;
 
 Map<String, dynamic> _$ProgramSessionModelToJson(
-        ProgramSessionModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'status': instance.status,
-    };
+  ProgramSessionModel instance,
+) => <String, dynamic>{'id': instance.id, 'status': instance.status};

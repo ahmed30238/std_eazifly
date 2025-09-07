@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/student_management_view/lecture_history_view/widgets/lecture_history_details.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -14,14 +15,17 @@ class LectureHistoryView extends StatefulWidget {
 class _LectureHistoryViewState extends State<LectureHistoryView> {
   late int programId;
   late LectureCubit lectureCubit;
+  late MyProgramsCubit myProgramsCubit;
 
   @override
   void initState() {
     lectureCubit = context.read<LectureCubit>();
-    programId = context.read<LectureCubit>().currentProgramId;
+    myProgramsCubit = context.read<MyProgramsCubit>();
+
+    programId = lectureCubit.currentProgramId;
     log("program id is $programId");
 
-    lectureCubit.showProgramDetails(programId: programId);
+    myProgramsCubit.getAssignedChildrenToProgram(programId: programId);
     lectureCubit.getProgramSessions(
       programId: programId,
       userId: lectureCubit.userId,
@@ -45,11 +49,12 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
           16.ph,
           // Program Details Container with Loading State
           BlocBuilder(
-            bloc: lectureCubit,
+            bloc: myProgramsCubit,
             builder: (context, state) {
-              bool isLoadingProgramDetails =
-                  lectureCubit.showProgramDetailsLoader ||
-                      lectureCubit.showProgramDetailsEntity?.data == null;
+              bool isLoadingProgramDetails = myProgramsCubit
+                      .getAssignedChildrenLoader ||
+                  myProgramsCubit.getAssignedChildrenToProgramEntity?.data ==
+                      null;
 
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -82,7 +87,7 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
                                   Text(
                                     lectureCubit.showProgramDetailsEntity?.data
                                             ?.title ??
-                                        "",
+                                        "no title",
                                     style: MainTextStyle.boldTextStyle(
                                       fontSize: 12,
                                       color: MainColors.onSecondary,
@@ -94,13 +99,13 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
                           ),
                           20.pw,
                           BlocBuilder(
-                            bloc: lectureCubit,
+                            bloc: myProgramsCubit,
                             builder: (context, state) {
-                              String? expireDate = context
-                                  .read<LectureCubit>()
-                                  .showProgramDetailsEntity
-                                  ?.data
-                                  ?.expireDate.toString();
+                              String? expireDate = myProgramsCubit
+                                  .getAssignedChildrenToProgramEntity
+                                  ?.data?[lectureCubit.currentUserIndex]
+                                  .expireDate
+                                  .toString();
 
                               return Padding(
                                 padding: EdgeInsets.symmetric(
@@ -123,7 +128,7 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
                                       TextedContainer(
                                         width: 85.w,
                                         height: 26.h,
-                                        text: expireDate??"",
+                                        text: expireDate?.substring(0,10) ?? "",
                                         containerColor: MainColors.onError,
                                         textColor: MainColors.error,
                                       ),

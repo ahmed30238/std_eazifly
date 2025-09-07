@@ -55,15 +55,13 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(
               children: [
-                Text(
-                  "اليوم",
-                  style: MainTextStyle.boldTextStyle(fontSize: 12),
-                ),
+                Text("اليوم", style: MainTextStyle.boldTextStyle(fontSize: 12)),
                 8.pw,
                 Expanded(
                   child: CustomizedDropdownWidget<MapEntry<String, dynamic>>(
                     key: ValueKey(
-                        "day_dropdown_${DateTime.now().millisecondsSinceEpoch}"),
+                      "day_dropdown_${DateTime.now().millisecondsSinceEpoch}",
+                    ),
                     validator: (val) =>
                         val == null ? "من فضلك اختر اليوم" : null,
                     hintText: widget.daysList.isNotEmpty
@@ -83,10 +81,14 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
                         // طباعة الأوقات المتاحة للتحقق
                         if (val.value != null && val.value is List) {
                           final timeSlots = val.value as List;
-                          log("Available time slots for ${val.key}: ${timeSlots.length} slots");
+                          log(
+                            "Available time slots for ${val.key}: ${timeSlots.length} slots",
+                          );
                           for (int i = 0; i < timeSlots.length; i++) {
                             var slot = timeSlots[i];
-                            log("Time slot $i: ${slot?.startTime} - ${slot?.endTime}");
+                            log(
+                              "Time slot $i: ${slot?.startTime} - ${slot?.endTime}",
+                            );
                           }
                         } else {
                           log("No time slots available for ${val.key}");
@@ -99,8 +101,9 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
                             value: e,
                             child: Text(
                               e.key,
-                              style:
-                                  MainTextStyle.regularTextStyle(fontSize: 12),
+                              style: MainTextStyle.regularTextStyle(
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                         )
@@ -116,31 +119,34 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(
               children: [
-                Text(
-                  "الوقت",
-                  style: MainTextStyle.boldTextStyle(fontSize: 12),
-                ),
+                Text("الوقت", style: MainTextStyle.boldTextStyle(fontSize: 12)),
                 8.pw,
                 Expanded(
                   child: CustomizedDropdownWidget<dynamic>(
                     controller: widget.cubit.timeController,
                     key: ValueKey(
-                        "time_dropdown_${selectedDay?.key}_${DateTime.now().millisecondsSinceEpoch}"),
+                      "time_dropdown_${selectedDay?.key}_${DateTime.now().millisecondsSinceEpoch}",
+                    ),
                     validator: (val) =>
                         val == null ? "من فضلك اختر الوقت" : null,
                     hintText: _getTimeHintText(),
                     initialValue: selectedTimeSlot,
                     onChanged: selectedDay != null
                         ? (val) {
-                            log("Time selection changed: ${val?.startTime} - ${val?.endTime}");
+                            log(
+                              "Time selection changed: ${val?.startTime} - ${val?.endTime}",
+                            );
                             setState(() {
                               selectedTimeSlot = val;
-                              widget.cubit.timeController.text =
-                                  val.toString().substring(0, 4);
+                              widget.cubit.timeController.text = val
+                                  .toString()
+                                  .substring(0, 4);
                             });
 
                             if (val != null) {
-                              log("Selected time: ${val.startTime} - ${val.endTime}");
+                              log(
+                                "Selected time: ${val.startTime} - ${val.endTime}",
+                              );
                             }
                           }
                         : null,
@@ -151,21 +157,25 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
             ),
           ),
           const Spacer(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: CustomElevatedButton(
-              radius: 16.r,
-              text: "تحديد موعد جديد",
-              color: MainColors.primary,
-              onPressed: _canConfirmSelection()
-                  ? () => _confirmSelection(context)
-                  : () {
-                    log("Cant Confirm");
-                  },
-              child: widget.cubit.changeSessionDateLoader
-                  ? const CircularProgressIndicator.adaptive()
-                  : null,
-            ),
+          BlocBuilder<CancelSessionCubit, CancelSessionState>(
+            builder: (context, state) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: CustomElevatedButton(
+                  radius: 16.r,
+                  text: "تحديد موعد جديد",
+                  color: MainColors.primary,
+                  onPressed: _canConfirmSelection()
+                      ? () => _confirmSelection(context)
+                      : () {
+                          log("Cant Confirm");
+                        },
+                  child: widget.cubit.changeSessionDateLoader
+                      ? const CircularProgressIndicator.adaptive()
+                      : null,
+                ),
+              );
+            },
           ),
           16.ph,
         ],
@@ -200,19 +210,18 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
     log("Building dropdown items for ${timeSlots.length} time slots");
     return timeSlots
         .where((slot) => slot != null) // تصفية القيم الفارغة
-        .map(
-      (timeSlot) {
-        String displayText = "${timeSlot.startTime} - ${timeSlot.endTime}";
-        log("Creating dropdown item: $displayText");
-        return DropdownMenuItem<dynamic>(
-          value: timeSlot,
-          child: Text(
-            displayText,
-            style: MainTextStyle.regularTextStyle(fontSize: 12),
-          ),
-        );
-      },
-    ).toList();
+        .map((timeSlot) {
+          String displayText = "${timeSlot.startTime} - ${timeSlot.endTime}";
+          log("Creating dropdown item: $displayText");
+          return DropdownMenuItem<dynamic>(
+            value: timeSlot,
+            child: Text(
+              displayText,
+              style: MainTextStyle.regularTextStyle(fontSize: 12),
+            ),
+          );
+        })
+        .toList();
   }
 
   bool _canConfirmSelection() {
@@ -274,10 +283,7 @@ class TimeSelectionBottomSheetState extends State<TimeSelectionBottomSheet> {
           back(context);
 
           // استدعاء getProgramSessions مع المعلومات المحفوظة
-          lectureCubit.getProgramSessions(
-            programId: programId,
-            userId: userId,
-          );
+          lectureCubit.getProgramSessions(programId: programId, userId: userId);
         }
       } else {
         throw Exception("البيانات غير مكتملة");

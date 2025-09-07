@@ -7,21 +7,21 @@ part of 'get_content_chapter_model.dart';
 // **************************************************************************
 
 GetContentChapterModel _$GetContentChapterModelFromJson(
-        Map<String, dynamic> json) =>
-    GetContentChapterModel()
-      ..data = (json['data'] as List<dynamic>?)
-          ?.map((e) => ChapterModel.fromJson(e as Map<String, dynamic>))
-          .toList()
-      ..status = (json['status'] as num?)?.toInt()
-      ..message = json['message'] as String?;
+  Map<String, dynamic> json,
+) => GetContentChapterModel()
+  ..data = (json['data'] as List<dynamic>?)
+      ?.map((e) => ChapterModel.fromJson(e as Map<String, dynamic>))
+      .toList()
+  ..status = (json['status'] as num?)?.toInt()
+  ..message = json['message'] as String?;
 
 Map<String, dynamic> _$GetContentChapterModelToJson(
-        GetContentChapterModel instance) =>
-    <String, dynamic>{
-      'data': instance.data?.map((e) => e.toJson()).toList(),
-      'status': instance.status,
-      'message': instance.message,
-    };
+  GetContentChapterModel instance,
+) => <String, dynamic>{
+  'data': instance.data?.map((e) => e.toJson()).toList(),
+  'status': instance.status,
+  'message': instance.message,
+};
 
 ChapterModel _$ChapterModelFromJson(Map<String, dynamic> json) => ChapterModel()
   ..id = (json['id'] as num?)?.toInt()

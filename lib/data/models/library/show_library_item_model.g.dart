@@ -7,21 +7,21 @@ part of 'show_library_item_model.dart';
 // **************************************************************************
 
 ShowLibraryItemModel _$ShowLibraryItemModelFromJson(
-        Map<String, dynamic> json) =>
-    ShowLibraryItemModel()
-      ..data = json['data'] == null
-          ? null
-          : LibraryItemModel.fromJson(json['data'] as Map<String, dynamic>)
-      ..status = (json['status'] as num?)?.toInt()
-      ..message = json['message'] as String?;
+  Map<String, dynamic> json,
+) => ShowLibraryItemModel()
+  ..data = json['data'] == null
+      ? null
+      : LibraryItemModel.fromJson(json['data'] as Map<String, dynamic>)
+  ..status = (json['status'] as num?)?.toInt()
+  ..message = json['message'] as String?;
 
 Map<String, dynamic> _$ShowLibraryItemModelToJson(
-        ShowLibraryItemModel instance) =>
-    <String, dynamic>{
-      'data': instance.data?.toJson(),
-      'status': instance.status,
-      'message': instance.message,
-    };
+  ShowLibraryItemModel instance,
+) => <String, dynamic>{
+  'data': instance.data?.toJson(),
+  'status': instance.status,
+  'message': instance.message,
+};
 
 LibraryItemModel _$LibraryItemModelFromJson(Map<String, dynamic> json) =>
     LibraryItemModel()

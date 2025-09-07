@@ -13,9 +13,9 @@ UpdateFcmTokenModel _$UpdateFcmTokenModelFromJson(Map<String, dynamic> json) =>
       ..message = json['message'] as String?;
 
 Map<String, dynamic> _$UpdateFcmTokenModelToJson(
-        UpdateFcmTokenModel instance) =>
-    <String, dynamic>{
-      'data': instance.data,
-      'status': instance.status,
-      'message': instance.message,
-    };
+  UpdateFcmTokenModel instance,
+) => <String, dynamic>{
+  'data': instance.data,
+  'status': instance.status,
+  'message': instance.message,
+};

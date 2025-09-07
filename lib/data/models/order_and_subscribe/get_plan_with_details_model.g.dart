@@ -7,21 +7,21 @@ part of 'get_plan_with_details_model.dart';
 // **************************************************************************
 
 GetPlansWithDetailsModel _$GetPlansWithDetailsModelFromJson(
-        Map<String, dynamic> json) =>
-    GetPlansWithDetailsModel()
-      ..data = (json['data'] as List<dynamic>?)
-          ?.map((e) => PlanDetailsModel.fromJson(e as Map<String, dynamic>))
-          .toList()
-      ..status = (json['status'] as num?)?.toInt()
-      ..message = json['message'] as String?;
+  Map<String, dynamic> json,
+) => GetPlansWithDetailsModel()
+  ..data = (json['data'] as List<dynamic>?)
+      ?.map((e) => PlanDetailsModel.fromJson(e as Map<String, dynamic>))
+      .toList()
+  ..status = (json['status'] as num?)?.toInt()
+  ..message = json['message'] as String?;
 
 Map<String, dynamic> _$GetPlansWithDetailsModelToJson(
-        GetPlansWithDetailsModel instance) =>
-    <String, dynamic>{
-      'data': instance.data?.map((e) => e.toJson()).toList(),
-      'status': instance.status,
-      'message': instance.message,
-    };
+  GetPlansWithDetailsModel instance,
+) => <String, dynamic>{
+  'data': instance.data?.map((e) => e.toJson()).toList(),
+  'status': instance.status,
+  'message': instance.message,
+};
 
 PlanDetailsModel _$PlanDetailsModelFromJson(Map<String, dynamic> json) =>
     PlanDetailsModel()

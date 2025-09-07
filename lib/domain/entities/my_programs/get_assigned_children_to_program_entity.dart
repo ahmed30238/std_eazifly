@@ -84,7 +84,7 @@ class GetAssignedChildrenToProgramDatumEntity {
 
   @JsonKey(name: "status_label")
   GetAssignedChildrenToProgramStatusLabelModel? statusLabel;
-  
+
   @JsonKey(name: "instructor_assiigned_data")
   InstructorAssiignedDataModel? instructorAssiignedData;
 
@@ -93,6 +93,18 @@ class GetAssignedChildrenToProgramDatumEntity {
 
   @JsonKey(name: "chat_id")
   dynamic chatId;
+  @JsonKey(name: "next_session")
+  GetAssignedChildrenNextSessionModel? nextSession;
+  @JsonKey(name: "current_instructor_id")
+  int? currentInstructorId;
+  @JsonKey(name: "host")
+  String? host;
+  @JsonKey(name: "goals_percentage")
+  int? goalsPercentage;
+  @JsonKey(name: "content_id")
+  String? contentId;
+  @JsonKey(name: "expire_date")
+  DateTime? expireDate;
 
   GetAssignedChildrenToProgramDatumEntity({
     this.id,
@@ -119,6 +131,10 @@ class GetAssignedChildrenToProgramDatumEntity {
     this.statusLabel,
     this.programs,
     this.chatId,
+    this.currentInstructorId,
+    this.nextSession,
+    this.contentId,
+    this.expireDate,
   });
 }
 

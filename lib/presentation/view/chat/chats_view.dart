@@ -70,8 +70,8 @@ class _ChatsViewState extends State<ChatsView>
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: CustomTextFormField(
               hintText: lang.search, // استخدام النص من الترجمة
-              prefixIconWidget: PrefixSearchFormField(),
-              suffixIconWidget: SuffixMenuFormField(),
+              prefixIconWidget: const PrefixSearchFormField(),
+              suffixIconWidget: const SuffixMenuFormField(),
             ),
           ),
           16.ph,

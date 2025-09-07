@@ -29,13 +29,13 @@ MyChildModel _$MyChildModelFromJson(Map<String, dynamic> json) => MyChildModel()
   ..email = json['email'] as String?
   ..phone = json['phone'] as String?
   ..whatsApp = json['whats_app'] as String?
-  ..image = json['image']
+  ..image = json['image'] as String?
   ..gender = json['gender'] as String?
   ..parentName = json['parent_name'] as String?
   ..userCoupon = json['user_coupon'] as String?
-  ..bonus = json['bonus'] as String?
+  ..bonus = MyChildEntity.customInt(json['bonus'])
   ..childrens = json['childrens'] as List<dynamic>?
-  ..age = json['age'] as String?
+  ..age = MyChildEntity.customInt(json['age'])
   ..token = json['token'] as String?
   ..isGuest = json['is_guest'] as bool?
   ..fcmToken = json['fcm_token']
@@ -47,7 +47,8 @@ MyChildModel _$MyChildModelFromJson(Map<String, dynamic> json) => MyChildModel()
   ..statusLabel = json['status_label'] == null
       ? null
       : ChildrenStatusLabelModel.fromJson(
-          json['status_label'] as Map<String, dynamic>)
+          json['status_label'] as Map<String, dynamic>,
+        )
   ..programs = json['programs'] as List<dynamic>?
   ..chatId = json['chat_id'];
 
@@ -79,14 +80,16 @@ Map<String, dynamic> _$MyChildModelToJson(MyChildModel instance) =>
     };
 
 ChildrenStatusLabelModel _$ChildrenStatusLabelModelFromJson(
-        Map<String, dynamic> json) =>
-    ChildrenStatusLabelModel()
-      ..label = json['label'] as String?
-      ..color = json['color'] as String?;
+  Map<String, dynamic> json,
+) => ChildrenStatusLabelModel()
+  ..label = json['label'] as String?
+  ..color = json['color'] as String?
+  ..key = json['key'] as String?;
 
 Map<String, dynamic> _$ChildrenStatusLabelModelToJson(
-        ChildrenStatusLabelModel instance) =>
-    <String, dynamic>{
-      'label': instance.label,
-      'color': instance.color,
-    };
+  ChildrenStatusLabelModel instance,
+) => <String, dynamic>{
+  'label': instance.label,
+  'color': instance.color,
+  'key': instance.key,
+};

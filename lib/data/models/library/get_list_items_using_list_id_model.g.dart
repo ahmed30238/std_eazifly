@@ -7,21 +7,21 @@ part of 'get_list_items_using_list_id_model.dart';
 // **************************************************************************
 
 GetListItemsUsingListIdModel _$GetListItemsUsingListIdModelFromJson(
-        Map<String, dynamic> json) =>
-    GetListItemsUsingListIdModel()
-      ..data = (json['data'] as List<dynamic>?)
-          ?.map((e) => ListItemModel.fromJson(e as Map<String, dynamic>))
-          .toList()
-      ..status = (json['status'] as num?)?.toInt()
-      ..message = json['message'] as String?;
+  Map<String, dynamic> json,
+) => GetListItemsUsingListIdModel()
+  ..data = (json['data'] as List<dynamic>?)
+      ?.map((e) => ListItemModel.fromJson(e as Map<String, dynamic>))
+      .toList()
+  ..status = (json['status'] as num?)?.toInt()
+  ..message = json['message'] as String?;
 
 Map<String, dynamic> _$GetListItemsUsingListIdModelToJson(
-        GetListItemsUsingListIdModel instance) =>
-    <String, dynamic>{
-      'data': instance.data?.map((e) => e.toJson()).toList(),
-      'status': instance.status,
-      'message': instance.message,
-    };
+  GetListItemsUsingListIdModel instance,
+) => <String, dynamic>{
+  'data': instance.data?.map((e) => e.toJson()).toList(),
+  'status': instance.status,
+  'message': instance.message,
+};
 
 ListItemModel _$ListItemModelFromJson(Map<String, dynamic> json) =>
     ListItemModel()

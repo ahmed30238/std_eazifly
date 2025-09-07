@@ -12,7 +12,6 @@ import 'package:eazifly_student/domain/use_cases/get_my_programs_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_session_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/join_session_usecase.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
-import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart'
     hide JoinSessionLoadingState, JoinSessionErrorState, JoinSessionSuccessState;
 
@@ -78,16 +77,16 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
   Future<void> getAssignedChildrenToProgram({
     required int programId,
   }) async {
-    students = [];
-    students.insert(
-      0,
-      GetAssignedChildrenToProgramDatumEntity(
-        id: loginData?.id,
-        age: loginData?.age.toString(),
-        firstName: loginData?.firstName,
-        image: loginData?.image,
-      ),
-    ); // parent data
+    // students = [];
+    // students.insert(
+    //   0,
+    //   GetAssignedChildrenToProgramDatumEntity(
+    //     id: loginData?.id,
+    //     age: loginData?.age.toString(),
+    //     firstName: loginData?.firstName,
+    //     image: loginData?.image,
+    //   ),
+    // ); // parent data
     getAssignedChildrenLoader = true;
     emit(GetAssignedChildrenLoadingState());
 

@@ -11,14 +11,11 @@ class GetMyChildrenEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetMyChildrenEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetMyChildrenEntity({this.data, this.status, this.message});
 }
 
 class MyChildEntity {
+  static int? customInt(val) => int.tryParse(val?.toString() ?? "");
   @JsonKey(name: "id")
   int? id;
 
@@ -41,7 +38,7 @@ class MyChildEntity {
   String? whatsApp;
 
   @JsonKey(name: "image")
-  dynamic image;
+  String? image;
 
   @JsonKey(name: "gender")
   String? gender;
@@ -52,14 +49,14 @@ class MyChildEntity {
   @JsonKey(name: "user_coupon")
   String? userCoupon;
 
-  @JsonKey(name: "bonus")
-  String? bonus;
+  @JsonKey(name: "bonus",fromJson: customInt)
+  int? bonus;
 
   @JsonKey(name: "childrens")
   List<dynamic>? childrens;
 
-  @JsonKey(name: "age")
-  String? age;
+  @JsonKey(name: "age",fromJson: customInt)
+  int? age;
 
   @JsonKey(name: "token")
   String? token;
@@ -121,9 +118,8 @@ class StatusLabelEntity {
 
   @JsonKey(name: "color")
   String? color;
+  @JsonKey(name: "key")
+  String? key;
 
-  StatusLabelEntity({
-    this.label,
-    this.color,
-  });
+  StatusLabelEntity({this.label, this.color, this.key});
 }

@@ -22,41 +22,43 @@ Map<String, dynamic> _$GetUserOrdersModelToJson(GetUserOrdersModel instance) =>
       'message': instance.message,
     };
 
-UserOrderModel _$UserOrderModelFromJson(Map<String, dynamic> json) =>
-    UserOrderModel()
-      ..id = (json['id'] as num?)?.toInt()
-      ..user = json['user'] == null
-          ? null
-          : CreateOrderUser.fromJson(json['user'] as Map<String, dynamic>)
-      ..totalOrderPrice =
-          CreateOrderDataEntity.customInt(json['total_order_price'])
-      ..totalAfterDiscount =
-          CreateOrderDataEntity.customInt(json['total_after_discount'])
-      ..currency = json['currency'] as String?
-      ..status = json['status'] == null
-          ? null
-          : CreateOrderStatus.fromJson(json['status'] as Map<String, dynamic>)
-      ..type = json['type'] == null
-          ? null
-          : CreateOrderStatus.fromJson(json['type'] as Map<String, dynamic>)
-      ..subscriptionType = json['subscription_type'] as String?
-      ..usedCoupon = json['used_coupon'] as bool?
-      ..programId = json['program_id'] as String?
-      ..createdAt = json['created_at'] == null
-          ? null
-          : DateTime.parse(json['created_at'] as String)
-      ..orderDetails = (json['order_details'] as List<dynamic>?)
-          ?.map(
-              (e) => CreateOrderOrderDetail.fromJson(e as Map<String, dynamic>))
-          .toList()
-      ..orderNotes = (json['order_notes'] as List<dynamic>?)
-          ?.map((e) =>
-              CreateOrderOrderNoteModel.fromJson(e as Map<String, dynamic>))
-          .toList()
-      ..programData = json['program_data'] == null
-          ? null
-          : CreateOrderProgramDataModel.fromJson(
-              json['program_data'] as Map<String, dynamic>);
+UserOrderModel _$UserOrderModelFromJson(
+  Map<String, dynamic> json,
+) => UserOrderModel()
+  ..id = (json['id'] as num?)?.toInt()
+  ..user = json['user'] == null
+      ? null
+      : CreateOrderUser.fromJson(json['user'] as Map<String, dynamic>)
+  ..totalOrderPrice = CreateOrderDataEntity.customInt(json['total_order_price'])
+  ..totalAfterDiscount = CreateOrderDataEntity.customInt(
+    json['total_after_discount'],
+  )
+  ..currency = json['currency'] as String?
+  ..status = json['status'] == null
+      ? null
+      : CreateOrderStatus.fromJson(json['status'] as Map<String, dynamic>)
+  ..type = json['type'] == null
+      ? null
+      : CreateOrderStatus.fromJson(json['type'] as Map<String, dynamic>)
+  ..subscriptionType = json['subscription_type'] as String?
+  ..usedCoupon = json['used_coupon'] as bool?
+  ..programId = json['program_id'] as String?
+  ..createdAt = json['created_at'] == null
+      ? null
+      : DateTime.parse(json['created_at'] as String)
+  ..orderDetails = (json['order_details'] as List<dynamic>?)
+      ?.map((e) => CreateOrderOrderDetail.fromJson(e as Map<String, dynamic>))
+      .toList()
+  ..orderNotes = (json['order_notes'] as List<dynamic>?)
+      ?.map(
+        (e) => CreateOrderOrderNoteModel.fromJson(e as Map<String, dynamic>),
+      )
+      .toList()
+  ..programData = json['program_data'] == null
+      ? null
+      : CreateOrderProgramDataModel.fromJson(
+          json['program_data'] as Map<String, dynamic>,
+        );
 
 Map<String, dynamic> _$UserOrderModelToJson(UserOrderModel instance) =>
     <String, dynamic>{

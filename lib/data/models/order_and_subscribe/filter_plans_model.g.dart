@@ -22,32 +22,32 @@ Map<String, dynamic> _$FilterPlansModelToJson(FilterPlansModel instance) =>
     };
 
 FilterPlansDataModel _$FilterPlansDataModelFromJson(
-        Map<String, dynamic> json) =>
-    FilterPlansDataModel()
-      ..id = (json['id'] as num?)?.toInt()
-      ..title = json['title'] as String?
-      ..program = json['program'] as String?
-      ..label = json['label'] as String?
-      ..description = json['description'] as String?
-      ..currency = json['currency'] as String?
-      ..price = json['price'] as String?
-      ..discountPrice = json['discount_price'] as String?
-      ..subscripeDays = json['subscripe_days'] as String?
-      ..duration = json['duration'] as String?
-      ..numberOfSessionPerWeek = json['number_of_session_per_week'] as String?;
+  Map<String, dynamic> json,
+) => FilterPlansDataModel()
+  ..id = (json['id'] as num?)?.toInt()
+  ..title = json['title'] as String?
+  ..program = json['program'] as String?
+  ..label = json['label'] as String?
+  ..description = json['description'] as String?
+  ..currency = json['currency'] as String?
+  ..price = json['price'] as String?
+  ..discountPrice = json['discount_price'] as String?
+  ..subscripeDays = json['subscripe_days'] as String?
+  ..duration = json['duration'] as String?
+  ..numberOfSessionPerWeek = json['number_of_session_per_week'] as String?;
 
 Map<String, dynamic> _$FilterPlansDataModelToJson(
-        FilterPlansDataModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'program': instance.program,
-      'label': instance.label,
-      'description': instance.description,
-      'currency': instance.currency,
-      'price': instance.price,
-      'discount_price': instance.discountPrice,
-      'subscripe_days': instance.subscripeDays,
-      'duration': instance.duration,
-      'number_of_session_per_week': instance.numberOfSessionPerWeek,
-    };
+  FilterPlansDataModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'title': instance.title,
+  'program': instance.program,
+  'label': instance.label,
+  'description': instance.description,
+  'currency': instance.currency,
+  'price': instance.price,
+  'discount_price': instance.discountPrice,
+  'subscripe_days': instance.subscripeDays,
+  'duration': instance.duration,
+  'number_of_session_per_week': instance.numberOfSessionPerWeek,
+};

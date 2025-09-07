@@ -94,7 +94,7 @@ class ChooseProperLecturerBody extends StatelessWidget {
                   child: CustomRichText(
                     text1Style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
-                      color: MainColors.onError,
+                      color: MainColors.error,
                     ),
                     spaceText: "   ",
                     text1:

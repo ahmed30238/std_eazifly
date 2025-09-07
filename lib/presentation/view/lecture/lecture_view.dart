@@ -1,6 +1,8 @@
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_state.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
+import 'package:eazifly_student/presentation/view/lecture/lecture_view_loader.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/build_goal_percent_with_loading.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/build_lecture_data_with_loading.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/build_lecture_link_with_loading.dart';
@@ -28,6 +30,7 @@ class LectureView extends StatefulWidget {
 class _LectureViewState extends State<LectureView>
     with SingleTickerProviderStateMixin {
   late LectureCubit cubit;
+  late MyProgramsCubit myProgramsCubit;
   late PageController pageController;
   final GetStorage storage = GetStorage();
 
@@ -43,18 +46,19 @@ class _LectureViewState extends State<LectureView>
   @override
   void initState() {
     cubit = context.read<LectureCubit>();
+    myProgramsCubit = context.read<MyProgramsCubit>();
     cubit.initController(this, widget.programId);
     cubit.showProgramDetails(programId: widget.programId);
-    context.read<MyProgramsCubit>().getAssignedChildrenToProgram(
-          programId: widget.programId,
-        );
+    myProgramsCubit.getAssignedChildrenToProgram(
+      programId: widget.programId,
+    );
     pageController = PageController();
 
     /// 🟡 Start the tutorial only if not shown before
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(
         const Duration(milliseconds: 300),
-        () {
+            () {
           if (!_isTutorialCompleted()) {
             showTutorial();
           }
@@ -90,7 +94,8 @@ class _LectureViewState extends State<LectureView>
         _markTutorialCompleted(); // Mark as completed when skipped
         return true;
       },
-    )..show(context: context);
+    )
+      ..show(context: context);
   }
 
   /// 🟡 Define what elements to highlight
@@ -116,11 +121,6 @@ class _LectureViewState extends State<LectureView>
     );
   }
 
-  // Optional: Method to reset tutorial (for testing or settings)
-  void resetTutorial() {
-    storage.remove(_lectureTutorialCompletedKey);
-  }
-
   @override
   void dispose() {
     pageController.dispose();
@@ -136,16 +136,16 @@ class _LectureViewState extends State<LectureView>
         widget: widget,
         btnKey: btnKey,
       ),
-      body: BlocBuilder<LectureCubit, LectureState>(
-        bloc: cubit,
+      body: BlocBuilder<MyProgramsCubit, MyProgramsState>(
+        bloc: myProgramsCubit,
         builder: (context, state) {
-          if (cubit.showProgramDetailsLoader) {
+          if (myProgramsCubit.getAssignedChildrenLoader) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: LectureViewLoader(),
             );
           }
 
-          if (state is ShowProgramDetailsErrorState) {
+          if (state is GetAssignedChildrenErrorState) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -156,7 +156,8 @@ class _LectureViewState extends State<LectureView>
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                      cubit.showProgramDetails(programId: widget.programId);
+                      myProgramsCubit.getAssignedChildrenToProgram(
+                          programId: widget.programId);
                     },
                     child: const Text("إعادة المحاولة"),
                   ),
@@ -165,30 +166,76 @@ class _LectureViewState extends State<LectureView>
             );
           }
 
-          return Column(
-            children: [
-              10.ph,
-              buildLectureStatsWithLoading(cubit),
-              24.ph,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  buildLectureDataWithLoading(cubit, state),
-                  8.pw,
-                  buildLectureLinkWithLoading(
-                      context, cubit, state, widget.programId),
-                ],
-              ),
-              8.ph,
-              buildGoalsPercentWithLoading(cubit, state, context),
-              20.ph,
-              ChildrenNavigator(programId: widget.programId),
-              1.ph,
-              buildTabBarWithLoading(cubit, state, pageController),
-              8.ph,
-              buildPageViewWithLoading(cubit, state, pageController),
-              8.ph,
-            ],
+          return BlocBuilder<LectureCubit, LectureState>(
+            builder: (context, state) {
+              return PageView.builder(
+                itemBuilder: (context, index) {
+                  String host = cubit.showProgramDetailsEntity?.data?.host??"";
+                  return Column(
+                    children: [
+                      10.ph,
+                      buildLectureStatsWithLoading(myProgramsCubit, index),
+                      24.ph,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          buildLectureDataWithLoading(host),
+                          8.pw,
+                          buildLectureLinkWithLoading(
+                            context,
+                            myProgramsCubit,
+                            widget.programId,
+                            index,
+                            host
+                          ),
+                        ],
+                      ),
+                      8.ph,
+                      buildGoalsPercentWithLoading(cubit, context),
+                      20.ph,
+                      ChildrenNavigator(
+                        programId: widget.programId,
+                        childIndex: index,
+                      ),
+                      1.ph,
+                      buildTabBarWithLoading(cubit, pageController),
+                      8.ph,
+                      buildPageViewWithLoading(cubit, pageController),
+                      8.ph,
+                    ],
+                  );
+                },
+                controller: cubit.studentPageViewController,
+                itemCount: myProgramsCubit
+                    .getAssignedChildrenToProgramEntity
+                    ?.data
+                    ?.length ??
+                    0,
+                onPageChanged: (childIndex) {
+                  cubit.controller.animateTo(0);
+
+                  cubit.changeCurrentUserIndex(childIndex);
+                  // final myProgramsCubit = context.read<MyProgramsCubit>();
+                  cubit.studentPageViewController.animateToPage(
+                    childIndex,
+                    duration: const Duration(microseconds: 500),
+                    curve: Curves.bounceIn,
+                  );
+                  int userId = myProgramsCubit
+                      .getAssignedChildrenToProgramEntity
+                      ?.data?[childIndex].id ??
+                      -1;
+                  cubit.fillUserId(userId);
+                  cubit.getProgramSessions(
+                    programId: widget.programId,
+                    userId: userId,
+                  );
+                  // myProgramsCubit.getAssignedChildrenToProgram(
+                  //   programId: widget.programId,
+                  // );
+                },
+              );
+            },
           );
         },
       ),

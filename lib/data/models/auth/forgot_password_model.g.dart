@@ -13,9 +13,9 @@ ForgotPasswordModel _$ForgotPasswordModelFromJson(Map<String, dynamic> json) =>
       ..message = json['message'] as String?;
 
 Map<String, dynamic> _$ForgotPasswordModelToJson(
-        ForgotPasswordModel instance) =>
-    <String, dynamic>{
-      'data': instance.data,
-      'status': instance.status,
-      'message': instance.message,
-    };
+  ForgotPasswordModel instance,
+) => <String, dynamic>{
+  'data': instance.data,
+  'status': instance.status,
+  'message': instance.message,
+};

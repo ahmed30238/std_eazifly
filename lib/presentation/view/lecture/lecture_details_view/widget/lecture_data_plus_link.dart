@@ -47,6 +47,7 @@ class LectureDataPlusLinkRow extends StatelessWidget {
         ),
         16.pw,
         LectureLink(
+          host: "put host",
           programId: 1, // TODO
           linkAlignment: MainAxisAlignment.start,
           onLinkTap: (){},

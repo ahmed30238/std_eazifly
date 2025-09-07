@@ -46,7 +46,7 @@ class ChangeSessionDateDataEntity {
   @JsonKey(name: "program_id")
   String? programId;
   @JsonKey(name: "status")
-  String? status;
+  ChangeSessionDateStatusModel? status;
 
   ChangeSessionDateDataEntity({
     this.id,

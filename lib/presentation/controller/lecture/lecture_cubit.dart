@@ -37,14 +37,11 @@ import 'package:eazifly_student/presentation/view/lecture/widgets/report_body.da
 import 'package:eazifly_student/presentation/view/lecture/widgets/schedules_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:file_picker/file_picker.dart';
-
-// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
-// import 'package:record/record.dart';
 
 class LectureCubit extends Cubit<LectureState> {
   LectureCubit({
@@ -229,8 +226,9 @@ class LectureCubit extends Cubit<LectureState> {
       return _buildEmptyWidget("لا توجد مواعيد متاحة");
     }
 
-    return const SchedulesBody(
+    return SchedulesBody(
       isFinished: false,
+      childIndex: currentUserIndex,
     );
   }
 
@@ -252,9 +250,15 @@ class LectureCubit extends Cubit<LectureState> {
       return _buildEmptyWidget("لا توجد مواعيد متاحة");
     }
 
-    return const SchedulesBody(
+    return SchedulesBody(
+      childIndex: currentUserIndex,
       isFinished: true,
     );
+  }
+  int currentUserIndex = 0;
+  void changeCurrentUserIndex(int value){
+    currentUserIndex = value;
+    emit(ChildIndexChanged());
   }
 
   // Widget _buildStatsBody() {
@@ -567,23 +571,25 @@ class LectureCubit extends Cubit<LectureState> {
     );
   }
 
-  int currentChildIndex = -1; // -1 يعني المستخدم الأب
-  void updateChildIndex(bool next, int totalChildren) {
-    if (totalChildren == 0) return;
-
-    if (currentChildIndex == -1) {
-      // أول ضغطة على "التالي"، ننتقل إلى أول طفل
-      currentChildIndex = 0;
-    } else {
-      if (next) {
-        currentChildIndex = (currentChildIndex + 1) % totalChildren;
-      } else {
-        currentChildIndex =
-            currentChildIndex > 0 ? currentChildIndex - 1 : -1; // نرجع للأب
-      }
-    }
-    emit(ChildIndexChanged());
-  }
+  // int currentChildIndex = 0; // -1 يعني المستخدم الأب
+  // void updateChildIndex(int childIndex) {
+  //   currentChildIndex = childIndex;
+  //
+  //   // if (totalChildren == 0) return;
+  //   //
+  //   // if (currentChildIndex == -1) {
+  //   //   // أول ضغطة على "التالي"، ننتقل إلى أول طفل
+  //   //   currentChildIndex = 0;
+  //   // } else {
+  //   //   if (next) {
+  //   //     currentChildIndex = (currentChildIndex + 1) % totalChildren;
+  //   //   } else {
+  //   //     currentChildIndex =
+  //   //         currentChildIndex > 0 ? currentChildIndex - 1 : -1; // نرجع للأب
+  //   //   }
+  //   // }
+  //   emit(ChildIndexChanged());
+  // }
 
   bool getUserFeedbacksLoader = false;
   GetUserFeedbacksEntity? getUserFeedbacksEntity;
@@ -1176,6 +1182,8 @@ class LectureCubit extends Cubit<LectureState> {
   bool getReportQuestionsLoader = false;
   GetReportQuestionsEntity? reportQuestionsEntity;
   GetReportQuestionsUsecase getReportQuestionsUsecase;
+
+  PageController studentPageViewController = PageController();
 
   Future<void> getReportQuestions({required int index}) async {
     // log("${data.data?[0].program}");

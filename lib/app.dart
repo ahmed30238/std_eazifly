@@ -12,6 +12,7 @@ import 'package:eazifly_student/presentation/controller/language/applanuage_cubi
 import 'package:eazifly_student/presentation/controller/language/applanuage_state.dart';
 import 'package:eazifly_student/presentation/controller/layout/layout_cubit.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => AppLanguageCubit()..getAppLang()),
         BlocProvider(create: (context) => LayoutCubit()),
         BlocProvider.value(value: sl<ProgramsUnderReviewCubit>()),
+        BlocProvider.value(value: sl<MyProgramsCubit>()),
         BlocProvider.value(value: sl<HomeCubit>()),
         BlocProvider.value(value: sl<ChatsCubit>()),
         BlocProvider.value(value: sl<AddNewStudentDataToProgramCubit>()),

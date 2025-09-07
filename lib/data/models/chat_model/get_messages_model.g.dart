@@ -10,7 +10,8 @@ GetMessagesModel _$GetMessagesModelFromJson(Map<String, dynamic> json) =>
     GetMessagesModel()
       ..data = (json['data'] as List<dynamic>?)
           ?.map(
-              (e) => GetMessagesDatumModel.fromJson(e as Map<String, dynamic>))
+            (e) => GetMessagesDatumModel.fromJson(e as Map<String, dynamic>),
+          )
           .toList()
       ..status = (json['status'] as num?)?.toInt()
       ..message = json['message'] as String?;
@@ -23,26 +24,26 @@ Map<String, dynamic> _$GetMessagesModelToJson(GetMessagesModel instance) =>
     };
 
 GetMessagesDatumModel _$GetMessagesDatumModelFromJson(
-        Map<String, dynamic> json) =>
-    GetMessagesDatumModel()
-      ..id = (json['id'] as num?)?.toInt()
-      ..chatId = (json['chat_id'] as num?)?.toInt()
-      ..senderType = json['sender_type'] as String?
-      ..message = json['message'] as String?
-      ..createdAt = json['created_at'] == null
-          ? null
-          : DateTime.parse(json['created_at'] as String)
-      ..fileType = json['file_type'] as String?
-      ..file = json['file'] as String?;
+  Map<String, dynamic> json,
+) => GetMessagesDatumModel()
+  ..id = (json['id'] as num?)?.toInt()
+  ..chatId = (json['chat_id'] as num?)?.toInt()
+  ..senderType = json['sender_type'] as String?
+  ..message = json['message'] as String?
+  ..createdAt = json['created_at'] == null
+      ? null
+      : DateTime.parse(json['created_at'] as String)
+  ..fileType = json['file_type'] as String?
+  ..file = json['file'] as String?;
 
 Map<String, dynamic> _$GetMessagesDatumModelToJson(
-        GetMessagesDatumModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'chat_id': instance.chatId,
-      'sender_type': instance.senderType,
-      'message': instance.message,
-      'created_at': instance.createdAt?.toIso8601String(),
-      'file_type': instance.fileType,
-      'file': instance.file,
-    };
+  GetMessagesDatumModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'chat_id': instance.chatId,
+  'sender_type': instance.senderType,
+  'message': instance.message,
+  'created_at': instance.createdAt?.toIso8601String(),
+  'file_type': instance.fileType,
+  'file': instance.file,
+};

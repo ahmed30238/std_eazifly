@@ -1,4 +1,3 @@
-import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/domain/entities/my_programs/get_my_programs_entity.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/my_programs/widgets/children_modal_sheet.dart';
@@ -6,24 +5,24 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 onMyProgramTap({
   required BuildContext context,
-  required MyProgramsCubit cubit,
+  // required MyProgramsCubit cubit,
   required MyProgramEntity item,
-  required DataModel loginData,
+  // required DataModel loginData,
   required int noOfChildren,
   required int programId,
 }) {
-  bool isParent = loginData.parentId == null;
+  // bool isParent = loginData.parentId == null;
   String? sessionStatus = item.currentSession?.status;
 
   if (sessionStatus != null) {
     if (sessionStatus == "started") {
-      _navigateToLectureDetails(context, cubit, item);
+      _navigateToLectureDetails(context, item);
     } else {
       _handleNotStartedLecture(
         context: context,
-        isParent: isParent,
+        // isParent: isParent,
         noOfChildren: noOfChildren,
-        cubit: cubit,
+        // cubit: cubit,
         programId: programId,
       );
     }
@@ -31,9 +30,9 @@ onMyProgramTap({
     // لا توجد جلسة حالية
     _handleNoCurrentSession(
       context: context,
-      isParent: isParent,
+      // isParent: isParent,
       noOfChildren: noOfChildren,
-      cubit: cubit,
+      // cubit: cubit,
       programId: programId,
     );
   }
@@ -42,14 +41,14 @@ onMyProgramTap({
 // دالة للانتقال لتفاصيل المحاضرة الجارية
 void _navigateToLectureDetails(
   BuildContext context,
-  MyProgramsCubit cubit,
+  // MyProgramsCubit cubit,
   MyProgramEntity item,
 ) {
   Navigator.pushNamed(
     context,
     RoutePaths.navigateToLectureView,
     arguments: {
-      "cubit": cubit,
+      "cubit": context.read<MyProgramsCubit>(),
       "sessionId": item.currentSession?.id ?? -1,
     },
   );
@@ -58,17 +57,17 @@ void _navigateToLectureDetails(
 // دالة للتعامل مع المحاضرة التي لم تبدأ
 void _handleNotStartedLecture({
   required BuildContext context,
-  required bool isParent,
+  // required bool isParent,
   required int noOfChildren,
-  required MyProgramsCubit cubit,
+  // required MyProgramsCubit cubit,
   required int programId,
 }) {
-  if (isParent && noOfChildren > 0) {
+  if (noOfChildren > 0) {
     // إذا كان المستخدم أب - عرض bottom sheet للأطفال
     _showChildrenBottomSheet(
       context,
       noOfChildren,
-      cubit,
+      // cubit,
       programId,
     );
   } else {
@@ -80,18 +79,18 @@ void _handleNotStartedLecture({
 // دالة للتعامل مع عدم وجود جلسة حالية
 void _handleNoCurrentSession({
   required BuildContext context,
-  required bool isParent,
+  // required bool isParent,
   required int noOfChildren,
-  required MyProgramsCubit cubit,
+  // required MyProgramsCubit cubit,
   required int programId,
 }) {
-  if (isParent && noOfChildren > 0) {
+  if (noOfChildren > 0) {
     // إذا كان المستخدم أب - عرض bottom sheet للأطفال فقط
     // if () {
     _showChildrenBottomSheet(
       context,
       noOfChildren,
-      cubit,
+      // cubit,
       programId,
     );
     // }
@@ -102,10 +101,9 @@ void _handleNoCurrentSession({
 }
 
 // دالة لعرض bottom sheet للأطفال
-void _showChildrenBottomSheet(
+void  _showChildrenBottomSheet(
   BuildContext context,
   int noOfChildren,
-  MyProgramsCubit cubit,
   int programId,
 ) {
   showModalSheet(
@@ -114,7 +112,6 @@ void _showChildrenBottomSheet(
     minHeight: 500.h,
     context,
     widget: ChildrenModalSheet(
-      cubit: cubit,
       noOfChildren: noOfChildren,
       programId: programId,
     ),
@@ -126,8 +123,6 @@ void _navigateToProgramDetails(BuildContext context, {required int programId}) {
   Navigator.pushNamed(
     context,
     RoutePaths.lectureView,
-    arguments: {
-      "programId": programId,
-    },
+    arguments: {"programId": programId},
   );
 }

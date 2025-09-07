@@ -7,21 +7,21 @@ part of 'get_session_details_model.dart';
 // **************************************************************************
 
 GetSessionDetailsModel _$GetSessionDetailsModelFromJson(
-        Map<String, dynamic> json) =>
-    GetSessionDetailsModel()
-      ..data = json['data'] == null
-          ? null
-          : SessionDetailsModel.fromJson(json['data'] as Map<String, dynamic>)
-      ..status = (json['status'] as num?)?.toInt()
-      ..message = json['message'] as String?;
+  Map<String, dynamic> json,
+) => GetSessionDetailsModel()
+  ..data = json['data'] == null
+      ? null
+      : SessionDetailsModel.fromJson(json['data'] as Map<String, dynamic>)
+  ..status = (json['status'] as num?)?.toInt()
+  ..message = json['message'] as String?;
 
 Map<String, dynamic> _$GetSessionDetailsModelToJson(
-        GetSessionDetailsModel instance) =>
-    <String, dynamic>{
-      'data': instance.data?.toJson(),
-      'status': instance.status,
-      'message': instance.message,
-    };
+  GetSessionDetailsModel instance,
+) => <String, dynamic>{
+  'data': instance.data?.toJson(),
+  'status': instance.status,
+  'message': instance.message,
+};
 
 SessionDetailsModel _$SessionDetailsModelFromJson(Map<String, dynamic> json) =>
     SessionDetailsModel()
@@ -48,22 +48,22 @@ SessionDetailsModel _$SessionDetailsModelFromJson(Map<String, dynamic> json) =>
       ..status = json['status'] as String?;
 
 Map<String, dynamic> _$SessionDetailsModelToJson(
-        SessionDetailsModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'instructor': instance.instructor,
-      'users': instance.users?.map((e) => e.toJson()).toList(),
-      'meeting_url': instance.meetingUrl,
-      'session_date': instance.sessionDate?.toIso8601String(),
-      'session_time': instance.sessionTime,
-      'session_datetime': instance.sessionDatetime?.toIso8601String(),
-      'duration': instance.duration,
-      'student_join_time': instance.studentJoinTime?.toIso8601String(),
-      'instructor_join_time': instance.instructorJoinTime,
-      'program_title': instance.programTitle,
-      'program_id': instance.programId,
-      'status': instance.status,
-    };
+  SessionDetailsModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'instructor': instance.instructor,
+  'users': instance.users?.map((e) => e.toJson()).toList(),
+  'meeting_url': instance.meetingUrl,
+  'session_date': instance.sessionDate?.toIso8601String(),
+  'session_time': instance.sessionTime,
+  'session_datetime': instance.sessionDatetime?.toIso8601String(),
+  'duration': instance.duration,
+  'student_join_time': instance.studentJoinTime?.toIso8601String(),
+  'instructor_join_time': instance.instructorJoinTime,
+  'program_title': instance.programTitle,
+  'program_id': instance.programId,
+  'status': instance.status,
+};
 
 SessionUserModel _$SessionUserModelFromJson(Map<String, dynamic> json) =>
     SessionUserModel()
@@ -71,7 +71,4 @@ SessionUserModel _$SessionUserModelFromJson(Map<String, dynamic> json) =>
       ..userName = json['user_name'] as String?;
 
 Map<String, dynamic> _$SessionUserModelToJson(SessionUserModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'user_name': instance.userName,
-    };
+    <String, dynamic>{'id': instance.id, 'user_name': instance.userName};

@@ -13,11 +13,16 @@ class LibraryView extends StatefulWidget {
 
 class _LibraryViewState extends State<LibraryView>
     with SingleTickerProviderStateMixin {
+  // @override
+  // void initState() {
+  //
+  //   super.initState();
+  // }
   @override
-  void initState() {
+  void didChangeDependencies() {
     LibraryCubit.get(context).initTabController(this, context);
     LibraryCubit.get(context).getLibraryCategories();
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override

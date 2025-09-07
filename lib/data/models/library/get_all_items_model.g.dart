@@ -37,15 +37,15 @@ ItemModel _$ItemModelFromJson(Map<String, dynamic> json) => ItemModel()
   ..liked = json['liked'] as bool?;
 
 Map<String, dynamic> _$ItemModelToJson(ItemModel instance) => <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'description': instance.description,
-      'image': instance.image,
-      'file': instance.file,
-      'file_type': instance.fileType,
-      'library_list_id': instance.libraryListId,
-      'payment_type': instance.paymentType,
-      'item_type': instance.itemType,
-      'created_at': instance.createdAt?.toIso8601String(),
-      'liked': instance.liked,
-    };
+  'id': instance.id,
+  'title': instance.title,
+  'description': instance.description,
+  'image': instance.image,
+  'file': instance.file,
+  'file_type': instance.fileType,
+  'library_list_id': instance.libraryListId,
+  'payment_type': instance.paymentType,
+  'item_type': instance.itemType,
+  'created_at': instance.createdAt?.toIso8601String(),
+  'liked': instance.liked,
+};

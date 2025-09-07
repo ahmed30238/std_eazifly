@@ -67,7 +67,7 @@ class _StudentManagementViewState extends State<StudentManagementView> {
                       var child = children[index];
                       return StudentDataItem(
                         onChildTap: (){},
-                        age: child.age ?? "",
+                        age: child.age.toString(),
                         image: child.image ?? "",
                         name: "${child.firstName} ${child.lastName}",
                         phoneNumber: child.phone ?? "",

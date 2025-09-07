@@ -11,6 +11,7 @@ import 'package:eazifly_student/domain/use_cases/change_session_date_usecase.dar
 import 'package:eazifly_student/domain/use_cases/get_cancel_session_reasons_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_instructor_availabilities_usecase.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/widgets/cancel_sessions_reasons_body.dart';
 import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/widgets/choose_new_dates_options_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
@@ -25,6 +26,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     required this.changeSessionDateUsecase,
   }) : super(CancelsessionInitial());
   List<bool> cancelSessionReasons = [];
+
   initCancelSessionReasons() {
     if (getCancelReasonsEntity?.data != null) {
       cancelSessionReasons =
@@ -63,6 +65,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
 
   int bodyIndex = 0;
   double linearIndicatorPercent = .25;
+
   void incrementBodyIndex() {
     if (bodyIndex < bodies.length) {
       if (cancelSession) {
@@ -93,6 +96,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
 
   bool chooseNewDateOption = false;
   bool cancelSession = false;
+
   void toggleChooseNewDateOption() {
     chooseNewDateOption = !chooseNewDateOption;
     cancelSession = false;
@@ -115,6 +119,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
   bool getCancelReasonsLoader = false;
   GetCancelSessionReasonEntity? getCancelReasonsEntity;
   GetCancelSessionReasonsUsecase getCancelSessionReasonsUsecase;
+
   Future<void> getCancelReasons() async {
     getCancelReasonsLoader = true;
     emit(GetCancelReasonsLoadingState());
@@ -138,6 +143,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
   bool getInstructorAvailabilitiesLoader = false;
   GetInstructorAvailabilitiesEntity? getInstructorAvailabilitiesEntity;
   GetInstructorAvailabilitiesUsecase getInstructorAvailabilitiesUsecase;
+
   Future<void> getInstructorAvailabilities({
     required int instructorId,
     required int duration,
@@ -170,12 +176,20 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
   bool postCancelSessionLoader = false;
   CancelSessionEntity? postCancelSessionEntity;
   CancelSessionUsecase cancelSessionUsecase;
+
   Future<void> postCancelSession(BuildContext context) async {
+    int currentStudentIndex = context.read<LectureCubit>().currentUserIndex;
+    log("$currentStudentIndex");
+    log("host is ${context
+        .read<MyProgramsCubit>()
+        .getAssignedChildrenToProgramEntity
+        ?.data?.first.host}");
     int sessionId = context
-            .read<LectureCubit>()
-            .showProgramDetailsEntity
+            .read<MyProgramsCubit>()
+            .getAssignedChildrenToProgramEntity
             ?.data
-            ?.nextSession
+            ?[currentStudentIndex]
+            .nextSession
             ?.id ??
         -1;
     log("cancel this session id $sessionId");

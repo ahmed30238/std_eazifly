@@ -124,7 +124,6 @@ class CreateOrderStatusEntity {
   String? label;
   @JsonKey(name: "key")
   String? key;
-
   @JsonKey(name: "color")
   String? color;
 

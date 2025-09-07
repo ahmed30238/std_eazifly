@@ -7,21 +7,21 @@ part of 'add_single_item_to_fav_list_model.dart';
 // **************************************************************************
 
 AddSingleItemToFavListModel _$AddSingleItemToFavListModelFromJson(
-        Map<String, dynamic> json) =>
-    AddSingleItemToFavListModel()
-      ..data = json['data'] == null
-          ? null
-          : FavouriteDatumModel.fromJson(json['data'] as Map<String, dynamic>)
-      ..status = (json['status'] as num?)?.toInt()
-      ..message = json['message'] as String?;
+  Map<String, dynamic> json,
+) => AddSingleItemToFavListModel()
+  ..data = json['data'] == null
+      ? null
+      : FavouriteDatumModel.fromJson(json['data'] as Map<String, dynamic>)
+  ..status = (json['status'] as num?)?.toInt()
+  ..message = json['message'] as String?;
 
 Map<String, dynamic> _$AddSingleItemToFavListModelToJson(
-        AddSingleItemToFavListModel instance) =>
-    <String, dynamic>{
-      'data': instance.data?.toJson(),
-      'status': instance.status,
-      'message': instance.message,
-    };
+  AddSingleItemToFavListModel instance,
+) => <String, dynamic>{
+  'data': instance.data?.toJson(),
+  'status': instance.status,
+  'message': instance.message,
+};
 
 FavItemModel _$FavItemModelFromJson(Map<String, dynamic> json) => FavItemModel()
   ..id = (json['id'] as num?)?.toInt()

@@ -118,14 +118,11 @@ delightfulToast({
     // snackbarDuration: Duration(microseconds: 400),
     builder: (context) => ToastCard(
       color: toastColor,
-      leading: const Icon(
-        Icons.flutter_dash,
-        size: 28,
-      ),
+      leading: Image.asset(Assets.imagesAppLogo),
       title: Text(
         message,
-        style: const TextStyle(
-          fontWeight: FontWeight.w700,
+        style: MainTextStyle.boldTextStyle(
+          // fontWeight: FontWeight.w700,
           fontSize: 14,
         ),
       ),

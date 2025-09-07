@@ -22,26 +22,26 @@ Map<String, dynamic> _$CheckCopounModelToJson(CheckCopounModel instance) =>
     };
 
 CheckCopounDataModel _$CheckCopounDataModelFromJson(
-        Map<String, dynamic> json) =>
-    CheckCopounDataModel()
-      ..id = (json['id'] as num?)?.toInt()
-      ..code = json['code'] as String?
-      ..discount = (json['discount'] as num?)?.toInt()
-      ..discountType = json['discount_type'] as String?
-      ..expireDate = json['expire_date'] == null
-          ? null
-          : DateTime.parse(json['expire_date'] as String)
-      ..timesUsed = (json['times_used'] as num?)?.toInt()
-      ..alreadyUsed = (json['already_used'] as num?)?.toInt();
+  Map<String, dynamic> json,
+) => CheckCopounDataModel()
+  ..id = (json['id'] as num?)?.toInt()
+  ..code = json['code'] as String?
+  ..discount = (json['discount'] as num?)?.toInt()
+  ..discountType = json['discount_type'] as String?
+  ..expireDate = json['expire_date'] == null
+      ? null
+      : DateTime.parse(json['expire_date'] as String)
+  ..timesUsed = (json['times_used'] as num?)?.toInt()
+  ..alreadyUsed = (json['already_used'] as num?)?.toInt();
 
 Map<String, dynamic> _$CheckCopounDataModelToJson(
-        CheckCopounDataModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'code': instance.code,
-      'discount': instance.discount,
-      'discount_type': instance.discountType,
-      'expire_date': instance.expireDate?.toIso8601String(),
-      'times_used': instance.timesUsed,
-      'already_used': instance.alreadyUsed,
-    };
+  CheckCopounDataModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'code': instance.code,
+  'discount': instance.discount,
+  'discount_type': instance.discountType,
+  'expire_date': instance.expireDate?.toIso8601String(),
+  'times_used': instance.timesUsed,
+  'already_used': instance.alreadyUsed,
+};

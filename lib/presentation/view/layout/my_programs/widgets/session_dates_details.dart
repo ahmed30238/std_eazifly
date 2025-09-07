@@ -13,6 +13,7 @@ class SessionDatesDetails extends StatelessWidget {
   final double? fixedFontSize;
   final bool isBtn;
   final VoidCallback onRejoinTap;
+
   const SessionDatesDetails({
     super.key,
     this.margin,
@@ -105,8 +106,8 @@ class SessionDatesDetails extends StatelessWidget {
                     fontSize: 10,
                     height: 26.h,
                     text: thirdSubTitle,
-                    btnColor: MainColors.error,
-                    textColor: MainColors.onError,
+                    btnColor: MainColors.onError,
+                    textColor: MainColors.error,
                   ).center(),
                   // Text(
                   //   thirdSubTitle,

@@ -1,8 +1,9 @@
 import 'package:eazifly_student/domain/entities/sessions/change_session_date_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../../domain/entities/children_entities/get_my_children_entity.dart';
+
 part 'change_session_date_model.g.dart';
-
-
 
 @JsonSerializable(explicitToJson: true)
 class ChangeSessionDateModel extends ChangeSessionDateEntity {
@@ -24,7 +25,7 @@ class ChangeSessionDateDataModel extends ChangeSessionDateDataEntity {
   Map<String, dynamic> toJson() => _$ChangeSessionDateDataModelToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class ChangeSessionDateUserModel extends ChangeSessionDateUserEntity {
   ChangeSessionDateUserModel();
 
@@ -32,4 +33,14 @@ class ChangeSessionDateUserModel extends ChangeSessionDateUserEntity {
       _$ChangeSessionDateUserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ChangeSessionDateUserModelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class ChangeSessionDateStatusModel extends StatusLabelEntity {
+  ChangeSessionDateStatusModel();
+
+  factory ChangeSessionDateStatusModel.fromJson(Map<String, dynamic> json) =>
+      _$ChangeSessionDateStatusModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ChangeSessionDateStatusModelToJson(this);
 }

@@ -59,41 +59,38 @@ DataModel _$DataModelFromJson(Map<String, dynamic> json) => DataModel()
   ..chatId = json['chat_id'];
 
 Map<String, dynamic> _$DataModelToJson(DataModel instance) => <String, dynamic>{
-      'id': instance.id,
-      'first_name': instance.firstName,
-      'last_name': instance.lastName,
-      'user_name': instance.userName,
-      'email': instance.email,
-      'parent_id': instance.parentId,
-      'phone': instance.phone,
-      'whats_app': instance.whatsApp,
-      'image': instance.image,
-      'gender': instance.gender,
-      'parent_name': instance.parentName,
-      'user_coupon': instance.userCoupon,
-      'bonus': instance.bonus,
-      'childrens': instance.childrens?.map((e) => e.toJson()).toList(),
-      'age': instance.age,
-      'token': instance.token,
-      'is_guest': instance.isGuest,
-      'fcm_token': instance.fcmToken,
-      'created_at': instance.createdAt?.toIso8601String(),
-      'last_active_at': instance.lastActiveAt?.toIso8601String(),
-      'renew_data': instance.renewData?.toIso8601String(),
-      'status_label': instance.statusLabel?.toJson(),
-      'programs': instance.programs?.map((e) => e.toJson()).toList(),
-      'chat_id': instance.chatId,
-    };
+  'id': instance.id,
+  'first_name': instance.firstName,
+  'last_name': instance.lastName,
+  'user_name': instance.userName,
+  'email': instance.email,
+  'parent_id': instance.parentId,
+  'phone': instance.phone,
+  'whats_app': instance.whatsApp,
+  'image': instance.image,
+  'gender': instance.gender,
+  'parent_name': instance.parentName,
+  'user_coupon': instance.userCoupon,
+  'bonus': instance.bonus,
+  'childrens': instance.childrens?.map((e) => e.toJson()).toList(),
+  'age': instance.age,
+  'token': instance.token,
+  'is_guest': instance.isGuest,
+  'fcm_token': instance.fcmToken,
+  'created_at': instance.createdAt?.toIso8601String(),
+  'last_active_at': instance.lastActiveAt?.toIso8601String(),
+  'renew_data': instance.renewData?.toIso8601String(),
+  'status_label': instance.statusLabel?.toJson(),
+  'programs': instance.programs?.map((e) => e.toJson()).toList(),
+  'chat_id': instance.chatId,
+};
 
 ProgramModel _$ProgramModelFromJson(Map<String, dynamic> json) => ProgramModel()
   ..title = json['title'] as String?
   ..image = json['image'] as String?;
 
 Map<String, dynamic> _$ProgramModelToJson(ProgramModel instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'image': instance.image,
-    };
+    <String, dynamic>{'title': instance.title, 'image': instance.image};
 
 StatusLabelModel _$StatusLabelModelFromJson(Map<String, dynamic> json) =>
     StatusLabelModel()
@@ -101,7 +98,4 @@ StatusLabelModel _$StatusLabelModelFromJson(Map<String, dynamic> json) =>
       ..color = json['color'] as String?;
 
 Map<String, dynamic> _$StatusLabelModelToJson(StatusLabelModel instance) =>
-    <String, dynamic>{
-      'label': instance.label,
-      'color': instance.color,
-    };
+    <String, dynamic>{'label': instance.label, 'color': instance.color};

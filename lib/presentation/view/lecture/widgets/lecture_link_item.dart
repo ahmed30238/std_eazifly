@@ -4,12 +4,14 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 class LectureLink extends StatelessWidget {
   final MainAxisAlignment? linkAlignment;
   final double? width;
+  final String host;
   final LectureStatesEnum? state;
   final VoidCallback onLinkTap;
   final int programId;
   const LectureLink({
     super.key,
     this.width,
+    required this.host,
     this.linkAlignment,
     this.state = LectureStatesEnum.pending,
     required this.onLinkTap, required this.programId,
@@ -42,7 +44,7 @@ class LectureLink extends StatelessWidget {
               InkWell(
                 onTap: onLinkTap,
                 child: Text(
-                  "Zoom Link",
+                  "$host Link",
                   style: MainTextStyle.mediumTextStyle(
                     fontSize: 14,
                     color: state == LectureStatesEnum.finished

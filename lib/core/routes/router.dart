@@ -19,7 +19,6 @@ import 'package:eazifly_student/presentation/controller/library_controller/libra
 import 'package:eazifly_student/presentation/controller/meetings_controller/meeting_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/notifications_controller/notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
-import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
@@ -216,17 +215,8 @@ class AppRouter {
         var arguments = settings.arguments as Map<String, dynamic>;
         var programId = arguments["programId"] as int;
         return createRoute(
-          BlocProvider(
-            create: (context) => MyProgramsCubit(
-              changeSessionStatusUsecase: sl(),
-              getAssignedChildrenToProgramUsecase: sl(),
-              getMyProgramsUsecase: sl(),
-              getSessionDetailsUsecase: sl(),
-              joinSessionUsecase: sl(),
-            ),
-            child: LectureView(
-              programId: programId,
-            ),
+          LectureView(
+            programId: programId,
           ),
         );
       case RoutePaths.lectureDetailsView:
@@ -395,15 +385,6 @@ class AppRouter {
                   requestToFindInstructorUsecase: sl(),
                 ),
               ),
-              BlocProvider(
-                create: (context) => MyProgramsCubit(
-                  changeSessionStatusUsecase: sl(),
-                  getAssignedChildrenToProgramUsecase: sl(),
-                  getMyProgramsUsecase: sl(),
-                  getSessionDetailsUsecase: sl(),
-                  joinSessionUsecase: sl(),
-                ),
-              ),
             ],
             child: ChangeLecturerView(
               programId: programId,
@@ -414,15 +395,6 @@ class AppRouter {
         return createRoute(
           MultiBlocProvider(
             providers: [
-              BlocProvider(
-                create: (context) => MyProgramsCubit(
-                  changeSessionStatusUsecase: sl(),
-                  getAssignedChildrenToProgramUsecase: sl(),
-                  getMyProgramsUsecase: sl(),
-                  getSessionDetailsUsecase: sl(),
-                  joinSessionUsecase: sl(),
-                ),
-              ),
               BlocProvider(
                 create: (context) => UpdatechildprofileCubit(
                   removeAssignedStudentUsecase: sl(),
@@ -794,13 +766,9 @@ class AppRouter {
       case RoutePaths.navigateToLectureView:
         var arguments = settings.arguments as Map<String, dynamic>;
         int sessionId = arguments["sessionId"] as int;
-        MyProgramsCubit cubit = arguments["cubit"] as MyProgramsCubit;
         return createRoute(
-          BlocProvider.value(
-            value: cubit,
-            child: NavigateToLectureView(
-              sessionId: sessionId,
-            ),
+          NavigateToLectureView(
+            sessionId: sessionId,
           ),
         );
       case RoutePaths.currentSession:

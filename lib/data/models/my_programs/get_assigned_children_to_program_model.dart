@@ -3,6 +3,8 @@
 import 'package:eazifly_student/domain/entities/my_programs/get_assigned_children_to_program_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../domain/entities/my_programs/show_program_details_entity.dart';
+
 part 'get_assigned_children_to_program_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -50,6 +52,7 @@ class InstructorAssiignedDataModel extends InstructorAssiignedDataEntity {
 
   factory InstructorAssiignedDataModel.fromJson(Map<String, dynamic> json) =>
       _$InstructorAssiignedDataModelFromJson(json);
+
   Map<String, dynamic> toJson() => _$InstructorAssiignedDataModelToJson(this);
 }
 
@@ -64,4 +67,16 @@ class GetAssignedChildrenToProgramStatusLabelModel
 
   Map<String, dynamic> toJson() =>
       _$GetAssignedChildrenToProgramStatusLabelModelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetAssignedChildrenNextSessionModel extends NextSessionEntity {
+  GetAssignedChildrenNextSessionModel();
+
+  factory GetAssignedChildrenNextSessionModel.fromJson(
+          Map<String, dynamic> json) =>
+      _$GetAssignedChildrenNextSessionModelFromJson(json);
+
+  Map<String, dynamic> toJson() =>
+      _$GetAssignedChildrenNextSessionModelToJson(this);
 }

@@ -3,6 +3,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class NextLectureList extends StatelessWidget {
   final bool isHorizontal;
+
   const NextLectureList({
     super.key,
     this.isHorizontal = true,
@@ -10,6 +11,7 @@ class NextLectureList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lang = context.loc!;
     var cubit = context.read<HomeCubit>();
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
@@ -24,15 +26,17 @@ class NextLectureList extends StatelessWidget {
             itemBuilder: (context, index) {
               var session = closestSessions?[index];
               return NextLectureItem(
-                isRejoin: session?.status == "started",
+                oneItem: closestSessions?.length == 1,
+                isRejoin: session?.status?.key == "started",
                 onRejoinTap: () {
                   openUrl(session?.meetingUrl ?? "");
                 },
                 sessionState:
                     "${session?.sessionDate.toString().substring(0, 10)}",
-                sessionDuration: "${session?.duration} دقيقة",
+                sessionDuration: "${session?.duration} ${lang.minutes}",
                 sessionTime: convertTo12HourFormat(
-                    int.tryParse(session?.sessionTime?.split(":").first ?? "") ??
+                    int.tryParse(
+                            session?.sessionTime?.split(":").first ?? "") ??
                         0,
                     int.tryParse(session?.sessionTime?.split(":")[1] ?? "") ??
                         0),

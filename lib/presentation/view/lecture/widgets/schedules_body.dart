@@ -5,7 +5,13 @@ import 'package:intl/intl.dart';
 
 class SchedulesBody extends StatelessWidget {
   final bool isFinished;
-  const SchedulesBody({super.key, required this.isFinished});
+  final int childIndex;
+
+  const SchedulesBody({
+    super.key,
+    required this.isFinished,
+    required this.childIndex,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +27,7 @@ class SchedulesBody extends StatelessWidget {
                 .format(session.sessionDate ?? DateTime.now()))
             .toList();
         return ScheduleItem(
+          index: childIndex,
           date: session.sessionDate?.toIso8601String().substring(0, 10) ?? "",
           day: days[index],
           state: session.status?.key ?? "",

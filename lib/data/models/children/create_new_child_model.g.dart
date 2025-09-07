@@ -15,12 +15,12 @@ CreateNewChildModel _$CreateNewChildModelFromJson(Map<String, dynamic> json) =>
       ..message = json['message'] as String?;
 
 Map<String, dynamic> _$CreateNewChildModelToJson(
-        CreateNewChildModel instance) =>
-    <String, dynamic>{
-      'data': instance.data?.toJson(),
-      'status': instance.status,
-      'message': instance.message,
-    };
+  CreateNewChildModel instance,
+) => <String, dynamic>{
+  'data': instance.data?.toJson(),
+  'status': instance.status,
+  'message': instance.message,
+};
 
 NewChildModel _$NewChildModelFromJson(Map<String, dynamic> json) =>
     NewChildModel()
@@ -31,13 +31,13 @@ NewChildModel _$NewChildModelFromJson(Map<String, dynamic> json) =>
       ..email = json['email'] as String?
       ..phone = json['phone'] as String?
       ..whatsApp = json['whats_app'] as String?
-      ..image = json['image']
+      ..image = json['image'] as String?
       ..gender = json['gender'] as String?
       ..parentName = json['parent_name'] as String?
       ..userCoupon = json['user_coupon'] as String?
-      ..bonus = json['bonus'] as String?
+      ..bonus = MyChildEntity.customInt(json['bonus'])
       ..childrens = json['childrens'] as List<dynamic>?
-      ..age = json['age'] as String?
+      ..age = MyChildEntity.customInt(json['age'])
       ..token = json['token'] as String?
       ..isGuest = json['is_guest'] as bool?
       ..fcmToken = json['fcm_token']
@@ -49,7 +49,8 @@ NewChildModel _$NewChildModelFromJson(Map<String, dynamic> json) =>
       ..statusLabel = json['status_label'] == null
           ? null
           : ChildrenStatusLabelModel.fromJson(
-              json['status_label'] as Map<String, dynamic>)
+              json['status_label'] as Map<String, dynamic>,
+            )
       ..programs = json['programs'] as List<dynamic>?
       ..chatId = json['chat_id'];
 
@@ -83,10 +84,12 @@ Map<String, dynamic> _$NewChildModelToJson(NewChildModel instance) =>
 StatusLabelModel _$StatusLabelModelFromJson(Map<String, dynamic> json) =>
     StatusLabelModel()
       ..label = json['label'] as String?
-      ..color = json['color'] as String?;
+      ..color = json['color'] as String?
+      ..key = json['key'] as String?;
 
 Map<String, dynamic> _$StatusLabelModelToJson(StatusLabelModel instance) =>
     <String, dynamic>{
       'label': instance.label,
       'color': instance.color,
+      'key': instance.key,
     };

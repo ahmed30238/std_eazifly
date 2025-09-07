@@ -7,23 +7,21 @@ part of 'get_favourite_list_items_using_list_id_model.dart';
 // **************************************************************************
 
 GetFavouriteListItemsUsingListIdModel
-    _$GetFavouriteListItemsUsingListIdModelFromJson(
-            Map<String, dynamic> json) =>
-        GetFavouriteListItemsUsingListIdModel()
-          ..data = (json['data'] as List<dynamic>?)
-              ?.map(
-                  (e) => FavouriteItemModel.fromJson(e as Map<String, dynamic>))
-              .toList()
-          ..status = (json['status'] as num?)?.toInt()
-          ..message = json['message'] as String?;
+_$GetFavouriteListItemsUsingListIdModelFromJson(Map<String, dynamic> json) =>
+    GetFavouriteListItemsUsingListIdModel()
+      ..data = (json['data'] as List<dynamic>?)
+          ?.map((e) => FavouriteItemModel.fromJson(e as Map<String, dynamic>))
+          .toList()
+      ..status = (json['status'] as num?)?.toInt()
+      ..message = json['message'] as String?;
 
 Map<String, dynamic> _$GetFavouriteListItemsUsingListIdModelToJson(
-        GetFavouriteListItemsUsingListIdModel instance) =>
-    <String, dynamic>{
-      'data': instance.data?.map((e) => e.toJson()).toList(),
-      'status': instance.status,
-      'message': instance.message,
-    };
+  GetFavouriteListItemsUsingListIdModel instance,
+) => <String, dynamic>{
+  'data': instance.data?.map((e) => e.toJson()).toList(),
+  'status': instance.status,
+  'message': instance.message,
+};
 
 FavouriteItemModel _$FavouriteItemModelFromJson(Map<String, dynamic> json) =>
     FavouriteItemModel()

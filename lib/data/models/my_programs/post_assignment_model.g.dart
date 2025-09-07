@@ -13,9 +13,9 @@ PostAssignmentModel _$PostAssignmentModelFromJson(Map<String, dynamic> json) =>
       ..message = json['message'] as String?;
 
 Map<String, dynamic> _$PostAssignmentModelToJson(
-        PostAssignmentModel instance) =>
-    <String, dynamic>{
-      'data': instance.data,
-      'status': instance.status,
-      'message': instance.message,
-    };
+  PostAssignmentModel instance,
+) => <String, dynamic>{
+  'data': instance.data,
+  'status': instance.status,
+  'message': instance.message,
+};

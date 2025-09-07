@@ -15,9 +15,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
   LayoutCubit() : super(LayoutInitial());
+
   static LayoutCubit get(context) => BlocProvider.of(context);
 
   int index = 0;
+
   void changeIndex(int inx) {
     index = inx;
     emit(ChangeIndexState());
@@ -26,13 +28,8 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<Widget> screens = [
     MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => MyProgramsCubit(
-              getMyProgramsUsecase: sl(),
-              getSessionDetailsUsecase: sl(),
-              joinSessionUsecase: sl(),
-              getAssignedChildrenToProgramUsecase: sl(),
-              changeSessionStatusUsecase: sl()),
+        BlocProvider.value(
+          value: sl<MyProgramsCubit>(),
         ),
         BlocProvider(
           create: (context) => LibraryCubit(
@@ -57,8 +54,8 @@ class LayoutCubit extends Cubit<LayoutState> {
       ),
       child: const ProgramsView(),
     ),
-    BlocProvider(
-      create: (context) => sl<MyProgramsCubit>(),
+    BlocProvider.value(
+      value: sl<MyProgramsCubit>(),
       child: const MyProgramsView(),
     ),
     BlocProvider(

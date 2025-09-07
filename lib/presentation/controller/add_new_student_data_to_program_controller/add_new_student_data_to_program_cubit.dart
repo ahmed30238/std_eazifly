@@ -8,14 +8,16 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class AddNewStudentDataToProgramCubit
     extends Cubit<AddNewStudentDataToProgramState> {
-  AddNewStudentDataToProgramCubit({
-    required this.createNewChildUsecase,
-  }) : super(AddNewStudentDataToProgramInitial());
+  AddNewStudentDataToProgramCubit({required this.createNewChildUsecase})
+    : super(AddNewStudentDataToProgramInitial());
+
   static AddNewStudentDataToProgramCubit get(context) =>
       BlocProvider.of(context);
+
   // double linearIndicatorPercent = .2; // between 0 and 1
   int screenIndex = 0;
   int selectedLecturerIndex = 0;
+
   changeLecturerIndex(int index) {
     selectedLecturerIndex = index;
     emit(ChangeLecturerIndexState());
@@ -23,21 +25,20 @@ class AddNewStudentDataToProgramCubit
 
   TabController? controller;
   bool createPassVisible = false;
+
   void changeCreatePassVisibility() {
     createPassVisible = !createPassVisible;
     emit(ChangePasswordVisibility());
   }
 
   bool confirmPassVisible = false;
+
   void changeConfirmPassisiblity() {
     confirmPassVisible = !confirmPassVisible;
     emit(ChangeConfirmPasswordVisibility());
   }
 
-  final List<String> tabs = [
-    "مواعيد ثابتة",
-    'مواعيد مرنة',
-  ];
+  final List<String> tabs = ["مواعيد ثابتة", 'مواعيد مرنة'];
 
   void initTabBarController(TickerProvider vsync) {
     controller = TabController(length: tabs.length, vsync: vsync);
@@ -95,6 +96,7 @@ class AddNewStudentDataToProgramCubit
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
+
   void clearControllers() {
     userNameController.clear();
     confirmPasswordController.clear();
@@ -110,6 +112,7 @@ class AddNewStudentDataToProgramCubit
   }
 
   bool isAssignToProgram = false;
+
   void fillIsAssignToProgram(bool val) {
     isAssignToProgram = val;
   }
@@ -129,17 +132,24 @@ class AddNewStudentDataToProgramCubit
   // TextEditingController ageController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   File? profileImage;
+  bool isPicking = false;
+
   Future<void> pickProfileImageFroGallery() async {
-    final response = await pickImageFromGallery();
-    if (response != null) {
-      profileImage = File(response.path);
+    if (!isPicking) {
+      isPicking = true;
+      final response = await pickImageFromGallery();
+      if (response != null) {
+        profileImage = File(response.path);
+      }
     }
+    isPicking = false;
     emit(PickImageFromGallerySuccessState());
   }
 
   CreateNewChildEntity? createNewChildEntity;
   CreateNewChildUsecase createNewChildUsecase;
   bool createNewChildLoader = false;
+
   Future<void> createNewChild(
     BuildContext context, {
     int? orderId,
@@ -179,7 +189,8 @@ class AddNewStudentDataToProgramCubit
             whatsApp: whatsAppController.text,
             email: emailController.text,
             phone: phoneController.text,
-            image: imagePath, // أرسل المسار كـ String
+            image: imagePath,
+            // أرسل المسار كـ String
             firstName: firstNameController.text,
             gender: genderIndex == 0 ? "male" : "female",
             lastName: lastNameController.text,
@@ -204,10 +215,7 @@ class AddNewStudentDataToProgramCubit
 
           isAssignToProgram == true
               ? Navigator.pushNamed(
-                  arguments: {
-                    "orderId": orderId,
-                    "programId": programId,
-                  },
+                  arguments: {"orderId": orderId, "programId": programId},
                   context,
                   RoutePaths.groupPackageManagement,
                 )

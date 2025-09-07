@@ -27,8 +27,9 @@ GetPlansDataModel _$GetPlansDataModelFromJson(Map<String, dynamic> json) =>
           (json['number_of_session_per_week'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList()
-      ..duration =
-          (json['duration'] as List<dynamic>?)?.map((e) => e as String).toList()
+      ..duration = (json['duration'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList()
       ..subscripeDays = (json['subscripe_days'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList();

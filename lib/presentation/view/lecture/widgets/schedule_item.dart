@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
-import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
+import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/widgets/time_selection_bottomsheet.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -12,6 +12,7 @@ class ScheduleItem extends StatelessWidget {
   final int sessionId;
   final String state;
   final String statusLabel;
+  final int index;
 
   const ScheduleItem({
     super.key,
@@ -22,6 +23,7 @@ class ScheduleItem extends StatelessWidget {
     required this.sessionId,
     required this.state,
     required this.statusLabel,
+    required this.index,
   });
 
   @override
@@ -85,13 +87,16 @@ class ScheduleItem extends StatelessWidget {
             27.pw,
             state != "pending"
                 ? Text(
-              statusLabel,
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 12,
-                color: MainColors.onError,
-              ),
-            )
-                : EditSessionDateArea(sessionId: sessionId),
+                    statusLabel,
+                    style: MainTextStyle.boldTextStyle(
+                      fontSize: 12,
+                      color: MainColors.error,
+                    ),
+                  )
+                : EditSessionDateArea(
+                    sessionId: sessionId,
+                    index: index,
+                  ),
           ],
         ),
       ),
@@ -103,9 +108,11 @@ class EditSessionDateArea extends StatelessWidget {
   const EditSessionDateArea({
     super.key,
     required this.sessionId,
+    required this.index,
   });
 
   final int sessionId;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -116,24 +123,24 @@ class EditSessionDateArea extends StatelessWidget {
 
         await read.getInstructorAvailabilities(
           instructorId: (int.tryParse(
-            context
-                .read<LectureCubit>()
-                .showProgramDetailsEntity
-                ?.data
-                ?.nextSession
-                ?.instructorId ??
-                "",
-          )) ??
+                context
+                        .read<MyProgramsCubit>()
+                        .getAssignedChildrenToProgramEntity
+                        ?.data?[index]
+                        .nextSession
+                        ?.instructorId ??
+                    "",
+              )) ??
               -1,
           duration: (int.tryParse(
-            context
-                .read<LectureCubit>()
-                .showProgramDetailsEntity
-                ?.data
-                ?.nextSession
-                ?.duration ??
-                "",
-          )) ??
+                context
+                        .read<MyProgramsCubit>()
+                        .getAssignedChildrenToProgramEntity
+                        ?.data?[index]
+                        .nextSession
+                        ?.duration ??
+                    "",
+              )) ??
               -1,
         );
         final availabilityData = context
