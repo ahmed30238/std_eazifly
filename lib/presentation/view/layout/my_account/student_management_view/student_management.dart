@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/presentation/controller/children_controller/children_cubit.dart';
 import 'package:eazifly_student/presentation/controller/children_controller/children_state.dart';
@@ -15,6 +17,7 @@ class StudentManagementView extends StatefulWidget {
 
 class _StudentManagementViewState extends State<StudentManagementView> {
   late ChildrenCubit cubit;
+
   @override
   void initState() {
     cubit = context.read<ChildrenCubit>();
@@ -61,12 +64,22 @@ class _StudentManagementViewState extends State<StudentManagementView> {
                 child: RefreshIndicator(
                   onRefresh: () async => cubit.getMyChildren(),
                   child: ListView.separated(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 16.h,
+                    ),
                     itemBuilder: (context, index) {
                       var child = children[index];
                       return StudentDataItem(
-                        onChildTap: (){},
+                        onChildTap: () {
+                          int userId = child.id ?? -1;
+                          log("$userId");
+                          Navigator.pushNamed(
+                            context,
+                            RoutePaths.updateChildProfile,
+                            arguments: {"userId": userId, "fromSettings": true},
+                          );
+                        },
                         age: child.age.toString(),
                         image: child.image ?? "",
                         name: "${child.firstName} ${child.lastName}",
@@ -86,7 +99,7 @@ class _StudentManagementViewState extends State<StudentManagementView> {
           ),
           // if (cubit.getMyChildrenEntity?.data == null ||
           //     (cubit.getMyChildrenEntity?.data?.isEmpty ?? true))
-            // const Spacer(),
+          // const Spacer(),
           8.ph,
           CustomElevatedButton(
             text: "إضافة طالب جديد",

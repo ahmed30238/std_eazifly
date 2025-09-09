@@ -24,10 +24,9 @@ class ProblemState extends StatelessWidget {
           "انتهت",
           style: MainTextStyle.boldTextStyle(
             fontSize: 12,
-            color: MainColors.onError,
+            color: MainColors.error,
           ),
         );
-
       default:
         return const SizedBox();
     }

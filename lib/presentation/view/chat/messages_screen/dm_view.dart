@@ -28,10 +28,10 @@ class DmView extends StatefulWidget {
     this.orderId,
     required this.chatId,
   }) : assert(
-          // التأكد من أن orderId يُمرر فقط عندما isReport = true
-          !isReport || orderId != null,
-          'orderId is required when isReport is true',
-        );
+         // التأكد من أن orderId يُمرر فقط عندما isReport = true
+         !isReport || orderId != null,
+         'orderId is required when isReport is true',
+       );
 
   @override
   State<DmView> createState() => _DmViewState();
@@ -82,7 +82,7 @@ class _DmViewState extends State<DmView> {
 
   @override
   Widget build(BuildContext context) {
-    String getTitle() {
+    String? getTitle() {
       if (cubit.controller?.index == 0) {
         return cubit.currentInstructor?.name ?? "";
       } else {
@@ -90,7 +90,7 @@ class _DmViewState extends State<DmView> {
       }
     }
 
-    String getAvatar() {
+    String? getAvatar() {
       if (cubit.controller?.index == 0) {
         return cubit.currentInstructor?.image ?? "";
       } else {
@@ -118,15 +118,15 @@ class _DmViewState extends State<DmView> {
                           height: 26.h,
                         )
                       : widget.problemState == "انتهت"
-                          ? TextedContainer(
-                              text: "انتهت",
-                              radius: 12.r,
-                              containerColor: MainColors.error,
-                              textColor: MainColors.onError,
-                              width: 65.w,
-                              height: 26.h,
-                            )
-                          : const SizedBox(),
+                      ? TextedContainer(
+                          text: "انتهت",
+                          radius: 12.r,
+                          containerColor: MainColors.error,
+                          textColor: MainColors.onError,
+                          width: 65.w,
+                          height: 26.h,
+                        )
+                      : const SizedBox(),
                 ),
               ],
             )
@@ -138,8 +138,16 @@ class _DmViewState extends State<DmView> {
               isDmView: true,
               isCenterTitle: true,
               mainTitle: "",
-              dmTitle: getTitle(),
-              dmImageUrl: getAvatar(),
+              dmTitle:
+                  cubit.currentInstructor?.name ??
+                  cubit.currentClient?.name ??
+                  "",
+              // getTitle(),
+              dmImageUrl:
+                  cubit.currentInstructor?.image ??
+                  cubit.currentClient?.name ??
+                  "",
+              // getAvatar() ?? ,
               leadingText: "الرسائل",
               leadingIcon: Icons.arrow_back_ios,
               customAction: [
@@ -153,13 +161,11 @@ class _DmViewState extends State<DmView> {
                       fit: BoxFit.scaleDown,
                     ),
                   ),
-                )
+                ),
               ],
             ),
       body: widget.isReport
-          ? ReportBodyView(
-              order: myOrder!,
-            )
+          ? ReportBodyView(order: myOrder!)
           : DmBody(cubit: cubit, widget: widget),
     );
   }

@@ -7,6 +7,10 @@ import 'package:eazifly_student/presentation/view/layout/home_page/current_sessi
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_stats_row.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
+import '../../../../controller/chats/chats_state.dart';
+import '../../../../controller/my_programs/myprograms_cubit.dart';
+import '../../../lecture/widgets/lecture_state_helper.dart';
+
 class CurrentSession extends StatefulWidget {
   const CurrentSession({super.key});
 
@@ -78,13 +82,17 @@ class _CurrentSessionState extends State<CurrentSession> {
                           Text(
                             "إسم البرنامج",
                             style: MainTextStyle.boldTextStyle(
-                                fontSize: 11, color: MainColors.onSurfaceSecondary),
+                              fontSize: 11,
+                              color: MainColors.onSurfaceSecondary,
+                            ),
                           ),
                           10.5.ph,
                           Text(
                             title,
                             style: MainTextStyle.boldTextStyle(
-                                fontSize: 12, color: MainColors.onSecondary),
+                              fontSize: 12,
+                              color: MainColors.onSecondary,
+                            ),
                           ),
                         ],
                       ),
@@ -116,16 +124,13 @@ class _CurrentSessionState extends State<CurrentSession> {
                   titleText: const [
                     "المحاضرة التالية",
                     "مدة الجلسة",
-                    "حالة الجلسة"
+                    "حالة الجلسة",
                   ],
                 );
               },
             ),
             8.ph,
-            SessionCardsWidget(
-              cubit: cubit,
-              stdTitleList: stdTitleList,
-            ),
+            SessionCardsWidget(cubit: cubit, stdTitleList: stdTitleList),
             24.ph,
             BlocBuilder(
               bloc: cubit,
@@ -149,7 +154,7 @@ class _CurrentSessionState extends State<CurrentSession> {
                             color: MainColors.onError,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   );
                 } else {
@@ -172,58 +177,111 @@ class _CurrentSessionState extends State<CurrentSession> {
                       radius: 16.r,
                       text: "التوجهة الي المحاضرة",
                       onPressed: () {
-                        if (item?.status?.key == "started") {
-                          cubit.joinSession(sessionId: item?.id ?? 0).then(
-                            (value) {
-                              openUrl(item?.meetingUrl ?? "");
-                            },
-                          );
-                        } else {
-                          delightfulToast(
-                              message: "لم يحن موعد المحاضرة بعد",
-                              context: context);
-                        }
+                        final sessionStartTime = item?.sessionDatetime;
+                        final duration =
+                            int.tryParse(item?.duration ?? "0") ?? 0;
+                        final sessionId = item?.id ?? 0;
+                        final meetingUrl = item?.meetingUrl;
+
+                        var lectureState = LectureStateHelper.getLectureState(
+                          nextSession: item?.sessionDatetime.toString(),
+                          nextSessionDuration: int.tryParse(
+                            item?.duration ?? "0",
+                          ),
+                        );
+                        handleJoinSession(
+                          context: context,
+                          cubit: context.read<MyProgramsCubit>(),
+                          sessionId: sessionId,
+                          meetingUrl: meetingUrl,
+                          sessionStartTime: sessionStartTime,
+                          duration: duration,
+                          lectureState: lectureState,
+                        );
                       },
                     ),
                     8.pw,
-                    CustomElevatedButton(
-                      height: 45.h,
-                      width: 138.w,
-                      color: MainColors.background,
-                      textColor: MainColors.primary,
-                      borderColor: MainColors.primary,
-                      radius: 16.r,
-                      text: "تواصل مع المعلم",
-                      textSize: 14,
-                      onPressed: () async {
-                        await cubit.checkChat();
-                        var checkChatData = cubit.checkChatEntity?.data;
-                        if (checkChatData == null) {
-                          return;
-                        }
-                        log("chat id is ${checkChatData.latestMessage?.chatId.toString()}");
-                        var chatsCubit = context.read<ChatsCubit>();
-                        await chatsCubit.getMyChats();
-                        await chatsCubit.fillCurrentInstructor(
-                          chatsCubit.getMyChatsEntity?.data != null
-                              ? chatsCubit.getMyChatsEntity!.data!.indexWhere(
-                                  (element) =>
-                                      element.participant1?.id ==
-                                      checkChatData.participant1?.id,
-                                )
-                              : -1,
-                        );
+                    BlocConsumer<HomeCubit, HomeState>(
+                      listener: (context, state) {},
+                      builder: (context, homeState) {
+                        return BlocSelector<ChatsCubit, ChatsState, bool>(
+                          selector: (state) =>
+                              context.read<ChatsCubit>().getMyChatsLoader,
+                          builder: (context, isChatsLoading) {
+                            bool loader =
+                                isChatsLoading || cubit.checkChatLoader;
+                            return CustomElevatedButton(
+                              height: 45.h,
+                              width: 138.w,
+                              color: MainColors.background,
+                              textColor: MainColors.primary,
+                              borderColor: MainColors.primary,
+                              radius: 16.r,
+                              text: "تواصل مع المعلم",
+                              textSize: 14,
+                              onPressed: loader
+                                  ? () {}
+                                  : () async {
+                                      await cubit.checkChat();
+                                      var checkChatData =
+                                          cubit.checkChatEntity?.data;
+                                      if (checkChatData == null) {
+                                        return;
+                                      }
+                                      log(
+                                        "chat id is ${checkChatData.latestMessage?.chatId.toString()}",
+                                      );
+                                      var chatsCubit = context
+                                          .read<ChatsCubit>();
+                                      await chatsCubit.getMyChats();
+                                      await chatsCubit.fillCurrentInstructor(
+                                        chatsCubit.getMyChatsEntity?.data !=
+                                                null
+                                            ? chatsCubit.getMyChatsEntity!.data!
+                                                  .indexWhere((element) {
+                                                    if (element
+                                                            .participant1
+                                                            ?.type ==
+                                                        "Instructor") {
+                                                      return element
+                                                              .participant1
+                                                              ?.id ==
+                                                          checkChatData
+                                                              .participant1
+                                                              ?.id;
+                                                    } else {
+                                                      return element
+                                                              .participant2
+                                                              ?.id ==
+                                                          checkChatData
+                                                              .participant2
+                                                              ?.id;
+                                                    }
+                                                  })
+                                            : -1,
+                                      );
+                                      log("this is instructor name ${chatsCubit.currentInstructor?.name}");
 
-                        Future.delayed(
-                          const Duration(milliseconds: 100),
-                          () {
-                            Navigator.pushNamed(
-                              context,
-                              arguments: {
-                                "cubit": context.read<ChatsCubit>(),
-                                "chatId": checkChatData.id?.toString() ?? "0",
-                              },
-                              RoutePaths.dmViewPath,
+                                      Future.delayed(
+                                        const Duration(milliseconds: 150),
+                                        () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            arguments: {
+                                              "cubit": chatsCubit,
+                                              "chatId":
+                                                  checkChatData.id
+                                                      ?.toString() ??
+                                                  "0",
+                                            },
+                                            RoutePaths.dmViewPath,
+                                          );
+                                        },
+                                      );
+                                    },
+                              child: loader
+                                  ? const CircularProgressIndicator.adaptive()
+                                  : null,
                             );
                           },
                         );

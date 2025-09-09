@@ -14,6 +14,8 @@ import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../presentation/controller/my_programs/myprograms_cubit.dart';
+import '../../presentation/view/lecture/widgets/lecture_stats_row.dart';
 import '../../presentation/view/subscription_details_view/widgets/imports.dart';
 
 String? customValidation(String? value) {
@@ -26,9 +28,7 @@ String? customValidation(String? value) {
 void shareApp({required BuildContext context}) async {
   final box = context.findRenderObject() as RenderBox?;
   if (Platform.isAndroid) {
-    await Share.share(
-      AppsStoreLinkEnum.androidId,
-    );
+    await Share.share(AppsStoreLinkEnum.androidId);
   } else if (Platform.isIOS) {
     await Share.share(
       AppsStoreLinkEnum.iosId,
@@ -96,9 +96,7 @@ Future<dynamic> customAdaptiveDialog(
     useSafeArea: true,
     barrierDismissible: barrierDismissible ?? true,
     builder: (context) => Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: 16.cr,
-      ),
+      shape: RoundedRectangleBorder(borderRadius: 16.cr),
       insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: 16.w),
       alignment: alignmen ?? Alignment.center,
       child: child,
@@ -150,7 +148,10 @@ Future<dynamic> weekDaysModalSheet(
               7,
               (index) => BottomSheetDayContainer(
                 onTap: () {
-                  cubit.changeSpecifiedDay(WeekDaysEnum.values[index].title,index);
+                  cubit.changeSpecifiedDay(
+                    WeekDaysEnum.values[index].title,
+                    index,
+                  );
                   back(context);
                 },
                 day: WeekDaysEnum.values[index].title,
@@ -183,8 +184,7 @@ DeliverStatusModel deliveryState(DeliverStatus state) {
         color: MainColors.surface,
         textColor: MainColors.primary,
       );
-
-    }
+  }
 }
 
 void back(context) => Navigator.pop(context);
@@ -203,6 +203,7 @@ String convertTo12HourFormat(int hour, int minute) {
 
   return '$displayHour:$formattedMinute $period';
 }
+
 Future<void> openUrl(String url) async {
   final Uri uri = Uri.parse(url);
 
@@ -267,3 +268,60 @@ String formatDuration(Duration duration) {
   return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
 }
 
+Future<void> handleJoinSession({
+  required BuildContext context,
+  required MyProgramsCubit cubit,
+  // required dynamic programData,
+  required int sessionId,
+  required String? meetingUrl,
+  required DateTime? sessionStartTime,
+  required int duration,
+  required LectureStatesEnum lectureState,
+}) async {
+  // final nextSession = programData?.nextSession;
+  // final  = nextSession?.sessionDatetime;
+  // final duration = int.tryParse(nextSession?.duration ?? "0") ?? 0;
+
+  if (sessionStartTime == null) {
+    delightfulToast(message: "وقت الجلسة غير متوفر", context: context);
+    return;
+  }
+
+  // حساب وقت انتهاء الجلسة
+  final sessionEndTime = sessionStartTime.add(Duration(minutes: duration));
+  final now = DateTime.now();
+
+  log("Session start: $sessionStartTime");
+  log("Session end: $sessionEndTime");
+  log("Current time: $now");
+  log("Duration: $duration minutes");
+
+  // التحقق من أن الوقت الحالي ضمن فترة الجلسة
+  bool canJoinSession =
+      now.isAfter(sessionStartTime) && now.isBefore(sessionEndTime);
+
+  if (canJoinSession) {
+    if (meetingUrl != null && meetingUrl.isNotEmpty) {
+      if (lectureState != LectureStatesEnum.ongoing) {
+        await cubit.joinSession(
+          sessionId: sessionId,
+        );
+        Future.delayed(const Duration(milliseconds: 150), () {
+          openUrl(meetingUrl);
+        });
+      } else {
+        openUrl(meetingUrl);
+      }
+    } else {
+      delightfulToast(message: "رابط الاجتماع غير متوفر", context: context);
+    }
+  } else if (now.isBefore(sessionStartTime)) {
+    // الجلسة لم تبدأ بعد
+    delightfulToast(message: "الجلسة لم تبدأ بعد", context: context);
+    log("الجلسة لم تبدأ بعد");
+  } else {
+    // الجلسة انتهت
+    delightfulToast(message: "الجلسة انتهت", context: context);
+    log("الجلسة انتهت");
+  }
+}

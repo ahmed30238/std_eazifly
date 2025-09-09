@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:eazifly_student/core/component/no_data_animated_image_widget.dart';
 import 'package:eazifly_student/core/component/suffix_menu_form_field.dart';
-import 'package:eazifly_student/core/enums/plan_page_enum.dart';
 import 'package:eazifly_student/presentation/controller/home_notification/home_notification_cubit.dart';
 import 'package:eazifly_student/presentation/controller/home_notification/home_notification_state.dart';
 import 'package:eazifly_student/presentation/controller/programs_controller/programs_cubit.dart';
@@ -20,6 +19,7 @@ class ProgramsView extends StatefulWidget {
 
 class _ProgramsViewState extends State<ProgramsView> {
   late ProgramsCubit cubit;
+
   @override
   void initState() {
     cubit = ProgramsCubit.get(context);
@@ -35,9 +35,9 @@ class _ProgramsViewState extends State<ProgramsView> {
         preferredSize: Size.fromHeight(kToolbarHeight.h),
         child: BlocBuilder<HomeNotificationCubit, HomeNotificationState>(
           builder: (context, state) {
-            bool allNotificationsRead = HomeNotificationCubit.get(context)
-                .isRead
-                .every((element) => element);
+            bool allNotificationsRead = HomeNotificationCubit.get(
+              context,
+            ).isRead.every((element) => element);
             return CustomAppBar(
               context,
               mainTitle: lang.thePrograms,
@@ -45,10 +45,8 @@ class _ProgramsViewState extends State<ProgramsView> {
               leadingCustomWidth: 10.w,
               customAction: [
                 InkWell(
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    RoutePaths.chatsViewPath,
-                  ),
+                  onTap: () =>
+                      Navigator.pushNamed(context, RoutePaths.chatsViewPath),
                   child: AppbarIconWidget(
                     iconWidget: SvgPicture.asset(
                       Assets.iconsChatsIcon,
@@ -58,10 +56,8 @@ class _ProgramsViewState extends State<ProgramsView> {
                 ),
                 4.pw,
                 InkWell(
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    RoutePaths.homeNotification,
-                  ),
+                  onTap: () =>
+                      Navigator.pushNamed(context, RoutePaths.homeNotification),
                   child: CustomNotificationIcon(
                     showBadge: !allNotificationsRead,
                   ),
@@ -95,9 +91,7 @@ class _ProgramsViewState extends State<ProgramsView> {
               // Show error message if state is error
               if (state is GetProgramsErrorState) {
                 log("error state");
-                return Center(
-                  child: Text(state.errorMessage),
-                );
+                return Center(child: Text(state.errorMessage));
               }
 
               // Default case (LoadedState or similar)
@@ -112,19 +106,21 @@ class _ProgramsViewState extends State<ProgramsView> {
               return Expanded(
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
-                  padding:
-                      EdgeInsets.only(bottom: 16.h, right: 16.w, left: 16.w),
+                  padding: EdgeInsets.only(
+                    bottom: 16.h,
+                    right: 16.w,
+                    left: 16.w,
+                  ),
                   itemBuilder: (context, index) => ProgramItem(
                     programEntity: programsList[index],
                     onTap: () {
                       var planPage = programsList[index].planPage;
                       log("this is planPage $planPage");
                       log("this is prog id ${programsList[index].id}");
-
                       Navigator.pushNamed(
-                        arguments: programsList[index].id,
                         context,
-                        getRouteForPlanPage(planPage ?? "") ?? "",
+                        RoutePaths.programPlansFilter,
+                        arguments: programsList[index].id,
                       );
                     },
                   ),
@@ -138,9 +134,4 @@ class _ProgramsViewState extends State<ProgramsView> {
       ),
     );
   }
-}
-
-String? getRouteForPlanPage(String planPageName) {
-  log("${PlanPageExtension.fromString(planPageName)?.route}");
-  return PlanPageExtension.fromString(planPageName)?.route;
 }

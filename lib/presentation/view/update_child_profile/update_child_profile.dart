@@ -11,7 +11,13 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class UpdateChildProfile extends StatefulWidget {
   final int userId;
-  const UpdateChildProfile({super.key, required this.userId});
+  final bool? fromSettings;
+
+  const UpdateChildProfile({
+    super.key,
+    required this.userId,
+    this.fromSettings,
+  });
 
   @override
   State<UpdateChildProfile> createState() => _UpdateChildProfileState();
@@ -97,7 +103,8 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
                   ),
                   18.ph,
                   UserNameText(
-                      name: "${childData?.firstName} ${childData?.lastName}"),
+                    name: "${childData?.firstName} ${childData?.lastName}",
+                  ),
                   32.ph,
                   TitledFormFieldItem(
                     controller: cubit.firstNameController,
@@ -201,6 +208,7 @@ class _UpdateChildProfileState extends State<UpdateChildProfile> {
                       cubit.updateProfile(
                         userId: widget.userId,
                         context: context,
+                        fromSettings: widget.fromSettings,
                       );
                     },
               color: MainColors.primary,

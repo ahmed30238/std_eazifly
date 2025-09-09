@@ -9,6 +9,7 @@ import '../../../../controller/programs_under_review/programs_under_review_state
 class WritingMessageArea extends StatefulWidget {
   final int orderId;
   final bool isReport;
+
   const WritingMessageArea({
     super.key,
     required this.orderId,
@@ -48,13 +49,13 @@ class _WritingMessageAreaState extends State<WritingMessageArea>
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 1),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _slideAnimationController,
-      curve: Curves.easeOutCubic,
-    ));
+    _slideAnimation = Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero)
+        .animate(
+          CurvedAnimation(
+            parent: _slideAnimationController,
+            curve: Curves.easeOutCubic,
+          ),
+        );
   }
 
   @override
@@ -189,11 +190,7 @@ class _WritingMessageAreaState extends State<WritingMessageArea>
                 color: MainColors.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8.r),
               ),
-              child: Icon(
-                Icons.mic,
-                color: MainColors.primary,
-                size: 24.sp,
-              ),
+              child: Icon(Icons.mic, color: MainColors.primary, size: 24.sp),
             ),
             SizedBox(width: 12.w),
             Expanded(
@@ -274,7 +271,8 @@ class _WritingMessageAreaState extends State<WritingMessageArea>
   }
 
   Widget _buildSendButton(ChatsCubit cubit) {
-    final hasContent = cubit.isMessageNotEmpty ||
+    final hasContent =
+        cubit.isMessageNotEmpty ||
         cubit.image != null ||
         cubit.recordPath.isNotEmpty;
 
@@ -289,40 +287,40 @@ class _WritingMessageAreaState extends State<WritingMessageArea>
       child: InkWell(
         onTap: hasContent
             ? () {
-          if (widget.isReport) {
-            cubit.addNote(
-              orderId: widget.orderId.toString(),
-              context: context,
-            );
-          } else {
-            cubit.sendMessages(
-              receiverId: cubit.currentInstructor?.id ?? "",
-            );
-          }
-        }
+                if (widget.isReport) {
+                  cubit.addNote(
+                    orderId: widget.orderId.toString(),
+                    context: context,
+                  );
+                } else {
+                  cubit.sendMessages(
+                    receiverId: cubit.currentInstructor?.id ?? "",
+                  );
+                }
+              }
             : () {
-          if (cubit.isRecording) {
-            cubit.stopRecording();
-            _recordingAnimationController.stop();
-            _recordingAnimationController.reset();
-          } else {
-            cubit.startRecording();
-            _recordingAnimationController.repeat(reverse: true);
-          }
-        },
+                if (cubit.isRecording) {
+                  cubit.stopRecording();
+                  _recordingAnimationController.stop();
+                  _recordingAnimationController.reset();
+                } else {
+                  cubit.startRecording();
+                  _recordingAnimationController.repeat(reverse: true);
+                }
+              },
         borderRadius: BorderRadius.circular(20.r),
         child: cubit.isRecording
             ? _buildRecordingIndicator()
             : SvgPicture.asset(
-          hasContent ? Assets.iconsSend2 : Assets.iconsMicrophone,
-          fit: BoxFit.scaleDown,
-          colorFilter: ColorFilter.mode(
-            hasContent
-                ? Colors.white
-                : MainColors.tertiary.withValues(alpha: 0.6),
-            BlendMode.srcIn,
-          ),
-        ),
+                hasContent ? Assets.iconsSend2 : Assets.iconsMicrophone,
+                fit: BoxFit.scaleDown,
+                colorFilter: ColorFilter.mode(
+                  hasContent
+                      ? Colors.white
+                      : MainColors.tertiary.withValues(alpha: 0.6),
+                  BlendMode.srcIn,
+                ),
+              ),
       ),
     );
   }
@@ -381,7 +379,10 @@ class _WritingMessageAreaState extends State<WritingMessageArea>
               // Recording Indicator
               if (cubit.isRecording)
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 8.h,
+                    horizontal: 16.w,
+                  ),
                   child: Row(
                     children: [
                       Icon(
@@ -426,7 +427,9 @@ class _WritingMessageAreaState extends State<WritingMessageArea>
                       opacity: cubit.isRecording ? 0.5 : 1.0,
                       duration: const Duration(milliseconds: 200),
                       child: InkWell(
-                        onTap: cubit.isRecording ? null : () => cubit.pickImageFroGallery(),
+                        onTap: cubit.isRecording
+                            ? null
+                            : () => cubit.pickImageFroGallery(),
                         child: Container(
                           height: 40.h,
                           width: 40.w,

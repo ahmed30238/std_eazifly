@@ -303,7 +303,7 @@ class ServiceLocator {
         readNotificationUsecase: sl(),
       ),
     );
-    sl.registerFactory<MyProgramsCubit>(
+    sl.registerLazySingleton<MyProgramsCubit>(
       () => MyProgramsCubit(
         getMyProgramsUsecase: sl(),
         changeSessionStatusUsecase: sl(),

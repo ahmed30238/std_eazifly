@@ -5,7 +5,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 onMyProgramTap({
   required BuildContext context,
-  // required MyProgramsCubit cubit,
+  required MyProgramsCubit cubit,
   required MyProgramEntity item,
   // required DataModel loginData,
   required int noOfChildren,
@@ -22,7 +22,7 @@ onMyProgramTap({
         context: context,
         // isParent: isParent,
         noOfChildren: noOfChildren,
-        // cubit: cubit,
+        cubit: cubit,
         programId: programId,
       );
     }
@@ -32,7 +32,7 @@ onMyProgramTap({
       context: context,
       // isParent: isParent,
       noOfChildren: noOfChildren,
-      // cubit: cubit,
+      cubit: cubit,
       programId: programId,
     );
   }
@@ -48,7 +48,7 @@ void _navigateToLectureDetails(
     context,
     RoutePaths.navigateToLectureView,
     arguments: {
-      "cubit": context.read<MyProgramsCubit>(),
+      // "cubit": context.read<MyProgramsCubit>(),
       "sessionId": item.currentSession?.id ?? -1,
     },
   );
@@ -59,7 +59,7 @@ void _handleNotStartedLecture({
   required BuildContext context,
   // required bool isParent,
   required int noOfChildren,
-  // required MyProgramsCubit cubit,
+  required MyProgramsCubit cubit,
   required int programId,
 }) {
   if (noOfChildren > 0) {
@@ -67,8 +67,8 @@ void _handleNotStartedLecture({
     _showChildrenBottomSheet(
       context,
       noOfChildren,
-      // cubit,
       programId,
+      cubit,
     );
   } else {
     // إذا لم يكن أب - انتقال لتفاصيل البرنامج
@@ -81,7 +81,7 @@ void _handleNoCurrentSession({
   required BuildContext context,
   // required bool isParent,
   required int noOfChildren,
-  // required MyProgramsCubit cubit,
+  required MyProgramsCubit cubit,
   required int programId,
 }) {
   if (noOfChildren > 0) {
@@ -90,8 +90,8 @@ void _handleNoCurrentSession({
     _showChildrenBottomSheet(
       context,
       noOfChildren,
-      // cubit,
       programId,
+      cubit,
     );
     // }
   } else {
@@ -101,10 +101,11 @@ void _handleNoCurrentSession({
 }
 
 // دالة لعرض bottom sheet للأطفال
-void  _showChildrenBottomSheet(
+void _showChildrenBottomSheet(
   BuildContext context,
   int noOfChildren,
   int programId,
+  MyProgramsCubit cubit,
 ) {
   showModalSheet(
     isFixedSize: true,
@@ -114,6 +115,7 @@ void  _showChildrenBottomSheet(
     widget: ChildrenModalSheet(
       noOfChildren: noOfChildren,
       programId: programId,
+      cubit: cubit,
     ),
   );
 }

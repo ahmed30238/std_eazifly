@@ -45,6 +45,7 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
   bool updateProfileLoader = false;
 
   GenderEnum gender = GenderEnum.male;
+
   void onGenderChange(GenderEnum value) {
     gender = value;
     log(gender.requestValue);
@@ -53,6 +54,7 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
   Future<void> updateProfile({
     required int userId,
     required BuildContext context,
+    bool? fromSettings,
   }) async {
     if (!formKey.currentState!.validate()) {
       return;
@@ -103,15 +105,15 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
           updateProfileEntity = r;
           emit(UpdateProfileSuccessState());
 
-          Future.delayed(
-            const Duration(milliseconds: 100),
-            () {
-              Navigator.pushReplacementNamed(
-                context,
-                RoutePaths.subscribedStudentsSettingsView,
-              );
-            },
-          );
+          Future.delayed(const Duration(milliseconds: 100), () {
+            Navigator.pushReplacementNamed(
+              context,
+              fromSettings == true
+                  ? RoutePaths.studentManagement
+                  : RoutePaths.subscribedStudentsSettingsView,
+
+            );
+          });
         },
       );
     } catch (e) {
@@ -158,10 +160,7 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
             }
           }
 
-          storage.write(
-            StorageEnum.loginModel.name,
-            jsonEncode(loginDataMap),
-          );
+          storage.write(StorageEnum.loginModel.name, jsonEncode(loginDataMap));
 
           log("Child data updated successfully in cache for user ID: $userId");
         }

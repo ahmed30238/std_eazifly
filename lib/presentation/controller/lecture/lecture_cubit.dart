@@ -62,6 +62,7 @@ class LectureCubit extends Cubit<LectureState> {
     // userId =
     log("$userId");
   }
+  // PageController pageController = PageController();
 
   // DataModel? loginData;
   File? profileImage;
@@ -80,6 +81,7 @@ class LectureCubit extends Cubit<LectureState> {
 
   void fillUserId(int value) {
     userId = value;
+    log("filled user id with $userId");
   }
 
   int currentProgramId = -1;
@@ -165,27 +167,6 @@ class LectureCubit extends Cubit<LectureState> {
     emit(TabIndexState());
   }
 
-  // Future<void> _loadStatisticsData() async {
-  //   tabLoadingStates[1] = true;
-  //   tabErrorStates[1] = null;
-  //   tabData[1] = null;
-  //   emit(TabLoadingState(tabIndex: 1));
-
-  //   try {
-  //     // هنا ضع استدعاء API للإحصائيات
-  //     await Future.delayed(
-  //         const Duration(milliseconds: 500)); // محاكاة API call
-
-  //     tabLoadingStates[1] = false;
-  //     tabData[1] = "statistics_data"; // ضع البيانات الحقيقية هنا
-
-  //     emit(TabLoadedState(tabIndex: 1));
-  //   } catch (e) {
-  //     tabLoadingStates[1] = false;
-  //     tabErrorStates[1] = e.toString();
-  //     emit(TabErrorState(tabIndex: 1, errorMessage: e.toString()));
-  //   }
-  // }
 
   // دالة للحصول على حالة التحميل للـ tab الحالي
   bool get isCurrentTabLoading => tabLoadingStates[controller.index] ?? false;
@@ -255,30 +236,11 @@ class LectureCubit extends Cubit<LectureState> {
       isFinished: true,
     );
   }
-  int currentUserIndex = 0;
+  int currentUserIndex = -1;
   void changeCurrentUserIndex(int value){
     currentUserIndex = value;
     emit(ChildIndexChanged());
   }
-
-  // Widget _buildStatsBody() {
-  //   if (tabLoadingStates[1] == true) {
-  //     return const Center(child: CircularProgressIndicator());
-  //   }
-
-  //   if (tabErrorStates[1] != null) {
-  //     return _buildErrorWidget(1, () => _loadStatisticsData());
-  //   }
-
-  //   if (tabData[1] == null) {
-  //     return _buildEmptyWidget("لا توجد إحصائيات متاحة");
-  //   }
-
-  //   return StatsArea(
-  //     chartData: chartData,
-  //     gradientColors: gradientColors,
-  //   );
-  // }
 
   Widget _buildExamBody() {
     if (tabLoadingStates[2] == true) {
@@ -570,26 +532,6 @@ class LectureCubit extends Cubit<LectureState> {
       },
     );
   }
-
-  // int currentChildIndex = 0; // -1 يعني المستخدم الأب
-  // void updateChildIndex(int childIndex) {
-  //   currentChildIndex = childIndex;
-  //
-  //   // if (totalChildren == 0) return;
-  //   //
-  //   // if (currentChildIndex == -1) {
-  //   //   // أول ضغطة على "التالي"، ننتقل إلى أول طفل
-  //   //   currentChildIndex = 0;
-  //   // } else {
-  //   //   if (next) {
-  //   //     currentChildIndex = (currentChildIndex + 1) % totalChildren;
-  //   //   } else {
-  //   //     currentChildIndex =
-  //   //         currentChildIndex > 0 ? currentChildIndex - 1 : -1; // نرجع للأب
-  //   //   }
-  //   // }
-  //   emit(ChildIndexChanged());
-  // }
 
   bool getUserFeedbacksLoader = false;
   GetUserFeedbacksEntity? getUserFeedbacksEntity;

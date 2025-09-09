@@ -9,21 +9,20 @@ import 'package:eazifly_student/presentation/controller/programs_under_review/pr
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProgramsUnderReviewCubit extends Cubit<ProgramsUnderReviewState> {
-  ProgramsUnderReviewCubit({
-    required this.getUserOrdersUsecase,
-  }) : super(ProgramsUnderReviewInitial());
+  ProgramsUnderReviewCubit({required this.getUserOrdersUsecase})
+    : super(ProgramsUnderReviewInitial());
+
   static ProgramsUnderReviewCubit get(context) => BlocProvider.of(context);
 
   bool getUserOrdersLoader = false;
   GetUserOrdersEntity? getUserOrdersEntity;
   GetUserOrdersUsecase getUserOrdersUsecase;
+
   Future<void> getUserOrders() async {
     log("started");
     getUserOrdersLoader = true;
     emit(GetUserOrdersLoadingState());
-    final result = await getUserOrdersUsecase.call(
-      parameter: NoParameter(),
-    );
+    final result = await getUserOrdersUsecase.call(parameter: NoParameter());
     result.fold(
       (l) {
         log("error");
@@ -43,12 +42,11 @@ class ProgramsUnderReviewCubit extends Cubit<ProgramsUnderReviewState> {
   }
 
   CreateOrderDataEntity? myOrder;
-  // في ProgramsUnderReviewCubit
-// CreateOrderDataModel? myOrder;
+  List<CreateOrderOrderNoteEntity>? orderMessages = [];
 
   specificOrder({required int orderId}) {
     try {
-      // تحقق من وجود الداتا أولاً
+      orderMessages = [];
       if (getUserOrdersEntity?.data == null ||
           getUserOrdersEntity!.data!.isEmpty) {
         log("No orders data available");
@@ -56,7 +54,6 @@ class ProgramsUnderReviewCubit extends Cubit<ProgramsUnderReviewState> {
         return;
       }
 
-      // دور على الـ order
       myOrder = getUserOrdersEntity?.data?.firstWhere(
         (element) => element.id == orderId,
         orElse: () {
@@ -68,12 +65,12 @@ class ProgramsUnderReviewCubit extends Cubit<ProgramsUnderReviewState> {
       if (myOrder != null) {
         log("Order found: ${myOrder?.orderDetails?.last.title}");
         log("Order notes count: ${myOrder?.orderNotes?.length}");
+        orderMessages?.addAll(myOrder?.orderNotes ?? []);
       } else {
         log("Order with ID $orderId not found in the list");
       }
 
-      // emit state للتحديث
-      emit(OrderSelectedState()); // أضف هذا الـ state جديد
+      emit(OrderSelectedState());
     } catch (e) {
       log("Error in specificOrder: $e");
       myOrder = null;

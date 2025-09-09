@@ -280,9 +280,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   CheckChatUsecase checkChatUsecase;
   CheckChatEntity? checkChatEntity;
+  bool checkChatLoader = false;
 
   Future<void> checkChat() async {
     if (isGuest) return;
+    checkChatLoader = true;
 
     emit(CheckChatLoadingState());
 
@@ -299,10 +301,12 @@ class HomeCubit extends Cubit<HomeState> {
 
     result.fold(
       (l) {
+        checkChatLoader = false;
         emit(CheckChatErrorState(errorMessage: l.message));
       },
       (r) {
         checkChatEntity = r;
+        checkChatLoader = false;
         emit(CheckChatSuccessState());
       },
     );

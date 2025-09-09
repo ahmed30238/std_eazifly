@@ -38,14 +38,11 @@ class _MyProgramsViewState extends State<MyProgramsView> {
     cubit.getMyPrograms();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(
-        const Duration(milliseconds: 300),
-            () {
-          if (!_isTutorialCompleted()) {
-            showTutorial();
-          }
-        },
-      );
+      Future.delayed(const Duration(milliseconds: 300), () {
+        if (!_isTutorialCompleted()) {
+          showTutorial();
+        }
+      });
     });
 
     super.initState();
@@ -61,31 +58,29 @@ class _MyProgramsViewState extends State<MyProgramsView> {
     storage.write(_tutorialCompletedKey, true);
   }
 
-
   void showTutorial() {
-    var lang =context.loc!;
+    var lang = context.loc!;
     initTargets();
     tutorialCoachMark = TutorialCoachMark(
       targets: targets,
-      textSkip: lang.skip, // استخدام النص من الترجمة
+      textSkip: lang.skip,
+
       paddingFocus: 10,
       colorShadow: Colors.black.withValues(alpha: 0.8),
       onFinish: () {
-        log(lang.tutorialFinished); // استخدام النص من الترجمة
+        log(lang.tutorialFinished);
         _markTutorialCompleted(); // Mark as completed when finished
       },
       onSkip: () {
-        log(lang.tutorialSkipped); // استخدام النص من الترجمة
+        log(lang.tutorialSkipped);
         _markTutorialCompleted(); // Mark as completed when skipped
         return true;
       },
-    )..show(
-      context: context,
-    );
+    )..show(context: context);
   }
 
   void initTargets() {
-    var lang =context.loc!;
+    var lang = context.loc!;
 
     targets.clear();
     targets.add(
@@ -96,11 +91,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
           TargetContent(
             align: ContentAlign.bottom,
             child: Text(
-              lang.reviewProgramsTutorial, // استخدام النص من الترجمة
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-              ),
+              lang.reviewProgramsTutorial,
+              style: const TextStyle(color: Colors.white, fontSize: 18),
             ),
           ),
         ],
@@ -152,10 +144,10 @@ class _MyProgramsViewState extends State<MyProgramsView> {
             bloc: cubit,
             builder: (context, state) {
               // مراقبة القيمة المطلوبة بس - أفضل أداء
-              final programsUnderReview =
-              context.select<ProgramsUnderReviewCubit, List?>(
+              final programsUnderReview = context
+                  .select<ProgramsUnderReviewCubit, List?>(
                     (cubit) => cubit.getUserOrdersEntity?.data,
-              );
+                  );
 
               if (cubit.getMyProgramsLoader) {
                 return const MyProgramsLoader();
@@ -168,7 +160,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                   return Column(
                     children: [
                       NoDataAnimatedImageWidget(
-                        message: lang.noSubscriptions, // استخدام النص من الترجمة
+                        message:
+                            lang.noSubscriptions,
                       ),
                       24.ph,
                       GestureDetector(
@@ -176,7 +169,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                           context.read<LayoutCubit>().changeIndex(1);
                         },
                         child: Text(
-                          lang.subscribeNow, // استخدام النص من الترجمة
+                          lang.subscribeNow,
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: MainColors.primary,
@@ -200,7 +193,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         270.ph,
                         Center(
                           child: Text(
-                            lang.programsUnderReview, // استخدام النص من الترجمة
+                            lang.programsUnderReview,
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 16,
                               color: MainColors.primary,
@@ -210,7 +203,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         8.ph,
                         Center(
                           child: Text(
-                            lang.tapToAddSessions, // استخدام النص من الترجمة
+                            lang.tapToAddSessions,
                             style: MainTextStyle.boldTextStyle(
                               fontSize: 16,
                               color: MainColors.primary,
@@ -237,28 +230,35 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         int hour = item.nextSession!.hour;
                         int minute = item.nextSession!.minute;
                         nextLec = convertTo12HourFormat(hour, minute);
-                        formattedTimeDiff =
-                            formatTimeDifference(item.nextSession);
+                        formattedTimeDiff = formatTimeDifference(
+                          item.nextSession,
+                        );
                       } else {
-                        nextLec = lang.alreadyStarted; // استخدام النص من الترجمة
-                        formattedTimeDiff = lang.ongoingNow; // استخدام النص من الترجمة
+                        nextLec =
+                            lang.alreadyStarted;
+                        formattedTimeDiff =
+                            lang.ongoingNow;
                       }
                     } else {
                       if (item.nextSession != null) {
                         int hour = item.nextSession!.hour;
                         int minute = item.nextSession!.minute;
                         nextLec = convertTo12HourFormat(hour, minute);
-                        formattedTimeDiff =
-                            formatTimeDifference(item.nextSession);
+                        formattedTimeDiff = formatTimeDifference(
+                          item.nextSession,
+                        );
                       } else {
-                        nextLec = lang.notSpecified; // استخدام النص من الترجمة
-                        formattedTimeDiff = lang.notSpecified; // استخدام النص من الترجمة
+                        nextLec = lang.notSpecified;
+                        formattedTimeDiff =
+                            lang.notSpecified;
                       }
                     }
 
                     return ProgramItem(
-                      desc: item.description ?? lang.noDescription, // استخدام النص من الترجمة
-                      duration: "${item.duration} ${lang.minutes}", // استخدام النص من الترجمة
+                      desc: item.description ?? lang.noDescription,
+
+                      duration: "${item.duration} ${lang.minutes}",
+
                       image: item.image ?? "",
                       nextLec: nextLec,
                       status: item.currentSession?.status ?? "",
@@ -281,36 +281,33 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                       onTap: cubit.getAssignedChildrenLoader
                           ? () {}
                           : () async {
-                        await cubit
-                            .getAssignedChildrenToProgram(
-                          programId: item.id ?? -1,
-                        )
-                            .then(
-                              (value) {
-                            onMyProgramTap(
-                              context: context,
-                              // cubit: cubit,
-                              item: item,
-                              // loginData: loginData!,
-                              programId: item.id ?? -1,
-                              noOfChildren: cubit
-                                  .getAssignedChildrenToProgramEntity
-                                  ?.data
-                                  ?.length ??
-                                  0,
-                            );
-                          },
-                        );
-                      },
+                              await cubit
+                                  .getAssignedChildrenToProgram(
+                                programId: item.id ?? -1,
+                              )
+                                  .then(
+                                    (value) {
+                                  onMyProgramTap(
+                                    context: context,
+                                    cubit: cubit,
+                                    item: item,
+                                    programId: item.id ?? -1,
+                                    noOfChildren: cubit
+                                        .getAssignedChildrenToProgramEntity
+                                        ?.data
+                                        ?.length ??
+                                        0,
+                                  );
+                                },
+                              );
+                            },
                     );
                   },
                   separatorBuilder: (context, index) => 20.ph,
                   itemCount: myPrograms.length,
                 );
               } else if (state is GetMyProgramsErrorState) {
-                return Center(
-                  child: Text(state.errorMessage),
-                );
+                return Center(child: Text(state.errorMessage));
               } else {
                 return const SizedBox();
               }

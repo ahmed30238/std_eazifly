@@ -16,35 +16,56 @@ class ReportsAndComplaintsView extends StatelessWidget {
         isCenterTitle: true,
         onLeadinTap: () => back(context),
       ),
-      body: ListView.separated(
-        padding: EdgeInsets.only(top: 16.h),
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) => InkWell(
-          onTap: () => Navigator.pushNamed(
-            context,
-            RoutePaths.dmViewPath,
-            arguments: {
-              "isReport": true,
-              "cubit": ChatsCubit.get(context),
-              "problemState": index == 0
-                  ? "جاري"
-                  : index == 1
-                      ? ""
-                      : "انتهت",
-            },
+      body: Stack(
+        children: [
+
+          ListView.separated(
+            padding: EdgeInsets.only(top: 16.h),
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) => InkWell(
+              onTap: () => Navigator.pushNamed(
+                context,
+                RoutePaths.dmViewPath,
+                arguments: {
+                  "isReport": true,
+                  "cubit": ChatsCubit.get(context),
+                  "problemState": index == 0
+                      ? "جاري"
+                      : index == 1
+                          ? ""
+                          : "انتهت",
+                },
+              ),
+              child: ReportsAndComplaintsWidget(
+                state: index == 0
+                    ? "جاري"
+                    : index == 1
+                        ? ""
+                        : "انتهت",
+              ),
+            ),
+            separatorBuilder: (context, index) => const CustomHorizontalDivider(
+              thickness: 1,
+            ),
+            itemCount: 3,
           ),
-          child: ReportsAndComplaintsWidget(
-            state: index == 0
-                ? "جاري"
-                : index == 1
-                    ? ""
-                    : "انتهت",
+          Container(
+            // padding: EdgeInsets.symmetric(horizontal: 16.w),
+            // margin: EdgeInsets.symmetric(horizontal: 16.w),
+            decoration: BoxDecoration(
+              borderRadius: 8.cr,
+              color: MainColors.onPrimary.withValues(alpha: .4),
+            ),
+            height: double.infinity,
+            width: double.infinity,
+            child: Center(
+                child: Text(
+                  "قريبا",
+                  style: MainTextStyle.boldTextStyle(
+                      fontSize: 20, color: MainColors.background),
+                )),
           ),
-        ),
-        separatorBuilder: (context, index) => const CustomHorizontalDivider(
-          thickness: 1,
-        ),
-        itemCount: 3,
+        ],
       ),
     );
   }

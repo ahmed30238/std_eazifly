@@ -28,7 +28,7 @@ class _SubscribedStudentsSettingsViewState
     programId = context.read<LectureCubit>().currentProgramId;
     log("$programId");
 
-    myProgramsCubit.getAssignedChildrenToProgram(programId: programId);
+    // myProgramsCubit.getAssignedChildrenToProgram(programId: programId);
     lectureCubit.showProgramDetails(programId: programId);
     super.initState();
   }

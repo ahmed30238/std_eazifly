@@ -15,11 +15,15 @@ import 'package:eazifly_student/domain/use_cases/get_my_chats_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/send_messages_usecase.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_state.dart';
 import 'package:eazifly_student/presentation/controller/chats/message_ui_model.dart';
+import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
+
+import '../../../data/models/order_and_subscribe/create_order_model.dart';
+import '../../../domain/entities/create_order_entities.dart';
 // import 'package:record/record.dart';
 
 class ChatsCubit extends Cubit<ChatsState> {
@@ -49,14 +53,14 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   void initController(TickerProvider vsync, BuildContext context) {
     controller =
-        TabController(length: tabs(context: context).length, vsync: vsync)
-          ..addListener(
-            () {
-              if (controller!.indexIsChanging) {
-                emit(ChangeTapbarState());
-              }
-            },
-          );
+        TabController(
+          length: tabs(context: context).length,
+          vsync: vsync,
+        )..addListener(() {
+          if (controller!.indexIsChanging) {
+            emit(ChangeTapbarState());
+          }
+        });
   }
 
   File? image;
@@ -71,10 +75,7 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   List<String> tabs({required BuildContext context}) {
     var lang = context.loc!;
-    var tabs = [
-      lang.professors,
-      lang.appManagement,
-    ];
+    var tabs = [lang.professors, lang.appManagement];
     return tabs;
   }
 
@@ -154,7 +155,7 @@ class ChatsCubit extends Cubit<ChatsState> {
     }
   }
 
-//! ###################### API #######################
+  //! ###################### API #######################
 
   AddNoteEntity? addNoteEntity;
   AddNoteUsecase addNoteUsecase;
@@ -195,7 +196,25 @@ class ChatsCubit extends Cubit<ChatsState> {
       },
       (r) {
         log("right");
+        // CreateOrderOrderNoteModel
+        // AddNoteEntity
+
         addNoteEntity = r;
+        final lastNote = r.data?.orderNotes?.last;
+        context.read<ProgramsUnderReviewCubit>().orderMessages?.insert(
+          0,
+          CreateOrderOrderNoteEntity(
+            createdAt: lastNote?.createdAt,
+            description: lastNote?.description,
+            id: lastNote?.id,
+            image: lastNote?.image,
+            maker: CreateOrderMakerModel.fromJson(
+              lastNote?.maker?.toJson() ?? {},
+            ),
+            title: lastNote?.title,
+            type: lastNote?.type,
+          ),
+        );
         messageController.clear();
         emit(GetOldChatsSuccessState());
       },
@@ -208,14 +227,12 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   //
   void initScorllController(String chatId) {
-    _scrollController.addListener(
-      () {
-        if (_scrollController.position.pixels >=
-            _scrollController.position.maxScrollExtent - 100) {
-          getMessages(chatId: chatId);
-        }
-      },
-    );
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 100) {
+        getMessages(chatId: chatId);
+      }
+    });
   }
 
   GetMessagesEntities? getMessagesEntities;
@@ -226,10 +243,11 @@ class ChatsCubit extends Cubit<ChatsState> {
   bool _isFetching = false;
   bool getMessagesLoader = false;
 
-  Future<void> getMessages(
-      {bool isInitial = false,
-      required String chatId,
-      bool showLoader = true}) async {
+  Future<void> getMessages({
+    bool isInitial = false,
+    required String chatId,
+    bool showLoader = true,
+  }) async {
     log("fetch $_isFetching");
     log("has more $hasMore");
     log("initial $isInitial");
@@ -263,11 +281,13 @@ class ChatsCubit extends Cubit<ChatsState> {
         if (isInitial) {
           log("is init");
           uiMessages.clear();
-          uiMessages =
-              newMessages.map((e) => MessageUIModel(message: e)).toList();
+          uiMessages = newMessages
+              .map((e) => MessageUIModel(message: e))
+              .toList();
           emit(GetMesssagesSuccesState(uiMessages: uiMessages));
         } else {
-          final newUiMessages = r.data
+          final newUiMessages =
+              r.data
                   ?.map((message) => MessageUIModel(message: message))
                   .toList() ??
               [];
@@ -294,10 +314,7 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   // List<GetMessagesDatumModel>? messages = [];
 
-  Future<void> sendMessages({
-    int? userId,
-    required String receiverId,
-  }) async {
+  Future<void> sendMessages({int? userId, required String receiverId}) async {
     if (isRecording) {
       await stopRecording();
     }
@@ -346,26 +363,22 @@ class ChatsCubit extends Cubit<ChatsState> {
 
     emit(SendMesssagesLoadingState());
     final result = await sendMessagesUsecase.call(
-      parameter: SendMessagesParameters(
-        data: tempMessage,
-      ),
+      parameter: SendMessagesParameters(data: tempMessage),
     );
 
     result.fold(
       (l) {
         // فشل في الإرسال
-        final failed = uiMessages[0].copyWith(
-          isSending: false,
-          isFailed: true,
-        );
+        final failed = uiMessages[0].copyWith(isSending: false, isFailed: true);
         uiMessages[0] = failed;
         emit(SendMessagesErrorState(errorMessage: l.message));
       },
       (r) {
         // نجح الإرسال
         if (r.data != null) {
-          final serverMessage =
-              GetMessagesDatumModel.fromJson(r.data!.toJson());
+          final serverMessage = GetMessagesDatumModel.fromJson(
+            r.data!.toJson(),
+          );
           uiMessages[0] = MessageUIModel(message: serverMessage);
         } else {
           uiMessages[0] = uiMessages[0].copyWith(isSending: false);
@@ -380,15 +393,13 @@ class ChatsCubit extends Cubit<ChatsState> {
   GetMyChatsUsecase getMyChatsUsecase;
   GetMyChatsEntity? getMyChatsEntity;
 
-// Method
+  // Method
   Future<void> getMyChats() async {
     getMyChatsLoader = true;
     emit(GetMyChatsLoadingState());
 
     final result = await getMyChatsUsecase.call(
-      parameter: GetMyChatsParameters(
-        type: "user",
-      ),
+      parameter: GetMyChatsParameters(type: "user"),
     );
 
     result.fold(

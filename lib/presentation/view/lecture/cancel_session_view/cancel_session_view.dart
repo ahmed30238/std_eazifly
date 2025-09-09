@@ -19,8 +19,8 @@ class _CancelSessionViewState extends State<CancelSessionView> {
   @override
   void initState() {
     cubit = context.read<CancelSessionCubit>();
-    context.read<MyProgramsCubit>().getAssignedChildrenToProgram(
-        programId: context.read<LectureCubit>().currentProgramId);
+    // context.read<MyProgramsCubit>().getAssignedChildrenToProgram(
+    //     programId: context.read<LectureCubit>().currentProgramId);
     super.initState();
     cubit.getCancelReasons();
     cubit.getInstructorAvailabilities(

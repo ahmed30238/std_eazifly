@@ -1,5 +1,4 @@
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
-import 'package:eazifly_student/presentation/controller/my_programs/myprograms_cubit.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ChangeLecturerView extends StatefulWidget {
@@ -16,9 +15,9 @@ class _ChangeLecturerViewState extends State<ChangeLecturerView>
   @override
   void initState() {
     cubit = context.read<ChangelecturerCubit>();
-    context
-        .read<MyProgramsCubit>()
-        .getAssignedChildrenToProgram(programId: widget.programId);
+    // context
+    //     .read<MyProgramsCubit>()
+    //     .getAssignedChildrenToProgram(programId: widget.programId);
     cubit.initTabBarController(this);
     cubit.getChangeInstructorReasons();
     cubit.initFixedDateTabBarController(this);

@@ -18,7 +18,7 @@ extension PlanPageExtension on PlanPageEnum {
   // تحويل Enum إلى Route
   String get route {
     return switch (this) {
-      PlanPageEnum.filterPlan => RoutePaths.programPlansFilter,
+      PlanPageEnum.filterPlan => RoutePaths.programSubscriptionPlan,
       PlanPageEnum.selectPlan => RoutePaths.programPlanSelection,
     };
   }

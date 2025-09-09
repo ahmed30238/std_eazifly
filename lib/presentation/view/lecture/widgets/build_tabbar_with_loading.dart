@@ -3,7 +3,7 @@ import 'package:eazifly_student/presentation/view/lecture/widgets/lecure_tabbar.
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 Widget buildTabBarWithLoading(
-    LectureCubit cubit, PageController pageController) {
+    LectureCubit cubit) {
   // var programData = cubit.showProgramDetailsEntity?.data;
 
   // if (programData == null) {
@@ -14,11 +14,11 @@ Widget buildTabBarWithLoading(
     cubit: cubit,
     onTabTap: (index) {
       // تحريك الـ PageView عند الضغط على تاب
-      pageController.animateToPage(
-        index,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
+     // cubit.pageController.animateToPage(
+     //    index,
+     //    duration: const Duration(milliseconds: 300),
+     //    curve: Curves.easeInOut,
+     //  );
     },
   );
 }

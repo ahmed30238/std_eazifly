@@ -35,6 +35,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 class NotificationService {
   NotificationService._();
+
   static final NotificationService instance = NotificationService._();
 
   // Private fields
@@ -45,11 +46,13 @@ class NotificationService {
 
   // Commented out cubits (keeping as requested)
   HomeNotificationCubit? _notificationCubit;
+
   void setCubit(HomeNotificationCubit cubit) {
     _notificationCubit = cubit;
   }
 
   ChatsCubit? _chatsCubit;
+
   void setChatsCubit(ChatsCubit cubit) {
     _chatsCubit = cubit;
   }
@@ -189,7 +192,8 @@ class NotificationService {
 
     await _localNotifications
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin
+        >()
         ?.createNotificationChannel(channel);
   }
 
@@ -215,13 +219,17 @@ class NotificationService {
 
   /// Check if notification should be displayed
   bool _shouldShowNotification(
-      RemoteNotification? notification, AndroidNotification? android) {
+    RemoteNotification? notification,
+    AndroidNotification? android,
+  ) {
     return notification != null && android != null;
   }
 
   /// Display local notification
   Future<void> _displayLocalNotification(
-      RemoteNotification notification, RemoteMessage message) async {
+    RemoteNotification notification,
+    RemoteMessage message,
+  ) async {
     await _localNotifications.show(
       notification.hashCode,
       notification.title,
@@ -233,20 +241,31 @@ class NotificationService {
 
   /// Build notification details for both platforms
   NotificationDetails _buildNotificationDetails() {
-    return const NotificationDetails(
+    return NotificationDetails(
       android: AndroidNotificationDetails(
         NotificationConstants.highImportanceChannelId,
         NotificationConstants.highImportanceChannelName,
-        channelDescription:
-            NotificationConstants.highImportanceChannelDescription,
+        channelDescription: NotificationConstants.highImportanceChannelDescription,
         importance: Importance.high,
         priority: Priority.high,
         icon: NotificationConstants.androidIcon,
+        showWhen: true,
+        when: DateTime.now().millisecondsSinceEpoch,
+        autoCancel: true,
+        ongoing: false,
+        usesChronometer: false,
+        showProgress: false,
+
+        // شكل الإشعار البسيط
+        styleInformation: const DefaultStyleInformation(true, true),
+        category: AndroidNotificationCategory.message,
+        visibility: NotificationVisibility.public,
       ),
-      iOS: DarwinNotificationDetails(
+      iOS: const DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
+        threadIdentifier: 'default',
       ),
     );
   }
@@ -275,7 +294,10 @@ class NotificationService {
       log("id in notif ${message.data[NotificationConstants.chatIdKey]}");
       _chatsCubit?.hasMore = true;
       _chatsCubit?.getMessages(
-          chatId: chatId, isInitial: true, showLoader: false);
+        chatId: chatId,
+        isInitial: true,
+        showLoader: false,
+      );
     }
   }
 
@@ -305,9 +327,7 @@ class NotificationService {
     log("navigating");
     navKey.currentState?.pushNamed(
       RoutePaths.dmViewPath,
-      arguments: {
-        NotificationConstants.chatIdKey: chatId,
-      },
+      arguments: {NotificationConstants.chatIdKey: chatId},
     );
   }
 

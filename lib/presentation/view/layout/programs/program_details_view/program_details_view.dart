@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/core/component/custom_tapbar.dart';
 import 'package:eazifly_student/presentation/controller/home_program_details_controller/programdetails_cubit.dart';
@@ -6,8 +8,11 @@ import 'package:eazifly_student/presentation/view/layout/programs/program_detail
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import 'package:flutter_html/flutter_html.dart';
 
+import '../../../../../core/enums/plan_page_enum.dart';
+
 class ProgramDetailsView extends StatefulWidget {
   final int programId;
+
   const ProgramDetailsView({super.key, required this.programId});
 
   @override
@@ -87,7 +92,9 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                           height: 36.h,
                           radius: 8.r,
                           onPressed: () {
-                            cubit.getProgramDetails(programId: widget.programId);
+                            cubit.getProgramDetails(
+                              programId: widget.programId,
+                            );
                           },
                         ),
                       ],
@@ -119,7 +126,9 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                               Expanded(
                                 child: Text(
                                   program.title ?? "",
-                                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                                  style: MainTextStyle.boldTextStyle(
+                                    fontSize: 14,
+                                  ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -134,21 +143,18 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                         16.ph,
                         CustomTabBar(
                           controller: cubit.controller,
-                          tabs: List.generate(
-                            cubit.tabs.length,
-                            (index) {
-                              bool isSelected = cubit.controller.index == index;
-                              return Text(
-                                cubit.tabs[index],
-                                style: MainTextStyle.boldTextStyle(
-                                  fontSize: 12,
-                                  color: isSelected
-                                      ? MainColors.primary
-                                      : MainColors.onSurfaceSecondary,
-                                ),
-                              );
-                            },
-                          ),
+                          tabs: List.generate(cubit.tabs.length, (index) {
+                            bool isSelected = cubit.controller.index == index;
+                            return Text(
+                              cubit.tabs[index],
+                              style: MainTextStyle.boldTextStyle(
+                                fontSize: 12,
+                                color: isSelected
+                                    ? MainColors.primary
+                                    : MainColors.onSurfaceSecondary,
+                              ),
+                            );
+                          }),
                         ),
                         SizedBox(
                           height: cubit.controller.index == 0
@@ -171,26 +177,48 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
           // إخفاء الزر أثناء التحميل أو في حالة عدم وجود بيانات
           BlocBuilder<ProgramDetailsCubit, ProgramdetailsState>(
             builder: (context, state) {
-              if (cubit.getProgramDetailsLoading || 
+              if (cubit.getProgramDetailsLoading ||
                   cubit.getProgramDetailsEntity?.data == null) {
                 return const SizedBox.shrink();
               }
-              
+
               return CustomElevatedButton(
                 text: lang.subscribeNowButton,
                 color: MainColors.primary,
                 radius: 16.r,
                 width: 343.w,
-                onPressed: () => Navigator.pushNamed(
-                  arguments: {
-                    "programId": widget.programId,
-                    "programTitle": cubit.getProgramDetailsEntity?.data?.title ?? "",
-                    "programDescription": cubit.getProgramDetailsEntity?.data?.description ?? "",
-                    "programImage": cubit.getProgramDetailsEntity?.data?.image ?? ""
-                  },
-                  context,
-                  RoutePaths.programSubscriptionPlan,
-                ),
+                onPressed: () {
+                  final String planPage =
+                      cubit.getProgramDetailsEntity?.data?.planPage ?? "";
+                  Navigator.pushNamed(
+                    arguments: planPage == PlanPageEnum.filterPlan.name
+                        ? {
+                            "programId": widget.programId,
+                            "programTitle":
+                                cubit.getProgramDetailsEntity?.data?.title ??
+                                "",
+                            "programDescription":
+                                cubit
+                                    .getProgramDetailsEntity
+                                    ?.data
+                                    ?.description ??
+                                "",
+                            "programImage":
+                                cubit.getProgramDetailsEntity?.data?.image ??
+                                "",
+                          }
+                        : widget.programId,
+                    context,
+                    getRouteForPlanPage(planPage) ?? "",
+                  );
+                  // return Navigator.pushNamed(
+                  //   arguments: {
+
+                  //   },
+                  //   context,
+                  //   RoutePaths.programSubscriptionPlan,
+                  // );
+                },
               );
             },
           ),
@@ -199,4 +227,9 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
       ),
     );
   }
+}
+
+String? getRouteForPlanPage(String planPageName) {
+  log("${PlanPageExtension.fromString(planPageName)?.route}");
+  return PlanPageExtension.fromString(planPageName)?.route;
 }

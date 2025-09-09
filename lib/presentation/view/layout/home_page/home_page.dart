@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
     cubit = context.read<HomeCubit>();
 
     // Initialize Geidea keys first
-    _initializeGeideaKeys();
+    // _initializeGeideaKeys();
 
     loginData = DataModel.fromJson(
       jsonDecode(
@@ -51,8 +51,8 @@ class _HomePageState extends State<HomePage> {
     isGuest = loginData?.isGuest ?? true;
     log("user id is ${loginData?.id}");
 
-    cubit.getHomeClosestSessions();
-    cubit.getHomeLibrary();
+    // cubit.getHomeClosestSessions();
+    // cubit.getHomeLibrary();
 
     // Initialize all data
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -61,41 +61,41 @@ class _HomePageState extends State<HomePage> {
   }
 
 // دالة منفصلة لتحميل قيم Geidea
-  Future<void> _initializeGeideaKeys() async {
-    try {
-      // احصل على merchant key
-      await cubit.getGeideaData(
-          key: GetGeideaValues.geideaApiMerchantKey.title);
-      if (cubit.getGeideaDataEntity?.data?.key ==
-          GetGeideaValues.geideaApiMerchantKey.title) {
-        merchantKey = cubit.getGeideaDataEntity?.data?.value ?? "";
-      }
-
-      // احصل على merchant secret
-      await cubit.getGeideaData(key: GetGeideaValues.geideaApiSecret.title);
-      if (cubit.getGeideaDataEntity?.data?.key ==
-          GetGeideaValues.geideaApiSecret.title) {
-        merchantSecret = cubit.getGeideaDataEntity?.data?.value ?? "";
-      }
-
-      log("Merchant Key: $merchantKey");
-      log("Merchant Secret: $merchantSecret");
-
-      // Initialize plugin after getting the keys
-      plugin.initialize(
-        serverEnvironment: ServerEnvironmentModel(
-          "title",
-          "apiBaseUrl",
-          "hppBaseUrl",
-        ),
-        publicKey: merchantKey,
-        apiPassword: merchantSecret,
-      );
-    } catch (e) {
-      log("Error initializing Geidea keys: $e");
-      // يمكنك استخدام قيم افتراضية أو إظهار رسالة خطأ
-    }
-  }
+//   Future<void> _initializeGeideaKeys() async {
+//     try {
+//       // احصل على merchant key
+//       await cubit.getGeideaData(
+//           key: GetGeideaValues.geideaApiMerchantKey.title);
+//       if (cubit.getGeideaDataEntity?.data?.key ==
+//           GetGeideaValues.geideaApiMerchantKey.title) {
+//         merchantKey = cubit.getGeideaDataEntity?.data?.value ?? "";
+//       }
+//
+//       // احصل على merchant secret
+//       await cubit.getGeideaData(key: GetGeideaValues.geideaApiSecret.title);
+//       if (cubit.getGeideaDataEntity?.data?.key ==
+//           GetGeideaValues.geideaApiSecret.title) {
+//         merchantSecret = cubit.getGeideaDataEntity?.data?.value ?? "";
+//       }
+//
+//       log("Merchant Key: $merchantKey");
+//       log("Merchant Secret: $merchantSecret");
+//
+//       // Initialize plugin after getting the keys
+//       plugin.initialize(
+//         serverEnvironment: ServerEnvironmentModel(
+//           "title",
+//           "apiBaseUrl",
+//           "hppBaseUrl",
+//         ),
+//         publicKey: merchantKey,
+//         apiPassword: merchantSecret,
+//       );
+//     } catch (e) {
+//       log("Error initializing Geidea keys: $e");
+//       // يمكنك استخدام قيم افتراضية أو إظهار رسالة خطأ
+//     }
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
             // BlocBuilder<AppLanguageCubit, ApplanuageState>(
             //   builder: (context, state) {
             //     return GestureDetector(
-            //       child: Text(lang.language), // استخدام النص من الترجمة
+            //       child: Text(lang.language),
             //       onTap: () {
             //         showDialog(
             //           context: context,
@@ -176,7 +176,7 @@ class _HomePageState extends State<HomePage> {
             //                                       onChanged: (value) {},
             //                                     ),
             //                                     Text(
-            //                                       lang.arabic, // استخدام النص من الترجمة
+            //                                       lang.arabic,
             //                                       style:
             //                                       MainTextStyle.boldTextStyle(
             //                                           fontSize: 20,
@@ -207,7 +207,7 @@ class _HomePageState extends State<HomePage> {
             //                                       onChanged: (value) {},
             //                                     ),
             //                                     Text(
-            //                                       lang.english, // استخدام النص من الترجمة
+            //                                       lang.english,
             //                                       style:
             //                                       MainTextStyle.boldTextStyle(
             //                                           fontSize: 20,
@@ -272,7 +272,7 @@ class _HomePageState extends State<HomePage> {
                     const ScreensBar(),
                     32.ph,
                     CategoryRowWidget(
-                      title: lang.upcomingLectures, // استخدام النص من الترجمة
+                      title: lang.upcomingLectures,
                       onViewAllTap: () {
                         if (cubit.getHomeClosestSessionsEntity?.data?.isEmpty ==
                             true) {
@@ -280,7 +280,7 @@ class _HomePageState extends State<HomePage> {
                             SnackBar(
                               content: Text(
                                 lang.noUpcomingLectures,
-                                // استخدام النص من الترجمة
+
                                 style: MainTextStyle.boldTextStyle(
                                   fontSize: 12,
                                   color: MainColors.background,
@@ -317,11 +317,11 @@ class _HomePageState extends State<HomePage> {
   Widget _buildNextLecturesSection() {
     var lang = context.loc!;
     return BlocBuilder<HomeCubit, HomeState>(
-      buildWhen: (previous, current) {
-        return current is GetHomeClosestSessionsLoadingState ||
-            current is GetHomeClosestSessionsSuccessState ||
-            current is GetHomeClosestSessionsErrorState;
-      },
+      // buildWhen: (previous, current) {
+      //   return current is GetHomeClosestSessionsLoadingState ||
+      //       current is GetHomeClosestSessionsSuccessState ||
+      //       current is GetHomeClosestSessionsErrorState;
+      // },
       builder: (context, state) {
         if (state is GetHomeClosestSessionsErrorState) {
           return _buildErrorWidget(
@@ -338,7 +338,7 @@ class _HomePageState extends State<HomePage> {
         if (cubit.getHomeClosestSessionsEntity?.data == null ||
             cubit.getHomeClosestSessionsEntity!.data!.isEmpty) {
           return _buildEmptyWidget(
-              message: lang.noUpcomingLectures); // استخدام النص من الترجمة
+              message: lang.noUpcomingLectures);
         }
 
         return const Hero(
@@ -380,7 +380,7 @@ class _HomePageState extends State<HomePage> {
 
         if (voiceListCategories == null || voiceListCategories.isEmpty) {
           return _buildEmptyWidget(
-              message: lang.noAudioContentAvailable); // استخدام النص من الترجمة
+              message: lang.noAudioContentAvailable);
         }
 
         return ListView.separated(
@@ -418,7 +418,7 @@ class _HomePageState extends State<HomePage> {
         (voiceListCategories[catIndex].items?.data == null ||
             voiceListCategories[catIndex].items!.data!.isEmpty)
             ? Text(
-          lang.noItemsInThisList, // استخدام النص من الترجمة
+          lang.noItemsInThisList,
           style: MainTextStyle.boldTextStyle(fontSize: 12),
         )
             : SizedBox(
@@ -512,7 +512,7 @@ class _HomePageState extends State<HomePage> {
           8.ph,
           ElevatedButton(
             onPressed: onRetry,
-            child: Text(lang.retry), // استخدام النص من الترجمة
+            child: Text(lang.retry),
           ),
         ],
       ),

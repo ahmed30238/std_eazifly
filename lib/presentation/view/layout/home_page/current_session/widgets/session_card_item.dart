@@ -73,7 +73,7 @@ class SessionCardItem extends StatelessWidget {
       case 0:
         return UsersSectionWidget(sessionData: sessionData);
       case 1:
-        return const PlatformSectionWidget();
+        return PlatformSectionWidget(sessionData: sessionData,);
       case 2:
         return ZoomLinkSectionWidget(
           sessionData: sessionData,

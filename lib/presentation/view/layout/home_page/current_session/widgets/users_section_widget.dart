@@ -1,5 +1,6 @@
 // users_section_widget.dart
 import 'package:eazifly_student/core/component/nested_avatar_container.dart';
+import 'package:eazifly_student/core/extensions/widgets_extensions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/domain/entities/home/get_home_current_session_entity.dart';
@@ -49,9 +50,9 @@ class UsersSectionWidget extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         style: MainTextStyle.boldTextStyle(
           fontSize: 10,
-          plusJakartaSans: true,
+          // plusJakartaSans: true,
         ),
-      ),
+      ).center(),
     );
   }
 }

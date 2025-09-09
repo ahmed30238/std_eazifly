@@ -46,7 +46,7 @@ Future<dynamic> studentMoreBottomSheet(
           ),
           InkWell(
             onTap: () => Navigator.pushNamed(
-              arguments: userId,
+              arguments: {"userId": userId, "fromSettings": true},
               context,
               RoutePaths.updateChildProfile,
             ),

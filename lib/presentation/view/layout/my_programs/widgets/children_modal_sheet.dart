@@ -10,15 +10,18 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 class ChildrenModalSheet extends StatelessWidget {
   final int noOfChildren;
   final int programId;
+  final MyProgramsCubit cubit;
+
   const ChildrenModalSheet({
     super.key,
     required this.noOfChildren,
     required this.programId,
+    required this.cubit,
   });
 
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<MyProgramsCubit>();
+    // var cubit = context.read<MyProgramsCubit>();
     // Logger logger = const Logger("child modal sheet logger");
     return Container(
       decoration: BoxDecoration(
@@ -32,7 +35,7 @@ class ChildrenModalSheet extends StatelessWidget {
         children: [
           BlocBuilder<MyProgramsCubit, MyProgramsState>(
             builder: (context, state) => Text(
-              'انت مشترك في هذا البرنامج ب$noOfChildren طالب',
+              'انت مشترك في هذا البرنامج ب${cubit.getAssignedChildrenToProgramEntity?.data?.length ?? 0} طالب',
               style: MainTextStyle.boldTextStyle(
                 fontSize: 14,
                 color: MainColors.onSecondary,
@@ -91,6 +94,7 @@ class ChildrenModalSheet extends StatelessWidget {
                         read.fillUserId(child.id ?? -1);
                         read.changeCurrentUserIndex(index);
                         log("child index is $index");
+
                         // read.updateChildIndex(index);
                         back(context);
                         Future.delayed(const Duration(milliseconds: 100), () {
@@ -121,8 +125,7 @@ class ChildrenModalSheet extends StatelessWidget {
               var read = context.read<LectureCubit>();
               // final cubit = context.read<MyProgramsCubit>();
               int childId =
-                  cubit.getAssignedChildrenToProgramEntity?.data?.first.id ??
-                  0;
+                  cubit.getAssignedChildrenToProgramEntity?.data?.first.id ?? 0;
               log("firstChildId $childId");
               read.fillUserId(childId);
               back(context);

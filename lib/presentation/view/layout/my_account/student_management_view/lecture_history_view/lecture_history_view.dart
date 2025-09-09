@@ -25,11 +25,11 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
     programId = lectureCubit.currentProgramId;
     log("program id is $programId");
 
-    myProgramsCubit.getAssignedChildrenToProgram(programId: programId);
-    lectureCubit.getProgramSessions(
-      programId: programId,
-      userId: lectureCubit.userId,
-    );
+    // myProgramsCubit.getAssignedChildrenToProgram(programId: programId);
+    // lectureCubit.getProgramSessions(
+    //   programId: programId,
+    //   userId: lectureCubit.userId,
+    // );
     super.initState();
   }
 

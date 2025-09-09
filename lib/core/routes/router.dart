@@ -91,31 +91,21 @@ class AppRouter {
   static Route<dynamic>? onGenerateRoutes(RouteSettings settings) {
     switch (settings.name) {
       case RoutePaths.layoutPath:
-        return createRoute(
-          const Layout(),
-        );
+        return createRoute(const Layout());
       case RoutePaths.splashScreen:
-        return createRoute(
-          const SplashScreen(),
-        );
+        return createRoute(const SplashScreen());
       case RoutePaths.loginPath:
         return createRoute(
           BlocProvider(
-            create: (context) => LoginCubit(
-              loginUsecase: sl(),
-            ),
+            create: (context) => LoginCubit(loginUsecase: sl()),
             child: const Login(),
           ),
         );
       case RoutePaths.forgotPasswordView:
-        return createRoute(
-          const ForgotPasswordScreen(),
-        );
+        return createRoute(const ForgotPasswordScreen());
       case RoutePaths.resetPasswordView:
         var email = settings.arguments as String;
-        return createRoute(
-          ResetPasswordScreen(email: email),
-        );
+        return createRoute(ResetPasswordScreen(email: email));
       case RoutePaths.accountDataPath:
         return createRoute(
           BlocProvider(
@@ -130,20 +120,23 @@ class AppRouter {
       case RoutePaths.editProfile:
         var cubit = settings.arguments as AccountdataCubit;
         return createRoute(
-          BlocProvider.value(
-            value: cubit,
-            child: const EditProfile(),
-          ),
+          BlocProvider.value(value: cubit, child: const EditProfile()),
         );
       case RoutePaths.updateChildProfile:
-        var userId = settings.arguments as int? ?? -1;
+        var arguments = settings.arguments as Map<String, dynamic>;
+        int userId = arguments["userId"] as int? ?? -1;
+        bool fromSettings = arguments["fromSettings"] as bool;
+
         return createRoute(
           BlocProvider(
             create: (context) => UpdatechildprofileCubit(
               updateProfileUsecase: sl(),
               removeAssignedStudentUsecase: sl(),
             ),
-            child: UpdateChildProfile(userId: userId),
+            child: UpdateChildProfile(
+              userId: userId,
+              fromSettings: fromSettings,
+            ),
           ),
         );
       case RoutePaths.studentManagement:
@@ -157,9 +150,7 @@ class AppRouter {
           ),
         );
       case RoutePaths.aboutAppPath:
-        return createRoute(
-          const AboutAppView(),
-        );
+        return createRoute(const AboutAppView());
       case RoutePaths.subscriptionManagmentPath:
         return createRoute(
           BlocProvider(
@@ -184,9 +175,7 @@ class AppRouter {
       case RoutePaths.copounsAndDiscountsViewPath:
         return createRoute(
           BlocProvider(
-            create: (context) => CopounHistoryCubit(
-              copounHistoryUsecase: sl(),
-            ),
+            create: (context) => CopounHistoryCubit(copounHistoryUsecase: sl()),
             child: const CopounsAndDiscountsView(),
           ),
         );
@@ -198,9 +187,7 @@ class AppRouter {
           ),
         );
       case RoutePaths.privacyPolicyAndUsage:
-        return createRoute(
-          const PrivacyPolicyAndUsageView(),
-        );
+        return createRoute(const PrivacyPolicyAndUsageView());
 
       case RoutePaths.chatsViewPath:
         return createRoute(
@@ -214,38 +201,20 @@ class AppRouter {
       case RoutePaths.lectureView:
         var arguments = settings.arguments as Map<String, dynamic>;
         var programId = arguments["programId"] as int;
-        return createRoute(
-          LectureView(
-            programId: programId,
-          ),
-        );
+        return createRoute(LectureView(programId: programId));
       case RoutePaths.lectureDetailsView:
-        return createRoute(
-          const LectureDetailsView(),
-        );
+        return createRoute(const LectureDetailsView());
       case RoutePaths.lectureHistoryView:
-        return createRoute(
-          const LectureHistoryView(),
-        );
+        return createRoute(const LectureHistoryView());
       case RoutePaths.goalsScreen:
-        return createRoute(
-          const GoalsView(),
-        );
+        return createRoute(const GoalsView());
       case RoutePaths.explainPointsSystemView:
-        return createRoute(
-          const ExplainPointsSystemView(),
-        );
+        return createRoute(const ExplainPointsSystemView());
       case RoutePaths.lectureReportView:
         var index = settings.arguments as int? ?? -1;
-        return createRoute(
-          LectureReportView(
-            index: index,
-          ),
-        );
+        return createRoute(LectureReportView(index: index));
       case RoutePaths.leaderBoardView:
-        return createRoute(
-          const LeaderBoardView(),
-        );
+        return createRoute(const LeaderBoardView());
       case RoutePaths.goalDetailsView:
         var arguments = settings.arguments as Map<String, dynamic>;
         int chapterId = arguments["chapterId"] as int? ?? -1;
@@ -261,9 +230,7 @@ class AppRouter {
           ),
         );
       case RoutePaths.meetingDataPath:
-        return createRoute(
-          const MeetingDataView(),
-        );
+        return createRoute(const MeetingDataView());
       case RoutePaths.meetings:
         return createRoute(
           BlocProvider(
@@ -272,25 +239,15 @@ class AppRouter {
           ),
         );
       case RoutePaths.joinedLectureScreen:
-        return createRoute(
-          const JoinedLectureScreen(),
-        );
+        return createRoute(const JoinedLectureScreen());
       case RoutePaths.sessionDetailsView:
-        return createRoute(
-          const SessionDetailsView(),
-        );
+        return createRoute(const SessionDetailsView());
       case RoutePaths.selectionOfEducationalCoursesView:
-        return createRoute(
-          const SelectionOfEducationalCoursesView(),
-        );
+        return createRoute(const SelectionOfEducationalCoursesView());
       case RoutePaths.selectionProgramItemDetailsView:
-        return createRoute(
-          const SelectionProgramItemDetailsView(),
-        );
+        return createRoute(const SelectionProgramItemDetailsView());
       case RoutePaths.programGoalsView:
-        return createRoute(
-          const ProgramGoalsView(),
-        );
+        return createRoute(const ProgramGoalsView());
       case RoutePaths.assignmentDetailsView:
         var arguments = settings.arguments as Map<String, dynamic>;
         var cubit = arguments["cubit"] as LectureCubit;
@@ -361,11 +318,7 @@ class AppRouter {
         // int programId = settings.arguments as int? ?? -1;
         return createRoute(
           MultiBlocProvider(
-            providers: [
-              BlocProvider.value(
-                value: sl<CancelSessionCubit>(),
-              ),
-            ],
+            providers: [BlocProvider.value(value: sl<CancelSessionCubit>())],
             child: const CancelSessionView(),
           ),
         );
@@ -386,9 +339,7 @@ class AppRouter {
                 ),
               ),
             ],
-            child: ChangeLecturerView(
-              programId: programId,
-            ),
+            child: ChangeLecturerView(programId: programId),
           ),
         );
       case RoutePaths.subscribedStudentsSettingsView:
@@ -420,9 +371,7 @@ class AppRouter {
           ),
         );
       case RoutePaths.packageDetailsView:
-        return createRoute(
-          const PackageDetailsView(),
-        );
+        return createRoute(const PackageDetailsView());
       case RoutePaths.programSubscriptionPlan:
         var arguments = settings.arguments as Map<String, dynamic>?;
         int programId = arguments?["programId"] ?? "";
@@ -484,12 +433,9 @@ class AppRouter {
         int programId = settings.arguments as int;
         return createRoute(
           BlocProvider(
-            create: (context) => ProgramDetailsCubit(
-              getProgramDetailsUsecase: sl(),
-            ),
-            child: ProgramDetailsView(
-              programId: programId,
-            ),
+            create: (context) =>
+                ProgramDetailsCubit(getProgramDetailsUsecase: sl()),
+            child: ProgramDetailsView(programId: programId),
           ),
         );
       case RoutePaths.groupPackageManagement:
@@ -511,9 +457,7 @@ class AppRouter {
                 ),
               ),
               BlocProvider(
-                create: (context) => ChildrenCubit(
-                  getChildrenUsecase: sl(),
-                ),
+                create: (context) => ChildrenCubit(getChildrenUsecase: sl()),
               ),
             ],
             child: GroupPackageManagementView(
@@ -523,9 +467,7 @@ class AppRouter {
           ),
         );
       case RoutePaths.homeNotification:
-        return createRoute(
-          const HomeNotificationView(),
-        );
+        return createRoute(const HomeNotificationView());
       case RoutePaths.assignments:
         return createRoute(
           BlocProvider.value(
@@ -562,12 +504,8 @@ class AppRouter {
         var cubit = arguments?["cubit"] as ProgramsubscriptionplanCubit;
         return createRoute(
           MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: cubit),
-            ],
-            child: ConfirmPaymentView(
-              methodId: methodId,
-            ),
+            providers: [BlocProvider.value(value: cubit)],
+            child: ConfirmPaymentView(methodId: methodId),
           ),
         );
       case RoutePaths.generalConfirmPaymentView:
@@ -604,10 +542,7 @@ class AppRouter {
         return createRoute(
           BlocProvider.value(
             value: cubit,
-            child: SubscriptiopnPackageDetails(
-              planId: planId,
-              mainId: mainId,
-            ),
+            child: SubscriptiopnPackageDetails(planId: planId, mainId: mainId),
           ),
         );
       case RoutePaths.audioPlayListView:
@@ -617,9 +552,7 @@ class AppRouter {
         return createRoute(
           BlocProvider.value(
             value: cubit,
-            child: AudioPlayListView(
-              listId: listId,
-            ),
+            child: AudioPlayListView(listId: listId),
           ),
         );
       case RoutePaths.addToLibraryPackageDetailsView:
@@ -647,20 +580,14 @@ class AppRouter {
               getPlansWithDetailsUsecase: sl(),
               getPaymentMethodDetailsUsecase: sl(),
             ),
-            child: ProgramPlanFilter(
-              programId: programId ?? -1,
-            ),
+            child: ProgramPlanFilter(programId: programId ?? -1),
           ),
         );
       case RoutePaths.programsUnderReviewView:
         return createRoute(
           MultiBlocProvider(
             providers: [
-              BlocProvider.value(
-                value: sl<ProgramsUnderReviewCubit>(),
-              ),
               BlocProvider.value(value: sl<ChatsCubit>()), // نفس الـ instance
-
               // يمكنك إضافة المزيد من BlocProviders هنا إذا كنت بحاجة إليها
             ],
             child: const ProgramsUnderReviewView(),
@@ -692,9 +619,7 @@ class AppRouter {
             //   // methodId: methodId,
             //   // getUserOrdersUsecase: sl(),
             // ),
-            child: ConfirmLibraryPaymentView(
-              methodId: methodId,
-            ),
+            child: ConfirmLibraryPaymentView(methodId: methodId),
           ),
         );
       case RoutePaths.completePaymentProcessScreen:
@@ -707,9 +632,7 @@ class AppRouter {
               BlocProvider.value(value: sl<PaymentCubit>()),
               BlocProvider.value(value: cubit),
             ],
-            child: CompletePaymentProcessView(
-              itemId: itemId,
-            ),
+            child: CompletePaymentProcessView(itemId: itemId),
           ),
         );
       case RoutePaths.generalCompletePaymentProcessScreen:
@@ -751,36 +674,26 @@ class AppRouter {
         return createRoute(
           MultiBlocProvider(
             providers: [
-              BlocProvider.value(
-                value: sl<PaymentCubit>(),
-              ),
-              BlocProvider.value(
-                value: cubit,
-              ),
+              BlocProvider.value(value: sl<PaymentCubit>()),
+              BlocProvider.value(value: cubit),
             ],
-            child: CompleteLibraryPaymentProcessView(
-              itemId: itemId,
-            ),
+            child: CompleteLibraryPaymentProcessView(itemId: itemId),
           ),
         );
       case RoutePaths.navigateToLectureView:
         var arguments = settings.arguments as Map<String, dynamic>;
         int sessionId = arguments["sessionId"] as int;
+        return createRoute(NavigateToLectureView(sessionId: sessionId));
+      case RoutePaths.currentSession:
         return createRoute(
-          NavigateToLectureView(
-            sessionId: sessionId,
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: sl<HomeCubit>()),
+              BlocProvider.value(value: sl<ChatsCubit>()), // نفس الـ instance
+            ],
+            child: const CurrentSession(),
           ),
         );
-      case RoutePaths.currentSession:
-        return createRoute(MultiBlocProvider(
-          providers: [
-            BlocProvider.value(
-              value: sl<HomeCubit>(),
-            ),
-            BlocProvider.value(value: sl<ChatsCubit>()), // نفس الـ instance
-          ],
-          child: const CurrentSession(),
-        ));
       case RoutePaths.addNewStudentData:
         var argument = settings.arguments as Map<String, dynamic>?;
         String orderId = argument?["orderId"] as String? ?? "";
@@ -788,9 +701,7 @@ class AppRouter {
         return createRoute(
           BlocProvider.value(
             value: sl<AddNewStudentDataToProgramCubit>(),
-            child: AddNewStudentDataView(
-              orderId: orderId,
-            ),
+            child: AddNewStudentDataView(orderId: orderId),
           ),
         );
       case RoutePaths.dmViewPath:
@@ -801,20 +712,19 @@ class AppRouter {
         String? problemState = argument?["problemState"] as String? ?? "";
         String? chatId = argument?["chatId"] as String? ?? "-1";
         return createRoute(
-          MultiBlocProvider(
-            providers: [
-              // BlocProvider.value(value: cubit),
-              BlocProvider.value(
-                value: sl<ProgramsUnderReviewCubit>(),
-              ),
-            ],
-            child: DmView(
-              isReport: isReport,
-              orderId: int.tryParse(orderId),
-              chatId: chatId,
-              problemState: problemState,
-            ),
+          DmView(
+            isReport: isReport,
+            orderId: int.tryParse(orderId),
+            chatId: chatId,
+            problemState: problemState,
           ),
+          // MultiBlocProvider(
+          //   providers: [
+          //     // BlocProvider.value(value: cubit),
+          //
+          //   ],
+          //   child:
+          // ),
         );
       case RoutePaths.notificationPath:
         return createRoute(
@@ -832,9 +742,7 @@ class AppRouter {
           ),
         );
       default:
-        return createRoute(
-          const Layout(),
-        );
+        return createRoute(const Layout());
     }
   }
 }
@@ -847,10 +755,7 @@ Route createRoute(Widget widget, {BuildContext? context}) {
       const end = Offset.zero;
       const curve = Curves.ease;
       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
+      return SlideTransition(position: animation.drive(tween), child: child);
     },
   );
 }

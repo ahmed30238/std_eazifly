@@ -81,17 +81,18 @@ class _ProgramPlanFilterState extends State<ProgramPlanFilter>
                         },
                       ),
                     ),
-                    if (!cubit.getPlanSubscriptionLoader &&
-                        cubit.controller != null)
-                      Positioned(
-                        left: 15.w,
-                        top: 0.h,
-                        child: OfferContainer(
-                          height: 25.h,
-                          width: 73.w,
-                          offerText: lang.saveDiscount,
-                        ),
-                      ),
+                    // وفر 20%
+                    // if (!cubit.getPlanSubscriptionLoader &&
+                    //     cubit.controller != null)
+                    //   Positioned(
+                    //     left: 15.w,
+                    //     top: 0.h,
+                    //     child: OfferContainer(
+                    //       height: 25.h,
+                    //       width: 73.w,
+                    //       offerText: lang.saveDiscount,
+                    //     ),
+                    //   ),
                   ],
                 ),
               ),
@@ -318,7 +319,7 @@ class StartDateField extends StatelessWidget {
           initialDate: DateTime.now(),
           firstDate: DateTime.now(),
           lastDate: DateTime(2030),
-          locale: const Locale('ar', 'SA'),
+          // locale: const Locale('ar', 'SA'),
           builder: (context, child) {
             return Theme(
               data: Theme.of(context).copyWith(
