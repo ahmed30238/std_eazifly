@@ -1,17 +1,14 @@
 import 'dart:io';
 
-import 'package:eazifly_student/core/extensions/num_extentions.dart';
-import 'package:eazifly_student/core/service_locator/service_locator.dart';
 import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ImagesArea extends StatelessWidget {
   const ImagesArea({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var cubit = sl<ChatsCubit>();
+    var cubit = context.read<ChatsCubit>();
 
     return SizedBox(
       height: 104.h,

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:eazifly_student/core/component/shimmer_widget.dart';
-import 'package:eazifly_student/core/enums/geidea_keys.dart';
 import 'package:eazifly_student/core/enums/storage_enum.dart';
 import 'package:eazifly_student/data/models/auth/login_model.dart';
 import 'package:eazifly_student/data/models/home/get_home_library_model.dart';
@@ -41,11 +41,7 @@ class _HomePageState extends State<HomePage> {
     // _initializeGeideaKeys();
 
     loginData = DataModel.fromJson(
-      jsonDecode(
-        GetStorage().read(
-          StorageEnum.loginModel.name,
-        ),
-      ),
+      jsonDecode(GetStorage().read(StorageEnum.loginModel.name)),
     );
     context.read<LectureCubit>().fillUserId(loginData?.id ?? -1);
     isGuest = loginData?.isGuest ?? true;
@@ -60,42 +56,42 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-// دالة منفصلة لتحميل قيم Geidea
-//   Future<void> _initializeGeideaKeys() async {
-//     try {
-//       // احصل على merchant key
-//       await cubit.getGeideaData(
-//           key: GetGeideaValues.geideaApiMerchantKey.title);
-//       if (cubit.getGeideaDataEntity?.data?.key ==
-//           GetGeideaValues.geideaApiMerchantKey.title) {
-//         merchantKey = cubit.getGeideaDataEntity?.data?.value ?? "";
-//       }
-//
-//       // احصل على merchant secret
-//       await cubit.getGeideaData(key: GetGeideaValues.geideaApiSecret.title);
-//       if (cubit.getGeideaDataEntity?.data?.key ==
-//           GetGeideaValues.geideaApiSecret.title) {
-//         merchantSecret = cubit.getGeideaDataEntity?.data?.value ?? "";
-//       }
-//
-//       log("Merchant Key: $merchantKey");
-//       log("Merchant Secret: $merchantSecret");
-//
-//       // Initialize plugin after getting the keys
-//       plugin.initialize(
-//         serverEnvironment: ServerEnvironmentModel(
-//           "title",
-//           "apiBaseUrl",
-//           "hppBaseUrl",
-//         ),
-//         publicKey: merchantKey,
-//         apiPassword: merchantSecret,
-//       );
-//     } catch (e) {
-//       log("Error initializing Geidea keys: $e");
-//       // يمكنك استخدام قيم افتراضية أو إظهار رسالة خطأ
-//     }
-//   }
+  // دالة منفصلة لتحميل قيم Geidea
+  //   Future<void> _initializeGeideaKeys() async {
+  //     try {
+  //       // احصل على merchant key
+  //       await cubit.getGeideaData(
+  //           key: GetGeideaValues.geideaApiMerchantKey.title);
+  //       if (cubit.getGeideaDataEntity?.data?.key ==
+  //           GetGeideaValues.geideaApiMerchantKey.title) {
+  //         merchantKey = cubit.getGeideaDataEntity?.data?.value ?? "";
+  //       }
+  //
+  //       // احصل على merchant secret
+  //       await cubit.getGeideaData(key: GetGeideaValues.geideaApiSecret.title);
+  //       if (cubit.getGeideaDataEntity?.data?.key ==
+  //           GetGeideaValues.geideaApiSecret.title) {
+  //         merchantSecret = cubit.getGeideaDataEntity?.data?.value ?? "";
+  //       }
+  //
+  //       log("Merchant Key: $merchantKey");
+  //       log("Merchant Secret: $merchantSecret");
+  //
+  //       // Initialize plugin after getting the keys
+  //       plugin.initialize(
+  //         serverEnvironment: ServerEnvironmentModel(
+  //           "title",
+  //           "apiBaseUrl",
+  //           "hppBaseUrl",
+  //         ),
+  //         publicKey: merchantKey,
+  //         apiPassword: merchantSecret,
+  //       );
+  //     } catch (e) {
+  //       log("Error initializing Geidea keys: $e");
+  //       // يمكنك استخدام قيم افتراضية أو إظهار رسالة خطأ
+  //     }
+  //   }
 
   @override
   Widget build(BuildContext context) {
@@ -106,10 +102,9 @@ class _HomePageState extends State<HomePage> {
         preferredSize: Size.fromHeight(kToolbarHeight.h),
         child: BlocBuilder<HomeNotificationCubit, HomeNotificationState>(
           builder: (context, state) {
-            bool allNotificationsRead = HomeNotificationCubit
-                .get(context)
-                .isRead
-                .every((element) => element);
+            bool allNotificationsRead = HomeNotificationCubit.get(
+              context,
+            ).isRead.every((element) => element);
             return HomeAppbar(
               loginData: loginData!,
               showBadge: !allNotificationsRead,
@@ -290,6 +285,10 @@ class _HomePageState extends State<HomePage> {
                           );
                           return;
                         }
+                        if (cubit.getHomeClosestSessionsEntity?.data?.length ==
+                            1) {
+                          return;
+                        }
                         Navigator.pushNamed(
                           context,
                           RoutePaths.viewAllNextSessions,
@@ -337,16 +336,12 @@ class _HomePageState extends State<HomePage> {
         // Check if there's data to show
         if (cubit.getHomeClosestSessionsEntity?.data == null ||
             cubit.getHomeClosestSessionsEntity!.data!.isEmpty) {
-          return _buildEmptyWidget(
-              message: lang.noUpcomingLectures);
+          return _buildEmptyWidget(message: lang.noUpcomingLectures);
         }
 
         return const Hero(
           tag: "next_lectures_hero",
-          child: Material(
-            color: Colors.transparent,
-            child: NextLectureList(),
-          ),
+          child: Material(color: Colors.transparent, child: NextLectureList()),
         );
       },
     );
@@ -379,20 +374,18 @@ class _HomePageState extends State<HomePage> {
         log("$voiceListCategories ${voiceListCategories?.length}");
 
         if (voiceListCategories == null || voiceListCategories.isEmpty) {
-          return _buildEmptyWidget(
-              message: lang.noAudioContentAvailable);
+          return _buildEmptyWidget(message: lang.noAudioContentAvailable);
         }
 
         return ListView.separated(
           padding: EdgeInsets.symmetric(vertical: 24.h),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, catIndex) =>
-              _buildCategoryItem(
-                voiceListCategories[catIndex],
-                catIndex,
-                voiceListCategories,
-              ),
+          itemBuilder: (context, catIndex) => _buildCategoryItem(
+            voiceListCategories[catIndex],
+            catIndex,
+            voiceListCategories,
+          ),
           separatorBuilder: (context, index) => 24.ph,
           itemCount: voiceListCategories.length,
         );
@@ -400,9 +393,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildCategoryItem(GetHomeLibraryDatumModel category,
-      int catIndex,
-      List<GetHomeLibraryDatumModel> voiceListCategories,) {
+  Widget _buildCategoryItem(
+    GetHomeLibraryDatumModel category,
+    int catIndex,
+    List<GetHomeLibraryDatumModel> voiceListCategories,
+  ) {
     var lang = context.loc!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -416,42 +411,42 @@ class _HomePageState extends State<HomePage> {
         ),
         8.ph,
         (voiceListCategories[catIndex].items?.data == null ||
-            voiceListCategories[catIndex].items!.data!.isEmpty)
+                voiceListCategories[catIndex].items!.data!.isEmpty)
             ? Text(
-          lang.noItemsInThisList,
-          style: MainTextStyle.boldTextStyle(fontSize: 12),
-        )
+                lang.noItemsInThisList,
+                style: MainTextStyle.boldTextStyle(fontSize: 12),
+              )
             : SizedBox(
-          height: 220.h,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) {
-              var libraryCubit = context.read<LibraryCubit>();
-              var listItem = voiceListCategories[catIndex];
-              var item = listItem.items?.data?[index];
+                height: 220.h,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    var libraryCubit = context.read<LibraryCubit>();
+                    var listItem = voiceListCategories[catIndex];
+                    var item = listItem.items?.data?[index];
 
-              return ProgramWithStatsContainer(
-                onTap: libraryCubit.getLibraryItemsLoader
-                    ? () {}
-                    : () {
-                  libraryCubit.showLibraryItem(
-                    itemId: item?.id ?? 0,
-                    context: context,
-                  );
-                },
-                image: item?.image ?? "",
-                likes: "2",
-                noOfSubscription: "1",
-                title: item?.title ?? "",
-                views: "3",
-              );
-            },
-            separatorBuilder: (context, index) => 12.pw,
-            itemCount:
-            voiceListCategories[catIndex].items?.data?.length ?? 0,
-          ),
-        ),
+                    return ProgramWithStatsContainer(
+                      onTap: libraryCubit.getLibraryItemsLoader
+                          ? () {}
+                          : () {
+                              libraryCubit.showLibraryItem(
+                                itemId: item?.id ?? 0,
+                                context: context,
+                              );
+                            },
+                      image: item?.image ?? "",
+                      likes: "2",
+                      noOfSubscription: "1",
+                      title: item?.title ?? "",
+                      views: "3",
+                    );
+                  },
+                  separatorBuilder: (context, index) => 12.pw,
+                  itemCount:
+                      voiceListCategories[catIndex].items?.data?.length ?? 0,
+                ),
+              ),
       ],
     );
   }
@@ -482,10 +477,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildLoadingWidget({required double height}) {
-    return SizedBox(
-      height: height,
-      child: const ShimmerWidget(),
-    );
+    return SizedBox(height: height, child: const ShimmerWidget());
   }
 
   Widget _buildErrorWidget({
@@ -498,11 +490,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.error_outline,
-            size: 48.w,
-            color: Colors.red,
-          ),
+          Icon(Icons.error_outline, size: 48.w, color: Colors.red),
           8.ph,
           Text(
             message,
@@ -510,10 +498,7 @@ class _HomePageState extends State<HomePage> {
             textAlign: TextAlign.center,
           ),
           8.ph,
-          ElevatedButton(
-            onPressed: onRetry,
-            child: Text(lang.retry),
-          ),
+          ElevatedButton(onPressed: onRetry, child: Text(lang.retry)),
         ],
       ),
     );
@@ -525,11 +510,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.inbox_outlined,
-            size: 48.w,
-            color: Colors.grey,
-          ),
+          Icon(Icons.inbox_outlined, size: 48.w, color: Colors.grey),
           8.ph,
           Text(
             message,

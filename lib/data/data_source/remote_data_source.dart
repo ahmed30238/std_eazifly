@@ -136,8 +136,9 @@ abstract class BaseRemoteDataSource {
 
   Future<GetProgramDetailsModel> getProgramDetails({required int programId});
 
-  Future<AssignProgramReviewModel> assignProgramReview(
-      {required AssignProgramReviewTojson data});
+  Future<AssignProgramReviewModel> assignProgramReview({
+    required AssignProgramReviewTojson data,
+  });
 
   Future<GetPlansWithDetailsModel> getPlansWithDetails({
     required int programId,
@@ -154,11 +155,14 @@ abstract class BaseRemoteDataSource {
 
   Future<CheckCopounModel> checkCopoun({required CheckCopounTojson data});
 
-  Future<GetProgramPaymentMethodsModel> getProgramPaymentMethods(
-      {required int programId});
+  Future<GetProgramPaymentMethodsModel> getProgramPaymentMethods({
+    required int programId,
+  });
 
-  Future<GetPaymentMethodDetailsModel> getPaymentMethodDetails(
-      {required int programId, required int methodId});
+  Future<GetPaymentMethodDetailsModel> getPaymentMethodDetails({
+    required int programId,
+    required int methodId,
+  });
 
   Future<GetUserOrdersModel> getUserOrders();
 
@@ -166,13 +170,14 @@ abstract class BaseRemoteDataSource {
 
   Future<GetAllLibraryListsModel> getAllLibraryLists();
 
-  Future<StoreFavouriteListModel> storeFavouriteList(
-      {required StoreFavouriteListTojson data});
+  Future<StoreFavouriteListModel> storeFavouriteList({
+    required StoreFavouriteListTojson data,
+  });
 
   Future<GetFavouriteListModel> getFavouriteList();
 
-  Future<GetFavouriteListItemsUsingListIdModel> getFavouriteListItemsUsinListId(
-      {required int listId});
+  Future<GetFavouriteListItemsUsingListIdModel>
+  getFavouriteListItemsUsinListId({required int listId});
 
   Future<GetAllItemsModel> getAllItems();
 
@@ -184,15 +189,13 @@ abstract class BaseRemoteDataSource {
     required int listId,
   });
 
-  Future<LikeItemModel> likeItem({
-    required int itemId,
-    required bool status,
-  });
+  Future<LikeItemModel> likeItem({required int itemId, required bool status});
 
   Future<GetMyChildrenModel> getMyChildren({required bool childresStatus});
 
-  Future<CreateNewChildModel> createNewChild(
-      {required CreateNewChildTojson data});
+  Future<CreateNewChildModel> createNewChild({
+    required CreateNewChildTojson data,
+  });
 
   Future<ShowLibraryItemModel> showLibraryItem({required int itemId});
 
@@ -200,8 +203,9 @@ abstract class BaseRemoteDataSource {
 
   Future<GetLibraryPlansModel> getLibraryPlans({required int days});
 
-  Future<LibraryOrderAndSubscriptionModel> libraryOrderAndSubscription(
-      {required LibraryOrderAndSubscribeTojson data});
+  Future<LibraryOrderAndSubscriptionModel> libraryOrderAndSubscription({
+    required LibraryOrderAndSubscribeTojson data,
+  });
 
   Future<GetMyProgramsModel> getMyPrograms();
 
@@ -209,11 +213,13 @@ abstract class BaseRemoteDataSource {
 
   Future<JoinSessionModel> joinSession({required JoinSessionTojson data});
 
-  Future<GetAssignedChildrenToProgramModel> getAssignedChildrenToProgram(
-      {required int programId});
+  Future<GetAssignedChildrenToProgramModel> getAssignedChildrenToProgram({
+    required int programId,
+  });
 
-  Future<ChangeSessionStatusModel> changeSessionStatus(
-      {required ChangeSessionStatusToJson data});
+  Future<ChangeSessionStatusModel> changeSessionStatus({
+    required ChangeSessionStatusToJson data,
+  });
 
   Future<ShowProgramDetailsModel> showProgramDetails({required int programId});
 
@@ -227,17 +233,11 @@ abstract class BaseRemoteDataSource {
     required int userId,
   });
 
-  Future<GetUserReportsModel> getUserReports({
-    required int userId,
-  });
+  Future<GetUserReportsModel> getUserReports({required int userId});
 
-  Future<GetUserFeedbacksModel> getUserFeedbacks({
-    required int userId,
-  });
+  Future<GetUserFeedbacksModel> getUserFeedbacks({required int userId});
 
-  Future<GetContentChapterModel> getContentChapter({
-    required int userId,
-  });
+  Future<GetContentChapterModel> getContentChapter({required int userId});
 
   Future<GetHomeCurrentSessionModel> getHomeCurrentSession({
     required int userId,
@@ -247,27 +247,19 @@ abstract class BaseRemoteDataSource {
     required int userId,
   });
 
-  Future<GetHomeQuizzesModel> getHomeQuizzes({
-    required int userId,
-  });
+  Future<GetHomeQuizzesModel> getHomeQuizzes({required int userId});
 
-  Future<GetHomeAssignmentsModel> getHomeAssignments({
-    required int userId,
-  });
+  Future<GetHomeAssignmentsModel> getHomeAssignments({required int userId});
 
   Future<GetHomeLibraryModel> getHomeLibrary();
 
-  Future<GetChapterLessonsModel> getChapterLessons({
-    required int chapterId,
-  });
+  Future<GetChapterLessonsModel> getChapterLessons({required int chapterId});
 
   Future<CompleteChapterLessonModel> completeChapterLesson({
     required int lessonId,
   });
 
-  Future<SubmitQuizModel> submitQuiz({
-    required SubmitQuizTojson data,
-  });
+  Future<SubmitQuizModel> submitQuiz({required SubmitQuizTojson data});
 
   Future<GetQuizQuestionsModel> getQuizQuestions({
     required int userId,
@@ -290,9 +282,7 @@ abstract class BaseRemoteDataSource {
     required int offset,
   });
 
-  Future<SendMessagesModel> sendMessages({
-    required SendMessagesTojson data,
-  });
+  Future<SendMessagesModel> sendMessages({required SendMessagesTojson data});
 
   Future<PostAssignmentModel> postAssignment({
     required PostAssignmentTojson data,
@@ -302,17 +292,13 @@ abstract class BaseRemoteDataSource {
 
   Future<GetLibrarySubscriptionModel> getLibrarySubscription();
 
-  Future<CancelSubscriptionModel> cancelSubscription({
-    required int mainId,
-  });
+  Future<CancelSubscriptionModel> cancelSubscription({required int mainId});
 
   Future<RenewSubscriptionModel> renewSubscription({
     required RenewSubscriptionTojson data,
   });
 
-  Future<ShowPlanModel> showPlan({
-    required int planId,
-  });
+  Future<ShowPlanModel> showPlan({required int planId});
 
   Future<UpgradeOrderModel> upgradeOrder({
     required RenewSubscriptionTojson data,
@@ -332,9 +318,7 @@ abstract class BaseRemoteDataSource {
     required GetInstructorsTojson data,
   });
 
-  Future<GetProgramContentModel> getProgramContent({
-    required int programId,
-  });
+  Future<GetProgramContentModel> getProgramContent({required int programId});
 
   Future<GetReportQuestionsModel> getReportQuestions({
     required String reportMakerType,
@@ -344,9 +328,7 @@ abstract class BaseRemoteDataSource {
     required int meetingSessionId,
   });
 
-  Future<AddNoteModel> addNote({
-    required AddNoteTojson data,
-  });
+  Future<AddNoteModel> addNote({required AddNoteTojson data});
 
   Future<GetCancelSessionReasonModel> getCancelSessionReasons();
 
@@ -355,9 +337,7 @@ abstract class BaseRemoteDataSource {
     required int duration,
   });
 
-  Future<CancelSessionModel> cancelSession({
-    required CancelSessionTojson data,
-  });
+  Future<CancelSessionModel> cancelSession({required CancelSessionTojson data});
 
   Future<ChangeSessionDateModel> changeSessionDate({
     required ChangeSessionDateTojson data,
@@ -391,14 +371,14 @@ abstract class BaseRemoteDataSource {
     required int programId,
   });
 
-  Future<GetMyChatsModel> getMyChats({
-    required String type,
-  });
+  Future<GetMyChatsModel> getMyChats({required String type});
 
   Future<UpdateFcmTokenModel> updateFcmToken({required String fcmToken});
 
-  Future<GetLatestNotificationModel> getLatestNotification(
-      {required int offset, required String type});
+  Future<GetLatestNotificationModel> getLatestNotification({
+    required int offset,
+    required String type,
+  });
 
   Future<ReadNotificationModel> readNotification({required int notificationId});
 
@@ -408,8 +388,9 @@ abstract class BaseRemoteDataSource {
 
   Future<CheckChatModel> checkChat({required CheckChatTojson data});
 
-  Future<RequestToFindInstructorModel> findInstructor(
-      {required RequestToFindInstructorTojson data});
+  Future<RequestToFindInstructorModel> findInstructor({
+    required RequestToFindInstructorTojson data,
+  });
 
   Future<CopounHistoryModel> copounHistory();
 }
@@ -417,39 +398,38 @@ abstract class BaseRemoteDataSource {
 class RemoteDataSource extends BaseRemoteDataSource {
   @override
   Future<LoginModel> login({required LoginToJson data}) async {
-    var response = await NetworkCall()
-        .post(path: EndPoints.login, data: FormData.fromMap(data.toJson()));
-    log("$response ${data.loginCredential?.key} ${data.loginCredential?.value}");
+    var response = await NetworkCall().post(
+      path: EndPoints.login,
+      data: FormData.fromMap(data.toJson()),
+    );
+    log(
+      "$response ${data.loginCredential?.key} ${data.loginCredential?.value}",
+    );
     if (response?.statusCode == 200) {
       return LoginModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
   Future<GetProgramsModel> getPrograms() async {
-    var response = await NetworkCall().get(
-      path: EndPoints.getPrograms,
-    );
+    var response = await NetworkCall().get(path: EndPoints.getPrograms);
     if (response?.statusCode == 200) {
       return GetProgramsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetProgramDetailsModel> getProgramDetails(
-      {required int programId}) async {
+  Future<GetProgramDetailsModel> getProgramDetails({
+    required int programId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getProgramDetails(programId: programId),
     );
@@ -457,46 +437,41 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetProgramDetailsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<AssignProgramReviewModel> assignProgramReview(
-      {required AssignProgramReviewTojson data}) async {
+  Future<AssignProgramReviewModel> assignProgramReview({
+    required AssignProgramReviewTojson data,
+  }) async {
     var response = await NetworkCall().post(
-        path: EndPoints.assignProgramReview,
-        data: FormData.fromMap(data.toJson()));
+      path: EndPoints.assignProgramReview,
+      data: FormData.fromMap(data.toJson()),
+    );
     if (response?.statusCode == 200) {
       return AssignProgramReviewModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetPlansWithDetailsModel> getPlansWithDetails(
-      {required int programId, required int days}) async {
+  Future<GetPlansWithDetailsModel> getPlansWithDetails({
+    required int programId,
+    required int days,
+  }) async {
     var response = await NetworkCall().get(
-      path: EndPoints.getPlansWithDetails(
-        programId: programId,
-        days: days,
-      ),
+      path: EndPoints.getPlansWithDetails(programId: programId, days: days),
     );
     if (response?.statusCode == 200) {
       return GetPlansWithDetailsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -510,32 +485,32 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetPlansModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<FilterPlansModel> filterPlans(
-      {required FilterPlansTojson data}) async {
+  Future<FilterPlansModel> filterPlans({
+    required FilterPlansTojson data,
+  }) async {
     var response = await NetworkCall().post(
-        path: EndPoints.filterPlan, data: FormData.fromMap(data.tojson()));
+      path: EndPoints.filterPlan,
+      data: FormData.fromMap(data.tojson()),
+    );
     if (response?.statusCode == 200) {
       return FilterPlansModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<CreateOrderModel> createOrder(
-      {required CreateOrderTojson data}) async {
+  Future<CreateOrderModel> createOrder({
+    required CreateOrderTojson data,
+  }) async {
     try {
       FormData formData = FormData();
       if (data.code != null && data.code!.isNotEmpty) {
@@ -582,7 +557,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
           throw Exception('Image file does not exist at path: ${data.image}');
         }
       }
-//
+      //
       log('FormData fields: ${formData.fields.length}');
       log('FormData files: ${formData.files.length}');
 
@@ -607,8 +582,9 @@ class RemoteDataSource extends BaseRemoteDataSource {
   }
 
   @override
-  Future<CheckCopounModel> checkCopoun(
-      {required CheckCopounTojson data}) async {
+  Future<CheckCopounModel> checkCopoun({
+    required CheckCopounTojson data,
+  }) async {
     var response = await NetworkCall().post(
       path: EndPoints.checkCopoun,
       data: FormData.fromMap(data.toJson()),
@@ -617,16 +593,15 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return CheckCopounModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetProgramPaymentMethodsModel> getProgramPaymentMethods(
-      {required int programId}) async {
+  Future<GetProgramPaymentMethodsModel> getProgramPaymentMethods({
+    required int programId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getProgramPaymentMethods(programId: programId),
     );
@@ -634,16 +609,16 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetProgramPaymentMethodsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetPaymentMethodDetailsModel> getPaymentMethodDetails(
-      {required int programId, required int methodId}) async {
+  Future<GetPaymentMethodDetailsModel> getPaymentMethodDetails({
+    required int programId,
+    required int methodId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getPaymentMethodDetails(
         methodId: methodId,
@@ -654,9 +629,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetPaymentMethodDetailsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -668,24 +641,21 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetUserOrdersModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
   Future<GetLibraryCategoriesModel> getLibraryCategories({String? type}) async {
-    var response = await NetworkCall()
-        .get(path: EndPoints.getLibraryCategories(type: type));
+    var response = await NetworkCall().get(
+      path: EndPoints.getLibraryCategories(type: type),
+    );
     if (response?.statusCode == 200) {
       return GetLibraryCategoriesModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -697,27 +667,21 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetAllLibraryListsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<StoreFavouriteListModel> storeFavouriteList(
-      {required StoreFavouriteListTojson data}) async {
+  Future<StoreFavouriteListModel> storeFavouriteList({
+    required StoreFavouriteListTojson data,
+  }) async {
     try {
       FormData formData = FormData();
       for (var item in data.items) {
         formData.fields.add(MapEntry("items[]", item.toString()));
       }
-      formData.fields.add(
-        MapEntry(
-          "title",
-          data.title,
-        ),
-      );
+      formData.fields.add(MapEntry("title", data.title));
 
       if (data.image != null && data.image!.isNotEmpty) {
         final File imageFile = File(data.image!);
@@ -734,7 +698,8 @@ class RemoteDataSource extends BaseRemoteDataSource {
           log('Store image added to FormData: ${data.image!.split('/').last}');
         } else {
           throw Exception(
-              'Store image file does not exist at path: ${data.image}');
+            'Store image file does not exist at path: ${data.image}',
+          );
         }
       }
 
@@ -768,25 +733,22 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetFavouriteListModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetFavouriteListItemsUsingListIdModel> getFavouriteListItemsUsinListId(
-      {required int listId}) async {
-    var response = await NetworkCall()
-        .get(path: EndPoints.getFavouriteListItemsUsingListId(listId: listId));
+  Future<GetFavouriteListItemsUsingListIdModel>
+  getFavouriteListItemsUsinListId({required int listId}) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getFavouriteListItemsUsingListId(listId: listId),
+    );
     if (response?.statusCode == 200) {
       return GetFavouriteListItemsUsingListIdModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -798,33 +760,32 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetAllItemsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<AddSingleItemToFavListModel> addSingleItemToFavList(
-      {required AddSingleItemToFavListTojson data}) async {
+  Future<AddSingleItemToFavListModel> addSingleItemToFavList({
+    required AddSingleItemToFavListTojson data,
+  }) async {
     var response = await NetworkCall().post(
-        path: EndPoints.addSingleToFavList,
-        data: FormData.fromMap(data.toJson()));
+      path: EndPoints.addSingleToFavList,
+      data: FormData.fromMap(data.toJson()),
+    );
     if (response?.statusCode == 200) {
       return AddSingleItemToFavListModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetListItemsUsingListIdModel> getListItemsUsingListId(
-      {required int listId}) async {
+  Future<GetListItemsUsingListIdModel> getListItemsUsingListId({
+    required int listId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getListItemsUsingListId(listId: listId),
     );
@@ -832,55 +793,48 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetListItemsUsingListIdModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<LikeItemModel> likeItem(
-      {required int itemId, required bool status}) async {
+  Future<LikeItemModel> likeItem({
+    required int itemId,
+    required bool status,
+  }) async {
     var response = await NetworkCall().post(
-      path: EndPoints.likeItem(
-        itemId: itemId,
-        status: status,
-      ),
+      path: EndPoints.likeItem(itemId: itemId, status: status),
     );
     if (response?.statusCode == 200) {
       return LikeItemModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetMyChildrenModel> getMyChildren(
-      {required bool childresStatus}) async {
+  Future<GetMyChildrenModel> getMyChildren({
+    required bool childresStatus,
+  }) async {
     var response = await NetworkCall().get(
-      path: EndPoints.getMyChildren(
-        childrensStatus: childresStatus,
-      ),
+      path: EndPoints.getMyChildren(childrensStatus: childresStatus),
     );
     if (response?.statusCode == 200) {
       return GetMyChildrenModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<CreateNewChildModel> createNewChild(
-      {required CreateNewChildTojson data}) async {
+  Future<CreateNewChildModel> createNewChild({
+    required CreateNewChildTojson data,
+  }) async {
     try {
       FormData formData = FormData();
 
@@ -911,10 +865,13 @@ class RemoteDataSource extends BaseRemoteDataSource {
               ),
             ),
           );
-          log('Profile image added to FormData: ${data.image!.split('/').last}');
+          log(
+            'Profile image added to FormData: ${data.image!.split('/').last}',
+          );
         } else {
           throw Exception(
-              'Profile image file does not exist at path: ${data.image}');
+            'Profile image file does not exist at path: ${data.image}',
+          );
         }
       }
 
@@ -944,17 +901,13 @@ class RemoteDataSource extends BaseRemoteDataSource {
   @override
   Future<ShowLibraryItemModel> showLibraryItem({required int itemId}) async {
     var response = await NetworkCall().get(
-      path: EndPoints.showLibraryItem(
-        itemId: itemId,
-      ),
+      path: EndPoints.showLibraryItem(itemId: itemId),
     );
     if (response?.statusCode == 200) {
       return ShowLibraryItemModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -968,9 +921,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetPlanSubscriptionPeriodModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -984,23 +935,17 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetLibraryPlansModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<LibraryOrderAndSubscriptionModel> libraryOrderAndSubscription(
-      {required LibraryOrderAndSubscribeTojson data}) async {
+  Future<LibraryOrderAndSubscriptionModel> libraryOrderAndSubscription({
+    required LibraryOrderAndSubscribeTojson data,
+  }) async {
     FormData formData = FormData();
-    formData.fields.add(
-      MapEntry(
-        "library_plan_id",
-        data.libraryPlanId,
-      ),
-    );
+    formData.fields.add(MapEntry("library_plan_id", data.libraryPlanId));
     // إضافة الصورة إذا كانت موجودة
     if (data.image != null && data.image!.isNotEmpty) {
       final File imageFile = File(data.image!);
@@ -1017,44 +962,42 @@ class RemoteDataSource extends BaseRemoteDataSource {
         log('Profile image added to FormData: ${data.image!.split('/').last}');
       } else {
         throw Exception(
-            'Profile image file does not exist at path: ${data.image}');
+          'Profile image file does not exist at path: ${data.image}',
+        );
       }
     }
 
     log('UpdateProfile FormData fields: ${formData.fields.length}');
     log('UpdateProfile FormData files: ${formData.files.length}');
-    var response = await NetworkCall()
-        .post(path: EndPoints.libraryOrderAndSubscription, data: formData);
+    var response = await NetworkCall().post(
+      path: EndPoints.libraryOrderAndSubscription,
+      data: formData,
+    );
     if (response?.statusCode == 200) {
       return LibraryOrderAndSubscriptionModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
   Future<GetMyProgramsModel> getMyPrograms() async {
-    var response = await NetworkCall().get(
-      path: EndPoints.getMyPrograms,
-    );
+    var response = await NetworkCall().get(path: EndPoints.getMyPrograms);
     if (response?.statusCode == 200) {
       return GetMyProgramsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetSessionDetailsModel> getSessionDetails(
-      {required int sessionId}) async {
+  Future<GetSessionDetailsModel> getSessionDetails({
+    required int sessionId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getSessionDetails(sessionId: sessionId),
     );
@@ -1062,16 +1005,15 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetSessionDetailsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<JoinSessionModel> joinSession(
-      {required JoinSessionTojson data}) async {
+  Future<JoinSessionModel> joinSession({
+    required JoinSessionTojson data,
+  }) async {
     var response = await NetworkCall().post(
       path: EndPoints.joinSession,
       data: FormData.fromMap(data.toJson()),
@@ -1080,16 +1022,15 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return JoinSessionModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetAssignedChildrenToProgramModel> getAssignedChildrenToProgram(
-      {required int programId}) async {
+  Future<GetAssignedChildrenToProgramModel> getAssignedChildrenToProgram({
+    required int programId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getAssignedChildrenToProgram(programId: programId),
     );
@@ -1097,33 +1038,29 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetAssignedChildrenToProgramModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<ChangeSessionStatusModel> changeSessionStatus(
-      {required ChangeSessionStatusToJson data}) async {
-    var response = await NetworkCall().get(
-      path: EndPoints.changeSessionStatus,
-    );
+  Future<ChangeSessionStatusModel> changeSessionStatus({
+    required ChangeSessionStatusToJson data,
+  }) async {
+    var response = await NetworkCall().get(path: EndPoints.changeSessionStatus);
     if (response?.statusCode == 200) {
       return ChangeSessionStatusModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<ShowProgramDetailsModel> showProgramDetails(
-      {required int programId}) async {
+  Future<ShowProgramDetailsModel> showProgramDetails({
+    required int programId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.showProgramDetails(programId: programId),
     );
@@ -1131,36 +1068,33 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return ShowProgramDetailsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetProgramSessionsModel> getProgramSessions(
-      {required int programId, required int userId}) async {
+  Future<GetProgramSessionsModel> getProgramSessions({
+    required int programId,
+    required int userId,
+  }) async {
     var response = await NetworkCall().get(
-      path: EndPoints.getProgramSessions(
-        programId: programId,
-        userId: userId,
-      ),
+      path: EndPoints.getProgramSessions(programId: programId, userId: userId),
     );
     if (response?.statusCode == 200) {
       return GetProgramSessionsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetProgramAssignmentsModel> getProgramAssignments(
-      {required int programId, required int userId}) async {
+  Future<GetProgramAssignmentsModel> getProgramAssignments({
+    required int programId,
+    required int userId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getProgramAssignments(
         programId: programId,
@@ -1171,9 +1105,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetProgramAssignmentsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -1181,17 +1113,13 @@ class RemoteDataSource extends BaseRemoteDataSource {
   @override
   Future<GetUserReportsModel> getUserReports({required int userId}) async {
     var response = await NetworkCall().get(
-      path: EndPoints.getUserReports(
-        userId: userId,
-      ),
+      path: EndPoints.getUserReports(userId: userId),
     );
     if (response?.statusCode == 200) {
       return GetUserReportsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -1199,83 +1127,71 @@ class RemoteDataSource extends BaseRemoteDataSource {
   @override
   Future<GetUserFeedbacksModel> getUserFeedbacks({required int userId}) async {
     var response = await NetworkCall().get(
-      path: EndPoints.getUserFeedbacks(
-        userId: userId,
-      ),
+      path: EndPoints.getUserFeedbacks(userId: userId),
     );
     if (response?.statusCode == 200) {
       return GetUserFeedbacksModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetContentChapterModel> getContentChapter(
-      {required int userId}) async {
+  Future<GetContentChapterModel> getContentChapter({
+    required int userId,
+  }) async {
     var response = await NetworkCall().get(
-      path: EndPoints.getContentChapter(
-        userId: userId,
-      ),
+      path: EndPoints.getContentChapter(userId: userId),
     );
     if (response?.statusCode == 200) {
       return GetContentChapterModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetChapterLessonsModel> getChapterLessons(
-      {required int chapterId}) async {
+  Future<GetChapterLessonsModel> getChapterLessons({
+    required int chapterId,
+  }) async {
     var response = await NetworkCall().get(
-      path: EndPoints.getChapterLessons(
-        chapterId: chapterId,
-      ),
+      path: EndPoints.getChapterLessons(chapterId: chapterId),
     );
     if (response?.statusCode == 200) {
       return GetChapterLessonsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<CompleteChapterLessonModel> completeChapterLesson(
-      {required int lessonId}) async {
+  Future<CompleteChapterLessonModel> completeChapterLesson({
+    required int lessonId,
+  }) async {
     var response = await NetworkCall().post(
-      path: EndPoints.completeChapterLesson(
-        lessonId: lessonId,
-      ),
+      path: EndPoints.completeChapterLesson(lessonId: lessonId),
     );
     if (response?.statusCode == 200) {
       return CompleteChapterLessonModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetQuizQuestionsModel> getQuizQuestions(
-      {required int userId,
-      required int quizId,
-      required int programId}) async {
+  Future<GetQuizQuestionsModel> getQuizQuestions({
+    required int userId,
+    required int quizId,
+    required int programId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getQuizQuestions(
         userId: userId,
@@ -1287,29 +1203,24 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetQuizQuestionsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetUserQuizzesModel> getUserQuizzes(
-      {required int userId, required int programId}) async {
+  Future<GetUserQuizzesModel> getUserQuizzes({
+    required int userId,
+    required int programId,
+  }) async {
     var response = await NetworkCall().get(
-      path: EndPoints.getUserQuizzes(
-        programId: programId,
-        userId: userId,
-      ),
+      path: EndPoints.getUserQuizzes(programId: programId, userId: userId),
     );
     if (response?.statusCode == 200) {
       return GetUserQuizzesModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -1317,21 +1228,23 @@ class RemoteDataSource extends BaseRemoteDataSource {
   @override
   Future<SubmitQuizModel> submitQuiz({required SubmitQuizTojson data}) async {
     var response = await NetworkCall().post(
-        path: EndPoints.submitQuiz, data: FormData.fromMap(data.toJson()));
+      path: EndPoints.submitQuiz,
+      data: FormData.fromMap(data.toJson()),
+    );
     if (response?.statusCode == 200) {
       return SubmitQuizModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetAssignmentDetailsModel> getAssignmentDetails(
-      {required int userId, required int assignmentId}) async {
+  Future<GetAssignmentDetailsModel> getAssignmentDetails({
+    required int userId,
+    required int assignmentId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getAssignmntDetails(
         assignmentId: assignmentId,
@@ -1342,16 +1255,16 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetAssignmentDetailsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetMessagesModel> getMessages(
-      {required int chatId, required int offset}) async {
+  Future<GetMessagesModel> getMessages({
+    required int chatId,
+    required int offset,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getMessages(chatId: chatId, offset: offset),
     );
@@ -1360,23 +1273,24 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetMessagesModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<SendMessagesModel> sendMessages(
-      {required SendMessagesTojson data}) async {
+  Future<SendMessagesModel> sendMessages({
+    required SendMessagesTojson data,
+  }) async {
     FormData formData = FormData();
     formData.fields.addAll([
-      MapEntry("message", data.message),
+      MapEntry("message", data.message ?? ""),
       MapEntry("receiver_id", data.receiverId),
-      MapEntry("receiver_type", data.receiverType),
+      MapEntry("receiver_type", data.receiverType ?? ""),
       MapEntry("sender_id", data.senderId),
       MapEntry("sender_type", data.senderType),
+      MapEntry("type", data.type ?? ""),
+      MapEntry("chat_id", data.chatId.toString()),
     ]);
     if (data.file != null) {
       if (data.file!.isNotEmpty) {
@@ -1408,16 +1322,15 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return SendMessagesModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<PostAssignmentModel> postAssignment(
-      {required PostAssignmentTojson data}) async {
+  Future<PostAssignmentModel> postAssignment({
+    required PostAssignmentTojson data,
+  }) async {
     var formData = await data.toFormData();
 
     var response = await NetworkCall().post(
@@ -1430,9 +1343,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return PostAssignmentModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -1447,9 +1358,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetProgramSubscriptionModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -1464,9 +1373,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetLibrarySubscriptionModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -1476,25 +1383,22 @@ class RemoteDataSource extends BaseRemoteDataSource {
     required int mainId,
   }) async {
     var response = await NetworkCall().post(
-      path: EndPoints.cancelSubscription(
-        mainId: mainId,
-      ),
+      path: EndPoints.cancelSubscription(mainId: mainId),
     );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return CancelSubscriptionModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<RenewSubscriptionModel> renewSubscription(
-      {required RenewSubscriptionTojson data}) async {
+  Future<RenewSubscriptionModel> renewSubscription({
+    required RenewSubscriptionTojson data,
+  }) async {
     try {
       FormData formData = FormData();
       if (data.code.isNotEmpty) {
@@ -1532,10 +1436,11 @@ class RemoteDataSource extends BaseRemoteDataSource {
           log('order image added to FormData: ${data.image!.split('/').last}');
         } else {
           throw Exception(
-              'Profile image file does not exist at path: ${data.image}');
+            'Profile image file does not exist at path: ${data.image}',
+          );
         }
       }
-//
+      //
       log('FormData fields: ${formData.fields.length}');
       log('FormData files: ${formData.files.length}');
 
@@ -1561,23 +1466,23 @@ class RemoteDataSource extends BaseRemoteDataSource {
 
   @override
   Future<ShowPlanModel> showPlan({required int planId}) async {
-    var response =
-        await NetworkCall().get(path: EndPoints.showPlan(planId: planId));
+    var response = await NetworkCall().get(
+      path: EndPoints.showPlan(planId: planId),
+    );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return ShowPlanModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<UpgradeOrderModel> upgradeOrder(
-      {required RenewSubscriptionTojson data}) async {
+  Future<UpgradeOrderModel> upgradeOrder({
+    required RenewSubscriptionTojson data,
+  }) async {
     try {
       FormData formData = FormData();
       if (data.code.isNotEmpty) {
@@ -1612,10 +1517,11 @@ class RemoteDataSource extends BaseRemoteDataSource {
           log('order image added to FormData: ${data.image!.split('/').last}');
         } else {
           throw Exception(
-              'Profile image file does not exist at path: ${data.image}');
+            'Profile image file does not exist at path: ${data.image}',
+          );
         }
       }
-//
+      //
       log('FormData fields: ${formData.fields.length}');
       log('FormData files: ${formData.files.length}');
 
@@ -1648,28 +1554,28 @@ class RemoteDataSource extends BaseRemoteDataSource {
     required int meetingSessionId,
   }) async {
     var response = await NetworkCall().get(
-        path: EndPoints.getReportQuestions(
-      meetingSessionId: meetingSessionId,
-      reportForId: reportForId,
-      reportForType: reportForType,
-      reportMakerId: reportMakerId,
-      reportMakerType: reportMakerType,
-    ));
+      path: EndPoints.getReportQuestions(
+        meetingSessionId: meetingSessionId,
+        reportForId: reportForId,
+        reportForType: reportForType,
+        reportMakerId: reportMakerId,
+        reportMakerType: reportMakerType,
+      ),
+    );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetReportQuestionsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<AddWeeklyAppontmentsModel> addWeeklyAppointments(
-      {required AddWeeklyAppointmentsTojson data}) async {
+  Future<AddWeeklyAppontmentsModel> addWeeklyAppointments({
+    required AddWeeklyAppointmentsTojson data,
+  }) async {
     var response = await NetworkCall().post(
       data: data.toJson(),
       path: EndPoints.addWeeklyAppointments,
@@ -1679,16 +1585,15 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return AddWeeklyAppontmentsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<CreateMeetingSessionsModel> createMeetingSessions(
-      {required CreateMeetingSessionsTojson data}) async {
+  Future<CreateMeetingSessionsModel> createMeetingSessions({
+    required CreateMeetingSessionsTojson data,
+  }) async {
     var response = await NetworkCall().post(
       data: FormData.fromMap(data.toJson()),
       path: EndPoints.createMeetingSession,
@@ -1698,9 +1603,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return CreateMeetingSessionsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -1708,25 +1611,22 @@ class RemoteDataSource extends BaseRemoteDataSource {
   @override
   Future<GetOrderDetailsModel> getOrderDetails({required int orderId}) async {
     var response = await NetworkCall().get(
-      path: EndPoints.getOrderDetails(
-        orderId: orderId,
-      ),
+      path: EndPoints.getOrderDetails(orderId: orderId),
     );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetOrderDetailsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetInstructorsModel> getInstructors(
-      {required GetInstructorsTojson data}) async {
+  Future<GetInstructorsModel> getInstructors({
+    required GetInstructorsTojson data,
+  }) async {
     var response = await NetworkCall().post(
       data: data.toJson(),
       path: EndPoints.getInstructors,
@@ -1736,16 +1636,15 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetInstructorsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetProgramContentModel> getProgramContent(
-      {required int programId}) async {
+  Future<GetProgramContentModel> getProgramContent({
+    required int programId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getProgramContent(programId: programId),
     );
@@ -1754,9 +1653,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetProgramContentModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -1790,7 +1687,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
           }
         }
       }
-//
+      //
       log('FormData fields: ${formData.fields.length}');
       log('FormData files: ${formData.files.length}');
 
@@ -1815,8 +1712,9 @@ class RemoteDataSource extends BaseRemoteDataSource {
   }
 
   @override
-  Future<CancelSessionModel> cancelSession(
-      {required CancelSessionTojson data}) async {
+  Future<CancelSessionModel> cancelSession({
+    required CancelSessionTojson data,
+  }) async {
     var response = await NetworkCall().post(
       data: data.tojson(),
       path: EndPoints.cancelSession,
@@ -1826,16 +1724,16 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return CancelSessionModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<ChangeSessionDateModel> changeSessionDate(
-      {required ChangeSessionDateTojson data, required int sessionId}) async {
+  Future<ChangeSessionDateModel> changeSessionDate({
+    required ChangeSessionDateTojson data,
+    required int sessionId,
+  }) async {
     var response = await NetworkCall().post(
       data: data.tojson(),
       path: EndPoints.changeSessionDate(sessionId: sessionId),
@@ -1845,33 +1743,29 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return ChangeSessionDateModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
   Future<GetCancelSessionReasonModel> getCancelSessionReasons() async {
-    var response = await NetworkCall().get(
-      path: EndPoints.getReasons,
-    );
+    var response = await NetworkCall().get(path: EndPoints.getReasons);
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetCancelSessionReasonModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetInstructorAvailabilitiesModel> getInstructorAvailabilities(
-      {required int instructorId, required int duration}) async {
+  Future<GetInstructorAvailabilitiesModel> getInstructorAvailabilities({
+    required int instructorId,
+    required int duration,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getInstructorAvailablities(
         instructorId: instructorId,
@@ -1883,9 +1777,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetInstructorAvailabilitiesModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -1907,36 +1799,35 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return ChangeInstructorModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetRemainingProgramSessionsModel> getRemainingProgramSessions(
-      {required int programId, required int userId}) async {
-    var response = await NetworkCall()
-        .post(path: EndPoints.getRemainingProgramSessions, data: {
-      "user_id": userId,
-      "program_id": programId,
-    });
+  Future<GetRemainingProgramSessionsModel> getRemainingProgramSessions({
+    required int programId,
+    required int userId,
+  }) async {
+    var response = await NetworkCall().post(
+      path: EndPoints.getRemainingProgramSessions,
+      data: {"user_id": userId, "program_id": programId},
+    );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetRemainingProgramSessionsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetUserSubscriptionDataModel> getUserSubscriptionData(
-      {required int programId, required int userId}) async {
+  Future<GetUserSubscriptionDataModel> getUserSubscriptionData({
+    required int programId,
+    required int userId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getUserSubscriptionData(
         programId: programId,
@@ -1948,25 +1839,22 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetUserSubscriptionDataModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
   Future<GetChangeInstructorReasonsModel> getChangeInstructorReasons() async {
-    var response =
-        await NetworkCall().get(path: EndPoints.getChangeInstructorReasons);
+    var response = await NetworkCall().get(
+      path: EndPoints.getChangeInstructorReasons,
+    );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetChangeInstructorReasonsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -2005,10 +1893,13 @@ class RemoteDataSource extends BaseRemoteDataSource {
               ),
             ),
           );
-          log('Profile image added to FormData: ${data.image!.split('/').last}');
+          log(
+            'Profile image added to FormData: ${data.image!.split('/').last}',
+          );
         } else {
           throw Exception(
-              'Profile image file does not exist at path: ${data.image}');
+            'Profile image file does not exist at path: ${data.image}',
+          );
         }
       }
 
@@ -2040,26 +1931,24 @@ class RemoteDataSource extends BaseRemoteDataSource {
     required int userId,
     required int programId,
   }) async {
-    var response =
-        await NetworkCall().post(path: EndPoints.removeAssignedStudent, data: {
-      "program_id": programId,
-      "user_id": userId,
-    });
+    var response = await NetworkCall().post(
+      path: EndPoints.removeAssignedStudent,
+      data: {"program_id": programId, "user_id": userId},
+    );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return RemoveAssignedStudentModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetHomeClosestSessionsModel> getHomeClosestSessions(
-      {required int userId}) async {
+  Future<GetHomeClosestSessionsModel> getHomeClosestSessions({
+    required int userId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getHomeClosestSessions(userId: userId),
     );
@@ -2068,16 +1957,15 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetHomeClosestSessionsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetHomeCurrentSessionModel> getHomeCurrentSession(
-      {required int userId}) async {
+  Future<GetHomeCurrentSessionModel> getHomeCurrentSession({
+    required int userId,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getHomeCurrentSession(userId: userId),
     );
@@ -2086,9 +1974,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetHomeCurrentSessionModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -2101,58 +1987,54 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetHomeLibraryModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetHomeAssignmentsModel> getHomeAssignments(
-      {required int userId}) async {
-    var response = await NetworkCall()
-        .get(path: EndPoints.getHomeAssignments(userId: userId));
+  Future<GetHomeAssignmentsModel> getHomeAssignments({
+    required int userId,
+  }) async {
+    var response = await NetworkCall().get(
+      path: EndPoints.getHomeAssignments(userId: userId),
+    );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetHomeAssignmentsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
   Future<GetHomeQuizzesModel> getHomeQuizzes({required int userId}) async {
-    var response =
-        await NetworkCall().get(path: EndPoints.getHomeQuizzes(userId: userId));
+    var response = await NetworkCall().get(
+      path: EndPoints.getHomeQuizzes(userId: userId),
+    );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetHomeQuizzesModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
   Future<GetMyChatsModel> getMyChats({required String type}) async {
-    var response =
-        await NetworkCall().get(path: EndPoints.getMyChats(type: type));
+    var response = await NetworkCall().get(
+      path: EndPoints.getMyChats(type: type),
+    );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetMyChatsModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -2160,9 +2042,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
   @override
   Future<UpdateFcmTokenModel> updateFcmToken({required String fcmToken}) async {
     var response = await NetworkCall().post(
-      data: FormData.fromMap({
-        "fcm_token": fcmToken,
-      }),
+      data: FormData.fromMap({"fcm_token": fcmToken}),
       path: EndPoints.updateFcmToken,
     );
     if (response?.statusCode == 200) {
@@ -2170,16 +2050,16 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return UpdateFcmTokenModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<GetLatestNotificationModel> getLatestNotification(
-      {required int offset, required String type}) async {
+  Future<GetLatestNotificationModel> getLatestNotification({
+    required int offset,
+    required String type,
+  }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getLatestNotification(type: type, offset: offset),
     );
@@ -2188,16 +2068,15 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return GetLatestNotificationModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<ReadNotificationModel> readNotification(
-      {required int notificationId}) async {
+  Future<ReadNotificationModel> readNotification({
+    required int notificationId,
+  }) async {
     var response = await NetworkCall().post(
       path: EndPoints.readNotification(notificationID: notificationId),
     );
@@ -2206,26 +2085,20 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return ReadNotificationModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
   Future<LogoutModel> logout() async {
-    var response = await NetworkCall().post(
-      path: EndPoints.logout,
-    );
+    var response = await NetworkCall().post(path: EndPoints.logout);
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return LogoutModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -2240,9 +2113,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return DeleteAccountModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -2258,16 +2129,15 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return CheckChatModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
-  Future<RequestToFindInstructorModel> findInstructor(
-      {required RequestToFindInstructorTojson data}) async {
+  Future<RequestToFindInstructorModel> findInstructor({
+    required RequestToFindInstructorTojson data,
+  }) async {
     var response = await NetworkCall().post(
       path: EndPoints.requestToFindInstrcutor,
       data: data.toJson(),
@@ -2277,9 +2147,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return RequestToFindInstructorModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -2292,25 +2160,23 @@ class RemoteDataSource extends BaseRemoteDataSource {
       return CopounHistoryModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
   Future<RegisterModel> register({required RegisterToJson data}) async {
-    var response = await NetworkCall()
-        .post(path: EndPoints.register, data: FormData.fromMap(data.toJson()));
+    var response = await NetworkCall().post(
+      path: EndPoints.register,
+      data: FormData.fromMap(data.toJson()),
+    );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return RegisterModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
@@ -2319,11 +2185,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
   Future<ForgotPasswordModel> forgotPassword(String email) async {
     var response = await NetworkCall().post(
       path: EndPoints.forgotPassword,
-      data: FormData.fromMap(
-        {
-          "email": email,
-        },
-      ),
+      data: FormData.fromMap({"email": email}),
     );
     if (response?.statusCode == 200) {
       log("${response?.data}");
@@ -2344,34 +2206,34 @@ class RemoteDataSource extends BaseRemoteDataSource {
   }
 
   @override
-  Future<ResetPasswordModel> resetPassword(
-      {required ResetPasswordToJson data}) async {
+  Future<ResetPasswordModel> resetPassword({
+    required ResetPasswordToJson data,
+  }) async {
     var response = await NetworkCall().post(
-        path: EndPoints.resetPassword, data: FormData.fromMap(data.toJson()));
+      path: EndPoints.resetPassword,
+      data: FormData.fromMap(data.toJson()),
+    );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return ResetPasswordModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }
 
   @override
   Future<GetGeideaDataModel> getGeideaData({required String key}) async {
-    var response =
-        await NetworkCall().get(path: EndPoints.geideaData(key: key));
+    var response = await NetworkCall().get(
+      path: EndPoints.geideaData(key: key),
+    );
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetGeideaDataModel.fromJson(response?.data);
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(
-          response?.data,
-        ),
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
       );
     }
   }

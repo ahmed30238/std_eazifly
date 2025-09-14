@@ -34,7 +34,10 @@ GetMessagesDatumModel _$GetMessagesDatumModelFromJson(
       ? null
       : DateTime.parse(json['created_at'] as String)
   ..fileType = json['file_type'] as String?
-  ..file = json['file'] as String?;
+  ..file = json['file'] as String?
+  ..sender = json['sender'] == null
+      ? null
+      : GetMessagesSenderModel.fromJson(json['sender'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$GetMessagesDatumModelToJson(
   GetMessagesDatumModel instance,
@@ -46,4 +49,20 @@ Map<String, dynamic> _$GetMessagesDatumModelToJson(
   'created_at': instance.createdAt?.toIso8601String(),
   'file_type': instance.fileType,
   'file': instance.file,
+  'sender': instance.sender?.toJson(),
+};
+
+GetMessagesSenderModel _$GetMessagesSenderModelFromJson(
+  Map<String, dynamic> json,
+) => GetMessagesSenderModel()
+  ..id = (json['id'] as num?)?.toInt()
+  ..name = json['name'] as String?
+  ..image = json['image'] as String?;
+
+Map<String, dynamic> _$GetMessagesSenderModelToJson(
+  GetMessagesSenderModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'image': instance.image,
 };

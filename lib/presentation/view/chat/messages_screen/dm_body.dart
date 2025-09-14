@@ -9,14 +9,9 @@ import 'package:eazifly_student/presentation/view/chat/messages_screen/widgets.d
 import 'package:eazifly_student/presentation/view/chat/messages_screen/widgets.dart/writing_message_area.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
-import 'package:intl/intl.dart';
 
 class DmBody extends StatelessWidget {
-  const DmBody({
-    super.key,
-    required this.cubit,
-    required this.widget,
-  });
+  const DmBody({super.key, required this.cubit, required this.widget});
 
   final ChatsCubit cubit;
   final DmView widget;
@@ -28,10 +23,7 @@ class DmBody extends StatelessWidget {
         Expanded(
           child: Column(
             children: [
-              Divider(
-                thickness: 1,
-                color: MainColors.surfaceVariant,
-              ),
+              Divider(thickness: 1, color: MainColors.surfaceVariant),
               40.ph,
               Expanded(
                 child: BlocBuilder<ChatsCubit, ChatsState>(
@@ -51,7 +43,9 @@ class DmBody extends StatelessWidget {
                             const SizedBox(height: 8),
                             ElevatedButton(
                               onPressed: () => cubit.getMessages(
-                                  isInitial: true, chatId: widget.chatId),
+                                isInitial: true,
+                                chatId: widget.chatId,
+                              ),
                               child: const Text("Retry"),
                             ),
                           ],
@@ -82,7 +76,8 @@ class DmBody extends StatelessWidget {
                           return Padding(
                             padding: EdgeInsets.all(8.0.r),
                             child: const Center(
-                                child: CircularProgressIndicator()),
+                              child: CircularProgressIndicator(),
+                            ),
                           );
                         }
                         bool isLastElement = index == messages.length - 1;
@@ -106,8 +101,8 @@ class DmBody extends StatelessWidget {
                               // شوف لو في file path
                               if (message.message.file != null &&
                                   message.message.file!.isNotEmpty) {
-                                String filePath =
-                                    message.message.file!.toLowerCase();
+                                String filePath = message.message.file!
+                                    .toLowerCase();
                                 if (filePath.endsWith('.jpg') ||
                                     filePath.endsWith('.png') ||
                                     filePath.endsWith('.jpeg')) {
@@ -122,29 +117,34 @@ class DmBody extends StatelessWidget {
                         }
                         bool isInstructor = cubit.controller?.index == 0;
                         return TextMessageItem(
+                          date: message.message.createdAt ?? DateTime.now(),
                           messageStatus: message.isSending
                               ? MessageStatus.sending
                               : message.isFailed
-                                  ? MessageStatus.failed
-                                  : MessageStatus.sent,
+                              ? MessageStatus.failed
+                              : MessageStatus.sent,
                           isLastMesage: isLastElement,
                           file: message.message.file ?? "",
                           messageModel: Message(
                             createdAt: message.message.createdAt == null
                                 ? formatMessageTime(
-                                    context, DateTime.now().toString())
-                                : formatMessageTime(context,
-                                    message.message.createdAt.toString()),
+                                    context,
+                                    DateTime.now().toString(),
+                                  )
+                                : formatMessageTime(
+                                    context,
+                                    message.message.createdAt.toString(),
+                                  ),
                             type: getMessageType(message.messageType ?? type),
                             content: message.message.message ?? "",
                             isSender: message.message.senderType == "User",
                           ),
                           messageSenderAvatar:
                               message.message.senderType == "User"
-                                  ? loginData?.image ?? ""
-                                  : isInstructor
-                                      ? cubit.currentInstructor?.image ?? ""
-                                      : cubit.currentClient?.image ?? "",
+                              ? loginData?.image ?? ""
+                              : isInstructor
+                              ? cubit.currentInstructor?.image ?? ""
+                              : "",
                         );
                       },
                     );
@@ -163,41 +163,3 @@ class DmBody extends StatelessWidget {
   }
 }
 
-String formatMessageTime(BuildContext context, String createdAt) {
-  try {
-    // تحويل النص إلى DateTime
-    DateTime dateTime = DateTime.parse(createdAt);
-
-    // تحويل إلى التوقيت المحلي
-    DateTime localDateTime = dateTime.toLocal();
-
-    DateTime now = DateTime.now();
-    Duration difference = now.difference(localDateTime);
-
-    // إذا كان نفس اليوم، اعرض الوقت فقط
-    if (difference.inDays == 0) {
-      return DateFormat(
-              'hh:mm a', AppLanguageCubit.isArabic(context) ? "ar" : "en")
-          .format(localDateTime);
-    }
-    // إذا كان أمس
-    else if (difference.inDays == 1) {
-      return 'أمس ${DateFormat('hh:mm a', AppLanguageCubit.isArabic(context) ? "ar" : "en").format(localDateTime)}';
-    }
-    // إذا كان خلال الأسبوع الماضي
-    else if (difference.inDays < 7) {
-      return DateFormat(
-              'EEEE hh:mm a', AppLanguageCubit.isArabic(context) ? "ar" : "en")
-          .format(localDateTime);
-    }
-    // إذا كان أقدم من أسبوع
-    else {
-      return DateFormat('dd/MM/yyyy hh:mm a',
-              AppLanguageCubit.isArabic(context) ? "ar" : "en")
-          .format(localDateTime);
-    }
-  } catch (e) {
-    // في حالة حدوث خطأ، أرجع النص الأصلي
-    return createdAt;
-  }
-}

@@ -42,3 +42,26 @@ class GetMyChatsParticipantModel extends GetMyChatsParticipantEntity {
 
   Map<String, dynamic> toJson() => _$GetMyChatsParticipantModelToJson(this);
 }
+
+@JsonSerializable(explicitToJson: true)
+class GetMyChatsParticipantElementModel
+    extends GetMyChatsParticipantElementEntity {
+  GetMyChatsParticipantElementModel();
+
+  factory GetMyChatsParticipantElementModel.fromJson(
+    Map<String, dynamic> json,
+  ) => _$GetMyChatsParticipantElementModelFromJson(json);
+
+  Map<String, dynamic> toJson() =>
+      _$GetMyChatsParticipantElementModelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class GetMyChatsSenderModel extends GetMyChatsSenderEntity {
+  GetMyChatsSenderModel();
+
+  factory GetMyChatsSenderModel.fromJson(Map<String, dynamic> json) =>
+      _$GetMyChatsSenderModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GetMyChatsSenderModelToJson(this);
+}

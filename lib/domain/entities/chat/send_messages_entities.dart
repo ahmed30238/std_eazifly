@@ -19,4 +19,34 @@ class SendMessagesDataEntities {
   String? senderType;
   @JsonKey(name: "message")
   String? message;
+  @JsonKey(name: "created_at")
+  DateTime? createdAt;
+  @JsonKey(name: "file")
+  String? file;
+  @JsonKey(name: "file_type")
+  String? fileType;
+  @JsonKey(name: "sender")
+  SendMessagesSenderModel? sender;
+
+  SendMessagesDataEntities({
+    this.id,
+    this.chatId,
+    this.senderType,
+    this.message,
+    this.createdAt,
+    this.file,
+    this.fileType,
+    this.sender,
+  });
+}
+
+class SendMessagesSenderEntity {
+  @JsonKey(name: "id")
+  int? id;
+  @JsonKey(name: "name")
+  String? name;
+  @JsonKey(name: "image")
+  String? image;
+
+  SendMessagesSenderEntity({this.id, this.name, this.image});
 }

@@ -95,7 +95,6 @@ import 'package:eazifly_student/presentation/controller/my_programs/myprograms_c
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:get_it/get_it.dart';
-
 import '../../domain/use_cases/forgot_password_usecase.dart';
 import '../../domain/use_cases/register_usecase.dart';
 import '../../domain/use_cases/reset_password_usecase.dart';
@@ -106,11 +105,13 @@ class ServiceLocator {
   init() {
     sl.registerLazySingleton<BaseRemoteDataSource>(() => RemoteDataSource());
     sl.registerLazySingleton<BaseRepository>(
-        () => Repository(baseRemoteDataSource: sl()));
+      () => Repository(baseRemoteDataSource: sl()),
+    );
     sl.registerLazySingleton(() => LoginUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetProgramsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetProgramDetailsUsecase(baseRepository: sl()));
+      () => GetProgramDetailsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => GetPlansUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => RegisterUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => FilterPlansUsecase(baseRepository: sl()));
@@ -120,134 +121,184 @@ class ServiceLocator {
     sl.registerLazySingleton(() => CheckCopounUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetGeideaDataUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetPaymentMethodDetailsUsecase(baseRepository: sl()));
+      () => GetPaymentMethodDetailsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetProgramPaymentMethodsUsecase(baseRepository: sl()));
+      () => GetProgramPaymentMethodsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => GetUserOrdersUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetLibraryCategoriesUsecase(baseRepository: sl()));
+      () => GetLibraryCategoriesUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetAllLibraryListsUsecase(baseRepository: sl()));
+      () => GetAllLibraryListsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => StoreFavouriteListUsecase(baseRepository: sl()));
+      () => StoreFavouriteListUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetFavouriteListUsecase(baseRepository: sl()));
+      () => GetFavouriteListUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetFavouriteListItemUsingListIdUsecase(baseRepository: sl()));
+      () => GetFavouriteListItemUsingListIdUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => GetAllItemsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => AddSingleItemToFavUsecase(baseRepository: sl()));
+      () => AddSingleItemToFavUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetListItemsUsingListIdUsecase(baseRepository: sl()));
+      () => GetListItemsUsingListIdUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => LikeItemUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => CopounHistoryUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetChildrenUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => CreateNewChildUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => ShowLibraryItemUsecase(baseRepository: sl()));
+      () => ShowLibraryItemUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetPlanSubscriptionPeriodUsecase(baseRepository: sl()));
+      () => GetPlanSubscriptionPeriodUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetLibraryPlansUsecase(baseRepository: sl()));
+      () => GetLibraryPlansUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => LibraryOrderAndSubscriptionUsecase(baseRepository: sl()));
+      () => LibraryOrderAndSubscriptionUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetPlanWithDetailsUsecase(baseRepository: sl()));
+      () => GetPlanWithDetailsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => GetMyProgramsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetSessionDetailsUsecase(baseRepository: sl()));
+      () => GetSessionDetailsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => JoinSessionUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetAssignedChildrenToProgramUsecase(baseRepository: sl()));
+      () => GetAssignedChildrenToProgramUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => ChangeSessionStatusUsecase(baseRepository: sl()));
+      () => ChangeSessionStatusUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => ShowProgramDetailsUsecase(baseRepository: sl()));
+      () => ShowProgramDetailsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetProgramSessionsUsecase(baseRepository: sl()));
+      () => GetProgramSessionsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetProgramAssignmentsUsecase(baseRepository: sl()));
+      () => GetProgramAssignmentsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => GetUserReportsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetUserFeedbackUsecase(baseRepository: sl()));
+      () => GetUserFeedbackUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetContentChapterUsecase(baseRepository: sl()));
+      () => GetContentChapterUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetChapterLessonsUsecase(baseRepository: sl()));
+      () => GetChapterLessonsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => CompleteChapterLessonUsecase(baseRepository: sl()));
+      () => CompleteChapterLessonUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetQuizQuestionsUsecase(baseRepository: sl()));
+      () => GetQuizQuestionsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => GetUserQuizzesUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => SubmitQuizUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetAssignmentDetailsUsecase(baseRepository: sl()));
+      () => GetAssignmentDetailsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => SendMessagesUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetMessagesUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => PostAssignmentUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetLibrarySubscriptionUsecase(baseRepository: sl()));
+      () => GetLibrarySubscriptionUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetProgramSubscriptionsUsecase(baseRepository: sl()));
+      () => GetProgramSubscriptionsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => CancelSubscriptionUsecase(baseRepository: sl()));
+      () => CancelSubscriptionUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => RenewSubscriptionUsecase(baseRepository: sl()));
+      () => RenewSubscriptionUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => ShowPlanUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => UpgradeOrderUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetReportQuestionsUsecase(baseRepository: sl()));
+      () => GetReportQuestionsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => AddWeeklyAppointmentsUsecase(baseRepository: sl()));
+      () => AddWeeklyAppointmentsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => CreateMeetingSessionsUsecase(baseRepository: sl()));
+      () => CreateMeetingSessionsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetOrderDetailsUsecase(baseRepository: sl()));
+      () => GetOrderDetailsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => GetInstructorsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetProgramContentUsecase(baseRepository: sl()));
+      () => GetProgramContentUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => AddNoteUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetInstructorAvailabilitiesUsecase(baseRepository: sl()));
+      () => GetInstructorAvailabilitiesUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetCancelSessionReasonsUsecase(baseRepository: sl()));
+      () => GetCancelSessionReasonsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => ChangeSessionDateUsecase(baseRepository: sl()));
+      () => ChangeSessionDateUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => CancelSessionUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetUserSubscriptionDataUsecase(baseRepository: sl()));
+      () => GetUserSubscriptionDataUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetRemainingProgramSessionsUsecase(baseRepository: sl()));
+      () => GetRemainingProgramSessionsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => ChangeInstructorUsecase(baseRepository: sl()));
+      () => ChangeInstructorUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetChangeInstructorReasonsUsecase(baseRepository: sl()));
+      () => GetChangeInstructorReasonsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => UpdateProfileUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => RemoveAssignedStudentUsecase(baseRepository: sl()));
+      () => RemoveAssignedStudentUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => GetHomeLibraryUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetHomeClosestSessionsUsecase(baseRepository: sl()));
+      () => GetHomeClosestSessionsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetHomeCurrentSessionUsecase(baseRepository: sl()));
+      () => GetHomeCurrentSessionUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => GetHomeAssignmentsUsecase(baseRepository: sl()));
+      () => GetHomeAssignmentsUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => GetHomeQuizzesUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetMyChatsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => UpdateFcmTokenUsecase(baseRepository: sl()));
     sl.registerLazySingleton(
-        () => GetLatestNotificationUsecase(baseRepository: sl()));
+      () => GetLatestNotificationUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(
-        () => ReadNotificationUsecase(baseRepository: sl()));
+      () => ReadNotificationUsecase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => LogoutUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => DeleteAccountUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => CheckChatUsecase(baseRepository: sl()));
-    sl.registerLazySingleton(() => RequestToFindInstructorUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(
+      () => RequestToFindInstructorUsecase(baseRepository: sl()),
+    );
 
     // Registering the Factories
-    sl.registerLazySingleton<PaymentCubit>(() => PaymentCubit(
-          getProgramPaymentMethodsUsecase: sl(),
-        ));
+    sl.registerLazySingleton<PaymentCubit>(
+      () => PaymentCubit(getProgramPaymentMethodsUsecase: sl()),
+    );
     sl.registerLazySingleton<HomeCubit>(
       () => HomeCubit(
         getGeideaDataUsecase: sl(),
@@ -291,6 +342,7 @@ class ServiceLocator {
         getReportQuestionsUsecase: sl(),
       ),
     );
+    // sl.registerLazySingleton<SimpleAudioCubit>(() => SimpleAudioCubit());
     sl.registerLazySingleton<ProgramsUnderReviewCubit>(
       () => ProgramsUnderReviewCubit(
         getUserOrdersUsecase: sl(),

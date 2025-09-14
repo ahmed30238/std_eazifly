@@ -7,7 +7,6 @@ import 'package:eazifly_student/presentation/controller/auth/login/login_cubit.d
 import 'package:eazifly_student/presentation/controller/auth/register/register_cubit.dart';
 import 'package:eazifly_student/presentation/controller/cancel_session_controller/cancelsession_cubit.dart';
 import 'package:eazifly_student/presentation/controller/change_lecturer_controller/changelecturer_cubit.dart';
-import 'package:eazifly_student/presentation/controller/chats/chats_cubit.dart';
 import 'package:eazifly_student/presentation/controller/children_controller/children_cubit.dart';
 import 'package:eazifly_student/presentation/controller/copoun_history/copounhistory_cubit.dart';
 import 'package:eazifly_student/presentation/controller/goal_details_controller/goal_details_cubit.dart';
@@ -21,7 +20,6 @@ import 'package:eazifly_student/presentation/controller/my_account_controllers/n
 import 'package:eazifly_student/presentation/controller/my_account_controllers/subscriptionmanagement_cubit.dart';
 import 'package:eazifly_student/presentation/controller/payment_controller/payment_cubit.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_cubit.dart';
-import 'package:eazifly_student/presentation/controller/programs_under_review/programs_under_review_cubit.dart';
 import 'package:eazifly_student/presentation/view/account_data/account_data_view.dart';
 import 'package:eazifly_student/presentation/view/account_data/edit_profile_view/edit_profile_view.dart';
 import 'package:eazifly_student/presentation/view/auth/forgot_password/forgot_password.dart';
@@ -180,24 +178,12 @@ class AppRouter {
           ),
         );
       case RoutePaths.reportsAndComplaintsViewPath:
-        return createRoute(
-          BlocProvider.value(
-            value: sl<ChatsCubit>(),
-            child: const ReportsAndComplaintsView(),
-          ),
-        );
+        return createRoute(const ReportsAndComplaintsView());
       case RoutePaths.privacyPolicyAndUsage:
         return createRoute(const PrivacyPolicyAndUsageView());
 
       case RoutePaths.chatsViewPath:
-        return createRoute(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: sl<ChatsCubit>()), // نفس الـ instance
-            ],
-            child: const ChatsView(),
-          ),
-        );
+        return createRoute(const ChatsView());
       case RoutePaths.lectureView:
         var arguments = settings.arguments as Map<String, dynamic>;
         var programId = arguments["programId"] as int;
@@ -584,15 +570,7 @@ class AppRouter {
           ),
         );
       case RoutePaths.programsUnderReviewView:
-        return createRoute(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: sl<ChatsCubit>()), // نفس الـ instance
-              // يمكنك إضافة المزيد من BlocProviders هنا إذا كنت بحاجة إليها
-            ],
-            child: const ProgramsUnderReviewView(),
-          ),
-        );
+        return createRoute(const ProgramsUnderReviewView());
       case RoutePaths.registerView:
         return createRoute(
           MultiBlocProvider(
@@ -688,8 +666,7 @@ class AppRouter {
         return createRoute(
           MultiBlocProvider(
             providers: [
-              BlocProvider.value(value: sl<HomeCubit>()),
-              BlocProvider.value(value: sl<ChatsCubit>()), // نفس الـ instance
+              BlocProvider.value(value: sl<HomeCubit>()), // نفس الـ instance
             ],
             child: const CurrentSession(),
           ),

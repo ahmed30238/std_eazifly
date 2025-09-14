@@ -9,16 +9,14 @@ class GetMyChatsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetMyChatsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetMyChatsEntity({this.data, this.status, this.message});
 }
 
 class GetMyChatsDatumEntity {
   @JsonKey(name: "id")
   int? id;
+  @JsonKey(name: "type")
+  String? type;
   @JsonKey(name: "participant1")
   GetMyChatsParticipantModel? participant1;
   @JsonKey(name: "participant2")
@@ -27,6 +25,8 @@ class GetMyChatsDatumEntity {
   DateTime? createdAt;
   @JsonKey(name: "latest_message")
   GetMyChatsLatestMessageModel? latestMessage;
+  @JsonKey(name: "participants")
+  List<GetMyChatsParticipantElementModel>? participants;
 
   GetMyChatsDatumEntity({
     this.id,
@@ -34,6 +34,8 @@ class GetMyChatsDatumEntity {
     this.participant2,
     this.createdAt,
     this.latestMessage,
+    this.type,
+    this.participants,
   });
 }
 
@@ -46,12 +48,24 @@ class GetMyChatsLatestMessageEntity {
   String? senderType;
   @JsonKey(name: "message")
   String? message;
+  @JsonKey(name: "created_at")
+  DateTime? createdAt;
+  @JsonKey(name: "file")
+  String? file;
+  @JsonKey(name: "file_type")
+  String? fileType;
+  @JsonKey(name: "sender")
+  GetMyChatsSenderModel? sender;
 
   GetMyChatsLatestMessageEntity({
     this.id,
     this.chatId,
     this.senderType,
     this.message,
+    this.createdAt,
+    this.file,
+    this.fileType,
+    this.sender,
   });
 }
 
@@ -65,10 +79,43 @@ class GetMyChatsParticipantEntity {
   @JsonKey(name: "image")
   String? image;
 
-  GetMyChatsParticipantEntity({
-    this.type,
+  GetMyChatsParticipantEntity({this.type, this.id, this.name, this.image});
+}
+
+class GetMyChatsSenderEntity {
+  @JsonKey(name: "id")
+  int? id;
+  @JsonKey(name: "name")
+  String? name;
+  @JsonKey(name: "image")
+  String? image;
+
+  GetMyChatsSenderEntity({this.id, this.name, this.image});
+}
+
+class GetMyChatsParticipantElementEntity {
+  @JsonKey(name: "id")
+  int? id;
+  @JsonKey(name: "chat_id")
+  String? chatId;
+  @JsonKey(name: "participant_type")
+  String? participantType;
+  @JsonKey(name: "participant_id")
+  String? participantId;
+  @JsonKey(name: "participant")
+  GetMyChatsSenderModel? participant;
+  @JsonKey(name: "created_at")
+  DateTime? createdAt;
+  @JsonKey(name: "updated_at")
+  DateTime? updatedAt;
+
+  GetMyChatsParticipantElementEntity({
     this.id,
-    this.name,
-    this.image,
+    this.chatId,
+    this.participantType,
+    this.participantId,
+    this.participant,
+    this.createdAt,
+    this.updatedAt,
   });
 }

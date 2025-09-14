@@ -17,7 +17,7 @@ enum MessageStatus {
   sent, // تم الإرسال
   delivered, // تم التوصيل
   read, // تم القراءة
-  failed // فشل الإرسال
+  failed, // فشل الإرسال
 }
 
 class TextMessageItem extends StatelessWidget {
@@ -25,8 +25,10 @@ class TextMessageItem extends StatelessWidget {
   final bool? isThereImages;
   final String messageSenderAvatar;
   final Message messageModel;
-  final MessageStatus? messageStatus; // إضافة حالة الرسالة
+  final MessageStatus? messageStatus;
   final String file;
+  final DateTime date;
+
   const TextMessageItem({
     super.key,
     this.isLastMesage = true,
@@ -35,13 +37,15 @@ class TextMessageItem extends StatelessWidget {
     required this.messageSenderAvatar,
     this.messageStatus,
     required this.file,
+    required this.date,
   });
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection:
-          messageModel.isSender ? TextDirection.rtl : TextDirection.ltr,
+      textDirection: messageModel.isSender
+          ? TextDirection.rtl
+          : TextDirection.ltr,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,8 +64,10 @@ class TextMessageItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 8.h,
+                  ),
                   constraints: BoxConstraints(
                     minHeight: 40.h,
                     maxWidth: MediaQuery.of(context).size.width * 0.7,
@@ -69,14 +75,16 @@ class TextMessageItem extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: messageModel.isSender
                         ? messageModel.type == MessageTypeEnum.voiceMessage
-                            ? MainColors.outline
-                            : MainColors.success
+                              ? MainColors.outline
+                              : MainColors.success
                         : MainColors.outline,
                     borderRadius: BorderRadius.only(
-                      topLeft:
-                          Radius.circular(messageModel.isSender ? 16.r : 0),
-                      topRight:
-                          Radius.circular(messageModel.isSender ? 0.r : 16.r),
+                      topLeft: Radius.circular(
+                        messageModel.isSender ? 16.r : 0,
+                      ),
+                      topRight: Radius.circular(
+                        messageModel.isSender ? 0.r : 16.r,
+                      ),
                       bottomLeft: Radius.circular(16.r),
                       bottomRight: Radius.circular(16.r),
                     ),
@@ -89,20 +97,18 @@ class TextMessageItem extends StatelessWidget {
                   ),
                 ),
                 8.ph,
-                if (isThereImages == true) ...{
-                  const ImagesArea(),
-                },
+                if (isThereImages == true) ...{const ImagesArea()},
                 8.ph,
                 if (isLastMesage) ...{
                   Text(
-                    '12/2/2024',
+                    date.toString().substring(0, 10),
                     textAlign: TextAlign.center,
                     style: MainTextStyle.regularTextStyle(
                       color: MainColors.onSurfaceSecondary,
                       fontSize: 11,
                     ),
-                  )
-                }
+                  ),
+                },
               ],
             ),
           ),
@@ -112,7 +118,6 @@ class TextMessageItem extends StatelessWidget {
   }
 }
 
-// دالة لبناء أيقونة حالة الرسالة
 Widget _buildMessageStatusIcon(MessageStatus? status) {
   if (status == null) return const SizedBox.shrink();
 
@@ -123,7 +128,9 @@ Widget _buildMessageStatusIcon(MessageStatus? status) {
         height: 12.h,
         child: CircularProgressIndicator(
           strokeWidth: 1.5,
-          valueColor: AlwaysStoppedAnimation<Color>(MainColors.onSurfaceSecondary),
+          valueColor: AlwaysStoppedAnimation<Color>(
+            MainColors.onSurfaceSecondary,
+          ),
         ),
       );
     case MessageStatus.sent:
@@ -139,17 +146,9 @@ Widget _buildMessageStatusIcon(MessageStatus? status) {
         color: MainColors.onSurfaceSecondary,
       );
     case MessageStatus.read:
-      return Icon(
-        Icons.done_all,
-        size: 14.sp,
-        color: MainColors.success,
-      );
+      return Icon(Icons.done_all, size: 14.sp, color: MainColors.success);
     case MessageStatus.failed:
-      return Icon(
-        Icons.error_outline,
-        size: 14.sp,
-        color: Colors.red,
-      );
+      return Icon(Icons.error_outline, size: 14.sp, color: Colors.red);
   }
 }
 
@@ -167,9 +166,7 @@ Widget _buildMessageContent(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Flexible(
-              child: _buildTextWithLinks(message),
-            ),
+            Flexible(child: _buildTextWithLinks(message)),
             8.pw,
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -181,7 +178,6 @@ Widget _buildMessageContent(
                     color: MainColors.onPrimary,
                   ),
                 ),
-                // إضافة أيقونة حالة الرسالة للمرسل فقط
                 if (message.isSender && messageStatus != null) ...[
                   4.pw,
                   _buildMessageStatusIcon(messageStatus),
@@ -202,11 +198,7 @@ Widget _buildMessageContent(
             onTap: () {
               showFullScreenImage(context, file);
             },
-            child: AvatarImage(
-              imageUrl: file,
-              width: 200.w,
-              height: 200.h,
-            ),
+            child: AvatarImage(imageUrl: file, width: 200.w, height: 200.h),
           ),
           // إضافة حالة الرسالة للصور أيضاً
           if (message.isSender && messageStatus != null) ...[
@@ -240,9 +232,7 @@ Widget _buildMessageContent(
   }
 }
 
-// الدالة الجديدة لبناء النص مع دعم الروابط
 Widget _buildTextWithLinks(Message message) {
-  // RegExp للبحث عن الروابط
   final urlRegex = RegExp(
     r'https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)',
     caseSensitive: false,
@@ -252,48 +242,50 @@ Widget _buildTextWithLinks(Message message) {
   String text = message.content;
   int lastIndex = 0;
 
-  // البحث عن جميع الروابط في النص
   for (Match match in urlRegex.allMatches(text)) {
-    // إضافة النص العادي قبل الرابط
     if (match.start > lastIndex) {
-      spans.add(TextSpan(
-        text: text.substring(lastIndex, match.start),
-        style: MainTextStyle.boldTextStyle(
-          color:
-              message.isSender ? MainColors.background : MainColors.onSurfaceSecondary,
-          fontSize: 12,
+      spans.add(
+        TextSpan(
+          text: text.substring(lastIndex, match.start),
+          style: MainTextStyle.boldTextStyle(
+            color: message.isSender
+                ? MainColors.background
+                : MainColors.onSurfaceSecondary,
+            fontSize: 12,
+          ),
         ),
-      ));
+      );
     }
 
-    // إضافة الرابط
     final url = match.group(0)!;
-    spans.add(TextSpan(
-      text: url,
-      style: MainTextStyle.boldTextStyle(
-        color: message.isSender
-            ? MainColors.background
-                .withOpacity(0.8) // لون مختلف للروابط في رسائل المُرسل
-            : Colors.blue, // لون أزرق للروابط في رسائل المُستقبل
-        fontSize: 12,
-      ).copyWith(
-        decoration: TextDecoration.underline,
+    spans.add(
+      TextSpan(
+        text: url,
+        style: MainTextStyle.boldTextStyle(
+          color: message.isSender
+              ? MainColors.background.withValues(alpha: 0.8)
+              : Colors.blue,
+          fontSize: 12,
+        ).copyWith(decoration: TextDecoration.underline),
+        recognizer: TapGestureRecognizer()..onTap = () => openUrl(url),
       ),
-      recognizer: TapGestureRecognizer()..onTap = () => openUrl(url),
-    ));
+    );
 
     lastIndex = match.end;
   }
 
-  // إضافة باقي النص بعد آخر رابط
   if (lastIndex < text.length) {
-    spans.add(TextSpan(
-      text: text.substring(lastIndex),
-      style: MainTextStyle.boldTextStyle(
-        color: message.isSender ? MainColors.background : MainColors.onSurfaceSecondary,
-        fontSize: 12,
+    spans.add(
+      TextSpan(
+        text: text.substring(lastIndex),
+        style: MainTextStyle.boldTextStyle(
+          color: message.isSender
+              ? MainColors.background
+              : MainColors.onSurfaceSecondary,
+          fontSize: 12,
+        ),
       ),
-    ));
+    );
   }
 
   // إذا لم يتم العثور على روابط، أرجع النص العادي
@@ -301,7 +293,9 @@ Widget _buildTextWithLinks(Message message) {
     return Text(
       message.content,
       style: MainTextStyle.boldTextStyle(
-        color: message.isSender ? MainColors.background : MainColors.onSurfaceSecondary,
+        color: message.isSender
+            ? MainColors.background
+            : MainColors.onSurfaceSecondary,
         fontSize: 12,
       ),
       softWrap: true,

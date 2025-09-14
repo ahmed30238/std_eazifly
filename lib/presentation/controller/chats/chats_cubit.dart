@@ -31,8 +31,8 @@ class ChatsCubit extends Cubit<ChatsState> {
     required this.getMessagesUsecase,
     required this.getMyChatsUsecase,
     required this.sendMessagesUsecase,
-    // required this.getOldChatsUsecase,
     required this.addNoteUsecase,
+    // required this.getOldChatsUsecase,
   }) : super(ChatsInitial());
 
   static ChatsCubit get(BuildContext context) => BlocProvider.of(context);
@@ -63,22 +63,6 @@ class ChatsCubit extends Cubit<ChatsState> {
         });
   }
 
-  File? image;
-
-  Future<void> pickImageFroGallery() async {
-    final response = await pickImageFromGallery();
-    if (response != null) {
-      image = File(response.path);
-    }
-    emit(PickImageFromGallerySuccessState());
-  }
-
-  List<String> tabs({required BuildContext context}) {
-    var lang = context.loc!;
-    var tabs = [lang.professors, lang.appManagement];
-    return tabs;
-  }
-
   late AudioRecorder audioRecord;
   late AudioPlayer audioPlayer;
   bool isRecording = false;
@@ -96,29 +80,6 @@ class ChatsCubit extends Cubit<ChatsState> {
         emit(StopPlayingRecordState());
       }
     });
-  }
-
-  Future<String> getRecordPath() async {
-    final directory = await getApplicationDocumentsDirectory();
-    return '${directory.path}/recording.wav';
-  }
-
-  Future<void> startRecording() async {
-    recordPath = await getRecordPath();
-
-    if (await audioRecord.hasPermission()) {
-      await audioRecord.start(
-        const RecordConfig(
-          encoder: AudioEncoder.wav,
-          androidConfig: AndroidRecordConfig(
-            audioSource: AndroidAudioSource.mic,
-          ),
-        ),
-        path: recordPath,
-      );
-      isRecording = true;
-      emit(StartRecordState());
-    }
   }
 
   Future<void> stopRecording() async {
@@ -152,6 +113,52 @@ class ChatsCubit extends Cubit<ChatsState> {
       await audioPlayer.pause();
       isPlaying = false;
       emit(StopPlayingRecordState());
+    }
+  }
+
+  File? image;
+
+  Future<void> pickImageFroGallery() async {
+    final response = await pickImageFromGallery();
+    if (response != null) {
+      image = File(response.path);
+    }
+    emit(PickImageFromGallerySuccessState());
+  }
+
+  List<String> tabs({required BuildContext context}) {
+    var lang = context.loc!;
+    var tabs = [lang.professors, lang.appManagement];
+    return tabs;
+  }
+
+  int chatId = -1;
+
+  fillCurrentGroupChatId(int value) {
+    chatId = value;
+    log("$chatId");
+  }
+
+  Future<String> getRecordPath() async {
+    final directory = await getApplicationDocumentsDirectory();
+    return '${directory.path}/recording.wav';
+  }
+
+  Future<void> startRecording() async {
+    recordPath = await getRecordPath();
+
+    if (await audioRecord.hasPermission()) {
+      await audioRecord.start(
+        const RecordConfig(
+          encoder: AudioEncoder.wav,
+          androidConfig: AndroidRecordConfig(
+            audioSource: AndroidAudioSource.mic,
+          ),
+        ),
+        path: recordPath,
+      );
+      isRecording = true;
+      emit(StartRecordState());
     }
   }
 
@@ -226,7 +233,7 @@ class ChatsCubit extends Cubit<ChatsState> {
   ScrollController get scrollController => _scrollController;
 
   //
-  void initScorllController(String chatId) {
+  void initScrollController(String chatId) {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent - 100) {
@@ -336,15 +343,18 @@ class ChatsCubit extends Cubit<ChatsState> {
     }
 
     final String textToSend = messageController.text;
+    bool isClient = controller?.index == 1;
     messageController.clear();
     final tempMessage = SendMessagesTojson(
       message: textToSend,
       senderId: loginData?.id.toString() ?? "",
       senderType: "User",
       receiverId: receiverId,
-      receiverType: "Instructor",
+      receiverType: isClient ? null : "Instructor",
       createdAt: DateTime.now().toIso8601String(),
       file: imagePath ?? currentRecordPath,
+      type: isClient ? "group" : null,
+      chatId: isClient ? chatId : null,
     );
 
     // 2. ضفها للواجهة كـ isSending مع النوع
@@ -417,10 +427,7 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   @override
   Future<void> close() async {
-    await audioPlayer.dispose();
-    await audioRecord.dispose();
     // _messagesStreamController.close();
-    audioPlayer.dispose();
     // audioRecord.dispose();
     controller?.dispose();
     messageController.dispose();
@@ -431,23 +438,25 @@ class ChatsCubit extends Cubit<ChatsState> {
   // filled when the user click on the student item in the chat screen
   GetMyChatsParticipantModel? currentInstructor;
 
-  fillCurrentInstructor(int index) {
-    // currentInstructor = getMyChatsEntity?.data?[index].participant1;
-    if (getMyChatsEntity?.data?[index].participant1?.type == "Instructor") {
-      currentInstructor = getMyChatsEntity?.data?[index].participant1;
-    } else {
-      currentInstructor = getMyChatsEntity?.data?[index].participant2;
-    }
-  }
+  fillCurrentInstructor(int chatId) {
+    // دور على المحادثة اللي ليها نفس الـ chatId
+    final chat = getMyChatsEntity?.data?.firstWhere(
+      (element) => element.id == chatId && element.type == "private",
+      orElse: () => GetMyChatsDatumModel(),
+    );
 
-  GetMyChatsParticipantModel? currentClient;
+    if (chat != null) {
+      if (chat.participant1?.type == "Instructor") {
+        currentInstructor = chat.participant1;
+      } else {
+        currentInstructor = chat.participant2;
+      }
 
-  fillCurrentClient(int index) {
-    // currentClient = getMyChatsEntity?.data?[index].participant1;
-    if (getMyChatsEntity?.data?[index].participant1?.type == "Client") {
-      currentClient = getMyChatsEntity?.data?[index].participant1;
+      log("img is ${currentInstructor?.image} name ${currentInstructor?.name}");
+      log("chatId is $chatId");
+      log("chat type is ${chat.type}");
     } else {
-      currentClient = getMyChatsEntity?.data?[index].participant2;
+      log("No private chat found with id $chatId");
     }
   }
 }

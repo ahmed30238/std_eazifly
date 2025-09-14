@@ -55,7 +55,7 @@ class _DmViewState extends State<DmView> {
     cubit.initializeRecordVars();
 
     // Initialize scroll controller
-    cubit.initScorllController(widget.chatId);
+    cubit.initScrollController(widget.chatId);
 
     // استدعاء getMessages عند دخول الشاشة
     _loadMessages();
@@ -82,21 +82,21 @@ class _DmViewState extends State<DmView> {
 
   @override
   Widget build(BuildContext context) {
-    String? getTitle() {
-      if (cubit.controller?.index == 0) {
-        return cubit.currentInstructor?.name ?? "";
-      } else {
-        return cubit.currentClient?.name ?? "";
-      }
-    }
-
-    String? getAvatar() {
-      if (cubit.controller?.index == 0) {
-        return cubit.currentInstructor?.image ?? "";
-      } else {
-        return cubit.currentClient?.image ?? "";
-      }
-    }
+    // String? getTitle() {
+    //   if (cubit.controller?.index == 0) {
+    //     return cubit.currentInstructor?.name ?? "";
+    //   } else {
+    //     return cubit.currentClient?.participant?.name ?? "";
+    //   }
+    // }
+    //
+    // String? getAvatar() {
+    //   if (cubit.controller?.index == 0) {
+    //     return cubit.currentInstructor?.image ?? "";
+    //   } else {
+    //     return cubit.currentClient?.participant?.image ?? "";
+    //   }
+    // }
 
     return Scaffold(
       appBar: widget.isReport
@@ -138,15 +138,13 @@ class _DmViewState extends State<DmView> {
               isDmView: true,
               isCenterTitle: true,
               mainTitle: "",
-              dmTitle:
-                  cubit.currentInstructor?.name ??
-                  cubit.currentClient?.name ??
-                  "",
+              dmTitle: cubit.controller?.index == 0
+                  ? cubit.currentInstructor?.name
+                  : "إدارة التطبيق",
               // getTitle(),
-              dmImageUrl:
-                  cubit.currentInstructor?.image ??
-                  cubit.currentClient?.name ??
-                  "",
+              dmImageUrl: cubit.controller?.index == 0
+                  ? cubit.currentInstructor?.image
+                  : "",
               // getAvatar() ?? ,
               leadingText: "الرسائل",
               leadingIcon: Icons.arrow_back_ios,

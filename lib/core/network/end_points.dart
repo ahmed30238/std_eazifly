@@ -90,7 +90,7 @@ class EndPoints {
   static String showPlan({required int planId}) => "plan/show/$planId";
 
   static String getMessages({required int chatId, required int offset}) =>
-      "chat/get-message/?offset=$offset&chat_id=$chatId";
+      "chat/get-message/?offset=$offset&chat_id=$chatId&sort=desc";
   static const sendMessages = "chat/send-message";
 
   // static const changeSessionStatus = "program/assignment/1?user_id=3";

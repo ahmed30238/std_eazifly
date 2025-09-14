@@ -22,3 +22,12 @@ class SendMessagesDataModel extends SendMessagesDataEntities {
 
   Map<String, dynamic> toJson() => _$SendMessagesDataModelToJson(this);
 }
+@JsonSerializable(explicitToJson: true)
+class SendMessagesSenderModel extends SendMessagesSenderEntity {
+  SendMessagesSenderModel();
+
+  factory SendMessagesSenderModel.fromJson(Map<String, dynamic> json) =>
+      _$SendMessagesSenderModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SendMessagesSenderModelToJson(this);
+}

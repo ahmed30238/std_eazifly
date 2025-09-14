@@ -278,10 +278,6 @@ Future<void> handleJoinSession({
   required int duration,
   required LectureStatesEnum lectureState,
 }) async {
-  // final nextSession = programData?.nextSession;
-  // final  = nextSession?.sessionDatetime;
-  // final duration = int.tryParse(nextSession?.duration ?? "0") ?? 0;
-
   if (sessionStartTime == null) {
     delightfulToast(message: "وقت الجلسة غير متوفر", context: context);
     return;
@@ -303,9 +299,7 @@ Future<void> handleJoinSession({
   if (canJoinSession) {
     if (meetingUrl != null && meetingUrl.isNotEmpty) {
       if (lectureState != LectureStatesEnum.ongoing) {
-        await cubit.joinSession(
-          sessionId: sessionId,
-        );
+        await cubit.joinSession(sessionId: sessionId);
         Future.delayed(const Duration(milliseconds: 150), () {
           openUrl(meetingUrl);
         });
@@ -323,5 +317,47 @@ Future<void> handleJoinSession({
     // الجلسة انتهت
     delightfulToast(message: "الجلسة انتهت", context: context);
     log("الجلسة انتهت");
+  }
+}
+
+String formatMessageTime(BuildContext context, String createdAt) {
+  try {
+    // تحويل النص إلى DateTime
+    DateTime dateTime = DateTime.parse(createdAt);
+
+    // تحويل إلى التوقيت المحلي
+    DateTime localDateTime = dateTime.toLocal();
+
+    DateTime now = DateTime.now();
+    Duration difference = now.difference(localDateTime);
+
+    // إذا كان نفس اليوم، اعرض الوقت فقط
+    if (difference.inDays == 0) {
+      return DateFormat(
+        'hh:mm a',
+        AppLanguageCubit.isArabic(context) ? "ar" : "en",
+      ).format(localDateTime);
+    }
+    // إذا كان أمس
+    else if (difference.inDays == 1) {
+      return 'أمس ${DateFormat('hh:mm a', AppLanguageCubit.isArabic(context) ? "ar" : "en").format(localDateTime)}';
+    }
+    // إذا كان خلال الأسبوع الماضي
+    else if (difference.inDays < 7) {
+      return DateFormat(
+        'EEEE hh:mm a',
+        AppLanguageCubit.isArabic(context) ? "ar" : "en",
+      ).format(localDateTime);
+    }
+    // إذا كان أقدم من أسبوع
+    else {
+      return DateFormat(
+        'dd/MM/yyyy hh:mm a',
+        AppLanguageCubit.isArabic(context) ? "ar" : "en",
+      ).format(localDateTime);
+    }
+  } catch (e) {
+    // في حالة حدوث خطأ، أرجع النص الأصلي
+    return createdAt;
   }
 }

@@ -4,22 +4,22 @@ class NextLectureItem extends StatelessWidget {
   final String title;
   final String sessionDuration;
   final String sessionTime;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final VoidCallback onRejoinTap;
   final bool isRejoin;
   final String sessionState;
-  final bool oneItem;
+  // final bool oneItem;
 
   const NextLectureItem({
     super.key,
-    required this.onTap,
+    this.onTap,
     required this.title,
     required this.sessionDuration,
     required this.sessionTime,
     required this.onRejoinTap,
     required this.isRejoin,
     required this.sessionState,
-    required this.oneItem,
+    // required this.oneItem,
   });
 
   @override
@@ -31,24 +31,17 @@ class NextLectureItem extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         height: 127.h,
-        width: oneItem ? 315.w : 297.w,
+        width: 297.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.r),
           color: MainColors.inputFill,
-          border: Border.all(
-            color: MainColors.outline,
-          ),
+          border: Border.all(color: MainColors.outline,width: 1.5.w),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             16.ph,
-            Text(
-              title,
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 14,
-              ),
-            ),
+            Text(title, style: MainTextStyle.boldTextStyle(fontSize: 14)),
             10.ph,
             const CustomHorizontalDivider(),
             SessionDatesDetails(
@@ -63,7 +56,7 @@ class NextLectureItem extends StatelessWidget {
               thirdTitle: sessionState == "started"
                   ? lang.sessionState
                   : "تاريخ المحاضرة",
-            )
+            ),
           ],
         ),
       ),

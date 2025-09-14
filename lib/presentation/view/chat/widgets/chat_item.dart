@@ -7,7 +7,7 @@ class ChatItem extends StatelessWidget {
   final String lastMessageContent;
   final String time;
   final VoidCallback onTap;
-  final bool isFirstChat;
+  // final bool isFirstChat;
   final int? unreadCount; // إضافة عدد الرسائل غير المقروءة
   
   const ChatItem({
@@ -17,7 +17,7 @@ class ChatItem extends StatelessWidget {
     required this.name,
     required this.lastMessageContent,
     required this.time,
-    this.isFirstChat = false,
+    // this.isFirstChat = false,
     this.unreadCount,
   });
 

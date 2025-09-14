@@ -12,26 +12,7 @@ import 'package:quick_log/quick_log.dart';
 import 'package:requests_inspector/requests_inspector.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
   Logger logger = const Logger("Main Logger");
-  // await Future.wait<void>([
-  //   SystemChrome.setPreferredOrientations([
-  //     DeviceOrientation.portraitUp
-  //   ]),
-  //   Future(
-  //     () async {
-  //       await ServiceLocator().init();
-  //       await GetStorage.init();
-  //       await TokenUtil.loadTokenToMemory();
-  //     },
-  //   ),
-  // ]);
-  // await NotificationService.instance.initialize();
-  // logger.debug(
-  //     "this is FCMToken ${await GetStorage().read(StorageEnum.fcmToken.name)}");
-  // // logger.info("my token is empty ${TokenUtil.getTokenFromMemory().isEmpty}");
-  // // logger.error("val is ${TokenUtil.getTokenFromMemory()}");
-  // NotificationService.instance.setupFlutterNotifications();
 
   WidgetsFlutterBinding.ensureInitialized();
   // Logger logger = const Logger("Main Logger");

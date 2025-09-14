@@ -145,7 +145,6 @@ class _WritingMessageAreaState extends State<WritingMessageArea>
               onTap: () {
                 final cubit = ChatsCubit.get(context);
                 cubit.image = null;
-                // cubit.emit(PickImageFromGallerySuccessState());
                 _slideAnimationController.reverse();
               },
               child: Container(
@@ -167,7 +166,7 @@ class _WritingMessageAreaState extends State<WritingMessageArea>
     );
   }
 
-  Widget _buildRecordingPreview(String recordPath) {
+  Widget _buildRecordingPreview() {
     return SlideTransition(
       position: _slideAnimation,
       child: Container(
@@ -373,7 +372,7 @@ class _WritingMessageAreaState extends State<WritingMessageArea>
               if (cubit.recordPath.isNotEmpty && !cubit.isRecording)
                 Padding(
                   padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 0),
-                  child: _buildRecordingPreview(cubit.recordPath),
+                  child: _buildRecordingPreview(),
                 ),
 
               // Recording Indicator

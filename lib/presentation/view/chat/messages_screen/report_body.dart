@@ -30,59 +30,60 @@ class ReportBodyView extends StatelessWidget {
               40.ph,
               Expanded(
                 child:
-                BlocBuilder<
-                    ProgramsUnderReviewCubit,
-                    ProgramsUnderReviewState
-                >(
-                  builder: (context, state) {
-                    var notes = programsUnderReviewCubit
-                        .orderMessages
-                        ?.reversed
-                        .toList();
-                    return BlocBuilder<ChatsCubit, ChatsState>(
+                    BlocBuilder<
+                      ProgramsUnderReviewCubit,
+                      ProgramsUnderReviewState
+                    >(
                       builder: (context, state) {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          reverse: true,
-                          physics: const BouncingScrollPhysics(),
-                          controller: cubit.scrollController,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          itemCount: notes?.length ?? 0,
-                          itemBuilder: (context, index) {
-                            if (index == notes?.length) {
-                              return const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-                            }
-                            bool isLastElement =
-                                notes != null && index == notes.length - 1;
-                            final note = notes?[index];
-                            log("${note?.title}");
+                        var notes = programsUnderReviewCubit
+                            .orderMessages
+                            ?.reversed
+                            .toList();
+                        return BlocBuilder<ChatsCubit, ChatsState>(
+                          builder: (context, state) {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              // reverse: true,
+                              physics: const BouncingScrollPhysics(),
+                              controller: cubit.scrollController,
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              itemCount: notes?.length ?? 0,
+                              itemBuilder: (context, index) {
+                                if (index == notes?.length) {
+                                  return const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  );
+                                }
+                                bool isLastElement =
+                                    notes != null && index == notes.length - 1;
+                                final note = notes?[index];
+                                log("${note?.title}");
 
-                            return TextMessageItem(
-                              file: "",
-                              isLastMesage: false,
-                              messageModel: Message(
-                                type: getMessageType(
-                                  note?.image == null ? "text" : "image",
-                                ),
-                                content: note?.title ?? "",
-                                isSender: note?.type == "user",
-                                createdAt: formatDate(
-                                  note?.createdAt ?? DateTime.now(),
-                                ).substring(0, 10),
-                              ),
-                              messageSenderAvatar: loginData?.image ?? "",
+                                return TextMessageItem(
+                                  file: "",
+                                  isLastMesage: isLastElement,
+                                  date: note?.createdAt ?? DateTime.now(),
+                                  messageModel: Message(
+                                    type: getMessageType(
+                                      note?.image == null ? "text" : "image",
+                                    ),
+                                    content: note?.title ?? "",
+                                    isSender: note?.type == "user",
+                                    createdAt: formatDate(
+                                      note?.createdAt ?? DateTime.now(),
+                                    ).substring(0, 10),
+                                  ),
+                                  messageSenderAvatar: loginData?.image ?? "",
+                                );
+                              },
                             );
                           },
                         );
                       },
-                    );
-                  },
-                ),
+                    ),
               ),
             ],
           ),

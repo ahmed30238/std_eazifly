@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => AppLanguageCubit()..getAppLang()),
         BlocProvider(create: (context) => LayoutCubit()),
         BlocProvider.value(value: sl<ProgramsUnderReviewCubit>()),
+        // BlocProvider.value(value: sl<SimpleAudioCubit>()),
         BlocProvider.value(value: sl<MyProgramsCubit>()),
         BlocProvider.value(value: sl<HomeCubit>()),
         BlocProvider.value(value: sl<ChatsCubit>()),

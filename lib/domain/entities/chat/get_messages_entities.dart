@@ -25,7 +25,9 @@ class GetMessagesDatumEntities {
   String? fileType;
   @JsonKey(name: "file")
   String? file;
-  
+  @JsonKey(name: "sender")
+  GetMessagesSenderModel? sender;
+
   GetMessagesDatumEntities({
     this.id,
     this.chatId,
@@ -34,5 +36,14 @@ class GetMessagesDatumEntities {
     this.createdAt,
     this.file,
     this.fileType,
+    this.sender,
   });
+}
+
+class GetMessagesSenderEntities {
+  int? id;
+  String? name;
+  String? image;
+
+  GetMessagesSenderEntities({this.id, this.image, this.name});
 }
