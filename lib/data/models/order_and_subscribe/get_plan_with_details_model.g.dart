@@ -33,9 +33,19 @@ PlanDetailsModel _$PlanDetailsModelFromJson(Map<String, dynamic> json) =>
       ..currency = json['currency'] as String?
       ..price = json['price'] as String?
       ..discountPrice = json['discount_price'] as String?
-      ..subscripeDays = json['subscripe_days']
+      ..subscripeDays = PlanDetailsEntity.customInt(json['subscripe_days'])
       ..duration = json['duration'] as String?
-      ..numberOfSessionPerWeek = json['number_of_session_per_week'] as String?;
+      ..numberOfSessionPerWeek = json['number_of_session_per_week'] as String?
+      ..isSpecialPlan = json['is_special_plan'] as bool?
+      ..type = json['type'] as String?
+      ..planTitle = json['plan_title'] as String?
+      ..subscriptionPlan = json['subscription_plan'] as String?
+      ..titleAr = json['title_ar'] as String?
+      ..descriptionAr = json['description_ar'] as String?
+      ..labelAr = json['label_ar'] as String?
+      ..titleEn = json['title_en'] as String?
+      ..descriptionEn = json['description_en'] as String?
+      ..labelEn = json['label_en'] as String?;
 
 Map<String, dynamic> _$PlanDetailsModelToJson(PlanDetailsModel instance) =>
     <String, dynamic>{
@@ -50,4 +60,14 @@ Map<String, dynamic> _$PlanDetailsModelToJson(PlanDetailsModel instance) =>
       'subscripe_days': instance.subscripeDays,
       'duration': instance.duration,
       'number_of_session_per_week': instance.numberOfSessionPerWeek,
+      'is_special_plan': instance.isSpecialPlan,
+      'type': instance.type,
+      'plan_title': instance.planTitle,
+      'subscription_plan': instance.subscriptionPlan,
+      'title_ar': instance.titleAr,
+      'description_ar': instance.descriptionAr,
+      'label_ar': instance.labelAr,
+      'title_en': instance.titleEn,
+      'description_en': instance.descriptionEn,
+      'label_en': instance.labelEn,
     };

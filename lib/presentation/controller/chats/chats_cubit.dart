@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
+import 'package:eazifly_student/core/enums/chat_participant_enum.dart';
+import 'package:eazifly_student/core/enums/chat_types.dart';
 import 'package:eazifly_student/data/models/chat_model/get_messages_model.dart';
 import 'package:eazifly_student/data/models/chat_model/get_my_chats_model.dart';
 import 'package:eazifly_student/data/models/chat_model/send_messages_tojson.dart';
@@ -58,6 +60,8 @@ class ChatsCubit extends Cubit<ChatsState> {
           vsync: vsync,
         )..addListener(() {
           if (controller!.indexIsChanging) {
+            instructorsList();
+            clientChatList();
             emit(ChangeTapbarState());
           }
         });
@@ -437,6 +441,72 @@ class ChatsCubit extends Cubit<ChatsState> {
   // this is a variable to use in the dm screen to get student(user) data
   // filled when the user click on the student item in the chat screen
   GetMyChatsParticipantModel? currentInstructor;
+
+  bool isClientParticipant(GetMyChatsDatumEntity element) {
+    return element.participant1?.type == ChatParticipantEnum.client.title ||
+        element.participant2?.type == ChatParticipantEnum.client.title;
+  }
+
+  List<GetMyChatsDatumEntity> clientsList = [];
+
+  void clientChatList() {
+    clientsList = [];
+    clientsList.addAll(
+      getMyChatsEntity?.data?.where((element) {
+            return element.type == ChatTypes.group.type ||
+                isClientParticipant(element);
+          }) ??
+          [],
+    );
+  }
+
+  bool isInstructorParticipant(GetMyChatsDatumEntity element) {
+    return element.participant1?.type == ChatParticipantEnum.instructor.title ||
+        element.participant2?.type == ChatParticipantEnum.instructor.title;
+  }
+
+  List<GetMyChatsDatumEntity> instructorList = [];
+
+  // [
+  // {
+  // "id": 30,
+  // "type": "private",
+  // "name": null,
+  // "participant1": null,
+  // "participant2": {
+  // "type": "User",
+  // "id": "34",
+  // "name": "Mahmkud khirallah",
+  // "image": null
+  // },
+  // "created_at": "2025-09-17T11:51:30.000000Z",
+  // "latest_message": {
+  // "id": 490,
+  // "chat_id": 30,
+  // "sender_type": "User",
+  // "message": "chat",
+  // "created_at": "2025-09-17T12:43:34.000000Z",
+  // "file": null,
+  // "file_type": null,
+  // "sender": {
+  // "id": 34,
+  // "name": "Mahmkud khirallah",
+  // "image": null
+  // }
+  // },
+  // "participants": []
+  // }
+  // ],
+  void instructorsList() {
+    instructorList = [];
+    instructorList.addAll(
+      getMyChatsEntity?.data?.where((element) {
+            return element.type == ChatTypes.private.type &&
+                isInstructorParticipant(element);
+          }) ??
+          [],
+    );
+  }
 
   fillCurrentInstructor(int chatId) {
     // دور على المحادثة اللي ليها نفس الـ chatId

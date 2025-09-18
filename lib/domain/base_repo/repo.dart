@@ -118,93 +118,111 @@ import '../entities/auth/reset_password_entity.dart';
 import '../entities/get_geidea_settings/get_geidea_data_entity.dart';
 
 abstract class BaseRepository {
-  Future<Either<Failure, LoginEntity>> login({
-    required LoginToJson data,
+  Future<Either<Failure, LoginEntity>> login({required LoginToJson data});
+
+  Future<Either<Failure, RegisterEntity>> register({
+    required RegisterToJson data,
   });
 
-  Future<Either<Failure, RegisterEntity>> register(
-      {required RegisterToJson data});
+  Future<Either<Failure, ForgotPasswordEntity>> forgotPassword({
+    required String email,
+  });
 
-  Future<Either<Failure, ForgotPasswordEntity>> forgotPassword(
-      {required String email});
-
-  Future<Either<Failure, ResetPasswordEntity>> resetPassword(
-      {required ResetPasswordToJson data});
+  Future<Either<Failure, ResetPasswordEntity>> resetPassword({
+    required ResetPasswordToJson data,
+  });
 
   Future<Either<Failure, GetProgramsEntity>> getPrograms();
-  Future<Either<Failure, GetGeideaDataEntity>> geideaData({required String key});
 
-  Future<Either<Failure, GetProgramDetailsEntity>> getProgramDetails(
-      {required int programId});
+  Future<Either<Failure, GetGeideaDataEntity>> geideaData({
+    required String key,
+  });
 
-  Future<Either<Failure, AssignProgramReviewEntity>> assignProgramReview(
-      {required AssignProgramReviewTojson data});
+  Future<Either<Failure, GetProgramDetailsEntity>> getProgramDetails({
+    required int programId,
+  });
 
-  Future<Either<Failure, GetPlansWithDetailsEntity>> getPlansWithDetails(
-      {required int programId, required int days});
+  Future<Either<Failure, AssignProgramReviewEntity>> assignProgramReview({
+    required AssignProgramReviewTojson data,
+  });
+
+  Future<Either<Failure, GetPlansWithDetailsEntity>> getPlansWithDetails({
+    required int programId,
+    int? days,
+  });
 
   Future<Either<Failure, GetPlansEntity>> getPlans({required int programId});
 
-  Future<Either<Failure, FilterPlansEntity>> filterPlans(
-      {required FilterPlansTojson data});
+  Future<Either<Failure, FilterPlansEntity>> filterPlans({
+    required FilterPlansTojson data,
+  });
 
-  Future<Either<Failure, CreateOrderEntity>> createOrder(
-      {required CreateOrderTojson data});
+  Future<Either<Failure, CreateOrderEntity>> createOrder({
+    required CreateOrderTojson data,
+  });
 
-  Future<Either<Failure, CheckCopounEntity>> checkCopoun(
-      {required CheckCopounTojson data});
+  Future<Either<Failure, CheckCopounEntity>> checkCopoun({
+    required CheckCopounTojson data,
+  });
 
   Future<Either<Failure, GetProgramPaymentMethodsEntity>>
-      getProgramPaymentMethods({required int programId});
+  getProgramPaymentMethods({required int programId});
 
   Future<Either<Failure, GetPaymentMethodDetailsEntity>>
-      getPaymentMethodDetails({required int programId, required int methodId});
+  getPaymentMethodDetails({required int programId, required int methodId});
 
   Future<Either<Failure, GetUserOrdersEntity>> getUserOrders();
 
-  Future<Either<Failure, GetLibraryCategoriesEntity>> getLibraryCategories(
-      {String? type});
+  Future<Either<Failure, GetLibraryCategoriesEntity>> getLibraryCategories({
+    String? type,
+  });
 
   Future<Either<Failure, GetAllLibraryListsEntity>> getAllLibraryLists();
 
-  Future<Either<Failure, StoreFavouriteListEntity>> storeFavouriteList(
-      {required StoreFavouriteListTojson data});
+  Future<Either<Failure, StoreFavouriteListEntity>> storeFavouriteList({
+    required StoreFavouriteListTojson data,
+  });
 
   Future<Either<Failure, GetFavouriteListEntity>> getFavouriteList();
 
   Future<Either<Failure, GetFavouriteListItemsUsingListIdEntity>>
-      getFavouriteListItemsUsinListId({required int listId});
+  getFavouriteListItemsUsinListId({required int listId});
 
   Future<Either<Failure, GetAllItemsEntity>> getAllItems();
 
-  Future<Either<Failure, AddSingleItemToFavListEntity>> addSingleItemToFavList(
-      {required AddSingleItemToFavListTojson data});
+  Future<Either<Failure, AddSingleItemToFavListEntity>> addSingleItemToFavList({
+    required AddSingleItemToFavListTojson data,
+  });
 
   Future<Either<Failure, GetListItemsUsingListIdEntity>>
-      getListItemsUsingListId({required int listId});
+  getListItemsUsingListId({required int listId});
 
   Future<Either<Failure, LikeItemEntity>> likeItem({
     required int itemId,
     required bool status,
   });
 
-  Future<Either<Failure, GetMyChildrenEntity>> getMyChildren(
-      {required bool childrensStatus});
+  Future<Either<Failure, GetMyChildrenEntity>> getMyChildren({
+    required bool childrensStatus,
+  });
 
-  Future<Either<Failure, CreateNewChildEntity>> createNewChild(
-      {required CreateNewChildTojson data});
+  Future<Either<Failure, CreateNewChildEntity>> createNewChild({
+    required CreateNewChildTojson data,
+  });
 
-  Future<Either<Failure, ShowLibraryItemEntity>> showLibraryItem(
-      {required int itemId});
+  Future<Either<Failure, ShowLibraryItemEntity>> showLibraryItem({
+    required int itemId,
+  });
 
   Future<Either<Failure, GetPlanSubscriptionPeriodEntity>>
-      getPlanSubscriptionPeriod();
+  getPlanSubscriptionPeriod();
 
-  Future<Either<Failure, GetLibraryPlansEntity>> getLibraryPlans(
-      {required int days});
+  Future<Either<Failure, GetLibraryPlansEntity>> getLibraryPlans({
+    required int days,
+  });
 
   Future<Either<Failure, LibraryOrderAndSubscriptionEntity>>
-      libraryOrderAndSubscribe({required LibraryOrderAndSubscribeTojson data});
+  libraryOrderAndSubscribe({required LibraryOrderAndSubscribeTojson data});
 
   Future<Either<Failure, GetMyProgramsEntity>> getMyPrograms();
 
@@ -217,9 +235,7 @@ abstract class BaseRepository {
   });
 
   Future<Either<Failure, GetAssignedChildrenToProgramEntity>>
-      getAssignedChildrenToProgram({
-    required int programId,
-  });
+  getAssignedChildrenToProgram({required int programId});
 
   Future<Either<Failure, ChangeSessionStatusEntity>> changeSessionStatus({
     required ChangeSessionStatusToJson data,
@@ -279,20 +295,24 @@ abstract class BaseRepository {
     required int userId,
   });
 
-  Future<Either<Failure, GetMessagesEntities>> getMessages(
-      {required int chatId, required int offset});
+  Future<Either<Failure, GetMessagesEntities>> getMessages({
+    required int chatId,
+    required int offset,
+  });
 
-  Future<Either<Failure, SendMessagesEntities>> sendMessages(
-      {required SendMessagesTojson data});
+  Future<Either<Failure, SendMessagesEntities>> sendMessages({
+    required SendMessagesTojson data,
+  });
 
-  Future<Either<Failure, PostAssignmentEntity>> postAssignment(
-      {required PostAssignmentTojson data});
+  Future<Either<Failure, PostAssignmentEntity>> postAssignment({
+    required PostAssignmentTojson data,
+  });
 
   Future<Either<Failure, GetProgramSubscriptionEntity>>
-      getProgramSubscription();
+  getProgramSubscription();
 
   Future<Either<Failure, GetLibrarySubscriptionEntity>>
-      getLibrarySubscription();
+  getLibrarySubscription();
 
   Future<Either<Failure, CancelSubscriptionEntity>> cancelSubscription({
     required int mainId,
@@ -302,9 +322,7 @@ abstract class BaseRepository {
     required RenewSubscriptionTojson data,
   });
 
-  Future<Either<Failure, ShowPlanEntity>> showPlan({
-    required int planId,
-  });
+  Future<Either<Failure, ShowPlanEntity>> showPlan({required int planId});
 
   Future<Either<Failure, UpgradeOrderEntity>> upgradeOrder({
     required RenewSubscriptionTojson data,
@@ -318,8 +336,9 @@ abstract class BaseRepository {
     required int meetingSessionId,
   });
 
-  Future<Either<Failure, GetOrderDetailsEntity>> getOrderDetails(
-      {required int orderId});
+  Future<Either<Failure, GetOrderDetailsEntity>> getOrderDetails({
+    required int orderId,
+  });
 
   Future<Either<Failure, AddWeeklyAppontmentsEntity>> addWeeklyAppointments({
     required AddWeeklyAppointmentsTojson data,
@@ -337,15 +356,13 @@ abstract class BaseRepository {
     required int programId,
   });
 
-  Future<Either<Failure, AddNoteEntity>> addNote({
-    required AddNoteTojson data,
-  });
+  Future<Either<Failure, AddNoteEntity>> addNote({required AddNoteTojson data});
 
   Future<Either<Failure, GetCancelSessionReasonEntity>>
-      gettCancelSessionReasons();
+  gettCancelSessionReasons();
 
   Future<Either<Failure, GetInstructorAvailabilitiesEntity>>
-      getInstructorAvailabilities({
+  getInstructorAvailabilities({
     required int instructorId,
     required int duration,
   });
@@ -360,10 +377,7 @@ abstract class BaseRepository {
   });
 
   Future<Either<Failure, GetRemainingProgramSessionsEntity>>
-      getRemainingProgramSessions({
-    required int userId,
-    required int programId,
-  });
+  getRemainingProgramSessions({required int userId, required int programId});
 
   Future<Either<Failure, ChangeInstructorEntity>> changeInstructor({
     required ChangeInstructorTojson data,
@@ -371,13 +385,10 @@ abstract class BaseRepository {
   });
 
   Future<Either<Failure, GetUserSubscriptionDataEntity>>
-      getUserSubscriptionData({
-    required int programId,
-    required int userId,
-  });
+  getUserSubscriptionData({required int programId, required int userId});
 
   Future<Either<Failure, GetChangeInstructorReasonsEntity>>
-      getChangeInstructorReasons();
+  getChangeInstructorReasons();
 
   Future<Either<Failure, UpdateProfileEntity>> updateProfile({
     required int userId,
@@ -399,36 +410,40 @@ abstract class BaseRepository {
     required int userId,
   });
 
-  Future<Either<Failure, GetHomeAssignmentsEntity>> getHomeAssigments(
-      {required int userId});
+  Future<Either<Failure, GetHomeAssignmentsEntity>> getHomeAssigments({
+    required int userId,
+  });
 
   Future<Either<Failure, GetHomeQuizzesEntity>> getHomeQuizzes({
     required int userId,
   });
 
-  Future<Either<Failure, GetMyChatsEntity>> getMyChats({
-    required String type,
+  Future<Either<Failure, GetMyChatsEntity>> getMyChats({required String type});
+
+  Future<Either<Failure, UpdateFcmTokenEntity>> updateFcmToken({
+    required String fcmToken,
   });
 
-  Future<Either<Failure, UpdateFcmTokenEntity>> updateFcmToken(
-      {required String fcmToken});
+  Future<Either<Failure, GetLatestNotificationsEntities>>
+  getLatestNotification({required String type, required int offset});
 
-  Future<Either<Failure, GetLatestNotificationsEntities>> getLatestNotification(
-      {required String type, required int offset});
-
-  Future<Either<Failure, ReadNotificationEntities>> readNotification(
-      {required int notificationId});
+  Future<Either<Failure, ReadNotificationEntities>> readNotification({
+    required int notificationId,
+  });
 
   Future<Either<Failure, LogoutEntity>> logout();
 
-  Future<Either<Failure, DeleteAccountEntity>> deleteAccount(
-      {required int userId});
+  Future<Either<Failure, DeleteAccountEntity>> deleteAccount({
+    required int userId,
+  });
 
-  Future<Either<Failure, CheckChatEntity>> checkChat(
-      {required CheckChatTojson data});
+  Future<Either<Failure, CheckChatEntity>> checkChat({
+    required CheckChatTojson data,
+  });
 
-  Future<Either<Failure, RequestToFindInstructorEntity>> findInstructor(
-      {required RequestToFindInstructorTojson data});
+  Future<Either<Failure, RequestToFindInstructorEntity>> findInstructor({
+    required RequestToFindInstructorTojson data,
+  });
 
   Future<Either<Failure, CopounHistoryEntity>> copounHistory();
 }

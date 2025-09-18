@@ -94,3 +94,5 @@ class ChangePlanIdState extends ProgramsubscriptionplanState {}
 class IncrementStudentCountState extends ProgramsubscriptionplanState {}
 
 class DecrementStudentCountState extends ProgramsubscriptionplanState {}
+
+class FilledViewListState extends ProgramsubscriptionplanState {}

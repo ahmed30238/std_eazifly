@@ -142,7 +142,7 @@ abstract class BaseRemoteDataSource {
 
   Future<GetPlansWithDetailsModel> getPlansWithDetails({
     required int programId,
-    required int days,
+    int? days,
   });
 
   Future<GetPlansModel> getPlans({required int programId});
@@ -462,10 +462,10 @@ class RemoteDataSource extends BaseRemoteDataSource {
   @override
   Future<GetPlansWithDetailsModel> getPlansWithDetails({
     required int programId,
-    required int days,
+    int? days,
   }) async {
     var response = await NetworkCall().get(
-      path: EndPoints.getPlansWithDetails(programId: programId, days: days),
+      path: EndPoints.getPlansWithDetails(programId: programId,days:days),
     );
     if (response?.statusCode == 200) {
       return GetPlansWithDetailsModel.fromJson(response?.data);

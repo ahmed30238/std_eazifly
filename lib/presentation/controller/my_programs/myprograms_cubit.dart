@@ -77,16 +77,7 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
   Future<void> getAssignedChildrenToProgram({
     required int programId,
   }) async {
-    // students = [];
-    // students.insert(
-    //   0,
-    //   GetAssignedChildrenToProgramDatumEntity(
-    //     id: loginData?.id,
-    //     age: loginData?.age.toString(),
-    //     firstName: loginData?.firstName,
-    //     image: loginData?.image,
-    //   ),
-    // ); // parent data
+    students = [];
     getAssignedChildrenLoader = true;
     emit(GetAssignedChildrenLoadingState());
 

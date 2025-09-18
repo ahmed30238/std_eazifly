@@ -87,7 +87,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     var oldInstructorId = context
         .read<MyProgramsCubit>()
         .getAssignedChildrenToProgramEntity
-        ?.data?.first
+        ?.data?[context.read<LectureCubit>().currentUserIndex]
         .currentInstructorId;
 
     log("$oldInstructorId is inst id");

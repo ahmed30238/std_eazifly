@@ -123,16 +123,12 @@ import '../models/auth/login_tojson.dart';
 class Repository extends BaseRepository {
   BaseRemoteDataSource baseRemoteDataSource;
 
-  Repository({
-    required this.baseRemoteDataSource,
-  });
+  Repository({required this.baseRemoteDataSource});
 
   @override
-  Future<Either<Failure, LoginModel>> login({
-    required LoginToJson data
-  }) async {
+  Future<Either<Failure, LoginModel>> login({required LoginToJson data}) async {
     try {
-      final result = await baseRemoteDataSource.login(data:data);
+      final result = await baseRemoteDataSource.login(data: data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -150,11 +146,13 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetProgramDetailsEntity>> getProgramDetails(
-      {required int programId}) async {
+  Future<Either<Failure, GetProgramDetailsEntity>> getProgramDetails({
+    required int programId,
+  }) async {
     try {
-      final result =
-          await baseRemoteDataSource.getProgramDetails(programId: programId);
+      final result = await baseRemoteDataSource.getProgramDetails(
+        programId: programId,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -162,8 +160,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, AssignProgramReviewModel>> assignProgramReview(
-      {required AssignProgramReviewTojson data}) async {
+  Future<Either<Failure, AssignProgramReviewModel>> assignProgramReview({
+    required AssignProgramReviewTojson data,
+  }) async {
     try {
       final result = await baseRemoteDataSource.assignProgramReview(data: data);
       return Right(result);
@@ -173,8 +172,10 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetPlansWithDetailsEntity>> getPlansWithDetails(
-      {required int programId, required int days}) async {
+  Future<Either<Failure, GetPlansWithDetailsEntity>> getPlansWithDetails({
+    required int programId,
+    int? days,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getPlansWithDetails(
         programId: programId,
@@ -187,8 +188,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetPlansEntity>> getPlans(
-      {required int programId}) async {
+  Future<Either<Failure, GetPlansEntity>> getPlans({
+    required int programId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getPlans(programId: programId);
       return Right(result);
@@ -198,8 +200,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, FilterPlansEntity>> filterPlans(
-      {required FilterPlansTojson data}) async {
+  Future<Either<Failure, FilterPlansEntity>> filterPlans({
+    required FilterPlansTojson data,
+  }) async {
     try {
       final result = await baseRemoteDataSource.filterPlans(data: data);
       return Right(result);
@@ -209,8 +212,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, CreateOrderEntity>> createOrder(
-      {required CreateOrderTojson data}) async {
+  Future<Either<Failure, CreateOrderEntity>> createOrder({
+    required CreateOrderTojson data,
+  }) async {
     try {
       final result = await baseRemoteDataSource.createOrder(data: data);
       return Right(result);
@@ -220,8 +224,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, CheckCopounModel>> checkCopoun(
-      {required CheckCopounTojson data}) async {
+  Future<Either<Failure, CheckCopounModel>> checkCopoun({
+    required CheckCopounTojson data,
+  }) async {
     try {
       final result = await baseRemoteDataSource.checkCopoun(data: data);
       return Right(result);
@@ -232,10 +237,11 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, GetProgramPaymentMethodsModel>>
-      getProgramPaymentMethods({required int programId}) async {
+  getProgramPaymentMethods({required int programId}) async {
     try {
       final result = await baseRemoteDataSource.getProgramPaymentMethods(
-          programId: programId);
+        programId: programId,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -244,11 +250,15 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, GetPaymentMethodDetailsEntity>>
-      getPaymentMethodDetails(
-          {required int programId, required int methodId}) async {
+  getPaymentMethodDetails({
+    required int programId,
+    required int methodId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getPaymentMethodDetails(
-          programId: programId, methodId: methodId);
+        programId: programId,
+        methodId: methodId,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -266,11 +276,13 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetLibraryCategoriesModel>> getLibraryCategories(
-      {String? type}) async {
+  Future<Either<Failure, GetLibraryCategoriesModel>> getLibraryCategories({
+    String? type,
+  }) async {
     try {
-      final result =
-          await baseRemoteDataSource.getLibraryCategories(type: type);
+      final result = await baseRemoteDataSource.getLibraryCategories(
+        type: type,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -288,8 +300,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, StoreFavouriteListModel>> storeFavouriteList(
-      {required StoreFavouriteListTojson data}) async {
+  Future<Either<Failure, StoreFavouriteListModel>> storeFavouriteList({
+    required StoreFavouriteListTojson data,
+  }) async {
     try {
       final result = await baseRemoteDataSource.storeFavouriteList(data: data);
       return Right(result);
@@ -310,10 +323,11 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, GetFavouriteListItemsUsingListIdModel>>
-      getFavouriteListItemsUsinListId({required int listId}) async {
+  getFavouriteListItemsUsinListId({required int listId}) async {
     try {
       final result = await baseRemoteDataSource.getFavouriteListItemsUsinListId(
-          listId: listId);
+        listId: listId,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -331,11 +345,13 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, AddSingleItemToFavListModel>> addSingleItemToFavList(
-      {required AddSingleItemToFavListTojson data}) async {
+  Future<Either<Failure, AddSingleItemToFavListModel>> addSingleItemToFavList({
+    required AddSingleItemToFavListTojson data,
+  }) async {
     try {
-      final result =
-          await baseRemoteDataSource.addSingleItemToFavList(data: data);
+      final result = await baseRemoteDataSource.addSingleItemToFavList(
+        data: data,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -343,11 +359,12 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetListItemsUsingListIdModel>> getListItemsUsingListId(
-      {required int listId}) async {
+  Future<Either<Failure, GetListItemsUsingListIdModel>>
+  getListItemsUsingListId({required int listId}) async {
     try {
-      final result =
-          await baseRemoteDataSource.getListItemsUsingListId(listId: listId);
+      final result = await baseRemoteDataSource.getListItemsUsingListId(
+        listId: listId,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -355,11 +372,15 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, LikeItemEntity>> likeItem(
-      {required int itemId, required bool status}) async {
+  Future<Either<Failure, LikeItemEntity>> likeItem({
+    required int itemId,
+    required bool status,
+  }) async {
     try {
-      final result =
-          await baseRemoteDataSource.likeItem(itemId: itemId, status: status);
+      final result = await baseRemoteDataSource.likeItem(
+        itemId: itemId,
+        status: status,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -367,8 +388,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetMyChildrenModel>> getMyChildren(
-      {required bool childrensStatus}) async {
+  Future<Either<Failure, GetMyChildrenModel>> getMyChildren({
+    required bool childrensStatus,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getMyChildren(
         childresStatus: childrensStatus,
@@ -380,12 +402,11 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, CreateNewChildEntity>> createNewChild(
-      {required CreateNewChildTojson data}) async {
+  Future<Either<Failure, CreateNewChildEntity>> createNewChild({
+    required CreateNewChildTojson data,
+  }) async {
     try {
-      final result = await baseRemoteDataSource.createNewChild(
-        data: data,
-      );
+      final result = await baseRemoteDataSource.createNewChild(data: data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -393,12 +414,11 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, ShowLibraryItemModel>> showLibraryItem(
-      {required int itemId}) async {
+  Future<Either<Failure, ShowLibraryItemModel>> showLibraryItem({
+    required int itemId,
+  }) async {
     try {
-      final result = await baseRemoteDataSource.showLibraryItem(
-        itemId: itemId,
-      );
+      final result = await baseRemoteDataSource.showLibraryItem(itemId: itemId);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -407,7 +427,7 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, GetPlanSubscriptionPeriodModel>>
-      getPlanSubscriptionPeriod() async {
+  getPlanSubscriptionPeriod() async {
     try {
       final result = await baseRemoteDataSource.getPlanSubscriptionPeriod();
       return Right(result);
@@ -417,8 +437,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetLibraryPlansModel>> getLibraryPlans(
-      {required int days}) async {
+  Future<Either<Failure, GetLibraryPlansModel>> getLibraryPlans({
+    required int days,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getLibraryPlans(days: days);
       return Right(result);
@@ -429,11 +450,13 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, LibraryOrderAndSubscriptionModel>>
-      libraryOrderAndSubscribe(
-          {required LibraryOrderAndSubscribeTojson data}) async {
+  libraryOrderAndSubscribe({
+    required LibraryOrderAndSubscribeTojson data,
+  }) async {
     try {
-      final result =
-          await baseRemoteDataSource.libraryOrderAndSubscription(data: data);
+      final result = await baseRemoteDataSource.libraryOrderAndSubscription(
+        data: data,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -451,23 +474,12 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetSessionDetailsModel>> getSessionDetails(
-      {required int sessionId}) async {
+  Future<Either<Failure, GetSessionDetailsModel>> getSessionDetails({
+    required int sessionId,
+  }) async {
     try {
-      final result =
-          await baseRemoteDataSource.getSessionDetails(sessionId: sessionId);
-      return Right(result);
-    } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
-    }
-  }
-
-  @override
-  Future<Either<Failure, JoinSessionEntity>> joinSession(
-      {required JoinSessionTojson data}) async {
-    try {
-      final result = await baseRemoteDataSource.joinSession(
-        data: data,
+      final result = await baseRemoteDataSource.getSessionDetails(
+        sessionId: sessionId,
       );
       return Right(result);
     } on ServerException catch (e) {
@@ -476,8 +488,20 @@ class Repository extends BaseRepository {
   }
 
   @override
+  Future<Either<Failure, JoinSessionEntity>> joinSession({
+    required JoinSessionTojson data,
+  }) async {
+    try {
+      final result = await baseRemoteDataSource.joinSession(data: data);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
   Future<Either<Failure, GetAssignedChildrenToProgramEntity>>
-      getAssignedChildrenToProgram({required int programId}) async {
+  getAssignedChildrenToProgram({required int programId}) async {
     try {
       final result = await baseRemoteDataSource.getAssignedChildrenToProgram(
         programId: programId,
@@ -489,12 +513,11 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, ChangeSessionStatusEntity>> changeSessionStatus(
-      {required ChangeSessionStatusToJson data}) async {
+  Future<Either<Failure, ChangeSessionStatusEntity>> changeSessionStatus({
+    required ChangeSessionStatusToJson data,
+  }) async {
     try {
-      final result = await baseRemoteDataSource.changeSessionStatus(
-        data: data,
-      );
+      final result = await baseRemoteDataSource.changeSessionStatus(data: data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -502,8 +525,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, ShowProgramDetailsModel>> showProgramDetails(
-      {required int programId}) async {
+  Future<Either<Failure, ShowProgramDetailsModel>> showProgramDetails({
+    required int programId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.showProgramDetails(
         programId: programId,
@@ -515,8 +539,10 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetProgramSessionsModel>> getProgramSessions(
-      {required int programId, required int userId}) async {
+  Future<Either<Failure, GetProgramSessionsModel>> getProgramSessions({
+    required int programId,
+    required int userId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getProgramSessions(
         programId: programId,
@@ -529,8 +555,10 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetProgramAssignmentsModel>> getProgramAssignments(
-      {required int programId, required int userId}) async {
+  Future<Either<Failure, GetProgramAssignmentsModel>> getProgramAssignments({
+    required int programId,
+    required int userId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getProgramAssignments(
         programId: programId,
@@ -543,12 +571,11 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetUserReportsModel>> getUserReports(
-      {required int userId}) async {
+  Future<Either<Failure, GetUserReportsModel>> getUserReports({
+    required int userId,
+  }) async {
     try {
-      final result = await baseRemoteDataSource.getUserReports(
-        userId: userId,
-      );
+      final result = await baseRemoteDataSource.getUserReports(userId: userId);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -556,8 +583,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetUserFeedbacksModel>> getUserFeedbacks(
-      {required int userId}) async {
+  Future<Either<Failure, GetUserFeedbacksModel>> getUserFeedbacks({
+    required int userId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getUserFeedbacks(
         userId: userId,
@@ -569,8 +597,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetContentChapterModel>> getContentChapters(
-      {required int userId}) async {
+  Future<Either<Failure, GetContentChapterModel>> getContentChapters({
+    required int userId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getContentChapter(
         userId: userId,
@@ -582,8 +611,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetChapterLessonsModel>> getChapterLessons(
-      {required int chapterId}) async {
+  Future<Either<Failure, GetChapterLessonsModel>> getChapterLessons({
+    required int chapterId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getChapterLessons(
         chapterId: chapterId,
@@ -595,8 +625,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, CompleteChapterLessonModel>> completeChapterLesson(
-      {required int lessonId}) async {
+  Future<Either<Failure, CompleteChapterLessonModel>> completeChapterLesson({
+    required int lessonId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.completeChapterLesson(
         lessonId: lessonId,
@@ -626,8 +657,10 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetUserQuizzesModel>> getUserQuizzes(
-      {required int userId, required int programId}) async {
+  Future<Either<Failure, GetUserQuizzesModel>> getUserQuizzes({
+    required int userId,
+    required int programId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getUserQuizzes(
         programId: programId,
@@ -640,12 +673,11 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, SubmitQuizModel>> submitQuiz(
-      {required SubmitQuizTojson data}) async {
+  Future<Either<Failure, SubmitQuizModel>> submitQuiz({
+    required SubmitQuizTojson data,
+  }) async {
     try {
-      final result = await baseRemoteDataSource.submitQuiz(
-        data: data,
-      );
+      final result = await baseRemoteDataSource.submitQuiz(data: data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -653,8 +685,10 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetAssignmentDetailsModel>> getAssignmentDetails(
-      {required int assignmentId, required int userId}) async {
+  Future<Either<Failure, GetAssignmentDetailsModel>> getAssignmentDetails({
+    required int assignmentId,
+    required int userId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getAssignmentDetails(
         userId: userId,
@@ -667,8 +701,10 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetMessagesEntities>> getMessages(
-      {required int chatId, required int offset}) async {
+  Future<Either<Failure, GetMessagesEntities>> getMessages({
+    required int chatId,
+    required int offset,
+  }) async {
     final result = await baseRemoteDataSource.getMessages(
       chatId: chatId,
       offset: offset,
@@ -681,8 +717,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, SendMessagesEntities>> sendMessages(
-      {required SendMessagesTojson data}) async {
+  Future<Either<Failure, SendMessagesEntities>> sendMessages({
+    required SendMessagesTojson data,
+  }) async {
     final result = await baseRemoteDataSource.sendMessages(data: data);
     try {
       return Right(result);
@@ -692,8 +729,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, PostAssignmentModel>> postAssignment(
-      {required PostAssignmentTojson data}) async {
+  Future<Either<Failure, PostAssignmentModel>> postAssignment({
+    required PostAssignmentTojson data,
+  }) async {
     final result = await baseRemoteDataSource.postAssignment(data: data);
     try {
       return Right(result);
@@ -704,7 +742,7 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, GetProgramSubscriptionEntity>>
-      getProgramSubscription() async {
+  getProgramSubscription() async {
     try {
       final result = await baseRemoteDataSource.getProgramSubscriptions();
       return Right(result);
@@ -715,7 +753,7 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, GetLibrarySubscriptionModel>>
-      getLibrarySubscription() async {
+  getLibrarySubscription() async {
     try {
       final result = await baseRemoteDataSource.getLibrarySubscription();
       return Right(result);
@@ -725,11 +763,13 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, CancelSubscriptionModel>> cancelSubscription(
-      {required int mainId}) async {
+  Future<Either<Failure, CancelSubscriptionModel>> cancelSubscription({
+    required int mainId,
+  }) async {
     try {
-      final result =
-          await baseRemoteDataSource.cancelSubscription(mainId: mainId);
+      final result = await baseRemoteDataSource.cancelSubscription(
+        mainId: mainId,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -737,8 +777,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, RenewSubscriptionModel>> renewSubscription(
-      {required RenewSubscriptionTojson data}) async {
+  Future<Either<Failure, RenewSubscriptionModel>> renewSubscription({
+    required RenewSubscriptionTojson data,
+  }) async {
     try {
       final result = await baseRemoteDataSource.renewSubscription(data: data);
       return Right(result);
@@ -758,8 +799,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, UpgradeOrderModel>> upgradeOrder(
-      {required RenewSubscriptionTojson data}) async {
+  Future<Either<Failure, UpgradeOrderModel>> upgradeOrder({
+    required RenewSubscriptionTojson data,
+  }) async {
     try {
       final result = await baseRemoteDataSource.upgradeOrder(data: data);
       return Right(result);
@@ -786,18 +828,18 @@ class Repository extends BaseRepository {
       );
       return Right(result);
     } on ServerException catch (e) {
-      return Left(
-        ServerFailure(message: e.errorMessageModel.statusMessage),
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AddWeeklyAppontmentsModel>> addWeeklyAppointments({
+    required AddWeeklyAppointmentsTojson data,
+  }) async {
+    try {
+      final result = await baseRemoteDataSource.addWeeklyAppointments(
+        data: data,
       );
-    }
-  }
-
-  @override
-  Future<Either<Failure, AddWeeklyAppontmentsModel>> addWeeklyAppointments(
-      {required AddWeeklyAppointmentsTojson data}) async {
-    try {
-      final result =
-          await baseRemoteDataSource.addWeeklyAppointments(data: data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -805,11 +847,13 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, CreateMeetingSessionsEntity>> createMeetingSessions(
-      {required CreateMeetingSessionsTojson data}) async {
+  Future<Either<Failure, CreateMeetingSessionsEntity>> createMeetingSessions({
+    required CreateMeetingSessionsTojson data,
+  }) async {
     try {
-      final result =
-          await baseRemoteDataSource.createMeetingSessions(data: data);
+      final result = await baseRemoteDataSource.createMeetingSessions(
+        data: data,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -817,11 +861,13 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetOrderDetailsEntity>> getOrderDetails(
-      {required int orderId}) async {
+  Future<Either<Failure, GetOrderDetailsEntity>> getOrderDetails({
+    required int orderId,
+  }) async {
     try {
-      final result =
-          await baseRemoteDataSource.getOrderDetails(orderId: orderId);
+      final result = await baseRemoteDataSource.getOrderDetails(
+        orderId: orderId,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -829,8 +875,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetInstructorsModel>> getInstructors(
-      {required GetInstructorsTojson data}) async {
+  Future<Either<Failure, GetInstructorsModel>> getInstructors({
+    required GetInstructorsTojson data,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getInstructors(data: data);
       return Right(result);
@@ -840,11 +887,13 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetProgramContentModel>> getProgramContent(
-      {required int programId}) async {
+  Future<Either<Failure, GetProgramContentModel>> getProgramContent({
+    required int programId,
+  }) async {
     try {
-      final result =
-          await baseRemoteDataSource.getProgramContent(programId: programId);
+      final result = await baseRemoteDataSource.getProgramContent(
+        programId: programId,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -852,8 +901,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, AddNoteEntity>> addNote(
-      {required AddNoteTojson data}) async {
+  Future<Either<Failure, AddNoteEntity>> addNote({
+    required AddNoteTojson data,
+  }) async {
     try {
       final result = await baseRemoteDataSource.addNote(data: data);
       return Right(result);
@@ -863,8 +913,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, CancelSessionEntity>> cancelSession(
-      {required CancelSessionTojson data}) async {
+  Future<Either<Failure, CancelSessionEntity>> cancelSession({
+    required CancelSessionTojson data,
+  }) async {
     try {
       final result = await baseRemoteDataSource.cancelSession(data: data);
       return Right(result);
@@ -874,11 +925,15 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, ChangeSessionDateEntity>> changeSessionDate(
-      {required ChangeSessionDateTojson data, required int sessionId}) async {
+  Future<Either<Failure, ChangeSessionDateEntity>> changeSessionDate({
+    required ChangeSessionDateTojson data,
+    required int sessionId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.changeSessionDate(
-          data: data, sessionId: sessionId);
+        data: data,
+        sessionId: sessionId,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -887,11 +942,15 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, GetInstructorAvailabilitiesEntity>>
-      getInstructorAvailabilities(
-          {required int instructorId, required int duration}) async {
+  getInstructorAvailabilities({
+    required int instructorId,
+    required int duration,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getInstructorAvailabilities(
-          instructorId: instructorId, duration: duration);
+        instructorId: instructorId,
+        duration: duration,
+      );
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -900,7 +959,7 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, GetCancelSessionReasonEntity>>
-      gettCancelSessionReasons() async {
+  gettCancelSessionReasons() async {
     try {
       final result = await baseRemoteDataSource.getCancelSessionReasons();
       return Right(result);
@@ -927,8 +986,10 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, GetRemainingProgramSessionsModel>>
-      getRemainingProgramSessions(
-          {required int userId, required int programId}) async {
+  getRemainingProgramSessions({
+    required int userId,
+    required int programId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getRemainingProgramSessions(
         userId: userId,
@@ -941,8 +1002,8 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetUserSubscriptionDataModel>> getUserSubscriptionData(
-      {required int programId, required int userId}) async {
+  Future<Either<Failure, GetUserSubscriptionDataModel>>
+  getUserSubscriptionData({required int programId, required int userId}) async {
     try {
       final result = await baseRemoteDataSource.getUserSubscriptionData(
         userId: userId,
@@ -956,7 +1017,7 @@ class Repository extends BaseRepository {
 
   @override
   Future<Either<Failure, GetChangeInstructorReasonsModel>>
-      getChangeInstructorReasons() async {
+  getChangeInstructorReasons() async {
     try {
       final result = await baseRemoteDataSource.getChangeInstructorReasons();
       return Right(result);
@@ -966,8 +1027,10 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, UpdateProfileModel>> updateProfile(
-      {required int userId, required UpdateProfileTojson data}) async {
+  Future<Either<Failure, UpdateProfileModel>> updateProfile({
+    required int userId,
+    required UpdateProfileTojson data,
+  }) async {
     try {
       final result = await baseRemoteDataSource.updateProfile(
         data: data,
@@ -980,8 +1043,10 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, RemoveAssignedStudentModel>> removeAssignedStudent(
-      {required int userId, required int programId}) async {
+  Future<Either<Failure, RemoveAssignedStudentModel>> removeAssignedStudent({
+    required int userId,
+    required int programId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.removeAssignedStudent(
         programId: programId,
@@ -994,8 +1059,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetHomeClosestSessionsModel>> getHomeClosestSessions(
-      {required int userId}) async {
+  Future<Either<Failure, GetHomeClosestSessionsModel>> getHomeClosestSessions({
+    required int userId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getHomeClosestSessions(
         userId: userId,
@@ -1007,8 +1073,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetHomeCurrentSessionModel>> getHomeCurrentSession(
-      {required int userId}) async {
+  Future<Either<Failure, GetHomeCurrentSessionModel>> getHomeCurrentSession({
+    required int userId,
+  }) async {
     try {
       final result = await baseRemoteDataSource.getHomeCurrentSession(
         userId: userId,
@@ -1030,22 +1097,11 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetHomeAssignmentsEntity>> getHomeAssigments(
-      {required int userId}) async {
+  Future<Either<Failure, GetHomeAssignmentsEntity>> getHomeAssigments({
+    required int userId,
+  }) async {
     try {
-      final result =
-          await baseRemoteDataSource.getHomeAssignments(userId: userId);
-      return Right(result);
-    } on ServerException catch (e) {
-      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
-    }
-  }
-
-  @override
-  Future<Either<Failure, GetHomeQuizzesEntity>> getHomeQuizzes(
-      {required int userId}) async {
-    try {
-      final result = await baseRemoteDataSource.getHomeQuizzes(
+      final result = await baseRemoteDataSource.getHomeAssignments(
         userId: userId,
       );
       return Right(result);
@@ -1055,12 +1111,11 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetMyChatsModel>> getMyChats(
-      {required String type}) async {
+  Future<Either<Failure, GetHomeQuizzesEntity>> getHomeQuizzes({
+    required int userId,
+  }) async {
     try {
-      final result = await baseRemoteDataSource.getMyChats(
-        type: type,
-      );
+      final result = await baseRemoteDataSource.getHomeQuizzes(userId: userId);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -1068,10 +1123,24 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, UpdateFcmTokenModel>> updateFcmToken(
-      {required String fcmToken}) async {
-    final result =
-        await baseRemoteDataSource.updateFcmToken(fcmToken: fcmToken);
+  Future<Either<Failure, GetMyChatsModel>> getMyChats({
+    required String type,
+  }) async {
+    try {
+      final result = await baseRemoteDataSource.getMyChats(type: type);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UpdateFcmTokenModel>> updateFcmToken({
+    required String fcmToken,
+  }) async {
+    final result = await baseRemoteDataSource.updateFcmToken(
+      fcmToken: fcmToken,
+    );
     try {
       return Right(result);
     } on ServerException catch (e) {
@@ -1080,10 +1149,14 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetLatestNotificationModel>> getLatestNotification(
-      {required String type, required int offset}) async {
+  Future<Either<Failure, GetLatestNotificationModel>> getLatestNotification({
+    required String type,
+    required int offset,
+  }) async {
     final result = await baseRemoteDataSource.getLatestNotification(
-        type: type, offset: offset);
+      type: type,
+      offset: offset,
+    );
     try {
       return Right(result);
     } on ServerException catch (e) {
@@ -1092,10 +1165,12 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, ReadNotificationModel>> readNotification(
-      {required int notificationId}) async {
+  Future<Either<Failure, ReadNotificationModel>> readNotification({
+    required int notificationId,
+  }) async {
     final result = await baseRemoteDataSource.readNotification(
-        notificationId: notificationId);
+      notificationId: notificationId,
+    );
     try {
       return Right(result);
     } on ServerException catch (e) {
@@ -1114,8 +1189,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, DeleteAccountModel>> deleteAccount(
-      {required int userId}) async {
+  Future<Either<Failure, DeleteAccountModel>> deleteAccount({
+    required int userId,
+  }) async {
     final result = await baseRemoteDataSource.deleteAccount(userId: userId);
     try {
       return Right(result);
@@ -1125,8 +1201,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, CheckChatEntity>> checkChat(
-      {required CheckChatTojson data}) async {
+  Future<Either<Failure, CheckChatEntity>> checkChat({
+    required CheckChatTojson data,
+  }) async {
     final result = await baseRemoteDataSource.checkChat(data: data);
     try {
       return Right(result);
@@ -1136,8 +1213,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, RequestToFindInstructorModel>> findInstructor(
-      {required RequestToFindInstructorTojson data}) async {
+  Future<Either<Failure, RequestToFindInstructorModel>> findInstructor({
+    required RequestToFindInstructorTojson data,
+  }) async {
     final result = await baseRemoteDataSource.findInstructor(data: data);
     try {
       return Right(result);
@@ -1157,8 +1235,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, RegisterModel>> register(
-      {required RegisterToJson data}) async {
+  Future<Either<Failure, RegisterModel>> register({
+    required RegisterToJson data,
+  }) async {
     final result = await baseRemoteDataSource.register(data: data);
     try {
       return Right(result);
@@ -1168,8 +1247,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, ForgotPasswordEntity>> forgotPassword(
-      {required String email}) async {
+  Future<Either<Failure, ForgotPasswordEntity>> forgotPassword({
+    required String email,
+  }) async {
     try {
       final result = await baseRemoteDataSource.forgotPassword(email);
       return Right(result);
@@ -1179,8 +1259,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, ResetPasswordEntity>> resetPassword(
-      {required ResetPasswordToJson data}) async {
+  Future<Either<Failure, ResetPasswordEntity>> resetPassword({
+    required ResetPasswordToJson data,
+  }) async {
     final result = await baseRemoteDataSource.resetPassword(data: data);
     try {
       return Right(result);
@@ -1190,8 +1271,9 @@ class Repository extends BaseRepository {
   }
 
   @override
-  Future<Either<Failure, GetGeideaDataEntity>> geideaData(
-      {required String key}) async {
+  Future<Either<Failure, GetGeideaDataEntity>> geideaData({
+    required String key,
+  }) async {
     final result = await baseRemoteDataSource.getGeideaData(key: key);
     try {
       return Right(result);

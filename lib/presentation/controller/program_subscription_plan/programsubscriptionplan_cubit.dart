@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/core/component/custom_dialog.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/check_copoun_tojson.dart';
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_tojson.dart';
@@ -11,14 +10,12 @@ import 'package:eazifly_student/domain/entities/check_copoun_entities.dart';
 import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
 import 'package:eazifly_student/domain/entities/get_payment_method_details_entities.dart';
-import 'package:eazifly_student/domain/entities/get_plan_subscription_period_entity.dart';
 import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_plans_entities.dart';
 import 'package:eazifly_student/domain/use_cases/check_copoun_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_order_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/filter_plans_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_payment_method_details_usecase.dart';
-import 'package:eazifly_student/domain/use_cases/get_plan_subscription_period_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_plan_with_details_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_plans_usecase.dart';
 import 'package:eazifly_student/presentation/controller/program_subscription_plan/programsubscriptionplan_state.dart';
@@ -26,8 +23,10 @@ import 'package:eazifly_student/presentation/view/layout/programs/program_subscr
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart'
     hide InitTabBarControllerState, TypeControllerIndexState;
 
-class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
-  ProgramsubscriptionplanCubit({
+import '../../../data/models/order_and_subscribe/get_plan_with_details_model.dart';
+
+class ProgramSubscriptionPlanCubit extends SubscriptionPlanCubit {
+  ProgramSubscriptionPlanCubit({
     required this.getPlansUsecase,
     required this.filterPlansUsecase,
     required this.createOrderUsecase,
@@ -35,26 +34,45 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
     required this.getPlansWithDetailsUsecase,
     // required this.getProgramPaymentMethodsUsecase,
     required this.getPaymentMethodDetailsUsecase,
-    required this.getPlanSubscriptionUsecase,
+    // required this.getPlanSubscriptionUsecase,
   }) : super(ProgramsubscriptionplanInitial());
 
-  static ProgramsubscriptionplanCubit get(context) => BlocProvider.of(context);
+  static ProgramSubscriptionPlanCubit get(context) => BlocProvider.of(context);
   @override
   final TextEditingController studentNumberController = TextEditingController();
   @override
-  final TextEditingController copounController = TextEditingController();
+  final TextEditingController couponController = TextEditingController();
   @override
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   TabController? controller;
+
   TickerProvider? _vsync;
 
-  final List<String> subscriptionTypeTabs = [];
+  // final List<String> subscriptionTypeTabs = [];
 
-  void initTabBarControllers(TickerProvider vsync) {
-    _vsync = vsync;
-    emit(InitTabBarControllerState());
-  }
+  // void initTabBarControllers(TickerProvider vsync) {
+  //   controller = TabController(length: staticMadeTabs.keys.length, vsync: vsync)
+  //     ..addListener(() {
+  //       if (controller!.indexIsChanging) {
+  //         controller!.animateTo(
+  //           controller!.index,
+  //           duration: const Duration(milliseconds: 300),
+  //           curve: Curves.easeIn,
+  //         );
+  //         packageIndex = 0;
+  //         final selectedPeriod = staticMadeTabs.keys
+  //             .toList()[controller!.index];
+  //         int days = int.tryParse(selectedPeriod) ?? -1;
+  //         if (days > 0) {
+  //           getPlansWithDetails(programId: programId, days: days);
+  //         }
+  //
+  //         emit(TypeControllerIndexState());
+  //       }
+  //     });
+  //   // emit(InitTabBarControllerState());
+  // }
 
   @override
   final TextEditingController startDate = TextEditingController();
@@ -73,38 +91,89 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
     return "${selectedStartDate!.year}-${selectedStartDate!.month.toString().padLeft(2, '0')}-${selectedStartDate!.day.toString().padLeft(2, '0')}";
   }
 
-  void _createTabController() {
-    if (_vsync != null && subscriptionTypeTabs.isNotEmpty) {
-      controller?.dispose();
-      controller =
-          TabController(length: subscriptionTypeTabs.length, vsync: _vsync!)
-            ..addListener(
-              () {
-                if (controller!.indexIsChanging) {
-                  controller!.animateTo(
-                    controller!.index,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeIn,
-                  );
-                  packageIndex = 0;
-                  final selectedPeriod =
-                      getPlanSubscriptionPeriodEntity?.data?[controller!.index];
-                  int days = int.tryParse(selectedPeriod?.days ?? "0") ?? -1;
-                  if (selectedPeriod != null && days > 0) {
-                    getplansWithDetails(
-                      programId: programId,
-                      days: days,
-                    );
-                  }
+  Map<String, List<PlanDetailsModel>> staticMadeTabs = {};
 
-                  emit(TypeControllerIndexState());
-                }
-              },
+  void fillStaticMadeTabs(List<PlanDetailsModel>? list) {
+    log("Started");
+
+    if (list == null || list.isEmpty) {
+      log("List is null or empty");
+      return;
+    }
+
+    staticMadeTabs.clear();
+
+    for (var item in list) {
+      final key = (item.subscripeDays ?? "").toString();
+
+      if (staticMadeTabs.containsKey(key)) {
+        staticMadeTabs[key]!.add(item);
+      } else {
+        staticMadeTabs[key] = [item];
+      }
+    }
+
+    log("Map created with ${staticMadeTabs.length} entries");
+    staticMadeTabs.forEach((key, value) {
+      log("Key: $key, First Value: ${value.first.subscriptionPlan}");
+    });
+  }
+
+  void initTabBarControllers(TickerProvider vsync) {
+    _vsync = vsync;
+
+    if (staticMadeTabs.isEmpty) {
+      return;
+    }
+
+    _createTabController();
+  }
+
+  void _createTabController() {
+    if (_vsync != null && staticMadeTabs.isNotEmpty) {
+      controller = TabController(length: staticMadeTabs.length, vsync: _vsync!)
+        ..addListener(() {
+          if (controller!.indexIsChanging) {
+            controller!.animateTo(
+              controller!.index,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeIn,
             );
+            packageIndex = 0;
+            final selectedPeriod = staticMadeTabs.keys
+                .toList()[controller!.index];
+            int days = int.tryParse(selectedPeriod) ?? -1;
+
+            if (days > 0) {
+              fillViewList(days.toString());
+            }
+
+            emit(TypeControllerIndexState());
+          }
+        });
+
+      // إرسال state للتحديث
+      emit(InitTabBarControllerState());
     }
   }
 
+  List<PlanDetailsModel> viewList = [];
+
+  void fillViewList(String days) {
+    viewList.clear();
+
+    final items = staticMadeTabs[days]
+        ?.where((element) => element.subscripeDays == int.tryParse(days))
+        .toList();
+
+    if (items != null) {
+      viewList.addAll(items);
+    }
+    emit(FilledViewListState());
+  }
+
   int packageIndex = 0;
+
   changePackageIndex(int index) {
     log("DEBUG: Changing packageIndex from $packageIndex to $index");
     packageIndex = index;
@@ -112,6 +181,7 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
   }
 
   int planId = -1;
+
   void fillPlanId(int value) {
     log("DEBUG: Before fillPlanId - planId was: $planId");
     log("DEBUG: Setting planId to: $value");
@@ -121,51 +191,50 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
   }
 
   //! ################### APIS #################
-  bool getPlanSubscriptionLoader = false;
-  GetPlanSubscriptionPeriodEntity? getPlanSubscriptionPeriodEntity;
-  GetPlanSubscriptionPeriodUsecase getPlanSubscriptionUsecase;
-
-  Future<void> getPlanSubsriptionPeriod() async {
-    getPlanSubscriptionLoader = true;
-    emit(GetPlanSubscriptionLoadingState());
-
-    final result =
-        await getPlanSubscriptionUsecase.call(parameter: NoParameter());
-
-    result.fold(
-      (failure) {
-        getPlanSubscriptionLoader = false;
-        log("ERROR: Getting plan subscription failed: ${failure.message}");
-        emit(GetPlanSubscriptionErrorState(errorMessage: failure.message));
-      },
-      (success) {
-        getPlanSubscriptionPeriodEntity = success;
-        getPlanSubscriptionLoader = false;
-
-        subscriptionTypeTabs.clear();
-        final titles = success.data?.map((e) => e.title ?? "").toList() ?? [];
-        subscriptionTypeTabs.addAll(titles);
-        log("DEBUG: Subscription tabs: $subscriptionTypeTabs");
-        _createTabController();
-        if (success.data?.isNotEmpty == true) {
-          int days = int.tryParse(success.data?.first.days ?? "0") ?? -1;
-          if (days > 0) {
-            getplansWithDetails(
-              days: days,
-              programId: programId,
-            );
-          } else {
-            log("ERROR: Invalid days value: ${success.data?.first.days}");
-          }
-        }
-
-        emit(GetPlanSubscriptionSuccessState());
-      },
-    );
-  }
+  // bool getPlanSubscriptionLoader = false;
+  // GetPlanSubscriptionPeriodEntity? getPlanSubscriptionPeriodEntity;
+  // GetPlanSubscriptionPeriodUsecase getPlanSubscriptionUsecase;
+  //
+  // Future<void> getPlanSubscriptionPeriod() async {
+  //   getPlanSubscriptionLoader = true;
+  //   emit(GetPlanSubscriptionLoadingState());
+  //
+  //   final result = await getPlanSubscriptionUsecase.call(
+  //     parameter: NoParameter(),
+  //   );
+  //
+  //   result.fold(
+  //     (failure) {
+  //       getPlanSubscriptionLoader = false;
+  //       log("ERROR: Getting plan subscription failed: ${failure.message}");
+  //       emit(GetPlanSubscriptionErrorState(errorMessage: failure.message));
+  //     },
+  //     (success) {
+  //       getPlanSubscriptionPeriodEntity = success;
+  //       getPlanSubscriptionLoader = false;
+  //
+  //       subscriptionTypeTabs.clear();
+  //       final titles = success.data?.map((e) => e.title ?? "").toList() ?? [];
+  //       subscriptionTypeTabs.addAll(titles);
+  //       log("DEBUG: Subscription tabs: $subscriptionTypeTabs");
+  //       _createTabController();
+  //       if (success.data?.isNotEmpty == true) {
+  //         int days = int.tryParse(success.data?.first.days ?? "0") ?? -1;
+  //         if (days > 0) {
+  //           getplansWithDetails(days: days, programId: programId);
+  //         } else {
+  //           log("ERROR: Invalid days value: ${success.data?.first.days}");
+  //         }
+  //       }
+  //
+  //       emit(GetPlanSubscriptionSuccessState());
+  //     },
+  //   );
+  // }
 
   @override
   int planSubscribeDaysIndex = 0;
+
   @override
   void changePlanIndex(int index) {
     planSubscribeDaysIndex = index;
@@ -174,13 +243,15 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
 
   @override
   int lessonDurationIndex = 0;
+
   @override
-  void changelessonDurationIndex(int index) {
+  void changeLessonDurationIndex(int index) {
     lessonDurationIndex = index;
     emit(ChangeLessonDurationIndexState());
   }
 
   int programId = -1;
+
   void fillProgramId(int value) {
     programId = value;
   }
@@ -191,14 +262,13 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
   @override
   GetPlansEntity? getPlansEntity;
   GetPlansUsecase getPlansUsecase;
+
   @override
   Future<void> getPlans({required int programId}) async {
     getPlansLoader = true;
     emit(GetPlansLoadingState());
     final result = await getPlansUsecase.call(
-      parameter: GetPlansParameters(
-        programId: programId,
-      ),
+      parameter: GetPlansParameters(programId: programId),
     );
     result.fold(
       (l) {
@@ -218,12 +288,12 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
   GetPlansWithDetailsEntity? getPlansWithDetailsEntity;
   GetPlanWithDetailsUsecase getPlansWithDetailsUsecase;
 
-  Future<void> getplansWithDetails(
-      {required int programId, required int days}) async {
-    if (days <= 0) {
+  Future<void> getPlansWithDetails({required int programId, int? days}) async {
+    if (days != null && days <= 0) {
       log("ERROR: Invalid days parameter: $days");
-      emit(GetPlansWithDetailsErrorState(
-          errorMessage: "Invalid days parameter"));
+      emit(
+        GetPlansWithDetailsErrorState(errorMessage: "Invalid days parameter"),
+      );
       return;
     }
 
@@ -244,15 +314,27 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
         emit(GetPlansWithDetailsErrorState(errorMessage: failure.message));
       },
       (success) {
+        fillStaticMadeTabs(success.data);
+        if (controller != null) {
+          controller!.dispose();
+        }
+        // إعادة إنشاء TabController مع العدد الصحيح
+        _createTabController();
+        fillViewList(staticMadeTabs.keys.first);
+
         getPlansWithDetailsEntity = success;
         getPlansWithDetailsLoader = false;
 
         // Debug API response
-        log("DEBUG: API Response - Number of plans: ${success.data?.length ?? 0}");
+        log(
+          "DEBUG: API Response - Number of plans: ${success.data?.length ?? 0}",
+        );
         if (success.data?.isNotEmpty == true) {
           for (int i = 0; i < success.data!.length; i++) {
             final plan = success.data![i];
-            log("DEBUG: Plan $i - ID: ${plan.id}, Title: ${plan.title}, Price: ${plan.price}");
+            log(
+              "DEBUG: Plan $i - ID: ${plan.id}, Title: ${plan.title}, Price: ${plan.price}",
+            );
           }
 
           // Auto-select first plan if planId is still -1 and we have valid data
@@ -277,6 +359,7 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
   FilterPlansEntity? filterPlansEntity;
   FilterPlansUsecase filterPlansUsecase;
   bool filterPlansLoader = false;
+
   @override
   Future<void> filterPlans({
     required int programId,
@@ -312,15 +395,14 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
   CheckCopounEntity? checkCopounEntity;
   CheckCopounUsecase checkCopounUsecase;
   bool checkCopounLoader = false;
+
   @override
   Future<void> checkCopouns({required BuildContext context}) async {
     checkCopounLoader = true;
     emit(CheckCopounLoadingState());
     final result = await checkCopounUsecase.call(
       parameter: CheckCopounDataParameters(
-        data: CheckCopounTojson(
-          code: copounController.text,
-        ),
+        data: CheckCopounTojson(code: couponController.text),
       ),
     );
     result.fold(
@@ -342,6 +424,7 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
   CreateOrderUsecase createOrderUsecase;
   bool createOrderLoader = false;
   List<File> images = [];
+
   Future<void> pickImages() async {
     final response = await pickMultiImageFromGallery();
     if (response != null) {
@@ -374,7 +457,7 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
       final result = await createOrderUsecase.call(
         parameter: CreateOrderParameters(
           data: CreateOrderTojson(
-            code: copounController.text,
+            code: couponController.text,
             image: imagePath!,
             startDate: [getFormattedDateForAPI()],
             planId: [filterPlansEntity?.data?.id ?? planId],
@@ -423,12 +506,15 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
   bool getPaymentMethodDetailsLoader = false;
   GetPaymentMethodDetailsEntity? getPaymentMethodDetailsEntity;
   GetPaymentMethodDetailsUsecase getPaymentMethodDetailsUsecase;
-  Future<void> getPamyentMethodDetails({required int methodId}) async {
+
+  Future<void> getPaymentMethodDetails({required int methodId}) async {
     getPaymentMethodDetailsLoader = true;
     emit(GetProgramPaymentMethodDetailsLoadingState());
     final result = await getPaymentMethodDetailsUsecase.call(
       parameter: GetPaymentMethodDetailsParameters(
-          methodId: methodId, programId: programId),
+        methodId: methodId,
+        programId: programId,
+      ),
     );
     result.fold(
       (l) {
@@ -455,5 +541,11 @@ class ProgramsubscriptionplanCubit extends SubscriptionPlanCubit {
       studentCount--;
     }
     emit(DecrementStudentCountState());
+  }
+
+  @override
+  Future<void> close() {
+    controller?.dispose();
+    return super.close();
   }
 }

@@ -367,19 +367,19 @@ class AppRouter {
 
         return createRoute(
           BlocProvider(
-            create: (context) => ProgramsubscriptionplanCubit(
+            create: (context) => ProgramSubscriptionPlanCubit(
               filterPlansUsecase: sl(),
               getPlansUsecase: sl(),
               createOrderUsecase: sl(),
               checkCopounUsecase: sl(),
-              getPlanSubscriptionUsecase: sl(),
+              // getPlanSubscriptionUsecase: sl(),
               getPlansWithDetailsUsecase: sl(),
               getPaymentMethodDetailsUsecase: sl(),
             ),
             child: Builder(
               builder: (context) {
                 return ProgramSubscriptionPlanView(
-                  cubit: context.read<ProgramsubscriptionplanCubit>(),
+                  cubit: context.read<ProgramSubscriptionPlanCubit>(),
                   programId: programId,
                   programTitle: programTitle,
                   programDescription: programDescription,
@@ -487,7 +487,7 @@ class AppRouter {
       case RoutePaths.confirmPaymentView:
         var arguments = settings.arguments as Map<String, dynamic>?;
         int methodId = arguments?["methodId"] as int? ?? 0;
-        var cubit = arguments?["cubit"] as ProgramsubscriptionplanCubit;
+        var cubit = arguments?["cubit"] as ProgramSubscriptionPlanCubit;
         return createRoute(
           MultiBlocProvider(
             providers: [BlocProvider.value(value: cubit)],
@@ -557,12 +557,12 @@ class AppRouter {
         var programId = settings.arguments as int?;
         return createRoute(
           BlocProvider(
-            create: (context) => ProgramsubscriptionplanCubit(
+            create: (context) => ProgramSubscriptionPlanCubit(
               filterPlansUsecase: sl(),
               getPlansUsecase: sl(),
               createOrderUsecase: sl(),
               checkCopounUsecase: sl(),
-              getPlanSubscriptionUsecase: sl(),
+              // getPlanSubscriptionUsecase: sl(),
               getPlansWithDetailsUsecase: sl(),
               getPaymentMethodDetailsUsecase: sl(),
             ),
@@ -602,7 +602,7 @@ class AppRouter {
         );
       case RoutePaths.completePaymentProcessScreen:
         var arguments = settings.arguments as Map<String, dynamic>?;
-        var cubit = arguments?["cubit"] as ProgramsubscriptionplanCubit;
+        var cubit = arguments?["cubit"] as ProgramSubscriptionPlanCubit;
         int itemId = arguments?["itemId"] as int;
         return createRoute(
           MultiBlocProvider(

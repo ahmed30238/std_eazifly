@@ -572,7 +572,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   }
 
   @override
-  final TextEditingController copounController = TextEditingController();
+  final TextEditingController couponController = TextEditingController();
 
   @override
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -601,7 +601,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   }
 
   @override
-  void changelessonDurationIndex(int index) {
+  void changeLessonDurationIndex(int index) {
     lessonDurationIndex = index;
     emit(ChangeLessonDurationIndexState());
   }
@@ -680,7 +680,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     final result = await checkCopounUsecase.call(
       parameter: CheckCopounDataParameters(
         data: CheckCopounTojson(
-          code: copounController.text,
+          code: couponController.text,
         ),
       ),
     );

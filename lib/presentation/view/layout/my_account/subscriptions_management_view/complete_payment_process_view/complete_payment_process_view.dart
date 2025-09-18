@@ -21,12 +21,12 @@ class CompletePaymentProcessView extends StatefulWidget {
 class _CompletePaymentProcessViewState
     extends State<CompletePaymentProcessView> {
   late PaymentCubit cubit;
-  late ProgramsubscriptionplanCubit programsubscriptionplanCubit;
+  late ProgramSubscriptionPlanCubit programsubscriptionplanCubit;
 
   @override
   void initState() {
     cubit = context.read<PaymentCubit>();
-    programsubscriptionplanCubit = context.read<ProgramsubscriptionplanCubit>();
+    programsubscriptionplanCubit = context.read<ProgramSubscriptionPlanCubit>();
     cubit.getProgramPaymentMethod(
       programId: widget.itemId,
     );

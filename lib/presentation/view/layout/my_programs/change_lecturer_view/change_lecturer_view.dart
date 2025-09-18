@@ -15,9 +15,6 @@ class _ChangeLecturerViewState extends State<ChangeLecturerView>
   @override
   void initState() {
     cubit = context.read<ChangelecturerCubit>();
-    // context
-    //     .read<MyProgramsCubit>()
-    //     .getAssignedChildrenToProgram(programId: widget.programId);
     cubit.initTabBarController(this);
     cubit.getChangeInstructorReasons();
     cubit.initFixedDateTabBarController(this);

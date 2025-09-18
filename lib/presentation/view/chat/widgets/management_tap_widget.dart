@@ -51,12 +51,13 @@ class ManagementTapWidget extends StatelessWidget {
         }
 
         // Get chats data
-        final chats = cubit.getMyChatsEntity?.data ?? [];
+        // final chats = cubit.getMyChatsEntity?.data ?? [];
 
         // Filter client chats
-        List clientList = chats
-            .where((element) => element.type == "group")
-            .toList();
+        List clientList = cubit.clientsList;
+        // chats
+        //     .where((element) => element.type == "group")
+        //     .toList();
 
         // Show empty state for clients
         if (clientList.isEmpty) {
@@ -67,7 +68,7 @@ class ManagementTapWidget extends StatelessWidget {
                 Icon(
                   Icons.people_outline,
                   size: 64,
-                  color: MainColors.surfaceVariant,
+                  color: MainColors.primary,
                 ),
                 SizedBox(height: 16.h),
                 Text(
@@ -78,13 +79,18 @@ class ManagementTapWidget extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8.h),
-                Text(
-                  lang.startConversationWithClients,
-                  style: TextStyle(
-                    color: MainColors.surfaceVariant.withValues(alpha: 0.7),
-                    fontSize: 14.sp,
+                GestureDetector(
+                  onTap: () {
+
+                  },
+                  child: Text(
+                    lang.startConversationWithClients,
+                    style: TextStyle(
+                      color: MainColors.primary.withValues(alpha: 0.7),
+                      fontSize: 14.sp,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ],
             ),

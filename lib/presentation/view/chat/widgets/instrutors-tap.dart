@@ -1,6 +1,6 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 import '../../../../core/component/separated_widget.dart';
-import '../../../../data/models/chat_model/get_my_chats_model.dart';
+import '../../../../domain/entities/chat/get_my_chats_entity.dart';
 import '../../../controller/chats/chats_cubit.dart';
 import '../../../controller/chats/chats_state.dart';
 import 'chat_item.dart';
@@ -53,9 +53,11 @@ class InstructorsTapWidget extends StatelessWidget {
         final chats = cubit.getMyChatsEntity?.data ?? [];
 
         // Filter instructor chats
-        List<GetMyChatsDatumModel> instructorList = chats
-            .where((element) => element.type == "private")
-            .toList();
+        List<GetMyChatsDatumEntity> instructorList = cubit.instructorList;
+
+        // chats
+        //     .where((element) => element.type == "private")
+        //     .toList();
 
         // Show empty state for instructors
         if (instructorList.isEmpty) {

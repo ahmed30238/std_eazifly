@@ -23,12 +23,13 @@ class _CancelSessionViewState extends State<CancelSessionView> {
     //     programId: context.read<LectureCubit>().currentProgramId);
     super.initState();
     cubit.getCancelReasons();
+    int currentUserIndex = context.read<LectureCubit>().currentUserIndex;
     cubit.getInstructorAvailabilities(
       instructorId: (int.tryParse(
             context
                     .read<MyProgramsCubit>()
                     .getAssignedChildrenToProgramEntity
-                    ?.data?[context.read<LectureCubit>().currentUserIndex]
+                    ?.data?[currentUserIndex]
                     .nextSession
                     ?.instructorId ??
                 "",
@@ -38,7 +39,7 @@ class _CancelSessionViewState extends State<CancelSessionView> {
             context
                     .read<MyProgramsCubit>()
                     .getAssignedChildrenToProgramEntity
-                    ?.data?[context.read<LectureCubit>().currentUserIndex]
+                    ?.data?[currentUserIndex]
                     .nextSession
                     ?.duration ??
                 "",

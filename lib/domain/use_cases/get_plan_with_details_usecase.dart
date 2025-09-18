@@ -4,15 +4,17 @@ import 'package:eazifly_student/core/general_failure/failure.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/get_plan_with_details_entities.dart';
 
-class GetPlanWithDetailsUsecase extends BaseUsecase<GetPlansWithDetailsEntity,
-    GetPlansWithDetailsParameters> {
+class GetPlanWithDetailsUsecase
+    extends
+        BaseUsecase<GetPlansWithDetailsEntity, GetPlansWithDetailsParameters> {
   final BaseRepository baseRepository;
 
   GetPlanWithDetailsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetPlansWithDetailsEntity>> call(
-      {required GetPlansWithDetailsParameters parameter}) async {
+  Future<Either<Failure, GetPlansWithDetailsEntity>> call({
+    required GetPlansWithDetailsParameters parameter,
+  }) async {
     return await baseRepository.getPlansWithDetails(
       programId: parameter.programId,
       days: parameter.days,
@@ -22,7 +24,7 @@ class GetPlanWithDetailsUsecase extends BaseUsecase<GetPlansWithDetailsEntity,
 
 class GetPlansWithDetailsParameters {
   final int programId;
-  final int days;
+  final int? days;
 
-  GetPlansWithDetailsParameters({required this.programId, required this.days});
+  GetPlansWithDetailsParameters({required this.programId, this.days});
 }

@@ -20,9 +20,10 @@ class EndPoints {
   static const logout = "logout";
   static const requestToFindInstrcutor = "request/to/find/instructor";
 
-  static String getLatestNotification(
-          {required String type, required int offset}) =>
-      "notifications?type=$type&offset=$offset";
+  static String getLatestNotification({
+    required String type,
+    required int offset,
+  }) => "notifications?type=$type&offset=$offset";
 
   static String readNotification({required int notificationID}) =>
       "notifications/read/$notificationID";
@@ -40,9 +41,10 @@ class EndPoints {
   static String getHomeClosestSessions({required int userId}) =>
       "home/program/sessions/$userId";
 
-  static String getUserSubscriptionData(
-          {required int userId, required int programId}) =>
-      "subscription/data?program_id=$programId&user_id=$userId";
+  static String getUserSubscriptionData({
+    required int userId,
+    required int programId,
+  }) => "subscription/data?program_id=$programId&user_id=$userId";
   static const changeInstructor = "change/instructor";
   static const forgotPassword = "forgot-password";
   static const changeInstructorWithNewDates =
@@ -80,9 +82,10 @@ class EndPoints {
   static String changeSessionDate({required int sessionId}) =>
       "change/session/date/$sessionId";
 
-  static String getInstructorAvailablities(
-          {required int duration, required int instructorId}) =>
-      "session/availabilities/time/$instructorId?duration=$duration";
+  static String getInstructorAvailablities({
+    required int duration,
+    required int instructorId,
+  }) => "session/availabilities/time/$instructorId?duration=$duration";
 
   static String cancelSubscription({required int mainId}) =>
       "cancel/subscription/$mainId";
@@ -103,39 +106,26 @@ class EndPoints {
   static String getProgramSessions({
     required int programId,
     required int userId,
-  }) =>
-      "get/program/sessions/$programId?user_id=$userId";
+  }) => "get/program/sessions/$programId?user_id=$userId";
 
-  static String getUserReports({
-    required int userId,
-  }) =>
+  static String getUserReports({required int userId}) =>
       "get/user/reports/$userId";
 
-  static String completeChapterLesson({
-    required int lessonId,
-  }) =>
+  static String completeChapterLesson({required int lessonId}) =>
       "complete/lesson/$lessonId";
 
-  static String getUserFeedbacks({
-    required int userId,
-  }) =>
-      "feedback/$userId";
+  static String getUserFeedbacks({required int userId}) => "feedback/$userId";
 
-  static String getChapterLessons({
-    required int chapterId,
-  }) =>
+  static String getChapterLessons({required int chapterId}) =>
       "get/chapter/lessons/$chapterId";
 
-  static String getContentChapter({
-    required int userId,
-  }) =>
+  static String getContentChapter({required int userId}) =>
       "get/content/chapters/$userId";
 
   static String getProgramAssignments({
     required int programId,
     required int userId,
-  }) =>
-      "program/assignment/$programId?user_id=$userId";
+  }) => "program/assignment/$programId?user_id=$userId";
 
   static String getSessionDetails({required int sessionId}) =>
       "get/session/details/$sessionId";
@@ -169,18 +159,20 @@ class EndPoints {
       "program/content/$programId";
   static const getAllLibraryLists = "all/list";
 
-  static String getPlansWithDetails(
-          {required int programId, required int days}) =>
-      "program/plans/details/$programId?days=$days";
+  static String getPlansWithDetails({required int programId, int? days}) =>
+      days != null
+      ? "program/plans/details/$programId?days=$days"
+      : "program/plans/details/$programId";
 
   static String getPlans({required int programId}) => "plans/$programId";
 
   static String getProgramPaymentMethods({required int programId}) =>
       "get/program/payment/method/$programId";
 
-  static String getPaymentMethodDetails(
-          {required int programId, required int methodId}) =>
-      "show/payment/method/$programId/$methodId";
+  static String getPaymentMethodDetails({
+    required int programId,
+    required int methodId,
+  }) => "show/payment/method/$programId/$methodId";
 
   static String getUserQuizzes({required int programId, required int userId}) =>
       "get/quizzes?user_id=$userId&program_id=$programId";
@@ -193,9 +185,10 @@ class EndPoints {
       "get/quizzes/questions?user_id=$userId&program_id=$programId&quiz_id=$quizId";
   static const submitQuiz = "submit/quiz";
 
-  static String getAssignmntDetails(
-          {required int userId, required int assignmentId}) =>
-      "show/assignment/$assignmentId?user_id=$userId";
+  static String getAssignmntDetails({
+    required int userId,
+    required int assignmentId,
+  }) => "show/assignment/$assignmentId?user_id=$userId";
   static const postAssignment = "upload/assignment";
 
   static String getReportQuestions({

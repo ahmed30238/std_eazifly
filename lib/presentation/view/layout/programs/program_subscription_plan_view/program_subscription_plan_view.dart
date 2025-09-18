@@ -16,7 +16,7 @@ abstract class SubscriptionPlanCubit extends Cubit<dynamic> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController studentNumberController = TextEditingController();
   TextEditingController startDate = TextEditingController();
-  TextEditingController copounController = TextEditingController();
+  TextEditingController couponController = TextEditingController();
 
   bool getPlansLoader = false;
   int planSubscribeDaysIndex = 0;
@@ -27,7 +27,7 @@ abstract class SubscriptionPlanCubit extends Cubit<dynamic> {
   // الوظائف المشتركة التي يجب تنفيذها في كل Cubit
   void getPlans({required int programId});
   void changePlanIndex(int index);
-  void changelessonDurationIndex(int index);
+  void changeLessonDurationIndex(int index);
   void updateStartDate(DateTime date);
   void filterPlans({
     required int programId,
@@ -199,7 +199,7 @@ class _ProgramSubscriptionPlanViewState
                             isSelected: index == cubit.lessonDurationIndex,
                             icons: planIcons[index],
                             onTap: () {
-                              cubit.changelessonDurationIndex(index);
+                              cubit.changeLessonDurationIndex(index);
                             },
                           ),
                           separatorBuilder: (context, index) => 10.pw,
@@ -321,7 +321,7 @@ class _ProgramSubscriptionPlanViewState
                           iconWidget: 0.ph,
                           formfieldHintText: "asd151",
                           // validator: customValidation,
-                          controller: cubit.copounController,
+                          controller: cubit.couponController,
                         ),
                       ),
                       8.pw,
@@ -332,7 +332,7 @@ class _ProgramSubscriptionPlanViewState
                         textColor: MainColors.primary,
                         text: "تأكيد",
                         onPressed: () {
-                          if (cubit.copounController.text.isNotEmpty) {
+                          if (cubit.couponController.text.isNotEmpty) {
                             cubit.checkCopouns(context: context);
                           } else {
                             delightfulToast(

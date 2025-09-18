@@ -18,12 +18,12 @@ class ConfirmPaymentView extends StatefulWidget {
 }
 
 class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
-  late ProgramsubscriptionplanCubit programsubscriptionplanCubit;
+  late ProgramSubscriptionPlanCubit programsubscriptionplanCubit;
 
   @override
   void initState() {
-    programsubscriptionplanCubit = ProgramsubscriptionplanCubit.get(context);
-    programsubscriptionplanCubit.getPamyentMethodDetails(
+    programsubscriptionplanCubit = ProgramSubscriptionPlanCubit.get(context);
+    programsubscriptionplanCubit.getPaymentMethodDetails(
       methodId: widget.methodId,
     );
     super.initState();
