@@ -9,6 +9,6 @@ class ProgramDetailsTap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Html(data: programEntity.content ?? "no content");
+    return SingleChildScrollView(child: Html(data: programEntity.content ?? "no content"));
   }
 }

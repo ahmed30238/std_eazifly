@@ -60,8 +60,7 @@ class ChatsCubit extends Cubit<ChatsState> {
           vsync: vsync,
         )..addListener(() {
           if (controller!.indexIsChanging) {
-            instructorsList();
-            clientChatList();
+            controller?.index == 0 ? instructorsList() : clientChatList();
             emit(ChangeTapbarState());
           }
         });
@@ -136,9 +135,9 @@ class ChatsCubit extends Cubit<ChatsState> {
     return tabs;
   }
 
-  int chatId = -1;
+  String? chatId;
 
-  fillCurrentGroupChatId(int value) {
+  void fillCurrentGroupChatId(String value) {
     chatId = value;
     log("$chatId");
   }
@@ -325,7 +324,10 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   // List<GetMessagesDatumModel>? messages = [];
 
-  Future<void> sendMessages({int? userId, required String receiverId}) async {
+  Future<void> sendMessages({
+    required BuildContext context,
+    String? receiverId,
+  }) async {
     if (isRecording) {
       await stopRecording();
     }
@@ -353,21 +355,20 @@ class ChatsCubit extends Cubit<ChatsState> {
       message: textToSend,
       senderId: loginData?.id.toString() ?? "",
       senderType: "User",
-      receiverId: receiverId,
+      receiverId: isClient ? null : receiverId,
       receiverType: isClient ? null : "Instructor",
       createdAt: DateTime.now().toIso8601String(),
       file: imagePath ?? currentRecordPath,
       type: isClient ? "group" : null,
-      chatId: isClient ? chatId : null,
+      chatId: isClient ? chatId ?? "" : "",
     );
 
-    // 2. ضفها للواجهة كـ isSending مع النوع
     uiMessages.insert(
       0,
       MessageUIModel(
         message: GetMessagesDatumModel.fromJson(tempMessage.toJson()),
         isSending: true,
-        messageType: messageType, // حفظ النوع
+        messageType: messageType,
       ),
     );
 
@@ -385,6 +386,7 @@ class ChatsCubit extends Cubit<ChatsState> {
         // فشل في الإرسال
         final failed = uiMessages[0].copyWith(isSending: false, isFailed: true);
         uiMessages[0] = failed;
+        delightfulToast(message: l.message, context: context);
         emit(SendMessagesErrorState(errorMessage: l.message));
       },
       (r) {
@@ -424,6 +426,7 @@ class ChatsCubit extends Cubit<ChatsState> {
       (data) {
         getMyChatsLoader = false;
         getMyChatsEntity = data;
+        instructorsList();
         emit(GetMyChatsSuccessState());
       },
     );
@@ -450,6 +453,7 @@ class ChatsCubit extends Cubit<ChatsState> {
   List<GetMyChatsDatumEntity> clientsList = [];
 
   void clientChatList() {
+    log("this is client list");
     clientsList = [];
     clientsList.addAll(
       getMyChatsEntity?.data?.where((element) {
@@ -458,6 +462,7 @@ class ChatsCubit extends Cubit<ChatsState> {
           }) ??
           [],
     );
+    log("this is client list filled");
   }
 
   bool isInstructorParticipant(GetMyChatsDatumEntity element) {
@@ -467,37 +472,8 @@ class ChatsCubit extends Cubit<ChatsState> {
 
   List<GetMyChatsDatumEntity> instructorList = [];
 
-  // [
-  // {
-  // "id": 30,
-  // "type": "private",
-  // "name": null,
-  // "participant1": null,
-  // "participant2": {
-  // "type": "User",
-  // "id": "34",
-  // "name": "Mahmkud khirallah",
-  // "image": null
-  // },
-  // "created_at": "2025-09-17T11:51:30.000000Z",
-  // "latest_message": {
-  // "id": 490,
-  // "chat_id": 30,
-  // "sender_type": "User",
-  // "message": "chat",
-  // "created_at": "2025-09-17T12:43:34.000000Z",
-  // "file": null,
-  // "file_type": null,
-  // "sender": {
-  // "id": 34,
-  // "name": "Mahmkud khirallah",
-  // "image": null
-  // }
-  // },
-  // "participants": []
-  // }
-  // ],
   void instructorsList() {
+    log("this is instructor list");
     instructorList = [];
     instructorList.addAll(
       getMyChatsEntity?.data?.where((element) {
@@ -506,9 +482,11 @@ class ChatsCubit extends Cubit<ChatsState> {
           }) ??
           [],
     );
+    // emit(FillInstructorListState());
+    log("this is instructor list filled");
   }
 
-  fillCurrentInstructor(int chatId) {
+  void fillCurrentInstructor(int chatId) {
     // دور على المحادثة اللي ليها نفس الـ chatId
     final chat = getMyChatsEntity?.data?.firstWhere(
       (element) => element.id == chatId && element.type == "private",

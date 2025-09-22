@@ -365,6 +365,7 @@ abstract class BaseRepository {
   getInstructorAvailabilities({
     required int instructorId,
     required int duration,
+    required String expireDate,
   });
 
   Future<Either<Failure, ChangeSessionDateEntity>> changeSessionDate({

@@ -27,7 +27,7 @@ GetMessagesDatumModel _$GetMessagesDatumModelFromJson(
   Map<String, dynamic> json,
 ) => GetMessagesDatumModel()
   ..id = (json['id'] as num?)?.toInt()
-  ..chatId = (json['chat_id'] as num?)?.toInt()
+  ..chatId = GetMessagesDatumEntities.customInt(json['chat_id'])
   ..senderType = json['sender_type'] as String?
   ..message = json['message'] as String?
   ..createdAt = json['created_at'] == null

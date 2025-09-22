@@ -8,6 +8,16 @@ class ProgramFeatureTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (programEntity.advantages == null) {
+      return Center(
+        child: Text(
+          "لا مزايا متاحة",
+          style: MainTextStyle.boldTextStyle(
+            fontSize: 12,
+          ),
+        ),
+      );
+    }
     return Html(
       data: programEntity.advantages ?? "",
       // style: htmlStyle,

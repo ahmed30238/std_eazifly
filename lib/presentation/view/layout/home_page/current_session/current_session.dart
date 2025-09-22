@@ -231,52 +231,21 @@ class _CurrentSessionState extends State<CurrentSession> {
                                       log(
                                         "chat id is ${checkChatData.latestMessage?.chatId.toString()}",
                                       );
+                                      final int chatId = checkChatData.id ?? 0;
                                       var chatsCubit = context
                                           .read<ChatsCubit>();
                                       await chatsCubit.getMyChats();
-                                      await chatsCubit.fillCurrentInstructor(
-                                        chatsCubit.getMyChatsEntity?.data !=
-                                                null
-                                            ? chatsCubit.getMyChatsEntity!.data!
-                                                  .indexWhere((element) {
-                                                    if (element
-                                                            .participant1
-                                                            ?.type ==
-                                                        "Instructor") {
-                                                      return element
-                                                              .participant1
-                                                              ?.id ==
-                                                          checkChatData
-                                                              .participant1
-                                                              ?.id;
-                                                    } else {
-                                                      return element
-                                                              .participant2
-                                                              ?.id ==
-                                                          checkChatData
-                                                              .participant2
-                                                              ?.id;
-                                                    }
-                                                  })
-                                            : -1,
+                                      chatsCubit.fillCurrentInstructor(chatId);
+                                      log(
+                                        "this is instructor name ${chatsCubit.currentInstructor?.name}",
                                       );
-                                      log("this is instructor name ${chatsCubit.currentInstructor?.name}");
-
-                                      Future.delayed(
-                                        const Duration(milliseconds: 150),
-                                        () {
-                                          Navigator.pushNamed(
-                                            context,
-                                            arguments: {
-                                              "cubit": chatsCubit,
-                                              "chatId":
-                                                  checkChatData.id
-                                                      ?.toString() ??
-                                                  "0",
-                                            },
-                                            RoutePaths.dmViewPath,
-                                          );
+                                      Navigator.pushNamed(
+                                        context,
+                                        arguments: {
+                                          "cubit": chatsCubit,
+                                          "chatId": chatId.toString(),
                                         },
+                                        RoutePaths.dmViewPath,
                                       );
                                     },
                               child: loader

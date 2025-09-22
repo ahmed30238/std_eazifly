@@ -85,7 +85,8 @@ class EndPoints {
   static String getInstructorAvailablities({
     required int duration,
     required int instructorId,
-  }) => "session/availabilities/time/$instructorId?duration=$duration";
+    required String expireDate,
+  }) => "session/availabilities/time/$instructorId?duration=$duration&expire_date=$expireDate";
 
   static String cancelSubscription({required int mainId}) =>
       "cancel/subscription/$mainId";

@@ -33,7 +33,7 @@ class PeriodTapBarWidget extends StatelessWidget {
                         final key = cubit.staticMadeTabs.keys.elementAt(index);
                         final subscriptionPlan =
                             cubit.staticMadeTabs[key]?.first.subscriptionPlan ??
-                            "";
+                            calculateSubscriptionPlan(int.parse(key));
 
                         return Text(
                           subscriptionPlan,
@@ -65,3 +65,18 @@ class PeriodTapBarWidget extends StatelessWidget {
     );
   }
 }
+
+String calculateSubscriptionPlan(int days) {
+  final months = days ~/ 30;
+  final years = months ~/ 12;
+  final remainingMonths = months % 12;
+
+  if (years > 0 && remainingMonths > 0) {
+    return "$years سنة و $remainingMonths شهور";
+  } else if (years > 0) {
+    return "$years سنة";
+  } else {
+    return "$months شهور";
+  }
+}
+

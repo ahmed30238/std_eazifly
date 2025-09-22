@@ -15,6 +15,7 @@ class GetInstructorAvailabilitiesUsecase extends BaseUsecase<
       {required GetInstructorAvailabilitiesParameters parameter}) async {
     return await baseRepository.getInstructorAvailabilities(
       instructorId: parameter.instructorId,
+      expireDate: parameter.expireDate,
       duration: parameter.duration,
     );
   }
@@ -23,9 +24,11 @@ class GetInstructorAvailabilitiesUsecase extends BaseUsecase<
 class GetInstructorAvailabilitiesParameters {
   final int instructorId;
   final int duration;
+  final String expireDate;
 
   GetInstructorAvailabilitiesParameters({
     required this.instructorId,
     required this.duration,
+    required this.expireDate,
   });
 }

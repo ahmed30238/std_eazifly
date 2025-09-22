@@ -5,9 +5,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class CancelSessionView extends StatefulWidget {
   // final int programId;
-  const CancelSessionView({
-    super.key,
-  });
+  const CancelSessionView({super.key});
 
   @override
   State<CancelSessionView> createState() => _CancelSessionViewState();
@@ -25,7 +23,9 @@ class _CancelSessionViewState extends State<CancelSessionView> {
     cubit.getCancelReasons();
     int currentUserIndex = context.read<LectureCubit>().currentUserIndex;
     cubit.getInstructorAvailabilities(
-      instructorId: (int.tryParse(
+      context: context,
+      instructorId:
+          (int.tryParse(
             context
                     .read<MyProgramsCubit>()
                     .getAssignedChildrenToProgramEntity
@@ -35,7 +35,8 @@ class _CancelSessionViewState extends State<CancelSessionView> {
                 "",
           )) ??
           -1,
-      duration: (int.tryParse(
+      duration:
+          (int.tryParse(
             context
                     .read<MyProgramsCubit>()
                     .getAssignedChildrenToProgramEntity

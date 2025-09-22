@@ -720,8 +720,8 @@ class Repository extends BaseRepository {
   Future<Either<Failure, SendMessagesEntities>> sendMessages({
     required SendMessagesTojson data,
   }) async {
-    final result = await baseRemoteDataSource.sendMessages(data: data);
     try {
+      final result = await baseRemoteDataSource.sendMessages(data: data);
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
@@ -945,11 +945,13 @@ class Repository extends BaseRepository {
   getInstructorAvailabilities({
     required int instructorId,
     required int duration,
+    required String expireDate,
   }) async {
     try {
       final result = await baseRemoteDataSource.getInstructorAvailabilities(
         instructorId: instructorId,
         duration: duration,
+        expireDate: expireDate,
       );
       return Right(result);
     } on ServerException catch (e) {

@@ -23,6 +23,7 @@ class GetMyChatsSuccessState extends ChatsState {}
 
 class GetMyChatsErrorState extends ChatsState {
   final String message;
+
   GetMyChatsErrorState(this.message);
 }
 
@@ -40,6 +41,7 @@ class MessageTextChanged extends ChatsState {}
 
 class GetMesssagesSuccesState extends ChatsState {
   final List<MessageUIModel> uiMessages;
+
   GetMesssagesSuccesState({required this.uiMessages});
 }
 
@@ -76,6 +78,10 @@ class GetMyStudentsErrorState extends ChatsState {
 
   GetMyStudentsErrorState({required this.errorMessage});
 }
+
+class FillInstructorListState extends ChatsState {}
+
+class FillClientListState extends ChatsState {}
 
 class GetOldChatsSuccessState extends ChatsState {}
 

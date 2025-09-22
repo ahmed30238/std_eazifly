@@ -1,6 +1,7 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 import '../../../../core/component/separated_widget.dart';
+import '../../../../domain/entities/chat/get_my_chats_entity.dart';
 import '../../../controller/chats/chats_cubit.dart';
 import '../../../controller/chats/chats_state.dart';
 import 'chat_item.dart';
@@ -54,7 +55,7 @@ class ManagementTapWidget extends StatelessWidget {
         // final chats = cubit.getMyChatsEntity?.data ?? [];
 
         // Filter client chats
-        List clientList = cubit.clientsList;
+        List<GetMyChatsDatumEntity> clientList = cubit.clientsList;
         // chats
         //     .where((element) => element.type == "group")
         //     .toList();
@@ -65,11 +66,7 @@ class ManagementTapWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.people_outline,
-                  size: 64,
-                  color: MainColors.primary,
-                ),
+                Icon(Icons.people_outline, size: 64, color: MainColors.primary),
                 SizedBox(height: 16.h),
                 Text(
                   lang.noMessagesWithClients,
@@ -81,7 +78,13 @@ class ManagementTapWidget extends StatelessWidget {
                 SizedBox(height: 8.h),
                 GestureDetector(
                   onTap: () {
-
+                    cubit.messageController.text = "اود التواصل مع الادارة";
+                    cubit.sendMessages(context: context);
+                    // Navigator.pushNamed(
+                    //   context,
+                    //   RoutePaths.dmViewPath,
+                    //   arguments: {"chatId": cubit.chatId.toString()},
+                    // );
                   },
                   child: Text(
                     lang.startConversationWithClients,
@@ -98,6 +101,7 @@ class ManagementTapWidget extends StatelessWidget {
         }
 
         // Show client chats
+
         return ListView.separated(
           physics: const BouncingScrollPhysics(),
           itemCount: clientList.length,
@@ -122,15 +126,14 @@ class ManagementTapWidget extends StatelessWidget {
                 chatItem.createdAt ?? DateTime.now(),
               ).substring(0, 10),
               onTap: () {
-                cubit.fillCurrentGroupChatId(chatItem.latestMessage?.chatId);
+                final int chatId = chatItem.id ?? 0;
+                cubit.fillCurrentGroupChatId(chatId.toString());
                 // cubit.fillCurrentClient(index);
                 cubit.hasMore = true;
                 Navigator.pushNamed(
                   context,
                   RoutePaths.dmViewPath,
-                  arguments: {
-                    "chatId": chatItem.latestMessage?.chatId?.toString(),
-                  },
+                  arguments: {"chatId": chatId.toString()},
                 );
               },
             );

@@ -1,17 +1,17 @@
 class SendMessagesTojson {
   final String? message;
-  final String receiverId;
-  final String ?receiverType;
+  final String? receiverId;
+  final String? receiverType;
   final String senderType;
   final String senderId;
   final String? createdAt;
   final String? file;
   final String? type;
-  final int? chatId;
+  final String? chatId;
 
   SendMessagesTojson({
     this.message,
-    required this.receiverId,
+    this.receiverId,
     this.receiverType,
     required this.senderType,
     required this.senderId,

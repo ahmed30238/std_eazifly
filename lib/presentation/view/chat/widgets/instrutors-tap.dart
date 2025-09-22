@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+
 import '../../../../core/component/separated_widget.dart';
 import '../../../../domain/entities/chat/get_my_chats_entity.dart';
 import '../../../controller/chats/chats_cubit.dart';
@@ -117,8 +120,9 @@ class InstructorsTapWidget extends StatelessWidget {
                 chatItem.createdAt ?? DateTime.now(),
               ).substring(0, 10),
               onTap: () {
-                int chatId = chatItem.latestMessage?.chatId ?? 0;
+                int chatId = chatItem.id ?? 0;
                 cubit.fillCurrentInstructor(chatId);
+                log("Chat ID is: $chatId");
                 cubit.hasMore = true;
                 Navigator.pushNamed(
                   context,

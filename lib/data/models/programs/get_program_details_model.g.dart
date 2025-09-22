@@ -40,7 +40,7 @@ ProgramDetailsDataModel _$ProgramDetailsDataModelFromJson(
   ..image = json['image'] as String?
   ..programType = json['program_type'] as String?
   ..specialFor = json['special_for'] as String?
-  ..advantages = json['advantages']
+  ..advantages = json['advantages'] as String?
   ..instructors = (json['instructors'] as List<dynamic>?)
       ?.map((e) => InstructorModel.fromJson(e as Map<String, dynamic>))
       .toList()

@@ -335,6 +335,7 @@ abstract class BaseRemoteDataSource {
   Future<GetInstructorAvailabilitiesModel> getInstructorAvailabilities({
     required int instructorId,
     required int duration,
+    required String expireDate,
   });
 
   Future<CancelSessionModel> cancelSession({required CancelSessionTojson data});
@@ -465,7 +466,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
     int? days,
   }) async {
     var response = await NetworkCall().get(
-      path: EndPoints.getPlansWithDetails(programId: programId,days:days),
+      path: EndPoints.getPlansWithDetails(programId: programId, days: days),
     );
     if (response?.statusCode == 200) {
       return GetPlansWithDetailsModel.fromJson(response?.data);
@@ -1285,12 +1286,12 @@ class RemoteDataSource extends BaseRemoteDataSource {
     FormData formData = FormData();
     formData.fields.addAll([
       MapEntry("message", data.message ?? ""),
-      MapEntry("receiver_id", data.receiverId),
+      MapEntry("receiver_id", data.receiverId ?? ""),
       MapEntry("receiver_type", data.receiverType ?? ""),
       MapEntry("sender_id", data.senderId),
       MapEntry("sender_type", data.senderType),
       MapEntry("type", data.type ?? ""),
-      MapEntry("chat_id", data.chatId.toString()),
+      MapEntry("chat_id", data.chatId ?? ""),
     ]);
     if (data.file != null) {
       if (data.file!.isNotEmpty) {
@@ -1320,9 +1321,17 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return SendMessagesModel.fromJson(response?.data);
+    }  else if (response?.statusCode == 422) {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel(
+          statusMessage: _extractErrorMessage(response?.data['message']),
+        ),
+      );
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
+        errorMessageModel: ErrorMessageModel(
+          statusMessage: "حدث خطأ غير متوقع",
+        ),
       );
     }
   }
@@ -1765,10 +1774,12 @@ class RemoteDataSource extends BaseRemoteDataSource {
   Future<GetInstructorAvailabilitiesModel> getInstructorAvailabilities({
     required int instructorId,
     required int duration,
+    required String expireDate,
   }) async {
     var response = await NetworkCall().get(
       path: EndPoints.getInstructorAvailablities(
         instructorId: instructorId,
+        expireDate: expireDate,
         duration: duration,
       ),
     );

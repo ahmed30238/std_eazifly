@@ -29,8 +29,10 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
 
   initCancelSessionReasons() {
     if (getCancelReasonsEntity?.data != null) {
-      cancelSessionReasons =
-          List.filled(getCancelReasonsEntity!.data!.length, false);
+      cancelSessionReasons = List.filled(
+        getCancelReasonsEntity!.data!.length,
+        false,
+      );
     }
   }
 
@@ -127,11 +129,11 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
       parameter: NoParameter(),
     );
     result.fold(
-      (failure) {
+          (failure) {
         getCancelReasonsLoader = false;
         emit(GetCancelReasonsErrorState(failure.message));
       },
-      (data) {
+          (data) {
         getCancelReasonsLoader = false;
         getCancelReasonsEntity = data;
         initCancelSessionReasons();
@@ -147,21 +149,33 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
   Future<void> getInstructorAvailabilities({
     required int instructorId,
     required int duration,
+    required BuildContext context,
   }) async {
+    var lectureCubit = context.read<LectureCubit>();
+    final expireDate = context
+        .read<MyProgramsCubit>()
+        .getAssignedChildrenToProgramEntity
+        ?.data?[lectureCubit.currentUserIndex]
+        .expireDate;
+    String expireDateToApi = '';
+    if (expireDate != null) {
+      expireDateToApi = formatDate(expireDate);
+    }
     getInstructorAvailabilitiesLoader = true;
     emit(GetInstructorAvailabilitiesLoadingState());
     final result = await getInstructorAvailabilitiesUsecase.call(
       parameter: GetInstructorAvailabilitiesParameters(
         instructorId: instructorId,
+        expireDate: expireDateToApi,
         duration: duration,
       ),
     );
     result.fold(
-      (failure) {
+          (failure) {
         getInstructorAvailabilitiesLoader = false;
         emit(GetInstructorAvailabilitiesErrorState(failure.message));
       },
-      (data) {
+          (data) {
         getInstructorAvailabilitiesLoader = false;
         getInstructorAvailabilitiesEntity = data;
         emit(GetInstructorAvailabilitiesSuccessState());
@@ -178,20 +192,26 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
   CancelSessionUsecase cancelSessionUsecase;
 
   Future<void> postCancelSession(BuildContext context) async {
-    int currentStudentIndex = context.read<LectureCubit>().currentUserIndex;
+    int currentStudentIndex = context
+        .read<LectureCubit>()
+        .currentUserIndex;
     log("$currentStudentIndex");
-    log("host is ${context
-        .read<MyProgramsCubit>()
-        .getAssignedChildrenToProgramEntity
-        ?.data?.first.host}");
-    int sessionId = context
+    log(
+      "host is ${context
+          .read<MyProgramsCubit>()
+          .getAssignedChildrenToProgramEntity
+          ?.data
+          ?.first
+          .host}",
+    );
+    int sessionId =
+        context
             .read<MyProgramsCubit>()
             .getAssignedChildrenToProgramEntity
-            ?.data
-            ?[currentStudentIndex]
+            ?.data?[currentStudentIndex]
             .nextSession
             ?.id ??
-        -1;
+            -1;
     log("cancel this session id $sessionId");
     postCancelSessionLoader = true;
     emit(PostCancelSessionLoadingState());
@@ -204,22 +224,19 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
       ),
     );
     result.fold(
-      (failure) {
+          (failure) {
         postCancelSessionLoader = false;
         emit(PostCancelSessionErrorState(failure.message));
       },
-      (data) {
+          (data) {
         delightfulToast(message: "${data.message}", context: context);
-        Future.delayed(
-          const Duration(milliseconds: 300),
-          () {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              RoutePaths.layoutPath,
-              (route) => false,
-            );
-          },
-        );
+        Future.delayed(const Duration(milliseconds: 300), () {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            RoutePaths.layoutPath,
+                (route) => false,
+          );
+        });
         postCancelSessionLoader = false;
         postCancelSessionEntity = data;
         emit(PostCancelSessionSuccessState());
@@ -235,7 +252,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
   TimeOfDay? selectedTime;
   dynamic selectedTimeSlotData;
 
-// تحديث دالة changeSessionDate لتستخدم البيانات المحفوظة
+  // تحديث دالة changeSessionDate لتستخدم البيانات المحفوظة
   Future<void> changeSessionDate({
     required int sessionId,
     // required BuildContext context,
@@ -292,12 +309,12 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     );
 
     result.fold(
-      (failure) {
+          (failure) {
         changeSessionDateLoader = false;
         log("Change session date failed: ${failure.message}");
         emit(ChangeSessionDateErrorState(failure.message));
       },
-      (data) {
+          (data) {
         changeSessionDateLoader = false;
         changeSessionDateEntity = data;
         // Navigator.pushReplacementNamed(context, RoutePaths.layoutPath);
@@ -307,7 +324,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     );
   }
 
-// دالة لتنسيق التاريخ حسب المطلوب من الـ API
+  // دالة لتنسيق التاريخ حسب المطلوب من الـ API
   // دالة لتنسيق التاريخ حسب المطلوب من الـ API
   String _formatSessionDate() {
     // التحقق من وجود البيانات المطلوبة
@@ -353,7 +370,8 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
             // تحويل التاريخ لـ DateTime ثم استخراج التاريخ فقط
             DateTime dateTime = DateTime.parse(fullDate);
             String formattedDate =
-                "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+                "${dateTime.year}-${dateTime.month.toString().padLeft(
+                2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
             log("Formatted date: $formattedDate");
             return formattedDate;
           } catch (e) {
@@ -380,7 +398,8 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
         try {
           DateTime dateTime = DateTime.parse(fallbackDate);
           String formattedDate =
-              "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+              "${dateTime.year}-${dateTime.month.toString().padLeft(
+              2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
           return formattedDate;
         } catch (e) {
           if (fallbackDate.contains(' ')) {
@@ -406,7 +425,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     dayController.text = dayName;
     if (timeSlotData != null) {
       timeController.text =
-          "${timeSlotData.startTime} - ${timeSlotData.endTime}";
+      "${timeSlotData.startTime} - ${timeSlotData.endTime}";
 
       // طباعة جميع بيانات الـ time slot للتحقق
       log("=== Selected Time Slot Data ===");
@@ -420,19 +439,24 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     emit(ChangeSpecifiedDayState());
   }
 
-// دالة محسنة للتحقق من البيانات قبل الإرسال
+  // دالة محسنة للتحقق من البيانات قبل الإرسال
   bool isScheduleDataComplete() {
-    bool isComplete = dayController.text.isNotEmpty &&
-        timeController.text.isNotEmpty &&
-        selectedDayName != null &&
-        selectedTimeSlotData != null &&
-        selectedTimeSlotData.fullDate != null;
+    bool isComplete =
+        dayController.text.isNotEmpty &&
+            timeController.text.isNotEmpty &&
+            selectedDayName != null &&
+            selectedTimeSlotData != null &&
+            selectedTimeSlotData.fullDate != null;
 
     log("Schedule data completeness check:");
     log("Day controller: ${dayController.text}");
     log("Time controller: ${timeController.text}");
     log("Selected day name: $selectedDayName");
-    log("Selected time slot data: ${selectedTimeSlotData != null ? 'Available' : 'Null'}");
+    log(
+      "Selected time slot data: ${selectedTimeSlotData != null
+          ? 'Available'
+          : 'Null'}",
+    );
     log("Full date available: ${selectedTimeSlotData?.fullDate ?? 'Null'}");
     log("Is complete: $isComplete");
 
@@ -465,25 +489,25 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
   }
 
   // دالة محسنة لتحديد الوقت
-  void changeSelectedTimeSlot(dynamic timeSlot) {
-    if (timeSlot != null) {
-      selectedTimeSlotData = timeSlot;
-      timeController.text = "${timeSlot.startTime} - ${timeSlot.endTime}";
-
-      // يمكنك أيضاً تحويل الوقت إلى TimeOfDay إذا كان مطلوباً
-      try {
-        final startTimeParts = timeSlot.startTime.split(':');
-        if (startTimeParts.length == 2) {
-          selectedTime = TimeOfDay(
-            hour: int.parse(startTimeParts[0]),
-            minute: int.parse(startTimeParts[1]),
-          );
-        }
-      } catch (e) {
-        log("Error parsing time: $e");
-      }
-
-      emit(ChangeSelectedTimeState());
-    }
-  }
+  // void changeSelectedTimeSlot(dynamic timeSlot) {
+  //   if (timeSlot != null) {
+  //     selectedTimeSlotData = timeSlot;
+  //     timeController.text = "${timeSlot.startTime} - ${timeSlot.endTime}";
+  //
+  //     // يمكنك أيضاً تحويل الوقت إلى TimeOfDay إذا كان مطلوباً
+  //     try {
+  //       final startTimeParts = timeSlot.startTime.split(':');
+  //       if (startTimeParts.length == 2) {
+  //         selectedTime = TimeOfDay(
+  //           hour: int.parse(startTimeParts[0]),
+  //           minute: int.parse(startTimeParts[1]),
+  //         );
+  //       }
+  //     } catch (e) {
+  //       log("Error parsing time: $e");
+  //     }
+  //
+  //     emit(ChangeSelectedTimeState());
+  //   }
+  // }
 }

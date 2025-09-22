@@ -293,6 +293,7 @@ class _WritingMessageAreaState extends State<WritingMessageArea>
                   );
                 } else {
                   cubit.sendMessages(
+                    context: context,
                     receiverId: cubit.currentInstructor?.id ?? "",
                   );
                 }

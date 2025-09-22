@@ -91,7 +91,7 @@ class DmBody extends StatelessWidget {
                         } else {
                           // لو مفيش، استخدم المنطق القديم
                           switch (message.message.fileType) {
-                            case "jpg" || "png":
+                            case "jpg" || "png" || "webp":
                               type = "image";
                               break;
                             case "wav" || "mp3" || "m4a":

@@ -157,9 +157,7 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                           }),
                         ),
                         SizedBox(
-                          height: cubit.controller.index == 0
-                              ? (40 * 4) + 16
-                              : 348.h,
+                          height: 348.h,
                           child: TabBarView(
                             physics: const NeverScrollableScrollPhysics(),
                             controller: cubit.controller,

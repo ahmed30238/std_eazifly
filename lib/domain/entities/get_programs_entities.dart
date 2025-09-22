@@ -42,7 +42,7 @@ class GetProgramsProgramEntity {
   @JsonKey(name: "special_for")
   String? specialFor;
   @JsonKey(name: "advantages")
-  dynamic advantages;
+  String? advantages;
   @JsonKey(name: "instructors")
   List<InstructorModel>? instructors;
   @JsonKey(name: "reviews")
