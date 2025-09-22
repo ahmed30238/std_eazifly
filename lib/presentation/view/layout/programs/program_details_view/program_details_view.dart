@@ -124,12 +124,15 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                child: Text(
-                                  program.title ?? "",
-                                  style: MainTextStyle.boldTextStyle(
-                                    fontSize: 14,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                  child: Text(
+                                    program.title ?? "",
+                                    style: MainTextStyle.boldTextStyle(
+                                      fontSize: 14,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
@@ -142,6 +145,7 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                         ),
                         16.ph,
                         CustomTabBar(
+                          padding: EdgeInsets.only(right: 16.w),
                           controller: cubit.controller,
                           tabs: List.generate(cubit.tabs.length, (index) {
                             bool isSelected = cubit.controller.index == index;
@@ -164,7 +168,7 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                             children: cubit.screens(),
                           ),
                         ),
-                      ].itemPadding(rightPadding: 16.w, leftPadding: 16.w),
+                      ],
                     ),
                   ],
                 ),

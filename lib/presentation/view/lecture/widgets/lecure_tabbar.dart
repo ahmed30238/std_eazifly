@@ -19,6 +19,7 @@ class LectureTabBar extends StatelessWidget {
     return CustomTabBar(
       controller: cubit.controller,
       onTap: onTabTap,
+      isScrollable: true,
       tabs: List.generate(
         cubit.tabs.length,
         (index) {

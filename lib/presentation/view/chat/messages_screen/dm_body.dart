@@ -63,7 +63,7 @@ class DmBody extends StatelessWidget {
                         ),
                       );
                     }
-                    final messages = cubit.uiMessages;
+                    final messages = cubit.uiMessages.reversed.toList();
                     return ListView.builder(
                       shrinkWrap: true,
                       reverse: true,
@@ -105,6 +105,7 @@ class DmBody extends StatelessWidget {
                                     .toLowerCase();
                                 if (filePath.endsWith('.jpg') ||
                                     filePath.endsWith('.png') ||
+                                    filePath.endsWith('.webP') ||
                                     filePath.endsWith('.jpeg')) {
                                   type = "image";
                                 } else if (filePath.endsWith('.wav') ||

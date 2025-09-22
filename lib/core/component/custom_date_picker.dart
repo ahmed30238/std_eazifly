@@ -76,7 +76,7 @@ class CustomCalendarDialog extends StatefulWidget {
   final String? fieldLabelText;
 
   const CustomCalendarDialog({
-    Key? key,
+    super.key,
     required this.initialDate,
     required this.firstDate,
     required this.lastDate,
@@ -93,7 +93,7 @@ class CustomCalendarDialog extends StatefulWidget {
     this.errorInvalidText,
     this.fieldHintText,
     this.fieldLabelText,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomCalendarDialog> createState() => _CustomCalendarDialogState();

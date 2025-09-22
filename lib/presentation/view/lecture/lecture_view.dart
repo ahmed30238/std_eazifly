@@ -190,6 +190,8 @@ class _LectureViewState extends State<LectureView>
                         children: [
                           buildLectureDataWithLoading(host),
                           8.pw,
+
+
                           buildLectureLinkWithLoading(
                             context,
                             myProgramsCubit,

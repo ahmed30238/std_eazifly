@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:eazifly_student/core/base_usecase/base_usecase.dart';
 import 'package:eazifly_student/data/models/sessions/cancel_session_tojson.dart';
 import 'package:eazifly_student/data/models/sessions/change_session_date_tojson.dart';
@@ -15,6 +16,8 @@ import 'package:eazifly_student/presentation/controller/my_programs/myprograms_c
 import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/widgets/cancel_sessions_reasons_body.dart';
 import 'package:eazifly_student/presentation/view/lecture/cancel_session_view/widgets/choose_new_dates_options_body.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+
+import '../../../data/models/sessions/get_instructor_availabilities_model.dart';
 
 part 'cancelsession_state.dart';
 
@@ -41,13 +44,13 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     return allFalse;
   }
 
-  bool noDateTypeChosen() {
-    if (chooseNewDateOption || cancelSession) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  // bool noDateTypeChosen() {
+  //   if (chooseNewDateOption || cancelSession) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
   void chooseCancelReasons(int index, bool value) {
     cancelSessionReasons[index] = value;
@@ -129,11 +132,11 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
       parameter: NoParameter(),
     );
     result.fold(
-          (failure) {
+      (failure) {
         getCancelReasonsLoader = false;
         emit(GetCancelReasonsErrorState(failure.message));
       },
-          (data) {
+      (data) {
         getCancelReasonsLoader = false;
         getCancelReasonsEntity = data;
         initCancelSessionReasons();
@@ -171,11 +174,11 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
       ),
     );
     result.fold(
-          (failure) {
+      (failure) {
         getInstructorAvailabilitiesLoader = false;
         emit(GetInstructorAvailabilitiesErrorState(failure.message));
       },
-          (data) {
+      (data) {
         getInstructorAvailabilitiesLoader = false;
         getInstructorAvailabilitiesEntity = data;
         emit(GetInstructorAvailabilitiesSuccessState());
@@ -192,17 +195,10 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
   CancelSessionUsecase cancelSessionUsecase;
 
   Future<void> postCancelSession(BuildContext context) async {
-    int currentStudentIndex = context
-        .read<LectureCubit>()
-        .currentUserIndex;
+    int currentStudentIndex = context.read<LectureCubit>().currentUserIndex;
     log("$currentStudentIndex");
     log(
-      "host is ${context
-          .read<MyProgramsCubit>()
-          .getAssignedChildrenToProgramEntity
-          ?.data
-          ?.first
-          .host}",
+      "host is ${context.read<MyProgramsCubit>().getAssignedChildrenToProgramEntity?.data?.first.host}",
     );
     int sessionId =
         context
@@ -211,7 +207,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
             ?.data?[currentStudentIndex]
             .nextSession
             ?.id ??
-            -1;
+        -1;
     log("cancel this session id $sessionId");
     postCancelSessionLoader = true;
     emit(PostCancelSessionLoadingState());
@@ -224,17 +220,17 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
       ),
     );
     result.fold(
-          (failure) {
+      (failure) {
         postCancelSessionLoader = false;
         emit(PostCancelSessionErrorState(failure.message));
       },
-          (data) {
+      (data) {
         delightfulToast(message: "${data.message}", context: context);
         Future.delayed(const Duration(milliseconds: 300), () {
           Navigator.pushNamedAndRemoveUntil(
             context,
             RoutePaths.layoutPath,
-                (route) => false,
+            (route) => false,
           );
         });
         postCancelSessionLoader = false;
@@ -245,12 +241,13 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
   }
 
   //! change date
-  String specifiedDay = "";
+  // String specifiedDay = "";
   TextEditingController dayController = TextEditingController();
   TextEditingController timeController = TextEditingController();
-  String? selectedDayName;
+
+  // String? selectedDayName;
   TimeOfDay? selectedTime;
-  dynamic selectedTimeSlotData;
+  GetInstructorAvailabilitieDayModel? selectedTimeSlotData;
 
   // تحديث دالة changeSessionDate لتستخدم البيانات المحفوظة
   Future<void> changeSessionDate({
@@ -309,12 +306,12 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     );
 
     result.fold(
-          (failure) {
+      (failure) {
         changeSessionDateLoader = false;
         log("Change session date failed: ${failure.message}");
         emit(ChangeSessionDateErrorState(failure.message));
       },
-          (data) {
+      (data) {
         changeSessionDateLoader = false;
         changeSessionDateEntity = data;
         // Navigator.pushReplacementNamed(context, RoutePaths.layoutPath);
@@ -325,11 +322,10 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
   }
 
   // دالة لتنسيق التاريخ حسب المطلوب من الـ API
-  // دالة لتنسيق التاريخ حسب المطلوب من الـ API
   String _formatSessionDate() {
     // التحقق من وجود البيانات المطلوبة
-    if (selectedDayName == null || selectedTimeSlotData == null) {
-      log("Error: selectedDayName or selectedTimeSlotData is null");
+    if (dayController.text.isEmpty || selectedTimeSlotData == null) {
+      log("Error: dayController.text or selectedTimeSlotData is null");
       return "";
     }
 
@@ -351,16 +347,16 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     };
 
     // الحصول على بيانات اليوم المحدد
-    final selectedDayData = daysMap[selectedDayName];
+    final selectedDayData = daysMap[dayController.text];
     if (selectedDayData == null || selectedDayData.isEmpty) {
-      log("Error: No data found for selected day: $selectedDayName");
+      log("Error: No data found for selected day: $dayController.text");
       return "";
     }
 
     // البحث عن الـ time slot المحدد للحصول على التاريخ الصحيح
     for (var timeSlot in selectedDayData) {
-      if (timeSlot.startTime == selectedTimeSlotData.startTime &&
-          timeSlot.endTime == selectedTimeSlotData.endTime) {
+      if (timeSlot.startTime == selectedTimeSlotData?.startTime &&
+          timeSlot.endTime == selectedTimeSlotData?.endTime) {
         String fullDate = timeSlot.fullDate.toString();
         log("Found matching time slot with original date: $fullDate");
 
@@ -370,8 +366,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
             // تحويل التاريخ لـ DateTime ثم استخراج التاريخ فقط
             DateTime dateTime = DateTime.parse(fullDate);
             String formattedDate =
-                "${dateTime.year}-${dateTime.month.toString().padLeft(
-                2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+                "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
             log("Formatted date: $formattedDate");
             return formattedDate;
           } catch (e) {
@@ -398,8 +393,7 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
         try {
           DateTime dateTime = DateTime.parse(fallbackDate);
           String formattedDate =
-              "${dateTime.year}-${dateTime.month.toString().padLeft(
-              2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+              "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
           return formattedDate;
         } catch (e) {
           if (fallbackDate.contains(' ')) {
@@ -418,14 +412,14 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     required String dayName,
     required dynamic timeSlotData,
   }) {
-    selectedDayName = dayName;
+    // dayController.text = dayName;
     selectedTimeSlotData = timeSlotData;
 
     // حفظ البيانات في الـ Controllers
     dayController.text = dayName;
     if (timeSlotData != null) {
       timeController.text =
-      "${timeSlotData.startTime} - ${timeSlotData.endTime}";
+          "${timeSlotData.startTime} - ${timeSlotData.endTime}";
 
       // طباعة جميع بيانات الـ time slot للتحقق
       log("=== Selected Time Slot Data ===");
@@ -443,19 +437,15 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
   bool isScheduleDataComplete() {
     bool isComplete =
         dayController.text.isNotEmpty &&
-            timeController.text.isNotEmpty &&
-            selectedDayName != null &&
-            selectedTimeSlotData != null &&
-            selectedTimeSlotData.fullDate != null;
+        timeController.text.isNotEmpty &&
+        selectedTimeSlotData != null &&
+        selectedTimeSlotData?.fullDate != null;
 
     log("Schedule data completeness check:");
     log("Day controller: ${dayController.text}");
     log("Time controller: ${timeController.text}");
-    log("Selected day name: $selectedDayName");
     log(
-      "Selected time slot data: ${selectedTimeSlotData != null
-          ? 'Available'
-          : 'Null'}",
+      "Selected time slot data: ${selectedTimeSlotData != null ? 'Available' : 'Null'}",
     );
     log("Full date available: ${selectedTimeSlotData?.fullDate ?? 'Null'}");
     log("Is complete: $isComplete");
@@ -463,51 +453,13 @@ class CancelSessionCubit extends Cubit<CancelSessionState> {
     return isComplete;
   }
 
-  // دالة لمسح البيانات المحددة
-  void clearSelectedScheduleData() {
-    selectedDayName = null;
-    selectedTimeSlotData = null;
-    dayController.clear();
-    timeController.clear();
-    selectedTime = null;
-
-    emit(ChangeSpecifiedDayState());
-  }
-
   // تحديث دالة changeSpecifiedDay لتكون أكثر شمولية
   void changeSpecifiedDay(String day) {
-    specifiedDay = day;
     dayController.text = day;
-    selectedDayName = day;
-
-    // مسح بيانات الوقت عند تغيير اليوم
     selectedTimeSlotData = null;
     timeController.clear();
     selectedTime = null;
 
     emit(ChangeSpecifiedDayState());
   }
-
-  // دالة محسنة لتحديد الوقت
-  // void changeSelectedTimeSlot(dynamic timeSlot) {
-  //   if (timeSlot != null) {
-  //     selectedTimeSlotData = timeSlot;
-  //     timeController.text = "${timeSlot.startTime} - ${timeSlot.endTime}";
-  //
-  //     // يمكنك أيضاً تحويل الوقت إلى TimeOfDay إذا كان مطلوباً
-  //     try {
-  //       final startTimeParts = timeSlot.startTime.split(':');
-  //       if (startTimeParts.length == 2) {
-  //         selectedTime = TimeOfDay(
-  //           hour: int.parse(startTimeParts[0]),
-  //           minute: int.parse(startTimeParts[1]),
-  //         );
-  //       }
-  //     } catch (e) {
-  //       log("Error parsing time: $e");
-  //     }
-  //
-  //     emit(ChangeSelectedTimeState());
-  //   }
-  // }
 }

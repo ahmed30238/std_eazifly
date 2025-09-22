@@ -23,8 +23,12 @@ class SchedulesBody extends StatelessWidget {
       itemBuilder: (context, index) {
         var session = sessions[index];
         final days = sessions
-            .map((session) => DateFormat('EEEE', 'ar')
-                .format(session.sessionDate ?? DateTime.now()))
+            .map(
+              (session) => DateFormat(
+                'EEEE',
+                'ar',
+              ).format(session.sessionDate ?? DateTime.now()),
+            )
             .toList();
         return ScheduleItem(
           index: childIndex,
@@ -35,6 +39,7 @@ class SchedulesBody extends StatelessWidget {
           from: session.sessionTime?.substring(0, 5) ?? "",
           to: session.sessionTimeTo?.substring(0, 5) ?? "",
           sessionId: session.id ?? -1,
+          mainContext: context,
         );
       },
       separatorBuilder: (context, index) => 8.ph,
@@ -44,9 +49,7 @@ class SchedulesBody extends StatelessWidget {
 }
 
 class UpdateSessionDateBottomSheet extends StatelessWidget {
-  const UpdateSessionDateBottomSheet({
-    super.key,
-  });
+  const UpdateSessionDateBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +69,7 @@ class UpdateSessionDateBottomSheet extends StatelessWidget {
             32.ph,
             Row(
               children: [
-                Text(
-                  "اليوم",
-                  style: MainTextStyle.boldTextStyle(fontSize: 12),
-                ),
+                Text("اليوم", style: MainTextStyle.boldTextStyle(fontSize: 12)),
                 16.pw,
                 SizedBox(
                   width: 291.w,
@@ -86,10 +86,7 @@ class UpdateSessionDateBottomSheet extends StatelessWidget {
             20.ph,
             Row(
               children: [
-                Text(
-                  "الوقت",
-                  style: MainTextStyle.boldTextStyle(fontSize: 12),
-                ),
+                Text("الوقت", style: MainTextStyle.boldTextStyle(fontSize: 12)),
                 16.pw,
                 SizedBox(
                   height: 54.h,
@@ -121,9 +118,7 @@ class UpdateSessionDateBottomSheet extends StatelessWidget {
 }
 
 class TimeSlot extends StatelessWidget {
-  const TimeSlot({
-    super.key,
-  });
+  const TimeSlot({super.key});
 
   @override
   Widget build(BuildContext context) {

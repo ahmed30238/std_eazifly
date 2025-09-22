@@ -61,7 +61,7 @@ class MainColors {
   static Color get surface => _userBackground;
   static Color get onSurface => _darken(_userSecondary, 0.1);
   static Color get surfaceVariant => _lighten(_userBackground, 0.02);
-  static Color get inputFill => _lighten(_userBackground, 0.05);
+  static Color get inputFill => MainColors.onPrimary.withValues(alpha: .04);
   static Color get outline => _lighten(_userPrimary, 0.35);
   static Color get onSurfaceVariant => _adjustSaturation(_darken(_userSecondary, 0.05), -0.1);
   static Color get surfaceContainerHighest => _lighten(_userBackground, 0.02);

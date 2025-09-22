@@ -53,7 +53,7 @@ class InstructorsTapWidget extends StatelessWidget {
           );
         }
 
-        final chats = cubit.getMyChatsEntity?.data ?? [];
+        // final chats = cubit.getMyChatsEntity?.data ?? [];
 
         // Filter instructor chats
         List<GetMyChatsDatumEntity> instructorList = cubit.instructorList;

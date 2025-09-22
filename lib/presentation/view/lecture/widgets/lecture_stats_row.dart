@@ -103,7 +103,7 @@ class LectureStats extends StatelessWidget {
               width: 108.w,
               decoration: BoxDecoration(
                 borderRadius: 10.cr,
-                color: MainColors.inputFill,
+                color: MainColors.onPrimary.withValues(alpha: .04),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -4,12 +4,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTabBar extends StatelessWidget {
   final List<Widget> tabs;
- final Function(int)? onTap;
+  final EdgeInsetsGeometry? padding;
+  final Function(int)? onTap;
+  final bool? isScrollable;
+  final TabAlignment? tabAlignment;
+
   const CustomTabBar({
     super.key,
     required this.controller,
     required this.tabs,
+    this.padding,
     this.onTap,
+    this.isScrollable,
+    this.tabAlignment,
   });
 
   final TabController controller;
@@ -19,7 +26,7 @@ class CustomTabBar extends StatelessWidget {
     return Material(
       elevation: 1,
       child: Container(
-        padding: EdgeInsets.only(right: 28.w),
+        padding: padding ?? EdgeInsets.only(right: 28.w),
         color: MainColors.inputFill,
         width: double.infinity,
         height: 52.h,
@@ -29,14 +36,11 @@ class CustomTabBar extends StatelessWidget {
           controller: controller,
           indicatorWeight: 1,
           dividerColor: MainColors.transparent,
-          tabAlignment: TabAlignment.start,
+          // tabAlignment: TabAlignment.start,
+          tabAlignment: tabAlignment ?? TabAlignment.center,
           // labelColor: Colors.red,
-          isScrollable: true,
-          labelPadding: EdgeInsets.only(
-            left: 24.w,
-            top: 16.h,
-            bottom: 16.h,
-          ),
+          isScrollable: isScrollable ?? false,
+          labelPadding: EdgeInsets.only(left: 24.w, top: 16.h, bottom: 16.h),
           // unselectedLabelColor: Colors.red,
           indicatorColor: MainColors.primary,
           tabs: tabs,
