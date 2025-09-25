@@ -41,6 +41,23 @@ class _SubscribedStudentsSettingsViewState
         context,
         mainTitle: "إعداد بيانات برنامج",
         leadingText: lang.back,
+        onLeadinTap: () {
+          final myProgramsCubit = context.read<MyProgramsCubit>();
+          if (myProgramsCubit.getAssignedChildrenToProgramEntity == null ||
+              myProgramsCubit
+                  .getAssignedChildrenToProgramEntity!
+                  .data!
+                  .isEmpty) {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              RoutePaths.layoutPath,
+              (route) => false,
+            );
+          } else {
+            back(context);
+          }
+        },
+
         isCenterTitle: true,
       ),
       body: ListView(
@@ -60,10 +77,8 @@ class _SubscribedStudentsSettingsViewState
                     borderRadius: 12.cr,
                     color: MainColors.inputFill,
                   ),
-                  child:  Center(
-                    child: CircularProgressIndicator(
-                      color: MainColors.primary,
-                    ),
+                  child: Center(
+                    child: CircularProgressIndicator(color: MainColors.primary),
                   ),
                 );
               }
@@ -86,14 +101,18 @@ class _SubscribedStudentsSettingsViewState
                         Text(
                           "إسم البرنامج",
                           style: MainTextStyle.boldTextStyle(
-                              fontSize: 11, color: MainColors.onSurfaceSecondary),
+                            fontSize: 11,
+                            color: MainColors.onSurfaceSecondary,
+                          ),
                         ),
                         10.5.ph,
                         Text(
                           lectureCubit.showProgramDetailsEntity?.data?.title ??
                               "",
                           style: MainTextStyle.boldTextStyle(
-                              fontSize: 12, color: MainColors.onSecondary),
+                            fontSize: 12,
+                            color: MainColors.onSecondary,
+                          ),
                         ),
                       ],
                     ),
@@ -110,8 +129,10 @@ class _SubscribedStudentsSettingsViewState
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 12.h,
+                    horizontal: 16.w,
+                  ),
                   decoration: BoxDecoration(
                     borderRadius: 16.cr,
                     color: MainColors.inputFill,
@@ -137,7 +158,7 @@ class _SubscribedStudentsSettingsViewState
                                 child: SizedBox(
                                   height: 20.h,
                                   width: 20.w,
-                                  child:  CircularProgressIndicator(
+                                  child: CircularProgressIndicator(
                                     color: MainColors.primary,
                                     strokeWidth: 2,
                                   ),
@@ -146,11 +167,11 @@ class _SubscribedStudentsSettingsViewState
                             );
                           }
 
-                          var studentImages = myProgramsCubit
-                              .students
+                          var studentImages = myProgramsCubit.students
                               .map((e) => e.image ?? '')
                               .toList();
-                          int studentCount = myProgramsCubit
+                          int studentCount =
+                              myProgramsCubit
                                   .getAssignedChildrenToProgramEntity
                                   ?.data
                                   ?.length ??
@@ -180,10 +201,7 @@ class _SubscribedStudentsSettingsViewState
                   btnColor: MainColors.primary,
                   borderRadius: 16.cr,
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      RoutePaths.addNewStudentData,
-                    );
+                    Navigator.pushNamed(context, RoutePaths.addNewStudentData);
                   },
                 ),
               ],
@@ -201,9 +219,7 @@ class _SubscribedStudentsSettingsViewState
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                         CircularProgressIndicator(
-                          color: MainColors.primary,
-                        ),
+                        CircularProgressIndicator(color: MainColors.primary),
                         16.ph,
                         Text(
                           "جاري تحميل بيانات الطلاب...",

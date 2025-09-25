@@ -106,6 +106,7 @@ import 'package:eazifly_student/domain/entities/subscription_management/renew_su
 import 'package:eazifly_student/domain/entities/subscription_management/show_plan_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/upgrade_order_entity.dart';
 import 'package:eazifly_student/domain/entities/update_fcm_token_entity.dart';
+import 'package:eazifly_student/domain/entities/user/add_user_session_date_and_time_entity.dart';
 import 'package:eazifly_student/domain/entities/user/copoun_history_entity.dart';
 import 'package:eazifly_student/domain/entities/user/delete_account_entity.dart';
 import 'package:eazifly_student/domain/entities/user/update_profile_entity.dart';
@@ -113,6 +114,7 @@ import 'package:eazifly_student/domain/entities/user/update_profile_entity.dart'
 import '../../data/models/auth/login_tojson.dart';
 import '../../data/models/auth/register_tojson.dart';
 import '../../data/models/auth/reset_password_tojson.dart';
+import '../../data/models/user/add_user_session_date_and_time_tojson.dart';
 import '../entities/auth/forgot_password_entity.dart';
 import '../entities/auth/reset_password_entity.dart';
 import '../entities/get_geidea_settings/get_geidea_data_entity.dart';
@@ -447,4 +449,7 @@ abstract class BaseRepository {
   });
 
   Future<Either<Failure, CopounHistoryEntity>> copounHistory();
+  Future<Either<Failure, AddUserSessionDateAndTimeEntity>> addUserSessionDateAndTime(
+      {required AddUserSessionDateAndTimeToJson data});
+
 }

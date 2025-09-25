@@ -33,7 +33,9 @@ GetOrderDetailsDataModel _$GetOrderDetailsDataModelFromJson(
   ..numberOfSessions = (json['number_of_sessions'] as num?)?.toInt()
   ..programIds = (json['program_ids'] as List<dynamic>?)
       ?.map((e) => e as String)
-      .toList();
+      .toList()
+  ..orderStudentNumber = customInt(json['order_student_number'])
+  ..numberOfSubscriptions = customInt(json['number_of_subscriptions']);
 
 Map<String, dynamic> _$GetOrderDetailsDataModelToJson(
   GetOrderDetailsDataModel instance,
@@ -44,4 +46,6 @@ Map<String, dynamic> _$GetOrderDetailsDataModelToJson(
   'start_date': instance.startDate,
   'number_of_sessions': instance.numberOfSessions,
   'program_ids': instance.programIds,
+  'order_student_number': instance.orderStudentNumber,
+  'number_of_subscriptions': instance.numberOfSubscriptions,
 };

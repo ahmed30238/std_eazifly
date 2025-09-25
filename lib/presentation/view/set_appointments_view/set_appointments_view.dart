@@ -23,7 +23,7 @@ class _SetAppointmentsViewState extends State<SetAppointmentsView>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    GrouppackagemanagementCubit.get(context).initTabBarController(this);
+    GroupPackageManagementCubit.get(context).initTabBarController(this);
     super.initState();
   }
 

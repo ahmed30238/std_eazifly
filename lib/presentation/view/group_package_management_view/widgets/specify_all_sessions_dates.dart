@@ -15,10 +15,10 @@ class SpecifyAllSessionsDates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var lang = context.loc!;
-    return BlocBuilder<GrouppackagemanagementCubit,
-        GrouppackagemanagementState>(
+    return BlocBuilder<GroupPackageManagementCubit,
+        GroupPackageManagementState>(
       builder: (context, state) {
-        var cubit = context.read<GrouppackagemanagementCubit>();
+        var cubit = context.read<GroupPackageManagementCubit>();
         int numberOfSessions =
             cubit.getOrderDetailsEntity?.data?.numberOfSessions ?? 0;
         return Column(
@@ -89,9 +89,9 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                               ),
                               child: CustomTextFormField(
                                 controller: sessionIndex <
-                                        cubit.specifyAlldayController.length
+                                        cubit.specifyAllDayController.length
                                     ? cubit
-                                        .specifyAlldayController[sessionIndex]
+                                        .specifyAllDayController[sessionIndex]
                                     : null,
                                 enabled: false,
                                 hintText: "اختر",

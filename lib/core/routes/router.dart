@@ -432,7 +432,7 @@ class AppRouter {
           MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) => GrouppackagemanagementCubit(
+                create: (context) => GroupPackageManagementCubit(
                   requestToFindInstructorUsecase: sl(),
                   getChildrenUsecase: sl(),
                   addWeeklyAppointmentsUsecase: sl(),
@@ -440,6 +440,7 @@ class AppRouter {
                   getOrderDetailsUsecase: sl(),
                   getInstructorsUsecase: sl(),
                   getProgramContentUsecase: sl(),
+                  addUserSessionDateAndTimeUseCase: sl(),
                 ),
               ),
               BlocProvider(

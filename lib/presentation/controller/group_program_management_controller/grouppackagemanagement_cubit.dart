@@ -16,6 +16,8 @@ import 'package:eazifly_student/domain/entities/find_instructor/request_to_find_
 import 'package:eazifly_student/domain/entities/get_instructors_entity.dart';
 import 'package:eazifly_student/domain/entities/get_order_details_entity.dart';
 import 'package:eazifly_student/domain/entities/my_programs/content/get_program_content_entity.dart';
+import 'package:eazifly_student/domain/entities/user/add_user_session_date_and_time_entity.dart';
+import 'package:eazifly_student/domain/use_cases/add_user_session_date_and_time_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/add_weekly_appointments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/create_meeting_assignment_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/get_children_usecase.dart';
@@ -31,11 +33,14 @@ import 'package:eazifly_student/presentation/view/group_package_management_view/
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/specify_all_sessions_dates.dart';
 import 'package:eazifly_student/presentation/view/layout/home_page/home_page.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+import 'package:intl/intl.dart';
+
+import '../../../data/models/user/add_user_session_date_and_time_tojson.dart';
 
 part 'grouppackagemanagement_state.dart';
 
-class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
-  GrouppackagemanagementCubit({
+class GroupPackageManagementCubit extends Cubit<GroupPackageManagementState> {
+  GroupPackageManagementCubit({
     required this.getChildrenUsecase,
     required this.addWeeklyAppointmentsUsecase,
     required this.createMeetingSessionsUsecase,
@@ -43,7 +48,8 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     required this.getInstructorsUsecase,
     required this.getProgramContentUsecase,
     required this.requestToFindInstructorUsecase,
-  }) : super(GrouppackagemanagementInitial());
+    required this.addUserSessionDateAndTimeUseCase,
+  }) : super(GroupPackageManagementInitial());
 
   //! ui
   TabController? fixedDateController;
@@ -162,7 +168,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     return TimeOfDay(hour: time.hour, minute: roundedMinute);
   }
 
-  List<TextEditingController> specifyAlldayController = [];
+  List<TextEditingController> specifyAllDayController = [];
 
   int selectedLecturerIndex = 0;
 
@@ -230,13 +236,13 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     emit(ChangeTapBarIndexState());
   }
 
-  List<bool> chosenDays = [];
-  int limit = 3;
-
-  void changeChosenDays(int index) {
-    chosenDays[index] = !chosenDays[index];
-    emit(ChangeChosenDaysState());
-  }
+  // List<bool> chosenDays = [];
+  // int limit = 3;
+  //
+  // void changeChosenDays(int index) {
+  //   chosenDays[index] = !chosenDays[index];
+  //   emit(ChangeChosenDaysState());
+  // }
 
   List<Widget> subTabbarBody({
     required BuildContext context,
@@ -322,7 +328,6 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     );
   }
 
-  // دالة للحصول على الوقت بصيغة 24 ساعة لـ session معين
   String getTimeForServer(int sessionIndex) {
     if (sessionIndex < selectedTimesOfDay.length &&
         selectedTimesOfDay[sessionIndex] != null) {
@@ -336,7 +341,7 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     return '';
   }
 
-  static GrouppackagemanagementCubit get(context) => BlocProvider.of(context);
+  static GroupPackageManagementCubit get(context) => BlocProvider.of(context);
 
   int stepperIndex = 1;
 
@@ -374,44 +379,103 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     ];
   }
 
-  // DataModel? loginData;
   bool addMyself = false;
+  int? numberOfAllowed;
+  int? numberOfAlreadySubscribed;
+  int studentCounter = 0;
 
-  toggleMyself() {
+  bool checkCanAddToThisProgramValidation(BuildContext context) {
+    numberOfAlreadySubscribed =
+        getOrderDetailsEntity?.data?.numberOfSubscriptions ?? 0;
+    numberOfAllowed = getOrderDetailsEntity?.data?.orderStudentNumber ?? 0;
+
+    int totalStudents = numberOfAlreadySubscribed! + studentCounter;
+
+    log(
+      "allowed count is $numberOfAllowed already count is $numberOfAlreadySubscribed static counter is $studentCounter total will be $totalStudents",
+    );
+
+    if (totalStudents >= numberOfAllowed!) {
+      delightfulToast(
+        message:
+            "لقد وصلت الي الحد الاقصي لعدد الطلاب المسموح به في هذا البرنامج",
+        context: context,
+      );
+      return false;
+    }
+    return true;
+  }
+
+  void toggleMyself(BuildContext context) {
+    if (!addMyself) {
+      if (!checkCanAddToThisProgramValidation(context)) {
+        return;
+      }
+    }
+
+    log("$studentCounter");
     addMyself = !addMyself;
 
     if (addMyself && !addedUsersIds.contains(loginData?.id)) {
+      studentCounter++;
       addedUsersIds.add(loginData?.id ?? -1);
-    } else {
+    } else if (!addMyself && addedUsersIds.contains(loginData?.id)) {
+      studentCounter--;
       addedUsersIds.remove(loginData?.id ?? -1);
     }
     log("user id $addedUsersIds");
-    // if (addMyself) {
     emit(ToggleAddMySelfState());
   }
+
+  void changeChosen(int index, BuildContext context) {
+    if (index >= 0 && index < chosen.length) {
+      if (!chosen[index]) {
+        if (!checkCanAddToThisProgramValidation(context)) {
+          return;
+        }
+      }
+
+      chosen[index] = !chosen[index];
+
+      if (chosen[index]) {
+        studentCounter++;
+        if (!addedUsersIds.contains(
+          getMyChildrenEntity?.data?[index].id ?? -1,
+        )) {
+          addedUsersIds.add(getMyChildrenEntity?.data?[index].id ?? -1);
+        }
+      } else {
+        studentCounter--;
+        addedUsersIds.remove(getMyChildrenEntity?.data?[index].id ?? -1);
+      }
+
+      log("ids {$addedUsersIds}");
+      emit(ChangeChosenState());
+    }
+  }
+
+  List<bool> chosen = [];
 
   bool getMyChildrenLoader = false;
   GetMyChildrenEntity? getMyChildrenEntity;
   GetChildrenUsecase getChildrenUsecase;
 
-  List<bool> chosen = [];
-
   Future<void> getMyChildren() async {
     getMyChildrenLoader = true;
-    emit(GetMyChildernLoadingState());
+    emit(GetMyChildrenLoadingState());
     final result = await getChildrenUsecase.call(
       parameter: GetMyChildernParameters(childernsStatus: true),
     );
     result.fold(
       (l) {
         getMyChildrenLoader = false;
-        emit(GetMyChildernErrorState(errorMessage: l.message));
+        emit(GetMyChildrenErrorState(errorMessage: l.message));
       },
       (r) {
         getMyChildrenLoader = false;
         getMyChildrenEntity = r;
         initIsChosen();
-        emit(GetMyChildernSuccessState());
+        emit(GetMyChildrenSuccessState());
       },
     );
   }
@@ -423,16 +487,6 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   }
 
   List<int> addedUsersIds = [];
-
-  fillAddedUsersIds(int index) {
-    if (chosen[index] &&
-        !addedUsersIds.contains(getMyChildrenEntity?.data?[index].id ?? -1)) {
-      addedUsersIds.add(getMyChildrenEntity?.data?[index].id ?? -1);
-    } else {
-      addedUsersIds.remove(getMyChildrenEntity?.data?[index].id ?? -1);
-    }
-    log("ids {$addedUsersIds}");
-  }
 
   List<MyChildEntity>? addedChildren = [];
 
@@ -460,13 +514,6 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     log("$addedChildren");
   }
 
-  void changeChosen(int index) {
-    if (index >= 0 && index < chosen.length) {
-      chosen[index] = !chosen[index];
-      emit(ChangeChosenState());
-    }
-  }
-
   // Variables
   bool getMyOrdersLoader = false;
   bool addWeeklyAppointmentsLoader = false;
@@ -478,8 +525,6 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
   CreateMeetingSessionsUsecase createMeetingSessionsUsecase;
   AddWeeklyAppointmentsUsecase addWeeklyAppointmentsUsecase;
 
-  // Methods
-  // تعديل دالة getOrderDetails لتشمل التهيئة
   Future<void> getOrderDetails({required int orderId}) async {
     getMyOrdersLoader = true;
     emit(GetMyOrdersLoadingState());
@@ -505,11 +550,10 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
         int numberOfSessions =
             getOrderDetailsEntity?.data?.numberOfSessions ?? 0;
 
-        // مسح القوائم السابقة
         for (var controller in dayController) {
           controller.dispose();
         }
-        for (var controller in specifyAlldayController) {
+        for (var controller in specifyAllDayController) {
           controller.dispose();
         }
         for (var controller in hoursControllers) {
@@ -522,29 +566,25 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
           controller.dispose();
         }
 
-        // إنشاء قوائم جديدة
         dayController.clear();
-        specifyAlldayController.clear();
+        specifyAllDayController.clear();
         hoursControllers.clear();
         fromControllers.clear();
         toControllers.clear();
 
-        // إضافة controllers جديدة بناءً على العدد المطلوب
         for (int i = 0; i < numberOfSessionsPerWeek; i++) {
           dayController.add(TextEditingController());
           hoursControllers.add(TextEditingController());
         }
         for (int i = 0; i < numberOfSessions; i++) {
-          specifyAlldayController.add(TextEditingController());
+          specifyAllDayController.add(TextEditingController());
           fromControllers.add(TextEditingController());
           toControllers.add(TextEditingController());
         }
 
-        // تهيئة أوقات الـ sessions
         initializeSessionTimes(numberOfSessionsPerWeek);
-        initializeFromTimes(numberOfSessions); // تهيئة أوقات البداية
-        initializeToTimes(numberOfSessions); // تهيئة أوقات النهاية
-
+        initializeFromTimes(numberOfSessions);
+        initializeToTimes(numberOfSessions);
         emit(GetMyOrdersSuccessState());
       },
     );
@@ -656,8 +696,8 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
 
     for (int i = 0; i < numberOfSessions; i++) {
       // التحقق من وجود اليوم
-      if (i >= specifyAlldayController.length ||
-          specifyAlldayController[i].text.isEmpty) {
+      if (i >= specifyAllDayController.length ||
+          specifyAllDayController[i].text.isEmpty) {
         allSessionsComplete = false;
         break;
       }
@@ -690,8 +730,8 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     int sessionIndex,
     int programId,
   ) {
-    if (sessionIndex < specifyAlldayController.length) {
-      specifyAlldayController[sessionIndex].text = day;
+    if (sessionIndex < specifyAllDayController.length) {
+      specifyAllDayController[sessionIndex].text = day;
       emit(ChangeSpecifiedDayState());
 
       // فحص إذا كانت جميع الـ sessions مكتملة
@@ -765,14 +805,14 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     int numberOfSessions = getOrderDetailsEntity?.data?.numberOfSessions ?? 0;
 
     for (int i = 0; i < numberOfSessions; i++) {
-      if (i < specifyAlldayController.length &&
+      if (i < specifyAllDayController.length &&
           i < selectedFromTimes.length &&
           i < selectedToTimes.length &&
-          specifyAlldayController[i].text.isNotEmpty &&
+          specifyAllDayController[i].text.isNotEmpty &&
           selectedFromTimes[i] != null &&
           selectedToTimes[i] != null) {
         // الحصول على اليوم المختار
-        String selectedDay = specifyAlldayController[i].text;
+        String selectedDay = specifyAllDayController[i].text;
 
         // الحصول على التاريخ الحالي
         DateTime now = DateTime.now();
@@ -898,10 +938,8 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
         delightfulToast(message: failure.message, context: context);
         emit(CreateMeetingSessionsErrorState(failure.message));
       },
-      (data) {
+      (data) async {
         log("success");
-
-        // التحقق من صحة isDoneAdded قبل الوصول إليها
         if (isDoneAdded.length > selectedStudentIndex) {
           changeIsDoneAdded(selectedStudentIndex);
           log(
@@ -915,6 +953,27 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
 
         incrementSelectedStudentIndex(context);
         // clearData();
+        String dayToServer = "";
+        for (var day in dayController) {
+          dayToServer = WeekDaysEnum.values
+              .firstWhere((element) => element.title == day.text)
+              .requestValue;
+        }
+        log("day to server is $dayToServer");
+        final times = addWeeklyAppontmentsEntity?.data
+            ?.map(
+              (e) => Times(
+                day: dayToServer,
+                from: DateFormat("H:mm:ss").format(e.start!).toString(),
+                to: DateFormat("H:mm:ss").format(e.end!).toString(),
+              ),
+            )
+            .toList();
+        await addUserSessionDateAndTime(
+          instructorId: instructorId,
+          programId: programId,
+          times: times!,
+        );
         createMeetingSessionsLoader = false;
         emit(CreateMeetingSessionsSuccessState());
       },
@@ -1067,8 +1126,8 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     }
 
     // مسح specifyAlldayController إذا لم تكن فارغة
-    if (specifyAlldayController != null && specifyAlldayController.isNotEmpty) {
-      for (var controller in specifyAlldayController) {
+    if (specifyAllDayController != null && specifyAllDayController.isNotEmpty) {
+      for (var controller in specifyAllDayController) {
         if (controller.text.isNotEmpty) {
           controller.clear();
         }
@@ -1105,10 +1164,10 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
     }
     dayController.clear();
 
-    for (var controller in specifyAlldayController) {
+    for (var controller in specifyAllDayController) {
       controller.dispose();
     }
-    specifyAlldayController.clear();
+    specifyAllDayController.clear();
 
     // dispose hoursControllers
     for (var controller in hoursControllers) {
@@ -1213,6 +1272,39 @@ class GrouppackagemanagementCubit extends Cubit<GrouppackagemanagementState> {
         //     "programId": context.read<LectureCubit>().currentProgramId
         //   },
         // );
+      },
+    );
+  }
+
+  AddUserSessionDateAndTimeUseCase addUserSessionDateAndTimeUseCase;
+  AddUserSessionDateAndTimeEntity? addUserSessionDateAndTimeEntity;
+  bool addUserSessionDateAndTimeLoader = false;
+
+  Future<void> addUserSessionDateAndTime({
+    required int instructorId,
+    required int programId,
+    required List<Times> times,
+  }) async {
+    addUserSessionDateAndTimeLoader = false;
+    emit(AddUserSessionDateAndTimeLoadingState());
+    final result = await addUserSessionDateAndTimeUseCase.call(
+      parameter: AddUserSessionDateAndTimeParameters(
+        data: AddUserSessionDateAndTimeToJson(
+          instructorId: instructorId,
+          programId: programId,
+          times: times,
+        ),
+      ),
+    );
+
+    result.fold(
+      (l) {
+        addUserSessionDateAndTimeLoader = false;
+        emit(AddUserSessionDateAndTimeErrorState(errorMessage: l.message));
+      },
+      (r) {
+        addUserSessionDateAndTimeEntity = r;
+        emit(AddUserSessionDateAndTimeSuccessState());
       },
     );
   }

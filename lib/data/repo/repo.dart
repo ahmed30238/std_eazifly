@@ -80,6 +80,7 @@ import 'package:eazifly_student/data/models/subscription_management/renew_subscr
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/upgrade_order_model.dart';
+import 'package:eazifly_student/data/models/user/add_user_session_date_and_time_tojson.dart';
 import 'package:eazifly_student/data/models/user/copoun_history_model.dart';
 import 'package:eazifly_student/data/models/user/delete_account_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_model.dart';
@@ -117,6 +118,7 @@ import 'package:eazifly_student/domain/entities/sessions/change_session_date_ent
 import 'package:eazifly_student/domain/entities/sessions/get_cancel_session_reason_entity.dart';
 import 'package:eazifly_student/domain/entities/sessions/get_instructor_availabilities_entity.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/get_program_subscription_entity.dart';
+import 'package:eazifly_student/domain/entities/user/add_user_session_date_and_time_entity.dart';
 
 import '../models/auth/login_tojson.dart';
 
@@ -1277,6 +1279,19 @@ class Repository extends BaseRepository {
     required String key,
   }) async {
     final result = await baseRemoteDataSource.getGeideaData(key: key);
+    try {
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AddUserSessionDateAndTimeEntity>>
+  addUserSessionDateAndTime({
+    required AddUserSessionDateAndTimeToJson data,
+  }) async {
+    final result = await baseRemoteDataSource.addUserSessionDateAndTime(data: data);
     try {
       return Right(result);
     } on ServerException catch (e) {

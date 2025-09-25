@@ -13,9 +13,9 @@ class ScreenTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = GrouppackagemanagementCubit.get(context);
+    var cubit = GroupPackageManagementCubit.get(context);
 
-    return BlocBuilder<GrouppackagemanagementCubit, GrouppackagemanagementState>(
+    return BlocBuilder<GroupPackageManagementCubit, GroupPackageManagementState>(
       builder: (context, state) => CustomFilledTabBar(
         innerRadius: 12.r,
         margin: EdgeInsets.zero,

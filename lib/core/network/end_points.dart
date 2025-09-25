@@ -86,7 +86,8 @@ class EndPoints {
     required int duration,
     required int instructorId,
     required String expireDate,
-  }) => "session/availabilities/time/$instructorId?duration=$duration&expire_date=$expireDate";
+  }) =>
+      "session/availabilities/time/$instructorId?duration=$duration&expire_date=$expireDate";
 
   static String cancelSubscription({required int mainId}) =>
       "cancel/subscription/$mainId";
@@ -185,6 +186,7 @@ class EndPoints {
   }) =>
       "get/quizzes/questions?user_id=$userId&program_id=$programId&quiz_id=$quizId";
   static const submitQuiz = "submit/quiz";
+  static const addUserSessionDateAndTime = "sessions/time";
 
   static String getAssignmntDetails({
     required int userId,

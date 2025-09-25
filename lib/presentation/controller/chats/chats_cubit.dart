@@ -363,8 +363,7 @@ class ChatsCubit extends Cubit<ChatsState> {
       chatId: isClient ? chatId ?? "" : "",
     );
 
-    uiMessages.insert(
-      0,
+    uiMessages.add(
       MessageUIModel(
         message: GetMessagesDatumModel.fromJson(tempMessage.toJson()),
         isSending: true,
@@ -384,8 +383,11 @@ class ChatsCubit extends Cubit<ChatsState> {
     result.fold(
       (l) {
         // فشل في الإرسال
-        final failed = uiMessages[0].copyWith(isSending: false, isFailed: true);
-        uiMessages[0] = failed;
+        final failed = uiMessages.last.copyWith(
+          isSending: false,
+          isFailed: true,
+        );
+        uiMessages.last = failed;
         delightfulToast(message: l.message, context: context);
         emit(SendMessagesErrorState(errorMessage: l.message));
       },
@@ -395,9 +397,9 @@ class ChatsCubit extends Cubit<ChatsState> {
           final serverMessage = GetMessagesDatumModel.fromJson(
             r.data!.toJson(),
           );
-          uiMessages[0] = MessageUIModel(message: serverMessage);
+          uiMessages.last = MessageUIModel(message: serverMessage);
         } else {
-          uiMessages[0] = uiMessages[0].copyWith(isSending: false);
+          uiMessages.last = uiMessages.last.copyWith(isSending: false);
         }
         sendMessagesEntities = r;
         emit(SendMesssagesSuccesState());

@@ -3,6 +3,7 @@ import 'package:eazifly_student/data/repo/repo.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/use_cases/add_note_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/add_single_item_to_fav_usecase.dart';
+import 'package:eazifly_student/domain/use_cases/add_user_session_date_and_time_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/add_weekly_appointments_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/cancel_session_usecase.dart';
 import 'package:eazifly_student/domain/use_cases/cancel_subscription_usecase.dart';
@@ -280,6 +281,7 @@ class ServiceLocator {
       () => GetHomeAssignmentsUsecase(baseRepository: sl()),
     );
     sl.registerLazySingleton(() => GetHomeQuizzesUsecase(baseRepository: sl()));
+    sl.registerLazySingleton(() => AddUserSessionDateAndTimeUseCase(baseRepository: sl()));
     sl.registerLazySingleton(() => GetMyChatsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => UpdateFcmTokenUsecase(baseRepository: sl()));
     sl.registerLazySingleton(

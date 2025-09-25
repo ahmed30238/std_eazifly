@@ -5,9 +5,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 import 'package:intl/intl.dart'; // للتعامل مع التواريخ
 
 class ReportBody extends StatelessWidget {
-  const ReportBody({
-    super.key,
-  });
+  const ReportBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,5 +62,17 @@ String formatDateWithAmPm(String? dateString) {
   } catch (e) {
     // إذا فشل parsing التاريخ، أرجع النص كما هو
     return dateString;
+  }
+}
+
+String formatTimeWithAmPm(DateTime? date) {
+  if (date == null || date.toString().isEmpty) {
+    return "غير محدد";
+  }
+  try {
+    String formattedTime = DateFormat('hh:mm a').format(date);
+    return formattedTime;
+  } catch (e) {
+    return "$date";
   }
 }

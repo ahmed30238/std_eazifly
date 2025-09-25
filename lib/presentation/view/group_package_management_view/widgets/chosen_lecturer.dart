@@ -20,10 +20,10 @@ class ChosenLecturer extends StatefulWidget {
 
 class _ChosenLecturerState extends State<ChosenLecturer>
     with TickerProviderStateMixin {
-  late GrouppackagemanagementCubit cubit;
+  late GroupPackageManagementCubit cubit;
   @override
   void initState() {
-    cubit = context.read<GrouppackagemanagementCubit>();
+    cubit = context.read<GroupPackageManagementCubit>();
     super.initState();
     cubit.initTabBarController(this);
     cubit.initFixedDateTabBarController(this);

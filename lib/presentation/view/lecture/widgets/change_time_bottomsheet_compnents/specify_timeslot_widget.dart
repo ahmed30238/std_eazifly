@@ -70,15 +70,30 @@ class SpecifyTimeslotWidget extends StatelessWidget {
                           itemCount: times.length,
                           itemBuilder: (context, index) {
                             final time = times[index];
-                            final displayText =
-                                "${time.startTime} - ${time.endTime}";
-                            return ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: MainColors.primary,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
+                            int hour =
+                                int.tryParse(
+                                  time.startTime?.split(":").first ?? "",
+                                ) ??
+                                0;
+                            int minute =
+                                int.tryParse(
+                                  time.startTime?.split(":")[1] ?? "",
+                                ) ??
+                                0;
+
+                            final displayText = convertTo12HourFormat(
+                              hour,
+                              minute,
+                            );
+                            log("start time is ${time.startTime}");
+
+                            return CustomElevatedButton(
+                              text: displayText,
+                              radius: 12.r,
+                              borderColor: MainColors.primary,
+                              color: MainColors.background,
+                              textColor: MainColors.primary,
+
                               onPressed: () {
                                 final dayName = cubit.dayController.text;
                                 cubit.saveSelectedScheduleData(
@@ -87,14 +102,6 @@ class SpecifyTimeslotWidget extends StatelessWidget {
                                 );
                                 Navigator.pop(context, displayText);
                               },
-                              child: Text(
-                                displayText,
-                                style: MainTextStyle.boldTextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
                             );
                           },
                         ),

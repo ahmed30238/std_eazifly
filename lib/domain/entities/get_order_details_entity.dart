@@ -14,6 +14,8 @@ class GetOrderDetailsEntity {
   GetOrderDetailsEntity({this.data, this.status, this.message});
 }
 
+int? customInt(val) => int.tryParse(val?.toString() ?? "");
+
 class GetOrderDetailsDataEntity {
   @JsonKey(name: "subscripe_days")
   String? subscripeDays;
@@ -32,7 +34,10 @@ class GetOrderDetailsDataEntity {
 
   @JsonKey(name: "program_ids")
   List<String>? programIds;
-
+  @JsonKey(name: "order_student_number", fromJson: customInt)
+  int? orderStudentNumber;
+  @JsonKey(name: "number_of_subscriptions", fromJson: customInt)
+  int? numberOfSubscriptions;
 
   GetOrderDetailsDataEntity({
     this.subscripeDays,
@@ -41,5 +46,7 @@ class GetOrderDetailsDataEntity {
     this.startDate,
     this.numberOfSessions,
     this.programIds,
+    this.numberOfSubscriptions,
+    this.orderStudentNumber,
   });
 }

@@ -113,6 +113,8 @@ import 'package:eazifly_student/data/models/subscription_management/renew_subscr
 import 'package:eazifly_student/data/models/subscription_management/renew_subscription_tojson.dart';
 import 'package:eazifly_student/data/models/subscription_management/show_plan_model.dart';
 import 'package:eazifly_student/data/models/subscription_management/upgrade_order_model.dart';
+import 'package:eazifly_student/data/models/user/add_user_session_date_and_time_model.dart';
+import 'package:eazifly_student/data/models/user/add_user_session_date_and_time_tojson.dart';
 import 'package:eazifly_student/data/models/user/copoun_history_model.dart';
 import 'package:eazifly_student/data/models/user/delete_account_model.dart';
 import 'package:eazifly_student/data/models/user/update_profile_model.dart';
@@ -394,6 +396,10 @@ abstract class BaseRemoteDataSource {
   });
 
   Future<CopounHistoryModel> copounHistory();
+
+  Future<AddUserSessionDateAndTimeModel> addUserSessionDateAndTime({
+    required AddUserSessionDateAndTimeToJson data,
+  });
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -1321,7 +1327,7 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return SendMessagesModel.fromJson(response?.data);
-    }  else if (response?.statusCode == 422) {
+    } else if (response?.statusCode == 422) {
       throw ServerException(
         errorMessageModel: ErrorMessageModel(
           statusMessage: _extractErrorMessage(response?.data['message']),
@@ -1610,9 +1616,17 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return CreateMeetingSessionsModel.fromJson(response?.data);
+    } else if (response?.statusCode == 422) {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel(
+          statusMessage: _extractErrorMessage(response?.data['message']),
+        ),
+      );
     } else {
       throw ServerException(
-        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
+        errorMessageModel: ErrorMessageModel(
+          statusMessage: "حدث خطأ غير متوقع",
+        ),
       );
     }
   }
@@ -2242,6 +2256,24 @@ class RemoteDataSource extends BaseRemoteDataSource {
     if (response?.statusCode == 200) {
       log("${response?.data}");
       return GetGeideaDataModel.fromJson(response?.data);
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromjson(response?.data),
+      );
+    }
+  }
+
+  @override
+  Future<AddUserSessionDateAndTimeModel> addUserSessionDateAndTime({
+    required AddUserSessionDateAndTimeToJson data,
+  }) async {
+    var response = await NetworkCall().post(
+      path: EndPoints.addUserSessionDateAndTime,
+      data: FormData.fromMap(data.toJson()),
+    );
+    if (response?.statusCode == 200) {
+      log("${response?.data}");
+      return AddUserSessionDateAndTimeModel.fromJson(response?.data);
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromjson(response?.data),

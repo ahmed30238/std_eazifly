@@ -12,7 +12,7 @@ class RepeatedWeeklySession extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<GrouppackagemanagementCubit>();
+    var cubit = context.read<GroupPackageManagementCubit>();
     int numberOfSessionPerWeek =
         int.tryParse(
           cubit.getOrderDetailsEntity?.data?.numberOfSessionPerWeek ?? "0",
@@ -94,11 +94,11 @@ class RepeatedWeeklySession extends StatelessWidget {
                     ),
                     16.ph,
                     BlocBuilder<
-                      GrouppackagemanagementCubit,
-                      GrouppackagemanagementState
+                      GroupPackageManagementCubit,
+                      GroupPackageManagementState
                     >(
                       builder: (context, state) {
-                        final cubit = GrouppackagemanagementCubit.get(context);
+                        final cubit = GroupPackageManagementCubit.get(context);
 
                         return Row(
                           children: [

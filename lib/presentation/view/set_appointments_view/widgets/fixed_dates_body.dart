@@ -8,7 +8,7 @@ class FixedDatesBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<GrouppackagemanagementCubit>();
+    var cubit = context.read<GroupPackageManagementCubit>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

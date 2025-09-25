@@ -1,109 +1,123 @@
 part of 'grouppackagemanagement_cubit.dart';
 
-abstract class GrouppackagemanagementState {}
+abstract class GroupPackageManagementState {}
 
-class GrouppackagemanagementInitial extends GrouppackagemanagementState {}
+class GroupPackageManagementInitial extends GroupPackageManagementState {}
 
-class ChangeChosenState extends GrouppackagemanagementState {}
+class ChangeChosenState extends GroupPackageManagementState {}
 
-class ChangeStepperIndexState extends GrouppackagemanagementState {}
+class ChangeStepperIndexState extends GroupPackageManagementState {}
 
-class ToggleAddMySelfState extends GrouppackagemanagementState {}
+class ToggleAddMySelfState extends GroupPackageManagementState {}
 
-class GetMyChildernLoadingState extends GrouppackagemanagementState {}
+class GetMyChildrenLoadingState extends GroupPackageManagementState {}
 
-class GetMyChildernErrorState extends GrouppackagemanagementState {
+class GetMyChildrenErrorState extends GroupPackageManagementState {
   final String errorMessage;
 
-  GetMyChildernErrorState({required this.errorMessage});
+  GetMyChildrenErrorState({required this.errorMessage});
 }
 
-class GetMyChildernSuccessState extends GrouppackagemanagementState {}
+class GetMyChildrenSuccessState extends GroupPackageManagementState {}
 
 // GetMyOrders States
-class GetMyOrdersLoadingState extends GrouppackagemanagementState {}
+class GetMyOrdersLoadingState extends GroupPackageManagementState {}
 
-class GetMyOrdersSuccessState extends GrouppackagemanagementState {
+class GetMyOrdersSuccessState extends GroupPackageManagementState {
   GetMyOrdersSuccessState();
 }
 
-class GetMyOrdersErrorState extends GrouppackagemanagementState {
+class GetMyOrdersErrorState extends GroupPackageManagementState {
   final String message;
+
   GetMyOrdersErrorState(this.message);
 }
 
 // AddWeeklyAppointments States
-class AddWeeklyAppointmentsLoadingState extends GrouppackagemanagementState {}
+class AddWeeklyAppointmentsLoadingState extends GroupPackageManagementState {}
 
-class AddWeeklyAppointmentsSuccessState extends GrouppackagemanagementState {}
+class AddWeeklyAppointmentsSuccessState extends GroupPackageManagementState {}
 
-class AddWeeklyAppointmentsErrorState extends GrouppackagemanagementState {
+class AddWeeklyAppointmentsErrorState extends GroupPackageManagementState {
   final String message;
+
   AddWeeklyAppointmentsErrorState(this.message);
 }
 
 // CreateMeetingSessions States
-class CreateMeetingSessionsLoadingState extends GrouppackagemanagementState {}
+class CreateMeetingSessionsLoadingState extends GroupPackageManagementState {}
 
-class CreateMeetingSessionsSuccessState extends GrouppackagemanagementState {}
+class CreateMeetingSessionsSuccessState extends GroupPackageManagementState {}
 
-class CreateMeetingSessionsErrorState extends GrouppackagemanagementState {
+class CreateMeetingSessionsErrorState extends GroupPackageManagementState {
   final String message;
+
   CreateMeetingSessionsErrorState(this.message);
 }
 
 // GetInstructors States
-class GetInstructorsLoadingState extends GrouppackagemanagementState {}
+class GetInstructorsLoadingState extends GroupPackageManagementState {}
 
-class GetInstructorsSuccessState extends GrouppackagemanagementState {}
+class GetInstructorsSuccessState extends GroupPackageManagementState {}
 
-class GetInstructorsErrorState extends GrouppackagemanagementState {
+class GetInstructorsErrorState extends GroupPackageManagementState {
   final String message;
+
   GetInstructorsErrorState(this.message);
 }
 
-class SetappointmentsInitial extends GrouppackagemanagementState {}
+class SetappointmentsInitial extends GroupPackageManagementState {}
 
-class ChangeTapBarIndexState extends GrouppackagemanagementState {}
+class ChangeTapBarIndexState extends GroupPackageManagementState {}
 
-class InitTabBarControllerState extends GrouppackagemanagementState {}
+class InitTabBarControllerState extends GroupPackageManagementState {}
 
-class ChangeChosenDaysState extends GrouppackagemanagementState {}
+class ChangeChosenDaysState extends GroupPackageManagementState {}
 
-class ChangeLecturerIndexState extends GrouppackagemanagementState {}
+class ChangeLecturerIndexState extends GroupPackageManagementState {}
 
-class ChangeSpecifiedDayState extends GrouppackagemanagementState {}
+class ChangeSpecifiedDayState extends GroupPackageManagementState {}
 
-class InitFixedTabBarControllerState extends GrouppackagemanagementState {}
+class InitFixedTabBarControllerState extends GroupPackageManagementState {}
 
-class ChangeSelectedTimeState extends GrouppackagemanagementState {}
+class ChangeSelectedTimeState extends GroupPackageManagementState {}
 
-class IncrementSelectedStudentndex extends GrouppackagemanagementState {}
+class IncrementSelectedStudentndex extends GroupPackageManagementState {}
 
-class ChangeSelectedFromTimeState extends GrouppackagemanagementState {}
+class ChangeSelectedFromTimeState extends GroupPackageManagementState {}
 
-class ChangeSelectedToTimeState extends GrouppackagemanagementState {}
+class ChangeSelectedToTimeState extends GroupPackageManagementState {}
 
-class GetProgramContentLoadingState extends GrouppackagemanagementState {}
+class GetProgramContentLoadingState extends GroupPackageManagementState {}
 
-class GetProgramContentSuccessState extends GrouppackagemanagementState {}
+class GetProgramContentSuccessState extends GroupPackageManagementState {}
 
-class GetProgramContentErrorState extends GrouppackagemanagementState {
+class GetProgramContentErrorState extends GroupPackageManagementState {
   final String errorMessage;
 
-  GetProgramContentErrorState({
-    required this.errorMessage,
-  });
+  GetProgramContentErrorState({required this.errorMessage});
 }
 
-class FindInstructorSuccessState extends GrouppackagemanagementState {}
+class FindInstructorSuccessState extends GroupPackageManagementState {}
 
-class FindInstructorErrorState extends GrouppackagemanagementState {
+class FindInstructorErrorState extends GroupPackageManagementState {
   final String errorMessage;
 
   FindInstructorErrorState({required this.errorMessage});
 }
 
-class FindInstructorLoadingState extends GrouppackagemanagementState {}
+class FindInstructorLoadingState extends GroupPackageManagementState {}
 
-class ChangeIsDoneAddedState extends GrouppackagemanagementState {}
+class ChangeIsDoneAddedState extends GroupPackageManagementState {}
+
+class AddUserSessionDateAndTimeLoadingState
+    extends GroupPackageManagementState {}
+
+class AddUserSessionDateAndTimeSuccessState
+    extends GroupPackageManagementState {}
+
+class AddUserSessionDateAndTimeErrorState extends GroupPackageManagementState {
+  final String errorMessage;
+
+  AddUserSessionDateAndTimeErrorState({required this.errorMessage});
+}

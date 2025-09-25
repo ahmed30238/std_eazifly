@@ -11,7 +11,6 @@ onMyProgramTap({
   required int noOfChildren,
   required int programId,
 }) {
-  // bool isParent = loginData.parentId == null;
   String? sessionStatus = item.currentSession?.status;
 
   if (sessionStatus != null) {
@@ -27,10 +26,8 @@ onMyProgramTap({
       );
     }
   } else {
-    // لا توجد جلسة حالية
     _handleNoCurrentSession(
       context: context,
-      // isParent: isParent,
       noOfChildren: noOfChildren,
       cubit: cubit,
       programId: programId,
@@ -38,69 +35,42 @@ onMyProgramTap({
   }
 }
 
-// دالة للانتقال لتفاصيل المحاضرة الجارية
-void _navigateToLectureDetails(
-  BuildContext context,
-  // MyProgramsCubit cubit,
-  MyProgramEntity item,
-) {
-  Navigator.pushNamed(
-    context,
-    RoutePaths.navigateToLectureView,
-    arguments: {
-      // "cubit": context.read<MyProgramsCubit>(),
-      "sessionId": item.currentSession?.id ?? -1,
-    },
-  );
-}
-
-// دالة للتعامل مع المحاضرة التي لم تبدأ
 void _handleNotStartedLecture({
   required BuildContext context,
-  // required bool isParent,
   required int noOfChildren,
   required MyProgramsCubit cubit,
   required int programId,
 }) {
   if (noOfChildren > 0) {
-    // إذا كان المستخدم أب - عرض bottom sheet للأطفال
-    _showChildrenBottomSheet(
-      context,
-      noOfChildren,
-      programId,
-      cubit,
-    );
+    _showChildrenBottomSheet(context, noOfChildren, programId, cubit);
   } else {
-    // إذا لم يكن أب - انتقال لتفاصيل البرنامج
-    _navigateToProgramDetails(context, programId: programId);
+    delightfulToast(
+      message: "لم تقم بالاشتراك لاي من الطلاب في هذا البرنامج",
+      context: context,
+    );
+    // _navigateToProgramDetails(context, programId: programId);
   }
 }
 
 // دالة للتعامل مع عدم وجود جلسة حالية
 void _handleNoCurrentSession({
   required BuildContext context,
-  // required bool isParent,
   required int noOfChildren,
   required MyProgramsCubit cubit,
   required int programId,
 }) {
   if (noOfChildren > 0) {
-    // إذا كان المستخدم أب - عرض bottom sheet للأطفال فقط
-    // if () {
-    _showChildrenBottomSheet(
-      context,
-      noOfChildren,
-      programId,
-      cubit,
-    );
-    // }
+    _showChildrenBottomSheet(context, noOfChildren, programId, cubit);
   } else {
-    // إذا لم يكن أب - انتقال لتفاصيل البرنامج
-    _navigateToProgramDetails(context, programId: programId);
+    delightfulToast(
+      message: "لم تقم بالاشتراك لاي من الطلاب في هذا البرنامج",
+      context: context,
+    );
+
+    // _navigateToProgramDetails(context, programId: programId);
   }
 }
 
-// دالة لعرض bottom sheet للأطفال
 void _showChildrenBottomSheet(
   BuildContext context,
   int noOfChildren,
@@ -121,10 +91,18 @@ void _showChildrenBottomSheet(
 }
 
 // دالة للانتقال لتفاصيل البرنامج
-void _navigateToProgramDetails(BuildContext context, {required int programId}) {
+// void _navigateToProgramDetails(BuildContext context, {required int programId}) {
+//   Navigator.pushNamed(
+//     context,
+//     RoutePaths.lectureView,
+//     arguments: {"programId": programId},
+//   );
+// }
+
+void _navigateToLectureDetails(BuildContext context, MyProgramEntity item) {
   Navigator.pushNamed(
     context,
-    RoutePaths.lectureView,
-    arguments: {"programId": programId},
+    RoutePaths.navigateToLectureView,
+    arguments: {"sessionId": item.currentSession?.id ?? -1},
   );
 }

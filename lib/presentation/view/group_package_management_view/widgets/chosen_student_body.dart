@@ -6,6 +6,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class ChosenStudentBody extends StatefulWidget {
   final int programId;
+
   const ChosenStudentBody({super.key, required this.programId});
 
   @override
@@ -13,26 +14,24 @@ class ChosenStudentBody extends StatefulWidget {
 }
 
 class _ChosenStudentBodyState extends State<ChosenStudentBody> {
-  late GrouppackagemanagementCubit cubit;
+  late GroupPackageManagementCubit cubit;
 
   @override
   void initState() {
-    cubit = GrouppackagemanagementCubit.get(context);
-    AddNewStudentDataToProgramCubit addNewStudentDataToProgramCubit =
-        context.read<AddNewStudentDataToProgramCubit>();
+    cubit = GroupPackageManagementCubit.get(context);
+    AddNewStudentDataToProgramCubit addNewStudentDataToProgramCubit = context
+        .read<AddNewStudentDataToProgramCubit>();
     addNewStudentDataToProgramCubit.fillIsAssignToProgram(true);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var cubit = GrouppackagemanagementCubit.get(context);
+    var cubit = GroupPackageManagementCubit.get(context);
     var lang = context.loc!;
     return Column(
       children: [
-        AddNewStudentArea(
-          orderId: cubit.orderId.toString(),
-        ),
+        AddNewStudentArea(orderId: cubit.orderId.toString()),
         16.ph,
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -49,22 +48,20 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
                     ),
                     value: cubit.addMyself,
                     onChanged: (value) {
-                      cubit.toggleMyself();
+                      cubit.toggleMyself(context);
                     },
                   );
                 },
               ),
               Text(
                 "إضافة نفسي في البرنامج",
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 14,
-                ),
+                style: MainTextStyle.boldTextStyle(fontSize: 14),
               ),
             ],
           ),
         ),
         16.ph,
-        BlocBuilder<GrouppackagemanagementCubit, GrouppackagemanagementState>(
+        BlocBuilder<GroupPackageManagementCubit, GroupPackageManagementState>(
           builder: (context, state) {
             if (cubit.getMyChildrenLoader) {
               return const Center(child: CircularProgressIndicator());
@@ -98,8 +95,8 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
                           ),
                           value: chosen.length > index ? chosen[index] : false,
                           onChanged: (value) {
-                            cubit.changeChosen(index);
-                            cubit.fillAddedUsersIds(index);
+                            cubit.changeChosen(index, context);
+                            // cubit.fillAddedUsersIds(index, context);
                           },
                         ),
                         Expanded(
@@ -120,7 +117,7 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
                   separatorBuilder: (context, index) => 10.ph,
                 ),
               );
-            } else if (state is GetMyChildernErrorState) {
+            } else if (state is GetMyChildrenErrorState) {
               return const Center(
                 child: Text(
                   "حدث خطأ أثناء تحميل البيانات",
@@ -135,33 +132,35 @@ class _ChosenStudentBodyState extends State<ChosenStudentBody> {
         BlocBuilder(
           bloc: cubit,
           builder: (context, state) => CustomElevatedButton(
-              text: lang.next,
-              color: MainColors.primary,
-              height: 48.h,
-              width: 343.w,
-              radius: 16.r,
-              onPressed:
-                  // cubit.stepperIndex == 1
-                  //     ?
-                  () {
-                if (cubit.addedUsersIds.isEmpty) {
-                  delightfulToast(
-                      message: "يرجي اختيار احد الطلاب", context: context);
-                  return;
-                } else {
-                  cubit.incrementStepperIndex(context, widget.programId);
-                  cubit.fillAddedChildrenData();
-                }
-              }
-              // : () {
-              //     if (cubit.getInstructorsEntity?.data != null &&
-              //         cubit.getInstructorsEntity!.data!.isNotEmpty) {
-              //       cubit.createMeetingSessions();
-              //     } else {
-              //       delightfulToast(message: "غير متوفر", context: context);
-              //     }
-              //   },
-              ),
+            text: lang.next,
+            color: MainColors.primary,
+            height: 48.h,
+            width: 343.w,
+            radius: 16.r,
+            onPressed:
+                // cubit.stepperIndex == 1
+                //     ?
+                () {
+                  if (cubit.addedUsersIds.isEmpty) {
+                    delightfulToast(
+                      message: "يرجي اختيار احد الطلاب",
+                      context: context,
+                    );
+                    return;
+                  } else {
+                    cubit.incrementStepperIndex(context, widget.programId);
+                    cubit.fillAddedChildrenData();
+                  }
+                },
+            // : () {
+            //     if (cubit.getInstructorsEntity?.data != null &&
+            //         cubit.getInstructorsEntity!.data!.isNotEmpty) {
+            //       cubit.createMeetingSessions();
+            //     } else {
+            //       delightfulToast(message: "غير متوفر", context: context);
+            //     }
+            //   },
+          ),
         ),
         16.ph,
       ],

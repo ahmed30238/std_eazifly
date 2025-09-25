@@ -35,6 +35,7 @@ class CustomFilledTabBar extends StatelessWidget {
         controller: controller,
         onTap: onTap,
         dividerColor: Colors.transparent,
+
         unselectedLabelStyle: const TextStyle(color: Colors.black),
         labelColor: Colors.white,
         isScrollable: false,

@@ -12,7 +12,7 @@ class ScreenTabbarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = GrouppackagemanagementCubit.get(context);
+    var cubit = GroupPackageManagementCubit.get(context);
 
     return BlocBuilder(
       bloc: cubit,

@@ -20,13 +20,13 @@ class GroupPackageManagementView extends StatefulWidget {
 
 class _GroupPackageManagementViewState
     extends State<GroupPackageManagementView> {
-  late GrouppackagemanagementCubit cubit;
+  late GroupPackageManagementCubit cubit;
 
   @override
   void initState() {
     log("order id is ${widget.orderId}");
     log("order pid is ${widget.programId}");
-    cubit = context.read<GrouppackagemanagementCubit>();
+    cubit = context.read<GroupPackageManagementCubit>();
     super.initState();
     cubit.fillOrderId(int.tryParse(widget.orderId) ?? -1);
     cubit.getOrderDetails(orderId: int.tryParse(widget.orderId) ?? -1);
