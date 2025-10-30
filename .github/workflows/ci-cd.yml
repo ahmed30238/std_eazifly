@@ -31,7 +31,7 @@ jobs:
         uses: shorebirdtech/setup-shorebird@v1
 
       - name: Create Shorebird Patch
-        run: shorebird patch android
+        run: shorebird patch android --no-confirm
         env:
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
 
