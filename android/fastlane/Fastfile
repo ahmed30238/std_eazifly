@@ -1,0 +1,8 @@
+default_platform(:android)
+
+platform :android do
+  lane :build do
+    gradle(task: "bundle", build_type: "Release")
+    puts "تم إنشاء الـ AAB بنجاح!"
+  end
+end

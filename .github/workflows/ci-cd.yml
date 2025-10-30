@@ -1,36 +1,39 @@
-name: Build My Apps
+name: رفع تلقائي
 
 on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'
 
 jobs:
-  build:
-    name: Build and Release new apk
+  # تحديث بسيط (Shorebird)
+  patch:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-
       - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          flutter-version: 3.32.8
-
-      - run: flutter --version
-      - run: flutter clean
       - run: flutter pub get
-      - run: flutter build apk --release --split-per-abi
-
-      - name: Push to Releases
-        uses: ncipollo/release-action@v1
+      - uses: shorebirdtech/shorebird-patch@v0
         with:
-          artifacts: "build/app/outputs/apk/release/*"
-          tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.TOKEN }}
+          platform: android
+        env:
+          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
+
+  # تحديث كبير (Google Play)
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+      - run: flutter pub get
+      - run: flutter build appbundle --release
+      - uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: ${{ secrets.GOOGLE_PLAY_JSON_KEY }}
+          packageName: com.hodaelnas.hodaelnas
+          releaseFiles: build/app/outputs/bundle/release/app-release.aab
+          track: internal
