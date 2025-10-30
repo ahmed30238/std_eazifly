@@ -10,9 +10,9 @@ class CustomRichText extends StatelessWidget {
   final String? spaceText;
   final TextStyle? spaceStyle;
   final TextStyle? text2Style;
-  final VoidCallback? onText1Tap;  // وظيفة النقر للنص الأول
-  final VoidCallback? onText2Tap;  // وظيفة النقر للنص الثاني
-  
+  final VoidCallback? onText1Tap; // وظيفة النقر للنص الأول
+  final VoidCallback? onText2Tap; // وظيفة النقر للنص الثاني
+
   const CustomRichText({
     super.key,
     this.text1,
@@ -32,27 +32,26 @@ class CustomRichText extends StatelessWidget {
         children: [
           TextSpan(
             text: text1 ?? "الملاحظات:",
-            style: text1Style ??
+            style:
+                text1Style ??
                 MainTextStyle.mediumTextStyle(
                   fontSize: 12,
                   color: MainColors.onSurfaceSecondary,
                 ),
-            recognizer: onText1Tap != null 
+            recognizer: onText1Tap != null
                 ? (TapGestureRecognizer()..onTap = onText1Tap)
                 : null,
           ),
-          TextSpan(
-            text: spaceText,
-            style: spaceStyle,
-          ),
+          TextSpan(text: spaceText, style: spaceStyle),
           TextSpan(
             text: text2 ?? " اجابات جيدة ولكن هناك بعض الاخطاء في السؤال 3",
-            style: text2Style ??
+            style:
+                text2Style ??
                 MainTextStyle.mediumTextStyle(
                   fontSize: 11,
                   color: MainColors.onSecondary,
                 ),
-            recognizer: onText2Tap != null 
+            recognizer: onText2Tap != null
                 ? (TapGestureRecognizer()..onTap = onText2Tap)
                 : null,
           ),

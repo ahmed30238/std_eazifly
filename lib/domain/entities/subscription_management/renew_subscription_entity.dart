@@ -13,11 +13,7 @@ class RenewSubscriptionEntity {
   @JsonKey(name: "message")
   String? message;
 
-  RenewSubscriptionEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  RenewSubscriptionEntity({this.data, this.status, this.message});
 }
 
 class RenewSubscriptionDataEntity {
@@ -133,10 +129,7 @@ class RenewSubscriptionStatusEntity {
   @JsonKey(name: "color")
   String? color;
 
-  RenewSubscriptionStatusEntity({
-    this.label,
-    this.color,
-  });
+  RenewSubscriptionStatusEntity({this.label, this.color});
 }
 
 class RenewSubscriptionUserEntity {
@@ -149,9 +142,5 @@ class RenewSubscriptionUserEntity {
   @JsonKey(name: "image")
   String? image;
 
-  RenewSubscriptionUserEntity({
-    this.id,
-    this.name,
-    this.image,
-  });
+  RenewSubscriptionUserEntity({this.id, this.name, this.image});
 }

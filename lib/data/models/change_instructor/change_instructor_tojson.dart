@@ -37,7 +37,6 @@ class ChangeInstructorTojson {
    */
 
   Map<String, dynamic> toJson() {
-
     return {
       'reason_to_change_instructor_ids': reasonToChangeInstructorIds,
       'instructor_id': instructorId,
@@ -45,15 +44,19 @@ class ChangeInstructorTojson {
       'old_instructor_id': oldInstructorId,
       'user_id': userId,
       'sessions': sessions
-          .map((session) => {
-                "start": session.start != null
-                    ? formatter.format(session.start!)
-                    : null,
-                "end":
-                    session.end != null ? formatter.format(session.end!) : null,
-              })
+          .map(
+            (session) => {
+              "start": session.start != null
+                  ? formatter.format(session.start!)
+                  : null,
+              "end": session.end != null
+                  ? formatter.format(session.end!)
+                  : null,
+            },
+          )
           .toList(),
     };
   }
 }
-    final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
+
+final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss');

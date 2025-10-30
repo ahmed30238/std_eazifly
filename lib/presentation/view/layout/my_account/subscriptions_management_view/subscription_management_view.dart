@@ -29,8 +29,9 @@ class _SubscriptionManagementViewState extends State<SubscriptionManagementView>
 
   @override
   void didChangeDependencies() {
-    SubscriptionmanagementCubit.get(context)
-        .initTabBarController(this, context);
+    SubscriptionmanagementCubit.get(
+      context,
+    ).initTabBarController(this, context);
     super.didChangeDependencies();
   }
 
@@ -52,25 +53,23 @@ class _SubscriptionManagementViewState extends State<SubscriptionManagementView>
             bloc: cubit,
             builder: (context, state) {
               return CustomFilledTabBar(
-                  controller: cubit.controller,
-                  onTap: (value) {
-                    cubit.controller.animateTo(value);
-                    cubit.changeTapbarIndex(value);
-                  },
-                  tabs: List.generate(
-                    cubit.tabs(context).length,
-                    (index) {
-                      return Text(
-                        cubit.tabs(context)[index],
-                        style: MainTextStyle.boldTextStyle(
-                          fontSize: 15,
-                          color: cubit.controller.index == index
-                              ? MainColors.background
-                              : MainColors.onSecondary,
-                        ),
-                      );
-                    },
-                  ));
+                controller: cubit.controller,
+                onTap: (value) {
+                  cubit.controller.animateTo(value);
+                  cubit.changeTapbarIndex(value);
+                },
+                tabs: List.generate(cubit.tabs(context).length, (index) {
+                  return Text(
+                    cubit.tabs(context)[index],
+                    style: MainTextStyle.boldTextStyle(
+                      fontSize: 15,
+                      color: cubit.controller.index == index
+                          ? MainColors.background
+                          : MainColors.onSecondary,
+                    ),
+                  );
+                }),
+              );
             },
           ),
           16.ph,
@@ -83,7 +82,8 @@ class _SubscriptionManagementViewState extends State<SubscriptionManagementView>
                   child: Column(
                     children: [
                       Text(
-                          "${lang.programSubscriptionLoadError}: ${state.errorMessage}"),
+                        "${lang.programSubscriptionLoadError}: ${state.errorMessage}",
+                      ),
                       ElevatedButton(
                         onPressed: () =>
                             cubit.changeTapbarIndex(cubit.tapbarIndex),
@@ -99,7 +99,8 @@ class _SubscriptionManagementViewState extends State<SubscriptionManagementView>
                   child: Column(
                     children: [
                       Text(
-                          "${lang.librarySubscriptionLoadError}: ${state.errorMessage}"),
+                        "${lang.librarySubscriptionLoadError}: ${state.errorMessage}",
+                      ),
                       ElevatedButton(
                         onPressed: () =>
                             cubit.changeTapbarIndex(cubit.tapbarIndex),

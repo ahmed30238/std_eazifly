@@ -27,9 +27,7 @@ class _GeneralCompletePaymentProcessViewState
   void initState() {
     cubit = context.read<PaymentCubit>();
     subscriptionmanagementCubit = context.read<SubscriptionmanagementCubit>();
-    cubit.getProgramPaymentMethod(
-      programId: widget.itemId,
-    );
+    cubit.getProgramPaymentMethod(programId: widget.itemId);
     super.initState();
   }
 
@@ -47,9 +45,7 @@ class _GeneralCompletePaymentProcessViewState
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           16.ph,
-          SvgPicture.asset(
-            Assets.iconsCompletePaymentProcess,
-          ),
+          SvgPicture.asset(Assets.iconsCompletePaymentProcess),
           24.ph,
           Text(
             "أختر عملية الدفع الأسهل بالنسبك اليك",
@@ -77,7 +73,8 @@ class _GeneralCompletePaymentProcessViewState
 
               if (paymentMethodsList == null || paymentMethodsList.isEmpty) {
                 return const Center(
-                    child: Text('No payment methods available'));
+                  child: Text('No payment methods available'),
+                );
               }
 
               return Expanded(
@@ -96,7 +93,7 @@ class _GeneralCompletePaymentProcessViewState
                               : RoutePaths.generalConfirmPaymentView,
                           arguments: {
                             "cubit": subscriptionmanagementCubit,
-                            "methodId": method.id ?? 0
+                            "methodId": method.id ?? 0,
                           },
                         );
                       },
@@ -107,7 +104,7 @@ class _GeneralCompletePaymentProcessViewState
                 ),
               );
             },
-          )
+          ),
         ],
       ),
     );
@@ -132,11 +129,7 @@ class PaymentMethodContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget? iconWidget;
     if (icon != null && icon!.isNotEmpty) {
-      iconWidget = AvatarImage(
-        height: 32.h,
-        width: 32.w,
-        imageUrl: icon,
-      );
+      iconWidget = AvatarImage(height: 32.h, width: 32.w, imageUrl: icon);
     }
 
     return InkWell(
@@ -159,10 +152,7 @@ class PaymentMethodContainer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: MainTextStyle.boldTextStyle(fontSize: 15),
-                  ),
+                  Text(title, style: MainTextStyle.boldTextStyle(fontSize: 15)),
                   4.ph,
                   Text(
                     description,

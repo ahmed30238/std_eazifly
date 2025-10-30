@@ -42,11 +42,7 @@ class PersonaListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      trailing: trailingWidget ??
-          Icon(
-            trailingIcon,
-            size: trailingIconSize,
-          ),
+      trailing: trailingWidget ?? Icon(trailingIcon, size: trailingIconSize),
       leading: AvatarImage(
         width: imageContainerWidth ?? 40.w,
         height: imageContainerHeight ?? 40.h,
@@ -79,10 +75,12 @@ class PersonaListTile extends StatelessWidget {
       ),
       horizontalTitleGap: 8.w,
       contentPadding: EdgeInsets.symmetric(vertical: verticalPadding ?? 12.h),
-      subtitle: subTitle ??
+      subtitle:
+          subTitle ??
           Text(
             subTitleText ?? "",
-            style: subTitleTextStyle ??
+            style:
+                subTitleTextStyle ??
                 MainTextStyle.boldTextStyle(
                   fontSize: subTitleFontSize ?? 14,
                   color: MainColors.onSurfaceSecondary,

@@ -39,16 +39,16 @@ class ProgramItem extends StatelessWidget {
             ),
             4.ph,
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Html(data: programEntity.description ?? "",),
-                // Text(
-                //   stripHtmlTags(programEntity.description ?? ""),
-                //   style: MainTextStyle.mediumTextStyle(
-                //     fontSize: 12,
-                //     color: MainColors.grayTextColors,
-                //   ),
-                // ),
-                ),
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Html(data: programEntity.description ?? ""),
+              // Text(
+              //   stripHtmlTags(programEntity.description ?? ""),
+              //   style: MainTextStyle.mediumTextStyle(
+              //     fontSize: 12,
+              //     color: MainColors.grayTextColors,
+              //   ),
+              // ),
+            ),
             12.ph,
             // const CustomHorizontalDivider(),
             // SizedBox(

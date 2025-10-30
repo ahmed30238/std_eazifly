@@ -35,8 +35,9 @@ class AccountdataCubit extends Cubit<AccountdataState> {
 
       // تحديد الجنس من البيانات المحفوظة
       if (loginData?.gender != null) {
-        gender =
-            loginData?.gender == 'male' ? GenderEnum.male : GenderEnum.female;
+        gender = loginData?.gender == 'male'
+            ? GenderEnum.male
+            : GenderEnum.female;
       }
     }
   }
@@ -125,12 +126,12 @@ class AccountdataCubit extends Cubit<AccountdataState> {
     }
   }
 
-// Variables
+  // Variables
   bool logoutLoader = false;
   LogoutUsecase logoutUsecase;
   LogoutEntity? logoutEntity;
 
-// Method
+  // Method
   Future<void> logout(BuildContext context) async {
     logoutLoader = true;
     emit(LogoutLoadingState());
@@ -146,31 +147,30 @@ class AccountdataCubit extends Cubit<AccountdataState> {
         logoutLoader = false;
         logoutEntity = data;
         emit(LogoutSuccessState());
-        await TokenUtil.clearToken().then(
-          (value) {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              RoutePaths.loginPath,
-              (route) => false,
-            );
-          },
-        );
+        await TokenUtil.clearToken().then((value) {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            RoutePaths.loginPath,
+            (route) => false,
+          );
+        });
       },
     );
   }
 
-// Variables
+  // Variables
   bool deleteAccountLoader = false;
   DeleteAccountUsecase deleteAccountUsecase;
   DeleteAccountEntity? deleteAccountEntity;
 
-// Method
+  // Method
   Future<void> deleteAccount(BuildContext context) async {
     deleteAccountLoader = true;
     emit(DeleteAccountLoadingState());
 
     final result = await deleteAccountUsecase.call(
-        parameter: DeleteAccountParameters(userId: loginData?.id ?? -1));
+      parameter: DeleteAccountParameters(userId: loginData?.id ?? -1),
+    );
 
     result.fold(
       (failure) {
@@ -181,15 +181,13 @@ class AccountdataCubit extends Cubit<AccountdataState> {
         deleteAccountLoader = false;
         deleteAccountEntity = data;
         emit(DeleteAccountSuccessState());
-        await TokenUtil.clearToken().then(
-          (value) {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              RoutePaths.loginPath,
-              (route) => false,
-            );
-          },
-        );
+        await TokenUtil.clearToken().then((value) {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            RoutePaths.loginPath,
+            (route) => false,
+          );
+        });
       },
     );
   }

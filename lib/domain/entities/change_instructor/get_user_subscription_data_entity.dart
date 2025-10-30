@@ -9,11 +9,7 @@ class GetUserSubscriptionDataEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetUserSubscriptionDataEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetUserSubscriptionDataEntity({this.data, this.status, this.message});
 }
 
 class GetUserSubscriptionDataDataEntity {

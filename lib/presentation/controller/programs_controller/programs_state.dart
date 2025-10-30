@@ -11,5 +11,3 @@ class GetProgramsErrorState extends ProgramsState {
 
   GetProgramsErrorState({required this.errorMessage});
 }
-
-

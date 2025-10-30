@@ -1,8 +1,8 @@
 // إضافة enum لحالة الرسالة
 enum MessageStatus {
-  sending,    // جاري الإرسال
-  sent,       // تم الإرسال بنجاح
-  failed,     // فشل الإرسال
+  sending, // جاري الإرسال
+  sent, // تم الإرسال بنجاح
+  failed, // فشل الإرسال
 }
 
 // تحديث OrderNote class ليشمل المؤشر
@@ -15,7 +15,7 @@ class OrderNote {
   final DateTime? createdAt;
   final Maker? maker;
   final MessageStatus status; // إضافة المؤشر الجديد
-  
+
   OrderNote({
     this.id,
     this.title,
@@ -26,7 +26,7 @@ class OrderNote {
     this.maker,
     this.status = MessageStatus.sent, // القيمة الافتراضية
   });
-  
+
   // إضافة copyWith method للتحديث
   OrderNote copyWith({
     int? id,
@@ -50,6 +50,7 @@ class OrderNote {
     );
   }
 }
+
 class Maker {
   final int id;
   final String name;

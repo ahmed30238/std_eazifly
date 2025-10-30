@@ -3,9 +3,7 @@ import 'package:eazifly_student/presentation/view/layout/home_page/widgets/audio
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class PlayingProgramContainer extends StatelessWidget {
-  const PlayingProgramContainer({
-    super.key,
-  });
+  const PlayingProgramContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,34 +27,21 @@ class PlayingProgramContainer extends StatelessWidget {
             12.ph,
             Row(
               children: [
-                AvatarImage(
-                  height: 40.h,
-                  width: 40.w,
-                  radius: 8.r,
-                ),
+                AvatarImage(height: 40.h, width: 40.w, radius: 8.r),
                 8.pw,
                 Text(
                   "مجموعة قصص مختارة",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 14,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 const Spacer(),
-                SvgPicture.asset(
-                  Assets.iconsPause,
-                ),
+                SvgPicture.asset(Assets.iconsPause),
                 8.pw,
               ],
             ),
             12.ph,
             Row(
               children: [
-                Text(
-                  "4:40",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 12,
-                  ),
-                ),
+                Text("4:40", style: MainTextStyle.boldTextStyle(fontSize: 12)),
                 8.pw,
                 Expanded(
                   child: CustomLinearPercentIndicator(
@@ -66,12 +51,7 @@ class PlayingProgramContainer extends StatelessWidget {
                   ),
                 ),
                 8.pw,
-                Text(
-                  "-1:40",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 12,
-                  ),
-                ),
+                Text("-1:40", style: MainTextStyle.boldTextStyle(fontSize: 12)),
               ],
             ),
           ],

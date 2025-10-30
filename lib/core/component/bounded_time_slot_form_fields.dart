@@ -10,10 +10,7 @@ class BoundedTimeSlotFormFields extends StatelessWidget {
       mainAxisAlignment: alignment ?? MainAxisAlignment.center,
       children: [
         Expanded(
-          child: Text(
-            "من",
-            style: MainTextStyle.boldTextStyle(fontSize: 12),
-          ),
+          child: Text("من", style: MainTextStyle.boldTextStyle(fontSize: 12)),
         ),
         16.pw,
         const Expanded(
@@ -25,10 +22,7 @@ class BoundedTimeSlotFormFields extends StatelessWidget {
         ),
         15.5.pw,
         Expanded(
-          child: Text(
-            "الي",
-            style: MainTextStyle.boldTextStyle(fontSize: 12),
-          ),
+          child: Text("الي", style: MainTextStyle.boldTextStyle(fontSize: 12)),
         ),
         16.pw,
         const Expanded(

@@ -7,7 +7,7 @@ class AddSingleItemToFavListTojson {
     required this.libraryItemId,
   });
   Map<String, dynamic> toJson() => {
-        "favorite_list_id": favouriteListId,
-        "library_item_id": libraryItemId,
-      };
+    "favorite_list_id": favouriteListId,
+    "library_item_id": libraryItemId,
+  };
 }

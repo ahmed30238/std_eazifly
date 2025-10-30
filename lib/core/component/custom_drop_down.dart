@@ -52,7 +52,6 @@ class CustomizedDropdownWidget<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<T>(
-      
       isDense: true,
       // isExpanded: true,
       hint: Align(alignment: Alignment.center, child: Text(hintText)),
@@ -65,11 +64,7 @@ class CustomizedDropdownWidget<T> extends StatelessWidget {
       elevation: 3,
       initialValue: initialValue,
       onChanged: onChanged,
-      icon: Icon(
-        Icons.keyboard_arrow_down,
-        color: Colors.grey,
-        size: 24.r,
-      ),
+      icon: Icon(Icons.keyboard_arrow_down, color: Colors.grey, size: 24.r),
       items: items,
       validator: validator,
       decoration: InputDecoration(
@@ -88,63 +83,38 @@ class CustomizedDropdownWidget<T> extends StatelessWidget {
           fontSize: 12,
           color: MainColors.onSurfaceVariant,
         ),
-        suffixIconConstraints: BoxConstraints(
-          minHeight: 2.h,
-          minWidth: 2.w,
-        ),
-        prefixIconConstraints: BoxConstraints(
-          minHeight: 2.h,
-          minWidth: 2.w,
-        ),
+        suffixIconConstraints: BoxConstraints(minHeight: 2.h, minWidth: 2.w),
+        prefixIconConstraints: BoxConstraints(minHeight: 2.h, minWidth: 2.w),
         prefixIcon: prefixIconWidget,
-        suffixIcon: suffixIconWidget ??
+        suffixIcon:
+            suffixIconWidget ??
             (suffixIcon != null
-                ? IconButton(
-                    icon: Icon(suffixIcon),
-                    onPressed: onSuffixPressed,
-                  )
+                ? IconButton(icon: Icon(suffixIcon), onPressed: onSuffixPressed)
                 : null),
         contentPadding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 9.w),
         // suffix: Icon(Icons.add),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 1.5.w,
-            color: MainColors.outline,
-          ),
-          borderRadius: BorderRadius.circular(
-            12.r,
-          ),
+          borderSide: BorderSide(width: 1.5.w, color: MainColors.outline),
+          borderRadius: BorderRadius.circular(12.r),
         ),
         disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 1.5.w,
-            color: MainColors.outline,
-          ),
-          borderRadius: BorderRadius.circular(
-            12.r,
-          ),
+          borderSide: BorderSide(width: 1.5.w, color: MainColors.outline),
+          borderRadius: BorderRadius.circular(12.r),
         ),
 
         enabled: enabled,
         filled: filled ?? true,
         fillColor: filledColor ?? MainColors.inputFill,
         border: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 1.5.w,
-            color: Colors.red,
-          ),
-          borderRadius: BorderRadius.circular(
-            12.r,
-          ),
+          borderSide: BorderSide(width: 1.5.w, color: Colors.red),
+          borderRadius: BorderRadius.circular(12.r),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1.5.w,
             color: borderColor ?? MainColors.surfaceVariant,
           ),
-          borderRadius: BorderRadius.circular(
-            12.r,
-          ),
+          borderRadius: BorderRadius.circular(12.r),
         ),
       ),
     );

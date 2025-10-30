@@ -62,7 +62,7 @@ class LibraryFavouriteListItemShimmer extends StatelessWidget {
                           color: Colors.grey[300],
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -75,7 +75,7 @@ class LibraryFavouriteListItemShimmer extends StatelessWidget {
                 color: Colors.grey[300],
                 shape: BoxShape.circle,
               ),
-            )
+            ),
           ],
         ),
       ),

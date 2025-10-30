@@ -8,7 +8,7 @@ class ExamBodyCustomTrailing extends StatelessWidget {
   final bool isNewExam;
   final String quizGrade;
   final String stdGrade;
-  
+
   const ExamBodyCustomTrailing({
     super.key,
     this.isNewExam = false,
@@ -37,19 +37,19 @@ class ExamBodyCustomTrailing extends StatelessWidget {
               fontSize: 12,
               color: _getGradeTextColor(),
             ),
-          )
-        }
+          ),
+        },
       ],
     );
   }
 
   /// التحقق من وجود علامات صحيحة للعرض
   bool _hasValidGrades() {
-    return quizGrade.isNotEmpty && 
-           stdGrade.isNotEmpty && 
-           quizGrade != "null" && 
-           stdGrade != "null" &&
-           status != StudentStatus.pending;
+    return quizGrade.isNotEmpty &&
+        stdGrade.isNotEmpty &&
+        quizGrade != "null" &&
+        stdGrade != "null" &&
+        status != StudentStatus.pending;
   }
 
   /// اختيار لون النص للعلامات بناءً على الحالة
@@ -64,7 +64,7 @@ class ExamBodyCustomTrailing extends StatelessWidget {
       case StudentStatus.pending:
       case StudentStatus.newStudent:
         return MainColors.onSurfaceSecondary;
-      }
+    }
   }
 }
 
@@ -73,28 +73,33 @@ BtnColors studentStatus(StudentStatus state) {
   switch (state) {
     case StudentStatus.successful:
       return BtnColors(
-          containerColor: MainColors.onSuccess,
-          textColor: MainColors.success,
-          text: "ناجح");
+        containerColor: MainColors.onSuccess,
+        textColor: MainColors.success,
+        text: "ناجح",
+      );
     case StudentStatus.acceptable:
       return BtnColors(
-          textColor: MainColors.primary,
-          containerColor: MainColors.surface,
-          text: "مقبول");
+        textColor: MainColors.primary,
+        containerColor: MainColors.surface,
+        text: "مقبول",
+      );
     case StudentStatus.failed:
       return BtnColors(
-          textColor: MainColors.onError,
-          containerColor: MainColors.error,
-          text: "راسب");
+        textColor: MainColors.onError,
+        containerColor: MainColors.error,
+        text: "راسب",
+      );
     case StudentStatus.pending:
       return BtnColors(
-          textColor: MainColors.tertiary,
-          containerColor: MainColors.onTertiary,
-          text: "جديد");
+        textColor: MainColors.tertiary,
+        containerColor: MainColors.onTertiary,
+        text: "جديد",
+      );
     case StudentStatus.newStudent:
       return BtnColors(
-          textColor: MainColors.tertiary,
-          containerColor: MainColors.onTertiary,
-          text: "جديد");
-    }
+        textColor: MainColors.tertiary,
+        containerColor: MainColors.onTertiary,
+        text: "جديد",
+      );
+  }
 }

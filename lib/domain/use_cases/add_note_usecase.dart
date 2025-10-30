@@ -5,15 +5,15 @@ import 'package:eazifly_student/data/models/order_and_subscribe/add_note_tojson.
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/add_note_entity.dart';
 
-class AddNoteUsecase extends BaseUsecase<
-    AddNoteEntity, AddNoteParameters> {
+class AddNoteUsecase extends BaseUsecase<AddNoteEntity, AddNoteParameters> {
   final BaseRepository baseRepository;
 
   AddNoteUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, AddNoteEntity>> call(
-      {required AddNoteParameters parameter}) async {
+  Future<Either<Failure, AddNoteEntity>> call({
+    required AddNoteParameters parameter,
+  }) async {
     return await baseRepository.addNote(data: parameter.data);
   }
 }

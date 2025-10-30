@@ -12,8 +12,9 @@ class FilterPlansUsecase
   FilterPlansUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, FilterPlansEntity>> call(
-      {required FilterPlansParameters parameter}) async {
+  Future<Either<Failure, FilterPlansEntity>> call({
+    required FilterPlansParameters parameter,
+  }) async {
     return await baseRepository.filterPlans(data: parameter.data);
   }
 }

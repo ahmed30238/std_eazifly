@@ -1,4 +1,3 @@
-
 import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_user_quizzes_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'get_user_quizzes_model.g.dart';

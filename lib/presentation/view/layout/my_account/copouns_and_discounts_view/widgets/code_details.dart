@@ -11,10 +11,7 @@ import 'package:flutter_svg/svg.dart';
 class CodeDetails extends StatelessWidget {
   final String code;
 
-  const CodeDetails({
-    super.key,
-    required this.code,
-  });
+  const CodeDetails({super.key, required this.code});
 
   @override
   Widget build(BuildContext context) {
@@ -47,17 +44,13 @@ class CodeDetails extends StatelessWidget {
                   4.ph,
                   InkWell(
                     onTap: () {
-                      Clipboard.setData(
-                        ClipboardData(text: code),
-                      ).then(
-                        (value) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("copied"),
-                            ),
-                          );
-                        },
-                      );
+                      Clipboard.setData(ClipboardData(text: code)).then((
+                        value,
+                      ) {
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(const SnackBar(content: Text("copied")));
+                      });
                     },
                     child: Text(
                       code,
@@ -75,7 +68,7 @@ class CodeDetails extends StatelessWidget {
                   MainColors.primary,
                   BlendMode.srcIn,
                 ),
-              )
+              ),
             ],
           ),
         ),

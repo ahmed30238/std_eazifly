@@ -3,8 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'cancel_subscription_model.g.dart';
 
-
-
 @JsonSerializable(explicitToJson: true)
 class CancelSubscriptionModel extends CancelSubscriptionEntity {
   CancelSubscriptionModel();

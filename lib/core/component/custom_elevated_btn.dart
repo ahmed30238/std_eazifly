@@ -86,9 +86,7 @@ class CustomMaterialButton extends StatelessWidget {
       color: color ?? MainColors.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radius ?? 32.r),
-        side: BorderSide(
-          color: borderColor ?? Colors.transparent,
-        ),
+        side: BorderSide(color: borderColor ?? Colors.transparent),
       ),
       onPressed: onPressed,
       child: Center(
@@ -144,23 +142,23 @@ class CustomElevatedButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         // side: const BorderSide(color: MainColors.primaryColor),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            radius ?? 0.r,
-          ),
+          borderRadius: BorderRadius.circular(radius ?? 0.r),
           side: BorderSide(
-              color: borderColor ?? MainColors.transparent,
-              width: borderWidth ?? 1.w),
+            color: borderColor ?? MainColors.transparent,
+            width: borderWidth ?? 1.w,
+          ),
         ),
         backgroundColor: color ?? MainColors.inputFill,
         elevation: 0,
-        fixedSize: Size(width ?? double.infinity,
-            height ?? 47.h),
+        fixedSize: Size(width ?? double.infinity, height ?? 47.h),
       ),
-      child: child ??
+      child:
+          child ??
           Center(
             child: Text(
               text,
-              style: textStyle ??
+              style:
+                  textStyle ??
                   MainTextStyle.boldTextStyle(
                     fontSize: textSize ?? 17,
                     color: textColor ?? Colors.white,

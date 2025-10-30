@@ -125,7 +125,9 @@ class _ProgramDetailsViewState extends State<ProgramDetailsView>
                             children: [
                               Expanded(
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 16.w,
+                                  ),
                                   child: Text(
                                     program.title ?? "",
                                     style: MainTextStyle.boldTextStyle(

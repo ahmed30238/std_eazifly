@@ -6,21 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CopounHistoryCubit extends Cubit<CopounHistoryState> {
   CopounHistoryCubit({required this.copounHistoryUsecase})
-      : super(CopounHistoryInitial());
+    : super(CopounHistoryInitial());
 
   CopounHistoryEntity? copounHistoryEntity;
   CopounHistoryUsecase copounHistoryUsecase;
   bool copounHistoryLoader = false;
 
-
   Future<void> getCopounHistory() async {
-
     copounHistoryLoader = true;
     emit(CouponHistoryLoadingState());
 
-    final result = await copounHistoryUsecase.call(
-      parameter: NoParameter(),
-    );
+    final result = await copounHistoryUsecase.call(parameter: NoParameter());
 
     result.fold(
       (l) {

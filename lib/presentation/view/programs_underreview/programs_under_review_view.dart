@@ -78,8 +78,4 @@ class _ProgramsUnderReviewViewState extends State<ProgramsUnderReviewView> {
   }
 }
 
-var programTitles = [
-  "عدد البرامج",
-  "سعر المجموعة ",
-  "تاريخ البدء",
-];
+var programTitles = ["عدد البرامج", "سعر المجموعة ", "تاريخ البدء"];

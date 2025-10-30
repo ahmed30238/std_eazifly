@@ -5,7 +5,6 @@ import 'package:eazifly_student/domain/entities/my_programs/quizzes/get_quiz_que
 
 part 'get_quiz_questions_model.g.dart';
 
-
 @JsonSerializable(explicitToJson: true)
 class GetQuizQuestionsModel extends GetQuizQuestionsEntity {
   GetQuizQuestionsModel();
@@ -53,15 +52,19 @@ class GetQuizQuestionsUserAnswerModel extends GetQuizQuestionsUserAnswerEntity {
   factory GetQuizQuestionsUserAnswerModel.fromJson(Map<String, dynamic> json) =>
       _$GetQuizQuestionsUserAnswerModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetQuizQuestionsUserAnswerModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetQuizQuestionsUserAnswerModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetQuizQuestionsQuestionAnswerModel extends GetQuizQuestionsQuestionAnswerEntity {
+class GetQuizQuestionsQuestionAnswerModel
+    extends GetQuizQuestionsQuestionAnswerEntity {
   GetQuizQuestionsQuestionAnswerModel();
 
-  factory GetQuizQuestionsQuestionAnswerModel.fromJson(Map<String, dynamic> json) =>
-      _$GetQuizQuestionsQuestionAnswerModelFromJson(json);
+  factory GetQuizQuestionsQuestionAnswerModel.fromJson(
+    Map<String, dynamic> json,
+  ) => _$GetQuizQuestionsQuestionAnswerModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetQuizQuestionsQuestionAnswerModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetQuizQuestionsQuestionAnswerModelToJson(this);
 }

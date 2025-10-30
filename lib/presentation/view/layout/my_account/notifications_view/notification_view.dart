@@ -30,9 +30,7 @@ class _NotificationViewState extends State<NotificationView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AccountDataAppbar(
-        customContext: context,
-      ),
+      appBar: AccountDataAppbar(customContext: context),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         children: [
@@ -71,10 +69,7 @@ class _NotificationViewState extends State<NotificationView> {
                       controller: ValueNotifier(false),
                       isTurned: cubit.turnedOn,
                       iconWidget: index != 0
-                          ? Icon(
-                              Icons.arrow_forward_ios,
-                              size: 15.r,
-                            )
+                          ? Icon(Icons.arrow_forward_ios, size: 15.r)
                           : null,
                       icon: Assets.iconsProfile, // todo
                       title: index == 2 ? "إختيار نوع المراسلة" : "الاشعارات",
@@ -118,25 +113,23 @@ class CustomBottomSheetDesign extends StatelessWidget {
         ),
         color: Colors.white,
       ),
-      child: widget ??
+      child:
+          widget ??
           ListView(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             children: [
               24.ph,
               Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "نوع المراسلة",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 14,
-                    ),
-                  )),
+                alignment: Alignment.center,
+                child: Text(
+                  "نوع المراسلة",
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
+                ),
+              ),
               20.ph,
               Text(
                 "أختر الطريقة المناسبة",
-                style: MainTextStyle.mediumTextStyle(
-                  fontSize: 12,
-                ),
+                style: MainTextStyle.mediumTextStyle(fontSize: 12),
               ),
               16.ph,
               ...List.generate(

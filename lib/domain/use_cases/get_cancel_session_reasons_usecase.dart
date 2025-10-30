@@ -11,8 +11,9 @@ class GetCancelSessionReasonsUsecase
   GetCancelSessionReasonsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetCancelSessionReasonEntity>> call(
-      {required NoParameter parameter}) async {
+  Future<Either<Failure, GetCancelSessionReasonEntity>> call({
+    required NoParameter parameter,
+  }) async {
     return await baseRepository.gettCancelSessionReasons();
   }
 }

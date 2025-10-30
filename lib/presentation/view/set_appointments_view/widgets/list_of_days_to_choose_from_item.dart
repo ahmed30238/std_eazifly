@@ -27,10 +27,7 @@ class ListOfDaysToChooseFromItem extends StatelessWidget {
             value: value,
             activeColor: MainColors.primary,
             onChanged: onChanged,
-            visualDensity: const VisualDensity(
-              horizontal: -4,
-              vertical: -4,
-            ),
+            visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
             shape: RoundedRectangleBorder(
               borderRadius: 5.cr,
               side: BorderSide(

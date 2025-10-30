@@ -9,18 +9,16 @@ import 'package:equatable/equatable.dart';
 
 import '../../data/models/auth/login_tojson.dart';
 
-
 class LoginUsecase extends BaseUsecase<LoginEntity, LoginParameter> {
   final BaseRepository baseRepository;
 
   LoginUsecase({required this.baseRepository});
 
-
   @override
-  Future<Either<Failure, LoginEntity>> call(
-      {required LoginParameter parameter}) async {
-    return await baseRepository.login(
-      data: parameter.data,    );
+  Future<Either<Failure, LoginEntity>> call({
+    required LoginParameter parameter,
+  }) async {
+    return await baseRepository.login(data: parameter.data);
   }
 }
 

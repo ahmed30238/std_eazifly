@@ -2,7 +2,6 @@
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:quick_rev/core/text_styles.dart/styles.dart';
 
-
 // class DropDownItem extends StatelessWidget {
 //   final String itemTitle;
 //   final List<DropdownMenuItem<String>>? items;

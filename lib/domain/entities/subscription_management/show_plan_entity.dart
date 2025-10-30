@@ -13,11 +13,7 @@ class ShowPlanEntity {
   @JsonKey(name: "message")
   String? message;
 
-  ShowPlanEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  ShowPlanEntity({this.data, this.status, this.message});
 }
 
 class DataEntity {

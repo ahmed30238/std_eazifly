@@ -11,9 +11,5 @@ class GetChapterLessonsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetChapterLessonsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetChapterLessonsEntity({this.data, this.status, this.message});
 }

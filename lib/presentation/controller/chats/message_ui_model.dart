@@ -1,4 +1,3 @@
-
 // في message_ui_model.dart - لو موجود
 import 'package:eazifly_student/data/models/chat_model/get_messages_model.dart';
 

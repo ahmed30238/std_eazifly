@@ -11,11 +11,7 @@ class GetProgramContentEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetProgramContentEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetProgramContentEntity({this.data, this.status, this.message});
 }
 
 class ProgramContentDatumEntity {
@@ -25,8 +21,5 @@ class ProgramContentDatumEntity {
   @JsonKey(name: "title")
   String? title;
 
-  ProgramContentDatumEntity({
-    this.id,
-    this.title,
-  });
+  ProgramContentDatumEntity({this.id, this.title});
 }

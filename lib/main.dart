@@ -17,11 +17,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Logger logger = const Logger("Main Logger");
   await ServiceLocator().init();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   logger.debug(
-      "this is storaged FCMToken before getting it ${await GetStorage().read(StorageEnum.fcmToken.name)}");
+    "this is storaged FCMToken before getting it ${await GetStorage().read(StorageEnum.fcmToken.name)}",
+  );
   await GetStorage.init();
   await TokenUtil.loadTokenToMemory();
   await NotificationService.instance.initialize();
@@ -29,9 +28,11 @@ void main() async {
   //   "this is FCMToken ${await NotificationService.instance.getFcmToken()}",
   // );
   logger.debug(
-      "this is storaged FCMToken ${await GetStorage().read(StorageEnum.fcmToken.name)}");
+    "this is storaged FCMToken ${await GetStorage().read(StorageEnum.fcmToken.name)}",
+  );
   logger.debug(
-      "this is storaged token ${await GetStorage().read(TokenEnum.token.name)}");
+    "this is storaged token ${await GetStorage().read(TokenEnum.token.name)}",
+  );
   NotificationService.instance.setupFlutterNotifications();
   // Global crash reporting
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;

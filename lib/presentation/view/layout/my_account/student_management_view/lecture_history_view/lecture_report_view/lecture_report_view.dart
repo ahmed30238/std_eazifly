@@ -5,10 +5,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class LectureReportView extends StatefulWidget {
   final int index;
-  const LectureReportView({
-    super.key,
-    required this.index,
-  });
+  const LectureReportView({super.key, required this.index});
 
   @override
   State<LectureReportView> createState() => _LectureReportViewState();
@@ -56,16 +53,12 @@ class _LectureReportViewState extends State<LectureReportView> {
               builder: (context, state) {
                 if (cubit.getReportQuestionsLoader) {
                   return Center(
-                    child: CircularProgressIndicator(
-                      color: MainColors.primary,
-                    ),
+                    child: CircularProgressIndicator(color: MainColors.primary),
                   );
                 }
                 return Text(
                   cubit.reportQuestionsEntity?.data?.first.program ?? "",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 12,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 12),
                 );
               },
             ),
@@ -116,9 +109,7 @@ class _LectureReportViewState extends State<LectureReportView> {
                   child: ListView.separated(
                     itemBuilder: (context, index) {
                       var question = questions[index];
-                      return EssayReportQuestion(
-                        question: question,
-                      );
+                      return EssayReportQuestion(question: question);
                     },
                     separatorBuilder: (context, index) => 10.ph,
                     itemCount: questions.length,
@@ -135,10 +126,7 @@ class _LectureReportViewState extends State<LectureReportView> {
 }
 
 class EssayReportQuestion extends StatelessWidget {
-  const EssayReportQuestion({
-    super.key,
-    required this.question,
-  });
+  const EssayReportQuestion({super.key, required this.question});
 
   final GetReportQuestionsDatumModel? question;
 
@@ -149,9 +137,7 @@ class EssayReportQuestion extends StatelessWidget {
         ?.firstWhere(
           (element) =>
               element.id! ==
-              int.tryParse(
-                question?.reportQuestionAnswerId ?? "",
-              ),
+              int.tryParse(question?.reportQuestionAnswerId ?? ""),
           orElse: () =>
               GetReportQuestionsOptionModel(), // أو يمكنك إنشاء object فارغ
         )
@@ -180,9 +166,7 @@ class EssayReportQuestion extends StatelessWidget {
             style: MainTextStyle.mediumTextStyle(
               fontSize: 12,
               color: MainColors.onSurfaceSecondary,
-            ).copyWith(
-              height: 1.5,
-            ),
+            ).copyWith(height: 1.5),
           ),
           if (question?.note?.isNotEmpty ?? false) ...[
             8.ph,

@@ -11,10 +11,12 @@ class GetProgramDetailsUsecase
   GetProgramDetailsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetProgramDetailsEntity>> call(
-      {required ProgramDetailsParameters parameter}) async {
+  Future<Either<Failure, GetProgramDetailsEntity>> call({
+    required ProgramDetailsParameters parameter,
+  }) async {
     return await baseRepository.getProgramDetails(
-        programId: parameter.programId);
+      programId: parameter.programId,
+    );
   }
 }
 
@@ -22,5 +24,4 @@ class ProgramDetailsParameters {
   final int programId;
 
   ProgramDetailsParameters({required this.programId});
-
 }

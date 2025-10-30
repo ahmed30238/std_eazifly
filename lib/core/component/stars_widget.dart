@@ -7,11 +7,7 @@ class StarsWidget extends StatelessWidget {
   final double rating;
   final double starSize;
 
-  const StarsWidget({
-    super.key,
-    required this.rating,
-    required this.starSize,
-  });
+  const StarsWidget({super.key, required this.rating, required this.starSize});
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +20,8 @@ class StarsWidget extends StatelessWidget {
       itemCount: 5,
       itemSize: starSize,
       // itemPadding: EdgeInsets.symmetric(horizontal: 2.0.h),
-      itemBuilder: (context, _) => Icon(
-        Icons.star,
-        color: MainColors.warning,
-        size: 13.r,
-      ),
+      itemBuilder: (context, _) =>
+          Icon(Icons.star, color: MainColors.warning, size: 13.r),
       onRatingUpdate:
           (_) {}, // set onRatingUpdate to null to make the widget read-only
     );

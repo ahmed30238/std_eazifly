@@ -48,9 +48,7 @@ class _LectureQuizDetailsViewState extends State<LectureQuizDetailsView> {
         builder: (context, state) {
           // Show loader while loading
           if (cubit.getQuizQuestionsLoader) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
 
           // Check if quهz is corrected (has userAnswer)
@@ -104,12 +102,13 @@ class NotCorrectedQuizBody extends StatelessWidget {
                     titleText: const [
                       "تاريخ الإنشاء",
                       "درجة الإمتحان",
-                      "حالة الإمتحان"
+                      "حالة الإمتحان",
                     ],
                     downSideWidgets: [
                       Text(
-                        formatDate(quizData?.createdAt ?? DateTime.now())
-                            .substring(0, 10),
+                        formatDate(
+                          quizData?.createdAt ?? DateTime.now(),
+                        ).substring(0, 10),
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
                           color: MainColors.onSecondary,
@@ -157,7 +156,8 @@ class NotCorrectedQuizBody extends StatelessWidget {
                           children: [
                             QuestionContainer(
                               optionsLength: question?.options?.length ?? 4,
-                              qOptions: question?.options
+                              qOptions:
+                                  question?.options
                                       ?.map((e) => e.title ?? "")
                                       .toList() ??
                                   [""],
@@ -186,7 +186,7 @@ class NotCorrectedQuizBody extends StatelessWidget {
                                     ? const CircularProgressIndicator.adaptive()
                                     : null,
                               ),
-                            ]
+                            ],
                           ],
                         );
                       },

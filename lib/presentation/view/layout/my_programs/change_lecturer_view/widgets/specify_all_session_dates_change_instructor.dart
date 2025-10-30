@@ -5,9 +5,7 @@ import 'package:eazifly_student/presentation/view/layout/my_programs/change_lect
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class SpecifyAllSessionDatesChangeInstructor extends StatelessWidget {
-  const SpecifyAllSessionDatesChangeInstructor({
-    super.key,
-  });
+  const SpecifyAllSessionDatesChangeInstructor({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +42,7 @@ class SpecifyAllSessionDatesChangeInstructor extends StatelessWidget {
                           children: [
                             Text(
                               "اليوم",
-                              style: MainTextStyle.boldTextStyle(
-                                fontSize: 12,
-                              ),
+                              style: MainTextStyle.boldTextStyle(fontSize: 12),
                             ),
                             16.pw,
                             Expanded(
@@ -70,13 +66,15 @@ class SpecifyAllSessionDatesChangeInstructor extends StatelessWidget {
                                                 cubit.changeSpecifiedAllDay(
                                                   context,
                                                   WeekDaysEnum
-                                                      .values[index].title,
+                                                      .values[index]
+                                                      .title,
                                                   sessionIndex,
                                                 );
                                                 back(context);
                                               },
                                               day: WeekDaysEnum
-                                                  .values[index].title,
+                                                  .values[index]
+                                                  .title,
                                             ),
                                           ),
                                         ],
@@ -85,10 +83,11 @@ class SpecifyAllSessionDatesChangeInstructor extends StatelessWidget {
                                   ),
                                 ),
                                 child: CustomTextFormField(
-                                  controller: sessionIndex <
+                                  controller:
+                                      sessionIndex <
                                           cubit.specifyAlldayController.length
                                       ? cubit
-                                          .specifyAlldayController[sessionIndex]
+                                            .specifyAlldayController[sessionIndex]
                                       : null,
                                   enabled: false,
                                   validator: customValidation,
@@ -121,11 +120,14 @@ class SpecifyAllSessionDatesChangeInstructor extends StatelessWidget {
                                   if (sessionIndex <
                                       cubit.fromControllers.length) {
                                     cubit.showFromTimePickerDialog(
-                                        context, sessionIndex);
+                                      context,
+                                      sessionIndex,
+                                    );
                                   }
                                 },
                                 child: CustomTextFormField(
-                                  controller: sessionIndex <
+                                  controller:
+                                      sessionIndex <
                                           cubit.fromControllers.length
                                       ? cubit.fromControllers[sessionIndex]
                                       : null, // ربط من controller
@@ -134,9 +136,10 @@ class SpecifyAllSessionDatesChangeInstructor extends StatelessWidget {
                                   keyboardType: TextInputType.datetime,
                                   hintText: "اختر وقت البداية",
                                   suffixIconWidget: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16.w),
-                                    child:  Icon(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 16.w,
+                                    ),
+                                    child: Icon(
                                       Icons.access_time,
                                       color: MainColors.onSurfaceSecondary,
                                     ),
@@ -157,22 +160,25 @@ class SpecifyAllSessionDatesChangeInstructor extends StatelessWidget {
                                   if (sessionIndex <
                                       cubit.toControllers.length) {
                                     cubit.showToTimePickerDialog(
-                                        context, sessionIndex);
+                                      context,
+                                      sessionIndex,
+                                    );
                                   }
                                 },
                                 child: CustomTextFormField(
                                   controller:
                                       sessionIndex < cubit.toControllers.length
-                                          ? cubit.toControllers[sessionIndex]
-                                          : null, // ربط إلى controller
+                                      ? cubit.toControllers[sessionIndex]
+                                      : null, // ربط إلى controller
                                   enabled: false,
                                   keyboardType: TextInputType.datetime,
                                   validator: customValidation,
                                   hintText: "اختر وقت النهاية",
                                   suffixIconWidget: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16.w),
-                                    child:  Icon(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 16.w,
+                                    ),
+                                    child: Icon(
                                       Icons.access_time,
                                       color: MainColors.onSurfaceSecondary,
                                     ),

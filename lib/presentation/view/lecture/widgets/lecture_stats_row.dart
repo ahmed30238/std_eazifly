@@ -82,7 +82,8 @@ class LectureStats extends StatelessWidget {
       nextLecture ?? lectureStatsSubTitles[0],
       duration ?? lectureStatsSubTitles[1],
       formatTimeDifference(
-          timeDiff), // هذا سيتم التعامل معه بشكل خاص في index 2
+        timeDiff,
+      ), // هذا سيتم التعامل معه بشكل خاص في index 2
     ];
   }
 
@@ -126,14 +127,14 @@ class LectureStats extends StatelessWidget {
                           height: 26.h,
                           textColor: MainColors.primary,
                         ),
-                      )
+                      ),
                     } else ...{
                       LectureStates(
                         state: status,
                         customText: statusLabel,
                         containerColor: statusContainerColor,
                         textColor: statusTextColor,
-                      )
+                      ),
                     },
                   } else ...{
                     Text(
@@ -146,7 +147,7 @@ class LectureStats extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                  }
+                  },
                 ],
               ),
             ),
@@ -157,12 +158,7 @@ class LectureStats extends StatelessWidget {
   }
 }
 
-enum LectureStatesEnum {
-  finished,
-  ongoing,
-  dated,
-  pending,
-}
+enum LectureStatesEnum { finished, ongoing, dated, pending }
 
 class LectureStates extends StatelessWidget {
   final LectureStatesEnum state;
@@ -194,7 +190,7 @@ class LectureStates extends StatelessWidget {
         return "انتهت";
       case LectureStatesEnum.pending:
         return "قادمة";
-      }
+    }
   }
 
   Color getContainerColor() {
@@ -207,7 +203,7 @@ class LectureStates extends StatelessWidget {
         return MainColors.error;
       case LectureStatesEnum.pending:
         return MainColors.primary;
-      }
+    }
   }
 
   Color getTextColor() {
@@ -220,7 +216,7 @@ class LectureStates extends StatelessWidget {
         return MainColors.onError;
       case LectureStatesEnum.pending:
         return MainColors.primary;
-      }
+    }
   }
 
   @override

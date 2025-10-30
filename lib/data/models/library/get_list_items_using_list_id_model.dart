@@ -9,8 +9,7 @@ class GetListItemsUsingListIdModel extends GetListItemsUsingListIdEntity {
   factory GetListItemsUsingListIdModel.fromJson(Map<String, dynamic> json) =>
       _$GetListItemsUsingListIdModelFromJson(json);
 
-  Map<String, dynamic> toJson() =>
-      _$GetListItemsUsingListIdModelToJson(this);
+  Map<String, dynamic> toJson() => _$GetListItemsUsingListIdModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)

@@ -2,10 +2,7 @@ import 'package:eazifly_student/presentation/controller/lecture_quiz_details_con
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class TrueFalseStudentAnswer extends StatelessWidget {
-  const TrueFalseStudentAnswer({
-    super.key,
-    required this.cubit,
-  });
+  const TrueFalseStudentAnswer({super.key, required this.cubit});
 
   final LecturequizCubit cubit;
 
@@ -29,18 +26,14 @@ class TrueFalseStudentAnswer extends StatelessWidget {
                 borderRadius: 8.cr,
                 border: Border.all(
                   width: 2.w,
-                  color: isSelected
-                      ? MainColors.primary
-                      : MainColors.outline,
+                  color: isSelected ? MainColors.primary : MainColors.outline,
                 ),
               ),
               child: Text(
                 index == 0 ? "صح" : "خطأ",
                 style: MainTextStyle.boldTextStyle(
                   fontSize: 12,
-                  color: isSelected
-                      ? MainColors.primary
-                      : MainColors.onPrimary,
+                  color: isSelected ? MainColors.primary : MainColors.onPrimary,
                 ),
               ).center(),
             );

@@ -21,7 +21,6 @@ class _MyAccountViewState extends State<MyAccountView> {
   // late final DataModel dataModel;
   @override
   initState() {
-
     super.initState();
   }
 
@@ -53,7 +52,9 @@ class _MyAccountViewState extends State<MyAccountView> {
           24.ph,
           PersonaListTile(
             subTitleTextStyle: MainTextStyle.regularTextStyle(
-                fontSize: 12, color: MainColors.onSurfaceSecondary),
+              fontSize: 12,
+              color: MainColors.onSurfaceSecondary,
+            ),
             imageContainerHeight: 48.h,
             imageContainerWidth: 48.w,
             titleFontSize: 16,
@@ -68,10 +69,7 @@ class _MyAccountViewState extends State<MyAccountView> {
               onTap: index == 1
                   ? () {}
                   : () {
-                      Navigator.pushNamed(
-                        context,
-                        settingsScreensPaths[index],
-                      );
+                      Navigator.pushNamed(context, settingsScreensPaths[index]);
                     },
               child: Padding(
                 padding: EdgeInsets.only(bottom: 4.h),

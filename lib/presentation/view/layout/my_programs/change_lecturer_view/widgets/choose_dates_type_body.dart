@@ -14,7 +14,9 @@ class ChooseDatesTypeBody extends StatelessWidget {
         Text(
           "أختر المواعيد المناسبة ",
           style: MainTextStyle.boldTextStyle(
-              fontSize: 14, color: MainColors.borderPrimary),
+            fontSize: 14,
+            color: MainColors.borderPrimary,
+          ),
         ),
         20.ph,
         Expanded(
@@ -66,9 +68,7 @@ class ChooseDatesTypeBody extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SvgPicture.asset(
-                                Assets.iconsRejectRequest,
-                              ),
+                              SvgPicture.asset(Assets.iconsRejectRequest),
                               8.ph,
                               Text(
                                 "برجاء اختيار المواعيد المناسبة",

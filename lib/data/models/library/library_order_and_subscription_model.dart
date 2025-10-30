@@ -8,8 +8,8 @@ class LibraryOrderAndSubscriptionModel
   LibraryOrderAndSubscriptionModel();
 
   factory LibraryOrderAndSubscriptionModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$LibraryOrderAndSubscriptionModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$LibraryOrderAndSubscriptionModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$LibraryOrderAndSubscriptionModelToJson(this);

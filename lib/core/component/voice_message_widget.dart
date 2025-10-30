@@ -75,13 +75,15 @@ class _VoiceMessageWidgetState extends State<VoiceMessageWidget>
           });
 
           // Handle playing state
-          if (state.playing && state.processingState != ProcessingState.completed) {
+          if (state.playing &&
+              state.processingState != ProcessingState.completed) {
             animationController.repeat();
             widget.onPlaying?.call();
           } else {
             // Stop animation when paused or completed
             animationController.stop();
-            if (!state.playing && state.processingState != ProcessingState.completed) {
+            if (!state.playing &&
+                state.processingState != ProcessingState.completed) {
               widget.onPause?.call();
             }
           }
@@ -287,14 +289,14 @@ class _VoiceMessageWidgetState extends State<VoiceMessageWidget>
             child: isPlaying
                 ? Icon(Icons.pause, size: 20.w, color: MainColors.primary)
                 : SvgPicture.asset(
-              Assets.iconsPlay,
-              width: 20.w,
-              height: 20.h,
-              colorFilter: ColorFilter.mode(
-                MainColors.primary,
-                BlendMode.srcIn,
-              ),
-            ),
+                    Assets.iconsPlay,
+                    width: 20.w,
+                    height: 20.h,
+                    colorFilter: ColorFilter.mode(
+                      MainColors.primary,
+                      BlendMode.srcIn,
+                    ),
+                  ),
           ),
           10.pw,
         ] else ...[

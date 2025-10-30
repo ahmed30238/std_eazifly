@@ -33,7 +33,7 @@ class FixedDatesBody extends StatelessWidget {
             controller: cubit.fixedDateController,
             children: cubit.subTabbarBody(
               context: context,
-              programId: programId
+              programId: programId,
             ),
           ),
         ),

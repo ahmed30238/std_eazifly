@@ -32,15 +32,10 @@ class LectureViewAppBar extends StatelessWidget implements PreferredSizeWidget {
           customAction: [
             InkWell(
               key: btnKey,
-              onTap: () => lectureAppBarModalSheet(
-                context,
-                widget.programId,
-              ),
+              onTap: () => lectureAppBarModalSheet(context, widget.programId),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: SvgPicture.asset(
-                  Assets.iconsVerticalDots,
-                ),
+                child: SvgPicture.asset(Assets.iconsVerticalDots),
               ),
             ),
           ],

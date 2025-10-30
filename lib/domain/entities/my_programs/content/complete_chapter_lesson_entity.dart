@@ -10,9 +10,5 @@ class CompleteChapterLessonEntity {
   @JsonKey(name: "message")
   String? message;
 
-  CompleteChapterLessonEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  CompleteChapterLessonEntity({this.data, this.status, this.message});
 }

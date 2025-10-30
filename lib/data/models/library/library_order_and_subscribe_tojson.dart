@@ -11,7 +11,7 @@ class LibraryOrderAndSubscribeTojson {
     required this.libraryPlanId,
   });
   Map<String, dynamic> toJson() => {
-        "image": image,
-        "library_plan_id": libraryPlanId,
-      };
+    "image": image,
+    "library_plan_id": libraryPlanId,
+  };
 }

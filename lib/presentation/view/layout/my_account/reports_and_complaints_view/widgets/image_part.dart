@@ -5,12 +5,10 @@ import 'package:eazifly_student/presentation/view/layout/my_account/reports_and_
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 class ImagePart extends StatelessWidget {
   final String state;
-  const ImagePart({
-    super.key,
-    required this.state,
-  });
+  const ImagePart({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +26,11 @@ class ImagePart extends StatelessWidget {
           child: SvgPicture.asset(
             Assets.iconsSetting,
             fit: BoxFit.scaleDown,
-            colorFilter: ColorFilter.mode(
-              MainColors.primary,
-              BlendMode.srcIn,
-            ),
+            colorFilter: ColorFilter.mode(MainColors.primary, BlendMode.srcIn),
           ),
         ),
         4.ph,
-        ProblemState(state: state)
+        ProblemState(state: state),
       ],
     );
   }

@@ -25,7 +25,6 @@ class LibraryMenuListItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-      
         padding: EdgeInsets.all(8.r),
         height: 96.h,
         width: 343.w,
@@ -35,9 +34,7 @@ class LibraryMenuListItem extends StatelessWidget {
         ),
         child: Row(
           children: [
-            AvatarImage(
-              imageUrl: image,
-            ),
+            AvatarImage(imageUrl: image),
             8.pw,
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -45,18 +42,13 @@ class LibraryMenuListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    title,
-                    style: MainTextStyle.boldTextStyle(fontSize: 14),
-                  ),
+                  Text(title, style: MainTextStyle.boldTextStyle(fontSize: 14)),
                   SizedBox(
                     child: Row(
                       children: [
                         Row(
                           children: [
-                            SvgPicture.asset(
-                              Assets.iconsPlay,
-                            ),
+                            SvgPicture.asset(Assets.iconsPlay),
                             4.pw,
                             Text(
                               "12 مقطع صوتي",
@@ -70,9 +62,7 @@ class LibraryMenuListItem extends StatelessWidget {
                         16.pw,
                         Row(
                           children: [
-                            SvgPicture.asset(
-                              Assets.iconsHeart,
-                            ),
+                            SvgPicture.asset(Assets.iconsHeart),
                             4.pw,
                             Text(
                               "153",
@@ -90,10 +80,7 @@ class LibraryMenuListItem extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 12.sp,
-            ),
+            Icon(Icons.arrow_forward_ios, size: 12.sp),
           ],
         ),
       ),

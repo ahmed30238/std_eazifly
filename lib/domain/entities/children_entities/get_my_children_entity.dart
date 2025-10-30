@@ -49,13 +49,13 @@ class MyChildEntity {
   @JsonKey(name: "user_coupon")
   String? userCoupon;
 
-  @JsonKey(name: "bonus",fromJson: customInt)
+  @JsonKey(name: "bonus", fromJson: customInt)
   int? bonus;
 
   @JsonKey(name: "childrens")
   List<dynamic>? childrens;
 
-  @JsonKey(name: "age",fromJson: customInt)
+  @JsonKey(name: "age", fromJson: customInt)
   int? age;
 
   @JsonKey(name: "token")

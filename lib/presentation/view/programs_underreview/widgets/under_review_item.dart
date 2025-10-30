@@ -36,92 +36,90 @@ class UnderReviewItem extends StatelessWidget {
               );
             }
           : state == "danger"
-              ? () {
-                  customAdaptiveDialog(
-                    context,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      height: 174.h,
-                      width: 343.w,
-                      decoration: BoxDecoration(
-                        color: MainColors.background,
-                        borderRadius: 20.cr,
+          ? () {
+              customAdaptiveDialog(
+                context,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  height: 174.h,
+                  width: 343.w,
+                  decoration: BoxDecoration(
+                    color: MainColors.background,
+                    borderRadius: 20.cr,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      24.ph,
+                      Text(
+                        "نأسف لقد تم رفض طلبك",
+                        style: MainTextStyle.boldTextStyle(fontSize: 16),
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
+                      8.ph,
+                      Text(
+                        "تم رفض طلب التسجيل الخاص بك بسبب :هذا النص هو جزء من عملية تحسين تجربة المستخدم من خلال النص. ",
+                        style: MainTextStyle.mediumTextStyle(
+                          fontSize: 12,
+                          color: MainColors.onSurfaceSecondary,
+                        ),
+                      ),
+                      24.ph,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          24.ph,
-                          Text(
-                            "نأسف لقد تم رفض طلبك",
-                            style: MainTextStyle.boldTextStyle(fontSize: 16),
+                          CustomLowSizeButton(
+                            textColor: MainColors.background,
+                            height: 34.h,
+                            text: "إعادة المحاولة",
+                            btnColor: MainColors.primary,
+                            borderRadius: 16.cr,
+                            width: 128.5.w,
+                            fontSize: 12,
+                            onTap: () {
+                              Navigator.pushNamed(
+                                arguments: 1, //TODO itemId,
+                                context,
+                                RoutePaths.completePaymentProcessScreen,
+                              );
+                            },
                           ),
-                          8.ph,
-                          Text(
-                            "تم رفض طلب التسجيل الخاص بك بسبب :هذا النص هو جزء من عملية تحسين تجربة المستخدم من خلال النص. ",
-                            style: MainTextStyle.mediumTextStyle(
-                              fontSize: 12,
-                              color: MainColors.onSurfaceSecondary,
-                            ),
+                          16.pw,
+                          CustomLowSizeButton(
+                            text: "التواصل مع الإدارة",
+                            textColor: MainColors.background,
+                            height: 34.h,
+                            btnColor: MainColors.primary,
+                            fontSize: 12,
+                            borderRadius: 16.cr,
+                            width: 128.5.w,
+                            onTap: () {
+                              log(orderId);
+                              Navigator.pushNamed(
+                                context,
+                                RoutePaths.dmViewPath,
+                                arguments: {
+                                  "cubit": ChatsCubit.get(context),
+                                  "isReport": true,
+                                  "orderId": orderId,
+                                  "problemState": "جاري",
+                                },
+                              );
+                            },
                           ),
-                          24.ph,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomLowSizeButton(
-                                textColor: MainColors.background,
-                                height: 34.h,
-                                text: "إعادة المحاولة",
-                                btnColor: MainColors.primary,
-                                borderRadius: 16.cr,
-                                width: 128.5.w,
-                                fontSize: 12,
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    arguments: 1, //TODO itemId,
-                                    context,
-                                    RoutePaths.completePaymentProcessScreen,
-                                  );
-                                },
-                              ),
-                              16.pw,
-                              CustomLowSizeButton(
-                                text: "التواصل مع الإدارة",
-                                textColor: MainColors.background,
-                                height: 34.h,
-                                btnColor: MainColors.primary,
-                                fontSize: 12,
-                                borderRadius: 16.cr,
-                                width: 128.5.w,
-                                onTap: () {
-                                  log(orderId);
-                                  Navigator.pushNamed(
-                                    context,
-                                    RoutePaths.dmViewPath,
-                                    arguments: {
-                                      "cubit": ChatsCubit.get(context),
-                                      "isReport": true,
-                                      "orderId": orderId,
-                                      "problemState": "جاري"
-                                    },
-                                  );
-                                },
-                              ),
-                            ],
-                          )
                         ],
                       ),
-                    ),
-                  );
-                }
-              : null,
+                    ],
+                  ),
+                ),
+              );
+            }
+          : null,
       child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         height: 238.h,
         width: double.infinity,
         decoration: BoxDecoration(
-          border: Border.all(
-            color: MainColors.surfaceVariant,
-          ),
+          border: Border.all(color: MainColors.surfaceVariant),
           borderRadius: 8.cr,
         ),
         child: Column(
@@ -170,11 +168,7 @@ class StackDesignState extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        AvatarImage(
-          imageUrl: image,
-          height: 160.h,
-          width: double.infinity,
-        ),
+        AvatarImage(imageUrl: image, height: 160.h, width: double.infinity),
         // if (state != "success")
         Container(
           height: 160.h,
@@ -187,16 +181,16 @@ class StackDesignState extends StatelessWidget {
               state == "success"
                   ? Assets.iconsEnsureRequest
                   : state == "danger"
-                      ? Assets.iconsRejectRequest
-                      : Assets.iconsUnderReviewing,
+                  ? Assets.iconsRejectRequest
+                  : Assets.iconsUnderReviewing,
             ),
             8.ph,
             Text(
               state == "success"
                   ? "تم تأكيد طلبك بنجاج"
                   : state == "primary"
-                      ? "في مرحلة المراجعة "
-                      : "تم رفض الطلب",
+                  ? "في مرحلة المراجعة "
+                  : "تم رفض الطلب",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 15,
                 color: state != "danger"
@@ -209,8 +203,8 @@ class StackDesignState extends StatelessWidget {
               state == "success"
                   ? "أضغط للتوجهة الي إعداد البرنامج"
                   : state == "primary"
-                      ? "سيتم إخطارك بإشعار عند تاكيد الطلب"
-                      : "برجاء التواصل مع الإدارة لاعادة الاشتراك في البرنامج",
+                  ? "سيتم إخطارك بإشعار عند تاكيد الطلب"
+                  : "برجاء التواصل مع الإدارة لاعادة الاشتراك في البرنامج",
               style: MainTextStyle.boldTextStyle(
                 fontSize: 15,
                 color: MainColors.background,
@@ -223,10 +217,7 @@ class StackDesignState extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(
                     context,
-                    arguments: {
-                      "orderId": orderId,
-                      "programId": programId,
-                    },
+                    arguments: {"orderId": orderId, "programId": programId},
                     RoutePaths.groupPackageManagement,
                   );
                 },

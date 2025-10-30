@@ -15,15 +15,9 @@ class BottomSheetDayContainer extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 343.w,
-        padding: EdgeInsets.symmetric(
-          vertical: 12.h,
-          horizontal: 16.w,
-        ),
+        padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
         height: 45.h,
-        child: Text(
-          day,
-          style: MainTextStyle.boldTextStyle(fontSize: 14),
-        ),
+        child: Text(day, style: MainTextStyle.boldTextStyle(fontSize: 14)),
       ),
     );
   }

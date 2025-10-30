@@ -29,8 +29,8 @@ class GetInstructorsInstructorSpecializationsModel
   GetInstructorsInstructorSpecializationsModel();
 
   factory GetInstructorsInstructorSpecializationsModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetInstructorsInstructorSpecializationsModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$GetInstructorsInstructorSpecializationsModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$GetInstructorsInstructorSpecializationsModelToJson(this);

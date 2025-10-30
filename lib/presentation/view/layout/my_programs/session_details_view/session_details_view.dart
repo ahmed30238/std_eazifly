@@ -11,7 +11,8 @@ class SessionDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     var lang = context.loc!;
     return Scaffold(
-      appBar: CustomAppBar(     context,
+      appBar: CustomAppBar(
+        context,
         mainTitle: "محاضرة رياضيات للصف السادس",
         leadingText: lang.dates,
         isCenterTitle: true,
@@ -24,9 +25,7 @@ class SessionDetailsView extends StatelessWidget {
             width: double.infinity,
             decoration: const BoxDecoration(),
           ),
-          const Text(
-            "asdasdsa",
-          ),
+          const Text("asdasdsa"),
         ],
       ),
     );

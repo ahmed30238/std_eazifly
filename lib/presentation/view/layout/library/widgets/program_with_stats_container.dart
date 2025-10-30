@@ -23,7 +23,6 @@ class ProgramWithStatsContainer extends StatelessWidget {
     required this.title,
     required this.views,
     required this.onTap,
-
   });
 
   @override
@@ -81,9 +80,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
                       Expanded(
                         child: Row(
                           children: [
-                            SvgPicture.asset(
-                              Assets.iconsPlay,
-                            ),
+                            SvgPicture.asset(Assets.iconsPlay),
                             4.pw,
                             Text(
                               views,
@@ -98,9 +95,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
                       Expanded(
                         child: Row(
                           children: [
-                            SvgPicture.asset(
-                              Assets.iconsHeart,
-                            ),
+                            SvgPicture.asset(Assets.iconsHeart),
                             4.pw,
                             Text(
                               likes,
@@ -115,9 +110,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
                       Expanded(
                         child: Row(
                           children: [
-                            SvgPicture.asset(
-                              Assets.iconsPeople,
-                            ),
+                            SvgPicture.asset(Assets.iconsPeople),
                             4.pw,
                             Text(
                               noOfSubscription,
@@ -133,7 +126,7 @@ class ProgramWithStatsContainer extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
             // 16.ph,
           ],
         ),

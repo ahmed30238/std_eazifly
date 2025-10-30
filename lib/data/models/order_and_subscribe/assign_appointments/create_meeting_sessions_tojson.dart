@@ -26,10 +26,7 @@ class CreateMeetingSessionsTojson {
       'program_content_id': programContentId,
       'appointments': appointments.map((appointment) {
         {
-          return {
-            'start': appointment.start,
-            'end': appointment.end,
-          };
+          return {'start': appointment.start, 'end': appointment.end};
         }
       }).toList(),
     };

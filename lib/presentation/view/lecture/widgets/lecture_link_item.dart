@@ -14,7 +14,8 @@ class LectureLink extends StatelessWidget {
     required this.host,
     this.linkAlignment,
     this.state = LectureStatesEnum.pending,
-    required this.onLinkTap, required this.programId,
+    required this.onLinkTap,
+    required this.programId,
   });
 
   @override
@@ -24,8 +25,9 @@ class LectureLink extends StatelessWidget {
       width: width ?? 127.w,
       height: 80.h,
       decoration: BoxDecoration(
-          color: MainColors.inputFill,
-          borderRadius: BorderRadius.circular(12.r)),
+        color: MainColors.inputFill,
+        borderRadius: BorderRadius.circular(12.r),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -45,23 +47,28 @@ class LectureLink extends StatelessWidget {
                 onTap: onLinkTap,
                 child: Text(
                   "$host Link",
-                  style: MainTextStyle.mediumTextStyle(
-                    fontSize: 14,
-                    color: state == LectureStatesEnum.finished
-                        ? MainColors.onSurfaceSecondary
-                        : MainColors.primary,
-                  ).copyWith(
-                    decoration: TextDecoration.underline,
-                    decorationColor: state == LectureStatesEnum.finished
-                        ? MainColors.onSurfaceSecondary
-                        : MainColors.primary,
-                  ),
+                  style:
+                      MainTextStyle.mediumTextStyle(
+                        fontSize: 14,
+                        color: state == LectureStatesEnum.finished
+                            ? MainColors.onSurfaceSecondary
+                            : MainColors.primary,
+                      ).copyWith(
+                        decoration: TextDecoration.underline,
+                        decorationColor: state == LectureStatesEnum.finished
+                            ? MainColors.onSurfaceSecondary
+                            : MainColors.primary,
+                      ),
                 ),
               ),
               const Spacer(),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, RoutePaths.cancelSession,arguments: programId);
+                  Navigator.pushNamed(
+                    context,
+                    RoutePaths.cancelSession,
+                    arguments: programId,
+                  );
                 },
                 child: Text(
                   "الغاء المحاضرة",

@@ -12,11 +12,10 @@ class SendMessagesUsecase
   SendMessagesUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, SendMessagesEntities>> call(
-      {required SendMessagesParameters parameter}) async {
-    return await baseRepository.sendMessages(
-      data: parameter.data,
-    );
+  Future<Either<Failure, SendMessagesEntities>> call({
+    required SendMessagesParameters parameter,
+  }) async {
+    return await baseRepository.sendMessages(data: parameter.data);
   }
 }
 

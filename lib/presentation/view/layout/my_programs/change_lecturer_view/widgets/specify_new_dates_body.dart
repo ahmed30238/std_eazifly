@@ -23,9 +23,7 @@ class SpecifyNewDatesBody extends StatelessWidget {
           height: 36.h,
           child: Text(
             "برجاء تحديد المواعيد الجديدة",
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 14,
-            ),
+            style: MainTextStyle.boldTextStyle(fontSize: 14),
           ),
         ),
         8.ph,
@@ -40,19 +38,16 @@ class SpecifyNewDatesBody extends StatelessWidget {
               cubit.controller?.animateTo(value);
               cubit.changeTapbarIndex(value);
             },
-            tabs: List.generate(
-              cubit.tabs.length,
-              (index) {
-                bool isSelected = cubit.controller?.index == index;
-                return Text(
-                  cubit.tabs[index],
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 12,
-                    color: isSelected ? Colors.white : Colors.black,
-                  ),
-                );
-              },
-            ),
+            tabs: List.generate(cubit.tabs.length, (index) {
+              bool isSelected = cubit.controller?.index == index;
+              return Text(
+                cubit.tabs[index],
+                style: MainTextStyle.boldTextStyle(
+                  fontSize: 12,
+                  color: isSelected ? Colors.white : Colors.black,
+                ),
+              );
+            }),
           ),
         ),
         BlocBuilder(
@@ -138,7 +133,8 @@ class SpecifyNewDatesBody extends StatelessWidget {
                                               onChanged: (p0) =>
                                                   cubit.changeChosenDays(index),
                                               day: WeekDaysEnum
-                                                  .values[index].title,
+                                                  .values[index]
+                                                  .title,
                                               value: cubit.chosenDays[index],
                                             );
                                           },
@@ -184,9 +180,7 @@ class SpecifyNewDatesBody extends StatelessWidget {
                     32.ph,
                     Text(
                       lang.chooseAppropriateLecturer,
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 12),
                     ),
                     8.ph,
                     SizedBox(
@@ -220,6 +214,7 @@ class SpecifyNewDatesBody extends StatelessWidget {
             ),
           ),
         ),
+
         // 44.ph,
         // Row(
         //   mainAxisAlignment: MainAxisAlignment.center,
@@ -253,7 +248,6 @@ class SpecifyNewDatesBody extends StatelessWidget {
         //   child: const BoundedTimeSlotFormFields(),
         // ),
         // const Spacer(),
-
         32.ph,
       ],
     );

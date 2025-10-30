@@ -58,15 +58,12 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
 
   GlobalKey<FormState> resetFormKey = GlobalKey<FormState>();
 
-
   Future<void> forgetPassword() async {
     forgotPasswordLoader = true;
     emit(ForgotPasswordLoadingState());
 
     final result = await forgotPasswordUsecase.call(
-      parameter: ForgotPasswordParameters(
-        email: emailController.text,
-      ),
+      parameter: ForgotPasswordParameters(email: emailController.text),
     );
 
     result.fold(

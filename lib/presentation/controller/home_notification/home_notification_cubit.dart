@@ -44,7 +44,8 @@ class HomeNotificationCubit extends Cubit<HomeNotificationState> {
 
   // ✅ إضافة إشعار في الوقت الحقيقي وتحديث isRead
   void addRealTimeNotification(
-      GetLatestNotificationDatumEntities notification) {
+    GetLatestNotificationDatumEntities notification,
+  ) {
     _notifications.insert(0, notification);
     _isRead.insert(0, notification.read ?? false);
     emit(NotificationSuccess());
@@ -71,10 +72,7 @@ class HomeNotificationCubit extends Cubit<HomeNotificationState> {
 
     try {
       final result = await getLatestNotificationsUsecase.call(
-        parameter: GetLatestNotificationParameters(
-          offset: _offset,
-          type: type,
-        ),
+        parameter: GetLatestNotificationParameters(offset: _offset, type: type),
       );
 
       result.fold(
@@ -122,10 +120,7 @@ class HomeNotificationCubit extends Cubit<HomeNotificationState> {
     result.fold(
       (l) {
         _isRead[index] = false;
-        delightfulToast(
-          message: "حدث خطأ",
-          context: context,
-        );
+        delightfulToast(message: "حدث خطأ", context: context);
         emit(ReadNotificationErrorState(errorMessage: l.message));
       },
       (r) {

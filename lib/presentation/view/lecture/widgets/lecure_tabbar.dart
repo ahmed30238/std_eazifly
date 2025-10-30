@@ -5,11 +5,7 @@ import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.da
 import 'package:flutter/material.dart' hide Badge;
 
 class LectureTabBar extends StatelessWidget {
-  const LectureTabBar({
-    super.key,
-    required this.cubit,
-    this.onTabTap,
-  });
+  const LectureTabBar({super.key, required this.cubit, this.onTabTap});
 
   final LectureCubit cubit;
   final Function(int)? onTabTap;
@@ -20,40 +16,37 @@ class LectureTabBar extends StatelessWidget {
       controller: cubit.controller,
       onTap: onTabTap,
       isScrollable: true,
-      tabs: List.generate(
-        cubit.tabs.length,
-        (index) {
-          bool isSelected = cubit.controller.index == index;
-          return
-              // index == 5
-              //     ? Badge(
-              //         showBadge: true,
-              //         position: BadgePosition.topEnd(
-              //           top: -10.h,
-              //           end: -2.w,
-              //         ),
-              //         child: Text(
-              //           cubit.tabs[index],
-              //           style: MainTextStyle.boldTextStyle(
-              //             fontSize: 12,
-              //             color: isSelected
-              //                 ? MainColors.blueTextColor
-              //                 : MainColors.grayTextColors,
-              //           ),
-              //         ),
-              //       )
-              //     :
-              Text(
-            cubit.tabs[index],
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 12,
-              color: isSelected
-                  ? MainColors.primary
-                  : MainColors.onSurfaceSecondary,
-            ),
-          );
-        },
-      ),
+      tabs: List.generate(cubit.tabs.length, (index) {
+        bool isSelected = cubit.controller.index == index;
+        return
+        // index == 5
+        //     ? Badge(
+        //         showBadge: true,
+        //         position: BadgePosition.topEnd(
+        //           top: -10.h,
+        //           end: -2.w,
+        //         ),
+        //         child: Text(
+        //           cubit.tabs[index],
+        //           style: MainTextStyle.boldTextStyle(
+        //             fontSize: 12,
+        //             color: isSelected
+        //                 ? MainColors.blueTextColor
+        //                 : MainColors.grayTextColors,
+        //           ),
+        //         ),
+        //       )
+        //     :
+        Text(
+          cubit.tabs[index],
+          style: MainTextStyle.boldTextStyle(
+            fontSize: 12,
+            color: isSelected
+                ? MainColors.primary
+                : MainColors.onSurfaceSecondary,
+          ),
+        );
+      }),
     );
   }
 }

@@ -16,10 +16,7 @@ class OfferContainer extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      decoration: BoxDecoration(
-        borderRadius: 16.cr,
-        color: MainColors.accent,
-      ),
+      decoration: BoxDecoration(borderRadius: 16.cr, color: MainColors.accent),
       child: Text(
         offerText,
         style: MainTextStyle.boldTextStyle(

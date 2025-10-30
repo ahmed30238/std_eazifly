@@ -45,28 +45,25 @@ class SubscriptionsBody extends StatelessWidget {
     final cubit = SubscriptionmanagementCubit.get(context);
     final lang = context.loc!;
 
-
     return BlocBuilder(
       bloc: cubit,
       builder: (context, state) {
         if (cubit.getLibrarySubscriptionLoader) {
-          return const Center(
-            child: CircularProgressIndicator.adaptive(),
-          );
+          return const Center(child: CircularProgressIndicator.adaptive());
         }
 
         if (cubit.getLibrarySubscriptionEntity?.data == null) {
           return Padding(
             padding: EdgeInsets.only(top: 300.h),
-            child: Center(
-              child: Text(lang.noLibrarySubscription),
-            ),
+            child: Center(child: Text(lang.noLibrarySubscription)),
           );
         }
 
         final subscription = cubit.getLibrarySubscriptionEntity!.data!;
-        final daysLeft = calculateDaysLeft(subscription.fromDate.toString(),
-            subscription.expireDate.toString());
+        final daysLeft = calculateDaysLeft(
+          subscription.fromDate.toString(),
+          subscription.expireDate.toString(),
+        );
         final isActive = daysLeft > 0;
 
         return Padding(
@@ -88,14 +85,17 @@ class SubscriptionsBody extends StatelessWidget {
             courseTitle: subscription.plan?.title ?? "اشتراك المكتبة",
             inProgress: isActive,
             daysLeft: daysLeft.toString(),
-            expireDate: formatDate(subscription.expireDate ?? DateTime.now())
-                .substring(0, 10),
+            expireDate: formatDate(
+              subscription.expireDate ?? DateTime.now(),
+            ).substring(0, 10),
             noOfStudents: "كل",
             onRenewTap: () {
               // Handle renew action
             },
-            progressPercent: calculateProgress(subscription.fromDate.toString(),
-                subscription.expireDate.toString()),
+            progressPercent: calculateProgress(
+              subscription.fromDate.toString(),
+              subscription.expireDate.toString(),
+            ),
             subscriptionPrice: subscription.plan?.price?.toString() ?? "0",
           ),
         );

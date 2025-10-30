@@ -22,9 +22,7 @@ class ImagesArea extends StatelessWidget {
             height: 84.h,
             width: 104.w,
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.r),
-            ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
             child: Image.file(
               pickedFile ?? File("path"),
               height: 84.h,

@@ -44,9 +44,7 @@ class QuestionAndSolutionContainer extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         constraints: BoxConstraints(minHeight: 355.h),
         width: double.infinity,
-        decoration: BoxDecoration(
-          color: MainColors.inputFill,
-        ),
+        decoration: BoxDecoration(color: MainColors.inputFill),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,26 +63,23 @@ class QuestionAndSolutionContainer extends StatelessWidget {
             ),
             10.ph,
 
-            Text(
-              title,
-              style: MainTextStyle.mediumTextStyle(fontSize: 12),
-            ),
+            Text(title, style: MainTextStyle.mediumTextStyle(fontSize: 12)),
             16.ph,
 
             // إجابة الطالب
             _buildSectionHeader("إجابة الطالب"),
             8.ph,
 
-            Text(
-              answerText,
-              style: MainTextStyle.boldTextStyle(fontSize: 14),
-            ),
+            Text(answerText, style: MainTextStyle.boldTextStyle(fontSize: 14)),
             8.ph,
 
             // مرفقات الطالب
             if (studentAttachments.isNotEmpty)
-              _buildAttachments(studentAttachments,
-                  isStudent: true, cubit: cubit),
+              _buildAttachments(
+                studentAttachments,
+                isStudent: true,
+                cubit: cubit,
+              ),
 
             // تسجيل صوتي للطالب
             if (studentVoiceNote != null && studentVoiceNote!.isNotEmpty)
@@ -181,8 +176,11 @@ class QuestionAndSolutionContainer extends StatelessWidget {
     );
   }
 
-  Widget _buildAttachments(List<String> attachments,
-      {required bool isStudent, required LectureCubit cubit}) {
+  Widget _buildAttachments(
+    List<String> attachments, {
+    required bool isStudent,
+    required LectureCubit cubit,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -203,10 +201,11 @@ class QuestionAndSolutionContainer extends StatelessWidget {
 
               return GestureDetector(
                 onTap: () => _handleAttachmentTap(
-                    fileUrl: file,
-                    cubit: cubit,
-                    context: context,
-                    fileType: "pdf"),
+                  fileUrl: file,
+                  cubit: cubit,
+                  context: context,
+                  fileType: "pdf",
+                ),
                 child: Container(
                   width: 104.w,
                   decoration: BoxDecoration(
@@ -217,13 +216,17 @@ class QuestionAndSolutionContainer extends StatelessWidget {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.picture_as_pdf,
-                                size: 40.sp, color: Colors.red),
+                            Icon(
+                              Icons.picture_as_pdf,
+                              size: 40.sp,
+                              color: Colors.red,
+                            ),
                             4.ph,
                             Text(
                               "ملف PDF",
-                              style:
-                                  MainTextStyle.regularTextStyle(fontSize: 10),
+                              style: MainTextStyle.regularTextStyle(
+                                fontSize: 10,
+                              ),
                             ),
                           ],
                         )
@@ -268,8 +271,9 @@ class QuestionAndSolutionContainer extends StatelessWidget {
             // isFile: false,
             audioUrl: audioUrl,
             // duration: duration,
-            activeSliderColor:
-                isStudent ? MainColors.primary : MainColors.success,
+            activeSliderColor: isStudent
+                ? MainColors.primary
+                : MainColors.success,
             // showPlayButton: true,
             onPlaying: onPlayingAdio,
             // showCounter: true,
@@ -312,6 +316,7 @@ class QuestionAndSolutionContainer extends StatelessWidget {
     }
   }
 }
+
 void showFullScreenImage(BuildContext context, String imageUrl) {
   Navigator.push(
     context,

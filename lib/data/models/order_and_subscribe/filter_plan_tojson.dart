@@ -12,9 +12,9 @@ class FilterPlansTojson {
   });
 
   Map<String, dynamic> tojson() => {
-        "duration": duration,
-        "number_of_session_per_week": numberOfSessionPerWeek,
-        "program_id": programId,
-        "subscripe_days": subscribeDays,
-      };
+    "duration": duration,
+    "number_of_session_per_week": numberOfSessionPerWeek,
+    "program_id": programId,
+    "subscripe_days": subscribeDays,
+  };
 }

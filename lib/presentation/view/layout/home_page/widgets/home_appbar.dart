@@ -18,10 +18,8 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
       context,
       mainTitle: "",
       leadingCustomWidth: 200.w,
-      onLeadinTap: () => Navigator.pushNamed(
-        context,
-        RoutePaths.copounsAndDiscountsViewPath,
-      ),
+      onLeadinTap: () =>
+          Navigator.pushNamed(context, RoutePaths.copounsAndDiscountsViewPath),
       customLeading: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
@@ -47,27 +45,20 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
             4.ph,
             Row(
               children: [
-                SvgPicture.asset(
-                  height: 20.h,
-                  width: 20.w,
-                  Assets.iconsCoin,
-                ),
+                SvgPicture.asset(height: 20.h, width: 20.w, Assets.iconsCoin),
                 Text(
                   loginData.bonus ?? "",
                   style: MainTextStyle.boldTextStyle(fontSize: 12),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
       leadingText: '',
       customAction: [
         InkWell(
-          onTap: () => Navigator.pushNamed(
-            context,
-            RoutePaths.chatsViewPath,
-          ),
+          onTap: () => Navigator.pushNamed(context, RoutePaths.chatsViewPath),
           child: AppbarIconWidget(
             iconWidget: SvgPicture.asset(
               Assets.iconsChatsIcon,
@@ -77,13 +68,9 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
         ),
         4.pw,
         InkWell(
-          onTap: () => Navigator.pushNamed(
-            context,
-            RoutePaths.homeNotification,
-          ),
-          child: CustomNotificationIcon(
-            showBadge: showBadge,
-          ),
+          onTap: () =>
+              Navigator.pushNamed(context, RoutePaths.homeNotification),
+          child: CustomNotificationIcon(showBadge: showBadge),
         ),
         16.pw,
       ],

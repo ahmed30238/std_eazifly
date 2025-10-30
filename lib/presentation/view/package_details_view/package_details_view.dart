@@ -33,9 +33,7 @@ class PackageDetailsView extends StatelessWidget {
                   24.ph,
                   Text(
                     "مشتملات المجموعة",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 12,
-                    ),
+                    style: MainTextStyle.boldTextStyle(fontSize: 12),
                   ),
                   16.ph,
                   Expanded(
@@ -44,22 +42,17 @@ class PackageDetailsView extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 16.h),
                       // physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemBuilder: (context, index) => PackageContentsItem(
-                        index: index,
-                      ),
+                      itemBuilder: (context, index) =>
+                          PackageContentsItem(index: index),
                       separatorBuilder: (context, index) => 16.ph,
                       itemCount: 12,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
             8.ph,
-             ButtonWithPrice(
-              onPressed: () {
-                
-              },
-             ),
+            ButtonWithPrice(onPressed: () {}),
             32.ph,
           ],
         ),

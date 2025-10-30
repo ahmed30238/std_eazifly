@@ -37,20 +37,17 @@ class AvatarImage extends StatelessWidget {
   }
 
   bool _isFilePath(String path) {
-    return path.startsWith('/') || 
-           path.contains('\\') || 
-           path.startsWith('file://') ||
-           (Platform.isWindows && path.contains(':'));
+    return path.startsWith('/') ||
+        path.contains('\\') ||
+        path.startsWith('file://') ||
+        (Platform.isWindows && path.contains(':'));
   }
 
   Widget _buildImage() {
     // إعطاء الأولوية للملف المحلي إذا كان متاحاً
     if (imageFile != null) {
       if (_isSvgImage(imageFile!.path)) {
-        return SvgPicture.file(
-          imageFile!,
-          fit: BoxFit.cover,
-        );
+        return SvgPicture.file(imageFile!, fit: BoxFit.cover);
       } else {
         return Image.file(
           imageFile!,
@@ -60,31 +57,24 @@ class AvatarImage extends StatelessWidget {
       }
     }
 
-    final url = imageUrl ?? "https://hossam.mallahsoft.com/storage/client/instructor/1742280038.png";
+    final url =
+        imageUrl ??
+        "https://hossam.mallahsoft.com/storage/client/instructor/1742280038.png";
 
     // Check if it's an asset path
     if (url.startsWith('assets/') || url.startsWith('asset/')) {
       if (_isSvgImage(url)) {
-        return SvgPicture.asset(
-          url,
-          fit: BoxFit.cover,
-        );
+        return SvgPicture.asset(url, fit: BoxFit.cover);
       } else {
-        return Image.asset(
-          url,
-          fit: BoxFit.cover,
-        );
+        return Image.asset(url, fit: BoxFit.cover);
       }
     }
-    
+
     // Check if it's a local file path
     if (_isFilePath(url)) {
       final file = File(url);
       if (_isSvgImage(url)) {
-        return SvgPicture.file(
-          file,
-          fit: BoxFit.cover,
-        );
+        return SvgPicture.file(file, fit: BoxFit.cover);
       } else {
         return Image.file(
           file,
@@ -93,13 +83,13 @@ class AvatarImage extends StatelessWidget {
         );
       }
     }
-        
+
     // Handle network images
     if (_isSvgImage(url)) {
       return SvgPicture.network(
         url,
         fit: BoxFit.cover,
-        placeholderBuilder: (context) => 
+        placeholderBuilder: (context) =>
             const Center(child: CircularProgressIndicator(strokeWidth: 2)),
       );
     } else {
@@ -115,15 +105,9 @@ class AvatarImage extends StatelessWidget {
 
   Widget _buildFallbackImage() {
     if (_isSvgImage(fallbackAssetPath)) {
-      return SvgPicture.asset(
-        fallbackAssetPath,
-        fit: BoxFit.cover,
-      );
+      return SvgPicture.asset(fallbackAssetPath, fit: BoxFit.cover);
     } else {
-      return Image.asset(
-        fallbackAssetPath,
-        fit: BoxFit.cover,
-      );
+      return Image.asset(fallbackAssetPath, fit: BoxFit.cover);
     }
   }
 
@@ -136,18 +120,12 @@ class AvatarImage extends StatelessWidget {
       height: height ?? 48.w,
       decoration: BoxDecoration(
         shape: shape,
-        border: Border.all(
-          width: borderWidth,
-          color: borderColor,
-        ),
+        border: Border.all(width: borderWidth, color: borderColor),
         borderRadius: shape == BoxShape.rectangle ? 8.cr : null,
       ),
       child: Stack(
         fit: StackFit.expand,
-        children: [
-          _buildImage(),
-          if (child != null) child!,
-        ],
+        children: [_buildImage(), if (child != null) child!],
       ),
     );
   }

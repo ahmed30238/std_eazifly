@@ -5,9 +5,5 @@ class GetUserOrdersEntity {
   final List<CreateOrderDataModel>? data;
   final int? status;
   final String? message;
-  const GetUserOrdersEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  const GetUserOrdersEntity({this.data, this.status, this.message});
 }

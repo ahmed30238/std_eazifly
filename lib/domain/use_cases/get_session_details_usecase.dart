@@ -11,10 +11,12 @@ class GetSessionDetailsUsecase
   GetSessionDetailsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetSessionDetailsEntity>> call(
-      {required GetSessionDetailsParameters parameter}) async {
+  Future<Either<Failure, GetSessionDetailsEntity>> call({
+    required GetSessionDetailsParameters parameter,
+  }) async {
     return await baseRepository.getSessionDetails(
-        sessionId: parameter.sessionId);
+      sessionId: parameter.sessionId,
+    );
   }
 }
 

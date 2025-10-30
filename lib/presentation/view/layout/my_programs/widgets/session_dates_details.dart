@@ -95,10 +95,7 @@ class SessionDatesDetails extends StatelessWidget {
                 ),
                 fixedSpace ?? 10.ph,
                 if (isBtn) ...{
-                  CustomLowSizeButton(
-                    onTap: onRejoinTap,
-                    text: "اعادة دخول",
-                  ),
+                  CustomLowSizeButton(onTap: onRejoinTap, text: "اعادة دخول"),
                 } else ...{
                   CustomLowSizeButton(
                     onTap: () {},
@@ -116,7 +113,7 @@ class SessionDatesDetails extends StatelessWidget {
                   //     color: MainColors.black,
                   //   ),
                   // ),
-                }
+                },
               ],
             ),
           ),

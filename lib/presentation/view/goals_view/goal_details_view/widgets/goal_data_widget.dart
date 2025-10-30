@@ -9,11 +9,7 @@ import 'package:flutter_svg/svg.dart';
 class GoalDataWidget extends StatelessWidget {
   final String title;
   final String points;
-  const GoalDataWidget({
-    super.key,
-    required this.title,
-    required this.points,
-  });
+  const GoalDataWidget({super.key, required this.title, required this.points});
 
   @override
   Widget build(BuildContext context) {
@@ -44,18 +40,10 @@ class GoalDataWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title,
-              style: MainTextStyle.boldTextStyle(fontSize: 14),
-            ),
+            Text(title, style: MainTextStyle.boldTextStyle(fontSize: 14)),
             const Spacer(),
-            SvgPicture.asset(
-              Assets.iconsCoin,
-            ),
-            Text(
-              points,
-              style: MainTextStyle.boldTextStyle(fontSize: 15),
-            ),
+            SvgPicture.asset(Assets.iconsCoin),
+            Text(points, style: MainTextStyle.boldTextStyle(fontSize: 15)),
           ],
         ),
       ],

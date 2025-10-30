@@ -11,8 +11,9 @@ class GetGeideaDataUsecase
   GetGeideaDataUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetGeideaDataEntity>> call(
-      {required GetGeideaDataParameters parameter}) async {
+  Future<Either<Failure, GetGeideaDataEntity>> call({
+    required GetGeideaDataParameters parameter,
+  }) async {
     return await baseRepository.geideaData(key: parameter.key);
   }
 }

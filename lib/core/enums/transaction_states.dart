@@ -1,5 +1,1 @@
-enum TransactionState {
-  succeeded,
-  failed,
-  underreview,
-}
+enum TransactionState { succeeded, failed, underreview }

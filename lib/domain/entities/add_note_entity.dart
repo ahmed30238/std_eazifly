@@ -12,11 +12,7 @@ class AddNoteEntity {
   @JsonKey(name: "message")
   String? message;
 
-  AddNoteEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  AddNoteEntity({this.data, this.status, this.message});
 }
 
 // ENTITY: DataEntity
@@ -152,10 +148,7 @@ class AddNoteMakerEntity {
   @JsonKey(name: "image")
   String? image;
 
-  AddNoteMakerEntity({
-    this.name,
-    this.image,
-  });
+  AddNoteMakerEntity({this.name, this.image});
 }
 
 // ENTITY: StatusEntity
@@ -165,10 +158,7 @@ class AddNoteStatusEntity {
   @JsonKey(name: "color")
   String? color;
 
-  AddNoteStatusEntity({
-    this.label,
-    this.color,
-  });
+  AddNoteStatusEntity({this.label, this.color});
 }
 
 // ENTITY: UserEntity
@@ -184,11 +174,5 @@ class AddNoteUserEntity {
   @JsonKey(name: "image")
   String? image;
 
-  AddNoteUserEntity({
-    this.id,
-    this.name,
-    this.email,
-    this.phone,
-    this.image,
-  });
+  AddNoteUserEntity({this.id, this.name, this.email, this.phone, this.image});
 }

@@ -11,11 +11,7 @@ class GetPlansEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetPlansEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetPlansEntity({this.data, this.status, this.message});
 }
 
 class GetPlansDataEntity {

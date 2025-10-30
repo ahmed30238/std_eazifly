@@ -10,10 +10,13 @@ class LikeItemUsecase extends BaseUsecase<LikeItemEntity, LikeItemParameters> {
   LikeItemUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, LikeItemEntity>> call(
-      {required LikeItemParameters parameter}) async {
+  Future<Either<Failure, LikeItemEntity>> call({
+    required LikeItemParameters parameter,
+  }) async {
     return await baseRepository.likeItem(
-        itemId: parameter.itemId, status: parameter.status);
+      itemId: parameter.itemId,
+      status: parameter.status,
+    );
   }
 }
 

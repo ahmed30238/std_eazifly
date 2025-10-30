@@ -3,10 +3,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class RegistrationTypeBody extends StatelessWidget {
   final bool isRegisteringMySelf;
-  const RegistrationTypeBody({
-    super.key,
-    this.isRegisteringMySelf = false,
-  });
+  const RegistrationTypeBody({super.key, this.isRegisteringMySelf = false});
 
   @override
   Widget build(BuildContext context) {

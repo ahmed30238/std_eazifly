@@ -125,9 +125,7 @@ class _ProgramSubscriptionPlanViewState
                     height: 21.h,
                     child: Text(
                       "خطة الاشتراك",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 14,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 14),
                     ),
                   ),
                   12.ph,
@@ -155,22 +153,21 @@ class _ProgramSubscriptionPlanViewState
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) =>
                                 SubscriptionPlanCardItem(
-                              isSelected: index == cubit.planSubscribeDaysIndex,
-                              day: subscribeDays?[index] ?? "no data",
-                              icons: planIcons[index],
-                              onTap: () {
-                                cubit.changePlanIndex(index);
-                              },
-                            ),
+                                  isSelected:
+                                      index == cubit.planSubscribeDaysIndex,
+                                  day: subscribeDays?[index] ?? "no data",
+                                  icons: planIcons[index],
+                                  onTap: () {
+                                    cubit.changePlanIndex(index);
+                                  },
+                                ),
                             separatorBuilder: (context, index) =>
                                 const SizedBox(width: 10),
                             itemCount: subscribeDays?.length ?? 0,
                           );
                         }
 
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
+                        return const Center(child: CircularProgressIndicator());
                       },
                     ),
                   ),
@@ -179,9 +176,7 @@ class _ProgramSubscriptionPlanViewState
                     height: 21.h,
                     child: Text(
                       "مدة الدرس",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 14,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 14),
                     ),
                   ),
                   12.ph,
@@ -195,13 +190,13 @@ class _ProgramSubscriptionPlanViewState
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) =>
                               LessonDurationCardItem(
-                            duration: lessonDuration?[index] ?? "",
-                            isSelected: index == cubit.lessonDurationIndex,
-                            icons: planIcons[index],
-                            onTap: () {
-                              cubit.changeLessonDurationIndex(index);
-                            },
-                          ),
+                                duration: lessonDuration?[index] ?? "",
+                                isSelected: index == cubit.lessonDurationIndex,
+                                icons: planIcons[index],
+                                onTap: () {
+                                  cubit.changeLessonDurationIndex(index);
+                                },
+                              ),
                           separatorBuilder: (context, index) => 10.pw,
                           itemCount: lessonDuration?.length ?? 0,
                         );
@@ -244,14 +239,13 @@ class _ProgramSubscriptionPlanViewState
                             val == null ? "من فضلك اختر الحصص" : null,
                         items: _getNumberOfSessionPerWeek()
                             ?.map(
-                              (e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e),
-                              ),
+                              (e) => DropdownMenuItem(value: e, child: Text(e)),
                             )
                             .toList(),
                         onChanged: (val) {
-                          log("this is programId ${widget.programId.toString()}");
+                          log(
+                            "this is programId ${widget.programId.toString()}",
+                          );
                           log("val is sessio Per week count ${val.toString()}");
                           cubit.filterPlans(
                             programId: widget.programId,
@@ -306,9 +300,7 @@ class _ProgramSubscriptionPlanViewState
                     height: 21.h,
                     child: Text(
                       "الكوبونات والخصومات",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 14,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 14),
                     ),
                   ),
                   16.ph,
@@ -420,10 +412,7 @@ class _ProgramSubscriptionPlanViewState
                 Navigator.pushNamed(
                   context,
                   routePath,
-                  arguments: {
-                    "cubit": cubit,
-                    "itemId": widget.programId,
-                  },
+                  arguments: {"cubit": cubit, "itemId": widget.programId},
                 );
               }
             },
@@ -467,5 +456,5 @@ class _ProgramSubscriptionPlanViewState
 var planIcons = [
   Assets.iconsLoadingSand,
   Assets.iconsSecurityTime,
-  Assets.iconsCalender
+  Assets.iconsCalender,
 ];

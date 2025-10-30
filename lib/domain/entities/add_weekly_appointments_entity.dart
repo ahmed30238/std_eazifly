@@ -11,11 +11,7 @@ class AddWeeklyAppontmentsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  AddWeeklyAppontmentsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  AddWeeklyAppontmentsEntity({this.data, this.status, this.message});
 }
 
 class AddWeeklyAppontmentsDatumEntity {
@@ -25,8 +21,5 @@ class AddWeeklyAppontmentsDatumEntity {
   @JsonKey(name: "end")
   DateTime? end;
 
-  AddWeeklyAppontmentsDatumEntity({
-    this.start,
-    this.end,
-  });
+  AddWeeklyAppontmentsDatumEntity({this.start, this.end});
 }

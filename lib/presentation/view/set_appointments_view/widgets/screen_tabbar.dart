@@ -5,17 +5,19 @@ import 'package:eazifly_student/presentation/view/layout/my_account/subscription
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 //
 class ScreenTabBar extends StatelessWidget {
-  const ScreenTabBar({
-    super.key,
-  });
+  const ScreenTabBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     var cubit = GroupPackageManagementCubit.get(context);
 
-    return BlocBuilder<GroupPackageManagementCubit, GroupPackageManagementState>(
+    return BlocBuilder<
+      GroupPackageManagementCubit,
+      GroupPackageManagementState
+    >(
       builder: (context, state) => CustomFilledTabBar(
         innerRadius: 12.r,
         margin: EdgeInsets.zero,
@@ -25,19 +27,16 @@ class ScreenTabBar extends StatelessWidget {
           cubit.controller!.animateTo(value);
           cubit.changeTapbarIndex(value);
         },
-        tabs: List.generate(
-          cubit.tabs.length,
-          (index) {
-            bool isSelected = cubit.controller?.index == index;
-            return Text(
-              cubit.tabs[index],
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 12,
-                color: isSelected ? Colors.white : Colors.black,
-              ),
-            );
-          },
-        ),
+        tabs: List.generate(cubit.tabs.length, (index) {
+          bool isSelected = cubit.controller?.index == index;
+          return Text(
+            cubit.tabs[index],
+            style: MainTextStyle.boldTextStyle(
+              fontSize: 12,
+              color: isSelected ? Colors.white : Colors.black,
+            ),
+          );
+        }),
       ),
     );
   }

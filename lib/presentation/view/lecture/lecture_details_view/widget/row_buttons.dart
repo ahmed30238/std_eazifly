@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RowButtons extends StatelessWidget {
-  const RowButtons({
-    super.key,
-  });
+  const RowButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +18,8 @@ class RowButtons extends StatelessWidget {
             height: 48.h,
             text: "أعادة دخول المحاضرة",
             textSize: 15,
-            onPressed: () => Navigator.pushNamed(
-              context,
-              RoutePaths.joinedLectureScreen,
-            ),
+            onPressed: () =>
+                Navigator.pushNamed(context, RoutePaths.joinedLectureScreen),
             color: MainColors.tertiary,
             radius: 16.r,
           ),

@@ -51,8 +51,8 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
           BlocBuilder(
             bloc: myProgramsCubit,
             builder: (context, state) {
-              bool isLoadingProgramDetails = myProgramsCubit
-                      .getAssignedChildrenLoader ||
+              bool isLoadingProgramDetails =
+                  myProgramsCubit.getAssignedChildrenLoader ||
                   myProgramsCubit.getAssignedChildrenToProgramEntity?.data ==
                       null;
 
@@ -65,9 +65,7 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
                   color: MainColors.inputFill,
                 ),
                 child: isLoadingProgramDetails
-                    ? const Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      )
+                    ? const Center(child: CircularProgressIndicator.adaptive())
                     : Row(
                         children: [
                           Padding(
@@ -80,12 +78,15 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
                                   Text(
                                     "إسم البرنامج",
                                     style: MainTextStyle.boldTextStyle(
-                                        fontSize: 11,
-                                        color: MainColors.onSurfaceSecondary),
+                                      fontSize: 11,
+                                      color: MainColors.onSurfaceSecondary,
+                                    ),
                                   ),
                                   10.5.ph,
                                   Text(
-                                    lectureCubit.showProgramDetailsEntity?.data
+                                    lectureCubit
+                                            .showProgramDetailsEntity
+                                            ?.data
                                             ?.title ??
                                         "no title",
                                     style: MainTextStyle.boldTextStyle(
@@ -108,9 +109,7 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
                                   .toString();
 
                               return Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 13.5.h,
-                                ),
+                                padding: EdgeInsets.symmetric(vertical: 13.5.h),
                                 child: SizedBox(
                                   height: 50.h,
                                   child: Column(
@@ -128,7 +127,8 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
                                       TextedContainer(
                                         width: 85.w,
                                         height: 26.h,
-                                        text: expireDate?.substring(0,10) ?? "",
+                                        text:
+                                            expireDate?.substring(0, 10) ?? "",
                                         containerColor: MainColors.onError,
                                         textColor: MainColors.error,
                                       ),
@@ -148,21 +148,15 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             width: double.infinity,
-            constraints: BoxConstraints(
-              minHeight: 198.h,
-            ),
-            decoration: BoxDecoration(
-              color: MainColors.inputFill,
-            ),
+            constraints: BoxConstraints(minHeight: 198.h),
+            decoration: BoxDecoration(color: MainColors.inputFill),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 16.ph,
                 Text(
                   "تاريخ المحاضرات",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 14,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 12.ph,
                 BlocBuilder(
@@ -171,7 +165,7 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
                     var sessions = lectureCubit.getProgramSessionsEntity?.data;
                     bool isLoadingSessions =
                         lectureCubit.getProgramSessionsLoader ||
-                            lectureCubit.getProgramSessionsEntity?.data == null;
+                        lectureCubit.getProgramSessionsEntity?.data == null;
 
                     if (isLoadingSessions) {
                       return SizedBox(
@@ -218,7 +212,8 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
                           return LectureHistoryDetails(
                             title: session.programTitle ?? "",
                             index: index,
-                            sessionDate: session.sessionDatetime
+                            sessionDate:
+                                session.sessionDatetime
                                     ?.toIso8601String()
                                     .substring(0, 10) ??
                                 "",
@@ -237,7 +232,7 @@ class _LectureHistoryViewState extends State<LectureHistoryView> {
                 16.ph,
               ],
             ),
-          )
+          ),
         ],
       ),
     );

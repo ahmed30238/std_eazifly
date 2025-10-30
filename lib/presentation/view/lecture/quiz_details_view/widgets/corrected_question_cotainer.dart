@@ -54,8 +54,9 @@ class CorrectedQuestionCotainer extends StatelessWidget {
                 height: 28.h,
                 text: isTrue ? "إجابة صحيحة" : "إجابة خطأ",
                 textColor: isTrue ? MainColors.success : MainColors.onError,
-                containerColor:
-                    isTrue ? MainColors.onSuccess : MainColors.error,
+                containerColor: isTrue
+                    ? MainColors.onSuccess
+                    : MainColors.error,
                 radius: 16.r,
               ),
             ],
@@ -67,10 +68,7 @@ class CorrectedQuestionCotainer extends StatelessWidget {
             decoration: BoxDecoration(
               color: MainColors.background,
               borderRadius: 8.cr,
-              border: Border.all(
-                width: 1.w,
-                color: MainColors.outline,
-              ),
+              border: Border.all(width: 1.w, color: MainColors.outline),
             ),
             child: Text(
               question,

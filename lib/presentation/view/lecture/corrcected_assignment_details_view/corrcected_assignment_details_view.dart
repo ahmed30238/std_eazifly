@@ -24,9 +24,7 @@ class _CorrcectedAssignmentDetailsViewState
   void initState() {
     cubit = context.read<LectureCubit>();
     super.initState();
-    cubit.getAssignmentDetails(
-      assignmentId: widget.assignmentId,
-    );
+    cubit.getAssignmentDetails(assignmentId: widget.assignmentId);
   }
 
   @override
@@ -58,7 +56,9 @@ class _CorrcectedAssignmentDetailsViewState
                   child: Text(
                     'حدث خطأ في تحميل البيانات',
                     style: MainTextStyle.regularTextStyle(
-                        color: Colors.red, fontSize: 12),
+                      color: Colors.red,
+                      fontSize: 12,
+                    ),
                   ),
                 );
               }
@@ -92,7 +92,7 @@ class _CorrcectedAssignmentDetailsViewState
                 titleText: const [
                   "تاريخ التسليم",
                   "درجة الإمتحان",
-                  "حالة الإمتحان"
+                  "حالة الإمتحان",
                 ],
                 downSideWidgets: [
                   // تاريخ التسليم
@@ -141,13 +141,15 @@ class _CorrcectedAssignmentDetailsViewState
               var assignment = cubit.getAssignmentDetailsEntity?.data;
 
               return QuestionAndSolutionContainer(
-                isCorrected: assignment?.status == "corrected", // أو false إذا لم يتم التصحيح
+                isCorrected:
+                    assignment?.status ==
+                    "corrected", // أو false إذا لم يتم التصحيح
                 title: assignment?.title ?? "",
                 answerText: assignment?.text ?? "",
                 teacherFeedback: "إجابة صحيحة، جيد جداً",
                 studentAttachments: [
                   // assignment?.userVoiceNote ?? "",
-                  assignment?.file ?? ""
+                  assignment?.file ?? "",
                 ],
                 // teacherAttachments: [
                 //   "https://example.com/teacher_feedback.pdf"

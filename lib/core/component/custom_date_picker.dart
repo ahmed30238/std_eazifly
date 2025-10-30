@@ -116,28 +116,22 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
     selectedDate = widget.initialDate;
     entryMode = widget.initialEntryMode;
     currentMode = widget.initialDatePickerMode;
-    _textController = TextEditingController(text: _formatDateForInput(selectedDate));
+    _textController = TextEditingController(
+      text: _formatDateForInput(selectedDate),
+    );
 
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
 
-    _scaleAnimation = Tween<double>(
-      begin: 0.8,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.elasticOut,
-    ));
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
+    );
 
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeIn,
-    ));
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
+    );
 
     _animationController.forward();
   }
@@ -161,7 +155,10 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
             child: Dialog(
               backgroundColor: Colors.transparent,
               child: Container(
-                constraints: const BoxConstraints(maxWidth: 400, maxHeight: 600),
+                constraints: const BoxConstraints(
+                  maxWidth: 400,
+                  maxHeight: 600,
+                ),
                 decoration: BoxDecoration(
                   color: MainColors.surface2,
                   borderRadius: BorderRadius.circular(24),
@@ -200,10 +197,7 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            MainColors.primary,
-            MainColors.accent,
-          ],
+          colors: [MainColors.primary, MainColors.accent],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -228,9 +222,15 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
               ),
               Row(
                 children: [
-                  _buildModeToggle(Icons.edit_calendar, DatePickerEntryMode.input),
+                  _buildModeToggle(
+                    Icons.edit_calendar,
+                    DatePickerEntryMode.input,
+                  ),
                   const SizedBox(width: 8),
-                  _buildModeToggle(Icons.calendar_today, DatePickerEntryMode.calendar),
+                  _buildModeToggle(
+                    Icons.calendar_today,
+                    DatePickerEntryMode.calendar,
+                  ),
                 ],
               ),
             ],
@@ -267,14 +267,12 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isActive ? MainColors.onPrimary.withValues(alpha: 0.2) : Colors.transparent,
+          color: isActive
+              ? MainColors.onPrimary.withValues(alpha: 0.2)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Icon(
-          icon,
-          color: MainColors.onPrimary,
-          size: 20,
-        ),
+        child: Icon(icon, color: MainColors.onPrimary, size: 20),
       ),
     );
   }
@@ -350,10 +348,7 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
               ),
               filled: true,
               fillColor: MainColors.inputFill,
-              prefixIcon: Icon(
-                Icons.calendar_today,
-                color: MainColors.primary,
-              ),
+              prefixIcon: Icon(Icons.calendar_today, color: MainColors.primary),
             ),
             onChanged: _validateAndParseInput,
             keyboardType: TextInputType.datetime,
@@ -362,10 +357,7 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
           if (_errorText != null)
             Text(
               _errorText!,
-              style: const TextStyle(
-                color: MainColors.error,
-                fontSize: 12,
-              ),
+              style: const TextStyle(color: MainColors.error, fontSize: 12),
             ),
         ],
       ),
@@ -437,47 +429,45 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
               }
               return Colors.transparent;
             }),
-            shape: RoundedRectangleBorder(
-              borderRadius: 12.cr,
-            ),
+            shape: RoundedRectangleBorder(borderRadius: 12.cr),
             dayShape: WidgetStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
             yearShape: WidgetStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
           ),
         ),
         child: currentMode == DatePickerMode.year
             ? YearPicker(
-          firstDate: widget.firstDate,
-          lastDate: widget.lastDate,
-          selectedDate: selectedDate,
-          onChanged: (DateTime date) {
-            setState(() {
-              selectedDate = DateTime(date.year, selectedDate.month, selectedDate.day);
-              currentMode = DatePickerMode.day;
-            });
-          },
-        )
+                firstDate: widget.firstDate,
+                lastDate: widget.lastDate,
+                selectedDate: selectedDate,
+                onChanged: (DateTime date) {
+                  setState(() {
+                    selectedDate = DateTime(
+                      date.year,
+                      selectedDate.month,
+                      selectedDate.day,
+                    );
+                    currentMode = DatePickerMode.day;
+                  });
+                },
+              )
             : CalendarDatePicker(
-          initialDate: selectedDate,
-          firstDate: widget.firstDate,
-          lastDate: widget.lastDate,
-          onDateChanged: (DateTime date) {
-            if (widget.selectableDayPredicate == null ||
-                widget.selectableDayPredicate!(date)) {
-              setState(() {
-                selectedDate = date;
-              });
-            }
-          },
-          selectableDayPredicate: widget.selectableDayPredicate,
-        ),
+                initialDate: selectedDate,
+                firstDate: widget.firstDate,
+                lastDate: widget.lastDate,
+                onDateChanged: (DateTime date) {
+                  if (widget.selectableDayPredicate == null ||
+                      widget.selectableDayPredicate!(date)) {
+                    setState(() {
+                      selectedDate = date;
+                    });
+                  }
+                },
+                selectableDayPredicate: widget.selectableDayPredicate,
+              ),
       ),
     );
   }
@@ -497,10 +487,7 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
               });
             },
             icon: Icon(Icons.today, color: MainColors.accent),
-            label: Text(
-              'اليوم',
-              style: TextStyle(color: MainColors.accent),
-            ),
+            label: Text('اليوم', style: TextStyle(color: MainColors.accent)),
           ),
           Row(
             children: [
@@ -553,9 +540,7 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
             child: Text(
               text,
               style: TextStyle(
-                color: isPrimary
-                    ? MainColors.onPrimary
-                    : MainColors.onSurface,
+                color: isPrimary ? MainColors.onPrimary : MainColors.onSurface,
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
               ),
@@ -604,7 +589,8 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
         if (parsedDate.isBefore(widget.firstDate) ||
             parsedDate.isAfter(widget.lastDate)) {
           setState(() {
-            _errorText = widget.errorInvalidText ?? 'التاريخ خارج النطاق المسموح';
+            _errorText =
+                widget.errorInvalidText ?? 'التاريخ خارج النطاق المسموح';
           });
           return;
         }
@@ -634,8 +620,18 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
 
   String _formatDate(DateTime date) {
     const months = [
-      'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
-      'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+      'يناير',
+      'فبراير',
+      'مارس',
+      'أبريل',
+      'مايو',
+      'يونيو',
+      'يوليو',
+      'أغسطس',
+      'سبتمبر',
+      'أكتوبر',
+      'نوفمبر',
+      'ديسمبر',
     ];
 
     return '${date.day} ${months[date.month - 1]} ${date.year}';
@@ -647,8 +643,18 @@ class _CustomCalendarDialogState extends State<CustomCalendarDialog>
 
   String _getMonthName(int month) {
     const months = [
-      'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
-      'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+      'يناير',
+      'فبراير',
+      'مارس',
+      'أبريل',
+      'مايو',
+      'يونيو',
+      'يوليو',
+      'أغسطس',
+      'سبتمبر',
+      'أكتوبر',
+      'نوفمبر',
+      'ديسمبر',
     ];
     return months[month - 1];
   }

@@ -42,9 +42,7 @@ class _HomeAssignmentsState extends State<HomeAssignments> {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Text(
               "كل التسليمات",
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 14,
-              ),
+              style: MainTextStyle.boldTextStyle(fontSize: 14),
             ),
           ),
           BlocBuilder(
@@ -53,9 +51,7 @@ class _HomeAssignmentsState extends State<HomeAssignments> {
               // Handle loading state
               if (cubit.getHomeAssignmentsLoader) {
                 return const Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  child: Center(child: CircularProgressIndicator()),
                 );
               }
 
@@ -130,10 +126,12 @@ class _HomeAssignmentsState extends State<HomeAssignments> {
                     var date = assignment.createdAt;
 
                     // تحويل الـ state من السيرفر إلى enum
-                    DeliverStatus deliverState =
-                        getDeliverStatusFromString(assignments[index].status);
-                    bool isDelivered =
-                        isAssignmentDelivered(assignments[index].status);
+                    DeliverStatus deliverState = getDeliverStatusFromString(
+                      assignments[index].status,
+                    );
+                    bool isDelivered = isAssignmentDelivered(
+                      assignments[index].status,
+                    );
 
                     return CustomListTile(
                       onTap: () {
@@ -143,12 +141,12 @@ class _HomeAssignmentsState extends State<HomeAssignments> {
                           arguments: assignment.isUploaded ?? true
                               ? {
                                   "assignmentId": assignment.id,
-                                  "assignmentTitle": assignment.title
+                                  "assignmentTitle": assignment.title,
                                 }
                               : {
                                   "cubit": cubit,
                                   "assignmentId": assignment.id,
-                                  "assignmentTitle": assignment.title
+                                  "assignmentTitle": assignment.title,
                                 },
                           context,
                           assignment.isUploaded ?? true

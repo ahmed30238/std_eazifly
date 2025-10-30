@@ -1,4 +1,3 @@
-
 import 'package:eazifly_student/core/component/spline_area_chart.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/custom_list_tile.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
@@ -23,12 +22,10 @@ class StatsArea extends StatelessWidget {
           padding: EdgeInsets.only(top: 24.h, right: 16.w, bottom: 8.h),
           child: Text(
             "مؤشر مستوي التقدم",
-            style: MainTextStyle.mediumTextStyle(
-              fontSize: 12,
-            ),
+            style: MainTextStyle.mediumTextStyle(fontSize: 12),
           ),
         ),
-       SplineAreaChart(splineAreaChartData: splineAreaChartData),
+        SplineAreaChart(splineAreaChartData: splineAreaChartData),
         36.ph,
         const CustomListTile(
           icon: Assets.iconsProfile,
@@ -61,7 +58,7 @@ final List<ChartData> chartData = [
   ChartData(2011, 28),
   ChartData(2012, 34),
   ChartData(2013, 32),
-  ChartData(2014, 40)
+  ChartData(2014, 40),
 ];
 
 class ChartData {

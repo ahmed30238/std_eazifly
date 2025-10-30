@@ -11,8 +11,9 @@ class GetPlanSubscriptionPeriodUsecase
   GetPlanSubscriptionPeriodUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetPlanSubscriptionPeriodEntity>> call(
-      {required NoParameter parameter}) async {
+  Future<Either<Failure, GetPlanSubscriptionPeriodEntity>> call({
+    required NoParameter parameter,
+  }) async {
     return await baseRepository.getPlanSubscriptionPeriod();
   }
 }

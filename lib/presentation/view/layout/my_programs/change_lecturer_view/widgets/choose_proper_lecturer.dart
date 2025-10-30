@@ -18,9 +18,7 @@ class ChooseProperLecturerBody extends StatelessWidget {
           height: 36.h,
           child: Text(
             "برجاء تحديد المحاضر المناسب",
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 14,
-            ),
+            style: MainTextStyle.boldTextStyle(fontSize: 14),
           ),
         ),
         28.ph,
@@ -58,13 +56,9 @@ class ChooseProperLecturerBody extends StatelessWidget {
           builder: (context, state) {
             // Handle loading state
             if (cubit.getInstructorsLoader
-
-                // cubit.getInstructorsEntity == null
-                ) {
-              return SizedBox(
-                height: 130.h,
-                child: buildShimmerLoader(),
-              );
+            // cubit.getInstructorsEntity == null
+            ) {
+              return SizedBox(height: 130.h, child: buildShimmerLoader());
             }
 
             // Handle error state (optional)
@@ -117,10 +111,9 @@ class ChooseProperLecturerBody extends StatelessWidget {
             if (instructors.length == 1) {
               var instructor = instructors.first;
               return SuggestedTeachersItem(
-                specializations: instructor.specializations
-                        ?.map(
-                          (e) => e.name ?? "",
-                        )
+                specializations:
+                    instructor.specializations
+                        ?.map((e) => e.name ?? "")
                         .toList() ??
                     [],
                 onTap: () {
@@ -142,10 +135,9 @@ class ChooseProperLecturerBody extends StatelessWidget {
                   var instructor = instructors[index];
 
                   return SuggestedTeachersItem(
-                    specializations: instructor.specializations
-                            ?.map(
-                              (e) => e.name ?? "",
-                            )
+                    specializations:
+                        instructor.specializations
+                            ?.map((e) => e.name ?? "")
                             .toList() ??
                         [],
                     onTap: () {
@@ -163,6 +155,7 @@ class ChooseProperLecturerBody extends StatelessWidget {
             );
           },
         ),
+
         // BlocBuilder(
         //   bloc: cubit,
         //   builder: (context, state) => CustomElevatedButton(
@@ -181,7 +174,6 @@ class ChooseProperLecturerBody extends StatelessWidget {
         //           },
         //   ),
         // ),
-
         const Spacer(),
         32.ph,
         BlocBuilder(

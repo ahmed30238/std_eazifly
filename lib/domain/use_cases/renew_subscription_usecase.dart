@@ -6,14 +6,16 @@ import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/subscription_management/renew_subscription_entity.dart';
 
 class RenewSubscriptionUsecase
-    extends BaseUsecase<RenewSubscriptionEntity, RenewSubscriptionDataParameters> {
+    extends
+        BaseUsecase<RenewSubscriptionEntity, RenewSubscriptionDataParameters> {
   final BaseRepository baseRepository;
 
   RenewSubscriptionUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, RenewSubscriptionEntity>> call(
-      {required RenewSubscriptionDataParameters parameter}) async {
+  Future<Either<Failure, RenewSubscriptionEntity>> call({
+    required RenewSubscriptionDataParameters parameter,
+  }) async {
     return await baseRepository.renewSubscription(data: parameter.data);
   }
 }

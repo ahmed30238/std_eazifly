@@ -1,4 +1,3 @@
-
 import 'package:eazifly_student/domain/entities/my_programs/get_program_assignments_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 

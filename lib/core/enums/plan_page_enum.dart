@@ -1,9 +1,6 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
-enum PlanPageEnum {
-  selectPlan,
-  filterPlan,
-}
+enum PlanPageEnum { selectPlan, filterPlan }
 
 // Extension لتحويل String إلى Enum
 extension PlanPageExtension on PlanPageEnum {

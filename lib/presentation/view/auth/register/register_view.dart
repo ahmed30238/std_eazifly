@@ -246,7 +246,7 @@ class _RegisterViewState extends State<RegisterView> {
                         // زر التسجيل
                         BlocBuilder<RegisterCubit, RegisterState>(
                           buildWhen: (previous, current) =>
-                          current is RegisterLoadingState ||
+                              current is RegisterLoadingState ||
                               current is RegisterSuccessState ||
                               current is RegisterFailedState,
                           builder: (context, state) {
@@ -255,24 +255,25 @@ class _RegisterViewState extends State<RegisterView> {
                               onPressed: cubit.registerLoader
                                   ? () {}
                                   : () {
-                                // إخفاء لوحة المفاتيح
-                                FocusScope.of(context).unfocus();
+                                      // إخفاء لوحة المفاتيح
+                                      FocusScope.of(context).unfocus();
 
-                                // بدء عملية التسجيل
-                                cubit.register(context);
-                              },
+                                      // بدء عملية التسجيل
+                                      cubit.register(context);
+                                    },
                               color: MainColors.primary,
                               radius: 16.r,
                               height: 48.h,
                               width: double.infinity,
                               child: cubit.registerLoader
                                   ? SizedBox(
-                                width: 20.w,
-                                height: 20.h,
-                                child: const CircularProgressIndicator.adaptive(
-                                  strokeWidth: 2,
-                                ),
-                              )
+                                      width: 20.w,
+                                      height: 20.h,
+                                      child:
+                                          const CircularProgressIndicator.adaptive(
+                                            strokeWidth: 2,
+                                          ),
+                                    )
                                   : null,
                             );
                           },
@@ -282,7 +283,7 @@ class _RegisterViewState extends State<RegisterView> {
                         // زر التسجيل مع إعادة المحاولة (للحالات الخاصة)
                         BlocBuilder<RegisterCubit, RegisterState>(
                           buildWhen: (previous, current) =>
-                          current is RegisterFailedState,
+                              current is RegisterFailedState,
                           builder: (context, state) {
                             if (state is RegisterFailedState) {
                               return Column(
@@ -292,7 +293,9 @@ class _RegisterViewState extends State<RegisterView> {
                                     decoration: BoxDecoration(
                                       color: Colors.red.shade50,
                                       borderRadius: BorderRadius.circular(8.r),
-                                      border: Border.all(color: Colors.red.shade200),
+                                      border: Border.all(
+                                        color: Colors.red.shade200,
+                                      ),
                                     ),
                                     child: Row(
                                       children: [
@@ -305,10 +308,11 @@ class _RegisterViewState extends State<RegisterView> {
                                         Expanded(
                                           child: Text(
                                             state.message,
-                                            style: MainTextStyle.regularTextStyle(
-                                              fontSize: 12,
-                                              color: Colors.red.shade600,
-                                            ),
+                                            style:
+                                                MainTextStyle.regularTextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.red.shade600,
+                                                ),
                                           ),
                                         ),
                                       ],
@@ -371,7 +375,6 @@ class _RegisterViewState extends State<RegisterView> {
           ),
 
           // أزرار التحكم
-
         ],
       ),
     );

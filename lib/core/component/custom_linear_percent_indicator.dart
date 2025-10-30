@@ -21,14 +21,13 @@ class CustomLinearPercentIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LinearPercentIndicator(
-      
       padding: EdgeInsets.zero,
       animation: true,
       progressBorderColor: Colors.red,
       alignment: alignment ?? MainAxisAlignment.end,
       isRTL: AppLanguageCubit.isArabic(context),
       width: width ?? 343.w,
-      lineHeight:lineHeight?? 8.h,
+      lineHeight: lineHeight ?? 8.h,
       barRadius: Radius.circular(12.r),
       percent: percent,
       backgroundColor: MainColors.surfaceVariant,

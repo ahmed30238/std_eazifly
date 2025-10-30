@@ -15,11 +15,19 @@ class ChildrenNavigator extends StatelessWidget {
     required this.childIndex,
   });
 
-  void _navigateToChild(BuildContext context, LectureCubit cubit, MyProgramsCubit programCubit,
-      List<dynamic> children, int targetIndex, String direction) {
+  void _navigateToChild(
+    BuildContext context,
+    LectureCubit cubit,
+    MyProgramsCubit programCubit,
+    List<dynamic> children,
+    int targetIndex,
+    String direction,
+  ) {
     // التحقق من صحة الـ target index
     if (targetIndex < 0 || targetIndex >= children.length) {
-      log("Cannot navigate $direction: target index $targetIndex is out of bounds (0-${children.length - 1})");
+      log(
+        "Cannot navigate $direction: target index $targetIndex is out of bounds (0-${children.length - 1})",
+      );
       return;
     }
 
@@ -31,7 +39,9 @@ class ChildrenNavigator extends StatelessWidget {
       return;
     }
 
-    log("$direction child tapped - moving from index $childIndex to $targetIndex");
+    log(
+      "$direction child tapped - moving from index $childIndex to $targetIndex",
+    );
 
     // تحديث الحالة
     cubit.changeCurrentUserIndex(targetIndex);
@@ -46,10 +56,7 @@ class ChildrenNavigator extends StatelessWidget {
     );
 
     // استدعاء الـ API للطفل الجديد
-    cubit.getProgramSessions(
-      programId: programId,
-      userId: userId,
-    );
+    cubit.getProgramSessions(programId: programId, userId: userId);
   }
 
   @override
@@ -58,10 +65,13 @@ class ChildrenNavigator extends StatelessWidget {
     return BlocBuilder<MyProgramsCubit, MyProgramsState>(
       builder: (context, state) {
         var programCubit = context.read<MyProgramsCubit>();
-        var children = programCubit.getAssignedChildrenToProgramEntity?.data ?? [];
+        var children =
+            programCubit.getAssignedChildrenToProgramEntity?.data ?? [];
 
         // التحقق من صحة الـ index
-        if (children.isEmpty || childIndex < 0 || childIndex >= children.length) {
+        if (children.isEmpty ||
+            childIndex < 0 ||
+            childIndex >= children.length) {
           return const SizedBox.shrink();
         }
 
@@ -75,19 +85,38 @@ class ChildrenNavigator extends StatelessWidget {
           bloc: cubit,
           builder: (context, state) {
             return StudentsChangeItem(
-              studentName: "${currentChild.firstName ?? ""} ${currentChild.lastName ?? ""}",
+              studentName:
+                  "${currentChild.firstName ?? ""} ${currentChild.lastName ?? ""}",
               onBackTap: () {
                 if (canGoBack) {
-                  _navigateToChild(context, cubit, programCubit, children, childIndex - 1, "Previous");
+                  _navigateToChild(
+                    context,
+                    cubit,
+                    programCubit,
+                    children,
+                    childIndex - 1,
+                    "Previous",
+                  );
                 } else {
-                  log("Cannot go back: already at first child (index $childIndex)");
+                  log(
+                    "Cannot go back: already at first child (index $childIndex)",
+                  );
                 }
               },
               onNextTap: () {
                 if (canGoNext) {
-                  _navigateToChild(context, cubit, programCubit, children, childIndex + 1, "Next");
+                  _navigateToChild(
+                    context,
+                    cubit,
+                    programCubit,
+                    children,
+                    childIndex + 1,
+                    "Next",
+                  );
                 } else {
-                  log("Cannot go next: already at last child (index $childIndex)");
+                  log(
+                    "Cannot go next: already at last child (index $childIndex)",
+                  );
                 }
               },
             );

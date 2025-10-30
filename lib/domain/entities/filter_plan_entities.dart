@@ -11,11 +11,7 @@ class FilterPlansEntity {
   @JsonKey(name: "message")
   String? message;
 
-  FilterPlansEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  FilterPlansEntity({this.data, this.status, this.message});
 }
 
 class FilterPlansDataEntity {

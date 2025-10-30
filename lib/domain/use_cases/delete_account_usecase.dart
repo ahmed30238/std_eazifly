@@ -11,8 +11,9 @@ class DeleteAccountUsecase
   DeleteAccountUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, DeleteAccountEntity>> call(
-      {required DeleteAccountParameters parameter}) async {
+  Future<Either<Failure, DeleteAccountEntity>> call({
+    required DeleteAccountParameters parameter,
+  }) async {
     return await baseRepository.deleteAccount(userId: parameter.userId);
   }
 }

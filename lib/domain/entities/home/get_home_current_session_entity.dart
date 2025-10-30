@@ -9,11 +9,7 @@ class GetHomeCurrentSessionEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetHomeCurrentSessionEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetHomeCurrentSessionEntity({this.data, this.status, this.message});
 }
 
 class GetHomeCurrentSessionData {
@@ -77,9 +73,5 @@ class GetHomeCurrentSessionUser {
   @JsonKey(name: "user_image")
   String? userImage;
 
-  GetHomeCurrentSessionUser({
-    this.id,
-    this.userName,
-    this.userImage,
-  });
+  GetHomeCurrentSessionUser({this.id, this.userName, this.userImage});
 }

@@ -71,7 +71,7 @@
 //                     ),
 //                   ),
 //                   SizedBox(height: 12),
-                  
+
 //                   // Appointment Type Buttons
 //                   Row(
 //                     children: [
@@ -92,9 +92,9 @@
 //                       ),
 //                     ],
 //                   ),
-                  
+
 //                   SizedBox(height: 16),
-                  
+
 //                   // Sessions Count
 //                   Text(
 //                     'عدد الحصص المتاحة',
@@ -120,9 +120,9 @@
 //                       ),
 //                     ),
 //                   ),
-                  
+
 //                   SizedBox(height: 16),
-                  
+
 //                   // Schedule Type Buttons
 //                   Row(
 //                     children: [
@@ -146,9 +146,9 @@
 //                 ],
 //               ),
 //             ),
-            
+
 //             SizedBox(height: 16),
-            
+
 //             // Date and Time Section
 //             Container(
 //               padding: EdgeInsets.all(16),
@@ -185,9 +185,9 @@
 //                       ),
 //                     ],
 //                   ),
-                  
+
 //                   SizedBox(height: 12),
-                  
+
 //                   InkWell(
 //                     onTap: _selectDate,
 //                     child: Container(
@@ -212,9 +212,9 @@
 //                       ),
 //                     ),
 //                   ),
-                  
+
 //                   SizedBox(height: 16),
-                  
+
 //                   // Time Selection
 //                   Row(
 //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -235,9 +235,9 @@
 //                       ),
 //                     ],
 //                   ),
-                  
+
 //                   SizedBox(height: 8),
-                  
+
 //                   InkWell(
 //                     onTap: _selectTime,
 //                     child: Container(
@@ -261,9 +261,9 @@
 //                 ],
 //               ),
 //             ),
-            
+
 //             SizedBox(height: 16),
-            
+
 //             // Filters Section
 //             Container(
 //               padding: EdgeInsets.all(16),
@@ -312,12 +312,12 @@
 //                       ),
 //                     ],
 //                   ),
-                  
+
 //                   if (showFilters) ...[
 //                     SizedBox(height: 16),
 //                     Divider(),
 //                     SizedBox(height: 16),
-                    
+
 //                     // Teacher Filter
 //                     Column(
 //                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -349,9 +349,9 @@
 //                         ),
 //                       ],
 //                     ),
-                    
+
 //                     SizedBox(height: 16),
-                    
+
 //                     // Subject Filter
 //                     Column(
 //                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,9 +388,9 @@
 //                 ],
 //               ),
 //             ),
-            
+
 //             SizedBox(height: 24),
-            
+
 //             // Submit Button
 //             SizedBox(
 //               width: double.infinity,

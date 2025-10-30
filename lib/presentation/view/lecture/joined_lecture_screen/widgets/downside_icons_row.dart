@@ -8,9 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DownSideIconsRow extends StatelessWidget {
-  const DownSideIconsRow({
-    super.key,
-  });
+  const DownSideIconsRow({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +17,7 @@ class DownSideIconsRow extends StatelessWidget {
       children: [
         IconsContainer(
           containerColor: MainColors.onPrimary,
-          iconWidget: Icon(
-            Icons.menu,
-            color: MainColors.background,
-          ),
+          iconWidget: Icon(Icons.menu, color: MainColors.background),
           height: 38.h,
           width: 38.w,
         ),
@@ -30,7 +25,7 @@ class DownSideIconsRow extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 32.w),
           child: IconsContainer(
             containerColor: MainColors.onPrimary,
-            iconWidget:  Icon(
+            iconWidget: Icon(
               Icons.mic_off_outlined,
               color: MainColors.background,
             ),
@@ -44,16 +39,13 @@ class DownSideIconsRow extends StatelessWidget {
             isFixedSize: true,
             minHeight: 175.h,
             maxHeight: 175.h,
-            widget:  const LeaveLectureAlertBottomSheetDesign(),
+            widget: const LeaveLectureAlertBottomSheetDesign(),
           ),
           child: Transform.rotate(
             angle: pi,
             child: IconsContainer(
               containerColor: MainColors.onError,
-              iconWidget:  Icon(
-                Icons.logout,
-                color: MainColors.background,
-              ),
+              iconWidget: Icon(Icons.logout, color: MainColors.background),
               height: 38.h,
               width: 38.w,
             ),

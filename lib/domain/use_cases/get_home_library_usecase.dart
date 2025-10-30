@@ -11,8 +11,9 @@ class GetHomeLibraryUsecase
   GetHomeLibraryUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetHomeLibraryEntity>> call(
-      {required NoParameter parameter}) async {
+  Future<Either<Failure, GetHomeLibraryEntity>> call({
+    required NoParameter parameter,
+  }) async {
     return await baseRepository.getHomeLibrary();
   }
 }

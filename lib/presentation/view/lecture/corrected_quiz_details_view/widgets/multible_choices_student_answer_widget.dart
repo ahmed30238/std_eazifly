@@ -33,16 +33,16 @@ class MultipleChoiceStudentAnswer extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isSelected
                         ? answerState
-                            ? MainColors.surface
-                            : MainColors.error
+                              ? MainColors.surface
+                              : MainColors.error
                         : MainColors.background,
                     borderRadius: 8.cr,
                     border: Border.all(
                       width: 2.w,
                       color: isSelected
                           ? answerState
-                              ? MainColors.surface
-                              : MainColors.onError
+                                ? MainColors.surface
+                                : MainColors.onError
                           : MainColors.outline,
                     ),
                   ),
@@ -52,8 +52,8 @@ class MultipleChoiceStudentAnswer extends StatelessWidget {
                       fontSize: 12,
                       color: isSelected
                           ? answerState
-                              ? MainColors.primary
-                              : MainColors.onError
+                                ? MainColors.primary
+                                : MainColors.onError
                           : MainColors.onPrimary,
                     ),
                   ).center(),
@@ -79,10 +79,7 @@ class MultipleChoiceStudentAnswer extends StatelessWidget {
               decoration: BoxDecoration(
                 color: MainColors.onSuccess,
                 borderRadius: 8.cr,
-                border: Border.all(
-                  width: 2.w,
-                  color: MainColors.success,
-                ),
+                border: Border.all(width: 2.w, color: MainColors.success),
               ),
               child: Text(
                 "المريخ",
@@ -91,8 +88,8 @@ class MultipleChoiceStudentAnswer extends StatelessWidget {
                   color: MainColors.success,
                 ),
               ).center(),
-            )
-          }
+            ),
+          },
         ],
       ),
     );

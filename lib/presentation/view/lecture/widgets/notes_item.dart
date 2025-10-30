@@ -71,7 +71,7 @@ class NotesItem extends StatelessWidget {
                           fontSize: 12,
                           color: MainColors.onSurfaceSecondary,
                         ),
-                      )
+                      ),
                     ],
                   ),
                   Text(
@@ -84,12 +84,7 @@ class NotesItem extends StatelessWidget {
                 ],
               ),
               8.ph,
-              Text(
-                feedback,
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 12,
-                ),
-              ),
+              Text(feedback, style: MainTextStyle.boldTextStyle(fontSize: 12)),
             ],
           ),
         ),

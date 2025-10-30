@@ -1,5 +1,1 @@
-enum StorageEnum {
-  loginModel,
-  fcmToken,
-  lang,
-}
+enum StorageEnum { loginModel, fcmToken, lang }

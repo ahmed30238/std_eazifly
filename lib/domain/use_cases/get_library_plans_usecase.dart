@@ -11,8 +11,9 @@ class GetLibraryPlansUsecase
   GetLibraryPlansUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetLibraryPlansEntity>> call(
-      {required GetLibraryPlansParameters parameter}) async {
+  Future<Either<Failure, GetLibraryPlansEntity>> call({
+    required GetLibraryPlansParameters parameter,
+  }) async {
     return await baseRepository.getLibraryPlans(days: parameter.days);
   }
 }

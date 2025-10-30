@@ -11,9 +11,5 @@ class AddSingleItemToFavListEntity {
   @JsonKey(name: "message")
   String? message;
 
-  AddSingleItemToFavListEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  AddSingleItemToFavListEntity({this.data, this.status, this.message});
 }

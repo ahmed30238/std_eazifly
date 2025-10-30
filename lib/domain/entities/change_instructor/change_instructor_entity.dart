@@ -8,9 +8,5 @@ class ChangeInstructorEntity {
   @JsonKey(name: "message")
   String? message;
 
-  ChangeInstructorEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  ChangeInstructorEntity({this.data, this.status, this.message});
 }

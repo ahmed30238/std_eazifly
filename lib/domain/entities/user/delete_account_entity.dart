@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-
 class DeleteAccountEntity {
   @JsonKey(name: "data")
   dynamic data;
@@ -9,9 +8,5 @@ class DeleteAccountEntity {
   @JsonKey(name: "message")
   String? message;
 
-  DeleteAccountEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  DeleteAccountEntity({this.data, this.status, this.message});
 }

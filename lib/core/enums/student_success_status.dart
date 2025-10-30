@@ -1,7 +1,1 @@
-enum StudentStatus {
-  successful,
-  failed,
-  pending,
-  newStudent,
-  acceptable,
-}
+enum StudentStatus { successful, failed, pending, newStudent, acceptable }

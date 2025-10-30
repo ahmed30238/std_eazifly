@@ -1,4 +1,3 @@
-
 import 'package:eazifly_student/domain/entities/subscription_management/upgrade_order_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'upgrade_order_model.g.dart';

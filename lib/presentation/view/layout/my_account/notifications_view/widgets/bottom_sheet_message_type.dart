@@ -3,6 +3,7 @@ import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class BottomSheetMessageTypeRow extends StatelessWidget {
   final String messageType;
   final String messageData;
@@ -46,10 +47,7 @@ class BottomSheetMessageTypeRow extends StatelessWidget {
               ),
             ],
           ),
-          CupertinoSwitch(
-            value: switchValue,
-            onChanged: onChange,
-          )
+          CupertinoSwitch(value: switchValue, onChanged: onChange),
         ],
       ),
     );

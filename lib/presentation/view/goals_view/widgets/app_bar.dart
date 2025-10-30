@@ -7,11 +7,10 @@ import 'package:eazifly_student/core/extensions/context.dart';
 // import 'package:eazifly_student/presentation/view/layout/my_account/notifications_view/notification_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 // import 'package:flutter_svg/svg.dart';
 class GoalsViewAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const GoalsViewAppbar({
-    super.key,
-  });
+  const GoalsViewAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {

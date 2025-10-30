@@ -77,10 +77,7 @@ class CustomListTile extends StatelessWidget {
                           style: MainTextStyle.boldTextStyle(fontSize: 14),
                         ),
                       if (isFavourite)
-                        TextedContainer(
-                          text: "مفضل",
-                          width: 46.w,
-                        )
+                        TextedContainer(text: "مفضل", width: 46.w),
                     ],
                   ),
                   4.ph,
@@ -112,7 +109,7 @@ class CustomListTile extends StatelessWidget {
                 Text(
                   trailingText ?? "",
                   style: MainTextStyle.boldTextStyle(fontSize: 14),
-                )
+                ),
           ],
         ),
       ),

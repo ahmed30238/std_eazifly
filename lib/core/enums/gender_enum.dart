@@ -1,7 +1,4 @@
-enum GenderEnum {
-  male,
-  female,
-}
+enum GenderEnum { male, female }
 
 extension GenderText on GenderEnum {
   String get title {

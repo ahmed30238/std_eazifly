@@ -61,15 +61,11 @@ class TelegramStyleFileItem extends StatelessWidget {
                 color: fileColor.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8.r),
               ),
-              child: Icon(
-                _getFileIcon(),
-                color: fileColor,
-                size: 24.w,
-              ),
+              child: Icon(_getFileIcon(), color: fileColor, size: 24.w),
             ),
-            
+
             12.pw,
-            
+
             // معلومات الملف
             Expanded(
               child: Column(
@@ -116,11 +112,7 @@ class TelegramStyleFileItem extends StatelessWidget {
                       // مؤشر الملف المدفوع
                       if (isPaid) ...[
                         8.pw,
-                        Icon(
-                          Icons.lock,
-                          size: 12.w,
-                          color: Colors.orange,
-                        ),
+                        Icon(Icons.lock, size: 12.w, color: Colors.orange),
                       ],
                     ],
                   ),
@@ -136,9 +128,9 @@ class TelegramStyleFileItem extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             8.pw,
-            
+
             // أيقونة الحالة
             _buildStatusIcon(),
           ],
@@ -151,7 +143,7 @@ class TelegramStyleFileItem extends StatelessWidget {
     if (isAudioFile) {
       return isCurrentlyPlaying ? Icons.music_note : Icons.audio_file;
     }
-    
+
     switch (fileType.toLowerCase()) {
       case 'pdf':
         return Icons.picture_as_pdf;
@@ -175,33 +167,17 @@ class TelegramStyleFileItem extends StatelessWidget {
     }
 
     if (isCurrentlyPlaying) {
-      return Icon(
-        Icons.pause_circle_filled,
-        color: Colors.green,
-        size: 24.w,
-      );
+      return Icon(Icons.pause_circle_filled, color: Colors.green, size: 24.w);
     }
 
     if (isAudioFile) {
-      return Icon(
-        Icons.play_circle_filled,
-        color: fileColor,
-        size: 24.w,
-      );
+      return Icon(Icons.play_circle_filled, color: fileColor, size: 24.w);
     }
 
     if (isDownloaded) {
-      return Icon(
-        Icons.check_circle,
-        color: Colors.green,
-        size: 20.w,
-      );
+      return Icon(Icons.check_circle, color: Colors.green, size: 20.w);
     }
 
-    return Icon(
-      Icons.download,
-      color: Colors.grey[600],
-      size: 20.w,
-    );
+    return Icon(Icons.download, color: Colors.grey[600], size: 20.w);
   }
 }

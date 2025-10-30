@@ -22,6 +22,3 @@ class ProgramContentDatumModel extends ProgramContentDatumEntity {
 
   Map<String, dynamic> toJson() => _$ProgramContentDatumModelToJson(this);
 }
-
-
-

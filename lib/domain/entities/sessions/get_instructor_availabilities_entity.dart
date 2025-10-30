@@ -10,11 +10,7 @@ class GetInstructorAvailabilitiesEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetInstructorAvailabilitiesEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetInstructorAvailabilitiesEntity({this.data, this.status, this.message});
 }
 
 class GetInstructorAvailabilitieDataEntity {

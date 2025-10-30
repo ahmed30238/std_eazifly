@@ -11,11 +11,7 @@ class AssignProgramReviewEntity {
   @JsonKey(name: "message")
   String? message;
 
-  AssignProgramReviewEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  AssignProgramReviewEntity({this.data, this.status, this.message});
 }
 
 class AssignProgramReviewDataEntity {

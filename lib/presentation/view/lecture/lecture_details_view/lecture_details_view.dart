@@ -22,9 +22,7 @@ class LectureDetailsView extends StatelessWidget {
       body: Column(
         children: [
           24.ph,
-          const LectureStats(
-            status: LectureStatesEnum.ongoing,
-          ),
+          const LectureStats(status: LectureStatesEnum.ongoing),
           12.ph,
           const LectureDataPlusLinkRow(),
           const Spacer(),

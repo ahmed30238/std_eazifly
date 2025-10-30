@@ -9,11 +9,7 @@ class ChangeSessionDateEntity {
   @JsonKey(name: "message")
   String? message;
 
-  ChangeSessionDateEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  ChangeSessionDateEntity({this.data, this.status, this.message});
 }
 
 class ChangeSessionDateDataEntity {
@@ -73,8 +69,5 @@ class ChangeSessionDateUserEntity {
   @JsonKey(name: "user_name")
   String? userName;
 
-  ChangeSessionDateUserEntity({
-    this.id,
-    this.userName,
-  });
+  ChangeSessionDateUserEntity({this.id, this.userName});
 }

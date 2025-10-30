@@ -15,8 +15,9 @@ class NoOfChildrenContainer extends StatelessWidget {
       height: 48.h,
       width: 80.w,
       decoration: BoxDecoration(
-          borderRadius: 8.cr,
-          color: isSelected ? MainColors.primary : MainColors.surface),
+        borderRadius: 8.cr,
+        color: isSelected ? MainColors.primary : MainColors.surface,
+      ),
       child: Text(
         "${index + 1}",
         style: MainTextStyle.mediumTextStyle(

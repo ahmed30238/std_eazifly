@@ -12,8 +12,9 @@ class ChangeSessionDateUsecase
   ChangeSessionDateUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, ChangeSessionDateEntity>> call(
-      {required ChangeSessionDateParameters parameter}) async {
+  Future<Either<Failure, ChangeSessionDateEntity>> call({
+    required ChangeSessionDateParameters parameter,
+  }) async {
     return await baseRepository.changeSessionDate(
       data: parameter.data,
       sessionId: parameter.sessionId,
@@ -25,8 +26,5 @@ class ChangeSessionDateParameters {
   final ChangeSessionDateTojson data;
   final int sessionId;
 
-  ChangeSessionDateParameters({
-    required this.data,
-    required this.sessionId,
-  });
+  ChangeSessionDateParameters({required this.data, required this.sessionId});
 }

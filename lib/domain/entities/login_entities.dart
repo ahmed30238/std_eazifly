@@ -11,11 +11,7 @@ class LoginEntity {
   @JsonKey(name: "message")
   String? message;
 
-  LoginEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  LoginEntity({this.data, this.status, this.message});
 }
 
 class DataEntity {
@@ -127,10 +123,7 @@ class ProgramEntity {
   @JsonKey(name: "image")
   String? image;
 
-  ProgramEntity({
-    this.title,
-    this.image,
-  });
+  ProgramEntity({this.title, this.image});
 }
 
 class StatusLabelEntity {
@@ -140,8 +133,5 @@ class StatusLabelEntity {
   @JsonKey(name: "color")
   String? color;
 
-  StatusLabelEntity({
-    this.label,
-    this.color,
-  });
+  StatusLabelEntity({this.label, this.color});
 }

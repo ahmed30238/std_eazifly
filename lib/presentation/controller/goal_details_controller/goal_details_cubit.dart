@@ -4,6 +4,4 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class GoalDetailsCubit extends Cubit<GoalDetailsState> {
   GoalDetailsCubit() : super(GoalDetailsInitial());
   static GoalDetailsCubit get(context) => BlocProvider.of(context);
-
-
 }

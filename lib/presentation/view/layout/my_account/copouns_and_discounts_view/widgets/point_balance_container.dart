@@ -11,10 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PointsBalanceContainer extends StatelessWidget {
   final CopounHistoryCubit cubit;
-  const PointsBalanceContainer({
-    super.key,
-    required this.cubit,
-  });
+  const PointsBalanceContainer({super.key, required this.cubit});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +20,7 @@ class PointsBalanceContainer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       height: 227.h,
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: MainColors.inputFill,
-      ),
+      decoration: BoxDecoration(color: MainColors.inputFill),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -40,9 +35,7 @@ class PointsBalanceContainer extends StatelessWidget {
             builder: (context, state) {
               if (cubit.copounHistoryLoader) {
                 return const Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  child: Center(child: CircularProgressIndicator()),
                 );
               }
 

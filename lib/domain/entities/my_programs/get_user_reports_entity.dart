@@ -11,11 +11,7 @@ class GetUserReportsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetUserReportsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetUserReportsEntity({this.data, this.status, this.message});
 }
 
 class GetUserReportsDatumEntity {

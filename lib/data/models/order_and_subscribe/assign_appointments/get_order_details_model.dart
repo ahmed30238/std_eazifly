@@ -2,7 +2,6 @@ import 'package:eazifly_student/domain/entities/get_order_details_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'get_order_details_model.g.dart';
 
-
 @JsonSerializable(explicitToJson: true)
 class GetOrderDetailsModel extends GetOrderDetailsEntity {
   GetOrderDetailsModel();

@@ -40,12 +40,12 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
 
   void _initializeAnswerArrays() {
     LecturequizCubit cubit = LecturequizCubit.get(context);
-    
+
     // تأكد من أن المصفوفات مُهيأة بالحجم الصحيح
     while (cubit.trueFalseIndex.length <= widget.qIndex) {
       cubit.trueFalseIndex.add(0);
     }
-    
+
     while (cubit.mulipleChoiceOptionIndex.length <= widget.qIndex) {
       cubit.mulipleChoiceOptionIndex.add(0);
     }
@@ -56,7 +56,7 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
     LecturequizCubit cubit = LecturequizCubit.get(context);
     final normalizedType =
         _normalizedTypes[widget.type.trim().toLowerCase()] ?? "unknown";
-        
+
     switch (normalizedType) {
       case "text":
         return Material(
@@ -75,7 +75,7 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
             ),
           ),
         );
-        
+
       case "true_false":
         return BlocBuilder(
           bloc: cubit,
@@ -88,7 +88,8 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
                   physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    bool isSelected = cubit.trueFalseIndex.length > widget.qIndex &&
+                    bool isSelected =
+                        cubit.trueFalseIndex.length > widget.qIndex &&
                         index == cubit.trueFalseIndex[widget.qIndex];
                     return InkWell(
                       onTap: () => cubit.changeTrueFalse(index, widget.qIndex),
@@ -137,7 +138,7 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
             ],
           ),
         );
-        
+
       case "multiple_choice":
         return BlocBuilder(
           bloc: cubit,
@@ -149,10 +150,12 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    bool isSelected = cubit.mulipleChoiceOptionIndex.length > widget.qIndex &&
+                    bool isSelected =
+                        cubit.mulipleChoiceOptionIndex.length > widget.qIndex &&
                         index == cubit.mulipleChoiceOptionIndex[widget.qIndex];
                     return InkWell(
-                      onTap: () => cubit.changeMulipleChoice(index, widget.qIndex),
+                      onTap: () =>
+                          cubit.changeMulipleChoice(index, widget.qIndex),
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.w),
                         width: 76.75.w,
@@ -199,7 +202,7 @@ class _AnswerFieldAreaState extends State<AnswerFieldArea> {
             ],
           ),
         );
-        
+
       default:
         return TextedContainer(
           width: 117.w,

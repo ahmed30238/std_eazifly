@@ -11,8 +11,9 @@ class GetLibrarySubscriptionUsecase
   GetLibrarySubscriptionUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetLibrarySubscriptionEntity>> call(
-      {NoParameter? parameter}) async {
+  Future<Either<Failure, GetLibrarySubscriptionEntity>> call({
+    NoParameter? parameter,
+  }) async {
     return await baseRepository.getLibrarySubscription();
   }
 }

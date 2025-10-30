@@ -19,9 +19,7 @@ class FavouriteBody extends StatelessWidget {
         }
 
         if (state is FavouriteListErrorState) {
-          return Center(
-            child: Text('Error: ${state.errorMessage}'),
-          );
+          return Center(child: Text('Error: ${state.errorMessage}'));
         }
 
         // Default/loaded state

@@ -3,7 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'get_change_instructor_reasons_model.g.dart';
 
-
 @JsonSerializable(explicitToJson: true)
 class GetChangeInstructorReasonsModel extends GetChangeInstructorReasonsEntity {
   GetChangeInstructorReasonsModel();
@@ -11,15 +10,19 @@ class GetChangeInstructorReasonsModel extends GetChangeInstructorReasonsEntity {
   factory GetChangeInstructorReasonsModel.fromJson(Map<String, dynamic> json) =>
       _$GetChangeInstructorReasonsModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetChangeInstructorReasonsModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetChangeInstructorReasonsModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetChangeInstructorReasonsDatumModel extends GetChangeInstructorReasonsDatumEntity {
+class GetChangeInstructorReasonsDatumModel
+    extends GetChangeInstructorReasonsDatumEntity {
   GetChangeInstructorReasonsDatumModel();
 
-  factory GetChangeInstructorReasonsDatumModel.fromJson(Map<String, dynamic> json) =>
-      _$GetChangeInstructorReasonsDatumModelFromJson(json);
+  factory GetChangeInstructorReasonsDatumModel.fromJson(
+    Map<String, dynamic> json,
+  ) => _$GetChangeInstructorReasonsDatumModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetChangeInstructorReasonsDatumModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetChangeInstructorReasonsDatumModelToJson(this);
 }

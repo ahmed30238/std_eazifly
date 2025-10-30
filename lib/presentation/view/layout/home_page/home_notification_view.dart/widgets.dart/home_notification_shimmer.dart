@@ -52,17 +52,15 @@ class HomeNotificationItemShimmer extends StatelessWidget {
                         height: 20.h,
                         width: 180.w,
                         child: const ShimmerWidget(),
-                      )
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
         ),
-        const CustomHorizontalDivider(
-          thickness: 1,
-        ),
+        const CustomHorizontalDivider(thickness: 1),
       ],
     );
   }

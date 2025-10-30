@@ -27,8 +27,10 @@ class _ChosenLecturerState extends State<ChosenLecturer>
     super.initState();
     cubit.initTabBarController(this);
     cubit.initFixedDateTabBarController(this);
-    int programId = int.tryParse(
-            cubit.getOrderDetailsEntity?.data?.programIds?.first ?? "0") ??
+    int programId =
+        int.tryParse(
+          cubit.getOrderDetailsEntity?.data?.programIds?.first ?? "0",
+        ) ??
         0;
     cubit.getProgramContent(programId: programId);
   }
@@ -48,9 +50,7 @@ class _ChosenLecturerState extends State<ChosenLecturer>
                 height: 20.h,
                 child: Text(
                   lang.students,
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 12,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 12),
                 ),
               ),
               12.ph,
@@ -69,8 +69,8 @@ class _ChosenLecturerState extends State<ChosenLecturer>
                           8.pw,
                           Expanded(
                             child: CustomizedDropdownWidget(
-                               validator: (val) =>
-                            val == null ? "من فضلك اختر الهدف" : null,
+                              validator: (val) =>
+                                  val == null ? "من فضلك اختر الهدف" : null,
                               hintText: "الهدف",
                               items: cubit.getProgramContentEntity?.data
                                   ?.map(
@@ -92,17 +92,13 @@ class _ChosenLecturerState extends State<ChosenLecturer>
               32.ph,
               Text(
                 lang.studentSchedules,
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 12,
-                ),
+                style: MainTextStyle.boldTextStyle(fontSize: 12),
               ),
               8.ph,
               //! tab bar
               const ScreenTabBar(),
               //! tab bar view
-               ScreenTabbarView(
-                programId: widget.orderProgramId,
-               ),
+              ScreenTabbarView(programId: widget.orderProgramId),
             ],
           ),
         ),

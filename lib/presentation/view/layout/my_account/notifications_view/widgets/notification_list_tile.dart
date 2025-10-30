@@ -1,4 +1,3 @@
-
 import 'package:eazifly_student/core/component/texted_container.dart';
 import 'package:eazifly_student/core/extensions/num_extentions.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
@@ -40,9 +39,7 @@ class CustomNotificationListTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SvgPicture.asset(
-            icon,
-          ),
+          SvgPicture.asset(icon),
           16.pw,
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -80,17 +77,10 @@ class CustomNotificationListTile extends StatelessWidget {
           const Spacer(),
           Row(
             children: [
-              isWhats
-                  ? const TextedContainer(
-                      text: "Whatsapp",
-                    )
-                  : 0.pw,
+              isWhats ? const TextedContainer(text: "Whatsapp") : 0.pw,
               8.pw,
               iconWidget ??
-                  CupertinoSwitch(
-                    value: isTurned,
-                    onChanged: onChanged,
-                  ),
+                  CupertinoSwitch(value: isTurned, onChanged: onChanged),
               // AdvancedSwitch(
               //   key: const Key("ar"),
               //   activeColor: MainColors.greenTeal,

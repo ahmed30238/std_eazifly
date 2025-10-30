@@ -4,22 +4,17 @@ import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/reports_and_complaints_view/widgets/image_part.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class ReportsAndComplaintsWidget extends StatelessWidget {
   final String state;
-  const ReportsAndComplaintsWidget({
-    super.key,
-    required this.state,
-  });
+  const ReportsAndComplaintsWidget({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         if (state == "انتهت") ...{
-          Container(
-            height: 90.h,
-            color: MainColors.surfaceVariant,
-          ),
+          Container(height: 90.h, color: MainColors.surfaceVariant),
         },
         Container(
           height: 90.h,
@@ -27,9 +22,7 @@ class ReportsAndComplaintsWidget extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ImagePart(
-                state: state,
-              ),
+              ImagePart(state: state),
               12.pw,
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,

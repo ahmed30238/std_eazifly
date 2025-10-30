@@ -46,8 +46,10 @@ class ForgotPasswordScreen extends StatelessWidget {
             Navigator.pushNamed(
               context,
               RoutePaths.resetPasswordView,
-              arguments:
-                  context.read<ForgotPasswordCubit>().emailController.text,
+              arguments: context
+                  .read<ForgotPasswordCubit>()
+                  .emailController
+                  .text,
             );
           } else if (state is ForgotPasswordErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -127,8 +129,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: MainColors.primary
-                                        .withValues(alpha: 0.1),
+                                    color: MainColors.primary.withValues(
+                                      alpha: 0.1,
+                                    ),
                                     blurRadius: 20,
                                     offset: const Offset(0, 8),
                                   ),
@@ -177,8 +180,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                                 if (value == null || value.isEmpty) {
                                   return lang.pleaseEnterEmail;
                                 }
-                                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                    .hasMatch(value)) {
+                                if (!RegExp(
+                                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                                ).hasMatch(value)) {
                                   return lang.pleaseEnterValidEmail;
                                 }
                                 return null;
@@ -211,7 +215,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                                 ? () {}
                                 : () {
                                     if (cubit
-                                        .forgotPasswordFormKey.currentState!
+                                        .forgotPasswordFormKey
+                                        .currentState!
                                         .validate()) {
                                       cubit.forgetPassword();
                                     }
@@ -224,13 +229,14 @@ class ForgotPasswordScreen extends StatelessWidget {
                                 ? SizedBox(
                                     height: 20.h,
                                     width: 20.w,
-                                    child: const CircularProgressIndicator
-                                        .adaptive(
-                                      strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white,
-                                      ),
-                                    ),
+                                    child:
+                                        const CircularProgressIndicator.adaptive(
+                                          strokeWidth: 2,
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                                Colors.white,
+                                              ),
+                                        ),
                                   )
                                 : null,
                           ),

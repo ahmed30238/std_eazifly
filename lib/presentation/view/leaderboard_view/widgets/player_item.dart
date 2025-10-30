@@ -9,10 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class PlayerItem extends StatelessWidget {
   final int index;
-  const PlayerItem({
-    super.key,
-    required this.index,
-  });
+  const PlayerItem({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +23,7 @@ class PlayerItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Text(
-            "$index",
-            style: MainTextStyle.boldTextStyle(fontSize: 14),
-          ),
+          Text("$index", style: MainTextStyle.boldTextStyle(fontSize: 14)),
           8.pw,
           ClipPath(
             clipper: HexaGon(),
@@ -38,27 +32,17 @@ class PlayerItem extends StatelessWidget {
               width: 30.w,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                    Assets.imagesPersona,
-                  ),
+                  image: AssetImage(Assets.imagesPersona),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
           ),
           4.pw,
-          Text(
-            "احمد سلامة",
-            style: MainTextStyle.boldTextStyle(fontSize: 14),
-          ),
+          Text("احمد سلامة", style: MainTextStyle.boldTextStyle(fontSize: 14)),
           const Spacer(),
-          SvgPicture.asset(
-            Assets.iconsCoin,
-          ),
-          Text(
-            "211",
-            style: MainTextStyle.boldTextStyle(fontSize: 15),
-          ),
+          SvgPicture.asset(Assets.iconsCoin),
+          Text("211", style: MainTextStyle.boldTextStyle(fontSize: 15)),
         ],
       ),
     );

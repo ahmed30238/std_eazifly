@@ -21,7 +21,8 @@ class AllBodyListItemWidget extends StatelessWidget {
     required this.daysLeft,
     required this.expireDate,
     required this.progressPercent,
-    required this.onTap, required this.currency,
+    required this.onTap,
+    required this.currency,
   });
 
   final String courseTitle;
@@ -73,13 +74,17 @@ class AllBodyListItemWidget extends StatelessWidget {
                         Text(
                           lang.studentNumberInCourse,
                           style: MainTextStyle.mediumTextStyle(
-                              fontSize: 12, color: MainColors.onSurfaceSecondary),
+                            fontSize: 12,
+                            color: MainColors.onSurfaceSecondary,
+                          ),
                         ),
                         4.ph,
                         Text(
                           "$noOfStudents ${lang.students}",
                           style: MainTextStyle.boldTextStyle(
-                              fontSize: 14, color: MainColors.onSecondary),
+                            fontSize: 14,
+                            color: MainColors.onSecondary,
+                          ),
                         ),
                       ],
                     ),
@@ -89,13 +94,17 @@ class AllBodyListItemWidget extends StatelessWidget {
                         Text(
                           lang.coursePrice,
                           style: MainTextStyle.mediumTextStyle(
-                              fontSize: 12, color: MainColors.onSurfaceSecondary),
+                            fontSize: 12,
+                            color: MainColors.onSurfaceSecondary,
+                          ),
                         ),
                         4.ph,
                         Text(
                           "$subscriptionPrice $currency",
                           style: MainTextStyle.boldTextStyle(
-                              fontSize: 14, color: MainColors.onSecondary),
+                            fontSize: 14,
+                            color: MainColors.onSecondary,
+                          ),
                         ),
                       ],
                     ),
@@ -107,7 +116,7 @@ class AllBodyListItemWidget extends StatelessWidget {
                       text: lang.renewNow,
                       onPressed: onRenewTap,
                       color: MainColors.primary,
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -121,20 +130,22 @@ class AllBodyListItemWidget extends StatelessWidget {
                   Text(
                     "${lang.remain} $daysLeft ${lang.days}",
                     style: MainTextStyle.boldTextStyle(
-                        fontSize: 10, color: MainColors.onSurfaceSecondary),
+                      fontSize: 10,
+                      color: MainColors.onSurfaceSecondary,
+                    ),
                   ),
                   Text(
                     expireDate,
                     style: MainTextStyle.boldTextStyle(
-                        fontSize: 10, color: MainColors.onSurfaceSecondary),
+                      fontSize: 10,
+                      color: MainColors.onSurfaceSecondary,
+                    ),
                   ),
                 ],
               ),
             ),
             8.ph,
-            CustomLinearPercentIndicator(
-              percent: progressPercent,
-            ),
+            CustomLinearPercentIndicator(percent: progressPercent),
           ],
         ),
       ),

@@ -65,5 +65,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'eazifly-instructor.firebasestorage.app',
     iosBundleId: 'com.hodaelnas.hodaelnas',
   );
-
 }

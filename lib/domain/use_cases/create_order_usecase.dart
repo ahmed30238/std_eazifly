@@ -7,15 +7,17 @@ import 'package:eazifly_student/domain/entities/create_order_entities.dart';
 
 class CreateOrderUsecase
     extends BaseUsecase<CreateOrderEntity, CreateOrderParameters> {
-      final BaseRepository baseRepository;
+  final BaseRepository baseRepository;
 
   CreateOrderUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, CreateOrderEntity>> call({required CreateOrderParameters parameter}) async {
+  Future<Either<Failure, CreateOrderEntity>> call({
+    required CreateOrderParameters parameter,
+  }) async {
     return await baseRepository.createOrder(data: parameter.data);
   }
-    }
+}
 
 class CreateOrderParameters {
   final CreateOrderTojson data;

@@ -50,9 +50,7 @@ class ChangeLecturerReasonBody extends StatelessWidget {
                 if (children.isEmpty) {
                   return SizedBox(
                     height: 98.h,
-                    child: const Center(
-                      child: Text('No students found'),
-                    ),
+                    child: const Center(child: Text('No students found')),
                   );
                 }
 
@@ -85,9 +83,7 @@ class ChangeLecturerReasonBody extends StatelessWidget {
         32.ph,
         Text(
           "برجاء إختيار سبب لتغير المعلم",
-          style: MainTextStyle.boldTextStyle(
-            fontSize: 14,
-          ),
+          style: MainTextStyle.boldTextStyle(fontSize: 14),
         ),
         BlocBuilder(
           bloc: cubit,
@@ -97,9 +93,7 @@ class ChangeLecturerReasonBody extends StatelessWidget {
             }
             return Text(
               "${programCubit.students[cubit.selectedStudent].firstName} للطالب",
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 14,
-              ),
+              style: MainTextStyle.boldTextStyle(fontSize: 14),
             );
           },
         ),
@@ -115,7 +109,8 @@ class ChangeLecturerReasonBody extends StatelessWidget {
               var reasons = cubit.getChangeInstructorReasonsEntity?.data;
               if (reasons == null || reasons.isEmpty) {
                 return const Center(
-                    child: Text("No cancellation reasons available"));
+                  child: Text("No cancellation reasons available"),
+                );
               }
 
               return ListView.separated(
@@ -147,10 +142,7 @@ class ChangeLecturerReasonBody extends StatelessWidget {
             onPressed: cubit.getUserSubscriptionDataLoader
                 ? () {}
                 : () {
-                    handleTap(
-                      context: context,
-                      cubit: cubit,
-                    );
+                    handleTap(context: context, cubit: cubit);
                   },
             child: cubit.getUserSubscriptionDataLoader
                 ? const CircularProgressIndicator.adaptive()

@@ -13,18 +13,14 @@ class LecturerDataTab extends StatelessWidget {
       return Center(
         child: Text(
           "لا بيانات عن المعلم",
-          style: MainTextStyle.boldTextStyle(
-            fontSize: 12,
-          ),
+          style: MainTextStyle.boldTextStyle(fontSize: 12),
         ),
       );
     }
     return ListView.separated(
       itemBuilder: (context, index) {
         var instructor = programEntity.instructors?[index];
-        return LecturerContainerWidget(
-          instructorEntity: instructor!,
-        );
+        return LecturerContainerWidget(instructorEntity: instructor!);
       },
       itemCount: programEntity.instructors?.length ?? 0,
       separatorBuilder: (context, index) => const CustomHorizontalDivider(),
@@ -34,10 +30,7 @@ class LecturerDataTab extends StatelessWidget {
 
 class LecturerContainerWidget extends StatelessWidget {
   final InstructorEntity instructorEntity;
-  const LecturerContainerWidget({
-    super.key,
-    required this.instructorEntity,
-  });
+  const LecturerContainerWidget({super.key, required this.instructorEntity});
 
   @override
   Widget build(BuildContext context) {

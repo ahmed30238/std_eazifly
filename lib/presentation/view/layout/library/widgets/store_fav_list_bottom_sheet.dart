@@ -81,9 +81,7 @@ class StoreFavouriteListBottomSheet extends StatelessWidget {
                             onPressed: () {
                               cubit.clearImages();
                             },
-                            icon: const Icon(
-                              Icons.delete,
-                            ),
+                            icon: const Icon(Icons.delete),
                           ),
                         ],
                       )
@@ -111,9 +109,7 @@ class StoreFavouriteListBottomSheet extends StatelessWidget {
               16.ph,
               Text(
                 "اسم القائمة",
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 14,
-                ),
+                style: MainTextStyle.boldTextStyle(fontSize: 14),
               ),
               8.ph,
               CustomTextFormField(

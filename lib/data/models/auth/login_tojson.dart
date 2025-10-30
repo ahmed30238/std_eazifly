@@ -40,9 +40,6 @@ class LoginToJson {
       throw ArgumentError("يجب إدخال رقم الهاتف أو الإيميل أو اسم المستخدم");
     }
 
-    return {
-      credential.key: credential.value,
-      "password": password,
-    };
+    return {credential.key: credential.value, "password": password};
   }
 }

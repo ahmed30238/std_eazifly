@@ -11,11 +11,7 @@ class GetHomeClosestSessionsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetHomeClosestSessionsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetHomeClosestSessionsEntity({this.data, this.status, this.message});
 }
 
 class GetHomeClosestSessionsDatum {
@@ -75,10 +71,7 @@ class GetHomeClosestSessionsUser {
   @JsonKey(name: "user_name")
   String? userName;
 
-  GetHomeClosestSessionsUser({
-    this.id,
-    this.userName,
-  });
+  GetHomeClosestSessionsUser({this.id, this.userName});
 }
 
 class GetHomeClosestSessionStatus {
@@ -88,9 +81,5 @@ class GetHomeClosestSessionStatus {
   String? color;
   @JsonKey(name: "key")
   String? key;
-  GetHomeClosestSessionStatus({
-    this.label,
-    this.color,
-    this.key,
-  });
+  GetHomeClosestSessionStatus({this.label, this.color, this.key});
 }

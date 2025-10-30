@@ -22,9 +22,7 @@ class IconsContainer extends StatelessWidget {
       height: height ?? 40.h,
       decoration: BoxDecoration(
         color: containerColor ?? MainColors.inputFill,
-        borderRadius: BorderRadius.circular(
-          10.r,
-        ),
+        borderRadius: BorderRadius.circular(10.r),
       ),
       child: Center(child: iconWidget),
     );

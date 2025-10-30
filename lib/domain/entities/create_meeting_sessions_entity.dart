@@ -10,9 +10,5 @@ class CreateMeetingSessionsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  CreateMeetingSessionsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  CreateMeetingSessionsEntity({this.data, this.status, this.message});
 }

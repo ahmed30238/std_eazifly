@@ -12,11 +12,7 @@ class GetProgramSessionsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetProgramSessionsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetProgramSessionsEntity({this.data, this.status, this.message});
 }
 
 class ProgramSessionEntity {
@@ -87,10 +83,7 @@ class UserEntity {
   @JsonKey(name: "user_name")
   String? userName;
 
-  UserEntity({
-    this.id,
-    this.userName,
-  });
+  UserEntity({this.id, this.userName});
 }
 
 class GetProgramSessionsStatus {
@@ -101,9 +94,5 @@ class GetProgramSessionsStatus {
   @JsonKey(name: "key")
   String? key;
 
-  GetProgramSessionsStatus({
-    this.label,
-    this.color,
-    this.key,
-  });
+  GetProgramSessionsStatus({this.label, this.color, this.key});
 }

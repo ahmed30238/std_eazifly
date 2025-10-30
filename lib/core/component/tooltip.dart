@@ -75,10 +75,7 @@ class _CustomTooltipState extends State<CustomTooltip>
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        GestureDetector(
-          onTap: _showTooltip,
-          child: widget.child,
-        ),
+        GestureDetector(onTap: _showTooltip, child: widget.child),
         if (_isVisible)
           Positioned.fill(
             child: GestureDetector(
@@ -117,11 +114,9 @@ class _CustomTooltipState extends State<CustomTooltip>
         padding: widget.padding ?? const EdgeInsets.all(12.0),
         child: Text(
           widget.message,
-          style: widget.textStyle ??
-              const TextStyle(
-                color: Colors.white,
-                fontSize: 14.0,
-              ),
+          style:
+              widget.textStyle ??
+              const TextStyle(color: Colors.white, fontSize: 14.0),
           textAlign: TextAlign.center,
         ),
       ),
@@ -151,7 +146,7 @@ class TooltipPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     final path = Path();
-    
+
     // رسم المستطيل الأساسي
     final rect = RRect.fromRectAndRadius(
       Rect.fromLTWH(0, 0, size.width, size.height),
@@ -201,9 +196,7 @@ class TooltipExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tooltip Example'),
-      ),
+      appBar: AppBar(title: const Text('Tooltip Example')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -211,10 +204,7 @@ class TooltipExample extends StatelessWidget {
             CustomTooltip(
               message: 'انقر هنا للحصول على المساعدة',
               backgroundColor: Colors.black87,
-              textStyle: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-              ),
+              textStyle: const TextStyle(color: Colors.white, fontSize: 14),
               direction: TooltipDirection.top,
               child: Container(
                 padding: const EdgeInsets.all(12),
@@ -236,10 +226,7 @@ class TooltipExample extends StatelessWidget {
                 color: Colors.black87,
                 borderRadius: BorderRadius.circular(8),
               ),
-              textStyle: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-              ),
+              textStyle: const TextStyle(color: Colors.white, fontSize: 14),
               child: Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
@@ -276,11 +263,11 @@ class OverlayTooltip {
     _isVisible = true;
     final overlay = Overlay.of(context);
     final renderBox = key.currentContext?.findRenderObject() as RenderBox?;
-    
+
     if (renderBox != null) {
       // final size = renderBox.size;
       final offset = renderBox.localToGlobal(Offset.zero);
-      
+
       _overlayEntry = OverlayEntry(
         builder: (context) => Positioned(
           left: offset.dx,
@@ -301,9 +288,9 @@ class OverlayTooltip {
           ),
         ),
       );
-      
+
       overlay.insert(_overlayEntry!);
-      
+
       // إخفاء تلقائي بعد 3 ثوان
       Future.delayed(const Duration(seconds: 3), () {
         hide();

@@ -11,8 +11,9 @@ class ShowLibraryItemUsecase
   ShowLibraryItemUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, ShowLibraryItemEntity>> call(
-      {required ShowLibraryItemParameters parameter}) async {
+  Future<Either<Failure, ShowLibraryItemEntity>> call({
+    required ShowLibraryItemParameters parameter,
+  }) async {
     return await baseRepository.showLibraryItem(itemId: parameter.itemId);
   }
 }

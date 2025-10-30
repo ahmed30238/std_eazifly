@@ -9,11 +9,7 @@ class GetListItemsUsingListIdEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetListItemsUsingListIdEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetListItemsUsingListIdEntity({this.data, this.status, this.message});
 }
 
 class ListItemEntity {

@@ -13,11 +13,7 @@ class GetQuizQuestionsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetQuizQuestionsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetQuizQuestionsEntity({this.data, this.status, this.message});
 }
 
 class GetQuizQuestionsDataEntity {
@@ -104,11 +100,7 @@ class GetQuizQuestionsOptionEntity {
   @JsonKey(name: "option_status")
   String? optionStatus;
 
-  GetQuizQuestionsOptionEntity({
-    this.id,
-    this.title,
-    this.optionStatus,
-  });
+  GetQuizQuestionsOptionEntity({this.id, this.title, this.optionStatus});
 }
 
 class GetQuizQuestionsUserAnswerEntity {

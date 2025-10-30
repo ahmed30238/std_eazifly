@@ -5,11 +5,8 @@ import 'package:flutter/material.dart' hide Badge;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LectureData extends StatelessWidget {
-    final String host;
-  const LectureData({
-    super.key,
-    required this.host,
-  });
+  final String host;
+  const LectureData({super.key, required this.host});
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +31,7 @@ class LectureData extends StatelessWidget {
             ),
           ),
           8.ph,
-          Text(
-            host,
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 12,
-            ),
-          ),
+          Text(host, style: MainTextStyle.boldTextStyle(fontSize: 12)),
         ],
       ),
     );

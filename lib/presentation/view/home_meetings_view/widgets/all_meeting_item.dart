@@ -54,9 +54,7 @@ class AllMeetingItem extends StatelessWidget {
                   children: [
                     Text(
                       "العلوم للصف السادس الإبتدائي",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 14,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 14),
                     ),
                     InkWell(
                       onTap: onTap,
@@ -66,8 +64,9 @@ class AllMeetingItem extends StatelessWidget {
                         text: isRecorded ? "مسجلة" : "بعد  2 يوم",
                         fontSize: 12,
                         radius: 32.r,
-                        textColor:
-                            !isRecorded ? MainColors.onError : MainColors.success,
+                        textColor: !isRecorded
+                            ? MainColors.onError
+                            : MainColors.success,
                         containerColor: !isRecorded
                             ? MainColors.error
                             : MainColors.onSuccess,

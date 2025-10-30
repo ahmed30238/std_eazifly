@@ -59,7 +59,7 @@ class AudioWaveformWidget extends StatelessWidget {
       0.8,
       0.4,
       0.6,
-      0.3
+      0.3,
     ];
 
     return waveHeights.map((heightRatio) {
@@ -79,10 +79,7 @@ class AudioWaveformWidget extends StatelessWidget {
 class SimpleLectureIndicator extends StatelessWidget {
   final bool isActive;
 
-  const SimpleLectureIndicator({
-    super.key,
-    required this.isActive,
-  });
+  const SimpleLectureIndicator({super.key, required this.isActive});
 
   @override
   Widget build(BuildContext context) {

@@ -25,9 +25,7 @@ class ChatItemShimmerList extends StatelessWidget {
 }
 
 class ChatItemShimmer extends StatelessWidget {
-  const ChatItemShimmer({
-    super.key,
-  });
+  const ChatItemShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +81,7 @@ class ChatItemShimmer extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

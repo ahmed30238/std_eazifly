@@ -17,17 +17,16 @@ class ScreensBar extends StatelessWidget {
             if (index != 3) {
               Navigator.pushNamed(
                 arguments: index == 0
-                    ? {
-                        "cubit": context.read<MyProgramsCubit>(),
-                        "sessionId": 1,
-                      }
+                    ? {"cubit": context.read<MyProgramsCubit>(), "sessionId": 1}
                     : false,
                 context,
                 paths[index],
               );
             } else {
               delightfulToast(
-                  message: "سيتم تفعيل هذه الخدمة لاحقا", context: context);
+                message: "سيتم تفعيل هذه الخدمة لاحقا",
+                context: context,
+              );
             }
           },
           child: Column(
@@ -38,10 +37,7 @@ class ScreensBar extends StatelessWidget {
                 iconWidget: SvgPicture.asset(
                   iconsList[index],
                   colorFilter: index != 0
-                      ? ColorFilter.mode(
-                          MainColors.primary,
-                          BlendMode.srcIn,
-                        )
+                      ? ColorFilter.mode(MainColors.primary, BlendMode.srcIn)
                       : null,
                   fit: BoxFit.scaleDown,
                 ),
@@ -49,9 +45,7 @@ class ScreensBar extends StatelessWidget {
               8.ph,
               Text(
                 textList(context)[index],
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 12,
-                ),
+                style: MainTextStyle.boldTextStyle(fontSize: 12),
               ),
             ],
           ),

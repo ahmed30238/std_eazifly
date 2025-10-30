@@ -11,8 +11,9 @@ class GetChangeInstructorReasonsUsecase
   GetChangeInstructorReasonsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetChangeInstructorReasonsEntity>> call(
-      {required NoParameter parameter}) async {
+  Future<Either<Failure, GetChangeInstructorReasonsEntity>> call({
+    required NoParameter parameter,
+  }) async {
     return await baseRepository.getChangeInstructorReasons();
   }
 }

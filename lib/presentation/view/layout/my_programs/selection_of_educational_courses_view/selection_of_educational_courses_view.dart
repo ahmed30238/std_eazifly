@@ -69,8 +69,8 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                                               "اليوم",
                                               style:
                                                   MainTextStyle.boldTextStyle(
-                                                fontSize: 12,
-                                              ),
+                                                    fontSize: 12,
+                                                  ),
                                             ),
                                             16.pw,
                                             SizedBox(
@@ -81,8 +81,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                                                   lastDate: DateTime(3060),
                                                   context: context,
                                                 ),
-                                                child:
-                                                    const CustomTextFormField(
+                                                child: const CustomTextFormField(
                                                   // filledColor:
                                                   //     MainColors.lightGray,
                                                   enabled: false,
@@ -95,7 +94,8 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                                         20.ph,
                                         Padding(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: 16.w),
+                                            horizontal: 16.w,
+                                          ),
                                           child:
                                               const BoundedTimeSlotFormFields(),
                                         ),
@@ -135,9 +135,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                           height: 45,
                           child: Text(
                             titles[index],
-                            style: MainTextStyle.boldTextStyle(
-                              fontSize: 12,
-                            ),
+                            style: MainTextStyle.boldTextStyle(fontSize: 12),
                           ),
                         ),
                       ),
@@ -148,9 +146,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: SvgPicture.asset(
-                Assets.iconsVerticalDots,
-              ),
+              child: SvgPicture.asset(Assets.iconsVerticalDots),
             ),
           ),
         ],
@@ -192,9 +188,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
           16.ph,
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-            constraints: BoxConstraints(
-              minHeight: 316.h,
-            ),
+            constraints: BoxConstraints(minHeight: 316.h),
             decoration: BoxDecoration(
               color: MainColors.inputFill,
               borderRadius: 16.cr,
@@ -204,9 +198,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
               children: [
                 Text(
                   "برامج المجموعة",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 14,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 8.ph,
                 ListView.separated(
@@ -214,7 +206,9 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) => InkWell(
                     onTap: () => Navigator.pushNamed(
-                        context, RoutePaths.selectionProgramItemDetailsView),
+                      context,
+                      RoutePaths.selectionProgramItemDetailsView,
+                    ),
                     child: SizedBox(
                       height: 64.h,
                       child: Row(
@@ -227,9 +221,7 @@ class SelectionOfEducationalCoursesView extends StatelessWidget {
                               borderRadius: 4.cr,
                               image: const DecorationImage(
                                 fit: BoxFit.cover,
-                                image: AssetImage(
-                                  Assets.imagesPersona,
-                                ),
+                                image: AssetImage(Assets.imagesPersona),
                               ),
                             ),
                           ),

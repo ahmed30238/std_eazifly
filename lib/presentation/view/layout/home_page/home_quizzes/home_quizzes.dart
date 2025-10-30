@@ -40,9 +40,7 @@ class _HomeQuizzesState extends State<HomeQuizzes> {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Text(
               "كل الاختبارات",
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 14,
-              ),
+              style: MainTextStyle.boldTextStyle(fontSize: 14),
             ),
           ),
           16.ph,
@@ -52,9 +50,7 @@ class _HomeQuizzesState extends State<HomeQuizzes> {
               if (cubit.getHomeQuizzesLoader) {
                 // Show loading indicator while data is being fetched
                 return const Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  child: Center(child: CircularProgressIndicator()),
                 );
               }
 
@@ -93,7 +89,7 @@ class _HomeQuizzesState extends State<HomeQuizzes> {
                             "programId": lectureCubit.currentProgramId,
                             "userId": lectureCubit.userId,
                             "quizId": quiz.id,
-                            "quizTitle": quiz.title
+                            "quizTitle": quiz.title,
                           },
                         );
                       },
@@ -117,9 +113,7 @@ class _HomeQuizzesState extends State<HomeQuizzes> {
                   },
                   separatorBuilder: (context, index) => Column(
                     children: [
-                      const CustomHorizontalDivider(
-                        thickness: 1,
-                      ),
+                      const CustomHorizontalDivider(thickness: 1),
                       10.ph,
                     ],
                   ),

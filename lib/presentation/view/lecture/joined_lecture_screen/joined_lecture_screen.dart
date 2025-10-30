@@ -39,8 +39,9 @@ class JoinedLectureScreen extends StatelessWidget {
                 height: 27.h,
                 width: 27.w,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(7.r),
-                    color: MainColors.onPrimary.withValues(alpha: .5)),
+                  borderRadius: BorderRadius.circular(7.r),
+                  color: MainColors.onPrimary.withValues(alpha: .5),
+                ),
                 child: SvgPicture.asset(
                   Assets.iconsVerticalDots,
                   fit: BoxFit.scaleDown,
@@ -53,10 +54,7 @@ class JoinedLectureScreen extends StatelessWidget {
             ),
           ),
           7.ph,
-          AvatarImage(
-            height: 308.h,
-            width: double.infinity,
-          ),
+          AvatarImage(height: 308.h, width: double.infinity),
           19.ph,
           const DownSideIconsRow(),
         ],

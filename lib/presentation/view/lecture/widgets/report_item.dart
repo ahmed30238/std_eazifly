@@ -43,7 +43,7 @@ class ReportItem extends StatelessWidget {
             ),
             4.ph,
             Text(
-             description,
+              description,
               style: MainTextStyle.mediumTextStyle(
                 fontSize: 11,
                 color: MainColors.onSurfaceSecondary,

@@ -34,9 +34,7 @@ class _GoalDetailsViewState extends State<GoalDetailsView> {
   void initState() {
     cubit = context.read<LectureCubit>();
     super.initState();
-    cubit.getChapterLessons(
-      chapterId: widget.chapterId,
-    );
+    cubit.getChapterLessons(chapterId: widget.chapterId);
   }
 
   @override
@@ -71,14 +69,15 @@ class _GoalDetailsViewState extends State<GoalDetailsView> {
                       color: Colors.grey[100],
                       borderRadius: BorderRadius.circular(8.r),
                     ),
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    child: const Center(child: CircularProgressIndicator()),
                   );
                 }
 
-                var points = cubit.chapterLessonsEntity?.data?.fold<int>(0,
-                        (total, element) {
+                var points =
+                    cubit.chapterLessonsEntity?.data?.fold<int>(0, (
+                      total,
+                      element,
+                    ) {
                       int pointValue = 0;
                       if (element.points != null) {
                         pointValue =
@@ -105,16 +104,12 @@ class _GoalDetailsViewState extends State<GoalDetailsView> {
                       color: Colors.grey[100],
                       borderRadius: BorderRadius.circular(8.r),
                     ),
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    child: const Center(child: CircularProgressIndicator()),
                   );
                 }
 
                 var doneTasksLength = cubit.chapterLessonsEntity?.data
-                    ?.where(
-                      (element) => element.isDone == true,
-                    )
+                    ?.where((element) => element.isDone == true)
                     .toList()
                     .length;
                 int totallessons =
@@ -146,9 +141,7 @@ class _GoalDetailsViewState extends State<GoalDetailsView> {
               builder: (context, state) {
                 if (cubit.getChapterLessonsLoader) {
                   return const Expanded(
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    child: Center(child: CircularProgressIndicator()),
                   );
                 }
 

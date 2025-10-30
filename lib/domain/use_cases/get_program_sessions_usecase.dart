@@ -11,8 +11,9 @@ class GetProgramSessionsUsecase
   GetProgramSessionsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetProgramSessionsEntity>> call(
-      {required GetProgramSessionParameters parameter}) async {
+  Future<Either<Failure, GetProgramSessionsEntity>> call({
+    required GetProgramSessionParameters parameter,
+  }) async {
     return await baseRepository.getProgramSessions(
       programId: parameter.programId,
       userId: parameter.userId,

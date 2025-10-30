@@ -51,20 +51,16 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
               iconWidget: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    Assets.iconsShare2,
-                  ),
+                  SvgPicture.asset(Assets.iconsShare2),
                   8.pw,
                   Text(
                     "مشاركة",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 14,
-                    ),
+                    style: MainTextStyle.boldTextStyle(fontSize: 14),
                   ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
       body: Column(
@@ -79,9 +75,7 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
               color: MainColors.surfaceVariant,
               borderRadius: 8.cr,
             ),
-            child: AvatarImage(
-              imageUrl: widget.playlistImage,
-            ),
+            child: AvatarImage(imageUrl: widget.playlistImage),
           ),
           24.ph,
           Padding(
@@ -122,10 +116,7 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
                   },
                   child: Row(
                     children: [
-                      SvgPicture.asset(
-                        Assets.iconsAdd,
-                        fit: BoxFit.scaleDown,
-                      ),
+                      SvgPicture.asset(Assets.iconsAdd, fit: BoxFit.scaleDown),
                       4.pw,
                       Text(
                         "إضافة",
@@ -149,9 +140,7 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
                   onPressed: () {},
                   child: Row(
                     children: [
-                      SvgPicture.asset(
-                        Assets.iconsEdit,
-                      ),
+                      SvgPicture.asset(Assets.iconsEdit),
                       4.pw,
                       Text(
                         "تعديل",
@@ -193,20 +182,21 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
 
               if (cubit.getFavouriteListItemsUsingListIdEntity?.data?.isEmpty ??
                   true) {
-                return const Center(
-                  child: Text('No items in this playlist'),
-                );
+                return const Center(child: Text('No items in this playlist'));
               }
 
               // Success state with data
               return Expanded(
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 16.h,
+                  ),
                   itemBuilder: (context, index) {
                     final playlistItem = cubit
-                        .getFavouriteListItemsUsingListIdEntity!.data![index];
+                        .getFavouriteListItemsUsingListIdEntity!
+                        .data![index];
                     var favPlayListItem = playlistItem;
                     var fileType = favPlayListItem.fileType ?? "";
                     var fileUrl = favPlayListItem.file ?? "";
@@ -230,7 +220,8 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
                       default:
                         fileColor = Colors.grey;
                     }
-                    bool isAudioFile = fileType.toLowerCase() == 'mp3' ||
+                    bool isAudioFile =
+                        fileType.toLowerCase() == 'mp3' ||
                         fileType.toLowerCase() == 'audio';
                     return TelegramStyleFileItem(
                       isPaid: isPaid,
@@ -261,7 +252,9 @@ class _FavouritePlaylistDetailsState extends State<FavouritePlaylistDetails> {
                   },
                   separatorBuilder: (context, index) => 10.ph,
                   itemCount: cubit
-                      .getFavouriteListItemsUsingListIdEntity!.data!.length,
+                      .getFavouriteListItemsUsingListIdEntity!
+                      .data!
+                      .length,
                 ),
               );
             },

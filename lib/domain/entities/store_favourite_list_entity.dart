@@ -11,11 +11,7 @@ class StoreFavouriteListEntity {
   @JsonKey(name: "message")
   String? message;
 
-  StoreFavouriteListEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  StoreFavouriteListEntity({this.data, this.status, this.message});
 }
 
 // class StoreFavouriteDataEntity {

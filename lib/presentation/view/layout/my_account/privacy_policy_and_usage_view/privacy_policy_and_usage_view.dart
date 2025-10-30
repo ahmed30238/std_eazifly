@@ -15,7 +15,8 @@ class PrivacyPolicyAndUsageView extends StatelessWidget {
   Widget build(BuildContext context) {
     var lang = context.loc!;
     return Scaffold(
-      appBar: CustomAppBar(     context,
+      appBar: CustomAppBar(
+        context,
         mainTitle: lang.aboutApp,
         leadingText: lang.myAccount,
         isCenterTitle: true,
@@ -28,7 +29,6 @@ class PrivacyPolicyAndUsageView extends StatelessWidget {
             child: SvgPicture.asset(Assets.iconsPolicy),
           ),
           Expanded(
-            
             child: ListView.separated(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               itemBuilder: (context, index) => Column(
@@ -36,16 +36,14 @@ class PrivacyPolicyAndUsageView extends StatelessWidget {
                 children: [
                   Text(
                     "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة ",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 14,
-                    ),
+                    style: MainTextStyle.boldTextStyle(fontSize: 14),
                   ),
                   8.ph,
                   Text(
                     "مثال :هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد ",
                     style: MainTextStyle.mediumTextStyle(
                       fontSize: 12,
-                      color: MainColors.onSurfaceSecondary
+                      color: MainColors.onSurfaceSecondary,
                     ),
                   ),
                 ],

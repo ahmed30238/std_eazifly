@@ -24,7 +24,7 @@ class CorrectedQuizDetailsView extends StatefulWidget {
 
 class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
   late LecturequizCubit cubit;
-  
+
   @override
   void initState() {
     super.initState();
@@ -52,7 +52,7 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
           if (cubit.getQuizQuestionsLoader) {
             return const Center(child: CircularProgressIndicator());
           }
-          
+
           if (state is GetQuizQuestionsErrorState) {
             return Center(
               child: Text(
@@ -64,7 +64,7 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
               ),
             );
           }
-          
+
           if (cubit.getQuizQuestionsEntity?.data == null) {
             return const Center(child: Text("لا توجد بيانات"));
           }
@@ -82,7 +82,7 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
                 titleText: const [
                   "تاريخ التسليم",
                   "درجة الإمتحان",
-                  "حالة الإمتحان"
+                  "حالة الإمتحان",
                 ],
                 downSideWidgets: [
                   Text(
@@ -104,7 +104,9 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
                     height: 26.h,
                     text: _getStatusText(userAnswer?.status),
                     textColor: _getStatusColor(userAnswer?.status),
-                    containerColor: _getStatusBackgroundColor(userAnswer?.status),
+                    containerColor: _getStatusBackgroundColor(
+                      userAnswer?.status,
+                    ),
                     radius: 55.r,
                   ),
                 ],
@@ -126,14 +128,14 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
                       userAnswer?.questionAnswer,
                       question.id,
                     );
-                    
+
                     return AnswerDetailsContainer(
                       answerState: _isAnswerCorrect(questionAnswer),
                       qType: _getQuestionTypeInArabic(question.type),
                       index: index,
                       answerText: _getAnswerText(question, questionAnswer),
-                      qState: _isAnswerCorrect(questionAnswer) 
-                          ? "إجابة صحيحة" 
+                      qState: _isAnswerCorrect(questionAnswer)
+                          ? "إجابة صحيحة"
                           : "إجابة خطأ",
                       question: question.title ?? "السؤال غير متاح",
                       questionData: question,
@@ -213,7 +215,7 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
     int? questionId,
   ) {
     if (questionAnswers == null || questionId == null) return null;
-    
+
     try {
       return questionAnswers.firstWhere(
         (answer) => int.parse(answer.questionId ?? "0") == questionId,
@@ -225,7 +227,7 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
 
   bool _isAnswerCorrect(GetQuizQuestionsQuestionAnswerModel? questionAnswer) {
     if (questionAnswer?.mark == null) return false;
-    
+
     try {
       double mark = double.parse(questionAnswer!.mark!);
       return mark > 0;
@@ -239,13 +241,15 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
     GetQuizQuestionsQuestionAnswerModel? questionAnswer,
   ) {
     if (questionAnswer == null) return "لا توجد إجابة";
-    
+
     switch (question.type) {
       case 'text':
         return questionAnswer.answer?.toString() ?? "لا توجد إجابة";
       case 'true_false':
       case 'multiple_choice':
-        final selectedOptionId = int.tryParse(questionAnswer.questionOptionId ?? "0");
+        final selectedOptionId = int.tryParse(
+          questionAnswer.questionOptionId ?? "0",
+        );
         if (selectedOptionId != null) {
           final selectedOption = question.options?.firstWhere(
             (option) => option.id == selectedOptionId,

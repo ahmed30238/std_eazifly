@@ -2,9 +2,7 @@ import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class AudioPlayerScreen extends StatelessWidget {
-  const AudioPlayerScreen({
-    super.key,
-  });
+  const AudioPlayerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +11,7 @@ class AudioPlayerScreen extends StatelessWidget {
       widget: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          const AvatarImage(
-            width: double.infinity,
-            height: double.infinity,
-          ),
+          const AvatarImage(width: double.infinity, height: double.infinity),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             height: 238.h,
@@ -31,18 +26,14 @@ class AudioPlayerScreen extends StatelessWidget {
                 12.ph,
                 Text(
                   "مجموعة قصص مختارة",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 14,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 12.ph,
                 Row(
                   children: [
                     Text(
                       "4:40",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 12),
                     ),
                     8.pw,
                     Expanded(
@@ -55,9 +46,7 @@ class AudioPlayerScreen extends StatelessWidget {
                     8.pw,
                     Text(
                       "-1:40",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 12),
                     ),
                   ],
                 ),
@@ -66,9 +55,7 @@ class AudioPlayerScreen extends StatelessWidget {
                   hintText: "اكتب تعليق",
                   suffixIconWidget: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: SvgPicture.asset(
-                      Assets.iconsSend2,
-                    ),
+                    child: SvgPicture.asset(Assets.iconsSend2),
                   ),
                 ),
                 16.ph,
@@ -77,32 +64,31 @@ class AudioPlayerScreen extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {},
-                      child: SvgPicture.asset(
-                        Assets.iconsOutlineHeart,
-                      ),
+                      child: SvgPicture.asset(Assets.iconsOutlineHeart),
                     ),
                     InkWell(
-                        onTap: () {},
-                        child: SvgPicture.asset(Assets.iconsPlayNext)),
+                      onTap: () {},
+                      child: SvgPicture.asset(Assets.iconsPlayNext),
+                    ),
                     FloatingActionButton(
                       backgroundColor: MainColors.background,
                       shape: const CircleBorder(),
                       onPressed: () {},
-                      child: SvgPicture.asset(
-                        Assets.iconsPause,
-                      ),
+                      child: SvgPicture.asset(Assets.iconsPause),
                     ),
                     InkWell(
-                        onTap: () {},
-                        child: SvgPicture.asset(Assets.iconsPlayPrevious)),
+                      onTap: () {},
+                      child: SvgPicture.asset(Assets.iconsPlayPrevious),
+                    ),
                     InkWell(
-                        onTap: () {},
-                        child: SvgPicture.asset(Assets.iconsMusicFilter)),
+                      onTap: () {},
+                      child: SvgPicture.asset(Assets.iconsMusicFilter),
+                    ),
                   ],
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

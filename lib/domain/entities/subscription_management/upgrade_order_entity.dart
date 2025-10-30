@@ -11,11 +11,7 @@ class UpgradeOrderEntity {
   @JsonKey(name: "message")
   String? message;
 
-  UpgradeOrderEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  UpgradeOrderEntity({this.data, this.status, this.message});
 }
 
 class UpgradeOrderDataEntity {
@@ -118,10 +114,7 @@ class UpgradeOrderStatusEntity {
   @JsonKey(name: "color")
   String? color;
 
-  UpgradeOrderStatusEntity({
-    this.label,
-    this.color,
-  });
+  UpgradeOrderStatusEntity({this.label, this.color});
 }
 
 class UpgradeOrderUserEntity {
@@ -132,9 +125,5 @@ class UpgradeOrderUserEntity {
   @JsonKey(name: "image")
   String? image;
 
-  UpgradeOrderUserEntity({
-    this.id,
-    this.name,
-    this.image,
-  });
+  UpgradeOrderUserEntity({this.id, this.name, this.image});
 }

@@ -13,7 +13,10 @@ import 'package:eazifly_student/domain/use_cases/get_session_details_usecase.dar
 import 'package:eazifly_student/domain/use_cases/join_session_usecase.dart';
 import 'package:eazifly_student/presentation/controller/my_programs/myprograms_state.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart'
-    hide JoinSessionLoadingState, JoinSessionErrorState, JoinSessionSuccessState;
+    hide
+        JoinSessionLoadingState,
+        JoinSessionErrorState,
+        JoinSessionSuccessState;
 
 class MyProgramsCubit extends Cubit<MyProgramsState> {
   MyProgramsCubit({
@@ -46,15 +49,11 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
   bool getSessionDetailsLoader = false;
   GetSessionDetailsEntity? getSessionDetailsEntity;
   GetSessionDetailsUsecase getSessionDetailsUsecase;
-  Future<void> getSessionDetails({
-    required int sessionId,
-  }) async {
+  Future<void> getSessionDetails({required int sessionId}) async {
     getSessionDetailsLoader = true;
     emit(GetMyProgramsLoadingState());
     final result = await getSessionDetailsUsecase.call(
-      parameter: GetSessionDetailsParameters(
-        sessionId: sessionId,
-      ),
+      parameter: GetSessionDetailsParameters(sessionId: sessionId),
     );
     result.fold(
       (failure) {
@@ -74,17 +73,13 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
   GetAssignedChildrenToProgramUsecase getAssignedChildrenToProgramUsecase;
   List<GetAssignedChildrenToProgramDatumEntity> students = [];
 
-  Future<void> getAssignedChildrenToProgram({
-    required int programId,
-  }) async {
+  Future<void> getAssignedChildrenToProgram({required int programId}) async {
     students = [];
     getAssignedChildrenLoader = true;
     emit(GetAssignedChildrenLoadingState());
 
     final result = await getAssignedChildrenToProgramUsecase.call(
-      parameter: GetAssignedChildrenToProgramParameters(
-        programId: programId,
-      ),
+      parameter: GetAssignedChildrenToProgramParameters(programId: programId),
     );
 
     result.fold(
@@ -107,9 +102,7 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
   JoinSessionEntity? joinSessionEntity;
   JoinSessionUsecase joinSessionUsecase;
 
-  Future<void> joinSession({
-    required int sessionId,
-  }) async {
+  Future<void> joinSession({required int sessionId}) async {
     joinSessionLoader = true;
     emit(JoinSessionLoadingState());
 
@@ -149,10 +142,7 @@ class MyProgramsCubit extends Cubit<MyProgramsState> {
     final result = await changeSessionStatusUsecase.call(
       // أو usecase مخصص للتغيير لو عندك
       parameter: ChangeSessionStatusParameters(
-        data: ChangeSessionStatusToJson(
-          sessionId: sessionId,
-          status: status,
-        ),
+        data: ChangeSessionStatusToJson(sessionId: sessionId, status: status),
       ),
     );
 

@@ -29,7 +29,7 @@ Future<void> confirmSelection(
   try {
     // التحقق من وجود? fullDate
     if (cubit.selectedTimeSlotData?.fullDate == null ||
-        cubit.selectedTimeSlotData?.fullDate.toString().isEmpty == true)  {
+        cubit.selectedTimeSlotData?.fullDate.toString().isEmpty == true) {
       throw Exception("التاريخ غير متاح للوقت المحدد");
     }
 
@@ -89,7 +89,7 @@ List<MapEntry<String, List<GetInstructorAvailabilitieDayModel>?>> dayList(
   // تصفية الأيام التي تحتوي على بيانات فقط
   final filteredDaysMap = Map.fromEntries(
     daysMap.entries.where(
-          (entry) => entry.value != null && entry.value!.isNotEmpty,
+      (entry) => entry.value != null && entry.value!.isNotEmpty,
     ),
   );
   final daysList = filteredDaysMap.entries.toList();

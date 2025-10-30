@@ -11,9 +11,5 @@ class CreateNewChildEntity {
   @JsonKey(name: "message")
   String? message;
 
-  CreateNewChildEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  CreateNewChildEntity({this.data, this.status, this.message});
 }

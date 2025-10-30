@@ -2,10 +2,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class AnwerStateContainer extends StatelessWidget {
   final String state;
-  const AnwerStateContainer({
-    super.key,
-    required this.state,
-  });
+  const AnwerStateContainer({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {

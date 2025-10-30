@@ -8,11 +8,7 @@ class ReadNotificationEntities {
   int? status;
   @JsonKey(name: "message")
   String? message;
-  ReadNotificationEntities({
-    this.data,
-    this.status,
-    this.message,
-  });
+  ReadNotificationEntities({this.data, this.status, this.message});
 }
 
 class ReadNotificationDataEntities {

@@ -11,11 +11,7 @@ class ChangeSessionStatusEntity {
   @JsonKey(name: "message")
   String? message;
 
-  ChangeSessionStatusEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  ChangeSessionStatusEntity({this.data, this.status, this.message});
 }
 
 class ChangeSessionStatusDataEntity {
@@ -82,8 +78,5 @@ class ChangeSessionStatusUserEntity {
   @JsonKey(name: "user_name")
   String? userName;
 
-  ChangeSessionStatusUserEntity({
-    this.id,
-    this.userName,
-  });
+  ChangeSessionStatusUserEntity({this.id, this.userName});
 }

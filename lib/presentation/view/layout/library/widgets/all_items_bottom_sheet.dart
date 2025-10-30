@@ -8,11 +8,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 class AllItemsBottomSheet extends StatefulWidget {
   final int? itemId;
   final int? favListId;
-  const AllItemsBottomSheet({
-    super.key,
-    this.favListId,
-    this.itemId,
-  });
+  const AllItemsBottomSheet({super.key, this.favListId, this.itemId});
 
   @override
   State<AllItemsBottomSheet> createState() => _AllItemsBottomSheetState();
@@ -30,9 +26,7 @@ class _AllItemsBottomSheetState extends State<AllItemsBottomSheet> {
     LibraryCubit cubit = context.read<LibraryCubit>();
 
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 16.w,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       width: double.infinity,
       child: Column(
         children: [
@@ -59,14 +53,13 @@ class _AllItemsBottomSheetState extends State<AllItemsBottomSheet> {
               // Handle loading state
               if (cubit.getAllItemsLoader || cubit.getAllItemsEntity == null) {
                 return const Center(
-                    child: CircularProgressIndicator.adaptive());
+                  child: CircularProgressIndicator.adaptive(),
+                );
               }
 
               // Handle error state
               if (state is GetAllItemsErrorState) {
-                return Center(
-                  child: Text('Error: ${state.errorMessage}'),
-                );
+                return Center(child: Text('Error: ${state.errorMessage}'));
               }
 
               // Handle empty state
@@ -81,7 +74,9 @@ class _AllItemsBottomSheetState extends State<AllItemsBottomSheet> {
                   padding: EdgeInsets.symmetric(vertical: 16.h),
                   itemBuilder: (context, index) {
                     final item = cubit.getAllItemsEntity!.data![index];
-                    log("${cubit.itemsToAddToFvouriteWhenCreatingPlayList} ${cubit.itemsToAddToFvouriteWhenCreatingPlayList.length}");
+                    log(
+                      "${cubit.itemsToAddToFvouriteWhenCreatingPlayList} ${cubit.itemsToAddToFvouriteWhenCreatingPlayList.length}",
+                    );
                     return PossibleFavItemsContainer(
                       isAlreadyAdded: cubit
                           .itemsToAddToFvouriteWhenCreatingPlayList

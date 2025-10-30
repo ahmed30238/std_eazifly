@@ -14,9 +14,7 @@ import '../../../../data/models/auth/register_tojson.dart';
 import '../../layout/layout_cubit.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit({
-    required this.registerUsecase,
-  }) : super(RegisterInitial());
+  RegisterCubit({required this.registerUsecase}) : super(RegisterInitial());
 
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -50,8 +48,11 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   /// دالة التحقق من صحة البيانات
-  String? validateField(String? value, String fieldName,
-      {bool isEmail = false}) {
+  String? validateField(
+    String? value,
+    String fieldName, {
+    bool isEmail = false,
+  }) {
     if (value == null || value.trim().isEmpty) {
       return '$fieldName مطلوب';
     }
@@ -220,29 +221,26 @@ class RegisterCubit extends Cubit<RegisterState> {
             clearControllers();
 
             // الانتقال للشاشة الرئيسية أو شاشة تأكيد البريد الإلكتروني
-            Future.delayed(
-              Duration.zero,
-              () {
-                if (context.mounted) {
-                  // if (false/*response.data?.isEmailVerified == false*/) {
-                  // Navigator.pushNamedAndRemoveUntil(
-                  //   context,
-                  //   RoutePaths.emailVerificationPath,
-                  //   (route) => false,
-                  // );
-                  // } else {
+            Future.delayed(Duration.zero, () {
+              if (context.mounted) {
+                // if (false/*response.data?.isEmailVerified == false*/) {
+                // Navigator.pushNamedAndRemoveUntil(
+                //   context,
+                //   RoutePaths.emailVerificationPath,
+                //   (route) => false,
+                // );
+                // } else {
 
-                  context.read<LayoutCubit>().changeIndex(0);
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    RoutePaths.layoutPath,
-                    (route) => false,
-                  );
+                context.read<LayoutCubit>().changeIndex(0);
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  RoutePaths.layoutPath,
+                  (route) => false,
+                );
 
-                  // }
-                }
-              },
-            );
+                // }
+              }
+            });
           } else {
             // البيانات فارغة رغم النجاح
             log("⚠️ استجابة فارغة من الخادم");
@@ -270,8 +268,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   /// دالة التسجيل مع إعادة المحاولة
-  Future<void> registerWithRetry(BuildContext context,
-      {int maxRetries = 3}) async {
+  Future<void> registerWithRetry(
+    BuildContext context, {
+    int maxRetries = 3,
+  }) async {
     int attemptCount = 0;
 
     while (attemptCount < maxRetries) {

@@ -9,10 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class SettingItemWidget extends StatelessWidget {
   final SettingItemModel model;
 
-  const SettingItemWidget({
-    super.key,
-    required this.model,
-  });
+  const SettingItemWidget({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +19,7 @@ class SettingItemWidget extends StatelessWidget {
         height: 56.h,
         child: Row(
           children: [
-            SvgPicture.asset(
-              model.icon,
-            ),
+            SvgPicture.asset(model.icon),
             8.pw,
             Text(
               model.label,
@@ -34,10 +29,7 @@ class SettingItemWidget extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            const Icon(
-              Icons.arrow_forward_ios,
-              size: 15,
-            )
+            const Icon(Icons.arrow_forward_ios, size: 15),
           ],
         ),
       ),

@@ -4,15 +4,20 @@ import 'package:eazifly_student/core/general_failure/failure.dart';
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/sessions/get_instructor_availabilities_entity.dart';
 
-class GetInstructorAvailabilitiesUsecase extends BaseUsecase<
-    GetInstructorAvailabilitiesEntity, GetInstructorAvailabilitiesParameters> {
+class GetInstructorAvailabilitiesUsecase
+    extends
+        BaseUsecase<
+          GetInstructorAvailabilitiesEntity,
+          GetInstructorAvailabilitiesParameters
+        > {
   final BaseRepository baseRepository;
 
   GetInstructorAvailabilitiesUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetInstructorAvailabilitiesEntity>> call(
-      {required GetInstructorAvailabilitiesParameters parameter}) async {
+  Future<Either<Failure, GetInstructorAvailabilitiesEntity>> call({
+    required GetInstructorAvailabilitiesParameters parameter,
+  }) async {
     return await baseRepository.getInstructorAvailabilities(
       instructorId: parameter.instructorId,
       expireDate: parameter.expireDate,

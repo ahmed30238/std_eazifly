@@ -32,7 +32,8 @@ class _HomeMeetingsViewState extends State<HomeMeetingsView>
     var cubit = MeetingCubit.get(context);
     var lang = context.loc!;
     return Scaffold(
-      appBar: CustomAppBar(     context,
+      appBar: CustomAppBar(
+        context,
         mainTitle: lang.meetings,
         leadingText: lang.back,
         // onLeadinTap: () => back(context),
@@ -54,21 +55,18 @@ class _HomeMeetingsViewState extends State<HomeMeetingsView>
             bloc: cubit,
             builder: (context, state) => CustomTabBar(
               controller: cubit.tabController,
-              tabs: List.generate(
-                cubit.tabs(context).length,
-                (index) {
-                  bool isSelected = cubit.tabController.index == index;
-                  return Text(
-                    cubit.tabs(context)[index],
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 12,
-                      color: isSelected
-                          ? MainColors.primary
-                          : MainColors.onPrimary,
-                    ),
-                  );
-                },
-              ),
+              tabs: List.generate(cubit.tabs(context).length, (index) {
+                bool isSelected = cubit.tabController.index == index;
+                return Text(
+                  cubit.tabs(context)[index],
+                  style: MainTextStyle.boldTextStyle(
+                    fontSize: 12,
+                    color: isSelected
+                        ? MainColors.primary
+                        : MainColors.onPrimary,
+                  ),
+                );
+              }),
             ),
           ),
           16.ph,
@@ -77,9 +75,10 @@ class _HomeMeetingsViewState extends State<HomeMeetingsView>
             builder: (context, state) => SizedBox(
               height: heights[cubit.tabController.index],
               child: TabBarView(
-                  controller: cubit.tabController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: cubit.screens),
+                controller: cubit.tabController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: cubit.screens,
+              ),
             ),
           ),
         ],

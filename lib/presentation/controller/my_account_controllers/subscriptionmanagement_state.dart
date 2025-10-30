@@ -36,6 +36,7 @@ class CancelSubscriptionErrorState extends SubscriptionmanagementState {
   final String errorMessage;
   CancelSubscriptionErrorState({required this.errorMessage});
 }
+
 class UpgradeOrderLoadingState extends SubscriptionmanagementState {}
 
 class UpgradeOrderSuccessState extends SubscriptionmanagementState {}
@@ -53,10 +54,7 @@ class RenewSubscriptionErrorState extends SubscriptionmanagementState {
   final String errorMessage;
   final int? errorCode;
 
-  RenewSubscriptionErrorState({
-    required this.errorMessage,
-    this.errorCode,
-  });
+  RenewSubscriptionErrorState({required this.errorMessage, this.errorCode});
 }
 
 class GetGalleryImagesState extends SubscriptionmanagementState {}
@@ -68,13 +66,10 @@ class ShowPlanSuccessState extends SubscriptionmanagementState {}
 class ShowPlanErrorState extends SubscriptionmanagementState {
   final String errorMessage;
 
-  ShowPlanErrorState({
-    required this.errorMessage,
-  });
+  ShowPlanErrorState({required this.errorMessage});
 }
 
 class ProgramsubscriptionplanInitial extends SubscriptionmanagementState {}
-
 
 class ChangePlanIndexState extends SubscriptionmanagementState {}
 
@@ -103,6 +98,7 @@ class FilterPlansSuccessState extends SubscriptionmanagementState {}
 class CreateOrderLoadingState extends SubscriptionmanagementState {}
 
 class UpdateStartDateState extends SubscriptionmanagementState {}
+
 class CreateOrderErrorState extends SubscriptionmanagementState {
   final String errorMessage;
 
@@ -153,7 +149,6 @@ class GetPlansWithDetailsErrorState extends SubscriptionmanagementState {
 }
 
 class GetPlanSubscriptionLoadingState extends SubscriptionmanagementState {}
-
 
 class ChangePackageIndexState extends SubscriptionmanagementState {}
 

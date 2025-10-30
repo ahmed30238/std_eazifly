@@ -1,4 +1,3 @@
-
 // ignore_for_file: overridden_fields
 
 import 'package:eazifly_student/data/models/order_and_subscribe/create_order_model.dart';
@@ -25,21 +24,13 @@ class GetUserOrdersModel extends GetUserOrdersEntity {
   @JsonKey(name: "message")
   final String? message;
 
-  const GetUserOrdersModel({
-    this.data,
-    this.status,
-    this.message,
-  }) : super(
-          data: data,
-          status: status,
-          message: message,
-        );
+  const GetUserOrdersModel({this.data, this.status, this.message})
+    : super(data: data, status: status, message: message);
 
   factory GetUserOrdersModel.fromJson(Map<String, dynamic> json) =>
       _$GetUserOrdersModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetUserOrdersModelToJson(this);
-
 }
 
 @JsonSerializable(explicitToJson: true)

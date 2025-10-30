@@ -4,11 +4,12 @@ class AssignProgramReviewTojson {
   final int rating;
   final int userId;
 
-  AssignProgramReviewTojson(
-      {required this.programId,
-      required this.review,
-      required this.rating,
-      required this.userId});
+  AssignProgramReviewTojson({
+    required this.programId,
+    required this.review,
+    required this.rating,
+    required this.userId,
+  });
 
   Map<String, dynamic> toJson() {
     return {

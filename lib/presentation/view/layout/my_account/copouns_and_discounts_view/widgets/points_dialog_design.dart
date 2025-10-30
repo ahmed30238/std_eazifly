@@ -3,10 +3,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class PointsDialogDesign extends StatelessWidget {
   final String points;
-  const PointsDialogDesign({
-    super.key,
-    required this.points,
-  });
+  const PointsDialogDesign({super.key, required this.points});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +12,7 @@ class PointsDialogDesign extends StatelessWidget {
         color: MainColors.background,
         borderRadius: 16.cr,
       ),
-      padding: EdgeInsets.symmetric(
-        horizontal: 24.r,
-        vertical: 24.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 24.r, vertical: 24.h),
       height: 172.h,
       child: Column(
         children: [
@@ -38,19 +32,14 @@ class PointsDialogDesign extends StatelessWidget {
           8.ph,
           Text(
             "يمكنك إستبدال النقاط عند الإشتراك في برامج جديد او اللإشتراك الشهري توجهة الأن للإستماع بالخصومات",
-            style: MainTextStyle.mediumTextStyle(
-              fontSize: 12,
-            ),
+            style: MainTextStyle.mediumTextStyle(fontSize: 12),
           ),
           16.ph,
           CustomLowSizeButton(
             text: "انتقل للبرامج",
             onTap: () {
               LayoutCubit.get(context).changeIndex(1);
-              Navigator.pushNamed(
-                context,
-                RoutePaths.layoutPath,
-              );
+              Navigator.pushNamed(context, RoutePaths.layoutPath);
             },
             width: 134.w,
             height: 37.h,

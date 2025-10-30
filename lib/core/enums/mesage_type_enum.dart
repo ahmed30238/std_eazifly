@@ -1,9 +1,4 @@
- 
- enum MessageTypeEnum {
-  text,
-  image,
-  voiceMessage,
-}
+enum MessageTypeEnum { text, image, voiceMessage }
 
 class Message {
   final MessageTypeEnum type;

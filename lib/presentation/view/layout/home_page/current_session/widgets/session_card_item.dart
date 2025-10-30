@@ -27,17 +27,13 @@ class SessionCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: index == 1 ? 7.w : 0,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: index == 1 ? 7.w : 0),
       child: InkWell(
         onTap: () {
           // Handle card tap if needed
         },
         child: Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: index == 2 ? 12.w : 0,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: index == 2 ? 12.w : 0),
           height: 78.h,
           width: 109.w,
           decoration: BoxDecoration(
@@ -46,8 +42,8 @@ class SessionCardItem extends StatelessWidget {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: index == 2 
-                ? CrossAxisAlignment.start 
+            crossAxisAlignment: index == 2
+                ? CrossAxisAlignment.start
                 : CrossAxisAlignment.center,
             children: [
               // Card title
@@ -58,7 +54,7 @@ class SessionCardItem extends StatelessWidget {
                   color: MainColors.onSurfaceSecondary,
                 ),
               ),
-              
+
               // Card content based on index
               _buildCardContent(context),
             ],
@@ -73,12 +69,9 @@ class SessionCardItem extends StatelessWidget {
       case 0:
         return UsersSectionWidget(sessionData: sessionData);
       case 1:
-        return PlatformSectionWidget(sessionData: sessionData,);
+        return PlatformSectionWidget(sessionData: sessionData);
       case 2:
-        return ZoomLinkSectionWidget(
-          sessionData: sessionData,
-          cubit: cubit,
-        );
+        return ZoomLinkSectionWidget(sessionData: sessionData, cubit: cubit);
       default:
         return const SizedBox.shrink();
     }

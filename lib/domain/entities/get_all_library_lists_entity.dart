@@ -8,9 +8,5 @@ class GetAllLibraryListsEntity {
   int? status;
   @JsonKey(name: "message")
   String? message;
-  GetAllLibraryListsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetAllLibraryListsEntity({this.data, this.status, this.message});
 }

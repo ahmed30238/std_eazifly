@@ -31,14 +31,10 @@ class StudentItem extends StatelessWidget {
             width: 79.75.w,
             height: 98.h,
             decoration: BoxDecoration(
-              color: isSelected
-                  ? MainColors.surface
-                  : MainColors.inputFill,
+              color: isSelected ? MainColors.surface : MainColors.inputFill,
               borderRadius: 8.cr,
               border: Border.all(
-                color: isSelected
-                    ? MainColors.primary
-                    : MainColors.outline,
+                color: isSelected ? MainColors.primary : MainColors.outline,
                 width: 2,
               ),
             ),
@@ -60,7 +56,7 @@ class StudentItem extends StatelessWidget {
                         : MainColors.onPrimary,
                     fontSize: 12,
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -72,9 +68,7 @@ class StudentItem extends StatelessWidget {
                 color: MainColors.inputFill.withValues(alpha: .5),
                 borderRadius: 8.cr,
                 border: Border.all(
-                  color: isSelected
-                      ? MainColors.primary
-                      : MainColors.outline,
+                  color: isSelected ? MainColors.primary : MainColors.outline,
                   width: 2.w,
                 ),
               ),
@@ -91,16 +85,9 @@ class StudentItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.green,
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 2.w,
-                  ),
+                  border: Border.all(color: Colors.white, width: 2.w),
                 ),
-                child: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                  size: 12.sp,
-                ),
+                child: Icon(Icons.check, color: Colors.white, size: 12.sp),
               ),
             ),
         ],

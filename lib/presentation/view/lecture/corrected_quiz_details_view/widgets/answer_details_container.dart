@@ -34,11 +34,7 @@ class AnswerDetailsContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: MainColors.surfaceVariant,
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: MainColors.surfaceVariant)),
       ),
       constraints: BoxConstraints(minHeight: 190.h),
       width: double.infinity,
@@ -165,8 +161,9 @@ class EnhancedTrueFalseStudentAnswer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedOptionId =
-        int.tryParse(questionAnswer?.questionOptionId ?? "0");
+    final selectedOptionId = int.tryParse(
+      questionAnswer?.questionOptionId ?? "0",
+    );
     final selectedOptionTitle = questionData?.options
         ?.firstWhere(
           (option) => option.id == selectedOptionId,
@@ -192,15 +189,15 @@ class EnhancedTrueFalseStudentAnswer extends StatelessWidget {
                 height: 44.h,
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? (answerState
-                          ? MainColors.onSuccess
-                          : MainColors.error)
+                      ? (answerState ? MainColors.onSuccess : MainColors.error)
                       : MainColors.background,
                   borderRadius: 8.cr,
                   border: Border.all(
                     width: 2.w,
                     color: isSelected
-                        ? (answerState ? MainColors.success : MainColors.onError)
+                        ? (answerState
+                              ? MainColors.success
+                              : MainColors.onError)
                         : MainColors.outline,
                   ),
                 ),
@@ -209,7 +206,9 @@ class EnhancedTrueFalseStudentAnswer extends StatelessWidget {
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
                     color: isSelected
-                        ? (answerState ? MainColors.success : MainColors.onError)
+                        ? (answerState
+                              ? MainColors.success
+                              : MainColors.onError)
                         : MainColors.onPrimary,
                   ),
                 ).center(),
@@ -235,10 +234,7 @@ class EnhancedTrueFalseStudentAnswer extends StatelessWidget {
             decoration: BoxDecoration(
               color: MainColors.onSuccess,
               borderRadius: 8.cr,
-              border: Border.all(
-                width: 2.w,
-                color: MainColors.success,
-              ),
+              border: Border.all(width: 2.w, color: MainColors.success),
             ),
             child: Text(
               _getCorrectAnswer(),
@@ -280,8 +276,9 @@ class EnhancedMultipleChoiceStudentAnswer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedOptionId =
-        int.tryParse(questionAnswer?.questionOptionId ?? "0");
+    final selectedOptionId = int.tryParse(
+      questionAnswer?.questionOptionId ?? "0",
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -300,15 +297,15 @@ class EnhancedMultipleChoiceStudentAnswer extends StatelessWidget {
                 height: 44.h,
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? (answerState
-                          ? MainColors.onSuccess
-                          : MainColors.error)
+                      ? (answerState ? MainColors.onSuccess : MainColors.error)
                       : MainColors.background,
                   borderRadius: 8.cr,
                   border: Border.all(
                     width: 2.w,
                     color: isSelected
-                        ? (answerState ? MainColors.success : MainColors.onError)
+                        ? (answerState
+                              ? MainColors.success
+                              : MainColors.onError)
                         : MainColors.outline,
                   ),
                 ),
@@ -317,7 +314,9 @@ class EnhancedMultipleChoiceStudentAnswer extends StatelessWidget {
                   style: MainTextStyle.boldTextStyle(
                     fontSize: 12,
                     color: isSelected
-                        ? (answerState ? MainColors.success : MainColors.onError)
+                        ? (answerState
+                              ? MainColors.success
+                              : MainColors.onError)
                         : MainColors.onPrimary,
                   ),
                 ).center(),
@@ -344,10 +343,7 @@ class EnhancedMultipleChoiceStudentAnswer extends StatelessWidget {
             decoration: BoxDecoration(
               color: MainColors.onSuccess,
               borderRadius: 8.cr,
-              border: Border.all(
-                width: 2.w,
-                color: MainColors.success,
-              ),
+              border: Border.all(width: 2.w, color: MainColors.success),
             ),
             child: Text(
               _getCorrectAnswer(),
@@ -449,7 +445,7 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
                 titleText: const [
                   "تاريخ التسليم",
                   "درجة الإمتحان",
-                  "حالة الإمتحان"
+                  "حالة الإمتحان",
                 ],
                 downSideWidgets: [
                   Text(
@@ -538,7 +534,7 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
       log("message");
       return "غير محدد";
     }
-    
+
     double percentage = (totalMark / fullMark) * 100;
     return percentage >= 50 ? "ناجح" : "راسب";
   }
@@ -548,7 +544,7 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
     if (totalMark == null || fullMark == null || fullMark == 0) {
       return MainColors.borderPrimary;
     }
-    
+
     double percentage = (totalMark / fullMark) * 100;
     return percentage >= 50 ? MainColors.success : MainColors.onError;
   }
@@ -558,7 +554,7 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
     if (totalMark == null || fullMark == null || fullMark == 0) {
       return MainColors.surfaceVariant;
     }
-    
+
     double percentage = (totalMark / fullMark) * 100;
     return percentage >= 50 ? MainColors.onSuccess : MainColors.error;
   }
@@ -603,10 +599,12 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
 
     // لأسئلة صح/خطأ والاختيار المتعدد: نقارن IDs
     if (question?.type == 'true_false' || question?.type == 'multiple_choice') {
-      final selectedOptionId =
-          int.tryParse(questionAnswer?.questionOptionId ?? "");
-      final correctOption = question?.options
-          ?.firstWhere((option) => option.optionStatus == "correct");
+      final selectedOptionId = int.tryParse(
+        questionAnswer?.questionOptionId ?? "",
+      );
+      final correctOption = question?.options?.firstWhere(
+        (option) => option.optionStatus == "correct",
+      );
       return correctOption?.id == selectedOptionId;
     }
     return false;
@@ -623,8 +621,9 @@ class _CorrectedQuizDetailsViewState extends State<CorrectedQuizDetailsView> {
         return questionAnswer.answer?.toString() ?? "لا توجد إجابة";
       case 'true_false':
       case 'multiple_choice':
-        final selectedOptionId =
-            int.tryParse(questionAnswer.questionOptionId ?? "0");
+        final selectedOptionId = int.tryParse(
+          questionAnswer.questionOptionId ?? "0",
+        );
         if (selectedOptionId != null) {
           final selectedOption = question.options?.firstWhere(
             (option) => option.id == selectedOptionId,

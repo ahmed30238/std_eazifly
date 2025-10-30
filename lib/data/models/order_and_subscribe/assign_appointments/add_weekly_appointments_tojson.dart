@@ -1,5 +1,3 @@
-
-
 class AddWeeklyAppointmentsTojson {
   final String startDate;
   final int userId;

@@ -8,10 +8,7 @@ Future<dynamic> lectureReportModelSheet(BuildContext context, int index) {
     context,
     widget: CustomBottomSheetDesign(
       widget: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 16.h,
-          vertical: 24.h,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 16.h, vertical: 24.h),
         child: InkWell(
           onTap: () {
             //   Navigator.pushNamed(
@@ -25,9 +22,7 @@ Future<dynamic> lectureReportModelSheet(BuildContext context, int index) {
             height: 45.h,
             child: Text(
               "تقرير المحاضرة",
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 14,
-              ),
+              style: MainTextStyle.boldTextStyle(fontSize: 14),
             ),
           ),
         ),

@@ -5,15 +5,17 @@ import 'package:eazifly_student/data/models/my_programs/change_session_status_to
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/my_programs/change_session_status_entity.dart';
 
-class ChangeSessionStatusUsecase extends BaseUsecase<ChangeSessionStatusEntity,
-    ChangeSessionStatusParameters> {
+class ChangeSessionStatusUsecase
+    extends
+        BaseUsecase<ChangeSessionStatusEntity, ChangeSessionStatusParameters> {
   final BaseRepository baseRepository;
 
   ChangeSessionStatusUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, ChangeSessionStatusEntity>> call(
-      {required ChangeSessionStatusParameters parameter}) async {
+  Future<Either<Failure, ChangeSessionStatusEntity>> call({
+    required ChangeSessionStatusParameters parameter,
+  }) async {
     return await baseRepository.changeSessionStatus(data: parameter.data);
   }
 }

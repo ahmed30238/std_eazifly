@@ -19,10 +19,7 @@ class LibraryMenuListItemShimmer extends StatelessWidget {
       padding: EdgeInsets.all(8.r),
       height: 96.h,
       width: 343.w,
-      decoration: BoxDecoration(
-        borderRadius: 16.cr,
-        color: Colors.white,
-      ),
+      decoration: BoxDecoration(borderRadius: 16.cr, color: Colors.white),
       child: Row(
         children: [
           Container(
@@ -64,16 +61,12 @@ class LibraryMenuListItemShimmer extends StatelessWidget {
                         child: const ShimmerWidget(),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
           ),
-          Icon(
-            Icons.arrow_forward_ios,
-            size: 12.sp,
-            color: Colors.grey[300],
-          ),
+          Icon(Icons.arrow_forward_ios, size: 12.sp, color: Colors.grey[300]),
         ],
       ),
     );
@@ -87,9 +80,7 @@ class MenuListShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       itemBuilder: (context, index) {
-        return LibraryMenuListItemShimmer(
-          index: index,
-        );
+        return LibraryMenuListItemShimmer(index: index);
       },
       separatorBuilder: (context, index) => 12.ph,
       itemCount: 6,

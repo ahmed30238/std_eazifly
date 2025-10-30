@@ -6,10 +6,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class CompleteLibraryPaymentProcessView extends StatefulWidget {
   final int itemId;
-  const CompleteLibraryPaymentProcessView({
-    super.key,
-    required this.itemId,
-  });
+  const CompleteLibraryPaymentProcessView({super.key, required this.itemId});
 
   @override
   State<CompleteLibraryPaymentProcessView> createState() =>
@@ -24,11 +21,9 @@ class _CompleteLibraryPaymentProcessViewState
   @override
   void initState() {
     cubit = context.read<PaymentCubit>();
-    addtolibrarypackagedetailsCubit =
-        context.read<AddtolibrarypackagedetailsCubit>();
-    cubit.getProgramPaymentMethod(
-      programId: widget.itemId,
-    );
+    addtolibrarypackagedetailsCubit = context
+        .read<AddtolibrarypackagedetailsCubit>();
+    cubit.getProgramPaymentMethod(programId: widget.itemId);
     super.initState();
   }
 
@@ -46,9 +41,7 @@ class _CompleteLibraryPaymentProcessViewState
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           16.ph,
-          SvgPicture.asset(
-            Assets.iconsCompletePaymentProcess,
-          ),
+          SvgPicture.asset(Assets.iconsCompletePaymentProcess),
           24.ph,
           Text(
             "أختر عملية الدفع الأسهل بالنسبك اليك",
@@ -76,7 +69,8 @@ class _CompleteLibraryPaymentProcessViewState
 
               if (paymentMethodsList == null || paymentMethodsList.isEmpty) {
                 return const Center(
-                    child: Text('No payment methods available'));
+                  child: Text('No payment methods available'),
+                );
               }
 
               return Expanded(
@@ -91,7 +85,7 @@ class _CompleteLibraryPaymentProcessViewState
                         Navigator.pushNamed(
                           arguments: {
                             "cubit": addtolibrarypackagedetailsCubit,
-                            "methodId": method.id ?? 0
+                            "methodId": method.id ?? 0,
                           },
                           context,
                           RoutePaths.libraryconfirmPaymentView,
@@ -104,7 +98,7 @@ class _CompleteLibraryPaymentProcessViewState
                 ),
               );
             },
-          )
+          ),
         ],
       ),
     );
@@ -129,11 +123,7 @@ class PaymentMethodContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget? iconWidget;
     if (icon != null && icon!.isNotEmpty) {
-      iconWidget = AvatarImage(
-        imageUrl: icon,
-        height: 32.h,
-        width: 32.w,
-      );
+      iconWidget = AvatarImage(imageUrl: icon, height: 32.h, width: 32.w);
     }
 
     return InkWell(
@@ -156,10 +146,7 @@ class PaymentMethodContainer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: MainTextStyle.boldTextStyle(fontSize: 15),
-                  ),
+                  Text(title, style: MainTextStyle.boldTextStyle(fontSize: 15)),
                   4.ph,
                   Text(
                     description,

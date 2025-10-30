@@ -7,7 +7,7 @@ import '../../../../../../domain/entities/home/get_home_current_session_entity.d
 
 class PlatformSectionWidget extends StatelessWidget {
   final GetHomeCurrentSessionData sessionData;
-  const PlatformSectionWidget({super.key,required this.sessionData});
+  const PlatformSectionWidget({super.key, required this.sessionData});
 
   @override
   Widget build(BuildContext context) {

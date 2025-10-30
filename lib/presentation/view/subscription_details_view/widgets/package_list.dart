@@ -18,9 +18,7 @@ class PackageList extends StatelessWidget {
             bool isSelected = index == cubit.selectedPackageIndex;
             return InkWell(
               onTap: () => cubit.changeselectedPackageIndex(index),
-              child: PackageContainer(
-                isSelected: isSelected,
-              ),
+              child: PackageContainer(isSelected: isSelected),
             );
           },
           separatorBuilder: (context, index) => 11.pw,

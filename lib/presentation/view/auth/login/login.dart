@@ -62,9 +62,10 @@ class Login extends StatelessWidget {
                               Text(
                                 "هدى للناس",
                                 style: GoogleFonts.plusJakartaSans().copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 25.69.sp,
-                                    color: const Color(0xff07070D)),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 25.69.sp,
+                                  color: const Color(0xff07070D),
+                                ),
                               ),
                               9.pw,
                               Image.asset(
@@ -106,8 +107,9 @@ class Login extends StatelessWidget {
                           maxLines: 1,
                           controller: cubit.loginController,
                           onFieldSubmitted: (value) {
-                            FocusScope.of(context)
-                                .requestFocus(cubit.passwordFocusNode);
+                            FocusScope.of(
+                              context,
+                            ).requestFocus(cubit.passwordFocusNode);
                           },
                           keyboardType: TextInputType.emailAddress,
                           validator: customValidation,
@@ -194,14 +196,15 @@ class Login extends StatelessWidget {
                         onPressed: cubit.loginLoader
                             ? () {}
                             : () {
-                          cubit.tryToLogin(context);
-                        },
+                                cubit.tryToLogin(context);
+                              },
                         height: 48.h,
                         width: 343.w,
                         color: MainColors.primary,
                         radius: 16.r,
                         child: cubit.loginLoader
-                            ? const CircularProgressIndicator.adaptive().center()
+                            ? const CircularProgressIndicator.adaptive()
+                                  .center()
                             : null,
                       ),
                       24.ph,

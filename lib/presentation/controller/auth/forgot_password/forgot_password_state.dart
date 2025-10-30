@@ -23,4 +23,5 @@ final class ResetPasswordErrorState extends ForgotPasswordState {
 
   ResetPasswordErrorState({required this.errorMessage});
 }
+
 final class PasswordVisibilityChangedState extends ForgotPasswordState {}

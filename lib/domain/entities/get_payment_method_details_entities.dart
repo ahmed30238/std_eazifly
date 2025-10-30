@@ -9,9 +9,5 @@ class GetPaymentMethodDetailsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetPaymentMethodDetailsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetPaymentMethodDetailsEntity({this.data, this.status, this.message});
 }

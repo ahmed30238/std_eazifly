@@ -10,8 +10,9 @@ class GetUserFeedbackUsecase
 
   GetUserFeedbackUsecase({required this.baseRepository});
   @override
-  Future<Either<Failure, GetUserFeedbacksEntity>> call(
-      {required GetUserFeedbackParameters parameter}) async {
+  Future<Either<Failure, GetUserFeedbacksEntity>> call({
+    required GetUserFeedbackParameters parameter,
+  }) async {
     return await baseRepository.getUserFeedbacks(userId: parameter.userId);
   }
 }

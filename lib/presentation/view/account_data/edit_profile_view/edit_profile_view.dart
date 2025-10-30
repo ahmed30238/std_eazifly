@@ -85,7 +85,8 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   18.ph,
                   UserNameText(
-                      name: "${loginData?.firstName} ${loginData?.lastName}"),
+                    name: "${loginData?.firstName} ${loginData?.lastName}",
+                  ),
                   32.ph,
                   TitledFormFieldItem(
                     controller: cubit.firstNameController,
@@ -150,7 +151,7 @@ class _EditProfileState extends State<EditProfile> {
                   16.ph,
                   // في EditProfile Widget - تعديل جزء الـ Gender Dropdown
 
-// استبدل هذا الجزء في build method:
+                  // استبدل هذا الجزء في build method:
                   Text(
                     "النوع",
                     style: MainTextStyle.boldTextStyle(

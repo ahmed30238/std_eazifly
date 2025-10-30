@@ -11,11 +11,7 @@ class GetAllItemsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetAllItemsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetAllItemsEntity({this.data, this.status, this.message});
 }
 
 class ItemEntity {

@@ -11,11 +11,7 @@ class JoinSessionEntity {
   @JsonKey(name: "message")
   String? message;
 
-  JoinSessionEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  JoinSessionEntity({this.data, this.status, this.message});
 }
 
 class JoinSessionDataEntity {
@@ -82,8 +78,5 @@ class JoinSessionUserEntity {
   @JsonKey(name: "user_name")
   String? userName;
 
-  JoinSessionUserEntity({
-    this.id,
-    this.userName,
-  });
+  JoinSessionUserEntity({this.id, this.userName});
 }

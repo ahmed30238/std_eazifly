@@ -3,10 +3,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 class QTypeTextedContainer extends StatelessWidget {
   final String type;
 
-  const QTypeTextedContainer({
-    super.key,
-    required this.type,
-  });
+  const QTypeTextedContainer({super.key, required this.type});
 
   static const Map<String, String> _normalizedTypes = {
     "مقالي": "text",

@@ -82,11 +82,7 @@ class StudentDataItem extends StatelessWidget {
                 ),
               ],
             ),
-            if (hasTrailingIcon) ...{
-              20.pw,
-            } else ...{
-              const Spacer(),
-            },
+            if (hasTrailingIcon) ...{20.pw} else ...{const Spacer()},
             //! phone
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,9 +106,7 @@ class StudentDataItem extends StatelessWidget {
             if (hasTrailingIcon)
               InkWell(
                 onTap: onTrailingIconTap,
-                child: SvgPicture.asset(
-                  Assets.iconsHorizontalDots,
-                ),
+                child: SvgPicture.asset(Assets.iconsHorizontalDots),
               ),
           ],
         ),

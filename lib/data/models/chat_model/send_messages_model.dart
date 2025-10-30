@@ -2,7 +2,6 @@ import 'package:eazifly_student/domain/entities/chat/send_messages_entities.dart
 import 'package:json_annotation/json_annotation.dart';
 part 'send_messages_model.g.dart';
 
-
 @JsonSerializable(explicitToJson: true)
 class SendMessagesModel extends SendMessagesEntities {
   SendMessagesModel();
@@ -22,6 +21,7 @@ class SendMessagesDataModel extends SendMessagesDataEntities {
 
   Map<String, dynamic> toJson() => _$SendMessagesDataModelToJson(this);
 }
+
 @JsonSerializable(explicitToJson: true)
 class SendMessagesSenderModel extends SendMessagesSenderEntity {
   SendMessagesSenderModel();

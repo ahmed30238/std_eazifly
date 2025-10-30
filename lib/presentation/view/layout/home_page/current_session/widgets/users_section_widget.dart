@@ -10,16 +10,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class UsersSectionWidget extends StatelessWidget {
   final GetHomeCurrentSessionData sessionData;
 
-  const UsersSectionWidget({
-    super.key,
-    required this.sessionData,
-  });
+  const UsersSectionWidget({super.key, required this.sessionData});
 
   @override
   Widget build(BuildContext context) {
     final users = sessionData.users;
     final hasMultipleUsers = users != null && users.length > 1;
-    
+
     if (hasMultipleUsers) {
       return _buildMultipleUsersView(users);
     } else {

@@ -159,10 +159,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         programsUnderReview?.isEmpty == true) {
                   return Column(
                     children: [
-                      NoDataAnimatedImageWidget(
-                        message:
-                            lang.noSubscriptions,
-                      ),
+                      NoDataAnimatedImageWidget(message: lang.noSubscriptions),
                       24.ph,
                       GestureDetector(
                         onTap: () {
@@ -234,10 +231,8 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                           item.nextSession,
                         );
                       } else {
-                        nextLec =
-                            lang.alreadyStarted;
-                        formattedTimeDiff =
-                            lang.ongoingNow;
+                        nextLec = lang.alreadyStarted;
+                        formattedTimeDiff = lang.ongoingNow;
                       }
                     } else {
                       if (item.nextSession != null) {
@@ -249,8 +244,7 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                         );
                       } else {
                         nextLec = lang.notSpecified;
-                        formattedTimeDiff =
-                            lang.notSpecified;
+                        formattedTimeDiff = lang.notSpecified;
                       }
                     }
 
@@ -283,23 +277,22 @@ class _MyProgramsViewState extends State<MyProgramsView> {
                           : () async {
                               await cubit
                                   .getAssignedChildrenToProgram(
-                                programId: item.id ?? -1,
-                              )
-                                  .then(
-                                    (value) {
-                                  onMyProgramTap(
-                                    context: context,
-                                    cubit: cubit,
-                                    item: item,
                                     programId: item.id ?? -1,
-                                    noOfChildren: cubit
-                                        .getAssignedChildrenToProgramEntity
-                                        ?.data
-                                        ?.length ??
-                                        0,
-                                  );
-                                },
-                              );
+                                  )
+                                  .then((value) {
+                                    onMyProgramTap(
+                                      context: context,
+                                      cubit: cubit,
+                                      item: item,
+                                      programId: item.id ?? -1,
+                                      noOfChildren:
+                                          cubit
+                                              .getAssignedChildrenToProgramEntity
+                                              ?.data
+                                              ?.length ??
+                                          0,
+                                    );
+                                  });
                             },
                     );
                   },

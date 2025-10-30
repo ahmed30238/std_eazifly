@@ -11,11 +11,7 @@ class LikeItemEntity {
   @JsonKey(name: "message")
   String? message;
 
-  LikeItemEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  LikeItemEntity({this.data, this.status, this.message});
 }
 
 class LikeItemDataEntity {

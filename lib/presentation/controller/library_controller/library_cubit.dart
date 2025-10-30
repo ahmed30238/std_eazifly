@@ -56,30 +56,33 @@ class LibraryCubit extends Cubit<LibraryState> {
 
   static LibraryCubit get(context) => BlocProvider.of(context);
 
-  initTabController(TickerProvider vsync,BuildContext context) {
-    tabController = TabController(length: tabTexts(context).length, vsync: vsync)
-      ..addListener(() {
-        if (tabController.indexIsChanging) {
-          tabController.animateTo(tabController.index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeIn);
-          switch (tabController.index) {
-            case 0:
-              getLibraryCategories(type: "voice");
-              break;
-            // case 1:
-            //   getLibraryCategories(type: "visuals");
-            // break;
-            case 1:
-              getAllLibraryLists();
-            case 2:
-              getFavouriteList();
-              break;
-            default:
-          }
-        }
-        emit(InitTabControllerState());
-      });
+  initTabController(TickerProvider vsync, BuildContext context) {
+    tabController =
+        TabController(length: tabTexts(context).length, vsync: vsync)
+          ..addListener(() {
+            if (tabController.indexIsChanging) {
+              tabController.animateTo(
+                tabController.index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeIn,
+              );
+              switch (tabController.index) {
+                case 0:
+                  getLibraryCategories(type: "voice");
+                  break;
+                // case 1:
+                //   getLibraryCategories(type: "visuals");
+                // break;
+                case 1:
+                  getAllLibraryLists();
+                case 2:
+                  getFavouriteList();
+                  break;
+                default:
+              }
+            }
+            emit(InitTabControllerState());
+          });
   }
 
   late TabController tabController;
@@ -110,9 +113,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     emit(LibraryCategoriesLoadingState());
 
     final result = await libraryCategoriesUsecase.call(
-      parameter: GetLibraryCategoriesParameters(
-        type: type,
-      ),
+      parameter: GetLibraryCategoriesParameters(type: type),
     );
 
     result.fold(
@@ -254,9 +255,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     emit(GetListItemsLoadingState());
 
     final result = await getListItemsUsingListIdUsecase.call(
-      parameter: GetListItemsUsingListIdParameters(
-        listId: listId,
-      ),
+      parameter: GetListItemsUsingListIdParameters(listId: listId),
     );
 
     result.fold(
@@ -277,7 +276,7 @@ class LibraryCubit extends Cubit<LibraryState> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool getFavouriteListItemsLoader = false;
   GetFavouriteListItemsUsingListIdEntity?
-      getFavouriteListItemsUsingListIdEntity;
+  getFavouriteListItemsUsingListIdEntity;
   GetFavouriteListItemUsingListIdUsecase getFavouriteListItemUsingListIdUsecase;
 
   Future<void> getFavouriteListItemsUsingListId({required int listId}) async {
@@ -285,9 +284,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     emit(FavouriteListItemsUsingListIdLoadingState());
 
     final result = await getFavouriteListItemUsingListIdUsecase.call(
-      parameter: GetFavouriteListItemUsingListIdParameters(
-        listId: listId,
-      ),
+      parameter: GetFavouriteListItemUsingListIdParameters(listId: listId),
     );
     result.fold(
       (l) {
@@ -370,7 +367,8 @@ class LibraryCubit extends Cubit<LibraryState> {
     emit(GetLibraryItemsLoadingState());
 
     final result = await getLibraryItemsUsecase.call(
-        parameter: ShowLibraryItemParameters(itemId: itemId));
+      parameter: ShowLibraryItemParameters(itemId: itemId),
+    );
 
     result.fold(
       (failure) {
@@ -405,10 +403,8 @@ class LibraryCubit extends Cubit<LibraryState> {
     likeItemLoader = true;
     emit(LikeItemLoadingState());
     final result = await likeItemUsecase.call(
-        parameter: LikeItemParameters(
-      itemId: itemId,
-      status: status,
-    ));
+      parameter: LikeItemParameters(itemId: itemId, status: status),
+    );
 
     result.fold(
       (failure) {
@@ -478,14 +474,19 @@ class LibraryCubit extends Cubit<LibraryState> {
     try {
       if (_downloadedFiles.containsKey(fileUrl)) {
         await _openDownloadedFile(
-            filePath: _downloadedFiles[fileUrl]!, context: context);
+          filePath: _downloadedFiles[fileUrl]!,
+          context: context,
+        );
         return;
       }
 
       switch (fileType.toLowerCase()) {
         case "pdf":
           await _downloadAndOpenPdf(
-              fileUrl: fileUrl, title: title, context: context);
+            fileUrl: fileUrl,
+            title: title,
+            context: context,
+          );
           break;
         case "txt":
           await _downloadAndOpenTextFile(
@@ -533,8 +534,9 @@ class LibraryCubit extends Cubit<LibraryState> {
       currentPlayingUrl = fileUrl;
 
       // تشغيل الملف الصوتي من الرابط مباشرة
-      await audioPlayer
-          .setUrl(fileUrl); // استخدام setUrl بدلاً من play(UrlSource)
+      await audioPlayer.setUrl(
+        fileUrl,
+      ); // استخدام setUrl بدلاً من play(UrlSource)
       await audioPlayer.play();
       isPlaying = true;
       emit(AudioPlayingState());
@@ -589,8 +591,10 @@ class LibraryCubit extends Cubit<LibraryState> {
 
   // إيقاف الصوت عند إغلاق الـ Cubit
 
-  Future<void> _openDownloadedFile(
-      {required String filePath, required BuildContext context}) async {
+  Future<void> _openDownloadedFile({
+    required String filePath,
+    required BuildContext context,
+  }) async {
     try {
       final result = await OpenFile.open(filePath);
       if (result.type != ResultType.done) {
@@ -615,10 +619,11 @@ class LibraryCubit extends Cubit<LibraryState> {
     );
   }
 
-  Future<void> _downloadAndOpenPdf(
-      {required String fileUrl,
-      required String title,
-      required BuildContext context}) async {
+  Future<void> _downloadAndOpenPdf({
+    required String fileUrl,
+    required String title,
+    required BuildContext context,
+  }) async {
     try {
       _isDownloading[fileUrl] = true;
       _downloadingProgress[fileUrl] = 0.0;
@@ -656,7 +661,7 @@ class LibraryCubit extends Cubit<LibraryState> {
   }
 
   // Future<void> _downloadAndOpenTextFile() async {}
-// الحل الثالث: استخدام callback functions (الأفضل)
+  // الحل الثالث: استخدام callback functions (الأفضل)
   Future<void> _downloadAndOpenTextFile({
     required String fileUrl,
     required String title,
@@ -696,5 +701,6 @@ class LibraryCubit extends Cubit<LibraryState> {
       onError?.call('فشل في تحميل الملف النصي: $e');
     }
   }
-//! end of files methods
+
+  //! end of files methods
 }

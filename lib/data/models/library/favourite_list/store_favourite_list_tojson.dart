@@ -12,8 +12,8 @@ class StoreFavouriteListTojson {
     required this.items,
   });
   Map<String, dynamic> toJson() => {
-        'title': title,
-        'image': image,
-        'items': items,
-      };
+    'title': title,
+    'image': image,
+    'items': items,
+  };
 }

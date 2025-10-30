@@ -9,11 +9,7 @@ class GetHomeLibraryEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetHomeLibraryEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetHomeLibraryEntity({this.data, this.status, this.message});
 }
 
 class GetHomeLibraryDatumEntity {
@@ -43,10 +39,7 @@ class GetHomeLibraryItemsEntity {
   @JsonKey(name: "meta")
   GetHomeLibraryMetaModel? meta;
 
-  GetHomeLibraryItemsEntity({
-    this.data,
-    this.meta,
-  });
+  GetHomeLibraryItemsEntity({this.data, this.meta});
 }
 
 class GetHomeLibraryItemsDatumEntity {

@@ -29,16 +29,16 @@ class CreateNewChildTojson {
     required this.age,
   });
   Map<String, dynamic> toJson() => {
-        'password_confirmation': passwordConfirmation,
-        'user_name': userName,
-        "image": image,
-        'first_name': firstName,
-        'last_name': lastName,
-        'email': email,
-        'phone': phone,
-        'whats_app': whatsApp,
-        'gender': gender,
-        'password': password,
-        'age': age,
-      };
+    'password_confirmation': passwordConfirmation,
+    'user_name': userName,
+    "image": image,
+    'first_name': firstName,
+    'last_name': lastName,
+    'email': email,
+    'phone': phone,
+    'whats_app': whatsApp,
+    'gender': gender,
+    'password': password,
+    'age': age,
+  };
 }

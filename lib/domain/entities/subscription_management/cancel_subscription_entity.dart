@@ -12,9 +12,5 @@ class CancelSubscriptionEntity {
   @JsonKey(name: "message")
   String? message;
 
-  CancelSubscriptionEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  CancelSubscriptionEntity({this.data, this.status, this.message});
 }

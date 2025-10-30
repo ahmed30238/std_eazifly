@@ -4,8 +4,8 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 Future<dynamic> lectureAppBarModalSheet(BuildContext context, int programId) {
   return showModalSheet(
     isFixedSize: true,
-    minHeight: 200.h,//313.h,
-    maxHeight: 200.h,//314.h,
+    minHeight: 200.h, //313.h,
+    maxHeight: 200.h, //314.h,
     context,
     widget: CustomBottomSheetDesign(
       widget: ListView(
@@ -100,22 +100,20 @@ Future<dynamic> lectureAppBarModalSheet(BuildContext context, int programId) {
                   //   }
                   // :
                   () {
-                back(context);
-                Navigator.pushNamed(
-                  arguments: index == 0 ? programId : null,
-                  context,
-                  paths[index],
-                );
-              },
+                    back(context);
+                    Navigator.pushNamed(
+                      arguments: index == 0 ? programId : null,
+                      context,
+                      paths[index],
+                    );
+                  },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 12.h),
                 margin: EdgeInsets.symmetric(horizontal: 16.h),
                 height: 45,
                 child: Text(
                   titles[index],
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 12,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 12),
                 ),
               ),
             ),

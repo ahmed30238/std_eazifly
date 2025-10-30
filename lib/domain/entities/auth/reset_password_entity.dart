@@ -10,9 +10,5 @@ class ResetPasswordEntity {
   @JsonKey(name: "message")
   String? message;
 
-  ResetPasswordEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  ResetPasswordEntity({this.data, this.status, this.message});
 }

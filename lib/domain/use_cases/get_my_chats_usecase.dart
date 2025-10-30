@@ -10,18 +10,15 @@ class GetMyChatsUsecase
 
   GetMyChatsUsecase({required this.baseRepository});
   @override
-  Future<Either<Failure, GetMyChatsEntity>> call(
-      {required GetMyChatsParameters parameter}) async {
-    return await baseRepository.getMyChats(
-      type: parameter.type,
-    );
+  Future<Either<Failure, GetMyChatsEntity>> call({
+    required GetMyChatsParameters parameter,
+  }) async {
+    return await baseRepository.getMyChats(type: parameter.type);
   }
 }
 
 class GetMyChatsParameters {
   final String type;
 
-  GetMyChatsParameters({
-    required this.type,
-  });
+  GetMyChatsParameters({required this.type});
 }

@@ -12,9 +12,7 @@ class ProgramFeatureTab extends StatelessWidget {
       return Center(
         child: Text(
           "لا مزايا متاحة",
-          style: MainTextStyle.boldTextStyle(
-            fontSize: 12,
-          ),
+          style: MainTextStyle.boldTextStyle(fontSize: 12),
         ),
       );
     }

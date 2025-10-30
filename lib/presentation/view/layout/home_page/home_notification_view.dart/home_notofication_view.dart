@@ -119,17 +119,15 @@ class _HomeNotificationViewState extends State<HomeNotificationView> {
           SizedBox(height: 8.h),
           Text(
             lang.noNotificationsFound, // استخدام النص من الترجمة
-            style: TextStyle(
-              fontSize: 14.sp,
-              color: Colors.grey[500],
-            ),
+            style: TextStyle(fontSize: 14.sp, color: Colors.grey[500]),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 30.h),
           ElevatedButton(
             onPressed: () {
-              HomeNotificationCubit.get(context)
-                  .fetchNotifications(isInitial: true);
+              HomeNotificationCubit.get(
+                context,
+              ).fetchNotifications(isInitial: true);
             },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
@@ -149,7 +147,8 @@ class _HomeNotificationViewState extends State<HomeNotificationView> {
 }
 
 String formatDateTime(DateTime dateTime) {
-  final dateFormat =
-  DateFormat('yyyy/MM/dd hh:mm a'); // مثال: 2025/05/25 03:45 PM
+  final dateFormat = DateFormat(
+    'yyyy/MM/dd hh:mm a',
+  ); // مثال: 2025/05/25 03:45 PM
   return dateFormat.format(dateTime);
 }

@@ -12,8 +12,9 @@ class JoinSessionUsecase
   JoinSessionUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, JoinSessionEntity>> call(
-      {required JoinSessionParatmeters parameter}) async {
+  Future<Either<Failure, JoinSessionEntity>> call({
+    required JoinSessionParatmeters parameter,
+  }) async {
     return await baseRepository.joinSession(data: parameter.data);
   }
 }

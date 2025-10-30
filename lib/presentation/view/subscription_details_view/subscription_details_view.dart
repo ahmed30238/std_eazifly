@@ -46,9 +46,7 @@ class _SubscriptionDetailsViewState extends State<SubscriptionDetailsView>
           8.ph,
           Row(
             children: [
-              SvgPicture.asset(
-                Assets.iconsBulb,
-              ),
+              SvgPicture.asset(Assets.iconsBulb),
               4.pw,
               Expanded(
                 child: Text(
@@ -70,9 +68,7 @@ class _SubscriptionDetailsViewState extends State<SubscriptionDetailsView>
           8.ph,
           const PackageList(),
           13.ph,
-          ButtonWithPrice(
-            onPressed: () {},
-          ),
+          ButtonWithPrice(onPressed: () {}),
         ],
       ),
     );

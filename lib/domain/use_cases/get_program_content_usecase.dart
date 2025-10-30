@@ -11,8 +11,9 @@ class GetProgramContentUsecase
   GetProgramContentUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetProgramContentEntity>> call(
-      {required GetProgramContentParameters parameter}) async {
+  Future<Either<Failure, GetProgramContentEntity>> call({
+    required GetProgramContentParameters parameter,
+  }) async {
     return await baseRepository.getProgramContent(
       programId: parameter.programId,
     );
@@ -22,7 +23,5 @@ class GetProgramContentUsecase
 class GetProgramContentParameters {
   final int programId;
 
-  GetProgramContentParameters({
-    required this.programId,
-  });
+  GetProgramContentParameters({required this.programId});
 }

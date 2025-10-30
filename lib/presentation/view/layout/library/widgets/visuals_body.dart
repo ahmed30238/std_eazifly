@@ -24,9 +24,7 @@ class VisualsBody extends StatelessWidget {
           return const AudioShimmerList();
         }
         var visualListCategories = cubit.libraryCategoriesEntity?.data
-            ?.where(
-              (element) => element.type == "visuals",
-            )
+            ?.where((element) => element.type == "visuals")
             .toList();
         log("$visualListCategories ${visualListCategories?.length}");
         return visualListCategories != null && visualListCategories.isNotEmpty
@@ -86,15 +84,15 @@ class VisualsBodyItem extends StatelessWidget {
           16.ph,
           Text(
             "مجموعة قصص مختارة ",
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 14,
-            ),
+            style: MainTextStyle.boldTextStyle(fontSize: 14),
           ),
           4.ph,
           Text(
             "مجموعة كتب مختارة لمذاكرة الرياضيات للصف السادس الابتدائي مثال :هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنكحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد ",
             style: MainTextStyle.boldTextStyle(
-                fontSize: 12, color: MainColors.onSurfaceSecondary),
+              fontSize: 12,
+              color: MainColors.onSurfaceSecondary,
+            ),
           ),
           16.ph,
           Row(
@@ -105,9 +103,7 @@ class VisualsBodyItem extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          Assets.iconsLibraryBook,
-                        ),
+                        SvgPicture.asset(Assets.iconsLibraryBook),
                         4.pw,
                         Text(
                           "3566",
@@ -121,9 +117,7 @@ class VisualsBodyItem extends StatelessWidget {
                     16.pw,
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          Assets.iconsHeart,
-                        ),
+                        SvgPicture.asset(Assets.iconsHeart),
                         4.pw,
                         Text(
                           "153",
@@ -137,9 +131,7 @@ class VisualsBodyItem extends StatelessWidget {
                     16.pw,
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          Assets.iconsPeople,
-                        ),
+                        SvgPicture.asset(Assets.iconsPeople),
                         4.pw,
                         Text(
                           "344",
@@ -164,7 +156,9 @@ class VisualsBodyItem extends StatelessWidget {
                 text: "أضف إلى مكتبتك",
                 onTap: () {
                   Navigator.pushNamed(
-                      context, RoutePaths.addToLibraryPackageDetailsView);
+                    context,
+                    RoutePaths.addToLibraryPackageDetailsView,
+                  );
                 },
               ),
             ],

@@ -28,7 +28,6 @@ class _ChatsViewState extends State<ChatsView>
 
   @override
   void didChangeDependencies() {
-
     super.didChangeDependencies();
     if (!_isInitialized) {
       cubit.initController(this, context);

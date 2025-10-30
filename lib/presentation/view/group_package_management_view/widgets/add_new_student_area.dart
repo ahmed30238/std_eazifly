@@ -2,10 +2,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class AddNewStudentArea extends StatelessWidget {
   final String orderId;
-  const AddNewStudentArea({
-    super.key,
-    required this.orderId,
-  });
+  const AddNewStudentArea({super.key, required this.orderId});
 
   @override
   Widget build(BuildContext context) {
@@ -19,23 +16,15 @@ class AddNewStudentArea extends StatelessWidget {
             children: [
               Text(
                 "الطلاب المسجلين",
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 12,
-                ),
+                style: MainTextStyle.boldTextStyle(fontSize: 12),
               ),
               const Spacer(),
-               Icon(
-                Icons.add,
-                size: 20,
-                color: MainColors.primary,
-              ),
+              Icon(Icons.add, size: 20, color: MainColors.primary),
               4.pw,
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(
-                    arguments: {
-                      "orderId": orderId,
-                    },
+                    arguments: {"orderId": orderId},
                     context,
                     RoutePaths.addNewStudentData,
                     // arguments: true,
@@ -57,9 +46,7 @@ class AddNewStudentArea extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Row(
             children: [
-              SvgPicture.asset(
-                Assets.iconsBulb,
-              ),
+              SvgPicture.asset(Assets.iconsBulb),
               Text(
                 "أختر الطلاب الذي تود إشراكهم في البرنامج",
                 style: MainTextStyle.mediumTextStyle(

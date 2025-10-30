@@ -9,11 +9,7 @@ class GetCancelSessionReasonEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetCancelSessionReasonEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetCancelSessionReasonEntity({this.data, this.status, this.message});
 }
 
 class GetCancelSessionReasonDatumEntity {
@@ -22,8 +18,5 @@ class GetCancelSessionReasonDatumEntity {
   @JsonKey(name: "title")
   String? title;
 
-  GetCancelSessionReasonDatumEntity({
-    this.id,
-    this.title,
-  });
+  GetCancelSessionReasonDatumEntity({this.id, this.title});
 }

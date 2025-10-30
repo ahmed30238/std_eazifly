@@ -11,11 +11,7 @@ class GetSessionDetailsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetSessionDetailsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetSessionDetailsEntity({this.data, this.status, this.message});
 }
 
 class SessionDetailsEntity {
@@ -82,8 +78,5 @@ class SessionUserEntity {
   @JsonKey(name: "user_name")
   String? userName;
 
-  SessionUserEntity({
-    this.id,
-    this.userName,
-  });
+  SessionUserEntity({this.id, this.userName});
 }

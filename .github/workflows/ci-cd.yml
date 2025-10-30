@@ -1,4 +1,4 @@
-name: رفع تلقائي
+name: Build My Apps
 
 on:
   push:
@@ -13,12 +13,28 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-      - run: flutter pub get
-      - uses: shorebirdtech/shorebird-patch@v0
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          platform: android
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Format code (auto-fix)
+        run: dart format .
+
+      - name: Analyze code (allow warnings)
+        run: flutter analyze --no-fatal-infos || true
+
+      - name: Setup Shorebird
+        uses: shorebirdtech/setup-shorebird@v1
+
+      - name: Create Shorebird Patch
+        run: shorebird patch android --force
         env:
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
 
@@ -27,11 +43,34 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-      - run: flutter pub get
-      - run: flutter build appbundle --release
-      - uses: r0adkll/upload-google-play@v1
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Format code (auto-fix)
+        run: dart format .
+
+      - name: Analyze code (allow warnings)
+        run: flutter analyze --no-fatal-infos || true
+
+      - name: Build App Bundle
+        run: flutter build appbundle --release
+
+      - name: Upload to Google Play
+        uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJson: ${{ secrets.GOOGLE_PLAY_JSON_KEY }}
           packageName: com.hodaelnas.hodaelnas

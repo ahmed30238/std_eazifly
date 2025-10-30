@@ -10,8 +10,9 @@ class GetFavouriteListUsecase
 
   GetFavouriteListUsecase({required this.baseRepository});
   @override
-  Future<Either<Failure, GetFavouriteListEntity>> call(
-      {required NoParameter parameter}) async {
+  Future<Either<Failure, GetFavouriteListEntity>> call({
+    required NoParameter parameter,
+  }) async {
     return await baseRepository.getFavouriteList();
   }
 }

@@ -3,9 +3,5 @@ class RemoveAssignedStudentEntity {
   int? status;
   String? message;
 
-  RemoveAssignedStudentEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  RemoveAssignedStudentEntity({this.data, this.status, this.message});
 }

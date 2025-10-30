@@ -42,9 +42,7 @@ class LibraryFavouriteListItem extends StatelessWidget {
             ),
             child: Row(
               children: [
-                AvatarImage(
-                  imageUrl: image,
-                ),
+                AvatarImage(imageUrl: image),
                 8.pw,
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -61,9 +59,7 @@ class LibraryFavouriteListItem extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                SvgPicture.asset(
-                                  Assets.iconsPlay,
-                                ),
+                                SvgPicture.asset(Assets.iconsPlay),
                                 4.pw,
                                 Text(
                                   views,
@@ -77,9 +73,7 @@ class LibraryFavouriteListItem extends StatelessWidget {
                             16.pw,
                             Row(
                               children: [
-                                SvgPicture.asset(
-                                  Assets.iconsHeart,
-                                ),
+                                SvgPicture.asset(Assets.iconsHeart),
                                 4.pw,
                                 Text(
                                   likes,
@@ -93,9 +87,7 @@ class LibraryFavouriteListItem extends StatelessWidget {
                             16.pw,
                             Row(
                               children: [
-                                SvgPicture.asset(
-                                  Assets.iconsPeople,
-                                ),
+                                SvgPicture.asset(Assets.iconsPeople),
                                 4.pw,
                                 Text(
                                   "344",
@@ -113,16 +105,12 @@ class LibraryFavouriteListItem extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                SvgPicture.asset(
-                  Assets.iconsHorizontalDots,
-                ),
+                SvgPicture.asset(Assets.iconsHorizontalDots),
               ],
             ),
           ),
         ),
-        if(isPaid) ... {
-          SvgPicture.asset(Assets.iconsLock)
-        }
+        if (isPaid) ...{SvgPicture.asset(Assets.iconsLock)},
       ],
     );
   }

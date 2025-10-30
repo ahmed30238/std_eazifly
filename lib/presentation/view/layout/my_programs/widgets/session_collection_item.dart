@@ -4,10 +4,9 @@ import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class SessionCollectionItem extends StatelessWidget {
-  const SessionCollectionItem({
-    super.key,
-  });
+  const SessionCollectionItem({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +23,7 @@ class SessionCollectionItem extends StatelessWidget {
               borderRadius: 16.cr,
               image: const DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(
-                  Assets.imagesPersona,
-                ),
+                image: AssetImage(Assets.imagesPersona),
               ),
             ),
           ),
@@ -53,7 +50,7 @@ class SessionCollectionItem extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

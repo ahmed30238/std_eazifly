@@ -49,9 +49,7 @@ class MeetingDataView extends StatelessWidget {
                       builder: (context) => Dialog(
                         insetPadding: EdgeInsets.symmetric(horizontal: 16.w),
                         backgroundColor: MainColors.background,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: 8.cr,
-                        ),
+                        shape: RoundedRectangleBorder(borderRadius: 8.cr),
                         child: Container(
                           // margin: EdgeInsets.symmetric(horizontal: 16.w),
                           padding: EdgeInsets.symmetric(horizontal: 8.w),
@@ -69,14 +67,12 @@ class MeetingDataView extends StatelessWidget {
                                     Text(
                                       "موعد التجديد القادم",
                                       style: MainTextStyle.boldTextStyle(
-                                          fontSize: 14),
+                                        fontSize: 14,
+                                      ),
                                     ),
                                     InkWell(
                                       onTap: () => back(context),
-                                      child: Icon(
-                                        Icons.close,
-                                        size: 20.r,
-                                      ),
+                                      child: Icon(Icons.close, size: 20.r),
                                     ),
                                   ],
                                 ),
@@ -91,8 +87,9 @@ class MeetingDataView extends StatelessWidget {
                                     color: MainColors.onError,
                                   ),
                                   spaceText: "  :  ",
-                                  spaceStyle:
-                                      MainTextStyle.boldTextStyle(fontSize: 12),
+                                  spaceStyle: MainTextStyle.boldTextStyle(
+                                    fontSize: 12,
+                                  ),
                                   text2: "14 ساعة",
                                   text2Style: MainTextStyle.boldTextStyle(
                                     fontSize: 14,
@@ -180,9 +177,7 @@ class MeetingDataView extends StatelessWidget {
                           style: MainTextStyle.boldTextStyle(
                             fontSize: 12,
                             color: MainColors.primary,
-                          ).copyWith(
-                            decoration: TextDecoration.underline,
-                          ),
+                          ).copyWith(decoration: TextDecoration.underline),
                         ),
                       ),
                     ],

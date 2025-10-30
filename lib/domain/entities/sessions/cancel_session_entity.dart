@@ -9,11 +9,7 @@ class CancelSessionEntity {
   @JsonKey(name: "message")
   String? message;
 
-  CancelSessionEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  CancelSessionEntity({this.data, this.status, this.message});
 }
 
 class CancelSessionDataEntity {
@@ -73,8 +69,5 @@ class CancelSessionUserEntity {
   @JsonKey(name: "user_name")
   String? userName;
 
-  CancelSessionUserEntity({
-    this.id,
-    this.userName,
-  });
+  CancelSessionUserEntity({this.id, this.userName});
 }

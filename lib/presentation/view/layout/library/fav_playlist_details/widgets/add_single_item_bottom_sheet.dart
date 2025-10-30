@@ -29,9 +29,7 @@ class _AddSingleIemBottomSheetState extends State<AddSingleIemBottomSheet> {
     LibraryCubit cubit = context.read<LibraryCubit>();
 
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 16.w,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       width: double.infinity,
       child: Column(
         children: [
@@ -58,14 +56,13 @@ class _AddSingleIemBottomSheetState extends State<AddSingleIemBottomSheet> {
               // Handle loading state
               if (cubit.getAllItemsLoader || cubit.getAllItemsEntity == null) {
                 return const Center(
-                    child: CircularProgressIndicator.adaptive());
+                  child: CircularProgressIndicator.adaptive(),
+                );
               }
 
               // Handle error state
               if (state is GetAllItemsErrorState) {
-                return Center(
-                  child: Text('Error: ${state.errorMessage}'),
-                );
+                return Center(child: Text('Error: ${state.errorMessage}'));
               }
 
               // Handle empty state
@@ -82,7 +79,8 @@ class _AddSingleIemBottomSheetState extends State<AddSingleIemBottomSheet> {
                     final item = cubit.getAllItemsEntity!.data![index];
                     return PossibleFavItemsContainer(
                       isAlreadyAdded: cubit
-                          .getFavouriteListItemsUsingListIdEntity!.data!
+                          .getFavouriteListItemsUsingListIdEntity!
+                          .data!
                           .map((e) => e.id)
                           .contains(item.id),
                       image: item.image ?? "",
@@ -95,11 +93,13 @@ class _AddSingleIemBottomSheetState extends State<AddSingleIemBottomSheet> {
                             message: "العنصر الذي تود اضافته موجود بالفعل",
                             context: widget.parentContext,
                           );
-                          ScaffoldMessenger.of(widget.parentContext)
-                              .showSnackBar(
+                          ScaffoldMessenger.of(
+                            widget.parentContext,
+                          ).showSnackBar(
                             const SnackBar(
-                              content:
-                                  Text("العنصر الذي تود اضافته موجود بالفعل"),
+                              content: Text(
+                                "العنصر الذي تود اضافته موجود بالفعل",
+                              ),
                               duration: Duration(seconds: 2),
                             ),
                           );

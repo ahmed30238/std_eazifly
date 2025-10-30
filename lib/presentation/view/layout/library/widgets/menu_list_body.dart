@@ -27,9 +27,7 @@ class MenuListBody extends StatelessWidget {
           log("empty state");
           return Padding(
             padding: EdgeInsets.only(top: 48.h),
-            child: NoDataAnimatedImageWidget(
-              message: lang.noMenus,
-            ).center(),
+            child: NoDataAnimatedImageWidget(message: lang.noMenus).center(),
           );
         }
         return ListView.separated(
@@ -42,10 +40,7 @@ class MenuListBody extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   RoutePaths.audioPlayListView,
-                  arguments: {
-                    "cubit": cubit,
-                    "listId": menuItem.id,
-                  },
+                  arguments: {"cubit": cubit, "listId": menuItem.id},
                 );
               },
               index: index,

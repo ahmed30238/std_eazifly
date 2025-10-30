@@ -46,9 +46,7 @@ class _SubscriptiopnPackageDetailsState
         bloc: cubit,
         builder: (context, state) {
           if (cubit.showPlanLoader) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (state is ShowPlanErrorState) {
@@ -56,11 +54,7 @@ class _SubscriptiopnPackageDetailsState
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.error_outline,
-                    size: 48,
-                    color: Colors.red,
-                  ),
+                  const Icon(Icons.error_outline, size: 48, color: Colors.red),
                   16.ph,
                   Text(
                     state.errorMessage,
@@ -83,9 +77,7 @@ class _SubscriptiopnPackageDetailsState
           final planData = cubit.planDetailsEntity?.data;
 
           if (planData == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
 
           return Column(
@@ -116,7 +108,7 @@ class _SubscriptiopnPackageDetailsState
                                 ?.expireDate
                                 .toString()
                                 .substring(0, 10) ??
-                            '-'
+                            '-',
                       ],
                     ),
                     24.ph,
@@ -181,8 +173,4 @@ class _SubscriptiopnPackageDetailsState
   }
 }
 
-var subscriptionDetails = [
-  "إسم الباقة",
-  "سعر الباقة",
-  "تاريخ الانتهاء",
-];
+var subscriptionDetails = ["إسم الباقة", "سعر الباقة", "تاريخ الانتهاء"];

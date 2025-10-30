@@ -88,14 +88,12 @@ class HomeNotificationItem extends StatelessWidget {
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
-              const CustomHorizontalDivider(
-                thickness: 1,
-              ),
+              const CustomHorizontalDivider(thickness: 1),
             ],
           ),
         ],

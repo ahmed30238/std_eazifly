@@ -9,7 +9,9 @@ class CircularProgressIndicatorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.black.withValues(alpha:0.3), // Semi-transparent background
+        color: Colors.black.withValues(
+          alpha: 0.3,
+        ), // Semi-transparent background
         child: const AnimatedLoader().center(),
       ),
     );

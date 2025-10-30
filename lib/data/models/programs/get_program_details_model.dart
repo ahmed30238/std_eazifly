@@ -1,4 +1,3 @@
-
 import 'package:eazifly_student/data/models/programs/get_programs_model.dart';
 import 'package:eazifly_student/domain/entities/get_program_details_entities.dart';
 import 'package:eazifly_student/domain/entities/get_programs_entities.dart';

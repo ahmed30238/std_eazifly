@@ -11,11 +11,7 @@ class GetUserFeedbacksEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetUserFeedbacksEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetUserFeedbacksEntity({this.data, this.status, this.message});
 }
 
 class UserFeedbackEntity {

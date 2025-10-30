@@ -31,9 +31,7 @@ Future<dynamic> studentMoreBottomSheet(
               Navigator.pushNamed(
                 context,
                 RoutePaths.lectureView,
-                arguments: {
-                  "programId": programId,
-                },
+                arguments: {"programId": programId},
               );
             },
             child: SizedBox(
@@ -79,10 +77,7 @@ Future<dynamic> studentMoreBottomSheet(
           ),
           InkWell(
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                RoutePaths.lectureHistoryView,
-              );
+              Navigator.pushNamed(context, RoutePaths.lectureHistoryView);
             },
             child: SizedBox(
               height: 45.h,
@@ -159,16 +154,15 @@ void showDeleteConfirmationDialog(
                   onPressed: () async {
                     await updateChildProfileCubit
                         .removeAssignedStudent(
-                      userId: userId,
-                      programId: programId,
-                    )
-                        .then(
-                      (value) {
-                        back(context);
-                        myProgramsCubit.getAssignedChildrenToProgram(
-                            programId: programId);
-                      },
-                    );
+                          userId: userId,
+                          programId: programId,
+                        )
+                        .then((value) {
+                          back(context);
+                          myProgramsCubit.getAssignedChildrenToProgram(
+                            programId: programId,
+                          );
+                        });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,

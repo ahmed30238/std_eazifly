@@ -17,9 +17,7 @@ class ProgramItemShimmer extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           color: Colors.white,
         ),
-        constraints: BoxConstraints(
-          minHeight: 300.h,
-        ),
+        constraints: BoxConstraints(minHeight: 300.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -46,10 +44,7 @@ class ProgramItemShimmer extends StatelessWidget {
                     color: Colors.grey[300],
                   ),
                   SizedBox(height: 4.h),
-                  Container(
-                    height: 1.h,
-                    color: Colors.grey[300],
-                  ),
+                  Container(height: 1.h, color: Colors.grey[300]),
                   SizedBox(height: 4.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

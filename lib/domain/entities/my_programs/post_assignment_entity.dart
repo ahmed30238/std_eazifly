@@ -12,9 +12,5 @@ class PostAssignmentEntity {
   @JsonKey(name: "message")
   String? message;
 
-  PostAssignmentEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  PostAssignmentEntity({this.data, this.status, this.message});
 }

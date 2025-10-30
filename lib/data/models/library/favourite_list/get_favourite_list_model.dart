@@ -2,7 +2,6 @@ import 'package:eazifly_student/domain/entities/get_favourite_list_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'get_favourite_list_model.g.dart';
 
-
 @JsonSerializable(explicitToJson: true)
 class GetFavouriteListModel extends GetFavouriteListEntity {
   GetFavouriteListModel();

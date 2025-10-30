@@ -11,8 +11,9 @@ class GetQuizQuestionsUsecase
   GetQuizQuestionsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetQuizQuestionsEntity>> call(
-      {required GetQuizQuestionsParameters parameter}) async {
+  Future<Either<Failure, GetQuizQuestionsEntity>> call({
+    required GetQuizQuestionsParameters parameter,
+  }) async {
     return await baseRepository.getQuizQuestions(
       userId: parameter.userId,
       quizId: parameter.quizId,

@@ -11,11 +11,7 @@ class GetPlanSubscriptionPeriodEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetPlanSubscriptionPeriodEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetPlanSubscriptionPeriodEntity({this.data, this.status, this.message});
 }
 
 class PlanSubscriptionPeriodEntity {
@@ -28,9 +24,5 @@ class PlanSubscriptionPeriodEntity {
   @JsonKey(name: "days")
   String? days;
 
-  PlanSubscriptionPeriodEntity({
-    this.id,
-    this.title,
-    this.days,
-  });
+  PlanSubscriptionPeriodEntity({this.id, this.title, this.days});
 }

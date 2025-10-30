@@ -9,11 +9,7 @@ class GetChangeInstructorReasonsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetChangeInstructorReasonsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetChangeInstructorReasonsEntity({this.data, this.status, this.message});
 }
 
 class GetChangeInstructorReasonsDatumEntity {
@@ -22,8 +18,5 @@ class GetChangeInstructorReasonsDatumEntity {
   @JsonKey(name: "title")
   String? title;
 
-  GetChangeInstructorReasonsDatumEntity({
-    this.id,
-    this.title,
-  });
+  GetChangeInstructorReasonsDatumEntity({this.id, this.title});
 }

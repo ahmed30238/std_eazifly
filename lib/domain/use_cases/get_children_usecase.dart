@@ -11,10 +11,12 @@ class GetChildrenUsecase
   GetChildrenUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetMyChildrenEntity>> call(
-      {required GetMyChildernParameters parameter}) async {
+  Future<Either<Failure, GetMyChildrenEntity>> call({
+    required GetMyChildernParameters parameter,
+  }) async {
     return await baseRepository.getMyChildren(
-        childrensStatus: parameter.childernsStatus);
+      childrensStatus: parameter.childernsStatus,
+    );
   }
 }
 

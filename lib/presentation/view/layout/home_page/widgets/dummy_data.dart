@@ -10,6 +10,7 @@ List<String> textList(BuildContext context) {
   ];
   return textList;
 }
+
 List<String> paths = [
   RoutePaths.currentSession,
   RoutePaths.assignments,
@@ -29,8 +30,4 @@ List<String> iconsList = [
   Assets.iconsQuizzes,
   Assets.iconsMeetings,
 ];
-List<String> lecturetextList = [
-  "موعد المحاضرة",
-  "مدة المحاضرة",
-  "الطلاب",
-];
+List<String> lecturetextList = ["موعد المحاضرة", "مدة المحاضرة", "الطلاب"];

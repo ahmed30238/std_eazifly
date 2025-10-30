@@ -34,9 +34,7 @@ class StudentsChangeItem extends StatelessWidget {
           children: [
             InkWell(
               onTap: onNextTap,
-              child: SvgPicture.asset(
-                Assets.iconsArrowRight,
-              ),
+              child: SvgPicture.asset(Assets.iconsArrowRight),
             ),
             20.pw,
             Column(
@@ -58,9 +56,7 @@ class StudentsChangeItem extends StatelessWidget {
             20.pw,
             InkWell(
               onTap: onBackTap,
-              child: SvgPicture.asset(
-                Assets.iconsArrowLeft,
-              ),
+              child: SvgPicture.asset(Assets.iconsArrowLeft),
             ),
           ],
         ),

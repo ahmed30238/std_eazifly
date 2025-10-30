@@ -11,8 +11,9 @@ class GetHomeQuizzesUsecase
   GetHomeQuizzesUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetHomeQuizzesEntity>> call(
-      {required GetHomeQuizzesParameters parameter}) async {
+  Future<Either<Failure, GetHomeQuizzesEntity>> call({
+    required GetHomeQuizzesParameters parameter,
+  }) async {
     return await baseRepository.getHomeQuizzes(userId: parameter.userId);
   }
 }

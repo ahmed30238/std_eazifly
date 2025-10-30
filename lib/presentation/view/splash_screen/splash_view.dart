@@ -25,10 +25,7 @@ class SplashScreenState extends State<SplashScreen>
       vsync: this,
     );
 
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
 
     _controller.forward();
 
@@ -61,17 +58,12 @@ class SplashScreenState extends State<SplashScreen>
   @override
   void didChangeDependencies() {
     if (init) {
-      Future.delayed(
-        const Duration(
-          milliseconds: 200,
-        ),
-        () {
-          var notificationCubit = context.read<HomeNotificationCubit>();
-          var chatCubit = context.read<ChatsCubit>();
-          NotificationService.instance.setCubit(notificationCubit);
-          NotificationService.instance.setChatsCubit(chatCubit);
-        },
-      );
+      Future.delayed(const Duration(milliseconds: 200), () {
+        var notificationCubit = context.read<HomeNotificationCubit>();
+        var chatCubit = context.read<ChatsCubit>();
+        NotificationService.instance.setCubit(notificationCubit);
+        NotificationService.instance.setChatsCubit(chatCubit);
+      });
     }
     init = false;
     super.didChangeDependencies();
@@ -87,11 +79,7 @@ class SplashScreenState extends State<SplashScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                Assets.iconsAppLogo,
-                width: 150.w,
-                height: 150.h,
-              ),
+              Image.asset(Assets.iconsAppLogo, width: 150.w, height: 150.h),
               SizedBox(height: 20.h),
               Text(
                 'هدى للناس',

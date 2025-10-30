@@ -13,8 +13,8 @@ class GetAssignedChildrenToProgramModel
   GetAssignedChildrenToProgramModel();
 
   factory GetAssignedChildrenToProgramModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetAssignedChildrenToProgramModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$GetAssignedChildrenToProgramModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$GetAssignedChildrenToProgramModelToJson(this);
@@ -26,8 +26,8 @@ class GetAssignedChildrenToProgramDatumModel
   GetAssignedChildrenToProgramDatumModel();
 
   factory GetAssignedChildrenToProgramDatumModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetAssignedChildrenToProgramDatumModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$GetAssignedChildrenToProgramDatumModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$GetAssignedChildrenToProgramDatumModelToJson(this);
@@ -39,8 +39,8 @@ class GetAssignedChildrenToProgramProgramModel
   GetAssignedChildrenToProgramProgramModel();
 
   factory GetAssignedChildrenToProgramProgramModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetAssignedChildrenToProgramProgramModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$GetAssignedChildrenToProgramProgramModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$GetAssignedChildrenToProgramProgramModelToJson(this);
@@ -62,8 +62,8 @@ class GetAssignedChildrenToProgramStatusLabelModel
   GetAssignedChildrenToProgramStatusLabelModel();
 
   factory GetAssignedChildrenToProgramStatusLabelModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetAssignedChildrenToProgramStatusLabelModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$GetAssignedChildrenToProgramStatusLabelModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$GetAssignedChildrenToProgramStatusLabelModelToJson(this);
@@ -74,8 +74,8 @@ class GetAssignedChildrenNextSessionModel extends NextSessionEntity {
   GetAssignedChildrenNextSessionModel();
 
   factory GetAssignedChildrenNextSessionModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetAssignedChildrenNextSessionModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$GetAssignedChildrenNextSessionModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$GetAssignedChildrenNextSessionModelToJson(this);

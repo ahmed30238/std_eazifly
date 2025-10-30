@@ -21,20 +21,29 @@ class SettingItemModel {
 
   SettingItemModel({required this.icon, required this.label});
 }
-List<SettingItemModel>  settingsItemsList(BuildContext context) {
+
+List<SettingItemModel> settingsItemsList(BuildContext context) {
   var lang = context.loc!;
 
   List<SettingItemModel> settingItemList = [
     SettingItemModel(icon: Assets.iconsProfile, label: lang.accountData),
     SettingItemModel(icon: Assets.iconsSettigns, label: lang.settings),
-    SettingItemModel(icon: Assets.iconsSubsManage, label: lang.subscriptionManagement),
-    SettingItemModel(icon: Assets.iconsStdManage, label: lang.studentManagement),
+    SettingItemModel(
+      icon: Assets.iconsSubsManage,
+      label: lang.subscriptionManagement,
+    ),
+    SettingItemModel(
+      icon: Assets.iconsStdManage,
+      label: lang.studentManagement,
+    ),
     SettingItemModel(icon: Assets.iconsCopouns, label: lang.couponsAndRewards),
     SettingItemModel(icon: Assets.iconsNotification, label: lang.notifications),
     SettingItemModel(icon: Assets.iconsRadar, label: lang.reportsAndComplaints),
-    SettingItemModel(icon: Assets.iconsAboutApp, label: lang.privacyPolicyAndUsage),
+    SettingItemModel(
+      icon: Assets.iconsAboutApp,
+      label: lang.privacyPolicyAndUsage,
+    ),
     SettingItemModel(icon: Assets.iconsAboutApp, label: lang.aboutApp),
-
   ];
   return settingItemList;
 }

@@ -19,11 +19,7 @@ class PaymentMethodContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget? iconWidget;
     if (icon != null && icon!.isNotEmpty) {
-      iconWidget = AvatarImage(
-        height: 32.h,
-        width: 32.w,
-        imageUrl: icon,
-      );
+      iconWidget = AvatarImage(height: 32.h, width: 32.w, imageUrl: icon);
     }
 
     return InkWell(
@@ -46,10 +42,7 @@ class PaymentMethodContainer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: MainTextStyle.boldTextStyle(fontSize: 15),
-                  ),
+                  Text(title, style: MainTextStyle.boldTextStyle(fontSize: 15)),
                   4.ph,
                   Text(
                     description,

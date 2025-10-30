@@ -18,19 +18,10 @@ class _AnimatedLoaderState extends State<AnimatedLoader>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(
-        seconds: 2,
-      ),
-    )..repeat(
-      );
-    _animation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.linear,
-      ),
+      duration: const Duration(seconds: 2),
+    )..repeat();
+    _animation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.linear),
     );
   }
 
@@ -38,16 +29,13 @@ class _AnimatedLoaderState extends State<AnimatedLoader>
   void dispose() {
     _animationController.dispose();
     super.dispose();
-
   }
 
   @override
   Widget build(BuildContext context) {
     return RotationTransition(
       turns: _animation,
-      child: SvgPicture.asset(
-        Assets.iconsBox,
-      ),
+      child: SvgPicture.asset(Assets.iconsBox),
     );
   }
 }

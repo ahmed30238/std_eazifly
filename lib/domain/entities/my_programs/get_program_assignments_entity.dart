@@ -11,11 +11,7 @@ class GetProgramAssignmentsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetProgramAssignmentsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetProgramAssignmentsEntity({this.data, this.status, this.message});
 }
 
 class ProgramAssignmentEntity {

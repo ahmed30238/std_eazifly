@@ -29,7 +29,7 @@ class NetworkCall {
     Map<String, dynamic>? headers,
     ResponseType? responseType,
     Map<String, dynamic>? queryParameters,
-    
+
     bool withHeaders = true,
   }) async {
     Response? response;
@@ -50,7 +50,7 @@ class NetworkCall {
                 HttpHeaders.acceptHeader: 'application/json',
                 HttpHeaders.contentTypeHeader: 'application/json',
                 HttpHeaders.acceptLanguageHeader:
-                GetStorage().hasData(StorageEnum.lang.name)
+                    GetStorage().hasData(StorageEnum.lang.name)
                     ? GetStorage().read(StorageEnum.lang.name)
                     : "ar",
               }
@@ -90,7 +90,7 @@ class NetworkCall {
               HttpHeaders.acceptHeader: 'application/json',
               HttpHeaders.contentTypeHeader: 'application/json',
               HttpHeaders.acceptLanguageHeader:
-              GetStorage().hasData(StorageEnum.lang.name)
+                  GetStorage().hasData(StorageEnum.lang.name)
                   ? GetStorage().read(StorageEnum.lang.name)
                   : "ar",
             }
@@ -140,7 +140,7 @@ class NetworkCall {
                 HttpHeaders.acceptHeader: 'application/json',
                 HttpHeaders.contentTypeHeader: 'application/json',
                 HttpHeaders.acceptLanguageHeader:
-                GetStorage().hasData(StorageEnum.lang.name)
+                    GetStorage().hasData(StorageEnum.lang.name)
                     ? GetStorage().read(StorageEnum.lang.name)
                     : "ar",
               }
@@ -148,8 +148,11 @@ class NetworkCall {
         responseType: responseType,
       );
 
-      response = await _dio.delete(path,
-          options: options, queryParameters: queryParameters);
+      response = await _dio.delete(
+        path,
+        options: options,
+        queryParameters: queryParameters,
+      );
     } on DioException catch (e) {
       log('Error is : ${e.message}');
       response = e.response;
@@ -181,7 +184,7 @@ class NetworkCall {
                 },
                 HttpHeaders.acceptHeader: 'application/json',
                 HttpHeaders.acceptLanguageHeader:
-                GetStorage().hasData(StorageEnum.lang.name)
+                    GetStorage().hasData(StorageEnum.lang.name)
                     ? GetStorage().read(StorageEnum.lang.name)
                     : "ar",
                 if (!isMultipart)
@@ -191,11 +194,7 @@ class NetworkCall {
         responseType: responseType,
       );
 
-      response = await _dio.post(
-        path,
-        data: data,
-        options: options,
-      );
+      response = await _dio.post(path, data: data, options: options);
     } on DioException catch (e) {
       response = e.response;
       log("$response");
@@ -206,32 +205,36 @@ class NetworkCall {
 
   Future<Response?> handleResponse({required Response response}) async {
     log("${response.data}");
-    
+
     // التحقق من الـ HTTP status code الأساسي
     if (response.statusCode == 200) {
       // التحقق من الـ status اللي جوا الـ response body
       if (response.data is Map<String, dynamic>) {
         final responseData = response.data as Map<String, dynamic>;
         final innerStatus = responseData['status'];
-        
+
         // لو الـ status جوا الـ response هو 401، يبقى المستخدم مش مصرح له
         if (innerStatus == 401) {
           log('Unauthenticated user detected from response body');
           await TokenUtil.clearToken();
-          navKey.currentState
-              ?.pushNamedAndRemoveUntil(RoutePaths.loginPath, (route) => false);
+          navKey.currentState?.pushNamedAndRemoveUntil(
+            RoutePaths.loginPath,
+            (route) => false,
+          );
           return response; // أو ممكن ترجع null حسب احتياجك
         }
       }
-      
+
       return response;
     } else if (response.statusCode == 401) {
       // التعامل مع الـ HTTP 401 العادي
       await TokenUtil.clearToken();
-      navKey.currentState
-          ?.pushNamedAndRemoveUntil(RoutePaths.loginPath, (route) => false);
+      navKey.currentState?.pushNamedAndRemoveUntil(
+        RoutePaths.loginPath,
+        (route) => false,
+      );
     }
-    
+
     return response;
   }
 }

@@ -11,45 +11,34 @@ class SubscriptiondetailsCubit extends Cubit<SubscriptiondetailsState> {
   late TabController subscriptionTypeController;
   late TabController subscriptionDurationController;
 
-  final List<String> subscriptionTypeTabs = [
-    "فردي",
-    'عائلي',
-  ];
-  final List<String> subscriptionDurationTabs = [
-    "شهري",
-    '6 اشهر',
-    'سنوي',
-  ];
+  final List<String> subscriptionTypeTabs = ["فردي", 'عائلي'];
+  final List<String> subscriptionDurationTabs = ["شهري", '6 اشهر', 'سنوي'];
 
   void initTabBarControllers(TickerProvider vsync) {
     subscriptionTypeController =
         TabController(length: subscriptionTypeTabs.length, vsync: vsync)
-          ..addListener(
-            () {
-              if (subscriptionTypeController.indexIsChanging) {
-                subscriptionTypeController.animateTo(
-                  subscriptionTypeController.index,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeIn,
-                );
-                emit(TypeControllerIndexState());
-              }
-            },
-          );
+          ..addListener(() {
+            if (subscriptionTypeController.indexIsChanging) {
+              subscriptionTypeController.animateTo(
+                subscriptionTypeController.index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeIn,
+              );
+              emit(TypeControllerIndexState());
+            }
+          });
     subscriptionDurationController =
         TabController(length: subscriptionDurationTabs.length, vsync: vsync)
-          ..addListener(
-            () {
-              if (subscriptionDurationController.indexIsChanging) {
-                subscriptionDurationController.animateTo(
-                  subscriptionDurationController.index,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeIn,
-                );
-                emit(DurationControllerIndexState());
-              }
-            },
-          );
+          ..addListener(() {
+            if (subscriptionDurationController.indexIsChanging) {
+              subscriptionDurationController.animateTo(
+                subscriptionDurationController.index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeIn,
+              );
+              emit(DurationControllerIndexState());
+            }
+          });
     emit(InitTabBarControllerState());
   }
 

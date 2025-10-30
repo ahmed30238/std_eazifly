@@ -12,11 +12,7 @@ class AddUserSessionDateAndTimeEntity {
   @JsonKey(name: "message")
   String? message;
 
-  AddUserSessionDateAndTimeEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  AddUserSessionDateAndTimeEntity({this.data, this.status, this.message});
 }
 
 class AddUserSessionDateAndTimeDatumEntity {

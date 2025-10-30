@@ -19,8 +19,8 @@ class GetCancelSessionReasonDatumModel
   GetCancelSessionReasonDatumModel();
 
   factory GetCancelSessionReasonDatumModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetCancelSessionReasonDatumModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$GetCancelSessionReasonDatumModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$GetCancelSessionReasonDatumModelToJson(this);

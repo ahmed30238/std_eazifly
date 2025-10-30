@@ -111,7 +111,6 @@ class UpdatechildprofileCubit extends Cubit<UpdatechildprofileState> {
               fromSettings == true
                   ? RoutePaths.studentManagement
                   : RoutePaths.subscribedStudentsSettingsView,
-
             );
           });
         },

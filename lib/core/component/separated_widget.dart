@@ -27,9 +27,7 @@ class SeparatedWidget extends StatelessWidget {
             child: const CustomRichText(),
           ),
         },
-        CustomHorizontalDivider(
-          color: dividerColor ?? MainColors.inputFill,
-        ),
+        CustomHorizontalDivider(color: dividerColor ?? MainColors.inputFill),
       ],
     );
   }

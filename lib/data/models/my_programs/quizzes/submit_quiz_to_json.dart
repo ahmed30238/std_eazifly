@@ -2,10 +2,7 @@ class SubmitQuizTojson {
   final int quizId;
   final List<QuizAnswer> answers;
 
-  SubmitQuizTojson({
-    required this.quizId,
-    required this.answers,
-  });
+  SubmitQuizTojson({required this.quizId, required this.answers});
 
   // تحويل البيانات إلى JSON
   Map<String, dynamic> toJson() {
@@ -21,17 +18,11 @@ class QuizAnswer {
   final int? questionOptionId; // اختياري للأسئلة المتعددة الخيارات
   final String? answer; // اختياري للأسئلة النصية
 
-  QuizAnswer({
-    required this.questionId,
-    this.questionOptionId,
-    this.answer,
-  });
+  QuizAnswer({required this.questionId, this.questionOptionId, this.answer});
 
   // تحويل البيانات إلى JSON
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> json = {
-      'question_id': questionId,
-    };
+    Map<String, dynamic> json = {'question_id': questionId};
 
     // إضافة question_option_id إذا كان موجود
     if (questionOptionId != null) {

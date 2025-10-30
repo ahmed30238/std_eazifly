@@ -12,8 +12,9 @@ class ResetPasswordUsecase
   ResetPasswordUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, ResetPasswordEntity>> call(
-      {required ResetPasswordParameters parameter}) async {
+  Future<Either<Failure, ResetPasswordEntity>> call({
+    required ResetPasswordParameters parameter,
+  }) async {
     return await baseRepository.resetPassword(data: parameter.data);
   }
 }

@@ -24,17 +24,13 @@ class AudiosBody extends StatelessWidget {
           return const AudioShimmerList();
         }
         var voiceListCategories = cubit.libraryCategoriesEntity?.data
-            ?.where(
-              (element) => element.type == "voice",
-            )
+            ?.where((element) => element.type == "voice")
             .toList();
         if (voiceListCategories == null || voiceListCategories.isEmpty) {
           log("empty state");
           return Padding(
-            padding:  EdgeInsets.only(top: 48.h),
-            child: NoDataAnimatedImageWidget(
-              message: lang.noAudios,
-            ).center(),
+            padding: EdgeInsets.only(top: 48.h),
+            child: NoDataAnimatedImageWidget(message: lang.noAudios).center(),
           );
         }
         log("$voiceListCategories ${voiceListCategories.length}");

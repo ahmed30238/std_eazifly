@@ -37,17 +37,9 @@ class StudentDataItemShimmer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  width: 100.w,
-                  height: 16.h,
-                  color: Colors.white,
-                ),
+                Container(width: 100.w, height: 16.h, color: Colors.white),
                 8.ph,
-                Container(
-                  width: 60.w,
-                  height: 14.h,
-                  color: Colors.white,
-                ),
+                Container(width: 60.w, height: 14.h, color: Colors.white),
               ],
             ),
             20.pw,
@@ -56,26 +48,14 @@ class StudentDataItemShimmer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  width: 80.w,
-                  height: 14.h,
-                  color: Colors.white,
-                ),
+                Container(width: 80.w, height: 14.h, color: Colors.white),
                 8.ph,
-                Container(
-                  width: 100.w,
-                  height: 16.h,
-                  color: Colors.white,
-                ),
+                Container(width: 100.w, height: 16.h, color: Colors.white),
               ],
             ),
             const Spacer(),
             // Shimmer for trailing icon
-            Container(
-              width: 24.w,
-              height: 24.h,
-              color: Colors.white,
-            ),
+            Container(width: 24.w, height: 24.h, color: Colors.white),
           ],
         ),
       ),

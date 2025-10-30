@@ -8,18 +8,19 @@ import 'package:eazifly_student/domain/entities/my_programs/quizzes/submit_quiz_
 class SubmitQuizUsecase
     extends BaseUsecase<SubmitQuizEntity, SubmitQuizParameters> {
   final BaseRepository baseRepository;
-  
+
   SubmitQuizUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, SubmitQuizEntity>> call(
-      {required SubmitQuizParameters parameter}) async {
+  Future<Either<Failure, SubmitQuizEntity>> call({
+    required SubmitQuizParameters parameter,
+  }) async {
     return await baseRepository.submitQuiz(data: parameter.data);
   }
 }
 
 class SubmitQuizParameters {
   final SubmitQuizTojson data;
-  
+
   SubmitQuizParameters({required this.data});
 }

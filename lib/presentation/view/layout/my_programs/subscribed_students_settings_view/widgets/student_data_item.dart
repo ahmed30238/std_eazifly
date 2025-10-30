@@ -60,20 +60,18 @@ class StudentDataItem extends StatelessWidget {
               InkWell(
                 onTap: () {
                   // الحصول على الـ cubit من الـ context الحالي وتمريره للـ bottom sheet
-                  final updateChildProfileCubit =
-                      context.read<UpdatechildprofileCubit>();
+                  final updateChildProfileCubit = context
+                      .read<UpdatechildprofileCubit>();
                   final myProgramsCubit = context.read<MyProgramsCubit>();
                   studentMoreBottomSheet(
                     context,
                     programId,
                     student.id ?? -1,
-                    updateChildProfileCubit, 
-                    myProgramsCubit
+                    updateChildProfileCubit,
+                    myProgramsCubit,
                   );
                 },
-                child: SvgPicture.asset(
-                  Assets.iconsHorizontalDots,
-                ),
+                child: SvgPicture.asset(Assets.iconsHorizontalDots),
               ),
             ],
           ),
@@ -120,9 +118,7 @@ class StudentDataItem extends StatelessWidget {
                     8.ph,
                     Text(
                       student.instructorAssiignedData?.name ?? "",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 14,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 14),
                     ),
                   ],
                 ),

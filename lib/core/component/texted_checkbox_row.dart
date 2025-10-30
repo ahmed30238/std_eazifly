@@ -25,10 +25,7 @@ class TextedCheckBoxRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          CustomCheckbox(
-            onChanged: onChanged,
-            value: value,
-          ),
+          CustomCheckbox(onChanged: onChanged, value: value),
           12.pw,
           Text(
             text,

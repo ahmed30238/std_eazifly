@@ -1,13 +1,10 @@
-
 import 'package:eazifly_student/core/component/custom_elevated_btn.dart';
 import 'package:eazifly_student/core/theme/colors/main_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UnderListContainer extends StatelessWidget {
-  const UnderListContainer({
-    super.key,
-  });
+  const UnderListContainer({super.key});
 
   @override
   Widget build(BuildContext context) {

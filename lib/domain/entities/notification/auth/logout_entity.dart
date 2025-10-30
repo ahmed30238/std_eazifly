@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 class LogoutEntity {
   @JsonKey(name: "data")
   dynamic data;
@@ -7,9 +8,5 @@ class LogoutEntity {
   @JsonKey(name: "message")
   String? message;
 
-  LogoutEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  LogoutEntity({this.data, this.status, this.message});
 }

@@ -19,13 +19,16 @@ class RequestToFindInstructorTojson {
       'program_id': programId,
       'content_id': contentId,
       'sessions': sessions
-          .map((session) => {
-                "start": session.start != null
-                    ? formatter.format(session.start!)
-                    : null,
-                "end":
-                    session.end != null ? formatter.format(session.end!) : null,
-              })
+          .map(
+            (session) => {
+              "start": session.start != null
+                  ? formatter.format(session.start!)
+                  : null,
+              "end": session.end != null
+                  ? formatter.format(session.end!)
+                  : null,
+            },
+          )
           .toList(),
     };
   }

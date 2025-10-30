@@ -9,11 +9,7 @@ class GetRemainingProgramSessionsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetRemainingProgramSessionsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetRemainingProgramSessionsEntity({this.data, this.status, this.message});
 }
 
 class GetRemainigProgramSessionsDatumEntity {
@@ -24,9 +20,5 @@ class GetRemainigProgramSessionsDatumEntity {
   @JsonKey(name: "end")
   DateTime? end;
 
-  GetRemainigProgramSessionsDatumEntity({
-    this.id,
-    this.start,
-    this.end,
-  });
+  GetRemainigProgramSessionsDatumEntity({this.id, this.start, this.end});
 }

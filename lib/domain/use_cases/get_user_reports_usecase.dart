@@ -11,8 +11,9 @@ class GetUserReportsUsecase
   GetUserReportsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetUserReportsEntity>> call(
-      {required GetUserReportsParameters parameter}) async {
+  Future<Either<Failure, GetUserReportsEntity>> call({
+    required GetUserReportsParameters parameter,
+  }) async {
     return await baseRepository.getUserReports(userId: parameter.userId);
   }
 }

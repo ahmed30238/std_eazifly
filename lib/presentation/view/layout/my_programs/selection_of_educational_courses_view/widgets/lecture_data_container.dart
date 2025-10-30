@@ -1,9 +1,7 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class LectureDataContainer extends StatelessWidget {
-  const LectureDataContainer({
-    super.key,
-  });
+  const LectureDataContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +34,13 @@ class LectureDataContainer extends StatelessWidget {
                     8.ph,
                     Text(
                       "احمد سلامة",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 12),
                     ),
                   ],
                 ),
               ),
               8.pw,
-              SvgPicture.asset(
-                Assets.iconsRepeatCircle,
-              ),
+              SvgPicture.asset(Assets.iconsRepeatCircle),
               8.pw,
               SizedBox(
                 height: 54.h,
@@ -64,9 +58,7 @@ class LectureDataContainer extends StatelessWidget {
                     8.ph,
                     Text(
                       "احمد سلامة",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 12),
                     ),
                   ],
                 ),
@@ -93,9 +85,7 @@ class LectureDataContainer extends StatelessWidget {
                     8.ph,
                     Text(
                       "بعد  2 س 4 د",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 12),
                     ),
                   ],
                 ),
@@ -117,9 +107,7 @@ class LectureDataContainer extends StatelessWidget {
                     8.ph,
                     Text(
                       "دورات في التفسير",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 12),
                     ),
                   ],
                 ),

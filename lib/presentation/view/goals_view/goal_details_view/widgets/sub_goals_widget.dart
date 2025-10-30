@@ -13,7 +13,7 @@ class SubGoalsWidget extends StatelessWidget {
   final String description;
   final bool isDone; // إضافة المتغير الجديد
   final int lessonId; // إضافة معرف الدرس للـ API call
-  
+
   const SubGoalsWidget({
     super.key,
     required this.index,
@@ -28,10 +28,7 @@ class SubGoalsWidget extends StatelessWidget {
     var cubit = LectureCubit.get(context);
     return Row(
       children: [
-        Text(
-          "${index + 1}",
-          style: MainTextStyle.boldTextStyle(fontSize: 14),
-        ),
+        Text("${index + 1}", style: MainTextStyle.boldTextStyle(fontSize: 14)),
         16.pw,
         InkWell(
           onTap: () => showDialog(
@@ -67,17 +64,14 @@ class SubGoalsWidget extends StatelessWidget {
                                 borderRadius: 13.4.cr,
                                 color: MainColors.outline,
                               ),
-                              child: Icon(
-                                size: 20.r,
-                                Icons.close,
-                              ),
+                              child: Icon(size: 20.r, Icons.close),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
                     16.ph,
-                    Html(data: description)
+                    Html(data: description),
                   ],
                 ),
               ),
@@ -94,9 +88,7 @@ class SubGoalsWidget extends StatelessWidget {
             child: Row(
               children: [
                 Checkbox(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: 5.cr,
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: 5.cr),
                   // استخدام isDone بدلاً من cubit.isSelected[index]
                   value: isDone,
                   activeColor: MainColors.primary,
@@ -118,17 +110,17 @@ class SubGoalsWidget extends StatelessWidget {
                     style: MainTextStyle.boldTextStyle(
                       fontSize: 14,
                       // تغيير لون النص حسب حالة الإكمال
-                      color: isDone 
-                        ? MainColors.onSurfaceSecondary
-                        : MainColors.onPrimary,
+                      color: isDone
+                          ? MainColors.onSurfaceSecondary
+                          : MainColors.onPrimary,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
-                )
+                ),
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }

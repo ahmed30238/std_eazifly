@@ -4,6 +4,7 @@ import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+
 class PointsBalanceDetailsContainer extends StatelessWidget {
   final String points;
   final String date;
@@ -49,7 +50,7 @@ class PointsBalanceDetailsContainer extends StatelessWidget {
                   fontSize: 12,
                   color: MainColors.onPrimary,
                 ),
-              )
+              ),
             ],
           ),
           8.ph,

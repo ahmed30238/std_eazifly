@@ -54,11 +54,7 @@ class NestedAvatarContainer extends StatelessWidget {
             ),
           ),
         ),
-        textPadding != null
-            ? SizedBox(
-                width: textPadding,
-              )
-            : 3.pw,
+        textPadding != null ? SizedBox(width: textPadding) : 3.pw,
         Text(
           number,
           style: MainTextStyle.boldTextStyle(

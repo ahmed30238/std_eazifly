@@ -79,4 +79,3 @@ String calculateSubscriptionPlan(int days) {
     return "$months شهور";
   }
 }
-

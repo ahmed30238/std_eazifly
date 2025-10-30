@@ -65,9 +65,7 @@ class TitledFormFieldItem extends StatelessWidget {
                   width: 66.w,
                   decoration: BoxDecoration(
                     color: MainColors.surface,
-                    borderRadius: BorderRadius.circular(
-                      8.r,
-                    ),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                   child: Center(
                     child: Text(
@@ -78,7 +76,7 @@ class TitledFormFieldItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
+                ),
           ],
         ),
         verticalSpace ?? 8.ph,
@@ -95,7 +93,8 @@ class TitledFormFieldItem extends StatelessWidget {
             validator: validator,
             maxLines: maxLines,
             hintText: formfieldHintText,
-            suffixIconWidget: suffIcon ??
+            suffixIconWidget:
+                suffIcon ??
                 Padding(
                   padding: EdgeInsets.only(left: 12.w),
                   child: Text(

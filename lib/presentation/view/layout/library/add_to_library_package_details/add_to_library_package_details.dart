@@ -55,7 +55,8 @@ class _AddToLibraryPackageDetailsViewState
                   children: [
                     cubit.getPlanSubscriptionLoader || cubit.controller == null
                         ? const Center(
-                            child: CircularProgressIndicator.adaptive())
+                            child: CircularProgressIndicator.adaptive(),
+                          )
                         : CustomFilledTabBar(
                             margin: EdgeInsets.zero,
                             innerRadius: 12.r,
@@ -108,9 +109,7 @@ class _AddToLibraryPackageDetailsViewState
                   }
 
                   if (cubit.getLibraryPlansEntity?.data?.isEmpty ?? true) {
-                    return const Center(
-                      child: Text("لا توجد باقات متاحة"),
-                    );
+                    return const Center(child: Text("لا توجد باقات متاحة"));
                   }
 
                   return SizedBox(
@@ -126,14 +125,18 @@ class _AddToLibraryPackageDetailsViewState
                         return InkWell(
                           onTap: () {
                             log("DEBUG: User tapped plan at index $index");
-                            log("DEBUG: Plan ID: ${plan.id}, Title: ${plan.title}");
+                            log(
+                              "DEBUG: Plan ID: ${plan.id}, Title: ${plan.title}",
+                            );
 
                             cubit.changePackageIndex(index);
 
                             if (plan.id != null && plan.id! > 0) {
                               cubit.fillPlanId(plan.id!);
                             } else {
-                              log("ERROR: Plan ID is null or invalid: ${plan.id}");
+                              log(
+                                "ERROR: Plan ID is null or invalid: ${plan.id}",
+                              );
                             }
                           },
                           child: Container(
@@ -171,8 +174,9 @@ class _AddToLibraryPackageDetailsViewState
                                     Text(
                                       "${plan.price ?? 0} / شهريا",
                                       style: MainTextStyle.boldTextStyle(
-                                          fontSize: 14,
-                                          color: MainColors.onSurfaceSecondary),
+                                        fontSize: 14,
+                                        color: MainColors.onSurfaceSecondary,
+                                      ),
                                     ),
                                   ],
                                 ),

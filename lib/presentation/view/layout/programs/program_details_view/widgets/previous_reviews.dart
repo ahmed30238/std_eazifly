@@ -6,10 +6,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 class PreviousReviewsTab extends StatelessWidget {
   final GetProgramsProgramEntity programEntity;
 
-  const PreviousReviewsTab({
-    super.key,
-    required this.programEntity,
-  });
+  const PreviousReviewsTab({super.key, required this.programEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +14,7 @@ class PreviousReviewsTab extends StatelessWidget {
       return Center(
         child: Text(
           "لا تقييمات سابقة",
-          style: MainTextStyle.boldTextStyle(
-            fontSize: 12,
-          ),
+          style: MainTextStyle.boldTextStyle(fontSize: 12),
         ),
       );
     }
@@ -47,15 +42,13 @@ class PreviousReviewsTab extends StatelessWidget {
                   8.pw,
                   Text(
                     review?.user ?? "",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 12,
-                    ),
+                    style: MainTextStyle.boldTextStyle(fontSize: 12),
                   ),
                   const Spacer(),
                   StarsWidget(
                     rating: double.tryParse(review?.rating ?? "0") ?? 0,
                     starSize: 15.r,
-                  )
+                  ),
                 ],
               ),
               Text(
@@ -64,7 +57,7 @@ class PreviousReviewsTab extends StatelessWidget {
                   fontSize: 11,
                   color: MainColors.onSurfaceSecondary,
                 ),
-              )
+              ),
             ],
           ),
         );

@@ -27,9 +27,7 @@ class _CompletePaymentProcessViewState
   void initState() {
     cubit = context.read<PaymentCubit>();
     programsubscriptionplanCubit = context.read<ProgramSubscriptionPlanCubit>();
-    cubit.getProgramPaymentMethod(
-      programId: widget.itemId,
-    );
+    cubit.getProgramPaymentMethod(programId: widget.itemId);
     super.initState();
   }
 
@@ -47,9 +45,7 @@ class _CompletePaymentProcessViewState
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           16.ph,
-          SvgPicture.asset(
-            Assets.iconsCompletePaymentProcess,
-          ),
+          SvgPicture.asset(Assets.iconsCompletePaymentProcess),
           24.ph,
           Text(
             "أختر عملية الدفع الأسهل بالنسبك اليك",
@@ -95,7 +91,7 @@ class _CompletePaymentProcessViewState
                           RoutePaths.confirmPaymentView,
                           arguments: {
                             "cubit": programsubscriptionplanCubit,
-                            "methodId": method.id ?? 0
+                            "methodId": method.id ?? 0,
                           },
                         );
                       },
@@ -106,7 +102,7 @@ class _CompletePaymentProcessViewState
                 ),
               );
             },
-          )
+          ),
         ],
       ),
     );

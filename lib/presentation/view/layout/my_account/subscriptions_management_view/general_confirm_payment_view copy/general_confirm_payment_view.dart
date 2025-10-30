@@ -82,9 +82,7 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
               children: [
                 Text(
                   currentData?.program ?? "",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 14,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 12.ph,
                 ProgramDetailsItem(
@@ -104,14 +102,9 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
                   title: programDetailsTitles[3],
                   value: "${currentData?.numberOfSessionPerWeek} حصص",
                 ),
-                ProgramDetailsItem(
-                  title: programDetailsTitles[4],
-                  value: "",
-                ),
+                ProgramDetailsItem(title: programDetailsTitles[4], value: ""),
                 3.ph,
-                 CustomHorizontalDivider(
-                  color: MainColors.surfaceVariant,
-                ),
+                CustomHorizontalDivider(color: MainColors.surfaceVariant),
                 ...List.generate(
                   3,
                   (index) => ProgramDetailsItem(
@@ -162,9 +155,7 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
                     // Handle loading state
                     if (subscriptionmanagementCubit
                         .getPaymentMethodDetailsLoader) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return const Center(child: CircularProgressIndicator());
                     }
 
                     // Handle error state
@@ -192,7 +183,8 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
                                     ?.title ??
                                 "",
                             double.tryParse(
-                                    currentData?.discountPrice ?? "0.0") ??
+                                  currentData?.discountPrice ?? "0.0",
+                                ) ??
                                 0.0,
                             currency: currency,
                           ),
@@ -222,7 +214,7 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
               log("tapped");
               widget.isUpgrade
                   ? subscriptionmanagementCubit
-                      .pickupgradeOrderImageFroGallery()
+                        .pickupgradeOrderImageFroGallery()
                   : subscriptionmanagementCubit.pickOrderImageFromGallery();
             },
             child: Container(
@@ -286,8 +278,8 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
                             width: 104.w,
                             fit: BoxFit.cover,
                           ),
-                        )
-                      ]
+                        ),
+                      ],
                     ],
                   );
                 },
@@ -344,7 +336,8 @@ class _GeneralConfirmPaymentViewState extends State<GeneralConfirmPaymentView> {
                   ? () {}
                   : () async {
                       if (subscriptionmanagementCubit.renewOrderImage == null &&
-                          subscriptionmanagementCubit.upgradeOrderImage == null) {
+                          subscriptionmanagementCubit.upgradeOrderImage ==
+                              null) {
                         delightfulToast(
                           message: "يجب رفع صورة التحويل",
                           context: context,
@@ -385,11 +378,7 @@ var programDetailsTitles = [
   "عدد الحصص الإسبوعية",
   "تاريخ البدء",
 ];
-var cashDetailsTitles = [
-  "المبلغ ",
-  "الخصم",
-  "الإجمالي",
-];
+var cashDetailsTitles = ["المبلغ ", "الخصم", "الإجمالي"];
 
 class ProgramDetailsItem extends StatelessWidget {
   final TextStyle? textStyle;
@@ -414,7 +403,8 @@ class ProgramDetailsItem extends StatelessWidget {
           children: [
             Text(
               title,
-              style: textStyle ??
+              style:
+                  textStyle ??
                   MainTextStyle.boldTextStyle(
                     fontSize: 12,
                     color: MainColors.borderPrimary,
@@ -422,7 +412,8 @@ class ProgramDetailsItem extends StatelessWidget {
             ),
             Text(
               value,
-              style: textStyle ??
+              style:
+                  textStyle ??
                   MainTextStyle.boldTextStyle(
                     fontSize: 12,
                     color: MainColors.borderPrimary,

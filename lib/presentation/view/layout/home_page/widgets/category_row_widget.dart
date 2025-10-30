@@ -15,12 +15,7 @@ class CategoryRowWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: MainTextStyle.boldTextStyle(
-            fontSize: 15,
-          ),
-        ),
+        Text(title, style: MainTextStyle.boldTextStyle(fontSize: 15)),
         const Spacer(),
         GestureDetector(
           onTap: onViewAllTap,
@@ -35,11 +30,8 @@ class CategoryRowWidget extends StatelessWidget {
         4.pw,
         SvgPicture.asset(
           Assets.iconsViewAllArrow,
-          colorFilter: ColorFilter.mode(
-            MainColors.primary,
-            BlendMode.srcIn,
-          ),
-        )
+          colorFilter: ColorFilter.mode(MainColors.primary, BlendMode.srcIn),
+        ),
       ],
     );
   }

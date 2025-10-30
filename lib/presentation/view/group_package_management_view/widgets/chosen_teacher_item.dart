@@ -1,5 +1,3 @@
-
-
 import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/view/group_package_management_view/widgets/btn_depending_on_state.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
@@ -34,17 +32,11 @@ class ChosenTeacherItem extends StatelessWidget {
                   style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 8.pw,
-                AvatarImage(
-                  width: 56.w,
-                  radius: 4.r,
-                  height: 40.h,
-                ),
+                AvatarImage(width: 56.w, radius: 4.r, height: 40.h),
                 4.pw,
                 Text(
                   "مجموعة مختارة من الدورات التعليمية",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 12,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 12),
                 ),
                 const Spacer(),
                 ButtonDependingOnState(state: state),
@@ -54,11 +46,9 @@ class ChosenTeacherItem extends StatelessWidget {
             if (state != "done") ...{
               Text(
                 "أضغط علي اسم البرنامج لإختيار الموعد المناسب",
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 11,
-                ),
+                style: MainTextStyle.boldTextStyle(fontSize: 11),
               ),
-            }
+            },
           ],
         ),
       ),

@@ -10,8 +10,9 @@ class GetPlansUsecase extends BaseUsecase<GetPlansEntity, GetPlansParameters> {
   GetPlansUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetPlansEntity>> call(
-      {required GetPlansParameters parameter}) async {
+  Future<Either<Failure, GetPlansEntity>> call({
+    required GetPlansParameters parameter,
+  }) async {
     return await baseRepository.getPlans(programId: parameter.programId);
   }
 }

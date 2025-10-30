@@ -4,9 +4,6 @@ class ChangeSessionStatusToJson {
 
   ChangeSessionStatusToJson({required this.sessionId, required this.status});
   Map<String, dynamic> toJson() {
-    return {
-      'session_id': sessionId,
-      'status': status,
-    };
+    return {'session_id': sessionId, 'status': status};
   }
 }

@@ -65,15 +65,12 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     }
     // إذا اختار المستخدم "مواعيد جديدة" - استخدم المواعيد التي اختارها المستخدم
     else if (newDates) {
-      appointments = List.generate(
-        specifiedDates.length,
-        (index) {
-          return AddWeeklyAppontmentsDatumEntity(
-            end: specifiedDates[index].end,
-            start: specifiedDates[index].start,
-          );
-        },
-      );
+      appointments = List.generate(specifiedDates.length, (index) {
+        return AddWeeklyAppontmentsDatumEntity(
+          end: specifiedDates[index].end,
+          start: specifiedDates[index].start,
+        );
+      });
     }
     log("empty dates");
     // إذا لم يكن هناك مواعيد، أرسل خطأ
@@ -119,9 +116,10 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
   void createWeeklyAppointments() {
     specifiedDates.clear(); // مسح البيانات السابقة
 
-    int numberOfSessionsPerWeek = int.tryParse(
-            getUserSubscriptionDataEntity?.data?.numberOfSessionPerWeek ??
-                "0") ??
+    int numberOfSessionsPerWeek =
+        int.tryParse(
+          getUserSubscriptionDataEntity?.data?.numberOfSessionPerWeek ?? "0",
+        ) ??
         0;
 
     int totalSessions =
@@ -135,22 +133,26 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     int weekOffset = 0;
 
     while (sessionCount < totalSessions) {
-      for (int i = 0;
-          i < numberOfSessionsPerWeek && sessionCount < totalSessions;
-          i++) {
+      for (
+        int i = 0;
+        i < numberOfSessionsPerWeek && sessionCount < totalSessions;
+        i++
+      ) {
         if (i < dayController.length && i < selectedTimesOfDay.length) {
           String selectedDayName = dayController[i].text;
           TimeOfDay? selectedTime = selectedTimesOfDay[i];
 
           if (selectedDayName.isNotEmpty && selectedTime != null) {
             // البحث عن رقم اليوم في الأسبوع
-            int selectedDayIndex = WeekDaysEnum.values
-                .indexWhere((day) => day.title == selectedDayName);
+            int selectedDayIndex = WeekDaysEnum.values.indexWhere(
+              (day) => day.title == selectedDayName,
+            );
 
             if (selectedDayIndex != -1) {
               // حساب التاريخ للأسبوع الحالي + weekOffset
-              DateTime targetWeekStart =
-                  now.add(Duration(days: weekOffset * 7));
+              DateTime targetWeekStart = now.add(
+                Duration(days: weekOffset * 7),
+              );
 
               // حساب الفرق بين اليوم الحالي واليوم المختار
               int daysDifference =
@@ -159,8 +161,9 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
                 daysDifference += 7;
               }
 
-              DateTime sessionDate =
-                  targetWeekStart.add(Duration(days: daysDifference));
+              DateTime sessionDate = targetWeekStart.add(
+                Duration(days: daysDifference),
+              );
 
               // تصحيح الدقائق لتكون أوقات صحيحة (0, 15, 30, 45)
               int correctedMinute = _getCorrectedMinutes(selectedTime.minute);
@@ -180,7 +183,8 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
               // إضافة الموعد إلى القائمة
               specifiedDates.add(
                 GetRemainigProgramSessionsDatumEntity(
-                  id: (getRemainingProgramSessionsEntity != null &&
+                  id:
+                      (getRemainingProgramSessionsEntity != null &&
                           getRemainingProgramSessionsEntity?.data != null &&
                           getRemainingProgramSessionsEntity!.data!.isNotEmpty)
                       ? getRemainingProgramSessionsEntity?.data![i].id ?? -1
@@ -199,10 +203,12 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     }
 
     log("Weekly appointments created: ${specifiedDates.length} sessions");
-    log("Weekly appointments: ${specifiedDates.map((e) => '${_formatDateTime(e.start ?? DateTime.now())} - ${_formatDateTime(e.end ?? DateTime.now())}').toList()}");
+    log(
+      "Weekly appointments: ${specifiedDates.map((e) => '${_formatDateTime(e.start ?? DateTime.now())} - ${_formatDateTime(e.end ?? DateTime.now())}').toList()}",
+    );
   }
 
-// تحسين method specifyAllDatesAppointments لتتعامل مع أوقات صحيحة
+  // تحسين method specifyAllDatesAppointments لتتعامل مع أوقات صحيحة
   void specifyAllDatesAppointments() {
     specifiedDates.clear(); // مسح البيانات السابقة
 
@@ -223,8 +229,9 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
         DateTime now = DateTime.now();
 
         // البحث عن أقرب يوم مطابق في الأسبوع
-        int selectedDayIndex =
-            WeekDaysEnum.values.indexWhere((day) => day.title == selectedDay);
+        int selectedDayIndex = WeekDaysEnum.values.indexWhere(
+          (day) => day.title == selectedDay,
+        );
 
         if (selectedDayIndex != -1) {
           // حساب الفرق بين اليوم الحالي واليوم المختار
@@ -236,10 +243,12 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
           DateTime targetDate = now.add(Duration(days: daysDifference));
 
           // تصحيح أوقات البداية والنهاية لتكون أوقات صحيحة
-          int correctedFromMinute =
-              _getCorrectedMinutes(selectedFromTimes[i]!.minute);
-          int correctedToMinute =
-              _getCorrectedMinutes(selectedToTimes[i]!.minute);
+          int correctedFromMinute = _getCorrectedMinutes(
+            selectedFromTimes[i]!.minute,
+          );
+          int correctedToMinute = _getCorrectedMinutes(
+            selectedToTimes[i]!.minute,
+          );
 
           // دمج التاريخ مع أوقات البداية والنهاية المصححة
           DateTime startDateTime = DateTime(
@@ -277,10 +286,12 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     }
 
     log("Specified dates filled: ${specifiedDates.length} appointments");
-    log("Specified dates content: ${specifiedDates.map((e) => '${_formatDateTime(e.start ?? DateTime.now())} - ${_formatDateTime(e.end ?? DateTime.now())}').toList()}");
+    log(
+      "Specified dates content: ${specifiedDates.map((e) => '${_formatDateTime(e.start ?? DateTime.now())} - ${_formatDateTime(e.end ?? DateTime.now())}').toList()}",
+    );
   }
 
-// method مساعدة لتصحيح الدقائق لتكون أوقات صحيحة (0, 15, 30, 45)
+  // method مساعدة لتصحيح الدقائق لتكون أوقات صحيحة (0, 15, 30, 45)
   int _getCorrectedMinutes(int originalMinutes) {
     if (originalMinutes <= 7) {
       return 0; // ساعة كاملة
@@ -295,7 +306,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     }
   }
 
-// method مساعدة لحساب وقت النهاية (ساعة واحدة من وقت البداية)
+  // method مساعدة لحساب وقت النهاية (ساعة واحدة من وقت البداية)
   DateTime _calculateEndTime(DateTime startTime) {
     // إضافة ساعة واحدة مع الحفاظ على الأوقات الصحيحة
     DateTime endTime = startTime.add(const Duration(hours: 1));
@@ -312,7 +323,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     );
   }
 
-// method مساعدة لتنسيق عرض التاريخ والوقت
+  // method مساعدة لتنسيق عرض التاريخ والوقت
   String _formatDateTime(DateTime dateTime) {
     String day = dateTime.day.toString().padLeft(2, '0');
     String month = dateTime.month.toString().padLeft(2, '0');
@@ -323,9 +334,12 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     return '$day/$month/$year $hour:$minute';
   }
 
-// تحسين method changeSelectedTime لتستخدم أوقات صحيحة
+  // تحسين method changeSelectedTime لتستخدم أوقات صحيحة
   void changeSelectedTime(
-      TimeOfDay timeOfDay, int sessionIndex, BuildContext context) {
+    TimeOfDay timeOfDay,
+    int sessionIndex,
+    BuildContext context,
+  ) {
     // تصحيح الدقائق لتكون أوقات صحيحة
     int correctedMinute = _getCorrectedMinutes(timeOfDay.minute);
     int correctedHour = timeOfDay.hour;
@@ -336,14 +350,17 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
       correctedMinute = 0;
     }
 
-    TimeOfDay correctedTime =
-        TimeOfDay(hour: correctedHour, minute: correctedMinute);
+    TimeOfDay correctedTime = TimeOfDay(
+      hour: correctedHour,
+      minute: correctedMinute,
+    );
 
     selectedTimesOfDay[sessionIndex] = correctedTime;
 
     // تنسيق الوقت للعرض
-    final hour =
-        correctedTime.hourOfPeriod == 0 ? 12 : correctedTime.hourOfPeriod;
+    final hour = correctedTime.hourOfPeriod == 0
+        ? 12
+        : correctedTime.hourOfPeriod;
     final minute = correctedTime.minute.toString().padLeft(2, '0');
     final period = correctedTime.period == DayPeriod.am ? 'ص' : 'م';
     selectedTimes[sessionIndex] = '$hour:$minute $period';
@@ -357,9 +374,12 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     checkAndCallAddWeeklyAppointments(context);
   }
 
-// تحسين method changeSelectedFromTime لتستخدم أوقات صحيحة
+  // تحسين method changeSelectedFromTime لتستخدم أوقات صحيحة
   void changeSelectedFromTime(
-      BuildContext context, TimeOfDay timeOfDay, int sessionIndex) {
+    BuildContext context,
+    TimeOfDay timeOfDay,
+    int sessionIndex,
+  ) {
     // تصحيح الدقائق لتكون أوقات صحيحة
     int correctedMinute = _getCorrectedMinutes(timeOfDay.minute);
     int correctedHour = timeOfDay.hour;
@@ -370,14 +390,17 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
       correctedMinute = 0;
     }
 
-    TimeOfDay correctedTime =
-        TimeOfDay(hour: correctedHour, minute: correctedMinute);
+    TimeOfDay correctedTime = TimeOfDay(
+      hour: correctedHour,
+      minute: correctedMinute,
+    );
 
     selectedFromTimes[sessionIndex] = correctedTime;
 
     // تنسيق الوقت للعرض
-    final hour =
-        correctedTime.hourOfPeriod == 0 ? 12 : correctedTime.hourOfPeriod;
+    final hour = correctedTime.hourOfPeriod == 0
+        ? 12
+        : correctedTime.hourOfPeriod;
     final minute = correctedTime.minute.toString().padLeft(2, '0');
     final period = correctedTime.period == DayPeriod.am ? 'ص' : 'م';
     selectedFromTimesDisplay[sessionIndex] = '$hour:$minute $period';
@@ -392,9 +415,12 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     checkAndCallSpecifyAllDatesAppointments(context);
   }
 
-// تحسين method changeSelectedToTime لتستخدم أوقات صحيحة
+  // تحسين method changeSelectedToTime لتستخدم أوقات صحيحة
   void changeSelectedToTime(
-      BuildContext context, TimeOfDay timeOfDay, int sessionIndex) {
+    BuildContext context,
+    TimeOfDay timeOfDay,
+    int sessionIndex,
+  ) {
     // تصحيح الدقائق لتكون أوقات صحيحة
     int correctedMinute = _getCorrectedMinutes(timeOfDay.minute);
     int correctedHour = timeOfDay.hour;
@@ -405,14 +431,17 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
       correctedMinute = 0;
     }
 
-    TimeOfDay correctedTime =
-        TimeOfDay(hour: correctedHour, minute: correctedMinute);
+    TimeOfDay correctedTime = TimeOfDay(
+      hour: correctedHour,
+      minute: correctedMinute,
+    );
 
     selectedToTimes[sessionIndex] = correctedTime;
 
     // تنسيق الوقت للعرض
-    final hour =
-        correctedTime.hourOfPeriod == 0 ? 12 : correctedTime.hourOfPeriod;
+    final hour = correctedTime.hourOfPeriod == 0
+        ? 12
+        : correctedTime.hourOfPeriod;
     final minute = correctedTime.minute.toString().padLeft(2, '0');
     final period = correctedTime.period == DayPeriod.am ? 'ص' : 'م';
     selectedToTimesDisplay[sessionIndex] = '$hour:$minute $period';
@@ -426,9 +455,12 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     checkAndCallSpecifyAllDatesAppointments(context);
   }
 
-// إضافة method لعرض TimePicker مع أوقات صحيحة فقط
+  // إضافة method لعرض TimePicker مع أوقات صحيحة فقط
   Future<void> showCorrectedTimePicker(
-      BuildContext context, int sessionIndex, String timeType) async {
+    BuildContext context,
+    int sessionIndex,
+    String timeType,
+  ) async {
     TimeOfDay initialTime;
     switch (timeType) {
       case 'session':
@@ -471,7 +503,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     }
   }
 
-// method لاقتراح أوقات صحيحة
+  // method لاقتراح أوقات صحيحة
   List<TimeOfDay> getSuggestedTimes() {
     List<TimeOfDay> suggestedTimes = [];
 
@@ -485,14 +517,17 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     return suggestedTimes;
   }
 
-// تعديل method changeInstructor لتستخدم المواعيد المناسبة
+  // تعديل method changeInstructor لتستخدم المواعيد المناسبة
   Future<void> changeInstructor(BuildContext context) async {
     changeInstructorLoader = true;
     emit(ChangeInstructorLoadingState());
 
     MyProgramsCubit myProgramsCubit = context.read<MyProgramsCubit>();
-    var oldInstructorId =
-        myProgramsCubit.getAssignedChildrenToProgramEntity?.data?.first.currentInstructorId; // TODO
+    var oldInstructorId = myProgramsCubit
+        .getAssignedChildrenToProgramEntity
+        ?.data
+        ?.first
+        .currentInstructorId; // TODO
 
     // تحديد المواعيد المناسبة بناءً على اختيار المستخدم
     List<GetRemainigProgramSessionsDatumEntity> sessionsToSend = [];
@@ -508,11 +543,15 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     // التحقق من وجود مواعيد قبل الإرسال
     if (sessionsToSend.isEmpty) {
       changeInstructorLoader = false;
-      emit(ChangeInstructorErrorState(
-        errorMessage: "لا توجد مواعيد محددة لتغيير المحاضر",
-      ));
+      emit(
+        ChangeInstructorErrorState(
+          errorMessage: "لا توجد مواعيد محددة لتغيير المحاضر",
+        ),
+      );
       delightfulToast(
-          message: "لا يوجد مواعيد محددة لتغيير المحاضر", context: context);
+        message: "لا يوجد مواعيد محددة لتغيير المحاضر",
+        context: context,
+      );
       return;
     }
     int instructorId = getInstructorsEntity!.data!.isNotEmpty
@@ -521,9 +560,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     if (instructorId == -1) {
       delightfulToast(message: "لم يتم اختيار معلم محدد", context: context);
       changeInstructorLoader = false;
-      emit(
-        ChangeInstructorErrorState(errorMessage: "لم يتم اختيار معلم محدد"),
-      );
+      emit(ChangeInstructorErrorState(errorMessage: "لم يتم اختيار معلم محدد"));
       return;
     }
     log("is new dates $newDates");
@@ -545,9 +582,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     result.fold(
       (failure) {
         changeInstructorLoader = false;
-        emit(ChangeInstructorErrorState(
-          errorMessage: failure.message,
-        ));
+        emit(ChangeInstructorErrorState(errorMessage: failure.message));
         delightfulToast(message: failure.message, context: context);
       },
       (data) {
@@ -566,7 +601,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     );
   }
 
-// method مساعدة لتحديد أسباب تغيير المحاضر المختارة
+  // method مساعدة لتحديد أسباب تغيير المحاضر المختارة
   List<int> getSelectedReasonIds() {
     List<int> selectedReasons = [];
     for (int i = 0; i < changeLecturerReason.length; i++) {
@@ -577,7 +612,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     return selectedReasons.isEmpty ? [1] : selectedReasons;
   }
 
-// تعديل method incrementBodyIndex
+  // تعديل method incrementBodyIndex
   void incrementBodyIndex(BuildContext context) async {
     if (bodyIndex < bodies.length - 1) {
       if (sameDates) {
@@ -698,10 +733,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
   }
 
   //! ui
-  final List<String> tabs = [
-    "مواعيد ثابتة",
-    'مواعيد مرنة',
-  ];
+  final List<String> tabs = ["مواعيد ثابتة", 'مواعيد مرنة'];
   int tapbarIndex = 0;
 
   void changeTapbarIndex(int index) {
@@ -739,9 +771,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     });
   }
 
-  List<Widget> subTabbarBody({
-    required BuildContext context,
-  }) {
+  List<Widget> subTabbarBody({required BuildContext context}) {
     return [
       const RepeatWeekSessionToChangeInstructor(),
       const SpecifyAllSessionDatesChangeInstructor(),
@@ -762,8 +792,10 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
 
   initChangeLecturerSessionReasons() {
     if (getChangeInstructorReasonsEntity?.data != null) {
-      changeLecturerReason =
-          List.filled(getChangeInstructorReasonsEntity!.data!.length, false);
+      changeLecturerReason = List.filled(
+        getChangeInstructorReasonsEntity!.data!.length,
+        false,
+      );
     }
   }
 
@@ -786,7 +818,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
   int bodyIndex = 0;
   double linearIndicatorPercent = .25;
 
-// تعديل method decrementBodyIndex
+  // تعديل method decrementBodyIndex
   void decrementBodyIndex(BuildContext context) {
     if (bodyIndex > 0) {
       if (sameDates && bodyIndex >= 2) {
@@ -873,17 +905,17 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     result.fold(
       (failure) {
         getUserSubscriptionDataLoader = false;
-        emit(GetUserSubscriptionDataErrorState(
-          errorMessage: failure.message,
-        ));
+        emit(GetUserSubscriptionDataErrorState(errorMessage: failure.message));
       },
       (data) {
         getUserSubscriptionDataLoader = false;
         getUserSubscriptionDataEntity = data;
 
-        int numberOfSessionsPerWeek = int.tryParse(
-                getUserSubscriptionDataEntity?.data?.numberOfSessionPerWeek ??
-                    "0") ??
+        int numberOfSessionsPerWeek =
+            int.tryParse(
+              getUserSubscriptionDataEntity?.data?.numberOfSessionPerWeek ??
+                  "0",
+            ) ??
             0;
         int numberOfSessions =
             getUserSubscriptionDataEntity?.data?.numberOfSessions ?? 0;
@@ -949,7 +981,9 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
 
   List<GetRemainigProgramSessionsDatumEntity> specifiedDates = [];
   Future<void> showTimePickerDialog(
-      BuildContext context, int sessionIndex) async {
+    BuildContext context,
+    int sessionIndex,
+  ) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: selectedTimesOfDay[sessionIndex] ?? TimeOfDay.now(),
@@ -966,7 +1000,7 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     }
   }
 
-// في الـ constructor أو في initState
+  // في الـ constructor أو في initState
   void initializeSessionTimes(int numberOfSessions) {
     selectedTimesOfDay = List.filled(numberOfSessions, null);
     selectedTimes = List.filled(numberOfSessions, "24 ساعة");
@@ -1003,7 +1037,9 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
   }
 
   Future<void> showToTimePickerDialog(
-      BuildContext context, int sessionIndex) async {
+    BuildContext context,
+    int sessionIndex,
+  ) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: selectedToTimes[sessionIndex] ?? TimeOfDay.now(),
@@ -1044,9 +1080,9 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     result.fold(
       (failure) {
         getRemainingProgramSessionsLoader = false;
-        emit(GetRemainingProgramSessionsErrorState(
-          errorMessage: failure.message,
-        ));
+        emit(
+          GetRemainingProgramSessionsErrorState(errorMessage: failure.message),
+        );
       },
       (data) {
         getRemainingProgramSessionsLoader = false;
@@ -1065,15 +1101,14 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
     getChangeInstructorReasonsLoader = true;
     emit(GetChangeInstructorReasonsLoadingState());
 
-    final result =
-        await getChangeInstructorReasonsUsecase.call(parameter: NoParameter());
+    final result = await getChangeInstructorReasonsUsecase.call(
+      parameter: NoParameter(),
+    );
 
     result.fold(
       (failure) {
         getChangeInstructorReasonsLoader = false;
-        emit(GetChangeInstructorReasonsErrorState(
-          failure.message,
-        ));
+        emit(GetChangeInstructorReasonsErrorState(failure.message));
       },
       (data) {
         getChangeInstructorReasonsLoader = false;
@@ -1102,19 +1137,27 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
 
     if (sessionsToSend.isEmpty) {
       requestTofindInstructorLoader = false;
-      emit(ChangeInstructorErrorState(
-        errorMessage: "لا توجد مواعيد محددة لتغيير المحاضر",
-      ));
+      emit(
+        ChangeInstructorErrorState(
+          errorMessage: "لا توجد مواعيد محددة لتغيير المحاضر",
+        ),
+      );
       delightfulToast(
-          message: "لا يوجد مواعيد محددة لتغيير المحاضر", context: context);
+        message: "لا يوجد مواعيد محددة لتغيير المحاضر",
+        context: context,
+      );
       return;
     }
     emit(FindInstructorLoadingState());
     log("sessions $sessionsToSend");
     log("user id $selectedStudentId");
     log("p id ${context.read<LectureCubit>().currentProgramId.toString()}");
-    var contentId =
-        context.read<MyProgramsCubit>().getAssignedChildrenToProgramEntity?.data?.first.contentId;
+    var contentId = context
+        .read<MyProgramsCubit>()
+        .getAssignedChildrenToProgramEntity
+        ?.data
+        ?.first
+        .contentId;
 
     final result = await requestToFindInstructorUsecase.call(
       parameter: RequestToFindInstructorParameters(
@@ -1137,9 +1180,13 @@ class ChangelecturerCubit extends Cubit<ChangelecturerState> {
         requestToFindInstructorEntity = r;
         emit(FindInstructorSuccessState());
         delightfulToast(message: "تم ارسال الطلب بنجاح", context: context);
-        Navigator.pushNamed(context, RoutePaths.lectureView, arguments: {
-          "programId": context.read<LectureCubit>().currentProgramId
-        });
+        Navigator.pushNamed(
+          context,
+          RoutePaths.lectureView,
+          arguments: {
+            "programId": context.read<LectureCubit>().currentProgramId,
+          },
+        );
       },
     );
   }

@@ -20,20 +20,21 @@ class SubscriptionDurationTabs extends StatelessWidget {
               outerRadius: 12.cr,
               controller: cubit.subscriptionDurationController,
               onTap: (v) {},
-              tabs: List.generate(
-                cubit.subscriptionDurationTabs.length,
-                (index) {
-                  bool isSelected =
-                      cubit.subscriptionDurationController.index == index;
-                  return Text(
-                    cubit.subscriptionDurationTabs[index],
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 12,
-                      color: isSelected ? MainColors.background : MainColors.onPrimary,
-                    ),
-                  );
-                },
-              ),
+              tabs: List.generate(cubit.subscriptionDurationTabs.length, (
+                index,
+              ) {
+                bool isSelected =
+                    cubit.subscriptionDurationController.index == index;
+                return Text(
+                  cubit.subscriptionDurationTabs[index],
+                  style: MainTextStyle.boldTextStyle(
+                    fontSize: 12,
+                    color: isSelected
+                        ? MainColors.background
+                        : MainColors.onPrimary,
+                  ),
+                );
+              }),
             ),
             Positioned(
               left: 15.w,

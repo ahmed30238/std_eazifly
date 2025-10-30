@@ -11,8 +11,9 @@ class GetOrderDetailsUsecase
   GetOrderDetailsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetOrderDetailsEntity>> call(
-      {required GetOrderDetailsPaameters parameter}) async {
+  Future<Either<Failure, GetOrderDetailsEntity>> call({
+    required GetOrderDetailsPaameters parameter,
+  }) async {
     return baseRepository.getOrderDetails(orderId: parameter.orderId);
   }
 }

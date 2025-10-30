@@ -8,9 +8,5 @@ class RequestToFindInstructorEntity {
   @JsonKey(name: "message")
   String? message;
 
-  RequestToFindInstructorEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  RequestToFindInstructorEntity({this.data, this.status, this.message});
 }

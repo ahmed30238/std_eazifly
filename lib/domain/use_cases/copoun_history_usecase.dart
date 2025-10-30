@@ -11,8 +11,9 @@ class CopounHistoryUsecase
   CopounHistoryUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, CopounHistoryEntity>> call(
-      {required NoParameter parameter}) async {
+  Future<Either<Failure, CopounHistoryEntity>> call({
+    required NoParameter parameter,
+  }) async {
     return await baseRepository.copounHistory();
   }
 }

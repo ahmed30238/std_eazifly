@@ -10,11 +10,10 @@ class GetContentChapterUsecase
   GetContentChapterUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetContentChapterEntity>> call(
-      {required GetContentChapterParameters parameter}) async {
-    return await baseRepository.getContentChapters(
-      userId: parameter.userId,
-    );
+  Future<Either<Failure, GetContentChapterEntity>> call({
+    required GetContentChapterParameters parameter,
+  }) async {
+    return await baseRepository.getContentChapters(userId: parameter.userId);
   }
 }
 

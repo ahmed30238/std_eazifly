@@ -136,7 +136,6 @@ class _LectureViewState extends State<LectureView>
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     var cubit = LectureCubit.get(context);
@@ -187,7 +186,6 @@ class _LectureViewState extends State<LectureView>
                         children: [
                           buildLectureDataWithLoading(host),
                           8.pw,
-
 
                           buildLectureLinkWithLoading(
                             context,

@@ -10,8 +10,9 @@ class GetAllLibraryListsUsecase
 
   GetAllLibraryListsUsecase({required this.baseRepository});
   @override
-  Future<Either<Failure, GetAllLibraryListsEntity>> call(
-      {required NoParameter parameter}) async {
+  Future<Either<Failure, GetAllLibraryListsEntity>> call({
+    required NoParameter parameter,
+  }) async {
     return await baseRepository.getAllLibraryLists();
   }
 }

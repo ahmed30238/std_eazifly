@@ -45,9 +45,7 @@ class LayoutCubit extends Cubit<LayoutState> {
       child: const HomePage(),
     ),
     BlocProvider(
-      create: (context) => ProgramsCubit(
-        getProgramsUsecase: sl(),
-      ),
+      create: (context) => ProgramsCubit(getProgramsUsecase: sl()),
       child: const ProgramsView(),
     ),
     const MyProgramsView(),
@@ -66,12 +64,13 @@ class LayoutCubit extends Cubit<LayoutState> {
       ),
       child: const LibraryView(),
     ),
-    const MyAccountView()
+    const MyAccountView(),
   ];
 
   List<BottomNavBarItemModel> bottomNavigationBarItemMethod(
-      BuildContext context,
-      {required bool isActive}) {
+    BuildContext context, {
+    required bool isActive,
+  }) {
     var lang = context.loc!;
     List<BottomNavBarItemModel> bottomNavigationBarItem = [
       BottomNavBarItemModel(
@@ -119,8 +118,5 @@ class BottomNavBarItemModel {
   final String icon;
   final String label;
 
-  BottomNavBarItemModel({
-    required this.icon,
-    required this.label,
-  });
+  BottomNavBarItemModel({required this.icon, required this.label});
 }

@@ -9,8 +9,9 @@ class GetAllItemsUsecase extends BaseUsecase<GetAllItemsEntity, NoParameter> {
 
   GetAllItemsUsecase({required this.baseRepository});
   @override
-  Future<Either<Failure, GetAllItemsEntity>> call(
-      {required NoParameter parameter}) async {
+  Future<Either<Failure, GetAllItemsEntity>> call({
+    required NoParameter parameter,
+  }) async {
     return await baseRepository.getAllItems();
   }
 }

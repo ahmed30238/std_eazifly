@@ -6,10 +6,9 @@ import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/view/layout/my_account/notifications_view/notification_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class TeacherReportBottomSheetDesign extends StatelessWidget {
-  const TeacherReportBottomSheetDesign({
-    super.key,
-  });
+  const TeacherReportBottomSheetDesign({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +19,7 @@ class TeacherReportBottomSheetDesign extends StatelessWidget {
         children: [
           Expanded(
             child: ListView(
-              padding: EdgeInsets.symmetric(
-                horizontal: 16.w,
-                vertical: 16.h,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
               children: [
                 8.ph,
                 SizedBox(

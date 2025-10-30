@@ -34,16 +34,9 @@ class StudentGenderBox extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                icon,
-              ),
+              SvgPicture.asset(icon),
               8.pw,
-              Text(
-                type,
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 14,
-                ),
-              )
+              Text(type, style: MainTextStyle.boldTextStyle(fontSize: 14)),
             ],
           ),
         ),

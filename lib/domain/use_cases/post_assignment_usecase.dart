@@ -12,11 +12,10 @@ class PostAssignmentUsecase
   PostAssignmentUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, PostAssignmentEntity>> call(
-      {required PostAssignmentParameters parameter}) async {
-    return await baseRepository.postAssignment(
-      data: parameter.data,
-    );
+  Future<Either<Failure, PostAssignmentEntity>> call({
+    required PostAssignmentParameters parameter,
+  }) async {
+    return await baseRepository.postAssignment(data: parameter.data);
   }
 }
 

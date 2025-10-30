@@ -6,10 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class NavigateToLectureView extends StatefulWidget {
   final int sessionId;
-  const NavigateToLectureView({
-    super.key,
-    required this.sessionId,
-  });
+  const NavigateToLectureView({super.key, required this.sessionId});
 
   @override
   State<NavigateToLectureView> createState() => _NavigateToLectureViewState();
@@ -72,13 +69,17 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                           Text(
                             "إسم البرنامج",
                             style: MainTextStyle.boldTextStyle(
-                                fontSize: 11, color: MainColors.onSurfaceSecondary),
+                              fontSize: 11,
+                              color: MainColors.onSurfaceSecondary,
+                            ),
                           ),
                           10.5.ph,
                           Text(
                             title,
                             style: MainTextStyle.boldTextStyle(
-                                fontSize: 12, color: MainColors.onSecondary),
+                              fontSize: 12,
+                              color: MainColors.onSecondary,
+                            ),
                           ),
                         ],
                       ),
@@ -97,8 +98,8 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                   status: item?.status == "started"
                       ? LectureStatesEnum.ongoing
                       : item?.status == "finished"
-                          ? LectureStatesEnum.finished
-                          : LectureStatesEnum.dated,
+                      ? LectureStatesEnum.finished
+                      : LectureStatesEnum.dated,
                   reJoin: item?.status == "started",
                   onRejoinTap: () {
                     // كود إعادة الدخول
@@ -109,7 +110,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                   titleText: const [
                     "المحاضرة التالية",
                     "مدة الجلسة",
-                    "حالة الجلسة"
+                    "حالة الجلسة",
                   ], // اختياري
                 );
               },
@@ -120,8 +121,9 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
               children: List.generate(
                 3,
                 (index) => Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: index == 1 ? 7.w : 0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: index == 1 ? 7.w : 0,
+                  ),
                   child: InkWell(
                     onTap: () {},
                     child: Container(
@@ -149,10 +151,9 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                           ),
                           index == 0
                               ? NestedAvatarContainer(
-                                noOfItems: 0,
+                                  noOfItems: 0,
                                   alignment: MainAxisAlignment.center,
-                                  image: const [
-                                  ],
+                                  image: const [],
                                   number: "9",
                                   textColors: MainColors.onSecondary,
                                   areaHeigt: 26.h,
@@ -161,23 +162,23 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                                   avatarWidth: 24.w,
                                 )
                               : index == 1
-                                  ? Text(
-                                      "عبر تطبيق زوم",
-                                      style: MainTextStyle.boldTextStyle(
-                                        fontSize: 12,
-                                        color: MainColors.onSecondary,
-                                      ),
-                                    )
-                                  : Text(
-                                      "Zoom Link",
-                                      style: GoogleFonts.inter(
-                                          color: MainColors.primary,
-                                          decoration: TextDecoration.underline,
-                                          decorationColor:
-                                              MainColors.primary,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                    ),
+                              ? Text(
+                                  "عبر تطبيق زوم",
+                                  style: MainTextStyle.boldTextStyle(
+                                    fontSize: 12,
+                                    color: MainColors.onSecondary,
+                                  ),
+                                )
+                              : Text(
+                                  "Zoom Link",
+                                  style: GoogleFonts.inter(
+                                    color: MainColors.primary,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: MainColors.primary,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                         ],
                       ),
                     ),
@@ -203,7 +204,7 @@ class _NavigateToLectureViewState extends State<NavigateToLectureView> {
                       color: MainColors.onError,
                     ),
                   ),
-                )
+                ),
               ],
             ),
             const Spacer(),

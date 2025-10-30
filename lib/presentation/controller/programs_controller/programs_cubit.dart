@@ -5,9 +5,7 @@ import 'package:eazifly_student/presentation/controller/programs_controller/prog
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class ProgramsCubit extends Cubit<ProgramsState> {
-  ProgramsCubit({
-    required this.getProgramsUsecase,
-  }) : super(ProgramsInitial());
+  ProgramsCubit({required this.getProgramsUsecase}) : super(ProgramsInitial());
   static ProgramsCubit get(context) => BlocProvider.of(context);
 
   bool getProgramsLoading = false;
@@ -29,6 +27,4 @@ class ProgramsCubit extends Cubit<ProgramsState> {
       },
     );
   }
-
-
 }

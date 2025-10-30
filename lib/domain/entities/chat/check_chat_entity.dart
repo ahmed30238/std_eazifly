@@ -9,11 +9,7 @@ class CheckChatEntity {
   @JsonKey(name: "message")
   String? message;
 
-  CheckChatEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  CheckChatEntity({this.data, this.status, this.message});
 }
 
 class CheckChatData {
@@ -68,10 +64,5 @@ class CheckChatParticipant {
   @JsonKey(name: "image")
   String? image;
 
-  CheckChatParticipant({
-    this.type,
-    this.id,
-    this.name,
-    this.image,
-  });
+  CheckChatParticipant({this.type, this.id, this.name, this.image});
 }

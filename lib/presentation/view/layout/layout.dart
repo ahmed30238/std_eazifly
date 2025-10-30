@@ -23,35 +23,32 @@ class Layout extends StatelessWidget {
             currentIndex: cubit.index,
             type: BottomNavigationBarType.fixed,
             onTap: cubit.changeIndex,
-            selectedLabelStyle: MainTextStyle.mediumTextStyle(
-              fontSize: 12,
-            ),
+            selectedLabelStyle: MainTextStyle.mediumTextStyle(fontSize: 12),
             selectedItemColor: MainColors.primary,
-            unselectedLabelStyle: MainTextStyle.mediumTextStyle(
-              fontSize: 12,
-            ),
-            items: List.generate(
-              5,
-              (index) {
-                bool isSelected = cubit.index == index;
-                return BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    cubit
-                        .bottomNavigationBarItemMethod(context,
-                            isActive: isSelected)[index]
-                        .icon,
-                    colorFilter: ColorFilter.mode(
-                      isSelected ? MainColors.primary : Colors.black,
-                      BlendMode.srcIn,
-                    ),
+            unselectedLabelStyle: MainTextStyle.mediumTextStyle(fontSize: 12),
+            items: List.generate(5, (index) {
+              bool isSelected = cubit.index == index;
+              return BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  cubit
+                      .bottomNavigationBarItemMethod(
+                        context,
+                        isActive: isSelected,
+                      )[index]
+                      .icon,
+                  colorFilter: ColorFilter.mode(
+                    isSelected ? MainColors.primary : Colors.black,
+                    BlendMode.srcIn,
                   ),
-                  label: cubit
-                      .bottomNavigationBarItemMethod(context,
-                          isActive: isSelected)[index]
-                      .label,
-                );
-              },
-            ),
+                ),
+                label: cubit
+                    .bottomNavigationBarItemMethod(
+                      context,
+                      isActive: isSelected,
+                    )[index]
+                    .label,
+              );
+            }),
           ),
         );
       },

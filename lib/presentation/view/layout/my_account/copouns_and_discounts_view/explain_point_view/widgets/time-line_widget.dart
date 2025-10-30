@@ -1,14 +1,9 @@
-
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class TimeLineWidgets extends StatelessWidget {
   final int index;
   final List<String> titles;
-  const TimeLineWidgets({
-    super.key,
-    required this.index,
-    required this.titles,
-  });
+  const TimeLineWidgets({super.key, required this.index, required this.titles});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +13,7 @@ class TimeLineWidgets extends StatelessWidget {
         height: 50.h,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(
-            color: MainColors.muted,
-          ),
+          border: Border.all(color: MainColors.muted),
         ),
         child: Text(
           "${index + 1}",
@@ -50,8 +43,8 @@ class TimeLineWidgets extends StatelessWidget {
                   text1: index == 0
                       ? "بمجرد إنشاء حساب جديد تحصل علي مكأفاه ترحيبية"
                       : index == 1
-                          ? "عند الإشتراك في البرامج تحصل علي مكافأت يمكنك إستبدالها للحصول علي خصومات"
-                          : "عند مشاركة التطبيق تحصل علي",
+                      ? "عند الإشتراك في البرامج تحصل علي مكافأت يمكنك إستبدالها للحصول علي خصومات"
+                      : "عند مشاركة التطبيق تحصل علي",
                   text1Style: MainTextStyle.mediumTextStyle(
                     fontSize: 12,
                     color: MainColors.onSurfaceSecondary,
@@ -59,8 +52,8 @@ class TimeLineWidgets extends StatelessWidget {
                   text2: index == 0
                       ? "\n 50 نقطة"
                       : index == 1
-                          ? ""
-                          : " مكافأه",
+                      ? ""
+                      : " مكافأه",
                   text2Style: index == 0
                       ? MainTextStyle.mediumTextStyle(
                           fontSize: 12,

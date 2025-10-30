@@ -2,10 +2,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class PackageContentsItem extends StatelessWidget {
   final int index;
-  const PackageContentsItem({
-    super.key,
-    required this.index,
-  });
+  const PackageContentsItem({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +14,7 @@ class PackageContentsItem extends StatelessWidget {
             fit: BoxFit.cover,
             child: Text(
               "${index + 1}",
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 14,
-              ),
+              style: MainTextStyle.boldTextStyle(fontSize: 14),
             ),
           ),
         ),
@@ -28,10 +23,7 @@ class PackageContentsItem extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               border: Border(
-                right: BorderSide(
-                  color: MainColors.primary,
-                  width: 4.w,
-                ),
+                right: BorderSide(color: MainColors.primary, width: 4.w),
               ),
             ),
             height: 240.h,
@@ -43,10 +35,11 @@ class PackageContentsItem extends StatelessWidget {
                 Container(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(4.r),
-                    bottomLeft: Radius.circular(4.r),
-                  )),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(4.r),
+                      bottomLeft: Radius.circular(4.r),
+                    ),
+                  ),
                   child: Image.asset(
                     fit: BoxFit.cover,
                     Assets.imagesPersona,
@@ -59,9 +52,7 @@ class PackageContentsItem extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Text(
                     "دروس تعليمية في التجويد",
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 14,
-                    ),
+                    style: MainTextStyle.boldTextStyle(fontSize: 14),
                   ),
                 ),
                 4.ph,
@@ -72,15 +63,13 @@ class PackageContentsItem extends StatelessWidget {
                     style: MainTextStyle.mediumTextStyle(
                       color: MainColors.onSurfaceSecondary,
                       fontSize: 12,
-                    ).copyWith(
-                      height: 2.h,
-                    ),
+                    ).copyWith(height: 2.h),
                   ),
                 ),
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }

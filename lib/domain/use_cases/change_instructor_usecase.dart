@@ -13,8 +13,9 @@ class ChangeInstructorUsecase
   ChangeInstructorUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, ChangeInstructorEntity>> call(
-      {required ChangeInstructorParameters parameter}) async {
+  Future<Either<Failure, ChangeInstructorEntity>> call({
+    required ChangeInstructorParameters parameter,
+  }) async {
     return await baseRepository.changeInstructor(
       data: parameter.data,
       isNewDates: parameter.isNewDate,
@@ -26,8 +27,5 @@ class ChangeInstructorParameters {
   final ChangeInstructorTojson data;
   final bool isNewDate;
 
-  ChangeInstructorParameters({
-    required this.data,
-    required this.isNewDate,
-  });
+  ChangeInstructorParameters({required this.data, required this.isNewDate});
 }

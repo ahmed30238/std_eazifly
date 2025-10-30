@@ -11,9 +11,5 @@ class ShowLibraryItemEntity {
   @JsonKey(name: "message")
   String? message;
 
-  ShowLibraryItemEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  ShowLibraryItemEntity({this.data, this.status, this.message});
 }

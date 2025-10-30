@@ -9,11 +9,7 @@ class CopounHistoryEntity {
   @JsonKey(name: "message")
   String? message;
 
-  CopounHistoryEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  CopounHistoryEntity({this.data, this.status, this.message});
 }
 
 class CopounHistoryDatumEntity {

@@ -43,8 +43,8 @@ class StudentStats extends StatelessWidget {
               onTap: index == 0
                   ? onFirstItemTap
                   : index == 1
-                      ? onSecondItemTap
-                      : onThirdItemTap,
+                  ? onSecondItemTap
+                  : onThirdItemTap,
               child: Container(
                 height: 78.h,
                 width: itemWidth ?? 109.w,

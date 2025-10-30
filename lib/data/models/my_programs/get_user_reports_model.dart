@@ -2,6 +2,7 @@ import 'package:eazifly_student/domain/entities/my_programs/get_user_reports_ent
 import 'package:json_annotation/json_annotation.dart';
 
 part 'get_user_reports_model.g.dart';
+
 @JsonSerializable()
 class GetUserReportsModel extends GetUserReportsEntity {
   GetUserReportsModel();

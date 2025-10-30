@@ -37,12 +37,8 @@ class ChooseTeacherBody extends StatelessWidget {
                     enabled: false,
                     hintText: "اختر",
                     suffixIconWidget: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16.w,
-                      ),
-                      child: SvgPicture.asset(
-                        Assets.iconsCalender,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: SvgPicture.asset(Assets.iconsCalender),
                     ),
                   ),
                 ),
@@ -72,12 +68,8 @@ class ChooseTeacherBody extends StatelessWidget {
                     enabled: false,
                     hintText: "اختر",
                     suffixIconWidget: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16.w,
-                      ),
-                      child: SvgPicture.asset(
-                        Assets.iconsCalender,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: SvgPicture.asset(Assets.iconsCalender),
                     ),
                   ),
                 ),
@@ -170,8 +162,10 @@ class SuggestedTeachersItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: BackdropFilter(
-        filter:
-            ImageFilter.blur(sigmaX: blured ? 3 : 0, sigmaY: blured ? 3 : 0),
+        filter: ImageFilter.blur(
+          sigmaX: blured ? 3 : 0,
+          sigmaY: blured ? 3 : 0,
+        ),
         child: Container(
           height: 157.h,
           width: 243.w,
@@ -179,9 +173,7 @@ class SuggestedTeachersItem extends StatelessWidget {
             borderRadius: 12.cr,
             color: isSelected ? MainColors.surface : MainColors.background,
             border: Border.all(
-              color: isSelected
-                  ? MainColors.primary
-                  : MainColors.outline,
+              color: isSelected ? MainColors.primary : MainColors.outline,
             ),
           ),
           child: Column(
@@ -196,9 +188,7 @@ class SuggestedTeachersItem extends StatelessWidget {
               8.ph,
               Text(
                 instructorName,
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 14,
-                ),
+                style: MainTextStyle.boldTextStyle(fontSize: 14),
               ),
               12.ph,
               if (specializations.length > 1) ...{
@@ -206,8 +196,10 @@ class SuggestedTeachersItem extends StatelessWidget {
                   height: 30.h,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 2.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 2.h,
+                    ),
                     itemBuilder: (context, index) {
                       return CustomLowSizeButton(
                         btnColor: MainColors.background,
@@ -226,7 +218,7 @@ class SuggestedTeachersItem extends StatelessWidget {
                   text: specializations.first,
                   onTap: () {},
                 ),
-              }
+              },
             ],
           ),
         ),

@@ -15,28 +15,26 @@ class Bullet extends Text {
     int? maxLines,
     String? semanticsLabel,
   }) : super(
-          '• $data',
-          key: key,
-          style: style,
-          textAlign: textAlign,
-          textDirection: textDirection,
-          locale: locale,
-          softWrap: softWrap,
-          overflow: overflow,
-          textScaler: textScaler,
-          maxLines: maxLines,
-          semanticsLabel: semanticsLabel,
-        );
+         '• $data',
+         key: key,
+         style: style,
+         textAlign: textAlign,
+         textDirection: textDirection,
+         locale: locale,
+         softWrap: softWrap,
+         overflow: overflow,
+         textScaler: textScaler,
+         maxLines: maxLines,
+         semanticsLabel: semanticsLabel,
+       );
 }
 
 class HtmlBullet extends Html {
   // ignore: use_super_parameters
-  HtmlBullet(
-    String data, {
-    super.key,
-  }) : super(
-          // data: data,
-          // key: key,
-          data: '• $data',
-        );
+  HtmlBullet(String data, {super.key})
+    : super(
+        // data: data,
+        // key: key,
+        data: '• $data',
+      );
 }

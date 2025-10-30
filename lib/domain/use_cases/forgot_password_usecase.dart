@@ -11,8 +11,9 @@ class ForgotPasswordUsecase
   ForgotPasswordUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, ForgotPasswordEntity>> call(
-      {required ForgotPasswordParameters parameter}) async {
+  Future<Either<Failure, ForgotPasswordEntity>> call({
+    required ForgotPasswordParameters parameter,
+  }) async {
     return await baseRepository.forgotPassword(email: parameter.email);
   }
 }

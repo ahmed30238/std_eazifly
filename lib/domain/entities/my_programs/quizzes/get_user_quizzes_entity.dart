@@ -11,11 +11,7 @@ class GetUserQuizzesEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetUserQuizzesEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetUserQuizzesEntity({this.data, this.status, this.message});
 }
 
 class GetUserQuizzesDatumEntity {

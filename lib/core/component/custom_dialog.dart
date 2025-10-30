@@ -4,6 +4,7 @@ import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 class CustomDialog extends StatelessWidget {
   final String title;
   final String subTitle;
@@ -27,20 +28,19 @@ class CustomDialog extends StatelessWidget {
     return Dialog(
       insetPadding: EdgeInsets.zero,
       child: Container(
-        height:height?? 220.h,
-        width:width?? 298.w,
+        height: height ?? 220.h,
+        width: width ?? 298.w,
         decoration: BoxDecoration(
-            color: MainColors.background, borderRadius: BorderRadius.circular(20.r)),
+          color: MainColors.background,
+          borderRadius: BorderRadius.circular(20.r),
+        ),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                title,
-                style: MainTextStyle.boldTextStyle(fontSize: 16),
-              ),
+              Text(title, style: MainTextStyle.boldTextStyle(fontSize: 16)),
               Text(
                 subTitle,
                 textAlign: TextAlign.center,

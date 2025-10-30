@@ -77,28 +77,24 @@ class _LibraryViewState extends State<LibraryView>
             bloc: cubit,
             builder: (context, state) => CustomTabBar(
               controller: cubit.tabController,
-              tabs: List.generate(
-                cubit.tabController.length,
-                (index) {
-                  bool isSelected = index == cubit.tabController.index;
-                  return Text(
-                    cubit.tabTexts(context)[index],
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 12,
-                      color: isSelected
-                          ? MainColors.primary
-                          : MainColors.onSurfaceSecondary,
-                    ),
-                  );
-                },
-              ),
+              tabs: List.generate(cubit.tabController.length, (index) {
+                bool isSelected = index == cubit.tabController.index;
+                return Text(
+                  cubit.tabTexts(context)[index],
+                  style: MainTextStyle.boldTextStyle(
+                    fontSize: 12,
+                    color: isSelected
+                        ? MainColors.primary
+                        : MainColors.onSurfaceSecondary,
+                  ),
+                );
+              }),
             ),
           ),
           BlocBuilder(
             bloc: cubit,
-            builder: (context, state) => Expanded(
-              child: cubit.libraryBodies[cubit.tabController.index],
-            ),
+            builder: (context, state) =>
+                Expanded(child: cubit.libraryBodies[cubit.tabController.index]),
           ),
         ],
       ),

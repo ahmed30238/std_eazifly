@@ -11,11 +11,7 @@ class GetInstructorsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetInstructorsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetInstructorsEntity({this.data, this.status, this.message});
 }
 
 class GetInstructorsInstructorEntity {
@@ -71,8 +67,5 @@ class GetInstructorsInstructorSpecializationsEntity {
   int? id;
   @JsonKey(name: "name")
   String? name;
-  GetInstructorsInstructorSpecializationsEntity({
-    this.id,
-    this.name,
-  });
+  GetInstructorsInstructorSpecializationsEntity({this.id, this.name});
 }

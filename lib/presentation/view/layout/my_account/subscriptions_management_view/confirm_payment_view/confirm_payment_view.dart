@@ -8,10 +8,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 class ConfirmPaymentView extends StatefulWidget {
   final int methodId;
 
-  const ConfirmPaymentView({
-    super.key,
-    required this.methodId,
-  });
+  const ConfirmPaymentView({super.key, required this.methodId});
 
   @override
   State<ConfirmPaymentView> createState() => _ConfirmPaymentViewState();
@@ -34,14 +31,14 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
     var lang = context.loc!;
     FilterPlansDataModel? orderData =
         programsubscriptionplanCubit.filterPlansEntity?.data;
-    log(
-      "this is plan id ${programsubscriptionplanCubit.planId}",
-    );
+    log("this is plan id ${programsubscriptionplanCubit.planId}");
     PlanDetailsModel? filteredOrderData = programsubscriptionplanCubit
-        .getPlansWithDetailsEntity?.data
+        .getPlansWithDetailsEntity
+        ?.data
         ?.firstWhere(
-            (element) => element.id == programsubscriptionplanCubit.planId,
-            orElse: () => PlanDetailsModel());
+          (element) => element.id == programsubscriptionplanCubit.planId,
+          orElse: () => PlanDetailsModel(),
+        );
     log("this is it ${filteredOrderData?.program}");
     return Scaffold(
       appBar: CustomAppBar(
@@ -68,9 +65,7 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
               children: [
                 Text(
                   orderData?.program ?? filteredOrderData?.program ?? "",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 14,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 12.ph,
                 ProgramDetailsItem(
@@ -98,61 +93,56 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                   value: programsubscriptionplanCubit.startDate.text,
                 ),
                 3.ph,
-                CustomHorizontalDivider(
-                  color: MainColors.surfaceVariant,
-                ),
-                ...List.generate(
-                  3,
-                  (index) {
-                    String price =
-                        orderData?.price ?? filteredOrderData?.price ?? "";
-                    String discountPrice = orderData?.discountPrice ??
-                        filteredOrderData?.discountPrice ??
-                        "";
-                    double priceValue = double.tryParse(price) ?? 0.0;
-                    double discountPriceValue =
-                        double.tryParse(discountPrice) ?? 0.0;
-                    double discountValue = priceValue - discountPriceValue;
+                CustomHorizontalDivider(color: MainColors.surfaceVariant),
+                ...List.generate(3, (index) {
+                  String price =
+                      orderData?.price ?? filteredOrderData?.price ?? "";
+                  String discountPrice =
+                      orderData?.discountPrice ??
+                      filteredOrderData?.discountPrice ??
+                      "";
+                  double priceValue = double.tryParse(price) ?? 0.0;
+                  double discountPriceValue =
+                      double.tryParse(discountPrice) ?? 0.0;
+                  double discountValue = priceValue - discountPriceValue;
 
-                    return ProgramDetailsItem(
-                      title: cashDetailsTitles[index],
-                      value: index == 0
-                          ? price
-                          : index == 1
-                              ? discountValue.toInt().toString()
-                              : () {
-                                  String? discount = orderData?.discountPrice ??
-                                      filteredOrderData?.discountPrice;
-                                  if (discount != null && discount.isNotEmpty) {
-                                    int parsedValue =
-                                        int.tryParse(discount) ?? 0;
-                                    int studentCount =
-                                        programsubscriptionplanCubit
-                                                .studentNumberController
-                                                .text
-                                                .isEmpty
-                                            ? programsubscriptionplanCubit
-                                                .studentCount
-                                            : int.tryParse(
-                                                    programsubscriptionplanCubit
-                                                        .studentNumberController
-                                                        .text) ??
-                                                1;
+                  return ProgramDetailsItem(
+                    title: cashDetailsTitles[index],
+                    value: index == 0
+                        ? price
+                        : index == 1
+                        ? discountValue.toInt().toString()
+                        : () {
+                            String? discount =
+                                orderData?.discountPrice ??
+                                filteredOrderData?.discountPrice;
+                            if (discount != null && discount.isNotEmpty) {
+                              int parsedValue = int.tryParse(discount) ?? 0;
+                              int studentCount =
+                                  programsubscriptionplanCubit
+                                      .studentNumberController
+                                      .text
+                                      .isEmpty
+                                  ? programsubscriptionplanCubit.studentCount
+                                  : int.tryParse(
+                                          programsubscriptionplanCubit
+                                              .studentNumberController
+                                              .text,
+                                        ) ??
+                                        1;
 
-                                    return (parsedValue * studentCount)
-                                        .toString();
-                                  }
-                                  return "0";
-                                }(),
-                      textStyle: index == 2
-                          ? MainTextStyle.boldTextStyle(
-                              fontSize: 15,
-                              color: MainColors.primary,
-                            )
-                          : null,
-                    );
-                  },
-                ),
+                              return (parsedValue * studentCount).toString();
+                            }
+                            return "0";
+                          }(),
+                    textStyle: index == 2
+                        ? MainTextStyle.boldTextStyle(
+                            fontSize: 15,
+                            color: MainColors.primary,
+                          )
+                        : null,
+                  );
+                }),
                 4.ph,
               ],
             ),
@@ -203,19 +193,28 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                         getPaymentInstructionText(
                           currency: orderData?.currency ?? "ج.م",
                           programsubscriptionplanCubit
-                              .getPaymentMethodDetailsEntity?.data?.title,
+                              .getPaymentMethodDetailsEntity
+                              ?.data
+                              ?.title,
                           () {
-                            String? discount = orderData?.discountPrice ??
+                            String? discount =
+                                orderData?.discountPrice ??
                                 filteredOrderData?.discountPrice;
                             if (discount != null && discount.isNotEmpty) {
                               double parsedValue =
                                   double.tryParse(discount) ?? 0.0;
-                              int studentCount = programsubscriptionplanCubit
-                                      .studentNumberController.text.isEmpty
+                              int studentCount =
+                                  programsubscriptionplanCubit
+                                      .studentNumberController
+                                      .text
+                                      .isEmpty
                                   ? programsubscriptionplanCubit.studentCount
-                                  : int.tryParse(programsubscriptionplanCubit
-                                          .studentNumberController.text) ??
-                                      1;
+                                  : int.tryParse(
+                                          programsubscriptionplanCubit
+                                              .studentNumberController
+                                              .text,
+                                        ) ??
+                                        1;
 
                               return parsedValue * studentCount;
                             }
@@ -232,7 +231,9 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                       8.ph,
                       Text(
                         programsubscriptionplanCubit
-                                .getPaymentMethodDetailsEntity?.data?.payOn ??
+                                .getPaymentMethodDetailsEntity
+                                ?.data
+                                ?.payOn ??
                             'معلومات الدفع',
                         style: MainTextStyle.regularTextStyle(
                           fontSize: 10,
@@ -307,8 +308,8 @@ class _ConfirmPaymentViewState extends State<ConfirmPaymentView> {
                             width: 104.w,
                             fit: BoxFit.cover,
                           ),
-                        )
-                      ]
+                        ),
+                      ],
                     ],
                   );
                 },
@@ -391,11 +392,7 @@ var programDetailsTitles = [
   "عدد الحصص الإسبوعية",
   "تاريخ البدء",
 ];
-var cashDetailsTitles = [
-  "المبلغ ",
-  "الخصم",
-  "الإجمالي",
-];
+var cashDetailsTitles = ["المبلغ ", "الخصم", "الإجمالي"];
 
 class ProgramDetailsItem extends StatelessWidget {
   final TextStyle? textStyle;
@@ -421,7 +418,8 @@ class ProgramDetailsItem extends StatelessWidget {
           children: [
             Text(
               title,
-              style: textStyle ??
+              style:
+                  textStyle ??
                   MainTextStyle.boldTextStyle(
                     fontSize: 12,
                     color: MainColors.primary,
@@ -429,7 +427,8 @@ class ProgramDetailsItem extends StatelessWidget {
             ),
             Text(
               value,
-              style: textStyle ??
+              style:
+                  textStyle ??
                   MainTextStyle.boldTextStyle(
                     fontSize: 12,
                     color: MainColors.primary,
@@ -443,8 +442,11 @@ class ProgramDetailsItem extends StatelessWidget {
 }
 
 // دالة مساعدة لتنسيق نص تعليمات الدفع
-String getPaymentInstructionText(String? paymentMethodTitle, double amount,
-    {String? currency}) {
+String getPaymentInstructionText(
+  String? paymentMethodTitle,
+  double amount, {
+  String? currency,
+}) {
   final formattedAmount = "${amount.toStringAsFixed(0)} $currency";
 
   switch (paymentMethodTitle?.toLowerCase()) {

@@ -11,11 +11,10 @@ class RegisterUsecase extends BaseUsecase<RegisterEntity, RegisterParameters> {
   RegisterUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, RegisterEntity>> call(
-      {required RegisterParameters parameter}) async {
-    return await baseRepository.register(
-      data: parameter.data,
-    );
+  Future<Either<Failure, RegisterEntity>> call({
+    required RegisterParameters parameter,
+  }) async {
+    return await baseRepository.register(data: parameter.data);
   }
 }
 

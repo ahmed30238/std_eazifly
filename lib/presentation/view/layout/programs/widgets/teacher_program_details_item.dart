@@ -76,10 +76,7 @@ class TeacherProgramDetailsItem extends StatelessWidget {
 }
 
 class ProgramStatusWidget extends StatelessWidget {
-  const ProgramStatusWidget({
-    super.key,
-    required this.state,
-  });
+  const ProgramStatusWidget({super.key, required this.state});
   final String state;
   @override
   Widget build(BuildContext context) {
@@ -118,5 +115,3 @@ class ProgramStatusWidget extends StatelessWidget {
     }
   }
 }
-
-

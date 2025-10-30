@@ -19,9 +19,7 @@ class _GoalsViewState extends State<GoalsView> {
   void initState() {
     cubit = context.read<LectureCubit>();
     super.initState();
-    cubit.getContentChapters(
-      userId: cubit.userId,
-    );
+    cubit.getContentChapters(userId: cubit.userId);
   }
 
   @override
@@ -35,9 +33,7 @@ class _GoalsViewState extends State<GoalsView> {
               // إظهار loader أثناء تحميل البيانات
               if (cubit.getContentChaptersLoader) {
                 return const Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  child: Center(child: CircularProgressIndicator()),
                 );
               }
 
@@ -75,9 +71,7 @@ class _GoalsViewState extends State<GoalsView> {
                           height: 36.h,
                           radius: 8.r,
                           onPressed: () {
-                            cubit.getContentChapters(
-                              userId: cubit.userId,
-                            );
+                            cubit.getContentChapters(userId: cubit.userId);
                           },
                         ),
                       ],
@@ -90,57 +84,53 @@ class _GoalsViewState extends State<GoalsView> {
                 child: ListView(
                   children: [
                     20.ph,
-                    ...List.generate(
-                      goals.length,
-                      (index) {
-                        var goal = goals[index];
-                        bool isAllElementDone = false;
-                        if (goal.lessons != null && goal.lessons!.isNotEmpty) {
-                          isAllElementDone = goal.lessons!.every(
-                            (element) => element.isDone == true,
-                          );
-                        }
-                        var points = goal.lessons?.fold<int>(0,
-                                (total, element) {
-                              int pointValue = 0;
-                              if (element.points != null) {
-                                pointValue =
-                                    int.tryParse(element.points.toString()) ??
-                                        0;
-                              }
-                              return total + pointValue;
-                            }) ??
-                            0;
-                        return TimlineItem(
-                          padding: EdgeInsets.symmetric(vertical: .5.h),
-                          lineXY: .01,
-                          indicatorXY: .4.h,
-                          indicator: Checkbox.adaptive(
-                            activeColor: MainColors.primary,
-                            value: isAllElementDone,
-                            onChanged: (p) {},
-                            shape: const CircleBorder(),
-                          ),
-                          isFirst: index == 0,
-                          isLast: index == goals.length - 1,
-                          child: GoalsItem(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                arguments: {
-                                  "chapterId": goal.id,
-                                  "chapterTitle": goal.title ?? ""
-                                },
-                                context,
-                                RoutePaths.goalDetailsView,
-                              );
-                            },
-                            title: goal.title ?? "",
-                            points: points.toString(),
-                            description: goal.description ?? "",
-                          ),
+                    ...List.generate(goals.length, (index) {
+                      var goal = goals[index];
+                      bool isAllElementDone = false;
+                      if (goal.lessons != null && goal.lessons!.isNotEmpty) {
+                        isAllElementDone = goal.lessons!.every(
+                          (element) => element.isDone == true,
                         );
-                      },
-                    ),
+                      }
+                      var points =
+                          goal.lessons?.fold<int>(0, (total, element) {
+                            int pointValue = 0;
+                            if (element.points != null) {
+                              pointValue =
+                                  int.tryParse(element.points.toString()) ?? 0;
+                            }
+                            return total + pointValue;
+                          }) ??
+                          0;
+                      return TimlineItem(
+                        padding: EdgeInsets.symmetric(vertical: .5.h),
+                        lineXY: .01,
+                        indicatorXY: .4.h,
+                        indicator: Checkbox.adaptive(
+                          activeColor: MainColors.primary,
+                          value: isAllElementDone,
+                          onChanged: (p) {},
+                          shape: const CircleBorder(),
+                        ),
+                        isFirst: index == 0,
+                        isLast: index == goals.length - 1,
+                        child: GoalsItem(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              arguments: {
+                                "chapterId": goal.id,
+                                "chapterTitle": goal.title ?? "",
+                              },
+                              context,
+                              RoutePaths.goalDetailsView,
+                            );
+                          },
+                          title: goal.title ?? "",
+                          points: points.toString(),
+                          description: goal.description ?? "",
+                        ),
+                      );
+                    }),
                   ],
                 ),
               );
@@ -181,9 +171,7 @@ class _GoalsViewState extends State<GoalsView> {
 }
 
 class CustomBadge extends StatelessWidget {
-  const CustomBadge({
-    super.key,
-  });
+  const CustomBadge({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -198,9 +186,7 @@ class CustomBadge extends StatelessWidget {
           // borderRadius: 48.cr,
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(
-              Assets.imagesPersona,
-            ),
+            image: AssetImage(Assets.imagesPersona),
           ),
         ),
       ),

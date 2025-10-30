@@ -39,6 +39,7 @@ class UpdateProfileTojson {
     };
   }
 }
+
 /*
 age,
 whats_app,

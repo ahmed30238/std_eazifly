@@ -28,10 +28,7 @@ class CategoryCard extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   RoutePaths.audioPlayListView,
-                  arguments: {
-                    "cubit": cubit,
-                    "listId": listItem?.id,
-                  },
+                  arguments: {"cubit": cubit, "listId": listItem?.id},
                 );
               },
               image: listItem?.image ?? "",

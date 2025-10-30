@@ -17,7 +17,7 @@ extension WeekDaysEnumExtension on WeekDaysEnum {
       WeekDaysEnum.tuesday => 'Tuesday',
       WeekDaysEnum.wednesday => 'Wednesday',
       WeekDaysEnum.thursday => 'Thursday',
-      WeekDaysEnum.friday => 'Friday'
+      WeekDaysEnum.friday => 'Friday',
     };
   }
 
@@ -29,7 +29,7 @@ extension WeekDaysEnumExtension on WeekDaysEnum {
       WeekDaysEnum.tuesday => 'الثلاثاء',
       WeekDaysEnum.wednesday => 'الأربعاء',
       WeekDaysEnum.thursday => 'الخميس',
-      WeekDaysEnum.friday => 'الجمعة'
+      WeekDaysEnum.friday => 'الجمعة',
     };
   }
 }

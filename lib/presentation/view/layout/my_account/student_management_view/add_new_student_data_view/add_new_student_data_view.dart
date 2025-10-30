@@ -8,11 +8,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 class AddNewStudentDataView extends StatefulWidget {
   final String? orderId;
   final String? programId;
-  const AddNewStudentDataView({
-    super.key,
-    this.orderId,
-    this.programId,
-  });
+  const AddNewStudentDataView({super.key, this.orderId, this.programId});
 
   @override
   State<AddNewStudentDataView> createState() => _AddNewStudentDataViewState();
@@ -132,21 +128,18 @@ class _AddNewStudentDataViewState extends State<AddNewStudentDataView>
                   BlocBuilder(
                     bloc: cubit,
                     builder: (context, state) => Row(
-                      children: List.generate(
-                        2,
-                        (index) {
-                          bool isSelected = cubit.genderIndex == index;
-                          return StudentGenderBox(
-                            isSelected: isSelected,
-                            onTap: () => cubit.changeGender(index),
-                            icon: index == 0
-                                ? Assets.iconsMale
-                                : Assets.iconsFemal,
-                            type: index == 0 ? "ذكر" : "أنثى",
-                            padding: 8,
-                          );
-                        },
-                      ),
+                      children: List.generate(2, (index) {
+                        bool isSelected = cubit.genderIndex == index;
+                        return StudentGenderBox(
+                          isSelected: isSelected,
+                          onTap: () => cubit.changeGender(index),
+                          icon: index == 0
+                              ? Assets.iconsMale
+                              : Assets.iconsFemal,
+                          type: index == 0 ? "ذكر" : "أنثى",
+                          padding: 8,
+                        );
+                      }),
                     ),
                   ),
                   16.ph,
@@ -167,8 +160,10 @@ class _AddNewStudentDataViewState extends State<AddNewStudentDataView>
                     controller: cubit.emailController,
                   ),
                   16.ph,
-                  BlocBuilder<AddNewStudentDataToProgramCubit,
-                      AddNewStudentDataToProgramState>(
+                  BlocBuilder<
+                    AddNewStudentDataToProgramCubit,
+                    AddNewStudentDataToProgramState
+                  >(
                     builder: (context, state) {
                       return TitledFormFieldItem(
                         maxLines: 1,
@@ -197,8 +192,10 @@ class _AddNewStudentDataViewState extends State<AddNewStudentDataView>
                     },
                   ),
                   16.ph,
-                  BlocBuilder<AddNewStudentDataToProgramCubit,
-                      AddNewStudentDataToProgramState>(
+                  BlocBuilder<
+                    AddNewStudentDataToProgramCubit,
+                    AddNewStudentDataToProgramState
+                  >(
                     builder: (context, state) {
                       return TitledFormFieldItem(
                         maxLines: 1,
@@ -243,9 +240,7 @@ class _AddNewStudentDataViewState extends State<AddNewStudentDataView>
                   : () async {
                       cubit.createNewChild(
                         context,
-                        orderId: int.tryParse(
-                          widget.orderId ?? "-1",
-                        ),
+                        orderId: int.tryParse(widget.orderId ?? "-1"),
                         programId: int.tryParse(widget.programId ?? "-1"),
                       );
                     },

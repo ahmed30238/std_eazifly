@@ -11,8 +11,9 @@ class GetUserOrdersUsecase
   GetUserOrdersUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetUserOrdersEntity>> call(
-      {required NoParameter parameter}) async {
+  Future<Either<Failure, GetUserOrdersEntity>> call({
+    required NoParameter parameter,
+  }) async {
     return await baseRepository.getUserOrders();
   }
 }

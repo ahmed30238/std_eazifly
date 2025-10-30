@@ -15,17 +15,18 @@ class LectureStateHelper {
       // تحويل nextSession إلى DateTime
       DateTime lectureStartTime = DateTime.parse(nextSession);
       DateTime now = DateTime.now();
-      
+
       // حساب وقت انتهاء المحاضرة
       DateTime lectureEndTime = lectureStartTime.add(
-        Duration(minutes: nextSessionDuration)
+        Duration(minutes: nextSessionDuration),
       );
 
       // تحديد الحالة
       if (now.isBefore(lectureStartTime)) {
         // المحاضرة لم تبدأ بعد
         return LectureStatesEnum.dated;
-      } else if (now.isAfter(lectureStartTime) && now.isBefore(lectureEndTime)) {
+      } else if (now.isAfter(lectureStartTime) &&
+          now.isBefore(lectureEndTime)) {
         // المحاضرة جارية الآن
         return LectureStatesEnum.ongoing;
       } else {
@@ -56,9 +57,9 @@ class LectureStateHelper {
         // المحاضرة بدأت أو انتهت
         if (nextSessionDuration != null) {
           DateTime lectureEndTime = lectureStartTime.add(
-            Duration(minutes: nextSessionDuration)
+            Duration(minutes: nextSessionDuration),
           );
-          
+
           if (now.isBefore(lectureEndTime)) {
             // المحاضرة جارية - اعرض الوقت المتبقي لانتهائها
             Duration remainingTime = lectureEndTime.difference(now);

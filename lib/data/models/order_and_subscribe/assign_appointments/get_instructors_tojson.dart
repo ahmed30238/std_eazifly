@@ -19,14 +19,16 @@ class GetInstructorsTojson {
       'program_id': programId,
       'instructor_id': instructorId,
       'appointments': appointments
-          .map((appointment) => {
-                "start": appointment.start != null
-                    ? formatter.format(appointment.start!)
-                    : null,
-                "end": appointment.end != null
-                    ? formatter.format(appointment.end!)
-                    : null,
-              })
+          .map(
+            (appointment) => {
+              "start": appointment.start != null
+                  ? formatter.format(appointment.start!)
+                  : null,
+              "end": appointment.end != null
+                  ? formatter.format(appointment.end!)
+                  : null,
+            },
+          )
           .toList(),
     };
   }

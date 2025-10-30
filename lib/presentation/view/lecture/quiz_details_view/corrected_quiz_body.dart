@@ -28,9 +28,7 @@ class CorrectedQuizBody extends StatelessWidget {
                 builder: (context, state) {
                   // Show loader while loading
                   if (cubit.getQuizQuestionsLoader) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   var quizData = cubit.getQuizQuestionsEntity?.data;
@@ -43,10 +41,10 @@ class CorrectedQuizBody extends StatelessWidget {
                   // Parse marks safely
                   double totalMark =
                       double.tryParse(quizData.userAnswer?.totalMark ?? "0") ??
-                          0;
+                      0;
                   double fullMark =
                       double.tryParse(quizData.userAnswer?.fullMark ?? "0") ??
-                          0;
+                      0;
 
                   // Calculate pass/fail status
                   bool isPassed = fullMark > 0 && totalMark >= (fullMark / 2);
@@ -56,12 +54,13 @@ class CorrectedQuizBody extends StatelessWidget {
                     titleText: const [
                       "تاريخ التسليم",
                       "درجة الإمتحان",
-                      "حالة الإمتحان"
+                      "حالة الإمتحان",
                     ],
                     downSideWidgets: [
                       Text(
-                        formatDate(quizData.createdAt ?? DateTime.now())
-                            .substring(0, 10),
+                        formatDate(
+                          quizData.createdAt ?? DateTime.now(),
+                        ).substring(0, 10),
                         style: MainTextStyle.boldTextStyle(
                           fontSize: 12,
                           color: MainColors.onSecondary,
@@ -78,8 +77,9 @@ class CorrectedQuizBody extends StatelessWidget {
                         width: 105.w,
                         height: 26.h,
                         text: isPassed ? "ناجح" : "راسب",
-                        textColor:
-                            isPassed ? MainColors.success : MainColors.onError,
+                        textColor: isPassed
+                            ? MainColors.success
+                            : MainColors.onError,
                         containerColor: isPassed
                             ? MainColors.primaryLight
                             : MainColors.error,
@@ -118,17 +118,22 @@ class CorrectedQuizBody extends StatelessWidget {
 
                         if (question?.type == "multiple_choice") {
                           // إنشاء قائمة بصحة كل خيار
-                          optionsCorrectness = question?.options
-                                  ?.map((option) =>
-                                      option.optionStatus == "correct")
+                          optionsCorrectness =
+                              question?.options
+                                  ?.map(
+                                    (option) =>
+                                        option.optionStatus == "correct",
+                                  )
                                   .toList() ??
                               [];
 
                           // العثور على فهرس الخيار الذي اختاره المستخدم
                           userSelectedOptionIndex = question?.options
-                              ?.indexWhere((option) =>
-                                  option.id?.toString() ==
-                                  userAnswer?.questionOptionId?.toString());
+                              ?.indexWhere(
+                                (option) =>
+                                    option.id?.toString() ==
+                                    userAnswer?.questionOptionId?.toString(),
+                              );
 
                           if (userSelectedOptionIndex != null &&
                               userSelectedOptionIndex >= 0) {
@@ -137,17 +142,22 @@ class CorrectedQuizBody extends StatelessWidget {
                           }
                         } else if (question?.type == "true_false") {
                           // للأسئلة صح وخطأ
-                          optionsCorrectness = question?.options
-                                  ?.map((option) =>
-                                      option.optionStatus == "correct")
+                          optionsCorrectness =
+                              question?.options
+                                  ?.map(
+                                    (option) =>
+                                        option.optionStatus == "correct",
+                                  )
                                   .toList() ??
                               [];
 
                           // العثور على فهرس الخيار الذي اختاره المستخدم
                           userSelectedOptionIndex = question?.options
-                              ?.indexWhere((option) =>
-                                  option.id?.toString() ==
-                                  userAnswer?.questionOptionId?.toString());
+                              ?.indexWhere(
+                                (option) =>
+                                    option.id?.toString() ==
+                                    userAnswer?.questionOptionId?.toString(),
+                              );
 
                           if (userSelectedOptionIndex != null &&
                               userSelectedOptionIndex >= 0) {
@@ -165,16 +175,16 @@ class CorrectedQuizBody extends StatelessWidget {
 
                           isUserAnswerCorrect =
                               userAnswer?.answer?.toLowerCase().trim() ==
-                                  correctAnswer?.toLowerCase().trim();
+                              correctAnswer?.toLowerCase().trim();
                         }
 
                         return CorrectedQuestionCotainer(
                           isMultiTrue: isUserAnswerCorrect,
                           index: index,
-                          isTrue:
-                              isUserAnswerCorrect, 
+                          isTrue: isUserAnswerCorrect,
                           optionsLength: question?.options?.length ?? 4,
-                          qOptions: question?.options
+                          qOptions:
+                              question?.options
                                   ?.map((e) => e.title ?? "")
                                   .toList() ??
                               [""],

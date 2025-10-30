@@ -20,9 +20,7 @@ handleTap({
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              Assets.iconsRejectRequest,
-            ),
+            SvgPicture.asset(Assets.iconsRejectRequest),
             8.ph,
             Text(
               "برجاء اختيار سبب تغيير المعلم",
@@ -49,9 +47,7 @@ handleTap({
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              Assets.iconsRejectRequest,
-            ),
+            SvgPicture.asset(Assets.iconsRejectRequest),
             8.ph,
             Text(
               "برجاء اختيار الطالب الذي تود تغيير المعلم له",
@@ -67,13 +63,11 @@ handleTap({
   } else {
     await cubit
         .getUserSubscriptionData(
-      programId: context.read<LectureCubit>().currentProgramId,
-      userId: cubit.selectedStudentId,
-    )
-        .then(
-      (value) {
-              cubit.incrementBodyIndex(context);
-      },
-    );
+          programId: context.read<LectureCubit>().currentProgramId,
+          userId: cubit.selectedStudentId,
+        )
+        .then((value) {
+          cubit.incrementBodyIndex(context);
+        });
   }
 }

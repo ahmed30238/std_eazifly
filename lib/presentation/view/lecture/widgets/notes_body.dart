@@ -19,7 +19,7 @@ class NotesBodyWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         var feedback = feedbacks?[index];
         return NotesItem(
-          image: feedback?.image??"",
+          image: feedback?.image ?? "",
           date: formatDateWithAmPm(feedback?.date.toString() ?? ""),
           feedback: feedback?.feedback ?? "",
           maker: feedback?.maker ?? "",

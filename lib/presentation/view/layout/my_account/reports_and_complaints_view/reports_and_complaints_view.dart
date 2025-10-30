@@ -18,7 +18,6 @@ class ReportsAndComplaintsView extends StatelessWidget {
       ),
       body: Stack(
         children: [
-
           ListView.separated(
             padding: EdgeInsets.only(top: 16.h),
             physics: const BouncingScrollPhysics(),
@@ -32,21 +31,20 @@ class ReportsAndComplaintsView extends StatelessWidget {
                   "problemState": index == 0
                       ? "جاري"
                       : index == 1
-                          ? ""
-                          : "انتهت",
+                      ? ""
+                      : "انتهت",
                 },
               ),
               child: ReportsAndComplaintsWidget(
                 state: index == 0
                     ? "جاري"
                     : index == 1
-                        ? ""
-                        : "انتهت",
+                    ? ""
+                    : "انتهت",
               ),
             ),
-            separatorBuilder: (context, index) => const CustomHorizontalDivider(
-              thickness: 1,
-            ),
+            separatorBuilder: (context, index) =>
+                const CustomHorizontalDivider(thickness: 1),
             itemCount: 3,
           ),
           Container(
@@ -59,11 +57,14 @@ class ReportsAndComplaintsView extends StatelessWidget {
             height: double.infinity,
             width: double.infinity,
             child: Center(
-                child: Text(
-                  "قريبا",
-                  style: MainTextStyle.boldTextStyle(
-                      fontSize: 20, color: MainColors.background),
-                )),
+              child: Text(
+                "قريبا",
+                style: MainTextStyle.boldTextStyle(
+                  fontSize: 20,
+                  color: MainColors.background,
+                ),
+              ),
+            ),
           ),
         ],
       ),

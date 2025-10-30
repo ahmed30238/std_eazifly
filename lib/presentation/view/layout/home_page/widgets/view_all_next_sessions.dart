@@ -21,9 +21,7 @@ class ViewAllNextSessions extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Text(
               "المحاضرات القادمة",
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 15,
-              ),
+              style: MainTextStyle.boldTextStyle(fontSize: 15),
             ),
           ),
           24.ph,
@@ -33,9 +31,7 @@ class ViewAllNextSessions extends StatelessWidget {
               tag: "next_lectures_hero",
               child: Material(
                 color: Colors.transparent,
-                child: NextLectureList(
-                  isHorizontal: false,
-                ),
+                child: NextLectureList(isHorizontal: false),
               ),
             ),
           ),

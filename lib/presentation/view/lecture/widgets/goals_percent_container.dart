@@ -20,9 +20,7 @@ class GoalsPercentContainer extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             margin: EdgeInsets.symmetric(horizontal: 16.w),
             height: 82.h,
-            decoration: BoxDecoration(
-              color: MainColors.inputFill,
-            ),
+            decoration: BoxDecoration(color: MainColors.inputFill),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -75,11 +73,14 @@ class GoalsPercentContainer extends StatelessWidget {
             height: 82.h,
             width: double.infinity,
             child: Center(
-                child: Text(
-              "قريبا",
-              style: MainTextStyle.boldTextStyle(
-                  fontSize: 20, color: MainColors.background),
-            )),
+              child: Text(
+                "قريبا",
+                style: MainTextStyle.boldTextStyle(
+                  fontSize: 20,
+                  color: MainColors.background,
+                ),
+              ),
+            ),
           ),
         ],
       ),

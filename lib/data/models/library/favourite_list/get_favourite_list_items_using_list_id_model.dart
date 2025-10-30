@@ -8,8 +8,8 @@ class GetFavouriteListItemsUsingListIdModel
   GetFavouriteListItemsUsingListIdModel();
 
   factory GetFavouriteListItemsUsingListIdModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetFavouriteListItemsUsingListIdModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$GetFavouriteListItemsUsingListIdModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$GetFavouriteListItemsUsingListIdModelToJson(this);

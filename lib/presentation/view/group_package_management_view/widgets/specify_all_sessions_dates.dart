@@ -7,16 +7,15 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class SpecifyAllSessionsDates extends StatelessWidget {
   final int programId;
-  const SpecifyAllSessionsDates({
-    super.key,
-    required this.programId,
-  });
+  const SpecifyAllSessionsDates({super.key, required this.programId});
 
   @override
   Widget build(BuildContext context) {
     var lang = context.loc!;
-    return BlocBuilder<GroupPackageManagementCubit,
-        GroupPackageManagementState>(
+    return BlocBuilder<
+      GroupPackageManagementCubit,
+      GroupPackageManagementState
+    >(
       builder: (context, state) {
         var cubit = context.read<GroupPackageManagementCubit>();
         int numberOfSessions =
@@ -46,9 +45,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                         children: [
                           Text(
                             "اليوم",
-                            style: MainTextStyle.boldTextStyle(
-                              fontSize: 12,
-                            ),
+                            style: MainTextStyle.boldTextStyle(fontSize: 12),
                           ),
                           16.pw,
                           Expanded(
@@ -72,14 +69,16 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                               cubit.changeSpecifiedAllDay(
                                                 context,
                                                 WeekDaysEnum
-                                                    .values[index].title,
+                                                    .values[index]
+                                                    .title,
                                                 sessionIndex,
                                                 programId,
                                               );
                                               back(context);
                                             },
                                             day: WeekDaysEnum
-                                                .values[index].title,
+                                                .values[index]
+                                                .title,
                                           ),
                                         ),
                                       ],
@@ -88,10 +87,11 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                 ),
                               ),
                               child: CustomTextFormField(
-                                controller: sessionIndex <
+                                controller:
+                                    sessionIndex <
                                         cubit.specifyAllDayController.length
                                     ? cubit
-                                        .specifyAllDayController[sessionIndex]
+                                          .specifyAllDayController[sessionIndex]
                                     : null,
                                 enabled: false,
                                 hintText: "اختر",
@@ -99,9 +99,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 16.w,
                                   ),
-                                  child: SvgPicture.asset(
-                                    Assets.iconsCalender,
-                                  ),
+                                  child: SvgPicture.asset(Assets.iconsCalender),
                                 ),
                               ),
                             ),
@@ -123,20 +121,24 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                 if (sessionIndex <
                                     cubit.fromControllers.length) {
                                   cubit.showFromTimePickerDialog(
-                                      context, sessionIndex, programId);
+                                    context,
+                                    sessionIndex,
+                                    programId,
+                                  );
                                 }
                               },
                               child: CustomTextFormField(
                                 controller:
                                     sessionIndex < cubit.fromControllers.length
-                                        ? cubit.fromControllers[sessionIndex]
-                                        : null, // ربط من controller
+                                    ? cubit.fromControllers[sessionIndex]
+                                    : null, // ربط من controller
                                 enabled: false,
                                 keyboardType: TextInputType.datetime,
                                 hintText: "اختر وقت البداية",
                                 suffixIconWidget: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 16.w),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 16.w,
+                                  ),
                                   child: Icon(
                                     Icons.access_time,
                                     color: MainColors.onSurfaceSecondary,
@@ -157,20 +159,24 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                                 // التأكد من وجود controller قبل استدعاء الدالة
                                 if (sessionIndex < cubit.toControllers.length) {
                                   cubit.showToTimePickerDialog(
-                                      context, sessionIndex, programId);
+                                    context,
+                                    sessionIndex,
+                                    programId,
+                                  );
                                 }
                               },
                               child: CustomTextFormField(
                                 controller:
                                     sessionIndex < cubit.toControllers.length
-                                        ? cubit.toControllers[sessionIndex]
-                                        : null, // ربط إلى controller
+                                    ? cubit.toControllers[sessionIndex]
+                                    : null, // ربط إلى controller
                                 enabled: false,
                                 keyboardType: TextInputType.datetime,
                                 hintText: "اختر وقت النهاية",
                                 suffixIconWidget: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 16.w),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 16.w,
+                                  ),
                                   child: Icon(
                                     Icons.access_time,
                                     color: MainColors.onSurfaceSecondary,
@@ -189,9 +195,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
             if (cubit.specifiedDates.isNotEmpty) ...[
               Text(
                 lang.chooseAppropriateLecturer,
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 12,
-                ),
+                style: MainTextStyle.boldTextStyle(fontSize: 12),
               ),
               8.ph,
               //! Instrcutors
@@ -201,10 +205,7 @@ class SpecifyAllSessionsDates extends StatelessWidget {
                   // Handle loading state
                   if (cubit.getInstructorsLoader ||
                       cubit.getInstructorsEntity == null) {
-                    return SizedBox(
-                      height: 48.h,
-                      child: buildShimmerLoader(),
-                    );
+                    return SizedBox(height: 48.h, child: buildShimmerLoader());
                   }
 
                   // Handle error state (optional)

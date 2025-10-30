@@ -52,7 +52,7 @@
 //   State<ImprovedVoiceMessageWidget> createState() => _ImprovedVoiceMessageWidgetState();
 // }
 
-// class _ImprovedVoiceMessageWidgetState extends State<ImprovedVoiceMessageWidget> 
+// class _ImprovedVoiceMessageWidgetState extends State<ImprovedVoiceMessageWidget>
 //     with WidgetsBindingObserver {
 //   PlayerController? playerController;
 //   bool _isInitialized = false;
@@ -67,13 +67,13 @@
 //   double _downloadProgress = 0.0;
 //   int _retryAttempts = 0;
 //   Timer? _durationTimer;
-  
+
 //   // Static cache for downloaded files
 //   static final Map<String, String> _cachedFiles = {};
-  
+
 //   // Cancellation token for downloads
 //   CancelToken? _cancelToken;
-  
+
 //   // Stream subscriptions
 //   StreamSubscription? _playerStateSubscription;
 //   StreamSubscription? _durationSubscription;
@@ -94,20 +94,20 @@
 
 //   Future<void> _initializeController() async {
 //     if (_isDisposed) return;
-    
+
 //     try {
 //       await _cleanupController();
-      
+
 //       playerController = PlayerController();
-      
+
 //       // Setup listeners with null checks
 //       _playerStateSubscription = playerController!.onPlayerStateChanged.listen((state) {
 //         if (!mounted || _isDisposed) return;
-        
+
 //         setState(() {
 //           _isPlaying = state.isPlaying;
 //         });
-        
+
 //         if (state.isStopped && _currentDuration.inSeconds > 0) {
 //           widget.onPlayComplete?.call();
 //         }
@@ -115,7 +115,7 @@
 
 //       _durationSubscription = playerController!.onCurrentDurationChanged.listen((duration) {
 //         if (!mounted || _isDisposed) return;
-        
+
 //         setState(() {
 //           _currentDuration = Duration(milliseconds: duration);
 //         });
@@ -123,15 +123,15 @@
 
 //       if (widget.audioUrl.isNotEmpty) {
 //         await _downloadAndPrepareAudio();
-        
+
 //         if (mounted && !_isDisposed && _localFilePath != null) {
 //           setState(() {
 //             _isInitialized = true;
 //           });
-          
+
 //           // Get max duration with retry logic
 //           await _getMaxDuration();
-          
+
 //           if (widget.autoStart && mounted && !_isDisposed) {
 //             await _playPause();
 //           }
@@ -151,11 +151,11 @@
 
 //   Future<void> _getMaxDuration() async {
 //     if (_isDisposed || playerController == null) return;
-    
+
 //     try {
 //       // Wait for the player to be ready
 //       await Future.delayed(const Duration(milliseconds: 500));
-      
+
 //       if (!_isDisposed && playerController != null) {
 //         final maxDuration = playerController!.maxDuration;
 //         if (maxDuration > 0) {
@@ -180,7 +180,7 @@
 //         timer.cancel();
 //         return;
 //       }
-      
+
 //       final maxDuration = playerController!.maxDuration;
 //       if (maxDuration > 0) {
 //         setState(() {
@@ -196,7 +196,7 @@
 
 //   Future<void> _downloadAndPrepareAudio() async {
 //     if (_isDisposed) return;
-    
+
 //     try {
 //       // Check cache first
 //       final cacheKey = widget.messageId ?? widget.audioUrl;
@@ -219,11 +219,11 @@
 
 //       // Create temp file path
 //       final tempDir = await getTemporaryDirectory();
-//       final fileName = widget.messageId ?? 
+//       final fileName = widget.messageId ??
 //           DateTime.now().millisecondsSinceEpoch.toString();
 //       final fileExtension = _getFileExtension(widget.audioUrl);
 //       _localFilePath = path.join(tempDir.path, 'voice_messages', '$fileName$fileExtension');
-      
+
 //       // Create directory if it doesn't exist
 //       final directory = Directory(path.dirname(_localFilePath!));
 //       if (!await directory.exists()) {
@@ -235,7 +235,7 @@
 
 //       // Cache the file
 //       _cachedFiles[cacheKey] = _localFilePath!;
-      
+
 //       if (mounted && !_isDisposed) {
 //         setState(() {
 //           _isDownloading = false;
@@ -243,7 +243,7 @@
 //       }
 
 //       await _prepareLocalAudio();
-      
+
 //     } catch (e) {
 //       if (mounted && !_isDisposed) {
 //         setState(() {
@@ -259,10 +259,10 @@
 //   Future<void> _downloadWithRetry() async {
 //     for (int attempt = 0; attempt <= widget.maxRetryAttempts; attempt++) {
 //       if (_isDisposed) throw Exception('Widget disposed');
-      
+
 //       try {
 //         _cancelToken = CancelToken();
-        
+
 //         final dio = Dio();
 //         await dio.download(
 //           widget.audioUrl,
@@ -275,7 +275,7 @@
 //           ),
 //           onReceiveProgress: (received, total) {
 //             if (_isDisposed) return;
-            
+
 //             if (total != -1) {
 //               final progress = received / total;
 //               if (mounted) {
@@ -287,21 +287,21 @@
 //             }
 //           },
 //         );
-        
+
 //         // Download successful
 //         break;
-        
+
 //       } catch (e) {
 //         _retryAttempts = attempt + 1;
-        
+
 //         if (e is DioException && e.type == DioExceptionType.cancel) {
 //           throw Exception('Download cancelled');
 //         }
-        
+
 //         if (attempt == widget.maxRetryAttempts) {
 //           throw Exception('Download failed after ${widget.maxRetryAttempts + 1} attempts: $e');
 //         }
-        
+
 //         // Wait before retry
 //         await Future.delayed(Duration(seconds: (attempt + 1) * 2));
 //       }
@@ -331,7 +331,7 @@
 
 //   Future<void> _prepareLocalAudio() async {
 //     if (_isDisposed || _localFilePath == null || playerController == null) return;
-    
+
 //     try {
 //       final file = File(_localFilePath!);
 //       if (await file.exists()) {
@@ -350,7 +350,7 @@
 
 //   Future<void> _playPause() async {
 //     if (_isDisposed || !_isInitialized || playerController == null) return;
-    
+
 //     try {
 //       if (_isPlaying) {
 //         await _pausePlayer();
@@ -365,7 +365,7 @@
 
 //   Future<void> _pausePlayer() async {
 //     if (_isDisposed || playerController == null) return;
-    
+
 //     try {
 //       await playerController!.pausePlayer();
 //     } catch (e) {
@@ -391,16 +391,16 @@
 //     try {
 //       _durationTimer?.cancel();
 //       _durationTimer = null;
-      
+
 //       _cancelToken?.cancel();
 //       _cancelToken = null;
-      
+
 //       await _playerStateSubscription?.cancel();
 //       _playerStateSubscription = null;
-      
+
 //       await _durationSubscription?.cancel();
 //       _durationSubscription = null;
-      
+
 //       if (playerController != null) {
 //         if (_isPlaying) {
 //           await playerController!.stopPlayer();
@@ -424,13 +424,13 @@
 //   // Retry mechanism for failed downloads
 //   Future<void> _retryDownload() async {
 //     if (_isDisposed) return;
-    
+
 //     setState(() {
 //       _hasError = false;
 //       _errorMessage = null;
 //       _retryAttempts = 0;
 //     });
-    
+
 //     await _downloadAndPrepareAudio();
 //   }
 
@@ -489,13 +489,13 @@
 //               ),
 //             ),
 //           ),
-          
+
 //           SizedBox(width: 12.w),
-          
+
 //           // Waveform
 //           Expanded(
 //             flex: 3,
-//             child: playerController != null 
+//             child: playerController != null
 //                 ? AudioFileWaveforms(
 //                     size: Size(double.infinity, 35.h),
 //                     playerController: playerController!,
@@ -518,7 +518,7 @@
 //                     ),
 //                   ),
 //           ),
-          
+
 //           if (widget.showDuration) ...[
 //             SizedBox(width: 8.w),
 //             // Duration
@@ -759,7 +759,7 @@
 //   final Function(String)? onError;
 //   final Duration timeoutDuration;
 //   final int maxRetryAttempts;
-  
+
 //   const NetworkVoiceMessage({
 //     super.key,
 //     required this.audioUrl,

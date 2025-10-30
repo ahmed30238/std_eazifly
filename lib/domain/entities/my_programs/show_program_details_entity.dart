@@ -11,11 +11,7 @@ class ShowProgramDetailsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  ShowProgramDetailsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  ShowProgramDetailsEntity({this.data, this.status, this.message});
 }
 
 class ShowProgramDataEntity {

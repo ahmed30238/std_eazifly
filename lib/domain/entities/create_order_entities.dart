@@ -11,11 +11,7 @@ class CreateOrderEntity {
   @JsonKey(name: "message")
   String? message;
 
-  CreateOrderEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  CreateOrderEntity({this.data, this.status, this.message});
 }
 
 class CreateOrderDataEntity {
@@ -127,11 +123,7 @@ class CreateOrderStatusEntity {
   @JsonKey(name: "color")
   String? color;
 
-  CreateOrderStatusEntity({
-    this.label,
-    this.color,
-    this.key,
-  });
+  CreateOrderStatusEntity({this.label, this.color, this.key});
 }
 
 class CreateOrderUserEntity {
@@ -148,11 +140,7 @@ class CreateOrderUserEntity {
   @JsonKey(name: "image")
   String? image;
 
-  CreateOrderUserEntity({
-    this.id,
-    this.name,
-    this.image,
-  });
+  CreateOrderUserEntity({this.id, this.name, this.image});
 }
 
 class CreateOrderOrderNoteEntity {
@@ -188,10 +176,7 @@ class CreateOrderMakerEntity {
   @JsonKey(name: "image")
   String? image;
 
-  CreateOrderMakerEntity({
-    this.name,
-    this.image,
-  });
+  CreateOrderMakerEntity({this.name, this.image});
 }
 
 class CreateOrderProgramDataEntity {

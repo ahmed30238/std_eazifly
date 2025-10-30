@@ -43,7 +43,9 @@ void showAudioPlayerBottomSheet(
                           : 0.0,
                       max: cubit.totalDuration.inSeconds.toDouble(),
                       onChanged: (value) {
-                        cubit.audioPlayer.seek(Duration(seconds: value.toInt()));
+                        cubit.audioPlayer.seek(
+                          Duration(seconds: value.toInt()),
+                        );
                       },
                     ),
                     Row(

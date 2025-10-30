@@ -8,17 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CollectionSessionList extends StatelessWidget {
-  const CollectionSessionList({
-    super.key,
-  });
+  const CollectionSessionList({super.key});
 
   @override
   Widget build(BuildContext context) {
     var lang = context.loc!;
     return Container(
-      constraints: BoxConstraints(
-        minHeight: 300.h,
-      ),
+      constraints: BoxConstraints(minHeight: 300.h),
       decoration: BoxDecoration(
         color: MainColors.inputFill,
         borderRadius: 16.cr,
@@ -29,7 +25,7 @@ class CollectionSessionList extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => const SessionCollectionItem(),
-            separatorBuilder: (context, index) =>  SeparatedWidget(
+            separatorBuilder: (context, index) => SeparatedWidget(
               dividerColor: MainColors.surfaceVariant,
               verticalPadding: 0,
             ),
@@ -46,7 +42,7 @@ class CollectionSessionList extends StatelessWidget {
             secondSubTitle: "30 دقيقة",
             thirdSubTitle: "",
             thirdTitle: lang.sessionState,
-          )
+          ),
         ],
       ),
     );

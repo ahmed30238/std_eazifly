@@ -12,8 +12,9 @@ class CreateNewChildUsecase
   CreateNewChildUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, CreateNewChildEntity>> call(
-      {required CreateNewChildParameters parameter}) async {
+  Future<Either<Failure, CreateNewChildEntity>> call({
+    required CreateNewChildParameters parameter,
+  }) async {
     return await baseRepository.createNewChild(data: parameter.data);
   }
 }

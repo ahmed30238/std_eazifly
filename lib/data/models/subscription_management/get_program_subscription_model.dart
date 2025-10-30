@@ -4,6 +4,7 @@ import 'package:eazifly_student/domain/entities/subscription_management/get_prog
 import 'package:json_annotation/json_annotation.dart';
 
 part 'get_program_subscription_model.g.dart';
+
 @JsonSerializable(explicitToJson: true)
 class GetProgramSubscriptionModel extends GetProgramSubscriptionEntity {
   GetProgramSubscriptionModel();
@@ -11,28 +12,33 @@ class GetProgramSubscriptionModel extends GetProgramSubscriptionEntity {
   factory GetProgramSubscriptionModel.fromJson(Map<String, dynamic> json) =>
       _$GetProgramSubscriptionModelFromJson(json);
 
-  Map<String, dynamic> toJson() =>
-      _$GetProgramSubscriptionModelToJson(this);
+  Map<String, dynamic> toJson() => _$GetProgramSubscriptionModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetProgramSubscriptionDatumModel extends GetProgramSubscriptionDatumEntity {
+class GetProgramSubscriptionDatumModel
+    extends GetProgramSubscriptionDatumEntity {
   GetProgramSubscriptionDatumModel();
 
-  factory GetProgramSubscriptionDatumModel.fromJson(Map<String, dynamic> json) =>
-      _$GetProgramSubscriptionDatumModelFromJson(json);
+  factory GetProgramSubscriptionDatumModel.fromJson(
+    Map<String, dynamic> json,
+  ) => _$GetProgramSubscriptionDatumModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetProgramSubscriptionDatumModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetProgramSubscriptionDatumModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetProgramSubscriptionInstructorModel extends GetProgramSubscriptionInstructorEntity {
+class GetProgramSubscriptionInstructorModel
+    extends GetProgramSubscriptionInstructorEntity {
   GetProgramSubscriptionInstructorModel();
 
-  factory GetProgramSubscriptionInstructorModel.fromJson(Map<String, dynamic> json) =>
-      _$GetProgramSubscriptionInstructorModelFromJson(json);
+  factory GetProgramSubscriptionInstructorModel.fromJson(
+    Map<String, dynamic> json,
+  ) => _$GetProgramSubscriptionInstructorModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetProgramSubscriptionInstructorModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetProgramSubscriptionInstructorModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -42,5 +48,6 @@ class GetProgramSubscriptionPlanModel extends GetProgramSubscriptionPlanEntity {
   factory GetProgramSubscriptionPlanModel.fromJson(Map<String, dynamic> json) =>
       _$GetProgramSubscriptionPlanModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetProgramSubscriptionPlanModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetProgramSubscriptionPlanModelToJson(this);
 }

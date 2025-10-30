@@ -26,9 +26,9 @@ class NoDataAnimatedImageWidget extends StatelessWidget {
         ),
         Text(
           message,
-          style: MainTextStyle.boldTextStyle(fontSize: 16).copyWith(
-            color: Colors.grey,
-          ),
+          style: MainTextStyle.boldTextStyle(
+            fontSize: 16,
+          ).copyWith(color: Colors.grey),
         ),
       ],
     );

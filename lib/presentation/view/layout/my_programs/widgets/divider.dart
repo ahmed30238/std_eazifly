@@ -12,11 +12,7 @@ class WavyDivider extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         const CustomHorizontalDivider(),
-        AudioWaveformWidget(
-          isRecording: true,
-          height: 20.0.h,
-          width: 200.0.w,
-        ),
+        AudioWaveformWidget(isRecording: true, height: 20.0.h, width: 200.0.w),
       ],
     );
   }

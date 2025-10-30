@@ -7,10 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProgressPercentContainer extends StatelessWidget {
   final String percent;
-  const ProgressPercentContainer({
-    super.key,
-    required this.percent,
-  });
+  const ProgressPercentContainer({super.key, required this.percent});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +15,7 @@ class ProgressPercentContainer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       width: double.infinity,
       height: 66.h,
-      decoration: BoxDecoration(
-        borderRadius: 12.cr,
-        color: MainColors.surface,
-      ),
+      decoration: BoxDecoration(borderRadius: 12.cr, color: MainColors.surface),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -46,7 +40,9 @@ class ProgressPercentContainer extends StatelessWidget {
           CustomLinearPercentIndicator(
             lineHeight: 6.h,
             alignment: MainAxisAlignment.start,
-            percent: (double.tryParse(percent) != null ? double.tryParse(percent)! / 100 : 0.0),
+            percent: (double.tryParse(percent) != null
+                ? double.tryParse(percent)! / 100
+                : 0.0),
             width: 303.w,
           ),
         ],

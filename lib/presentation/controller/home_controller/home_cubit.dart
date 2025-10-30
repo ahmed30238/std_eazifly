@@ -48,9 +48,7 @@ class HomeCubit extends Cubit<HomeState> {
   JoinSessionEntity? joinSessionEntity;
   JoinSessionUsecase joinSessionUsecase;
 
-  Future<void> joinSession({
-    required int sessionId,
-  }) async {
+  Future<void> joinSession({required int sessionId}) async {
     joinSessionLoader = true;
     emit(JoinSessionLoadingState());
 
@@ -141,9 +139,7 @@ class HomeCubit extends Cubit<HomeState> {
     getHomeLibraryLoader = true;
     emit(GetHomeLibraryLoadingState());
 
-    final result = await getHomeLibraryUsecase.call(
-      parameter: NoParameter(),
-    );
+    final result = await getHomeLibraryUsecase.call(parameter: NoParameter());
 
     result.fold(
       (l) {
@@ -321,9 +317,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(GetGeideaDataLoadingState());
 
     final result = await getGeideaDataUsecase.call(
-      parameter: GetGeideaDataParameters(
-        key: key,
-      ),
+      parameter: GetGeideaDataParameters(key: key),
     );
 
     result.fold(

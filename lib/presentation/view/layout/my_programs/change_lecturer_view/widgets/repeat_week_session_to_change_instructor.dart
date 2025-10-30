@@ -11,7 +11,8 @@ class RepeatWeekSessionToChangeInstructor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<ChangelecturerCubit>();
-    int numberOfSessionPerWeek = int.tryParse(
+    int numberOfSessionPerWeek =
+        int.tryParse(
           cubit.getUserSubscriptionDataEntity?.data?.numberOfSessionPerWeek ??
               "0",
         ) ??
@@ -95,7 +96,9 @@ class RepeatWeekSessionToChangeInstructor extends StatelessWidget {
                               onTap: () {
                                 // إرسال الـ sessionIndex للدالة
                                 cubit.showTimePickerDialog(
-                                    context, sessionIndex);
+                                  context,
+                                  sessionIndex,
+                                );
                                 // الدالة ستتنادى تلقائياً من الـ Cubit
                               },
                               child: AbsorbPointer(
@@ -105,23 +108,25 @@ class RepeatWeekSessionToChangeInstructor extends StatelessWidget {
                                     if (sessionIndex ==
                                         numberOfSessionPerWeek) {
                                       cubit.getRemainingProgramSessions(
-                                          programId: context
-                                              .read<LectureCubit>()
-                                              .currentProgramId,
-                                          userId: cubit.selectedStudentId);
+                                        programId: context
+                                            .read<LectureCubit>()
+                                            .currentProgramId,
+                                        userId: cubit.selectedStudentId,
+                                      );
                                     }
                                   },
                                   // عرض الوقت المحدد لهذا الـ session
                                   hintText:
                                       sessionIndex < cubit.selectedTimes.length
-                                          ? cubit.selectedTimes[sessionIndex]
-                                          : "24 ساعة",
+                                      ? cubit.selectedTimes[sessionIndex]
+                                      : "24 ساعة",
                                   enabled: false,
                                   controller:
                                       cubit.hoursControllers[sessionIndex],
                                   suffixIconWidget: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16.w),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 16.w,
+                                    ),
                                     child: const Icon(
                                       Icons.access_time,
                                       color: Colors.grey,
@@ -151,7 +156,7 @@ class RepeatWeekSessionToChangeInstructor extends StatelessWidget {
             text: "التالي",
             onPressed: () {
               if (cubit.repeatedFormKey.currentState!.validate()) {
-              cubit.incrementBodyIndex(context);
+                cubit.incrementBodyIndex(context);
               }
             },
           ),

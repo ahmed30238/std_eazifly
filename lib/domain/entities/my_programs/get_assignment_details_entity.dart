@@ -9,9 +9,5 @@ class GetAssignmentDetailsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetAssignmentDetailsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetAssignmentDetailsEntity({this.data, this.status, this.message});
 }

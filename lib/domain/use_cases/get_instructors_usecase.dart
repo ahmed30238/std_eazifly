@@ -12,8 +12,9 @@ class GetInstructorsUsecase
   GetInstructorsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetInstructorsEntity>> call(
-      {required GetInstructorsParameters parameter}) async {
+  Future<Either<Failure, GetInstructorsEntity>> call({
+    required GetInstructorsParameters parameter,
+  }) async {
     return await baseRepository.getInstructors(data: parameter.data);
   }
 }

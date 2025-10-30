@@ -5,22 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class PrefixSearchFormField extends StatelessWidget {
-  const PrefixSearchFormField({
-    super.key,
-  });
+  const PrefixSearchFormField({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        right: 12.w,
-        left: 8.w,
-        top: 12.h,
-        bottom: 12.h,
-      ),
+      padding: EdgeInsets.only(right: 12.w, left: 8.w, top: 12.h, bottom: 12.h),
       child: SvgPicture.asset(
         Assets.iconsSearchNormal,
-        colorFilter:  ColorFilter.mode(
+        colorFilter: ColorFilter.mode(
           MainColors.onSurfaceVariant,
           BlendMode.srcIn,
         ),

@@ -25,8 +25,10 @@ class ProperScheduleBody extends StatelessWidget {
                 ),
               ),
               4.ph,
-              BlocBuilder<AddNewStudentDataToProgramCubit,
-                  AddNewStudentDataToProgramState>(
+              BlocBuilder<
+                AddNewStudentDataToProgramCubit,
+                AddNewStudentDataToProgramState
+              >(
                 builder: (context, state) => CustomFilledTabBar(
                   innerRadius: 12.r,
                   margin: EdgeInsets.zero,
@@ -36,19 +38,16 @@ class ProperScheduleBody extends StatelessWidget {
                     cubit.controller?.animateTo(value);
                     cubit.changeTapbarIndex(value);
                   },
-                  tabs: List.generate(
-                    cubit.tabs.length,
-                    (index) {
-                      bool isSelected = cubit.controller?.index == index;
-                      return Text(
-                        cubit.tabs[index],
-                        style: MainTextStyle.boldTextStyle(
-                          fontSize: 12,
-                          color: isSelected ? Colors.white : Colors.black,
-                        ),
-                      );
-                    },
-                  ),
+                  tabs: List.generate(cubit.tabs.length, (index) {
+                    bool isSelected = cubit.controller?.index == index;
+                    return Text(
+                      cubit.tabs[index],
+                      style: MainTextStyle.boldTextStyle(
+                        fontSize: 12,
+                        color: isSelected ? Colors.white : Colors.black,
+                      ),
+                    );
+                  }),
                 ),
               ),
               BlocBuilder(
@@ -95,8 +94,9 @@ class ProperScheduleBody extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   "اليوم",
-                                  style:
-                                      MainTextStyle.boldTextStyle(fontSize: 12),
+                                  style: MainTextStyle.boldTextStyle(
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ),
                               16.pw,
@@ -130,8 +130,9 @@ class ProperScheduleBody extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   "من",
-                                  style:
-                                      MainTextStyle.boldTextStyle(fontSize: 12),
+                                  style: MainTextStyle.boldTextStyle(
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ),
                               16.pw,
@@ -146,8 +147,9 @@ class ProperScheduleBody extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   "الي",
-                                  style:
-                                      MainTextStyle.boldTextStyle(fontSize: 12),
+                                  style: MainTextStyle.boldTextStyle(
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ),
                               16.pw,
@@ -203,9 +205,7 @@ class ProperScheduleBody extends StatelessWidget {
                                     physics:
                                         const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) =>
-                                        ClassSpecifyingTimeWidget(
-                                      index: index,
-                                    ),
+                                        ClassSpecifyingTimeWidget(index: index),
                                     separatorBuilder: (context, index) => 10.ph,
                                     itemCount: 8,
                                   ),
@@ -240,18 +240,12 @@ class ProperScheduleBody extends StatelessWidget {
 
 class ClassSpecifyingTimeWidget extends StatelessWidget {
   final int index;
-  const ClassSpecifyingTimeWidget({
-    super.key,
-    required this.index,
-  });
+  const ClassSpecifyingTimeWidget({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: 12.h,
-        horizontal: 8.w,
-      ),
+      padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 8.w),
       height: 172.h,
       decoration: BoxDecoration(
         color: MainColors.inputFill,
@@ -269,12 +263,7 @@ class ClassSpecifyingTimeWidget extends StatelessWidget {
           ),
           Row(
             children: [
-              Text(
-                "اليوم",
-                style: MainTextStyle.boldTextStyle(
-                  fontSize: 12,
-                ),
-              ),
+              Text("اليوم", style: MainTextStyle.boldTextStyle(fontSize: 12)),
               16.pw,
               Expanded(
                 child: InkWell(
@@ -287,12 +276,8 @@ class ClassSpecifyingTimeWidget extends StatelessWidget {
                     enabled: false,
                     hintText: "اختر",
                     suffixIconWidget: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16.w,
-                      ),
-                      child: SvgPicture.asset(
-                        Assets.iconsCalender,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: SvgPicture.asset(Assets.iconsCalender),
                     ),
                   ),
                 ),
@@ -302,10 +287,7 @@ class ClassSpecifyingTimeWidget extends StatelessWidget {
           12.ph,
           Row(
             children: [
-              Text(
-                "من",
-                style: MainTextStyle.boldTextStyle(fontSize: 12),
-              ),
+              Text("من", style: MainTextStyle.boldTextStyle(fontSize: 12)),
               16.pw,
               const Expanded(
                 child: CustomTextFormField(
@@ -314,10 +296,7 @@ class ClassSpecifyingTimeWidget extends StatelessWidget {
                 ),
               ),
               15.5.pw,
-              Text(
-                "الي",
-                style: MainTextStyle.boldTextStyle(fontSize: 12),
-              ),
+              Text("الي", style: MainTextStyle.boldTextStyle(fontSize: 12)),
               16.pw,
               const Expanded(
                 child: CustomTextFormField(

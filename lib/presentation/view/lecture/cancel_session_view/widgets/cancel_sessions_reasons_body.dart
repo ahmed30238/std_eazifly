@@ -14,9 +14,7 @@ class CacnelSessionsReasonsBody extends StatelessWidget {
         32.ph,
         Text(
           "برجاء إختيار سبب الالغاء",
-          style: MainTextStyle.boldTextStyle(
-            fontSize: 14,
-          ),
+          style: MainTextStyle.boldTextStyle(fontSize: 14),
         ),
         20.ph,
         Expanded(
@@ -30,7 +28,8 @@ class CacnelSessionsReasonsBody extends StatelessWidget {
               var reasons = cubit.getCancelReasonsEntity?.data;
               if (reasons == null || reasons.isEmpty) {
                 return const Center(
-                    child: Text("No cancellation reasons available"));
+                  child: Text("No cancellation reasons available"),
+                );
               }
 
               return ListView.separated(
@@ -72,9 +71,7 @@ class CacnelSessionsReasonsBody extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset(
-                        Assets.iconsRejectRequest,
-                      ),
+                      SvgPicture.asset(Assets.iconsRejectRequest),
                       8.ph,
                       Text(
                         "برجاء اختيار سبب الالغاء",

@@ -14,9 +14,7 @@ void showCancelSubscriptionDialog(
       return BlocProvider.value(
         value: cubit,
         child: AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: 15.cr,
-          ),
+          shape: RoundedRectangleBorder(borderRadius: 15.cr),
           title: Row(
             children: [
               const Icon(
@@ -73,9 +71,7 @@ void showCancelSubscriptionDialog(
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
-                shape: RoundedRectangleBorder(
-                  borderRadius: 8.cr,
-                ),
+                shape: RoundedRectangleBorder(borderRadius: 8.cr),
               ),
               child: Text(
                 "تأكيد الإلغاء",

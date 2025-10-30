@@ -20,7 +20,8 @@ class GetLibrarySubscriptionDataModel extends GetLibrarySubscriptionDataEntity {
   factory GetLibrarySubscriptionDataModel.fromJson(Map<String, dynamic> json) =>
       _$GetLibrarySubscriptionDataModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetLibrarySubscriptionDataModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetLibrarySubscriptionDataModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -30,5 +31,6 @@ class GetLibrarySubscriptionPlanModel extends GetLibrarySubscriptionPlanEntity {
   factory GetLibrarySubscriptionPlanModel.fromJson(Map<String, dynamic> json) =>
       _$GetLibrarySubscriptionPlanModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetLibrarySubscriptionPlanModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetLibrarySubscriptionPlanModelToJson(this);
 }

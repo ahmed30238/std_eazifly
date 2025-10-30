@@ -35,7 +35,7 @@ class NextLectureItem extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.r),
           color: MainColors.inputFill,
-          border: Border.all(color: MainColors.outline,width: 1.5.w),
+          border: Border.all(color: MainColors.outline, width: 1.5.w),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

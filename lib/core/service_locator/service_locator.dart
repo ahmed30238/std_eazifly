@@ -281,7 +281,9 @@ class ServiceLocator {
       () => GetHomeAssignmentsUsecase(baseRepository: sl()),
     );
     sl.registerLazySingleton(() => GetHomeQuizzesUsecase(baseRepository: sl()));
-    sl.registerLazySingleton(() => AddUserSessionDateAndTimeUseCase(baseRepository: sl()));
+    sl.registerLazySingleton(
+      () => AddUserSessionDateAndTimeUseCase(baseRepository: sl()),
+    );
     sl.registerLazySingleton(() => GetMyChatsUsecase(baseRepository: sl()));
     sl.registerLazySingleton(() => UpdateFcmTokenUsecase(baseRepository: sl()));
     sl.registerLazySingleton(

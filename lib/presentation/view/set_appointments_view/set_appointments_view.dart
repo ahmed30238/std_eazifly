@@ -50,9 +50,7 @@ class _SetAppointmentsViewState extends State<SetAppointmentsView>
                   height: 20.h,
                   child: Text(
                     lang.students,
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: 12,
-                    ),
+                    style: MainTextStyle.boldTextStyle(fontSize: 12),
                   ),
                 ),
                 12.ph,
@@ -62,17 +60,13 @@ class _SetAppointmentsViewState extends State<SetAppointmentsView>
                 32.ph,
                 Text(
                   "اختر نوع المواعيد المناسبة",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 12,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 12),
                 ),
                 8.ph,
                 //! tab bar
                 const ScreenTabBar(),
                 //! tab bar view
-                ScreenTabbarView(
-                  programId: widget.programId,
-                ),
+                ScreenTabbarView(programId: widget.programId),
               ],
             ),
           ),

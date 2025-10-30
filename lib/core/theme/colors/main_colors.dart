@@ -26,17 +26,23 @@ class MainColors {
   // Helper methods to generate colors from user colors
   static Color _lighten(Color color, double amount) {
     final hsl = HSLColor.fromColor(color);
-    return hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0)).toColor();
+    return hsl
+        .withLightness((hsl.lightness + amount).clamp(0.0, 1.0))
+        .toColor();
   }
 
   static Color _darken(Color color, double amount) {
     final hsl = HSLColor.fromColor(color);
-    return hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0)).toColor();
+    return hsl
+        .withLightness((hsl.lightness - amount).clamp(0.0, 1.0))
+        .toColor();
   }
 
   static Color _adjustSaturation(Color color, double amount) {
     final hsl = HSLColor.fromColor(color);
-    return hsl.withSaturation((hsl.saturation + amount).clamp(0.0, 1.0)).toColor();
+    return hsl
+        .withSaturation((hsl.saturation + amount).clamp(0.0, 1.0))
+        .toColor();
   }
 
   // Primary Brand Colors (derived from user colors)
@@ -63,13 +69,16 @@ class MainColors {
   static Color get surfaceVariant => _lighten(_userBackground, 0.02);
   static Color get inputFill => MainColors.onPrimary.withValues(alpha: .04);
   static Color get outline => _lighten(_userPrimary, 0.35);
-  static Color get onSurfaceVariant => _adjustSaturation(_darken(_userSecondary, 0.05), -0.1);
+  static Color get onSurfaceVariant =>
+      _adjustSaturation(_darken(_userSecondary, 0.05), -0.1);
   static Color get surfaceContainerHighest => _lighten(_userBackground, 0.02);
   static Color get outlineVariant => _lighten(_userPrimary, 0.35);
 
   // Text and contrast colors (auto-generated)
-  static Color get muted => _adjustSaturation(_darken(_userSecondary, 0.05), -0.1);
-  static Color get onSurfaceSecondary => _adjustSaturation(_darken(_userSecondary, 0.05), -0.1);
+  static Color get muted =>
+      _adjustSaturation(_darken(_userSecondary, 0.05), -0.1);
+  static Color get onSurfaceSecondary =>
+      _adjustSaturation(_darken(_userSecondary, 0.05), -0.1);
   static Color get onPrimary => _getContrastColor(_userPrimary);
   static Color get onSecondary => _getContrastColor(_userSecondary);
   static Color get background => _userBackground;

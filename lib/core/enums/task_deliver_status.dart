@@ -1,5 +1,1 @@
-enum DeliverStatus {
-  deliverDone,
-  deliverUnderReview,
-  notDelivered,
-}
+enum DeliverStatus { deliverDone, deliverUnderReview, notDelivered }

@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AllItemsList extends StatelessWidget {
-  const AllItemsList({
-    super.key,
-  });
+  const AllItemsList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +15,8 @@ class AllItemsList extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) => AllMeetingItem(
-        onItemTap: () => Navigator.pushNamed(context,RoutePaths.meetingDataPath),
+        onItemTap: () =>
+            Navigator.pushNamed(context, RoutePaths.meetingDataPath),
         onTap: () {},
         isRecorded: index != 0,
       ),

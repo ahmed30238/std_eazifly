@@ -11,11 +11,7 @@ class GetLibrarySubscriptionEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetLibrarySubscriptionEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetLibrarySubscriptionEntity({this.data, this.status, this.message});
 }
 
 class GetLibrarySubscriptionDataEntity {

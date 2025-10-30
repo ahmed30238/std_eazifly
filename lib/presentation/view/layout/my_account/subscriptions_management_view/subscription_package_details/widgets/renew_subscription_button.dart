@@ -2,9 +2,7 @@ import 'package:eazifly_student/presentation/controller/my_account_controllers/s
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class RenewSubscriptionButton extends StatelessWidget {
-  RenewSubscriptionButton({
-    super.key,
-  });
+  RenewSubscriptionButton({super.key});
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -55,12 +53,14 @@ class RenewSubscriptionButton extends StatelessWidget {
                                     Text(
                                       "أدخل الكوبون من فضلك",
                                       style: MainTextStyle.boldTextStyle(
-                                          fontSize: 14),
+                                        fontSize: 14,
+                                      ),
                                     ),
                                     24.ph,
                                     Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 16.w),
+                                        horizontal: 16.w,
+                                      ),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -100,7 +100,7 @@ class RenewSubscriptionButton extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
@@ -131,7 +131,7 @@ class RenewSubscriptionButton extends StatelessWidget {
                         radius: 8.r,
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

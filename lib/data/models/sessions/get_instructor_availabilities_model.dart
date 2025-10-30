@@ -4,44 +4,54 @@ import 'package:json_annotation/json_annotation.dart';
 part 'get_instructor_availabilities_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class GetInstructorAvailabilitiesModel extends GetInstructorAvailabilitiesEntity {
+class GetInstructorAvailabilitiesModel
+    extends GetInstructorAvailabilitiesEntity {
   GetInstructorAvailabilitiesModel();
 
   factory GetInstructorAvailabilitiesModel.fromJson(Map<String, dynamic> json) {
     // Handle the case where data might be a List instead of Map
     var processedJson = Map<String, dynamic>.from(json);
-    
+
     if (json['data'] is List) {
       // If data is an empty list, convert it to null
       processedJson['data'] = null;
     }
-    
+
     return _$GetInstructorAvailabilitiesModelFromJson(processedJson);
   }
 
-  Map<String, dynamic> toJson() => _$GetInstructorAvailabilitiesModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetInstructorAvailabilitiesModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetInstructorAvailabilitieDataModel extends GetInstructorAvailabilitieDataEntity {
+class GetInstructorAvailabilitieDataModel
+    extends GetInstructorAvailabilitieDataEntity {
   GetInstructorAvailabilitieDataModel();
 
-  factory GetInstructorAvailabilitieDataModel.fromJson(Map<String, dynamic> json) {
+  factory GetInstructorAvailabilitieDataModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return _$GetInstructorAvailabilitieDataModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$GetInstructorAvailabilitieDataModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetInstructorAvailabilitieDataModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetInstructorAvailabilitieDayModel extends GetInstructorAvailabilitieDayEntity {
+class GetInstructorAvailabilitieDayModel
+    extends GetInstructorAvailabilitieDayEntity {
   GetInstructorAvailabilitieDayModel();
 
-  factory GetInstructorAvailabilitieDayModel.fromJson(Map<String, dynamic> json) {
+  factory GetInstructorAvailabilitieDayModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return _$GetInstructorAvailabilitieDayModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$GetInstructorAvailabilitieDayModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetInstructorAvailabilitieDayModelToJson(this);
 }
 
 // ============ Alternative Solution: Custom fromJson with error handling ============
@@ -54,10 +64,10 @@ class GetInstructorAvailabilitieDayModel extends GetInstructorAvailabilitieDayEn
 
 //   factory GetInstructorAvailabilitiesModelSafe.fromJson(Map<String, dynamic> json) {
 //     GetInstructorAvailabilitieDataModel? dataModel;
-    
+
 //     try {
 //       var dataValue = json['data'];
-      
+
 //       if (dataValue is Map<String, dynamic>) {
 //         // Normal case: data is a Map
 //         dataModel = GetInstructorAvailabilitieDataModel.fromJson(dataValue);

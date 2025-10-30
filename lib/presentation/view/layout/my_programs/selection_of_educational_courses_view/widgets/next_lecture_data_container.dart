@@ -2,17 +2,12 @@ import 'package:eazifly_student/presentation/view/layout/my_programs/selection_o
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class NextLectureDataContainer extends StatelessWidget {
-  const NextLectureDataContainer({
-    super.key,
-  });
+  const NextLectureDataContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 8.w,
-        vertical: 12.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 12.h),
       height: 207.h,
       width: 343.w,
       decoration: BoxDecoration(
@@ -24,9 +19,7 @@ class NextLectureDataContainer extends StatelessWidget {
         children: [
           Text(
             "بيانات المحاضرات القادمة",
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 14,
-            ),
+            style: MainTextStyle.boldTextStyle(fontSize: 14),
           ),
           12.ph,
           SizedBox(

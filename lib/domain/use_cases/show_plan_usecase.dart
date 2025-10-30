@@ -10,8 +10,9 @@ class ShowPlanUsecase extends BaseUsecase<ShowPlanEntity, ShowPlanParameters> {
   ShowPlanUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, ShowPlanEntity>> call(
-      {required ShowPlanParameters parameter}) async {
+  Future<Either<Failure, ShowPlanEntity>> call({
+    required ShowPlanParameters parameter,
+  }) async {
     return await baseRepository.showPlan(planId: parameter.planId);
   }
 }

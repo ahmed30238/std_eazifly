@@ -27,9 +27,7 @@ class FlexibleHourBody extends StatelessWidget {
       children: [
         Text(
           "هذه الخدمة غير متاحة في الوقت الحالي",
-          style: MainTextStyle.boldTextStyle(
-            fontSize: 14,
-          ),
+          style: MainTextStyle.boldTextStyle(fontSize: 14),
         ),
         10.ph,
         Text(

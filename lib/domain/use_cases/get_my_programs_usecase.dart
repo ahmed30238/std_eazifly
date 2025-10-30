@@ -11,8 +11,9 @@ class GetMyProgramsUsecase
   GetMyProgramsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetMyProgramsEntity>> call(
-      {required NoParameter parameter}) async {
+  Future<Either<Failure, GetMyProgramsEntity>> call({
+    required NoParameter parameter,
+  }) async {
     return baseRepository.getMyPrograms();
   }
 }

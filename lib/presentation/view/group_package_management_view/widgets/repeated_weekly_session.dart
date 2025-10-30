@@ -114,7 +114,6 @@ class RepeatedWeeklySession extends StatelessWidget {
                                     context,
                                     sessionIndex,
                                     programId,
-
                                   );
                                 },
                                 child: AbsorbPointer(

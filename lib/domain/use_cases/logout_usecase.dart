@@ -10,8 +10,9 @@ class LogoutUsecase extends BaseUsecase<LogoutEntity, NoParameter> {
   LogoutUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, LogoutEntity>> call(
-      {required NoParameter parameter}) async {
+  Future<Either<Failure, LogoutEntity>> call({
+    required NoParameter parameter,
+  }) async {
     return await baseRepository.logout();
   }
 }

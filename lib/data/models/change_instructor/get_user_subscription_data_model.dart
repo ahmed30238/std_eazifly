@@ -14,11 +14,14 @@ class GetUserSubscriptionDataModel extends GetUserSubscriptionDataEntity {
 }
 
 @JsonSerializable(explicitToJson: true)
-class GetUserSubscriptionDataDataModel extends GetUserSubscriptionDataDataEntity {
+class GetUserSubscriptionDataDataModel
+    extends GetUserSubscriptionDataDataEntity {
   GetUserSubscriptionDataDataModel();
 
-  factory GetUserSubscriptionDataDataModel.fromJson(Map<String, dynamic> json) =>
-      _$GetUserSubscriptionDataDataModelFromJson(json);
+  factory GetUserSubscriptionDataDataModel.fromJson(
+    Map<String, dynamic> json,
+  ) => _$GetUserSubscriptionDataDataModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetUserSubscriptionDataDataModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$GetUserSubscriptionDataDataModelToJson(this);
 }

@@ -108,9 +108,7 @@ class LecturequizCubit extends Cubit<LecturequizState> {
     emit(SubmitQuizLoadingState());
 
     final result = await submitQuizUsecase.call(
-      parameter: SubmitQuizParameters(
-        data: data,
-      ),
+      parameter: SubmitQuizParameters(data: data),
     );
 
     result.fold(
@@ -124,10 +122,13 @@ class LecturequizCubit extends Cubit<LecturequizState> {
         clearAfterSubmit();
         emit(SubmitQuizSuccessState());
         delightfulToast(message: "تم رفع الاجابات بنجاح", context: context);
-        Navigator.pushReplacementNamed(context, RoutePaths.lectureView,
-            arguments: {
-              "programId": context.read<LectureCubit>().currentProgramId
-            });
+        Navigator.pushReplacementNamed(
+          context,
+          RoutePaths.lectureView,
+          arguments: {
+            "programId": context.read<LectureCubit>().currentProgramId,
+          },
+        );
       },
     );
   }

@@ -73,11 +73,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
 
   List<String> tabs(BuildContext context) {
     var lang = context.loc!;
-    return [
-      lang.all,
-      lang.programs,
-      lang.library,
-    ];
+    return [lang.all, lang.programs, lang.library];
   }
 
   // int programId = -1;
@@ -93,7 +89,9 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     emit(GetProgramPaymentMethodDetailsLoadingState());
     final result = await getPaymentMethodDetailsUsecase.call(
       parameter: GetPaymentMethodDetailsParameters(
-          methodId: methodId, programId: programId),
+        methodId: methodId,
+        programId: programId,
+      ),
     );
     result.fold(
       (l) {
@@ -116,7 +114,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     log("filled student number: ${this.studentNumber}");
   }
 
-  void initTabBarController(TickerProvider vsync,BuildContext context) {
+  void initTabBarController(TickerProvider vsync, BuildContext context) {
     controller = TabController(length: tabs(context).length, vsync: vsync);
     controller.addListener(() {
       if (controller.indexIsChanging) {
@@ -144,8 +142,9 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     getProgramSubscriptionLoader = true;
     emit(GetProgramSubscriptionLoadingState());
 
-    final result =
-        await getProgramSubscriptionUsecase.call(parameter: NoParameter());
+    final result = await getProgramSubscriptionUsecase.call(
+      parameter: NoParameter(),
+    );
 
     result.fold(
       (failure) {
@@ -190,9 +189,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   CancelSubscriptionEntity? cancelSubscriptionEntity;
   CancelSubscriptionUsecase cancelSubscriptionUsecase;
 
-  Future<void> cancelSubscription({
-    required int mainId,
-  }) async {
+  Future<void> cancelSubscription({required int mainId}) async {
     cancelSubscriptionLoader = true;
     emit(CancelSubscriptionLoadingState());
 
@@ -232,24 +229,29 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     if (planDetailsEntity?.data?.id == null ||
         planDetailsEntity!.data!.id! <= 0) {
       log("planDetailsEntity is null");
-      emit(RenewSubscriptionErrorState(
-          errorMessage: "خطأ: معرف الخطة غير صحيح"));
+      emit(
+        RenewSubscriptionErrorState(errorMessage: "خطأ: معرف الخطة غير صحيح"),
+      );
       return;
     }
 
     if (programId <= 0) {
       log("programId is invalid: $programId");
 
-      emit(RenewSubscriptionErrorState(
-          errorMessage: "خطأ: معرف البرنامج غير صحيح"));
+      emit(
+        RenewSubscriptionErrorState(
+          errorMessage: "خطأ: معرف البرنامج غير صحيح",
+        ),
+      );
       return;
     }
 
     if (studentNumber <= 0) {
       log("studentNumber is invalid: $studentNumber");
 
-      emit(RenewSubscriptionErrorState(
-          errorMessage: "خطأ: رقم الطالب غير صحيح"));
+      emit(
+        RenewSubscriptionErrorState(errorMessage: "خطأ: رقم الطالب غير صحيح"),
+      );
       return;
     }
 
@@ -398,8 +400,11 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
 
   Future<void> getLibrarySubscription({required int userId}) async {
     if (userId <= 0) {
-      emit(GetLibrarySubscriptionErrorState(
-          errorMessage: "خطأ: معرف المستخدم غير صحيح"));
+      emit(
+        GetLibrarySubscriptionErrorState(
+          errorMessage: "خطأ: معرف المستخدم غير صحيح",
+        ),
+      );
       return;
     }
 
@@ -423,12 +428,15 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     );
   }
 
-// 4. تحسين loadAllSubscriptions
+  // 4. تحسين loadAllSubscriptions
   void loadAllSubscriptions() {
     final userId = loginData?.id;
     if (userId == null || userId <= 0) {
-      emit(GetLibrarySubscriptionErrorState(
-          errorMessage: "خطأ: المستخدم غير مسجل الدخول"));
+      emit(
+        GetLibrarySubscriptionErrorState(
+          errorMessage: "خطأ: المستخدم غير مسجل الدخول",
+        ),
+      );
       return;
     }
 
@@ -436,7 +444,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     getLibrarySubscription(userId: userId);
   }
 
-// 5. تحسين changeTapbarIndex
+  // 5. تحسين changeTapbarIndex
   void changeTapbarIndex(int index) {
     tapbarIndex = index;
 
@@ -450,8 +458,11 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
       case 2: // الاشتراكات
         final userId = loginData?.id;
         if (userId == null || userId <= 0) {
-          emit(GetLibrarySubscriptionErrorState(
-              errorMessage: "خطأ: المستخدم غير مسجل الدخول"));
+          emit(
+            GetLibrarySubscriptionErrorState(
+              errorMessage: "خطأ: المستخدم غير مسجل الدخول",
+            ),
+          );
           return;
         }
         getLibrarySubscription(userId: userId);
@@ -469,7 +480,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     return true;
   }
 
-// 7. إضافة دالة للتحقق من صحة خطة الاشتراك
+  // 7. إضافة دالة للتحقق من صحة خطة الاشتراك
   bool validatePlanData() {
     if (planDetailsEntity?.data?.id == null ||
         planDetailsEntity!.data!.id! <= 0) {
@@ -479,7 +490,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     return true;
   }
 
-// 8. تحسين filterPlans للتأكد من وجود البيانات
+  // 8. تحسين filterPlans للتأكد من وجود البيانات
   @override
   Future<void> filterPlans({
     required int programId,
@@ -493,7 +504,8 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
 
     if (getPlansEntity?.data == null) {
       emit(
-          FilterPlansErrorState(errorMessage: "خطأ: لا توجد بيانات خطط متاحة"));
+        FilterPlansErrorState(errorMessage: "خطأ: لا توجد بيانات خطط متاحة"),
+      );
       return;
     }
 
@@ -544,24 +556,18 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
 
   TextEditingController codeController = TextEditingController();
 
-  Future<void> showPlan({
-    required int planId,
-  }) async {
+  Future<void> showPlan({required int planId}) async {
     showPlanLoader = true;
     emit(ShowPlanLoadingState());
 
     final result = await showPlanUsecase.call(
-      parameter: ShowPlanParameters(
-        planId: planId,
-      ),
+      parameter: ShowPlanParameters(planId: planId),
     );
 
     result.fold(
       (failure) {
         showPlanLoader = false;
-        emit(ShowPlanErrorState(
-          errorMessage: failure.message,
-        ));
+        emit(ShowPlanErrorState(errorMessage: failure.message));
       },
       (data) {
         showPlanLoader = false;
@@ -580,7 +586,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   @override
   final TextEditingController startDate = TextEditingController();
 
-// Properties
+  // Properties
   @override
   int planSubscribeDaysIndex = 0;
 
@@ -593,7 +599,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
   @override
   GetPlansEntity? getPlansEntity;
 
-// Methods
+  // Methods
   @override
   void changePlanIndex(int index) {
     planSubscribeDaysIndex = index;
@@ -632,9 +638,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     getPlansLoader = true;
     emit(GetPlansLoadingState());
     final result = await getPlansUsecase.call(
-      parameter: GetPlansParameters(
-        programId: programId,
-      ),
+      parameter: GetPlansParameters(programId: programId),
     );
     result.fold(
       (l) {
@@ -664,7 +668,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
 
   // GetPaymentMethodDetailsUsecase getPaymentMethodDetailsUsecase;
   bool getPlanSubscriptionLoader = false; // لتحميل فترات الاشتراك
-// bool getPlansLoader = false; // لتحميل الخطط
+  // bool getPlansLoader = false; // لتحميل الخطط
   bool getPlansWithDetailsLoader = false; // لتحميل الخطط مع التفاصيل
   bool filterPlansLoader = false; // لتحميل الخطط المفلترة
   bool checkCopounLoader = false; // لتحميل التحقق من الكوبون
@@ -679,9 +683,7 @@ class SubscriptionmanagementCubit extends SubscriptionPlanCubit {
     emit(CheckCopounLoadingState());
     final result = await checkCopounUsecase.call(
       parameter: CheckCopounDataParameters(
-        data: CheckCopounTojson(
-          code: couponController.text,
-        ),
+        data: CheckCopounTojson(code: couponController.text),
       ),
     );
     result.fold(

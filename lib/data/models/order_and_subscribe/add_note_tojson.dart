@@ -13,10 +13,10 @@ class AddNoteTojson {
     required this.image,
   });
   Map<String, dynamic> toJson() => {
-        "title": title,
-        "description": description,
-        "order_id": orderId,
-        "user_id": userId,
-        "image": image,
-      };
+    "title": title,
+    "description": description,
+    "order_id": orderId,
+    "user_id": userId,
+    "image": image,
+  };
 }

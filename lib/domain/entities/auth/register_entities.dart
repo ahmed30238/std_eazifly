@@ -10,11 +10,7 @@ class RegisterEntity {
   @JsonKey(name: "message")
   String? message;
 
-  RegisterEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  RegisterEntity({this.data, this.status, this.message});
 }
 
 class RegisterDataEntity {
@@ -107,9 +103,5 @@ class RegisterStatusLabelEntity {
   @JsonKey(name: "key")
   String? key;
 
-  RegisterStatusLabelEntity({
-    this.label,
-    this.color,
-    this.key,
-  });
+  RegisterStatusLabelEntity({this.label, this.color, this.key});
 }

@@ -1,7 +1,6 @@
 import 'package:eazifly_student/domain/entities/filter_plan_entities.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'filter_plans_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)

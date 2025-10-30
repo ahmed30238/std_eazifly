@@ -25,8 +25,9 @@ class DeliveriesBodyWidget extends StatelessWidget {
         var date = assignment?.createdAt;
 
         // تحويل الـ state من السيرفر إلى enum
-        DeliverStatus deliverState =
-            getDeliverStatusFromString(assignments?[index].status);
+        DeliverStatus deliverState = getDeliverStatusFromString(
+          assignments?[index].status,
+        );
         bool isDelivered = isAssignmentDelivered(assignments?[index].status);
 
         return CustomListTile(
@@ -37,12 +38,12 @@ class DeliveriesBodyWidget extends StatelessWidget {
               arguments: assignment?.isUploaded ?? true
                   ? {
                       "assignmentId": assignment?.id,
-                      "assignmentTitle": assignment?.title
+                      "assignmentTitle": assignment?.title,
                     }
                   : {
                       "cubit": cubit,
                       "assignmentId": assignment?.id,
-                      "assignmentTitle": assignment?.title
+                      "assignmentTitle": assignment?.title,
                     },
               context,
               assignment?.isUploaded ?? true

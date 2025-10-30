@@ -1,7 +1,6 @@
 import 'package:eazifly_student/data/models/home/get_home_quizzes_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-
 class GetHomeQuizzesEntity {
   @JsonKey(name: "data")
   List<GetHomeQuizzesDatumModel>? data;
@@ -10,11 +9,7 @@ class GetHomeQuizzesEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetHomeQuizzesEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetHomeQuizzesEntity({this.data, this.status, this.message});
 }
 
 class GetHomeQuizzesDatumEntity {

@@ -9,7 +9,7 @@ class ChatItem extends StatelessWidget {
   final VoidCallback onTap;
   // final bool isFirstChat;
   final int? unreadCount; // إضافة عدد الرسائل غير المقروءة
-  
+
   const ChatItem({
     super.key,
     required this.onTap,
@@ -39,7 +39,7 @@ class ChatItem extends StatelessWidget {
               imageUrl: profileAvatar,
             ),
             12.pw,
-            
+
             // محتوى الرسالة
             Expanded(
               child: Column(
@@ -67,16 +67,17 @@ class ChatItem extends StatelessWidget {
                         time,
                         style: MainTextStyle.regularTextStyle(
                           color: unreadCount != null && unreadCount! > 0
-                              ? MainColors.surfaceVariant // لون مختلف للرسائل غير المقروءة
+                              ? MainColors
+                                    .surfaceVariant // لون مختلف للرسائل غير المقروءة
                               : MainColors.onSurfaceSecondary,
                           fontSize: 12,
                         ),
                       ),
                     ],
                   ),
-                  
+
                   4.ph,
-                  
+
                   // الصف الثاني: محتوى الرسالة وعدد الرسائل غير المقروءة
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -87,7 +88,8 @@ class ChatItem extends StatelessWidget {
                           lastMessageContent,
                           style: MainTextStyle.regularTextStyle(
                             color: unreadCount != null && unreadCount! > 0
-                                ? MainColors.onSecondary // نص أغمق للرسائل غير المقروءة
+                                ? MainColors
+                                      .onSecondary // نص أغمق للرسائل غير المقروءة
                                 : MainColors.onSurfaceSecondary,
                             fontSize: 14,
                             // fontWeight: unreadCount != null && unreadCount! > 0
@@ -98,7 +100,7 @@ class ChatItem extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      
+
                       // عدد الرسائل غير المقروءة
                       if (unreadCount != null && unreadCount! > 0) ...[
                         8.pw,

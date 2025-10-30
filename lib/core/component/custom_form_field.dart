@@ -97,53 +97,41 @@ class CustomTextFormField extends StatelessWidget {
           fontSize: 12,
           color: MainColors.onSurfaceVariant,
         ),
-        suffixIconConstraints: BoxConstraints(
-          minHeight: 2.h,
-          minWidth: 2.w,
-        ),
-        prefixIconConstraints: BoxConstraints(
-          minHeight: 2.h,
-          minWidth: 2.w,
-        ),
-        disabledBorder: disabledBorder ??
+        suffixIconConstraints: BoxConstraints(minHeight: 2.h, minWidth: 2.w),
+        prefixIconConstraints: BoxConstraints(minHeight: 2.h, minWidth: 2.w),
+        disabledBorder:
+            disabledBorder ??
             OutlineInputBorder(
-              borderSide: BorderSide(
-                width: 1.5.w,
-                color: MainColors.outline,
-              ),
+              borderSide: BorderSide(width: 1.5.w, color: MainColors.outline),
               borderRadius: 12.cr,
             ),
         prefixIcon: prefixIconWidget,
-        suffixIcon: suffixIconWidget ??
+        suffixIcon:
+            suffixIconWidget ??
             (suffixIcon != null
-                ? IconButton(
-                    icon: Icon(suffixIcon),
-                    onPressed: onSuffixPressed,
-                  )
+                ? IconButton(icon: Icon(suffixIcon), onPressed: onSuffixPressed)
                 : null),
         contentPadding: EdgeInsets.symmetric(
           vertical: vPadding ?? 16.h,
           horizontal: 9.w,
         ),
-        enabledBorder: enabledBorder ??
+        enabledBorder:
+            enabledBorder ??
             OutlineInputBorder(
-              borderSide: BorderSide(
-                width: 1.5.w,
-                color: MainColors.outline,
-              ),
+              borderSide: BorderSide(width: 1.5.w, color: MainColors.outline),
               borderRadius: borderRadius ?? 12.cr,
             ),
         enabled: enabled ?? true,
         filled: filled ?? true,
         fillColor: filledColor ?? MainColors.inputFill,
-        border: border ??
+        border:
+            border ??
             OutlineInputBorder(
-              borderSide: BorderSide(
-                width: 1.5.w,
-              ),
+              borderSide: BorderSide(width: 1.5.w),
               borderRadius: borderRadius ?? 12.cr,
             ),
-        focusedBorder: focusedBorder ??
+        focusedBorder:
+            focusedBorder ??
             OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1.5.w,

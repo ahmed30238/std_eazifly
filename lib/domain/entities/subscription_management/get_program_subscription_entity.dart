@@ -13,11 +13,7 @@ class GetProgramSubscriptionEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetProgramSubscriptionEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetProgramSubscriptionEntity({this.data, this.status, this.message});
 }
 
 class GetProgramSubscriptionDatumEntity {
@@ -87,11 +83,7 @@ class GetProgramSubscriptionInstructorEntity {
   @JsonKey(name: "image")
   String? image;
 
-  GetProgramSubscriptionInstructorEntity({
-    this.id,
-    this.name,
-    this.image,
-  });
+  GetProgramSubscriptionInstructorEntity({this.id, this.name, this.image});
 }
 
 class GetProgramSubscriptionPlanEntity {

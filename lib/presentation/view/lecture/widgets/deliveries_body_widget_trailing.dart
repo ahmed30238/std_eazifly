@@ -1,4 +1,3 @@
-
 import 'package:eazifly_student/core/enums/task_deliver_status.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
@@ -20,15 +19,9 @@ class DeliveriesBodyWidgetTrailing extends StatelessWidget {
         isDelivered
             ? Row(
                 children: [
-                  const Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                  ),
+                  const Icon(Icons.star, color: Colors.yellow),
                   4.pw,
-                  Text(
-                    mark,
-                    style: MainTextStyle.boldTextStyle(fontSize: 14),
-                  ),
+                  Text(mark, style: MainTextStyle.boldTextStyle(fontSize: 14)),
                 ],
               )
             : 0.ph,

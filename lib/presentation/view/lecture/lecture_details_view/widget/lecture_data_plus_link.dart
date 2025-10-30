@@ -4,10 +4,9 @@ import 'package:eazifly_student/core/theme/text_styles.dart/styles.dart';
 import 'package:eazifly_student/presentation/view/lecture/widgets/lecture_link_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class LectureDataPlusLinkRow extends StatelessWidget {
-  const LectureDataPlusLinkRow({
-    super.key,
-  });
+  const LectureDataPlusLinkRow({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +17,9 @@ class LectureDataPlusLinkRow extends StatelessWidget {
           width: 100.w,
           height: 72.h,
           decoration: BoxDecoration(
-              color: MainColors.inputFill,
-              borderRadius: BorderRadius.circular(12.r)),
+            color: MainColors.inputFill,
+            borderRadius: BorderRadius.circular(12.r),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -50,9 +50,8 @@ class LectureDataPlusLinkRow extends StatelessWidget {
           host: "put host",
           programId: 1, // TODO
           linkAlignment: MainAxisAlignment.start,
-          onLinkTap: (){},
+          onLinkTap: () {},
           width: 227.w,
-    
         ),
       ],
     );

@@ -8,11 +8,7 @@ class GetFavouriteListEntity {
   int? status;
   @JsonKey(name: "message")
   String? message;
-  GetFavouriteListEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetFavouriteListEntity({this.data, this.status, this.message});
 }
 
 class FavouriteDatumEntity {
@@ -24,10 +20,5 @@ class FavouriteDatumEntity {
   String? image;
   @JsonKey(name: "number_of_items")
   int? numberOfItems;
-  FavouriteDatumEntity({
-    this.id,
-    this.title,
-    this.image,
-    this.numberOfItems,
-  });
+  FavouriteDatumEntity({this.id, this.title, this.image, this.numberOfItems});
 }

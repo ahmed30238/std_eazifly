@@ -18,7 +18,7 @@ class LectureViewLoader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(
                   3,
-                      (index) => Container(
+                  (index) => Container(
                     height: 80.h,
                     width: 108.w,
                     decoration: BoxDecoration(
@@ -26,8 +26,10 @@ class LectureViewLoader extends StatelessWidget {
                       color: MainColors.inputFill,
                     ),
                     child: Padding(
-                      padding:
-                      EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
+                      padding: EdgeInsets.symmetric(
+                        vertical: 8.h,
+                        horizontal: 8.w,
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -74,10 +76,7 @@ class LectureViewLoader extends StatelessWidget {
                           ),
                         ),
                         8.ph,
-                        ShimmerContainer(
-                          height: 10.h,
-                          width: 90.w,
-                        ),
+                        ShimmerContainer(height: 10.h, width: 90.w),
                       ],
                     ),
                   ),
@@ -105,14 +104,8 @@ class LectureViewLoader extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            ShimmerContainer(
-                              width: 60.w,
-                              height: 10.h,
-                            ),
-                            ShimmerContainer(
-                              width: 60.w,
-                              height: 10.h,
-                            ),
+                            ShimmerContainer(width: 60.w, height: 10.h),
+                            ShimmerContainer(width: 60.w, height: 10.h),
                           ],
                         ),
                       ],
@@ -153,10 +146,7 @@ class LectureViewLoader extends StatelessWidget {
                     ],
                   ),
                   8.ph,
-                  ShimmerContainer(
-                    width: double.infinity,
-                    height: 8.h,
-                  ),
+                  ShimmerContainer(width: double.infinity, height: 8.h),
                 ],
               ),
             ),
@@ -169,9 +159,7 @@ class LectureViewLoader extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 width: double.infinity,
                 height: 60.h,
-                decoration: BoxDecoration(
-                  color: MainColors.inputFill,
-                ),
+                decoration: BoxDecoration(color: MainColors.inputFill),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -219,8 +207,10 @@ class LectureViewLoader extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
               itemBuilder: (context, index) {
                 return Container(
-                  padding:
-                  EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 24.w,
+                    vertical: 16.h,
+                  ),
                   decoration: BoxDecoration(
                     color: MainColors.inputFill,
                     borderRadius: BorderRadius.circular(8.r),
@@ -288,9 +278,7 @@ class ShimmerContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(3.r),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(3.r)),
       height: height ?? 10.h,
       width: width,
       child: const ShimmerWidget(),

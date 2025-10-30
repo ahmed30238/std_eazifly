@@ -30,9 +30,7 @@ class SelectionProgramItemDetailsView extends StatelessWidget {
                   borderRadius: 8.cr,
                   image: const DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage(
-                      Assets.imagesPersona,
-                    ),
+                    image: AssetImage(Assets.imagesPersona),
                   ),
                 ),
               ),
@@ -64,7 +62,7 @@ class SelectionProgramItemDetailsView extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -72,9 +70,7 @@ class SelectionProgramItemDetailsView extends StatelessWidget {
 }
 
 class ProgramDataContainer extends StatelessWidget {
-  const ProgramDataContainer({
-    super.key,
-  });
+  const ProgramDataContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -95,9 +91,7 @@ class ProgramDataContainer extends StatelessWidget {
               const Spacer(),
               InkWell(
                 onTap: () {},
-                child: SvgPicture.asset(
-                  Assets.iconsVerticalDots,
-                ),
+                child: SvgPicture.asset(Assets.iconsVerticalDots),
               ),
             ],
           ),
@@ -110,9 +104,7 @@ class ProgramDataContainer extends StatelessWidget {
 }
 
 class LectureDates extends StatelessWidget {
-  const LectureDates({
-    super.key,
-  });
+  const LectureDates({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -129,9 +121,7 @@ class LectureDates extends StatelessWidget {
         ...List.generate(
           3,
           (index) => Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: index == 1 ? 32.w : 0,
-            ),
+            margin: EdgeInsets.symmetric(horizontal: index == 1 ? 32.w : 0),
             height: 46.h,
             width: 54.w,
             child: Column(
@@ -139,16 +129,16 @@ class LectureDates extends StatelessWidget {
                 Text(
                   "السبت",
                   style: MainTextStyle.boldTextStyle(
-                      fontSize: 12, color: MainColors.onSurfaceSecondary),
+                    fontSize: 12,
+                    color: MainColors.onSurfaceSecondary,
+                  ),
                 ),
                 Expanded(
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
                       "12:45 PM",
-                      style: MainTextStyle.boldTextStyle(
-                        fontSize: 12,
-                      ),
+                      style: MainTextStyle.boldTextStyle(fontSize: 12),
                     ),
                   ),
                 ),
@@ -162,9 +152,7 @@ class LectureDates extends StatelessWidget {
 }
 
 class TeacherData extends StatelessWidget {
-  const TeacherData({
-    super.key,
-  });
+  const TeacherData({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -174,28 +162,19 @@ class TeacherData extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            "المعلم",
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 12,
-            ),
-          ),
+          Text("المعلم", style: MainTextStyle.boldTextStyle(fontSize: 12)),
           4.ph,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AvatarImage(
-                height: 24.h,
-                width: 24.w,
-                radius: 8.r,
-              ),
+              AvatarImage(height: 24.h, width: 24.w, radius: 8.r),
               4.pw,
               Text(
                 "علي وائل",
                 style: MainTextStyle.boldTextStyle(fontSize: 12),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -203,9 +182,7 @@ class TeacherData extends StatelessWidget {
 }
 
 class StudentData extends StatelessWidget {
-  const StudentData({
-    super.key,
-  });
+  const StudentData({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -216,11 +193,7 @@ class StudentData extends StatelessWidget {
         children: [
           Row(
             children: [
-              AvatarImage(
-                height: 40.h,
-                width: 40.w,
-                shape: BoxShape.circle,
-              ),
+              AvatarImage(height: 40.h, width: 40.w, shape: BoxShape.circle),
               8.pw,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,9 +211,9 @@ class StudentData extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

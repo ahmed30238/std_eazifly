@@ -5,10 +5,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class ScreenTabbarView extends StatelessWidget {
   final int programId;
-  const ScreenTabbarView({
-    super.key,
-    required this.programId,
-  });
+  const ScreenTabbarView({super.key, required this.programId});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +19,8 @@ class ScreenTabbarView extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           controller: cubit.controller,
           children: [
-            FixedDatesBody(
-              programId: programId,
-            ),
-            const FlexibleHourBody()
+            FixedDatesBody(programId: programId),
+            const FlexibleHourBody(),
           ],
         ),
       ),

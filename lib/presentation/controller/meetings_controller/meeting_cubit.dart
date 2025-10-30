@@ -10,23 +10,17 @@ class MeetingCubit extends Cubit<MeetingState> {
   late TabController tabController;
   void initController(TickerProvider vsync) {
     tabController = TabController(length: 3, vsync: vsync)
-      ..addListener(
-        () {
-          if (tabController.indexIsChanging) {
-            emit(ChangeTabControllerIndexState());
-            tabController.animateTo(tabController.index);
-          }
-        },
-      );
+      ..addListener(() {
+        if (tabController.indexIsChanging) {
+          emit(ChangeTabControllerIndexState());
+          tabController.animateTo(tabController.index);
+        }
+      });
     emit(InitTabControllerState());
   }
 
   List<String> tabs(BuildContext context) {
-    var tabs = [
-      "الكل",
-      "قادمة",
-      "مسجلة",
-    ];
+    var tabs = ["الكل", "قادمة", "مسجلة"];
     return tabs;
   }
 

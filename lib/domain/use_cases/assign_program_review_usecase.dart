@@ -6,17 +6,17 @@ import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/assign_program_review_entities.dart';
 import 'package:equatable/equatable.dart';
 
-class AssignProgramReviewUsecase extends BaseUsecase<AssignProgramReviewEntity,
-    AssignProgramReviewParameter> {
+class AssignProgramReviewUsecase
+    extends
+        BaseUsecase<AssignProgramReviewEntity, AssignProgramReviewParameter> {
   final BaseRepository baseRepository;
   AssignProgramReviewUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, AssignProgramReviewEntity>> call(
-      {required AssignProgramReviewParameter parameter}) async {
-    return await baseRepository.assignProgramReview(
-      data: parameter.data,
-    );
+  Future<Either<Failure, AssignProgramReviewEntity>> call({
+    required AssignProgramReviewParameter parameter,
+  }) async {
+    return await baseRepository.assignProgramReview(data: parameter.data);
   }
 }
 

@@ -23,9 +23,7 @@ class LectureHistoryDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
-      constraints: BoxConstraints(
-        minHeight: 149.h,
-      ),
+      constraints: BoxConstraints(minHeight: 149.h),
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: 16.cr,
@@ -84,20 +82,14 @@ class LectureHistoryDetails extends StatelessWidget {
               const Spacer(),
               InkWell(
                 onTap: () => lectureReportModelSheet(context, index),
-                child: SvgPicture.asset(
-                  Assets.iconsHorizontalDots,
-                ),
+                child: SvgPicture.asset(Assets.iconsHorizontalDots),
               ),
             ],
           ),
           const CustomHorizontalDivider(),
           ItemDetailsCard(
             values: [sessionDate, sessionTime, "$sessionDuration دقيقة"],
-            titles: const [
-              "تاريخ المحاضرة",
-              "وقت المحاضرة",
-              "مدة المحاضرة",
-            ],
+            titles: const ["تاريخ المحاضرة", "وقت المحاضرة", "مدة المحاضرة"],
           ),
         ],
       ),
@@ -113,7 +105,7 @@ class LectureHistoryDetails extends StatelessWidget {
 //   Widget build(BuildContext context) {
 //     switch (status) {
 //       case "pending":
-//         return 
+//         return
 //       case "danger":
 //         return TextedContainer(
 //           height: 30.h,

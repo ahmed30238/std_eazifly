@@ -36,10 +36,7 @@ class _GroupPackageManagementViewState
   @override
   Widget build(BuildContext context) {
     const stepIcons = [Assets.iconsPeople, Assets.iconsLecturerIcon];
-    final List<String> titles = [
-      "إختيار الطلاب",
-      "إختيار المعلمين",
-    ];
+    final List<String> titles = ["إختيار الطلاب", "إختيار المعلمين"];
     var lang = context.loc!;
     return Scaffold(
       appBar: CustomAppBar(
@@ -73,9 +70,9 @@ class _GroupPackageManagementViewState
                 Expanded(
                   child: BlocBuilder(
                     bloc: cubit,
-                    builder: (context, state) =>
-                        cubit.bodies(int.tryParse(widget.programId) ?? -1)[
-                            cubit.stepperIndex],
+                    builder: (context, state) => cubit.bodies(
+                      int.tryParse(widget.programId) ?? -1,
+                    )[cubit.stepperIndex],
                   ),
                 ),
               ],

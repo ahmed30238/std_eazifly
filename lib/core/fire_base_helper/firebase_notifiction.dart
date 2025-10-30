@@ -245,7 +245,8 @@ class NotificationService {
       android: AndroidNotificationDetails(
         NotificationConstants.highImportanceChannelId,
         NotificationConstants.highImportanceChannelName,
-        channelDescription: NotificationConstants.highImportanceChannelDescription,
+        channelDescription:
+            NotificationConstants.highImportanceChannelDescription,
         importance: Importance.high,
         priority: Priority.high,
         icon: NotificationConstants.androidIcon,

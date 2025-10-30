@@ -14,7 +14,7 @@ class GetMessagesDatumEntities {
   static int? customInt(val) => int.tryParse(val?.toString() ?? "");
   @JsonKey(name: "id")
   int? id;
-  @JsonKey(name: "chat_id",fromJson: customInt)
+  @JsonKey(name: "chat_id", fromJson: customInt)
   int? chatId;
   @JsonKey(name: "sender_type")
   String? senderType;

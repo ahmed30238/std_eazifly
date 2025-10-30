@@ -58,5 +58,3 @@ class PaymentMethodContainerShimmer extends StatelessWidget {
     );
   }
 }
-
-

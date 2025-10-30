@@ -11,11 +11,7 @@ class CheckCopounEntity {
   @JsonKey(name: "message")
   String? message;
 
-  CheckCopounEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  CheckCopounEntity({this.data, this.status, this.message});
 }
 
 class CheckCopounDataEntity {

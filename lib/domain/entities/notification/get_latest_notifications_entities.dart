@@ -8,11 +8,7 @@ class GetLatestNotificationsEntities {
   int? status;
   @JsonKey(name: "message")
   String? message;
-  GetLatestNotificationsEntities({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetLatestNotificationsEntities({this.data, this.status, this.message});
 }
 
 class GetLatestNotificationDatumEntities {

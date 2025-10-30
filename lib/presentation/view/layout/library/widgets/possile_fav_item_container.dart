@@ -2,6 +2,7 @@ import 'package:eazifly_student/core/component/avatar_image.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_cubit.dart';
 import 'package:eazifly_student/presentation/controller/library_controller/library_state.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
+
 class PossibleFavItemsContainer extends StatelessWidget {
   final String image;
   final String title;
@@ -29,7 +30,7 @@ class PossibleFavItemsContainer extends StatelessWidget {
               shape: BoxShape.rectangle,
             ),
             SvgPicture.asset(
-              colorFilter:  ColorFilter.mode(
+              colorFilter: ColorFilter.mode(
                 MainColors.background,
                 BlendMode.srcIn,
               ),
@@ -38,10 +39,7 @@ class PossibleFavItemsContainer extends StatelessWidget {
           ],
         ),
         8.pw,
-        Text(
-          title,
-          style: MainTextStyle.boldTextStyle(fontSize: 14),
-        ),
+        Text(title, style: MainTextStyle.boldTextStyle(fontSize: 14)),
         const Spacer(),
         BlocBuilder<LibraryCubit, LibraryState>(
           builder: (context, state) {
@@ -49,10 +47,7 @@ class PossibleFavItemsContainer extends StatelessWidget {
               backgroundColor: MainColors.surface,
               iconColor: MainColors.primary,
               iconWidget: isAlreadyAdded
-                  ?  Icon(
-                      Icons.remove,
-                      color: MainColors.primary,
-                    )
+                  ? Icon(Icons.remove, color: MainColors.primary)
                   : null,
               onTap: onAddTap,
             );

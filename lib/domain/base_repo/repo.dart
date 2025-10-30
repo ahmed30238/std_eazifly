@@ -449,7 +449,6 @@ abstract class BaseRepository {
   });
 
   Future<Either<Failure, CopounHistoryEntity>> copounHistory();
-  Future<Either<Failure, AddUserSessionDateAndTimeEntity>> addUserSessionDateAndTime(
-      {required AddUserSessionDateAndTimeToJson data});
-
+  Future<Either<Failure, AddUserSessionDateAndTimeEntity>>
+  addUserSessionDateAndTime({required AddUserSessionDateAndTimeToJson data});
 }

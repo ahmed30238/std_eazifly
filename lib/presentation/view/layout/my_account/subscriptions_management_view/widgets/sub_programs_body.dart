@@ -19,9 +19,7 @@ class SubProgramsBody extends StatelessWidget {
       bloc: cubit,
       builder: (context, state) {
         if (cubit.getProgramSubscriptionLoader) {
-          return const Center(
-            child: CircularProgressIndicator.adaptive(),
-          );
+          return const Center(child: CircularProgressIndicator.adaptive());
         }
 
         if (cubit.getProgramSubscriptionEntity?.data?.isEmpty ?? true) {
@@ -39,7 +37,8 @@ class SubProgramsBody extends StatelessWidget {
             final subscription =
                 cubit.getProgramSubscriptionEntity!.data![index];
 
-            var daysToExpire = subscription.expireDate
+            var daysToExpire =
+                subscription.expireDate
                     ?.difference(DateTime.now())
                     .inDays
                     .toString() ??
@@ -59,22 +58,20 @@ class SubProgramsBody extends StatelessWidget {
             return AllBodyListItemWidget(
               onTap: () {
                 cubit.fillProgramStudentNumber(
-                    int.tryParse(subscription.studentNumber ?? "-1") ?? -1);
-                cubit.fillProgramId(subscription.programId ?? -1);
-                Future.delayed(
-                  const Duration(milliseconds: 100),
-                  () {
-                    Navigator.pushNamed(
-                      context,
-                      RoutePaths.subscriptionPackageDetails,
-                      arguments: {
-                        "cubit": cubit,
-                        "planId": subscription.plan?.id,
-                        "mainId": subscription.mainSubscriptionId,
-                      },
-                    );
-                  },
+                  int.tryParse(subscription.studentNumber ?? "-1") ?? -1,
                 );
+                cubit.fillProgramId(subscription.programId ?? -1);
+                Future.delayed(const Duration(milliseconds: 100), () {
+                  Navigator.pushNamed(
+                    context,
+                    RoutePaths.subscriptionPackageDetails,
+                    arguments: {
+                      "cubit": cubit,
+                      "planId": subscription.plan?.id,
+                      "mainId": subscription.mainSubscriptionId,
+                    },
+                  );
+                });
               },
               currency: subscription.plan?.currency ?? "ج.م",
               courseTitle: subscription.program ?? "اشتراك البرنامج",

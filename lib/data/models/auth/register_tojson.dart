@@ -22,14 +22,14 @@ class RegisterToJson {
   });
 
   Map<String, dynamic> toJson() => {
-        "first_name": firstName,
-        "last_name": lastName,
-        "email": email,
-        "phone": phone,
-        "whats_app": whatsApp,
-        "gender": gender,
-        "password": password,
-        "user_name": userName,
-        "password_confirmation": passwordConfirmation,
-      };
+    "first_name": firstName,
+    "last_name": lastName,
+    "email": email,
+    "phone": phone,
+    "whats_app": whatsApp,
+    "gender": gender,
+    "password": password,
+    "user_name": userName,
+    "password_confirmation": passwordConfirmation,
+  };
 }

@@ -47,35 +47,34 @@ class CompetitorListContainer extends StatelessWidget {
                         widget: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                24.ph,
-                                SizedBox(
-                                  height: 45.h,
-                                  child: Text(
-                                    lang.programLeader,
-                                    style: MainTextStyle.boldTextStyle(
-                                      fontSize: 14,
-                                    ),
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              24.ph,
+                              SizedBox(
+                                height: 45.h,
+                                child: Text(
+                                  lang.programLeader,
+                                  style: MainTextStyle.boldTextStyle(
+                                    fontSize: 14,
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 45.h,
-                                  child: Text(
-                                    lang.myStudent,
-                                    style: MainTextStyle.boldTextStyle(
-                                      fontSize: 14,
-                                    ),
+                              ),
+                              SizedBox(
+                                height: 45.h,
+                                child: Text(
+                                  lang.myStudent,
+                                  style: MainTextStyle.boldTextStyle(
+                                    fontSize: 14,
                                   ),
                                 ),
-                              ]),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
                   },
-                  child: SvgPicture.asset(
-                    Assets.iconsFrame,
-                  ),
+                  child: SvgPicture.asset(Assets.iconsFrame),
                 ),
               ],
             ),
@@ -85,12 +84,10 @@ class CompetitorListContainer extends StatelessWidget {
             padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => PlayerItem(
-              index: index + 1,
-            ),
+            itemBuilder: (context, index) => PlayerItem(index: index + 1),
             separatorBuilder: (context, index) => 8.ph,
             itemCount: 8,
-          )
+          ),
         ],
       ),
     );

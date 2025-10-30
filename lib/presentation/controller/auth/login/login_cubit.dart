@@ -44,7 +44,7 @@ class LoginCubit extends Cubit<LoginState> {
   // TextEditingController passwordController = TextEditingController();
   // GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-// دالة لتحديد نوع البيانات المدخلة
+  // دالة لتحديد نوع البيانات المدخلة
   String detectInputType(String input) {
     final trimmedInput = input.trim();
 
@@ -88,7 +88,7 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-//! ##################### api ##########################
+  //! ##################### api ##########################
 
   bool loginLoader = false;
   LoginEntity? entities;
@@ -134,11 +134,9 @@ class LoginCubit extends Cubit<LoginState> {
               );
               final String fcmToken =
                   await NotificationService.instance.getFcmToken() ??
-                      "noFcmToken";
+                  "noFcmToken";
               log("from login this is stored FCMToken $fcmToken");
-              await HomeCubit.get(context).updateFcmToken(
-                fcmToken: fcmToken,
-              );
+              await HomeCubit.get(context).updateFcmToken(fcmToken: fcmToken);
 
               loginLoader = false;
               entities = r;
@@ -180,7 +178,7 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-// دالة مساعدة للحصول على نوع الإدخال (اختيارية للـ UI)
+  // دالة مساعدة للحصول على نوع الإدخال (اختيارية للـ UI)
   String getInputTypeDisplayText() {
     final inputValue = loginController.text.trim();
     if (inputValue.isEmpty) return "رقم الهاتف / الإيميل / اسم المستخدم";

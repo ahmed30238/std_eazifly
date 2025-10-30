@@ -38,10 +38,7 @@ class ProgramDetailsViewLoader extends StatelessWidget {
                 child: const ShimmerWidget(),
               ),
               2.ph,
-              SizedBox(
-                height: 348.h,
-                child: const ShimmerWidget(),
-              ),
+              SizedBox(height: 348.h, child: const ShimmerWidget()),
             ].itemPadding(rightPadding: 16.w, leftPadding: 16.w),
           ),
         ],

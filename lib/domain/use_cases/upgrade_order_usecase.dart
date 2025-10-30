@@ -12,8 +12,9 @@ class UpgradeOrderUsecase
   UpgradeOrderUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, UpgradeOrderEntity>> call(
-      {required UpgradeOrderParameters parameter}) async {
+  Future<Either<Failure, UpgradeOrderEntity>> call({
+    required UpgradeOrderParameters parameter,
+  }) async {
     return await baseRepository.upgradeOrder(data: parameter.data);
   }
 }

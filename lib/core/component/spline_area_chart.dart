@@ -3,10 +3,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../presentation/view/subscription_details_view/widgets/imports.dart';
 
 class SplineAreaChart extends StatelessWidget {
-  const SplineAreaChart({
-    super.key,
-    required this.splineAreaChartData,
-  });
+  const SplineAreaChart({super.key, required this.splineAreaChartData});
 
   final List<SplieChartData> splineAreaChartData;
 
@@ -41,7 +38,7 @@ class SplineAreaChart extends StatelessWidget {
                         xValueMapper: (SplieChartData data, _) => data.x,
                         yValueMapper: (SplieChartData data, _) => data.y,
                         color: MainColors.success,
-                        markerSettings:  const MarkerSettings(
+                        markerSettings: const MarkerSettings(
                           isVisible: true,
                           shape: DataMarkerType.circle,
                           color: MainColors.success,
@@ -59,11 +56,8 @@ class SplineAreaChart extends StatelessWidget {
   }
 }
 
-LinearGradient gradientColors =  LinearGradient(
-  colors: [
-    MainColors.gradient,
-    MainColors.background,
-  ],
+LinearGradient gradientColors = LinearGradient(
+  colors: [MainColors.gradient, MainColors.background],
   // stops: stops,
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,

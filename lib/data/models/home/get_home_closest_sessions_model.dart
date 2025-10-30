@@ -17,8 +17,8 @@ class GetHomeClosestSessionsDatumModel extends GetHomeClosestSessionsDatum {
   GetHomeClosestSessionsDatumModel();
 
   factory GetHomeClosestSessionsDatumModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetHomeClosestSessionsDatumModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$GetHomeClosestSessionsDatumModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$GetHomeClosestSessionsDatumModelToJson(this);
@@ -40,8 +40,8 @@ class GetHomeClosestSessionStatusModel extends GetHomeClosestSessionStatus {
   GetHomeClosestSessionStatusModel();
 
   factory GetHomeClosestSessionStatusModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetHomeClosestSessionStatusModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$GetHomeClosestSessionStatusModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$GetHomeClosestSessionStatusModelToJson(this);

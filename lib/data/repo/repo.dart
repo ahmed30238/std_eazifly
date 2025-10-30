@@ -1291,7 +1291,9 @@ class Repository extends BaseRepository {
   addUserSessionDateAndTime({
     required AddUserSessionDateAndTimeToJson data,
   }) async {
-    final result = await baseRemoteDataSource.addUserSessionDateAndTime(data: data);
+    final result = await baseRemoteDataSource.addUserSessionDateAndTime(
+      data: data,
+    );
     try {
       return Right(result);
     } on ServerException catch (e) {

@@ -39,8 +39,8 @@ class GetHomeCurrentSessionStatusModel extends GetHomeClosestSessionStatus {
   GetHomeCurrentSessionStatusModel();
 
   factory GetHomeCurrentSessionStatusModel.fromJson(
-          Map<String, dynamic> json) =>
-      _$GetHomeCurrentSessionStatusModelFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$GetHomeCurrentSessionStatusModelFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$GetHomeCurrentSessionStatusModelToJson(this);

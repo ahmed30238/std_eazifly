@@ -10,8 +10,9 @@ class GetChapterLessonsUsecase
   GetChapterLessonsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetChapterLessonsEntity>> call(
-      {required GetChapterLessonsParameters parameter}) async {
+  Future<Either<Failure, GetChapterLessonsEntity>> call({
+    required GetChapterLessonsParameters parameter,
+  }) async {
     return await baseRepository.getChapterLessons(
       chapterId: parameter.chapterId,
     );

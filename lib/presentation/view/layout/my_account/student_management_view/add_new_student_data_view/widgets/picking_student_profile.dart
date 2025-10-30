@@ -3,10 +3,7 @@ import 'package:eazifly_student/presentation/view/account_data/widgets/profile_i
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class PickingStudentProfile extends StatelessWidget {
-  const PickingStudentProfile({
-    super.key,
-    required this.cubit,
-  });
+  const PickingStudentProfile({super.key, required this.cubit});
 
   final AddNewStudentDataToProgramCubit cubit;
 
@@ -27,10 +24,7 @@ class PickingStudentProfile extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.grey.shade300,
-                    width: 2.w,
-                  ),
+                  border: Border.all(color: Colors.grey.shade300, width: 2.w),
                 ),
                 child: Image.file(
                   cubit.profileImage!,

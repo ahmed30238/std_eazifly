@@ -9,8 +9,8 @@ class ChangeSessionDateTojson {
     required this.sessionDate,
   });
   Map<String, dynamic> tojson() => {
-        "session_date": sessionDate,
-        "day": day,
-        "session_time": sessionTime,
-      };
+    "session_date": sessionDate,
+    "day": day,
+    "session_time": sessionTime,
+  };
 }

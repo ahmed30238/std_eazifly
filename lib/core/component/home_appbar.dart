@@ -38,61 +38,65 @@ class MainAppBar extends AppBar {
     this.customactions,
     this.onTap,
   }) : super(
-          automaticallyImplyLeading: false,
-          backgroundColor: const Color(0xffFFFFFF),
-          leadingWidth: leadingCustomWidth ?? 250.w,
-          centerTitle: isCentered ?? false,
-          title: titleWidget ?? Text(customTitle ?? ""),
-          leading: InkWell(
-            onTap: onTap,
-            child: customLeading ??
-                Row(
-                  children: [
-                    16.pw,
-                    IconsContainer(
-                      iconWidget: Builder(
-                        builder: (context) {
-                          return IconButton(
-                            onPressed: onDrawerTap ??
-                                () {
-                                  Scaffold.of(context).openDrawer();
-                                },
-                            icon: const Icon(Icons.add),
-                            // todo menu icon
-                            // SvgPicture.asset(MyImages.menu),
-                          );
-                        },
-                      ),
-                    ),
-                    16.pw,
-                    rightNoification
-                        ? const AppbarIconWidget()
-                        : Text(
-                            leadingTitle ?? "",
-                            style: MainTextStyle.boldTextStyle(fontSize: 18),
-                          ),
-                  ],
-                ),
-          ),
-          actions: customactions ??
-              [
-                Text(
-                  "Eazifly",
-                  style: GoogleFonts.plusJakartaSans().copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: appTitlesize ?? 25.69.sp,
-                      color: const Color(0xff07070D)),
-                ),
-                9.pw,
-                SvgPicture.asset(
-                  Assets.iconsAppLogo,
-                  fit: BoxFit.scaleDown,
-                  width: appIconWidth ?? 30.w,
-                  height: appIconHeight ?? 30.h,
-                ),
-                16.pw,
-              ],
-        );
+         automaticallyImplyLeading: false,
+         backgroundColor: const Color(0xffFFFFFF),
+         leadingWidth: leadingCustomWidth ?? 250.w,
+         centerTitle: isCentered ?? false,
+         title: titleWidget ?? Text(customTitle ?? ""),
+         leading: InkWell(
+           onTap: onTap,
+           child:
+               customLeading ??
+               Row(
+                 children: [
+                   16.pw,
+                   IconsContainer(
+                     iconWidget: Builder(
+                       builder: (context) {
+                         return IconButton(
+                           onPressed:
+                               onDrawerTap ??
+                               () {
+                                 Scaffold.of(context).openDrawer();
+                               },
+                           icon: const Icon(Icons.add),
+                           // todo menu icon
+                           // SvgPicture.asset(MyImages.menu),
+                         );
+                       },
+                     ),
+                   ),
+                   16.pw,
+                   rightNoification
+                       ? const AppbarIconWidget()
+                       : Text(
+                           leadingTitle ?? "",
+                           style: MainTextStyle.boldTextStyle(fontSize: 18),
+                         ),
+                 ],
+               ),
+         ),
+         actions:
+             customactions ??
+             [
+               Text(
+                 "Eazifly",
+                 style: GoogleFonts.plusJakartaSans().copyWith(
+                   fontWeight: FontWeight.w700,
+                   fontSize: appTitlesize ?? 25.69.sp,
+                   color: const Color(0xff07070D),
+                 ),
+               ),
+               9.pw,
+               SvgPicture.asset(
+                 Assets.iconsAppLogo,
+                 fit: BoxFit.scaleDown,
+                 width: appIconWidth ?? 30.w,
+                 height: appIconHeight ?? 30.h,
+               ),
+               16.pw,
+             ],
+       );
 }
 
 class AppbarIconWidget extends StatelessWidget {
@@ -122,11 +126,7 @@ class AppbarIconWidget extends StatelessWidget {
           color: backgroundColor ?? MainColors.inputFill,
           borderRadius: BorderRadius.circular(15.r),
         ),
-        child: iconWidget ??
-            Icon(
-              Icons.add,
-              color: iconColor,
-            ),
+        child: iconWidget ?? Icon(Icons.add, color: iconColor),
       ),
     );
   }

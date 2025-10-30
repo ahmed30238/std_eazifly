@@ -50,7 +50,7 @@ class ResetPasswordScreen extends StatelessWidget {
             Navigator.pushNamedAndRemoveUntil(
               context,
               RoutePaths.loginPath,
-                  (route) => false,
+              (route) => false,
             );
           } else if (state is ResetPasswordErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -133,8 +133,9 @@ class ResetPasswordScreen extends StatelessWidget {
                                       shape: BoxShape.circle,
                                       boxShadow: [
                                         BoxShadow(
-                                          color: MainColors.primary
-                                              .withValues(alpha: 0.1),
+                                          color: MainColors.primary.withValues(
+                                            alpha: 0.1,
+                                          ),
                                           blurRadius: 20,
                                           offset: const Offset(0, 8),
                                         ),
@@ -202,7 +203,8 @@ class ResetPasswordScreen extends StatelessWidget {
                             8.ph,
                             CustomTextFormField(
                               controller: cubit.codeController,
-                              hintText: lang.enterVerificationCode, // استخدام النص من الترجمة
+                              hintText: lang
+                                  .enterVerificationCode, // استخدام النص من الترجمة
                               keyboardType: TextInputType.number,
                               inputFormatter: [
                                 FilteringTextInputFormatter.digitsOnly,
@@ -210,10 +212,12 @@ class ResetPasswordScreen extends StatelessWidget {
                               ],
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return lang.pleaseEnterVerificationCode; // استخدام النص من الترجمة
+                                  return lang
+                                      .pleaseEnterVerificationCode; // استخدام النص من الترجمة
                                 }
                                 if (value.length < 4) {
-                                  return lang.verificationCodeMinLength; // استخدام النص من الترجمة
+                                  return lang
+                                      .verificationCodeMinLength; // استخدام النص من الترجمة
                                 }
                                 return null;
                               },
@@ -239,14 +243,17 @@ class ResetPasswordScreen extends StatelessWidget {
                             CustomTextFormField(
                               maxLines: 1,
                               controller: cubit.passwordController,
-                              hintText: lang.enterNewPassword, // استخدام النص من الترجمة
+                              hintText: lang
+                                  .enterNewPassword, // استخدام النص من الترجمة
                               isSecured: cubit.isNewPasswordVisible,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return lang.pleaseEnterNewPassword; // استخدام النص من الترجمة
+                                  return lang
+                                      .pleaseEnterNewPassword; // استخدام النص من الترجمة
                                 }
                                 if (value.length < 6) {
-                                  return lang.passwordMinLength; // استخدام النص من الترجمة
+                                  return lang
+                                      .passwordMinLength; // استخدام النص من الترجمة
                                 }
                                 return null;
                               },
@@ -283,14 +290,17 @@ class ResetPasswordScreen extends StatelessWidget {
                             CustomTextFormField(
                               maxLines: 1,
                               controller: cubit.passwordConfirmationController,
-                              hintText: lang.confirmNewPassword, // استخدام النص من الترجمة
+                              hintText: lang
+                                  .confirmNewPassword, // استخدام النص من الترجمة
                               isSecured: cubit.isConfirmPasswordVisible,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return lang.pleaseConfirmPassword; // استخدام النص من الترجمة
+                                  return lang
+                                      .pleaseConfirmPassword; // استخدام النص من الترجمة
                                 }
                                 if (value != cubit.passwordController.text) {
-                                  return lang.passwordsDoNotMatch; // استخدام النص من الترجمة
+                                  return lang
+                                      .passwordsDoNotMatch; // استخدام النص من الترجمة
                                 }
                                 return null;
                               },
@@ -330,26 +340,26 @@ class ResetPasswordScreen extends StatelessWidget {
                             onPressed: cubit.resetPasswordLoader
                                 ? () {}
                                 : () {
-                              if (cubit.resetFormKey.currentState!
-                                  .validate()) {
-                                cubit.resetPassword();
-                              }
-                            },
+                                    if (cubit.resetFormKey.currentState!
+                                        .validate()) {
+                                      cubit.resetPassword();
+                                    }
+                                  },
                             height: 52.h,
                             width: double.infinity,
                             color: MainColors.primary,
                             radius: 16.r,
                             child: cubit.resetPasswordLoader
                                 ? SizedBox(
-                              height: 20.h,
-                              width: 20.w,
-                              child: const CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.white,
-                                ),
-                              ),
-                            )
+                                    height: 20.h,
+                                    width: 20.w,
+                                    child: const CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
+                                    ),
+                                  )
                                 : null,
                           ),
                           16.ph,
@@ -357,11 +367,12 @@ class ResetPasswordScreen extends StatelessWidget {
                             onPressed: cubit.forgotPasswordLoader
                                 ? null
                                 : () {
-                              cubit.forgetPassword();
-                            },
+                                    cubit.forgetPassword();
+                                  },
                             child: Text(
                               cubit.forgotPasswordLoader
-                                  ? lang.resendingCode // استخدام النص من الترجمة
+                                  ? lang
+                                        .resendingCode // استخدام النص من الترجمة
                                   : lang.resendVerificationCode, // استخدام النص من الترجمة
                               style: MainTextStyle.mediumTextStyle(
                                 fontSize: 14,

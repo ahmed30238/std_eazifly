@@ -147,7 +147,10 @@ class AssignmentItemContainer extends StatelessWidget {
             13.5.ph,
             Text(
               "نص التسليم",
-              style: MainTextStyle.boldTextStyle(fontSize: 12,color: MainColors.primary),
+              style: MainTextStyle.boldTextStyle(
+                fontSize: 12,
+                color: MainColors.primary,
+              ),
             ),
             9.5.ph,
             Container(
@@ -219,7 +222,6 @@ class AssignmentItemContainer extends StatelessWidget {
             16.ph,
             if (cubit.recordPath.isNotEmpty &&
                 File(cubit.recordPath).existsSync()) ...{
-
               Row(
                 children: [
                   Expanded(

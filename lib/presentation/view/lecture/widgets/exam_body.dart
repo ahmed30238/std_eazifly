@@ -31,7 +31,7 @@ class ExamBodyWidget extends StatelessWidget {
                 "programId": cubit.currentProgramId,
                 "userId": cubit.userId,
                 "quizId": quiz?.id,
-                "quizTitle": quiz?.title
+                "quizTitle": quiz?.title,
               },
             );
           },
@@ -54,12 +54,7 @@ class ExamBodyWidget extends StatelessWidget {
         );
       },
       separatorBuilder: (context, index) => Column(
-        children: [
-          const CustomHorizontalDivider(
-            thickness: 1,
-          ),
-          10.ph,
-        ],
+        children: [const CustomHorizontalDivider(thickness: 1), 10.ph],
       ),
       itemCount: quizzes?.length ?? 0,
     );

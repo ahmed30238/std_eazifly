@@ -4,7 +4,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'cancel_session_model.g.dart';
 
-
 @JsonSerializable(explicitToJson: true)
 class CancelSessionModel extends CancelSessionEntity {
   CancelSessionModel();
@@ -34,6 +33,7 @@ class CancelSessionUserModel extends CancelSessionUserEntity {
 
   Map<String, dynamic> toJson() => _$CancelSessionUserModelToJson(this);
 }
+
 @JsonSerializable(explicitToJson: true)
 class CancelSessionStatusModel extends StatusLabelEntity {
   CancelSessionStatusModel();

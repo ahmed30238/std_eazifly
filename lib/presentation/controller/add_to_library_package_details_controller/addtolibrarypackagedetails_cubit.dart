@@ -58,9 +58,7 @@ class AddtolibrarypackagedetailsCubit
                     getPlanSubscriptionPeriodEntity?.data?[controller!.index];
                 int days = int.tryParse(selectedPeriod?.days ?? "0") ?? -1;
                 if (selectedPeriod != null && days > 0) {
-                  getLibraryPlans(
-                    days: days,
-                  );
+                  getLibraryPlans(days: days);
                 }
 
                 emit(TypeControllerIndexState());
@@ -94,8 +92,9 @@ class AddtolibrarypackagedetailsCubit
     getPlanSubscriptionLoader = true;
     emit(GetPlanSubscriptionLoadingState());
 
-    final result =
-        await getPlanSubscriptionUsecase.call(parameter: NoParameter());
+    final result = await getPlanSubscriptionUsecase.call(
+      parameter: NoParameter(),
+    );
 
     result.fold(
       (failure) {
@@ -158,11 +157,15 @@ class AddtolibrarypackagedetailsCubit
         getLibraryPlansLoader = false;
 
         // Debug API response
-        log("DEBUG: API Response - Number of plans: ${success.data?.length ?? 0}");
+        log(
+          "DEBUG: API Response - Number of plans: ${success.data?.length ?? 0}",
+        );
         if (success.data?.isNotEmpty == true) {
           for (int i = 0; i < success.data!.length; i++) {
             final plan = success.data![i];
-            log("DEBUG: Plan $i - ID: ${plan.id}, Title: ${plan.title}, Price: ${plan.price}");
+            log(
+              "DEBUG: Plan $i - ID: ${plan.id}, Title: ${plan.title}, Price: ${plan.price}",
+            );
           }
 
           // Auto-select first plan if planId is still -1 and we have valid data
@@ -198,7 +201,9 @@ class AddtolibrarypackagedetailsCubit
   bool libraryOrderAndSubscriptionLoader = false;
   LibraryOrderAndSubscriptionUsecase libraryOrderAndSubscriptionUsecase;
 
-  Future<void> libraryOrderAndSubscription({required BuildContext context}) async {
+  Future<void> libraryOrderAndSubscription({
+    required BuildContext context,
+  }) async {
     libraryOrderAndSubscriptionLoader = true;
 
     log("DEBUG: Starting subscription with planId: $planId");
@@ -228,8 +233,9 @@ class AddtolibrarypackagedetailsCubit
       (failure) {
         libraryOrderAndSubscriptionLoader = false;
         log("ERROR: Library order subscription failed: ${failure.message}");
-        emit(LibraryOrderAndSubscriptionErrorState(
-            errorMessage: failure.message));
+        emit(
+          LibraryOrderAndSubscriptionErrorState(errorMessage: failure.message),
+        );
       },
       (success) {
         libraryOrderAndSubscriptionEntity = success;
@@ -274,8 +280,11 @@ class AddtolibrarypackagedetailsCubit
       (failure) {
         getPaymentMethodDetailsLoader = false;
         log("ERROR: Getting payment method details failed: ${failure.message}");
-        emit(GetProgramPaymentMethodDetailsErrorState(
-            errorMessage: failure.message));
+        emit(
+          GetProgramPaymentMethodDetailsErrorState(
+            errorMessage: failure.message,
+          ),
+        );
       },
       (success) {
         getPaymentMethodDetailsLoader = false;

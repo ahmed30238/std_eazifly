@@ -10,9 +10,5 @@ class ForgotPasswordEntity {
   @JsonKey(name: "message")
   String? message;
 
-  ForgotPasswordEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  ForgotPasswordEntity({this.data, this.status, this.message});
 }

@@ -12,8 +12,9 @@ class CheckCopounUsecase
   CheckCopounUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, CheckCopounEntity>> call(
-      {required CheckCopounDataParameters parameter}) async {
+  Future<Either<Failure, CheckCopounEntity>> call({
+    required CheckCopounDataParameters parameter,
+  }) async {
     return await baseRepository.checkCopoun(data: parameter.data);
   }
 }

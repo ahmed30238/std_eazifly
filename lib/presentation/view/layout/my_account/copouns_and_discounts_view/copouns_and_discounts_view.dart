@@ -71,12 +71,12 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
           Text(
             "${loginData?.bonus ?? "0"} نقطة",
             style: MainTextStyle.boldTextStyle(
-                fontSize: 14, color: MainColors.primary),
+              fontSize: 14,
+              color: MainColors.primary,
+            ),
           ),
           24.ph,
-          CodeDetails(
-            code: loginData?.userCoupon ?? "",
-          ),
+          CodeDetails(code: loginData?.userCoupon ?? ""),
           16.ph,
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -119,9 +119,7 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
                   child: InkWell(
                     onTap: () => customAdaptiveDialog(
                       context,
-                      child: PointsDialogDesign(
-                        points: loginData?.bonus ?? "",
-                      ),
+                      child: PointsDialogDesign(points: loginData?.bonus ?? ""),
                     ),
                     child: Container(
                       height: 98.h,
@@ -153,9 +151,7 @@ class _CopounsAndDiscountsViewState extends State<CopounsAndDiscountsView> {
             ),
           ),
           16.ph,
-          PointsBalanceContainer(
-            cubit: cubit,
-          )
+          PointsBalanceContainer(cubit: cubit),
         ],
       ),
     );

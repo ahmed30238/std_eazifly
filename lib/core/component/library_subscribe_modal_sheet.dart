@@ -11,9 +11,7 @@ Future<dynamic> librarySubscribeModalSheet(BuildContext context) {
         24.ph,
         Text(
           "هل تود الاشتراك",
-          style: MainTextStyle.boldTextStyle(
-            fontSize: 14,
-          ),
+          style: MainTextStyle.boldTextStyle(fontSize: 14),
         ),
         16.ph,
         Padding(
@@ -48,7 +46,7 @@ Future<dynamic> librarySubscribeModalSheet(BuildContext context) {
               ),
             ],
           ),
-        )
+        ),
       ],
     ),
   );

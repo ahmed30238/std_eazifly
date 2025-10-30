@@ -11,11 +11,7 @@ class GetMyProgramsEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetMyProgramsEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetMyProgramsEntity({this.data, this.status, this.message});
 }
 
 class MyProgramEntity {
@@ -78,8 +74,5 @@ class ProgramSessionEntity {
   @JsonKey(name: "status")
   String? status;
 
-  ProgramSessionEntity({
-    this.id,
-    this.status,
-  });
+  ProgramSessionEntity({this.id, this.status});
 }

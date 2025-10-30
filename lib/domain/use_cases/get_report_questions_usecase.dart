@@ -11,8 +11,9 @@ class GetReportQuestionsUsecase
   GetReportQuestionsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, GetReportQuestionsEntity>> call(
-      {required GetQuizQuestionsParameters parameter}) async {
+  Future<Either<Failure, GetReportQuestionsEntity>> call({
+    required GetQuizQuestionsParameters parameter,
+  }) async {
     return await baseRepository.getReportQuestions(
       meetingSessionId: parameter.meetingSessionId,
       reportForId: parameter.reportForId,

@@ -5,18 +5,21 @@ import 'package:eazifly_student/data/models/order_and_subscribe/assign_appointme
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/create_meeting_sessions_entity.dart';
 
-class CreateMeetingSessionsUsecase extends BaseUsecase<
-    CreateMeetingSessionsEntity, CreateMeetingSessionsParameters> {
+class CreateMeetingSessionsUsecase
+    extends
+        BaseUsecase<
+          CreateMeetingSessionsEntity,
+          CreateMeetingSessionsParameters
+        > {
   final BaseRepository baseRepository;
 
   CreateMeetingSessionsUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, CreateMeetingSessionsEntity>> call(
-      {required CreateMeetingSessionsParameters parameter}) async {
-    return await baseRepository.createMeetingSessions(
-      data: parameter.data,
-    );
+  Future<Either<Failure, CreateMeetingSessionsEntity>> call({
+    required CreateMeetingSessionsParameters parameter,
+  }) async {
+    return await baseRepository.createMeetingSessions(data: parameter.data);
   }
 }
 

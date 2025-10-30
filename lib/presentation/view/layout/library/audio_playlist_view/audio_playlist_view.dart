@@ -9,10 +9,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class AudioPlayListView extends StatefulWidget {
   final int listId;
-  const AudioPlayListView({
-    super.key,
-    required this.listId,
-  });
+  const AudioPlayListView({super.key, required this.listId});
 
   @override
   State<AudioPlayListView> createState() => _AudioPlayListViewState();
@@ -25,9 +22,7 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
   void initState() {
     cubit = context.read<LibraryCubit>();
     super.initState();
-    cubit.getListItemsUsingListId(
-      listId: widget.listId,
-    );
+    cubit.getListItemsUsingListId(listId: widget.listId);
   }
 
   @override
@@ -45,9 +40,7 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
           24.ph,
           Text(
             "قائمة الملفات",
-            style: MainTextStyle.boldTextStyle(
-              fontSize: 18,
-            ),
+            style: MainTextStyle.boldTextStyle(fontSize: 18),
           ),
           16.ph,
           BlocBuilder(
@@ -64,14 +57,17 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
               var audioPlaylist = cubit.getListItemsUsingListIdEntity?.data;
 
               if (audioPlaylist == null || audioPlaylist.isEmpty) {
-                return const NoDataAnimatedImageWidget(message: "لا يوجد ملفات")
-                    .center();
+                return const NoDataAnimatedImageWidget(
+                  message: "لا يوجد ملفات",
+                ).center();
               }
 
               return Expanded(
                 child: ListView.separated(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 16.h,
+                  ),
                   itemBuilder: (context, index) {
                     var audioPlayListItem = audioPlaylist[index];
                     var fileType = audioPlayListItem.fileType ?? "";
@@ -98,8 +94,9 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
                     }
 
                     // إضافة أيقونة خاصة للملفات الصوتية
-                    bool isAudioFile = fileType.toLowerCase() == 'mp3' || 
-                                      fileType.toLowerCase() == 'audio';
+                    bool isAudioFile =
+                        fileType.toLowerCase() == 'mp3' ||
+                        fileType.toLowerCase() == 'audio';
 
                     return TelegramStyleFileItem(
                       isPaid: isPaid,
@@ -108,22 +105,24 @@ class _AudioPlayListViewState extends State<AudioPlayListView> {
                       image: image,
                       fileColor: fileColor,
                       isDownloading: cubit.isDownloading[fileUrl] ?? false,
-                      downloadProgress: cubit.downloadingProgress[fileUrl] ?? 0.0,
+                      downloadProgress:
+                          cubit.downloadingProgress[fileUrl] ?? 0.0,
                       isDownloaded: cubit.downloadedFiles.containsKey(fileUrl),
                       // إضافة معلومات الملف الصوتي
                       isAudioFile: isAudioFile,
-                      isCurrentlyPlaying: cubit.currentPlayingUrl == fileUrl && cubit.isPlaying,
+                      isCurrentlyPlaying:
+                          cubit.currentPlayingUrl == fileUrl && cubit.isPlaying,
                       onTap: cubit.getLibraryItemsLoader
-                        ? () {
-                          log("message");
-                        }
-                        : () {
-                          log("loader");
-                            cubit.showLibraryItem(
-                              itemId: audioPlayListItem.id ?? 0,
-                              context: context,
-                            );
-                          },
+                          ? () {
+                              log("message");
+                            }
+                          : () {
+                              log("loader");
+                              cubit.showLibraryItem(
+                                itemId: audioPlayListItem.id ?? 0,
+                                context: context,
+                              );
+                            },
                     );
                   },
                   separatorBuilder: (context, index) => 12.ph,

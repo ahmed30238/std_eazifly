@@ -4,7 +4,11 @@ class ItemDetailsCard extends StatelessWidget {
   final List<String> titles;
   final List<String> values;
 
-  const ItemDetailsCard({super.key, required this.titles, required this.values});
+  const ItemDetailsCard({
+    super.key,
+    required this.titles,
+    required this.values,
+  });
 
   @override
   Widget build(BuildContext context) {

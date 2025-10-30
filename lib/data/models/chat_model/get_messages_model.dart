@@ -22,6 +22,7 @@ class GetMessagesDatumModel extends GetMessagesDatumEntities {
 
   Map<String, dynamic> toJson() => _$GetMessagesDatumModelToJson(this);
 }
+
 @JsonSerializable(explicitToJson: true)
 class GetMessagesSenderModel extends GetMessagesSenderEntities {
   GetMessagesSenderModel();

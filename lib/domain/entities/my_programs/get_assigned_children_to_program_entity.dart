@@ -11,11 +11,7 @@ class GetAssignedChildrenToProgramEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetAssignedChildrenToProgramEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetAssignedChildrenToProgramEntity({this.data, this.status, this.message});
 }
 
 class GetAssignedChildrenToProgramDatumEntity {
@@ -148,12 +144,7 @@ class InstructorAssiignedDataEntity {
   @JsonKey(name: "image")
   String? image;
 
-  InstructorAssiignedDataEntity({
-    this.id,
-    this.name,
-    this.phone,
-    this.image,
-  });
+  InstructorAssiignedDataEntity({this.id, this.name, this.phone, this.image});
 }
 
 class GetAssignedChildrenToProgramProgramEntity {
@@ -163,10 +154,7 @@ class GetAssignedChildrenToProgramProgramEntity {
   @JsonKey(name: "image")
   String? image;
 
-  GetAssignedChildrenToProgramProgramEntity({
-    this.title,
-    this.image,
-  });
+  GetAssignedChildrenToProgramProgramEntity({this.title, this.image});
 }
 
 class GetAssignedChildrenToProgramStatusLabelEntity {
@@ -176,8 +164,5 @@ class GetAssignedChildrenToProgramStatusLabelEntity {
   @JsonKey(name: "color")
   String? color;
 
-  GetAssignedChildrenToProgramStatusLabelEntity({
-    this.label,
-    this.color,
-  });
+  GetAssignedChildrenToProgramStatusLabelEntity({this.label, this.color});
 }

@@ -9,11 +9,7 @@ class UpdateProfileEntity {
   @JsonKey(name: "message")
   String? message;
 
-  UpdateProfileEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  UpdateProfileEntity({this.data, this.status, this.message});
 }
 
 class UpdateProfileDataEntity {
@@ -34,7 +30,7 @@ class UpdateProfileDataEntity {
   @JsonKey(name: "email")
   String? email;
 
-  @JsonKey(name: "parent_id",fromJson: customInt)
+  @JsonKey(name: "parent_id", fromJson: customInt)
   int? parentId;
 
   @JsonKey(name: "phone")
@@ -129,10 +125,7 @@ class UpdateProfileProgramEntity {
   @JsonKey(name: "image")
   String? image;
 
-  UpdateProfileProgramEntity({
-    this.title,
-    this.image,
-  });
+  UpdateProfileProgramEntity({this.title, this.image});
 }
 
 class UpdateProfileStatusLabelEntity {
@@ -140,9 +133,5 @@ class UpdateProfileStatusLabelEntity {
   String? color;
   String? key;
 
-  UpdateProfileStatusLabelEntity({
-    this.label,
-    this.color,
-    this.key,
-  });
+  UpdateProfileStatusLabelEntity({this.label, this.color, this.key});
 }

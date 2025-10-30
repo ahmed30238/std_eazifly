@@ -7,10 +7,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class ConfirmLibraryPaymentView extends StatefulWidget {
   final int methodId;
-  const ConfirmLibraryPaymentView({
-    super.key,
-    required this.methodId,
-  });
+  const ConfirmLibraryPaymentView({super.key, required this.methodId});
 
   @override
   State<ConfirmLibraryPaymentView> createState() => _ConfirmPaymentViewState();
@@ -21,16 +18,16 @@ class _ConfirmPaymentViewState extends State<ConfirmLibraryPaymentView> {
   @override
   void initState() {
     libraryCubit = context.read<AddtolibrarypackagedetailsCubit>();
-    libraryCubit.getPaymentMethodDetails(
-      methodId: widget.methodId,
-    );
+    libraryCubit.getPaymentMethodDetails(methodId: widget.methodId);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var lang = context.loc!;
-    log("${libraryCubit.planId} plan id and ${libraryCubit.getLibraryPlansEntity?.data?.first.id} and found ");
+    log(
+      "${libraryCubit.planId} plan id and ${libraryCubit.getLibraryPlansEntity?.data?.first.id} and found ",
+    );
     var orderDetail = libraryCubit.getLibraryPlansEntity?.data?.firstWhere(
       (element) => element.id == libraryCubit.planId,
       orElse: () => LibraryPlanModel(), // في حالة عدم وجود العنصر
@@ -51,9 +48,7 @@ class _ConfirmPaymentViewState extends State<ConfirmLibraryPaymentView> {
             padding: EdgeInsets.all(12.r),
             // margin: EdgeInsets.symmetric(horizontal: 16.w),
             width: double.infinity,
-            constraints: BoxConstraints(
-              minHeight: 200.h,
-            ),
+            constraints: BoxConstraints(minHeight: 200.h),
             decoration: BoxDecoration(
               borderRadius: 12.cr,
               color: MainColors.inputFill,
@@ -63,21 +58,15 @@ class _ConfirmPaymentViewState extends State<ConfirmLibraryPaymentView> {
               children: [
                 Text(
                   orderDetail?.title ?? "",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 14,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 12.ph,
                 Text(
                   orderDetail?.description ?? "",
-                  style: MainTextStyle.boldTextStyle(
-                    fontSize: 14,
-                  ),
+                  style: MainTextStyle.boldTextStyle(fontSize: 14),
                 ),
                 3.ph,
-                 CustomHorizontalDivider(
-                  color: MainColors.surfaceVariant,
-                ),
+                CustomHorizontalDivider(color: MainColors.surfaceVariant),
                 ...List.generate(
                   3,
                   (index) => ProgramDetailsItem(
@@ -85,8 +74,8 @@ class _ConfirmPaymentViewState extends State<ConfirmLibraryPaymentView> {
                     value: index == 0
                         ? orderDetail?.price.toString() ?? ""
                         : index == 1
-                            ? "0"
-                            : orderDetail?.price.toString() ?? "",
+                        ? "0"
+                        : orderDetail?.price.toString() ?? "",
                     textStyle: index == 2
                         ? MainTextStyle.boldTextStyle(
                             fontSize: 15,
@@ -132,10 +121,13 @@ class _ConfirmPaymentViewState extends State<ConfirmLibraryPaymentView> {
                   children: [
                     Text(
                       getPaymentInstructionText(
-                          libraryCubit
-                                  .getPaymentMethodDetailsEntity?.data?.title ??
-                              "",
-                          orderDetail?.price?.toDouble() ?? 0.0),
+                        libraryCubit
+                                .getPaymentMethodDetailsEntity
+                                ?.data
+                                ?.title ??
+                            "",
+                        orderDetail?.price?.toDouble() ?? 0.0,
+                      ),
                       style: MainTextStyle.boldTextStyle(
                         fontSize: 12,
                         color: MainColors.onSecondary,
@@ -218,8 +210,8 @@ class _ConfirmPaymentViewState extends State<ConfirmLibraryPaymentView> {
                             width: 104.w,
                             fit: BoxFit.cover,
                           ),
-                        )
-                      ]
+                        ),
+                      ],
                     ],
                   );
                 },
@@ -311,11 +303,7 @@ var programDetailsTitles = [
   "عدد الحصص الإسبوعية",
   "تاريخ البدء",
 ];
-var cashDetailsTitles = [
-  "المبلغ ",
-  "الخصم",
-  "الإجمالي",
-];
+var cashDetailsTitles = ["المبلغ ", "الخصم", "الإجمالي"];
 
 class ProgramDetailsItem extends StatelessWidget {
   final TextStyle? textStyle;
@@ -340,7 +328,8 @@ class ProgramDetailsItem extends StatelessWidget {
           children: [
             Text(
               title,
-              style: textStyle ??
+              style:
+                  textStyle ??
                   MainTextStyle.boldTextStyle(
                     fontSize: 12,
                     color: MainColors.borderPrimary,
@@ -348,7 +337,8 @@ class ProgramDetailsItem extends StatelessWidget {
             ),
             Text(
               value,
-              style: textStyle ??
+              style:
+                  textStyle ??
                   MainTextStyle.boldTextStyle(
                     fontSize: 12,
                     color: MainColors.borderPrimary,

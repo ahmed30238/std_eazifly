@@ -35,9 +35,7 @@ class PlacesWidget extends StatelessWidget {
                 color: Colors.red,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage(
-                    avatar,
-                  ),
+                  image: AssetImage(avatar),
                 ),
               ),
             ),

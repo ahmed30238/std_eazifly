@@ -12,11 +12,7 @@ class GetGeideaDataEntity {
   @JsonKey(name: "message")
   String? message;
 
-  GetGeideaDataEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  GetGeideaDataEntity({this.data, this.status, this.message});
 }
 
 class KeyDataEntity {
@@ -35,11 +31,5 @@ class KeyDataEntity {
   @JsonKey(name: "label_name")
   String? labelName;
 
-  KeyDataEntity({
-    this.id,
-    this.key,
-    this.value,
-    this.type,
-    this.labelName,
-  });
+  KeyDataEntity({this.id, this.key, this.value, this.type, this.labelName});
 }

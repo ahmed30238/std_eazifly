@@ -12,8 +12,9 @@ class UpdateProfileUsecase
   UpdateProfileUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, UpdateProfileEntity>> call(
-      {required UpdateProfileParameters parameter}) async {
+  Future<Either<Failure, UpdateProfileEntity>> call({
+    required UpdateProfileParameters parameter,
+  }) async {
     return await baseRepository.updateProfile(
       data: parameter.data,
       userId: parameter.userId,

@@ -26,23 +26,18 @@ class LecturerItem extends StatelessWidget {
               ? MainColors.primary
               : MainColors.surfaceContainerHighest,
         ),
-        color: isSelected
-            ? MainColors.surface
-            : MainColors.inputFill,
+        color: isSelected ? MainColors.surface : MainColors.inputFill,
         borderRadius: 12.cr,
       ),
       height: 48.h,
       width: 150.w,
       child: Row(
         children: [
-          AvatarImage(
-            shape: BoxShape.circle,
-            imageUrl: image,
-          ),
+          AvatarImage(shape: BoxShape.circle, imageUrl: image),
           Text(
             instructorName,
             style: MainTextStyle.boldTextStyle(fontSize: 14),
-          )
+          ),
         ],
       ),
     );

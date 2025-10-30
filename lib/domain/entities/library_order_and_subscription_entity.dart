@@ -11,11 +11,7 @@ class LibraryOrderAndSubscriptionEntity {
   @JsonKey(name: "message")
   String? message;
 
-  LibraryOrderAndSubscriptionEntity({
-    this.data,
-    this.status,
-    this.message,
-  });
+  LibraryOrderAndSubscriptionEntity({this.data, this.status, this.message});
 }
 
 class LibraryOrderDataEntity {

@@ -29,6 +29,4 @@ class TokenUtil {
   }
 }
 
-enum TokenEnum {
-  token,
-}
+enum TokenEnum { token }

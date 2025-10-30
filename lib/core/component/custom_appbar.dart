@@ -47,88 +47,83 @@ class CustomAppBar extends AppBar {
     this.isCenterTitle,
     super.key,
   }) : super(
-          elevation: customElevation,
-          toolbarHeight: kToolbarHeight,
-          leadingWidth: leadingCustomWidth ?? 100.w,
-          backgroundColor: MainColors.background,
-          centerTitle: isCenterTitle,
-          title: onTitleTapped != null
-              ? Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: !isDmView!
-                      ? [
-                          GestureDetector(
-                            onTap: onTitleTapped,
-                            child: Text(
-                              mainTitle,
-                              style: MainTextStyle.boldTextStyle(
-                                fontSize: mainTitleFontSize ?? 15,
-                              ),
-                            ),
-                          ),
-                          SvgPicture.asset(
-                            Assets.iconsProfile,
-                            fit: BoxFit.scaleDown,
-                          ),
-                        ]
-                      : [
-                          AvatarImage(
-                            height: 28.h,
-                            width: 28.w,
-                            shape: BoxShape.circle,
-                            imageUrl: dmImageUrl,
-                          ),
-                          8.pw,
-                          Text(
-                            dmTitle ?? "",
-                            style: MainTextStyle.boldTextStyle(
-                              fontSize: mainTitleFontSize ?? 15,
-                            ),
-                          ),
-                        ],
-                )
-              : SizedBox(
-                  width: customTitleWidth,
-                  child: Text(
-                    mainTitle,
-                    overflow: TextOverflow.ellipsis,
-                    style: MainTextStyle.boldTextStyle(
-                      fontSize: mainTitleFontSize ?? 15,
-                    ),
-                  ),
-                ),
-          actions: customAction,
-          leading: InkWell(
-            onTap: onLeadinTap ?? () => back(context),
-            child: customLeading ??
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        leadingIcon ?? Icons.arrow_back_ios,
-                        size: 15.r,
-                      ),
-                      2.pw,
-                      Text(
-                        leadingText,
-                        style: MainTextStyle.boldTextStyle(fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ),
-          ),
-        );
+         elevation: customElevation,
+         toolbarHeight: kToolbarHeight,
+         leadingWidth: leadingCustomWidth ?? 100.w,
+         backgroundColor: MainColors.background,
+         centerTitle: isCenterTitle,
+         title: onTitleTapped != null
+             ? Row(
+                 // mainAxisAlignment: MainAxisAlignment.center,
+                 children: !isDmView!
+                     ? [
+                         GestureDetector(
+                           onTap: onTitleTapped,
+                           child: Text(
+                             mainTitle,
+                             style: MainTextStyle.boldTextStyle(
+                               fontSize: mainTitleFontSize ?? 15,
+                             ),
+                           ),
+                         ),
+                         SvgPicture.asset(
+                           Assets.iconsProfile,
+                           fit: BoxFit.scaleDown,
+                         ),
+                       ]
+                     : [
+                         AvatarImage(
+                           height: 28.h,
+                           width: 28.w,
+                           shape: BoxShape.circle,
+                           imageUrl: dmImageUrl,
+                         ),
+                         8.pw,
+                         Text(
+                           dmTitle ?? "",
+                           style: MainTextStyle.boldTextStyle(
+                             fontSize: mainTitleFontSize ?? 15,
+                           ),
+                         ),
+                       ],
+               )
+             : SizedBox(
+                 width: customTitleWidth,
+                 child: Text(
+                   mainTitle,
+                   overflow: TextOverflow.ellipsis,
+                   style: MainTextStyle.boldTextStyle(
+                     fontSize: mainTitleFontSize ?? 15,
+                   ),
+                 ),
+               ),
+         actions: customAction,
+         leading: InkWell(
+           onTap: onLeadinTap ?? () => back(context),
+           child:
+               customLeading ??
+               Padding(
+                 padding: EdgeInsets.symmetric(horizontal: 16.w),
+                 child: Row(
+                   crossAxisAlignment: CrossAxisAlignment.center,
+                   children: [
+                     Icon(leadingIcon ?? Icons.arrow_back_ios, size: 15.r),
+                     2.pw,
+                     Text(
+                       leadingText,
+                       style: MainTextStyle.boldTextStyle(fontSize: 12),
+                     ),
+                   ],
+                 ),
+               ),
+         ),
+       );
 }
 
 class CustomNotificationIcon extends StatelessWidget {
   // final VoidCallback? onTap;
   final bool showBadge;
-  const CustomNotificationIcon({
-    super.key,
-    required this.showBadge,
-  });
+  const CustomNotificationIcon({super.key, required this.showBadge});
 
   @override
   Widget build(BuildContext context) {
@@ -148,22 +143,15 @@ class CustomNotificationIcon extends StatelessWidget {
             borderRadius: BorderRadius.circular(4.r),
           ),
         ),
-        position: BadgePosition.topStart(
-          start: 10.w,
-          top: 10.h,
-        ),
+        position: BadgePosition.topStart(start: 10.w, top: 10.h),
         onTap: () {},
         showBadge: showBadge,
-        badgeStyle:  const BadgeStyle(
+        badgeStyle: const BadgeStyle(
           padding: EdgeInsets.zero,
-          borderSide: BorderSide(
-            color: MainColors.transparent,
-          ),
+          borderSide: BorderSide(color: MainColors.transparent),
         ),
-        badgeAnimation: const BadgeAnimation.fade(
-          curve: Curves.easeOut,
-        ),
-        child:  Icon(
+        badgeAnimation: const BadgeAnimation.fade(curve: Curves.easeOut),
+        child: Icon(
           Icons.notifications,
           color: MainColors.onSurfaceSecondary,
         ).center(),

@@ -28,7 +28,7 @@ class AccountData extends StatefulWidget {
 class _AccountDataState extends State<AccountData> {
   @override
   Widget build(BuildContext context) {
-    var lang  = context.loc!;
+    var lang = context.loc!;
     AccountdataCubit cubit = AccountdataCubit.get(context);
     return Scaffold(
       backgroundColor: Colors.white,
@@ -49,11 +49,9 @@ class _AccountDataState extends State<AccountData> {
                   arguments: cubit,
                 );
               },
-              iconWidget: const Icon(
-                Icons.edit,
-              ),
+              iconWidget: const Icon(Icons.edit),
             ),
-          )
+          ),
         ],
         leadingIcon: Icons.arrow_back_ios,
       ),
@@ -77,13 +75,15 @@ class _AccountDataState extends State<AccountData> {
                 ),
                 18.ph,
                 UserNameText(
-                    name: "${loginData?.firstName} ${loginData?.lastName}"),
+                  name: "${loginData?.firstName} ${loginData?.lastName}",
+                ),
                 32.ph,
                 TitledFormFieldItem(
                   enabled: false,
                   iconWidget: 0.ph,
-                  controller:
-                      TextEditingController(text: "${loginData?.userName}"),
+                  controller: TextEditingController(
+                    text: "${loginData?.userName}",
+                  ),
                   formfieldHintText: "",
                   titleText: lang.username,
                 ),
@@ -94,7 +94,8 @@ class _AccountDataState extends State<AccountData> {
                   titleText: lang.phoneNumber,
                   formfieldHintText: "",
                   controller: TextEditingController(
-                      text: loginData?.phone ?? "No Address"),
+                    text: loginData?.phone ?? "No Address",
+                  ),
                   // formfieldEnText: "loginData?.address",
                 ),
                 16.ph,
@@ -130,8 +131,7 @@ class _AccountDataState extends State<AccountData> {
                             children: [
                               BlocBuilder(
                                 bloc: cubit,
-                                builder: (context, state) =>
-                                    CustomElevatedButton(
+                                builder: (context, state) => CustomElevatedButton(
                                   text: lang.yes,
                                   color: MainColors.error,
                                   width: 110.w,
@@ -143,8 +143,7 @@ class _AccountDataState extends State<AccountData> {
                                           await cubit.deleteAccount(context);
                                         },
                                   child: cubit.deleteAccountLoader
-                                      ? const CircularProgressIndicator
-                                          .adaptive()
+                                      ? const CircularProgressIndicator.adaptive()
                                       : null,
                                 ),
                               ),

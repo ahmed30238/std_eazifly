@@ -9,9 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class LeaveLectureAlertBottomSheetDesign extends StatelessWidget {
-  const LeaveLectureAlertBottomSheetDesign({
-    super.key,
-  });
+  const LeaveLectureAlertBottomSheetDesign({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +19,7 @@ class LeaveLectureAlertBottomSheetDesign extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16.r),
-          topRight: Radius.circular(
-            16.r,
-          ),
+          topRight: Radius.circular(16.r),
         ),
       ),
       child: Padding(
@@ -34,9 +30,7 @@ class LeaveLectureAlertBottomSheetDesign extends StatelessWidget {
             23.ph,
             Row(
               children: [
-                SvgPicture.asset(
-                  Assets.iconsProfile,
-                ),
+                SvgPicture.asset(Assets.iconsProfile),
                 Text(
                   "إنهاء المحاضرة",
                   style: MainTextStyle.boldTextStyle(
@@ -47,18 +41,14 @@ class LeaveLectureAlertBottomSheetDesign extends StatelessWidget {
                 const Spacer(),
                 GestureDetector(
                   onTap: () => Navigator.pop(context),
-                  child: const Icon(
-                    Icons.close,
-                  ),
+                  child: const Icon(Icons.close),
                 ),
               ],
             ),
             8.ph,
             Text(
               "هل تريد إنهاء المحاضرة ؟",
-              style: MainTextStyle.mediumTextStyle(
-                fontSize: 14,
-              ),
+              style: MainTextStyle.mediumTextStyle(fontSize: 14),
             ),
             23.ph,
             CustomElevatedButton(
@@ -73,7 +63,7 @@ class LeaveLectureAlertBottomSheetDesign extends StatelessWidget {
                   context,
                   RoutePaths.lectureView,
                   arguments: {
-                    "programId" : 1, // TODO
+                    "programId": 1, // TODO
                   },
                 );
               },

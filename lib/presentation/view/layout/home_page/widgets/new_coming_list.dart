@@ -1,9 +1,7 @@
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class NewComingList extends StatelessWidget {
-  const NewComingList({
-    super.key,
-  });
+  const NewComingList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +11,7 @@ class NewComingList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) => ProgramWithStatsContainer(
-          onTap: (){},
+          onTap: () {},
           image: Assets.imagesPersona,
           likes: "2",
           noOfSubscription: "1",

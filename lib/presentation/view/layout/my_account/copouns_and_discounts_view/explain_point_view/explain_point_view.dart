@@ -47,10 +47,7 @@ class ExplainPointsSystemView extends StatelessWidget {
           16.ph,
           ...List.generate(
             3,
-            (index) => TimeLineWidgets(
-              index: index,
-              titles: timelineTitles,
-            ),
+            (index) => TimeLineWidgets(index: index, titles: timelineTitles),
           ),
         ],
       ),
@@ -58,11 +55,8 @@ class ExplainPointsSystemView extends StatelessWidget {
   }
 }
 
-
-
 List<String> timelineTitles = [
   "تسجيل حساب جديد",
   "أحجز البرامج المناسبة لإختيارك",
   "دعوة الأصدقاء",
 ];
-

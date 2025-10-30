@@ -2,11 +2,7 @@ import 'package:eazifly_student/presentation/view/subscription_details_view/widg
 
 class ButtonWithPrice extends StatelessWidget {
   final VoidCallback onPressed;
-  const ButtonWithPrice({
-    super.key,
-    required this.onPressed,
-    
-  });
+  const ButtonWithPrice({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +16,7 @@ class ButtonWithPrice extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Expanded(
-            child: Text(
-              "",
-            ),
-          ),
+          const Expanded(child: Text("")),
           Expanded(
             child: Text(
               "اشتراك",

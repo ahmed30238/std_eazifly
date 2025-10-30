@@ -24,13 +24,16 @@ class RenewSubscriptionDataModel extends RenewSubscriptionDataEntity {
 }
 
 @JsonSerializable(explicitToJson: true)
-class RenewSubscriptionOrderDetailModel extends RenewSubscriptionOrderDetailEntity {
+class RenewSubscriptionOrderDetailModel
+    extends RenewSubscriptionOrderDetailEntity {
   RenewSubscriptionOrderDetailModel();
 
-  factory RenewSubscriptionOrderDetailModel.fromJson(Map<String, dynamic> json) =>
-      _$RenewSubscriptionOrderDetailModelFromJson(json);
+  factory RenewSubscriptionOrderDetailModel.fromJson(
+    Map<String, dynamic> json,
+  ) => _$RenewSubscriptionOrderDetailModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RenewSubscriptionOrderDetailModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$RenewSubscriptionOrderDetailModelToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)

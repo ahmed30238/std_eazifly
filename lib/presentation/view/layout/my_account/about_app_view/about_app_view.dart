@@ -15,7 +15,8 @@ class AboutAppView extends StatelessWidget {
   Widget build(BuildContext context) {
     var lang = context.loc!;
     return Scaffold(
-      appBar: CustomAppBar(     context,
+      appBar: CustomAppBar(
+        context,
         mainTitle: lang.aboutApp,
         leadingText: lang.myAccount,
         // onLeadinTap: () => Navigator.pop(context),
@@ -27,9 +28,7 @@ class AboutAppView extends StatelessWidget {
           24.ph,
           Align(
             alignment: Alignment.topCenter,
-            child: SvgPicture.asset(
-              Assets.iconsAboutAppIcon,
-            ),
+            child: SvgPicture.asset(Assets.iconsAboutAppIcon),
           ),
           24.ph,
           ListView.separated(
@@ -37,8 +36,9 @@ class AboutAppView extends StatelessWidget {
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.all(8.0.r),
               child: Bullet(
-                  style: MainTextStyle.mediumTextStyle(fontSize: 12),
-                  "مثال :هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد "),
+                style: MainTextStyle.mediumTextStyle(fontSize: 12),
+                "مثال :هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد ",
+              ),
             ),
             separatorBuilder: (context, index) => 10.ph,
             itemCount: 3,

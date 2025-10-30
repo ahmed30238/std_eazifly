@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BestSellersList extends StatelessWidget {
-  const BestSellersList({
-    super.key,
-  });
+  const BestSellersList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,7 @@ class BestSellersList extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) =>  ProgramWithStatsContainer(
+        itemBuilder: (context, index) => ProgramWithStatsContainer(
           onTap: () {},
           image: Assets.imagesPersona,
           likes: "2",

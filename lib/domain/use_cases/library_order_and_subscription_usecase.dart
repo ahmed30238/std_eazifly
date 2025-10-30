@@ -5,15 +5,20 @@ import 'package:eazifly_student/data/models/library/library_order_and_subscribe_
 import 'package:eazifly_student/domain/base_repo/repo.dart';
 import 'package:eazifly_student/domain/entities/library_order_and_subscription_entity.dart';
 
-class LibraryOrderAndSubscriptionUsecase extends BaseUsecase<
-    LibraryOrderAndSubscriptionEntity, LibraryOrderAndSubscriptionParameters> {
+class LibraryOrderAndSubscriptionUsecase
+    extends
+        BaseUsecase<
+          LibraryOrderAndSubscriptionEntity,
+          LibraryOrderAndSubscriptionParameters
+        > {
   final BaseRepository baseRepository;
 
   LibraryOrderAndSubscriptionUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Failure, LibraryOrderAndSubscriptionEntity>> call(
-      {required LibraryOrderAndSubscriptionParameters parameter}) async {
+  Future<Either<Failure, LibraryOrderAndSubscriptionEntity>> call({
+    required LibraryOrderAndSubscriptionParameters parameter,
+  }) async {
     return await baseRepository.libraryOrderAndSubscribe(data: parameter.data);
   }
 }

@@ -17,10 +17,7 @@ class AudiosLoaderShimmer extends StatelessWidget {
           return Container(
             height: 220.h,
             width: 197.w,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: 12.cr,
-            ),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: 12.cr),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -72,7 +69,7 @@ class AudiosLoaderShimmer extends StatelessWidget {
                             ),
                           );
                         }),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -99,9 +96,7 @@ class AudioShimmerList extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            decoration: BoxDecoration(
-              borderRadius: 4.cr,
-            ),
+            decoration: BoxDecoration(borderRadius: 4.cr),
             height: 10.h,
             width: 300.w,
             child: const ShimmerWidget(),
