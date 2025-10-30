@@ -30,7 +30,7 @@ jobs:
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
-          echo "$KEYSTORE_BASE64" | base64 -di > android/app/upload-keystore.jks
+          echo "$KEYSTORE_BASE64" | base64 -d > android/app/upload-keystore.jks
 
       - name: Verify Keystore
         run: |
@@ -38,6 +38,7 @@ jobs:
             echo "ERROR: Keystore file not created!"
             exit 1
           fi
+          ls -lh android/app/upload-keystore.jks
           echo "Keystore created successfully"
 
       - name: Create key.properties
@@ -45,7 +46,7 @@ jobs:
           echo "storePassword=${{ secrets.KEY_STORE_PASSWORD }}" > android/key.properties
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
-          echo "storeFile=upload-keystore.jks" >> android/key.properties
+          echo "storeFile=app/upload-keystore.jks" >> android/key.properties
 
       - name: Install dependencies
         run: flutter pub get
@@ -83,7 +84,7 @@ jobs:
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
-          echo "$KEYSTORE_BASE64" | base64 -di > android/app/upload-keystore.jks
+          echo "$KEYSTORE_BASE64" | base64 -d > android/app/upload-keystore.jks
 
       - name: Verify Keystore
         run: |
@@ -91,6 +92,7 @@ jobs:
             echo "ERROR: Keystore file not created!"
             exit 1
           fi
+          ls -lh android/app/upload-keystore.jks
           echo "Keystore created successfully"
 
       - name: Create key.properties
