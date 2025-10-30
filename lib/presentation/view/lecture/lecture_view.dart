@@ -56,9 +56,6 @@ class _LectureViewState extends State<LectureView>
             // duration: const Duration(milliseconds: 300),
             // curve: Curves.easeInOut,
           );
-
-          // استدعاء sessions للطفل المحدد
-          // cubit.getProgramSessions(programId: widget.programId, userId: userId);
         }
       }
     }

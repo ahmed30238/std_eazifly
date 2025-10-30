@@ -62,6 +62,7 @@ class LectureCubit extends Cubit<LectureState> {
     // userId =
     log("$userId");
   }
+
   // PageController pageController = PageController();
 
   // DataModel? loginData;
@@ -138,16 +139,10 @@ class LectureCubit extends Cubit<LectureState> {
     // استدعاء البيانات دائماً عند الضغط على التاب
     switch (tabIndex) {
       case 0: //القادمة المواعيد
-        getProgramSessions(
-          programId: currentProgramId,
-          userId: userId,
-        );
+        getProgramSessions(programId: currentProgramId, userId: userId);
         break;
       case 1: // المواعيد المنتهة
-        getProgramSessions(
-          programId: currentProgramId,
-          userId: userId,
-        );
+        getProgramSessions(programId: currentProgramId, userId: userId);
         break;
       case 2: // الإمتحانات
         getUserQuizzes(programId: currentProgramId);
@@ -156,9 +151,7 @@ class LectureCubit extends Cubit<LectureState> {
         getProgramAssignments(programId: currentProgramId, userId: userId);
         break;
       case 4: // التقارير
-        getUserReports(
-          userId: userId,
-        );
+        getUserReports(userId: userId);
         break;
       case 5: // الملاحظات
         getUserFeedbacks(userId: userId);
@@ -166,7 +159,6 @@ class LectureCubit extends Cubit<LectureState> {
     }
     emit(TabIndexState());
   }
-
 
   // دالة للحصول على حالة التحميل للـ tab الحالي
   bool get isCurrentTabLoading => tabLoadingStates[controller.index] ?? false;
@@ -178,14 +170,14 @@ class LectureCubit extends Cubit<LectureState> {
   String? get currentTabError => tabErrorStates[controller.index];
 
   List<Widget> get screens => [
-        _buildSchedulesBody(),
-        _buildFinishedSchedulesBody(),
-        // _buildStatsBody(),
-        _buildExamBody(),
-        _buildDeliveriesBody(),
-        _buildReportBody(),
-        _buildNotesBody(),
-      ];
+    _buildSchedulesBody(),
+    _buildFinishedSchedulesBody(),
+    // _buildStatsBody(),
+    _buildExamBody(),
+    _buildDeliveriesBody(),
+    _buildReportBody(),
+    _buildNotesBody(),
+  ];
 
   // بناء محتوى كل tab مع إدارة حالة التحميل المحدثة
   Widget _buildSchedulesBody() {
@@ -196,10 +188,7 @@ class LectureCubit extends Cubit<LectureState> {
     if (tabErrorStates[0] != null) {
       return _buildErrorWidget(
         0,
-        () => getProgramSessions(
-          programId: currentProgramId,
-          userId: userId,
-        ),
+        () => getProgramSessions(programId: currentProgramId, userId: userId),
       );
     }
 
@@ -207,10 +196,7 @@ class LectureCubit extends Cubit<LectureState> {
       return _buildEmptyWidget("لا توجد مواعيد متاحة");
     }
 
-    return SchedulesBody(
-      isFinished: false,
-      childIndex: currentUserIndex,
-    );
+    return SchedulesBody(isFinished: false, childIndex: currentUserIndex);
   }
 
   Widget _buildFinishedSchedulesBody() {
@@ -220,24 +206,21 @@ class LectureCubit extends Cubit<LectureState> {
 
     if (tabErrorStates[0] != null) {
       return _buildErrorWidget(
-          0,
-          () => getProgramSessions(
-                programId: currentProgramId,
-                userId: userId,
-              ));
+        0,
+        () => getProgramSessions(programId: currentProgramId, userId: userId),
+      );
     }
 
     if (tabData[0] == null || (finishedSession.isEmpty)) {
       return _buildEmptyWidget("لا توجد مواعيد متاحة");
     }
 
-    return SchedulesBody(
-      childIndex: currentUserIndex,
-      isFinished: true,
-    );
+    return SchedulesBody(childIndex: currentUserIndex, isFinished: true);
   }
+
   int currentUserIndex = -1;
-  void changeCurrentUserIndex(int value){
+
+  void changeCurrentUserIndex(int value) {
     currentUserIndex = value;
     emit(ChildIndexChanged());
   }
@@ -268,11 +251,10 @@ class LectureCubit extends Cubit<LectureState> {
 
     if (tabErrorStates[3] != null) {
       return _buildErrorWidget(
-          3,
-          () => getProgramAssignments(
-                programId: currentProgramId,
-                userId: userId,
-              ));
+        3,
+        () =>
+            getProgramAssignments(programId: currentProgramId, userId: userId),
+      );
     }
 
     if (tabData[3] == null ||
@@ -289,11 +271,7 @@ class LectureCubit extends Cubit<LectureState> {
     }
 
     if (tabErrorStates[4] != null) {
-      return _buildErrorWidget(
-          4,
-          () => getUserReports(
-                userId: userId,
-              ));
+      return _buildErrorWidget(4, () => getUserReports(userId: userId));
     }
 
     if (tabData[4] == null || (getUserReportsEntity?.data?.isEmpty ?? true)) {
@@ -309,11 +287,7 @@ class LectureCubit extends Cubit<LectureState> {
     }
 
     if (tabErrorStates[5] != null) {
-      return _buildErrorWidget(
-          5,
-          () => getUserFeedbacks(
-                userId: userId,
-              ));
+      return _buildErrorWidget(5, () => getUserFeedbacks(userId: userId));
     }
 
     if (tabData[5] == null || (getUserFeedbacksEntity?.data?.isEmpty ?? true)) {
@@ -385,15 +359,19 @@ class LectureCubit extends Cubit<LectureState> {
 
     try {
       final result = await showProgramDetailsUsecase.call(
-          parameter: ShowProgramDetailsParameters(programId: programId));
-      result.fold((failure) {
-        showProgramDetailsLoader = false;
-        emit(ShowProgramDetailsErrorState(errorMessage: failure.message));
-      }, (success) {
-        showProgramDetailsLoader = false;
-        showProgramDetailsEntity = success;
-        emit(ShowProgramDetailsSuccessState());
-      });
+        parameter: ShowProgramDetailsParameters(programId: programId),
+      );
+      result.fold(
+        (failure) {
+          showProgramDetailsLoader = false;
+          emit(ShowProgramDetailsErrorState(errorMessage: failure.message));
+        },
+        (success) {
+          showProgramDetailsLoader = false;
+          showProgramDetailsEntity = success;
+          emit(ShowProgramDetailsSuccessState());
+        },
+      );
     } catch (e) {
       showProgramDetailsLoader = false;
       emit(ShowProgramDetailsErrorState(errorMessage: e.toString()));
@@ -440,17 +418,13 @@ class LectureCubit extends Cubit<LectureState> {
         getProgramSessionsEntity = data;
         tabData[0] = data;
         nextSessions.addAll(
-          (data.data?.where(
-                    (element) => element.status?.key == "pending",
-                  ) ??
+          (data.data?.where((element) => element.status?.key == "pending") ??
                   [])
               .toList(),
         );
         log("next ${nextSessions.length}");
         finishedSession.addAll(
-          (data.data?.where(
-                    (element) => element.status?.key != "pending",
-                  ) ??
+          (data.data?.where((element) => element.status?.key != "pending") ??
                   [])
               .toList(),
         );
@@ -501,18 +475,14 @@ class LectureCubit extends Cubit<LectureState> {
   GetUserReportsEntity? getUserReportsEntity;
   GetUserReportsUsecase getUserReportsUsecase;
 
-  Future<void> getUserReports({
-    required int userId,
-  }) async {
+  Future<void> getUserReports({required int userId}) async {
     tabLoadingStates[4] = true;
     tabErrorStates[4] = null;
     getUserReportsLoader = true;
     emit(GetUserReportsLoadingState());
 
     final result = await getUserReportsUsecase.call(
-      parameter: GetUserReportsParameters(
-        userId: userId,
-      ),
+      parameter: GetUserReportsParameters(userId: userId),
     );
 
     result.fold(
@@ -537,18 +507,14 @@ class LectureCubit extends Cubit<LectureState> {
   GetUserFeedbacksEntity? getUserFeedbacksEntity;
   GetUserFeedbackUsecase getUserFeedbacksUsecase;
 
-  Future<void> getUserFeedbacks({
-    required int userId,
-  }) async {
+  Future<void> getUserFeedbacks({required int userId}) async {
     tabLoadingStates[4] = true;
     tabErrorStates[4] = null;
     getUserFeedbacksLoader = true;
     emit(GetUserFeedbacksLoadingState());
 
     final result = await getUserFeedbacksUsecase.call(
-      parameter: GetUserFeedbackParameters(
-        userId: userId,
-      ),
+      parameter: GetUserFeedbackParameters(userId: userId),
     );
 
     result.fold(
@@ -573,16 +539,12 @@ class LectureCubit extends Cubit<LectureState> {
   GetChapterLessonsEntity? chapterLessonsEntity;
   GetChapterLessonsUsecase getChapterLessonsUsecase;
 
-  Future<void> getChapterLessons({
-    required int chapterId,
-  }) async {
+  Future<void> getChapterLessons({required int chapterId}) async {
     getChapterLessonsLoader = true;
     emit(GetChapterLessonsLoadingState());
 
     final result = await getChapterLessonsUsecase.call(
-      parameter: GetChapterLessonsParameters(
-        chapterId: chapterId,
-      ),
+      parameter: GetChapterLessonsParameters(chapterId: chapterId),
     );
 
     result.fold(
@@ -603,16 +565,12 @@ class LectureCubit extends Cubit<LectureState> {
   GetContentChapterEntity? getContentChapterEntity;
   GetContentChapterUsecase getContentChaptersUsecase;
 
-  Future<void> getContentChapters({
-    required int userId,
-  }) async {
+  Future<void> getContentChapters({required int userId}) async {
     getContentChaptersLoader = true;
     emit(GetContentChaptersLoadingState());
 
     final result = await getContentChaptersUsecase.call(
-      parameter: GetContentChapterParameters(
-        userId: userId,
-      ),
+      parameter: GetContentChapterParameters(userId: userId),
     );
 
     result.fold(
@@ -632,9 +590,7 @@ class LectureCubit extends Cubit<LectureState> {
   GetAssignmentDetailsEntity? getAssignmentDetailsEntity;
   GetAssignmentDetailsUsecase getAssignmentDetailsUsecase;
 
-  Future<void> getAssignmentDetails({
-    required int assignmentId,
-  }) async {
+  Future<void> getAssignmentDetails({required int assignmentId}) async {
     log("$userId");
     getAssignmentDetailsLoader = true;
     emit(GetAssignmentDetailsLoadingState());
@@ -671,9 +627,7 @@ class LectureCubit extends Cubit<LectureState> {
     emit(CompleteChapterLessonLoadingState());
 
     final result = await completeChapterLessonUsecase.call(
-      parameter: CompleteChapterLessonParameters(
-        lessonId: lessonId,
-      ),
+      parameter: CompleteChapterLessonParameters(lessonId: lessonId),
     );
 
     result.fold(
@@ -687,8 +641,9 @@ class LectureCubit extends Cubit<LectureState> {
 
         // تحديث حالة الدرس في البيانات المحلية
         if (chapterLessonsEntity?.data != null) {
-          final lessonIndex = chapterLessonsEntity!.data!
-              .indexWhere((lesson) => lesson.id == lessonId);
+          final lessonIndex = chapterLessonsEntity!.data!.indexWhere(
+            (lesson) => lesson.id == lessonId,
+          );
 
           if (lessonIndex != -1) {
             // تحديث isDone للدرس المحدد
@@ -708,18 +663,13 @@ class LectureCubit extends Cubit<LectureState> {
   bool getUserQuizzesLoader = false;
   GetUserQuizzesEntity? getUserQuizzesEntity;
 
-  Future<void> getUserQuizzes({
-    required int programId,
-  }) async {
+  Future<void> getUserQuizzes({required int programId}) async {
     getUserQuizzesLoader = true;
     tabLoadingStates[2] = true;
     emit(GetUserQuizzesLoadingState());
 
     final result = await getUserQuizzesUsecase.call(
-      parameter: GetUserQuizzesParameters(
-        userId: userId,
-        programId: programId,
-      ),
+      parameter: GetUserQuizzesParameters(userId: userId, programId: programId),
     );
 
     result.fold(
@@ -784,7 +734,9 @@ class LectureCubit extends Cubit<LectureState> {
     // حساب النسبة المئوية
     double percentage = (studentMark / maxMark) * 100;
 
-    log("Student Mark: $studentMark, Full Mark: $maxMark, Percentage: ${percentage.toStringAsFixed(2)}%");
+    log(
+      "Student Mark: $studentMark, Full Mark: $maxMark, Percentage: ${percentage.toStringAsFixed(2)}%",
+    );
 
     // تحديد الحالة بناءً على النسبة المئوية
     if (percentage >= excellentPercentage) {
@@ -869,11 +821,12 @@ class LectureCubit extends Cubit<LectureState> {
         sessionAssignmentId: sessionAssignmentId,
         studentAnswer: assignmentAnswerController.text,
         file: selectedFile!,
-        voiceNote: voiceNote,
+        voiceNote: File(recordPath),
       );
 
       final result = await postAssignmentUsecase.call(
-          parameter: PostAssignmentParameters(data: data));
+        parameter: PostAssignmentParameters(data: data),
+      );
 
       result.fold(
         (failure) {
@@ -884,12 +837,14 @@ class LectureCubit extends Cubit<LectureState> {
           postAssignmentLoader = false;
           postAssignmentEntity = success;
           emit(PostAssignmentSuccessState());
+          selectedFile = null;
+          deleteRecording();
+          assignmentAnswerController.clear();
+
           Navigator.pushReplacementNamed(
             context,
             RoutePaths.lectureView,
-            arguments: {
-              "programId": currentProgramId,
-            },
+            arguments: {"programId": currentProgramId},
           );
         },
       );
@@ -910,7 +865,7 @@ class LectureCubit extends Cubit<LectureState> {
     emit(GetGalleryImagesState());
   }
 
-  File? voiceNote;
+  // File? voiceNote;
   bool isRecording = false;
   bool isPlaying = false;
   String recordPath = "";
@@ -936,12 +891,12 @@ class LectureCubit extends Cubit<LectureState> {
   }
 
   Future<void> startRecording() async {
-    recordPath = await getRecordPath(); // تم إضافة تحديث recordPath
+    recordPath = await getRecordPath();
 
     if (await audioRecord.hasPermission()) {
       await audioRecord.start(
         const RecordConfig(
-          encoder: AudioEncoder.wav, // تحديد نوع الترميز
+          encoder: AudioEncoder.wav,
           androidConfig: AndroidRecordConfig(
             audioSource: AndroidAudioSource.mic,
           ),
@@ -954,10 +909,10 @@ class LectureCubit extends Cubit<LectureState> {
   }
 
   Future<void> stopRecording() async {
-    String? path = await audioRecord.stop(); // تم إلغاء التعليق
+    String? path = await audioRecord.stop();
     isRecording = false;
     if (path != null) {
-      recordPath = path; // تم إلغاء التعليق وإضافة null check
+      recordPath = path;
     }
     emit(StopRecordState());
   }
@@ -965,8 +920,7 @@ class LectureCubit extends Cubit<LectureState> {
   Future<void> playAudio() async {
     if (recordPath.isNotEmpty && File(recordPath).existsSync()) {
       try {
-        await audioPlayer
-            .setFilePath(recordPath); // استخدام setFilePath بدلاً من play
+        await audioPlayer.setFilePath(recordPath);
         await audioPlayer.play();
         isPlaying = true;
         emit(PlayRecordState());
@@ -988,22 +942,15 @@ class LectureCubit extends Cubit<LectureState> {
     }
   }
 
-  /// تشغيل تسجيل صوتي من URL خارجي
   Future<void> playExternalSourceAudio(String audioUrl) async {
     try {
-      // إذا كان هناك تسجيل مشغّل حالياً، أوقفه أولاً
       if (isPlaying) {
         await audioPlayer.stop();
       }
 
-      // تحقق من اتصال الإنترنت إذا كان URL خارجي
-      if (audioUrl.startsWith('http')) {
-        // يمكنك إضافة تحقق من الاتصال هنا إذا لزم الأمر
-      }
+      if (audioUrl.startsWith('http')) {}
 
-      // بدء التشغيل من المصدر الخارجي
-      await audioPlayer
-          .setUrl(audioUrl); // استخدام setUrl بدلاً من play(UrlSource)
+      await audioPlayer.setUrl(audioUrl);
       await audioPlayer.play();
       isPlaying = true;
       emit(PlayExternalAudioState());
@@ -1014,15 +961,15 @@ class LectureCubit extends Cubit<LectureState> {
     }
   }
 
-  ///! files
   final Map<String, bool> _isDownloading = {};
   final Map<String, double> _downloadingProgress = {};
-  final Map<String, String> _downloadedFiles =
-      {}; // key: fileUrl, value: local path
-  Future<void> _downloadAndOpenPdf(
-      {required String fileUrl,
-      required String title,
-      required BuildContext context}) async {
+  final Map<String, String> _downloadedFiles = {};
+
+  Future<void> _downloadAndOpenPdf({
+    required String fileUrl,
+    required String title,
+    required BuildContext context,
+  }) async {
     try {
       _isDownloading[fileUrl] = true;
       _downloadingProgress[fileUrl] = 0.0;
@@ -1059,13 +1006,17 @@ class LectureCubit extends Cubit<LectureState> {
     }
   }
 
-  Future<void> _openDownloadedFile(
-      {required String filePath, required BuildContext context}) async {
+  Future<void> _openDownloadedFile({
+    required String filePath,
+    required BuildContext context,
+  }) async {
     try {
       final result = await OpenFile.open(filePath);
       if (result.type != ResultType.done) {
         delightfulToast(
-            message: 'لا يوجد تطبيق مناسب لفتح هذا الملف', context: context);
+          message: 'لا يوجد تطبيق مناسب لفتح هذا الملف',
+          context: context,
+        );
       }
     } catch (e) {
       if (context.mounted) {
@@ -1084,43 +1035,46 @@ class LectureCubit extends Cubit<LectureState> {
     try {
       if (_downloadedFiles.containsKey(fileUrl)) {
         await _openDownloadedFile(
-            filePath: _downloadedFiles[fileUrl]!, context: context);
+          filePath: _downloadedFiles[fileUrl]!,
+          context: context,
+        );
         return;
       }
 
       switch (fileType.toLowerCase()) {
         case "pdf":
           await _downloadAndOpenPdf(
-              fileUrl: fileUrl, title: title, context: context);
+            fileUrl: fileUrl,
+            title: title,
+            context: context,
+          );
           break;
 
         default:
           delightfulToast(context: context, message: "نوع الملف غير مدعوم");
       }
     } catch (e) {
-      delightfulToast(
-        message: 'حدث خطأ في فتح الملف: $e',
-        context: context,
-      );
+      delightfulToast(message: 'حدث خطأ في فتح الملف: $e', context: context);
     }
   }
 
-// إيقاف التشغيل
   Future<void> stopPlaying() async {
     await audioPlayer.stop();
     isPlaying = false;
     emit(StopPlayingRecordState());
   }
 
-// حذف التسجيل
   void deleteRecording() {
-    voiceNote?.delete();
-    voiceNote = null;
-    recordPath = "";
+    if (recordPath.isNotEmpty) {
+      final file = File(recordPath);
+      if (file.existsSync()) {
+        file.deleteSync();
+      }
+    }
+    recordPath = '';
     emit(DeleteRecordState());
   }
 
-// متغيرات حالة التحميل والنتيجة
   bool getReportQuestionsLoader = false;
   GetReportQuestionsEntity? reportQuestionsEntity;
   GetReportQuestionsUsecase getReportQuestionsUsecase;
@@ -1128,24 +1082,32 @@ class LectureCubit extends Cubit<LectureState> {
   PageController studentPageViewController = PageController();
 
   Future<void> getReportQuestions({required int index}) async {
-    // log("${data.data?[0].program}");
-    log("this is report maker ${int.tryParse(getUserReportsEntity?.data?[index].reportMakerId ?? "") ?? 0}");
-    log("this is report for ${getUserReportsEntity?.data?[index].reportForId ?? "0"}");
+    log(
+      "this is report maker ${int.tryParse(getUserReportsEntity?.data?[index].reportMakerId ?? "") ?? 0}",
+    );
+    log(
+      "this is report for ${getUserReportsEntity?.data?[index].reportForId ?? "0"}",
+    );
     getReportQuestionsLoader = true;
     emit(GetReportQuestionsLoadingState());
 
     final result = await getReportQuestionsUsecase.call(
       parameter: GetQuizQuestionsParameters(
-        meetingSessionId: int.tryParse(
-                getUserReportsEntity?.data?[index].meetingSessionId ?? "0") ??
+        meetingSessionId:
+            int.tryParse(
+              getUserReportsEntity?.data?[index].meetingSessionId ?? "0",
+            ) ??
             0,
-        reportForId: int.tryParse(
+        reportForId:
+            int.tryParse(
               getUserReportsEntity?.data?[index].reportForId ?? "0",
             ) ??
             0,
         reportForType: getUserReportsEntity?.data?[index].reportForType ?? "",
-        reportMakerId: int.tryParse(
-                getUserReportsEntity?.data?[index].reportMakerId ?? "") ??
+        reportMakerId:
+            int.tryParse(
+              getUserReportsEntity?.data?[index].reportMakerId ?? "",
+            ) ??
             -1,
         reportMakerType:
             getUserReportsEntity?.data?[index].reportMakerType ?? "",
@@ -1155,15 +1117,15 @@ class LectureCubit extends Cubit<LectureState> {
     result.fold(
       (failure) {
         getReportQuestionsLoader = false;
-        emit(GetReportQuestionsErrorState(
-          errorMessage: failure.message,
-        ));
+        emit(GetReportQuestionsErrorState(errorMessage: failure.message));
       },
       (data) {
         getReportQuestionsLoader = false;
         reportQuestionsEntity = data;
         log("${data.data?[0].program}");
-        log("${int.tryParse(getUserReportsEntity?.data?[index].reportMakerId ?? "") ?? 0}");
+        log(
+          "${int.tryParse(getUserReportsEntity?.data?[index].reportMakerId ?? "") ?? 0}",
+        );
         log(getUserReportsEntity?.data?[index].reportForId ?? "0");
 
         emit(GetReportQuestionsSuccessState());
@@ -1174,6 +1136,8 @@ class LectureCubit extends Cubit<LectureState> {
   @override
   Future<void> close() {
     controller.dispose();
+    assignmentAnswerController.dispose();
+    studentPageViewController.dispose();
     return super.close();
   }
 

@@ -1,15 +1,20 @@
 import 'dart:io';
 
 import 'package:eazifly_student/core/component/avatar_image.dart';
+import 'package:eazifly_student/core/component/voice_message_widget.dart';
 import 'package:eazifly_student/presentation/controller/lecture/lecture_cubit.dart';
+import 'package:eazifly_student/presentation/view/lecture/corrcected_assignment_details_view/widgets/question_an_sol_container.dart';
 import 'package:eazifly_student/presentation/view/subscription_details_view/widgets/imports.dart';
 
 class AssignmentDetailsView extends StatefulWidget {
   final int assignmentId;
   final String assignmentTitle;
 
-  const AssignmentDetailsView(
-      {super.key, required this.assignmentId, required this.assignmentTitle});
+  const AssignmentDetailsView({
+    super.key,
+    required this.assignmentId,
+    required this.assignmentTitle,
+  });
 
   @override
   State<AssignmentDetailsView> createState() => _AssignmentDetailsViewState();
@@ -17,6 +22,7 @@ class AssignmentDetailsView extends StatefulWidget {
 
 class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
   late LectureCubit cubit;
+
   @override
   void initState() {
     cubit = context.read<LectureCubit>();
@@ -81,23 +87,31 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
             bloc: cubit,
             builder: (context, state) {
               var assignmentDetails = cubit.getAssignmentDetailsEntity?.data;
-              return AssigmentItemContainer(
+              return AssignmentItemContainer(
                 question: assignmentDetails?.title ?? "",
-                attachements: [cubit.selectedFile?.path ?? ""],
+                attachments: [cubit.selectedFile?.path ?? ""],
               );
             },
           ),
           // const Spacer(),
           48.ph,
-          CustomElevatedButton(
-            text: "تسليم الإجابات",
-            width: 343.w,
-            color: MainColors.primary,
-            radius: 16.r,
-            onPressed: () {
-              cubit.postAssignment(
-                sessionAssignmentId: widget.assignmentId.toString(),
-                context: context,
+          BlocBuilder(
+            bloc: cubit,
+            builder: (context, state) {
+              return CustomElevatedButton(
+                text: "تسليم الإجابات",
+                width: 343.w,
+                color: MainColors.primary,
+                radius: 16.r,
+                onPressed: () {
+                  cubit.postAssignment(
+                    sessionAssignmentId: widget.assignmentId.toString(),
+                    context: context,
+                  );
+                },
+                child: cubit.postAssignmentLoader
+                    ? const CircularProgressIndicator.adaptive()
+                    : null,
               );
             },
           ).center(),
@@ -108,13 +122,14 @@ class _AssignmentDetailsViewState extends State<AssignmentDetailsView> {
   }
 }
 
-class AssigmentItemContainer extends StatelessWidget {
+class AssignmentItemContainer extends StatelessWidget {
   final String question;
-  final List<String> attachements;
-  const AssigmentItemContainer({
+  final List<String> attachments;
+
+  const AssignmentItemContainer({
     super.key,
     required this.question,
-    required this.attachements,
+    required this.attachments,
   });
 
   @override
@@ -132,9 +147,7 @@ class AssigmentItemContainer extends StatelessWidget {
             13.5.ph,
             Text(
               "نص التسليم",
-              style: MainTextStyle.boldTextStyle(
-                fontSize: 12,
-              ),
+              style: MainTextStyle.boldTextStyle(fontSize: 12,color: MainColors.primary),
             ),
             9.5.ph,
             Container(
@@ -151,11 +164,7 @@ class AssigmentItemContainer extends StatelessWidget {
               style: MainTextStyle.mediumTextStyle(fontSize: 12),
             ),
             8.ph,
-            _buildAttachments(
-              attachements,
-              cubit: cubit,
-              title: question,
-            ),
+            _buildAttachments(attachments, cubit: cubit, title: question),
             16.ph,
             Text(
               "الإجابة",
@@ -203,12 +212,30 @@ class AssigmentItemContainer extends StatelessWidget {
                 8.pw,
                 GestureDetector(
                   onTap: () => cubit.pickFile(),
-                  child: SvgPicture.asset(
-                    Assets.iconsGallery,
-                  ),
+                  child: SvgPicture.asset(Assets.iconsGallery),
                 ),
               ],
-            )
+            ),
+            16.ph,
+            if (cubit.recordPath.isNotEmpty &&
+                File(cubit.recordPath).existsSync()) ...{
+
+              Row(
+                children: [
+                  Expanded(
+                    child: VoiceMessageWidget(audioUrl: cubit.recordPath),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete, color: MainColors.error),
+                    onPressed: () {
+                      cubit.deleteRecording();
+                    },
+                    tooltip: 'حذف التسجيل',
+                  ),
+                ],
+              ),
+            },
+            16.ph,
           ],
         ),
       ),
@@ -249,8 +276,12 @@ Widget _buildAttachments(
           itemBuilder: (context, index) {
             final file = attachments[index];
             final isPdf = file.toLowerCase().endsWith('.pdf');
-            final isImage = ['.jpg', '.jpeg', '.png', '.gif']
-                .any((ext) => file.toLowerCase().endsWith(ext));
+            final isImage = [
+              '.jpg',
+              '.jpeg',
+              '.png',
+              '.gif',
+            ].any((ext) => file.toLowerCase().endsWith(ext));
 
             return GestureDetector(
               onTap: () => _handleAttachmentTap(
@@ -338,7 +369,7 @@ Widget _buildAttachments(
                       child: Container(
                         padding: EdgeInsets.all(4.r),
                         decoration: BoxDecoration(
-                          color: Colors.red.withOpacity(0.9),
+                          color: Colors.red.withValues(alpha: 0.9),
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
@@ -386,15 +417,6 @@ void _handleAttachmentTap({
     // يمكن استخدام حزمة مثل: flutter_pdfview
     // PdfViewer.openFile(fileUrl);
   } else {
-    // عرض الصورة في وضع ملء الشاشة
-    // يمكن استخدام حزمة مثل: photo_view
-    // Navigator.push(context, MaterialPageRoute(
-    //   builder: (_) => PhotoViewGallery.builder(
-    //     itemCount: 1,
-    //     builder: (_, index) => PhotoViewGalleryPageOptions(
-    //       imageProvider: NetworkImage(fileUrl),
-    //     ),
-    //   ),
-    // ));
+    showFullScreenImage(context, fileUrl);
   }
 }
